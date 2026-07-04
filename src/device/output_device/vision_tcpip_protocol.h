@@ -12,15 +12,22 @@ namespace vc::device {
 // =====================================================================
 //
 // Both transports speak the same two-channel protocol:
-//   - Main channel : "{detected},{x,y,z,r},...;"  (delimiter ';')
+//   - Main channel : "{detected},{x,y,z,r},...;"  (delimiter ';';
+//                    each axis is fixed-width "%08.2f", e.g. 1.0 -> "00001.00")
 //   - Heartbeat    : probe "connection_check.", reply "ack,{count}."
 //                    (delimiter '.', count wraps at 2^16)
 //
 // The software is always the heartbeat master: it sends the probe and
 // expects the ack, regardless of which side opened the TCP connection.
 //
+// Graceful shutdown: on an intentional deviceDisconnect() the software sends
+// a one-shot "disconnect." notice on the heartbeat channel just before tearing
+// the link down, so the peer can distinguish a planned close from a fault
+// (timeout / bad format). It is NOT sent on the lost-connection path.
+//
 #define VISION_OUTPUT_HB_MESSAGE        "connection_check."
 #define VISION_OUTPUT_HB_ACK_PREFIX     "ack,"
+#define VISION_OUTPUT_HB_DISCONNECT     "disconnect."
 #define VISION_OUTPUT_HB_TERMINATOR     '.'
 #define VISION_OUTPUT_MAIN_TERMINATOR   ';'
 #define VISION_OUTPUT_MSG_COUNT_LIMIT   (1 << 16)

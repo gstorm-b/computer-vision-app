@@ -129,6 +129,12 @@ void VisionTcpipVirtualClient::onHbReadyRead() {
 }
 
 void VisionTcpipVirtualClient::handleHbMessage(const QByteArray &msg) {
+    if (msg == QByteArray(VCLIENT_HB_DISCONNECT)) {
+        // Server announced a planned close; the link will go down next. This is
+        // expected, not a fault — surface it distinctly from socket errors.
+        emit serverDisconnectNotice();
+        return;
+    }
     if (msg != QByteArray(VCLIENT_HB_PROBE)) {
         // Unexpected message — ignore silently (server could send non-probe in future)
         return;

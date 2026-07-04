@@ -9,11 +9,12 @@
 // ──────────────────────────────��─────────────────────────────────��────────────
 //  Protocol constants (mirror of VisionTcpipDevice in the main project)
 // ─────────────────────────────────────────────────────────────────────────────
-constexpr const char *VCLIENT_HB_PROBE   = "connection_check.";
-constexpr const char *VCLIENT_HB_ACK_PFX = "ack,";
-constexpr char        VCLIENT_HB_TERM    = '.';
-constexpr char        VCLIENT_MAIN_TERM  = ';';
-constexpr int         VCLIENT_ACK_WRAP   = 1 << 16;  // quint16 rollover boundary
+constexpr const char *VCLIENT_HB_PROBE      = "connection_check.";
+constexpr const char *VCLIENT_HB_ACK_PFX    = "ack,";
+constexpr const char *VCLIENT_HB_DISCONNECT = "disconnect.";  // server planned close
+constexpr char        VCLIENT_HB_TERM       = '.';
+constexpr char        VCLIENT_MAIN_TERM     = ';';
+constexpr int         VCLIENT_ACK_WRAP      = 1 << 16;  // quint16 rollover boundary
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  VisionTcpipVirtualClient
@@ -67,6 +68,9 @@ signals:
     void mainPayloadReceived(const QByteArray &payload);
     // Emitted every time an ack is sent on the heartbeat port.
     void hbAckSent(quint16 ackCount);
+    // Emitted when the server announces a planned close ("disconnect.") on the
+    // heartbeat port, before the link goes down. Not a fault.
+    void serverDisconnectNotice();
     void errorOccurred(const QString &msg);
 
 private slots:

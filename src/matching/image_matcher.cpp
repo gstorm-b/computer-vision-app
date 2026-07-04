@@ -111,6 +111,16 @@ static inline void clearImageBorder(Mat& image, int offset) {
 
 // ── Public matching entry points ──────────────────────────────────────────────
 
+void saveContourImage(const vector<vector<Point>>& srcContours,
+                      const string& outPath,
+                      cv::Size canvasSize) {
+
+    Mat contourImg = Mat::zeros(canvasSize, CV_8UC3);
+    contourImg.setTo(Scalar(255, 255, 255));
+    drawContours(contourImg, srcContours, -1, Scalar(0, 0, 255), 2);
+    imwrite(outPath, contourImg);
+}
+
 void ImageMatcher::matching(Mat& image, bool boundingBoxChecking,
                              int objectsNum, bool usingRoi, bool usingConditionRoi) {
     m_img_source = image.clone();
@@ -171,6 +181,7 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
     vector<vector<Point>> srcContours;
     vector<Vec4i>         srcHierarchy;
     const int border_offset = 2;
+    cv::Size img_size;
     cv::Point2f cropConditionRoiTl;
     cv::Point2f cropConditionRoiBr;
 
@@ -187,12 +198,17 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
         cropConditionRoiTl.y = Condition_ROI_tl.y - ROI_tl.y;
         cropConditionRoiBr.x = Condition_ROI_br.x - ROI_tl.x;
         cropConditionRoiBr.y = Condition_ROI_br.y - ROI_tl.y;
+        img_size = cv::Size(roi_mat.cols, roi_mat.rows);
     } else {
         m_img_source.copyTo(temp_src_image);
         clearImageBorder(imageThresh, border_offset);
         findContours(imageThresh, srcContours, srcHierarchy,
                      cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
+        img_size = cv::Size(imageThresh.cols, imageThresh.rows);
     }
+
+    // debug
+    //saveContourImage(srcContours, "contours.png", img_size);
 
     int sumArea       = 0;
     int temp_img_cols = static_cast<int>(temp_src_image.cols * 0.8);
@@ -245,6 +261,14 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
 
     match_result.Objects.clear();
 
+    // Filled-contour footprint mask, built once for the whole frame (it is
+    // identical for every matched object) and shared by every
+    // checkCollisionObject2 call. It lives in the same pixel frame as the
+    // translated gripper points. Contours are filled solid; nested holes are
+    // filled too, which keeps the collision test conservative.
+    cv::Mat collisionContourMask = cv::Mat::zeros(img_size, CV_8UC1);
+    cv::drawContours(collisionContourMask, srcContours, -1, cv::Scalar(255), cv::FILLED);
+
     for (int oi = 0; oi < static_cast<int>(objects.size()); ++oi) {
         cv::Mat temp_crop = temp_src_image(objects[oi].conBoundingRect);
         m_final_overlap_result.clear();
@@ -283,7 +307,7 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
             obj.computeGripperBox(pcfg->m_pickingBoxSize,
                                   pcfg->m_pickingBoxDistance,
                                   pcfg->m_pickingBoxAngle);
-            obj.checkCollisionObject(srcContours, possibleCollisionContourIndex);
+            obj.checkCollisionObject2(collisionContourMask);
             if (usingConditionRoi) {
                 obj.outSideConditionRoiCheck(cropConditionRoiTl, cropConditionRoiBr);
             }

@@ -598,7 +598,10 @@ silent" — only a valid reply proves the client is still alive.
 
 **Rule.** Stream-based protocols (TCP) **always** use a delimiter for
 framing (e.g. `;` for result `"N,x,y,z,r,...;"`, `.` for heartbeat
-`"ack,N."`). The receiver maintains a `QByteArray` buffer, appends
+`"ack,N."`). Within a result frame each axis is emitted fixed-width as
+`%08.2f` (zero-padded, 2 decimals, e.g. `1.0` -> `00001.00`) — see
+[vision_output_request.h](../../src/device/output_device/vision_output_request.h).
+The receiver maintains a `QByteArray` buffer, appends
 every `readAll()` chunk, scans for the delimiter, and cuts out one
 message at a time. Never assume one `readyRead` equals one message;
 never rely on `bytesAvailable` unless the protocol is fixed-length.
@@ -639,6 +642,33 @@ the wire.
   — server transport (`QTcpServer::listen` + accept, reject duplicates).
 - [vision_tcpip_client_device.cpp](../../src/device/output_device/vision_tcpip_client_device.cpp)
   — client transport (`QTcpSocket::connectToHost` + `reconnectIntervalMs` retry).
+
+### 13.6 A planned disconnect sends a graceful notice on the heartbeat channel
+
+**Rule.** On an intentional `deviceDisconnect()` the device writes a one-shot
+`"disconnect."` frame (heartbeat `.` terminator) on the heartbeat channel
+*before* tearing the transport down, so the peer can tell a planned close apart
+from a fault. The write is flushed with a **bounded** `waitForBytesWritten()`
+because the immediately-following `detachHeartbeatSocket()`/`abort()` would
+otherwise discard the unsent bytes. The notice is sent only when the heartbeat
+link is actually up, and **never** on the lost-connection path
+(`declareLostConnection()`) — that link is already gone, and the peer must still
+read those as faults (timeout / bad format).
+
+**Why.** Without an explicit goodbye, the peer can only infer a planned shutdown
+from a raw socket close, which is indistinguishable from a cable pull or crash.
+A dedicated frame lets the peer (e.g. the Nachi supervisor task) close cleanly
+and suppress its error IO instead of latching a lost-connect alarm.
+
+**Where applied.**
+- `VisionTcpipDeviceBase::sendDisconnectNotice()` called from `deviceDisconnect()`
+  in [vision_tcpip_device_base.cpp](../../src/device/output_device/vision_tcpip_device_base.cpp);
+  constant `VISION_OUTPUT_HB_DISCONNECT` in
+  [vision_tcpip_protocol.h](../../src/device/output_device/vision_tcpip_protocol.h).
+- Peer reference handling in
+  [tests/nachi_client/task2_heartbeat.prg](../../tests/nachi_client/task2_heartbeat.prg)
+  and the dev simulator
+  [virtual_device/vision_tcpip_output_device/vision_virtual_client.cpp](../../virtual_device/vision_tcpip_output_device/vision_virtual_client.cpp).
 
 ---
 

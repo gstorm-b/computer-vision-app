@@ -21,6 +21,12 @@ public:
         double distance;
     };
 
+    // Spatial relationship of the gripper jaws to the detected part footprints.
+    //   Outside   - jaws land entirely in free space (pickable)
+    //   Inside    - jaws sit entirely on top of one part footprint
+    //   Collision - jaws straddle a part boundary
+    enum class CollisionState { Outside, Inside, Collision };
+
     MatchedObject() :
         matched_Angle(0.0),
         matched_Score(0.0),
@@ -124,6 +130,70 @@ public:
         return m_hasCollision;
     }
 
+    // Mask-based collision test between the two gripper jaws and the filled
+    // part footprints in contourMask (single-channel CV_8UC1, 0 = free,
+    // non-zero = part), which must be in the same pixel frame as the already
+    // translated jaw points. Unlike checkCollisionObject, rasterising both
+    // shapes and intersecting their filled areas also catches the case where a
+    // jaw lies wholly inside a large part (no contour vertex falls inside the
+    // jaw) - a false negative the point-in-polygon test cannot see.
+    //
+    // For speed the intersection is evaluated only inside the union bounding
+    // box of the two jaws: outside that box the gripper mask is empty, so
+    // scanning the whole image would be wasted work.
+    CollisionState checkCollisionObject2(const cv::Mat &contourMask) {
+        m_collisionState = CollisionState::Outside;
+        m_hasCollision = false;
+        if (contourMask.empty()) {
+            return m_collisionState;
+        }
+
+        // Union bounding box of both jaw quads, clamped to the mask. Jaws may
+        // legitimately extend off-image; the off-image part cannot overlap any
+        // contour, so clamping is safe.
+        std::vector<cv::Point2f> allPts;
+        allPts.reserve(m_gripperBox.box_left_pts.size() + m_gripperBox.box_right_pts.size());
+        allPts.insert(allPts.end(), m_gripperBox.box_left_pts.begin(), m_gripperBox.box_left_pts.end());
+        allPts.insert(allPts.end(), m_gripperBox.box_right_pts.begin(), m_gripperBox.box_right_pts.end());
+        if (allPts.empty()) {
+            return m_collisionState;
+        }
+
+        cv::Rect bbox = cv::boundingRect(allPts) & cv::Rect(0, 0, contourMask.cols, contourMask.rows);
+        if (bbox.width <= 0 || bbox.height <= 0) {
+            return m_collisionState;
+        }
+
+        // Rasterise the two jaws into a bbox-sized mask, shifted into
+        // crop-local coordinates. Each jaw is a convex quad.
+        cv::Mat gripperCrop = cv::Mat::zeros(bbox.size(), CV_8UC1);
+        const cv::Point shift = bbox.tl();
+        fillJawInto(gripperCrop, m_gripperBox.box_left_pts, shift);
+        fillJawInto(gripperCrop, m_gripperBox.box_right_pts, shift);
+
+        // contourMask(bbox) is a view (no copy); AND it with the jaw mask.
+        cv::Mat inter;
+        cv::bitwise_and(gripperCrop, contourMask(bbox), inter);
+
+        const int interCount   = cv::countNonZero(inter);
+        const int gripperCount = cv::countNonZero(gripperCrop);
+
+        if (interCount == 0) {
+            m_collisionState = CollisionState::Outside;
+        } else if (gripperCount > 0 && interCount == gripperCount) {
+            m_collisionState = CollisionState::Inside;
+        } else {
+            m_collisionState = CollisionState::Collision;
+        }
+
+        m_hasCollision = (m_collisionState != CollisionState::Outside);
+        return m_collisionState;
+    }
+
+    CollisionState collisionState() const {
+        return m_collisionState;
+    }
+
     bool hasCollision() const {
         return m_hasCollision;
     }
@@ -155,6 +225,21 @@ public:
     }
 
 private:
+    // Rasterise one convex jaw quad into mask, translating its points into the
+    // crop-local frame by subtracting shift.
+    static void fillJawInto(cv::Mat &mask, const std::vector<cv::Point2f> &pts,
+                            const cv::Point &shift) {
+        if (pts.size() < 3) {
+            return;
+        }
+        std::vector<cv::Point> ipts;
+        ipts.reserve(pts.size());
+        for (const cv::Point2f &p : pts) {
+            ipts.emplace_back(cvRound(p.x) - shift.x, cvRound(p.y) - shift.y);
+        }
+        cv::fillConvexPoly(mask, ipts, cv::Scalar(255));
+    }
+
     void drawMaskIntoImage(cv::Mat &image, cv::Mat &mask, cv::Scalar color) {
         if (mask.empty() || image.empty()) {
             return;
@@ -231,6 +316,7 @@ public:
 private:
     MatchPattern *m_parent{nullptr};
     GripperBox m_gripperBox;
+    CollisionState m_collisionState{CollisionState::Outside};
     bool m_hasCollision{false};
     bool m_isPossibleToPicking{false};
     bool m_isOutsideConditionRoi{false};

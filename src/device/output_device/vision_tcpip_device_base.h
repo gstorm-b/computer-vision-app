@@ -129,6 +129,10 @@ protected slots:
 protected:
     void handleMainPayload(const QByteArray &payload);
     void handleHeartbeatPayload(const QByteArray &payload);
+    // Best-effort graceful goodbye on the heartbeat channel before teardown.
+    // No-op when the heartbeat link is down. Blocks briefly (bounded) so the
+    // notice leaves the socket before detachHeartbeatSocket() aborts it.
+    void sendDisconnectNotice();
     void sendHeartbeatProbe();
     void startHeartbeatTimer();
     void stopHeartbeatTimer();

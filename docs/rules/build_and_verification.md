@@ -144,3 +144,34 @@ Set-Location $testBuild
 ```
 
 Expected success signal: process exit code `0`.
+
+## Dependency Deployment (`CONFIG+=deploy_deps`)
+
+The root app can copy its third-party **runtime DLLs** next to the built binary
+so it runs from the build folder without those directories on `PATH`. This is
+**opt-in and off by default**; enable it at qmake time:
+
+```bat
+qmake -o Makefile "%NCR_PICKING_ROOT%\ncr_picking.pro" -spec win32-msvc CONFIG+=deploy_deps
+```
+
+Owned by [qmake/deploy_dependencies.pri](../../qmake/deploy_dependencies.pri).
+Scope (Windows only), each file copied only when missing from the target
+(`if not exist`), so existing files are left untouched:
+
+- **ADS docking** — `qtadvanceddocking[d].dll` from the repo-bundled
+  `3rdparty/advance_docking/bin`.
+- **OpenCV world** — `$OPENCV_WORLD_{RELEASE,DEBUG}.dll` from `OPENCV_BIN`.
+- **Basler Pylon** — every top-level `*.dll` in `PYLON_RUNTIME_DIR`.
+- **Qt runtime** — Qt DLLs + plugins via `windeployqt` (`--release`/`--debug`),
+  resolved from `$$[QT_INSTALL_BINS]`.
+
+Not handled here: the RobotKinematics/Coal/Assimp set (already copied by
+`components/RobotKinematics/robotkinematics.pri`). A missing `OPENCV_BIN` /
+`PYLON_RUNTIME_DIR` / `windeployqt` only warns and skips that family — it never
+fails the build.
+
+This is a convenience for build-folder QA, **not** a customer installer. Full
+Basler deployment (GenTL producers + `GENICAM_GENTL64_PATH`) and the installer
+manifest remain tracked in
+[later_todo_list.md](../backlog/later_todo_list.md) #27.

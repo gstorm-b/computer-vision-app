@@ -12,6 +12,11 @@ ROOT_DIR  = $$PWD/../..
 
 INCLUDEPATH += $$ROOT_DIR/src
 
+# vision_tcpip_device_base.cpp performs the advisory robot-kinematics check, so
+# the test must compile the RobotKinematics component in (same as the app and
+# the architecture contract test).
+include($$ROOT_DIR/components/RobotKinematics/robotkinematics.pri)
+
 SOURCES += \
     main.cpp \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_device_base.cpp \

@@ -101,9 +101,13 @@ void VisionResultViewerWidget::setImage(const QPixmap &pixmap)
 void VisionResultViewerWidget::setOverlay(const VisionResultOverlay &overlay)
 {
     m_overlay = overlay;
+    // The toolbar toggles are the source of truth for overlay visibility. A
+    // freshly produced result overlay carries default visibility, so keep the
+    // user's current selection instead of resetting the toolbar (which would
+    // force the user to re-toggle to see the overlay items again).
+    m_overlay.visibility = visibilityFromActions();
     m_canvas->clearSelectedResultObject();
-    m_canvas->setResultOverlay(overlay);
-    syncActions();
+    m_canvas->setResultOverlay(m_overlay);
 }
 
 void VisionResultViewerWidget::setOverlayVisibility(const VisionOverlayVisibility &visibility)

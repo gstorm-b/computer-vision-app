@@ -103,6 +103,22 @@
   follow `docs/rules/build_and_verification.md`: root app builds under root
   `build\`, tests/examples/components build beside their `.pro`, and
   Qt/OpenCV/Basler/Visual Studio paths come from environment variables.
+- **In progress (2026-07-02):** Mask-based gripper collision check.
+  `MatchedObject::checkCollisionObject2` (in
+  `src/matching/match_object.h`) replaces the point-in-polygon test at
+  `ImageMatcher::matching` (`src/matching/image_matcher.cpp`). The old vertex
+  test reported no collision when a jaw sat wholly inside a large part (no
+  contour vertex fell inside the jaw); the new test rasterises the two jaws and
+  the filled contour footprints and intersects their areas, classifying each
+  object as `Outside` / `Inside` / `Collision`. Only `Outside` is treated as
+  pickable (`hasCollision = state != Outside`). The filled-contour mask is built
+  once per frame in `matching()` and shared; per object the intersection runs
+  only inside the jaw union bounding box for speed. The previous
+  `checkCollisionObject` is retained but no longer called. Follow-ups:
+  (1) validate on real/failing images that motivated the change; (2) decide
+  whether nested holes should be carved out via `RETR_TREE` hierarchy instead of
+  filled solid (current behaviour is conservative); (3) remove the deprecated
+  `checkCollisionObject` once the new path is proven.
 
 ## Product/Packaging Next Stages
 

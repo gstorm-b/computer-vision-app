@@ -42,6 +42,7 @@ CONST MAX_POS            = 8      ' tối đa 8 position / 1 result
 '--- Protocol payload ---
 CONST HB_PROBE$          = "connection_check."
 CONST HB_ACK_PREFIX$     = "ack,"
+CONST HB_DISCONNECT$     = "disconnect."   ' server announces a planned close
 CONST HB_TERMINATOR$     = "."
 CONST RESULT_TERMINATOR$ = ";"
 CONST FIELD_SEP$         = ","

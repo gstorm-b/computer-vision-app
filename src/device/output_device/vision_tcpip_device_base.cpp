@@ -51,6 +51,8 @@ bool VisionTcpipDeviceBase::deviceConnect() {
 bool VisionTcpipDeviceBase::deviceDisconnect() {
     QMutexLocker locker(&m_mutex);
     m_active = false;
+    // Tell the peer this is a planned close before the transport is torn down.
+    sendDisconnectNotice();
     stopTransport();
     m_diagnostics.lastError.clear();
     setConnectionStatus(ConnectStatus::Disconnected);
@@ -408,6 +410,25 @@ void VisionTcpipDeviceBase::onHeartbeatTick() {
     }
 
     sendHeartbeatProbe();
+}
+
+void VisionTcpipDeviceBase::sendDisconnectNotice() {
+    // Bounded wait so the notice clears the socket buffer before the imminent
+    // detachHeartbeatSocket()->abort(), which would otherwise discard it.
+    constexpr int kDisconnectFlushMs = 150;
+
+    if (!m_hbSocket || m_hbSocket->state() != QAbstractSocket::ConnectedState) {
+        return;
+    }
+
+    QByteArray notice(VISION_OUTPUT_HB_DISCONNECT);
+    if (m_hbSocket->write(notice) != notice.size()) {
+        LOG_DEV_ERR << "VisionTcpip: short write on disconnect notice" << name();
+        return;
+    }
+    m_hbSocket->flush();
+    m_hbSocket->waitForBytesWritten(kDisconnectFlushMs);
+    LOG_DEV_INFO << "VisionTcpip sent disconnect notice" << name();
 }
 
 void VisionTcpipDeviceBase::sendHeartbeatProbe() {

@@ -8,7 +8,7 @@ Bộ 2 user task SLIM2 chạy trên Nachi CFDs (FD series) để kết nối v�
 | --- | --- |
 | `common_defs.prg`        | Hằng số và global variable dùng chung 2 task. |
 | `task1_main_channel.prg` | Task 1 — kênh chính (port 5000): trigger và nhận kết quả matching, parse vào global. |
-| `task2_heartbeat.prg`    | Task 2 — kênh heartbeat (port 5001): nhận `connection_check.`, trả `ack,{count}.`, supervisor cho Task 1. |
+| `task2_heartbeat.prg`    | Task 2 — kênh heartbeat (port 5001): nhận `connection_check.`, trả `ack,{count}.`, supervisor cho Task 1. Nhận `disconnect.` → ngắt sạch (không báo lỗi). |
 
 ## Mapping IO và global
 
@@ -52,6 +52,29 @@ Cả 2 task sẽ tự chạy mỗi khi power-on controller.
 - Heartbeat port: `5001`
 
 Đổi trong `common_defs.prg` nếu khác.
+
+## Heartbeat protocol (port 5001)
+Server (vision software) là heartbeat master, mọi message kết thúc bằng `.`:
+
+| Hướng | Message | Ý nghĩa |
+| --- | --- | --- |
+| server → client | `connection_check.` | Probe định kỳ, client phải trả `ack,{count}.`. |
+| client → server | `ack,{count}.` | Reply; `count` 0…65535, wrap về 0. |
+| server → client | `disconnect.` | Server báo ngắt **chủ động** trước khi đóng link. Client stand down sạch, **không** bật error IO. |
+
+`disconnect.` chỉ gửi khi ngắt có kế hoạch (`deviceDisconnect()`), không bao
+giờ gửi trên đường mất kết nối (timeout / sai format).
+
+## Result format (port 5000)
+Server trả kết quả matching kết thúc bằng `;`:
+
+```
+{detected},{x,y,z,r},{x,y,z,r},...;
+```
+
+Mỗi trục là fixed-width `%08.2f` (zero-pad 8 ký tự, 2 số thập phân), ví dụ
+`1.0` → `00001.00`. `PARSE_RESULT` dùng `VAL(field$)` nên số zero-pad được
+convert đúng (`VAL("00001.00") = 1.0`), không cần đổi logic parse.
 
 ## Lưu ý cú pháp SLIM
 Các hàm `TCP_OPEN`, `TCP_CONNECT`, `TCP_SEND`, `TCP_RECV`, `TCP_CLOSE`

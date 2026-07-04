@@ -19,11 +19,9 @@ struct VisionOutputPosition {
     double r{0.0};
 
     QString toString() const {
-        // return QString("%1,%2,%3,%4")
-        //     .arg(x, 0, 'f', 3)
-        //     .arg(y, 0, 'f', 3)
-        //     .arg(z, 0, 'f', 3)
-        //     .arg(r, 0, 'f', 3);
+        // Wire contract: each axis is fixed-width, zero-padded to 8 chars with
+        // 2 decimals ("%08.2f"), e.g. 1.0 -> "00001.00". The downstream robot
+        // parser relies on this exact field format.
         return QString("%1,%2,%3,%4")
             .arg(QString::asprintf("%08.2f", x),
                  QString::asprintf("%08.2f", y),
@@ -74,8 +72,8 @@ public:
     }
 
     /**
-     * @brief Tạo payload đúng định dạng theo spec.
-     *        Ví dụ: "2,10.000,20.000,0.000,90.000,15.000,25.000,0.000,0.000;"
+     * @brief Tạo payload đúng định dạng theo spec. Mỗi trục dùng "%08.2f".
+     *        Ví dụ: "2,00010.00,00020.00,00000.00,00090.00,00015.00,00025.00,00000.00,00000.00;"
      */
     QByteArray buildPayload() const {
         if (m_kind == Raw) {

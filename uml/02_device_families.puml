@@ -226,12 +226,22 @@ package "VisionOutput" {
     -- shared protocol core --
     #attachMainSocket(sock) : void
     #attachHeartbeatSocket(sock) : void
+    #sendDisconnectNotice() : void
     #declareLostConnection(reason) : void
     -- transport hooks (subclass) --
     #startTransport() : bool
     #stopTransport() : void
     #onLinkLost() : void
   }
+
+  note bottom of VisionTcpipDeviceBase
+    Main channel (';' framed): "{detected},{x,y,z,r},...;"
+      each axis fixed-width "%08.2f" (e.g. 1.0 -> "00001.00").
+    Heartbeat channel (software is master, '.' framed):
+      probe   "connection_check."  -> reply "ack,{count}."
+      planned deviceDisconnect()   -> "disconnect." (one-shot,
+        flushed before teardown; NOT sent on lost-connection).
+  end note
 
   class VisionTcpipDeviceCfg <<Q_GADGET>> {
     +visionOutputType() : VisionTCPIP

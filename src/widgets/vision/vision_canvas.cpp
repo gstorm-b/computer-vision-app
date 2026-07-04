@@ -380,6 +380,12 @@ void VisionCanvas::setImage(const QPixmap &pixmap)
         return;
     }
 
+    // Only re-fit the view when the incoming image size changes. Successive
+    // frames of the same resolution (e.g. a live camera feed) keep the user's
+    // current zoom/pan instead of snapping back to fit on every frame.
+    const QSize newSize = pixmap.size();
+    const bool sizeChanged = (newSize != m_fittedImageSize);
+
     if (!m_imageItem) {
         m_imageItem = m_scene->addPixmap(pixmap);
         m_imageItem->setTransformationMode(Qt::FastTransformation);
@@ -391,7 +397,11 @@ void VisionCanvas::setImage(const QPixmap &pixmap)
     rebuildEditableRois(editableRois());
     rebuildAuxiliaryRois();
     rebuildOverlayItems();
-    fitImageToView();
+
+    if (sizeChanged) {
+        m_fittedImageSize = newSize;
+        fitImageToView();
+    }
 }
 
 void VisionCanvas::clearImage()
@@ -406,6 +416,9 @@ void VisionCanvas::clearImage()
         delete m_imageItem;
         m_imageItem = nullptr;
     }
+    // Reset so the next image always re-fits, even if it happens to match the
+    // size of the one that was just cleared.
+    m_fittedImageSize = QSize();
     if (m_drawRectItem) {
         delete m_drawRectItem;
         m_drawRectItem = nullptr;
@@ -467,8 +480,10 @@ void VisionCanvas::setAuxiliaryRois(const QVector<VisionRoi> &rois)
 
 void VisionCanvas::setResultOverlay(const VisionResultOverlay &overlay)
 {
+    // Overlay visibility is sticky UI state owned by setOverlayVisibility().
+    // A result overlay carries data only and must not silently reset which
+    // overlay items the user chose to show.
     m_overlay = overlay;
-    m_overlayVisibility = overlay.visibility;
     rebuildOverlayItems();
 }
 

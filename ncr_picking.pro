@@ -3,6 +3,7 @@ QT       += core gui network sql
 greaterThan(QT_MAJOR_VERSION, 5): QT += widgets
 
 CONFIG += c++17
+CONFIG+=deploy_deps
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -415,6 +416,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 include(qmake/local_dependencies.pri)
 
+# Opt-in dependency deployment: copy third-party runtime DLLs (ADS docking,
+# OpenCV world, Basler Pylon) next to the built binary when the target dir is
+# missing them, and run windeployqt for the Qt runtime + plugins. Off by
+# default; enable with `qmake ... CONFIG+=deploy_deps`. RobotKinematics/Coal is
+# deployed by robotkinematics.pri.
+include(qmake/deploy_dependencies.pri)
+
 RESOURCES += \
     3rdparty/advance_docking/include/ads.qrc \
     resrc.qrc \
@@ -447,3 +455,5 @@ DISTFILES += \
     src/widgets/qtpropertybrowser/images/cursor-wait.png \
     src/widgets/qtpropertybrowser/images/cursor-whatsthis.png \
     src/widgets/qtpropertybrowser/qtpropertybrowser.pri
+
+RC_ICONS = resrc/icon/software_icon.ico

@@ -1014,3 +1014,33 @@ covers dev and local QA. Revisit when packaging is defined.
 the heavy lift is environment-dependent (the prebuilt `3rdparty/{coal,boost,
 assimp}` trees must be present and ABI-compatible with the MSVC 2022 / Qt 6.8.2
 kit used in Phase 1). Validate with a local build.
+
+---
+
+## 28. VisionOutput result payload format — `%08.2f` (RESOLVED 2026-07-01)
+
+**Status: RESOLVED.** The wire format was formalized to
+`QString::asprintf("%08.2f", ...)` → fixed-width, zero-padded, 2 decimals
+(e.g. `1.0` → `00001.00`). The owner confirmed `%08.2f` is the intended
+contract (not the old `.arg(x,0,'f',3)` → `1.000`).
+
+**What was done.**
+- [vision_output_request.h](../../src/device/output_device/vision_output_request.h) —
+  removed the dead commented-out `%.3f` block; updated the `toString()` /
+  `buildPayload()` docstrings to describe and exemplify `%08.2f`.
+- Updated the five stale assertions to the new format:
+  `tests/vision_output_device_test/main.cpp` (`test_request_payload_format`,
+  `test_client_attach_heartbeat_and_io`, `test_reject_duplicate_main_client`)
+  and `tests/vision_tcpip_client_device_test/main.cpp`
+  (`test_request_payload_format`, `test_connected_heartbeat_and_result`).
+- Documented the field format in
+  [vision_tcpip_protocol.h](../../src/device/output_device/vision_tcpip_protocol.h),
+  [design_rules.md](../rules/design_rules.md) §13.4,
+  [uml/02_device_families.puml](../../uml/02_device_families.puml), and the Nachi
+  reference (`tests/nachi_client/README.md`, `task1_main_channel.prg`). The Nachi
+  parser needs no logic change — `VAL("00001.00")` already yields `1.0`.
+
+**Note.** Both vision-output test `.pro` files were also stale: they predated
+the RobotKinematics integration into `vision_tcpip_device_base.cpp` and did not
+`include(robotkinematics.pri)`, so they no longer compiled from the CLI. That
+wiring was added alongside this change so the suites build and run again.

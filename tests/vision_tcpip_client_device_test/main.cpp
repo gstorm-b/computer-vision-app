@@ -81,6 +81,8 @@ public:
                             m_hbSock->write(ack);
                             m_hbSock->flush();
                             m_ackCount = (m_ackCount + 1) % (1 << 16);
+                        } else if (msg == QByteArray("disconnect.")) {
+                            m_gotDisconnectNotice = true;
                         }
                         idx = m_hbRx.indexOf('.');
                     }
@@ -105,6 +107,7 @@ public:
         return m_hbSock && m_hbSock->state() == QAbstractSocket::ConnectedState;
     }
     int  probeCount()   const { return m_probeCount; }
+    bool gotDisconnectNotice() const { return m_gotDisconnectNotice; }
     QByteArray mainRx() const { return m_mainRx; }
 
 private:
@@ -116,6 +119,7 @@ private:
     QByteArray m_mainRx;
     QByteArray m_hbRx;
     int m_probeCount{0};
+    bool m_gotDisconnectNotice{false};
     quint16 m_ackCount{0};
 };
 
@@ -148,7 +152,7 @@ private slots:
 
     void test_request_payload_format() {
         VisionOutputRequest req(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 4.0}});
-        QCOMPARE(req.buildPayload(), QByteArray("1,1.000,2.000,3.000,4.000;"));
+        QCOMPARE(req.buildPayload(), QByteArray("1,00001.00,00002.00,00003.00,00004.00;"));
     }
 
     // deviceConnect immediately reports Connecting (dialing), not Connected.
@@ -213,9 +217,30 @@ private slots:
         VisionOutputRequest req(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 4.0}});
         QVERIFY(device.pushRequest(&req));
         QVERIFY(waitFor([&]() { return peer.mainRx().contains(';'); }));
-        QCOMPARE(peer.mainRx(), QByteArray("1,1.000,2.000,3.000,4.000;"));
+        QCOMPARE(peer.mainRx(), QByteArray("1,00001.00,00002.00,00003.00,00004.00;"));
 
         QVERIFY(device.deviceDisconnect());
+        QCOMPARE(device.connectStatus(), ConnectStatus::Disconnected);
+    }
+
+    // A graceful deviceDisconnect() sends "disconnect." to the remote heartbeat
+    // port before the dialed links are torn down.
+    void test_disconnect_notice_on_graceful_close() {
+        RemotePeer peer(/*autoAck=*/true);
+        QVERIFY(peer.start());
+
+        VisionTcpipClientDevice device(QStringLiteral("vc_dc"),
+                                       QStringLiteral("Vision Client DC"));
+        VisionTcpipClientDeviceCfg cfg = makeCfg();
+        device.setVisionTcpipClientConfig(cfg);
+        QVERIFY(device.deviceConnect());
+
+        QVERIFY(waitFor([&]() { return device.connectStatus() == ConnectStatus::Connected
+                                    && peer.probeCount() >= 1; }));
+        QVERIFY(!peer.gotDisconnectNotice());
+
+        QVERIFY(device.deviceDisconnect());
+        QVERIFY(waitFor([&]() { return peer.gotDisconnectNotice(); }));
         QCOMPARE(device.connectStatus(), ConnectStatus::Disconnected);
     }
 

@@ -13,6 +13,10 @@
 '         * Set GB_TASK1_RESET_REQ=1 để Task 1 đóng socket và idle.
 '         * Bật IO O_VISION_LINK_ERR, tắt O_VISION_LINK_OK.
 '         * Đóng socket, delay rồi connect lại.
+'     - Khi server báo ngắt chủ động (nhận "disconnect."):
+'         * Stand down Task 1 sạch sẽ, KHÔNG bật O_VISION_LINK_ERR
+'           (đây là ngắt có kế hoạch, không phải lỗi).
+'         * Đóng socket, delay rồi connect lại.
 '======================================================================
 
 PROGRAM TASK2_HEARTBEAT
@@ -34,6 +38,7 @@ CONST O_VISION_LINK_ERR  = 2
 
 CONST HB_PROBE$        = "connection_check."
 CONST HB_ACK_PREFIX$   = "ack,"
+CONST HB_DISCONNECT$   = "disconnect."
 
 '--- Local vars ---
 DEFINT ret
@@ -59,6 +64,14 @@ HB_LOOP:
     CALL RECV_PROBE
     IF ret <> 0 THEN
         CALL DECLARE_LOST("recv_timeout")
+        CALL CLOSE_HB
+        CALL WAIT_RECONNECT
+        GOTO MAIN_LOOP
+    ENDIF
+
+    'Planned shutdown announced by the server: stand down cleanly, no alarm.
+    IF rx$ = HB_DISCONNECT$ THEN
+        CALL DECLARE_SERVER_DISCONNECT
         CALL CLOSE_HB
         CALL WAIT_RECONNECT
         GOTO MAIN_LOOP
@@ -189,6 +202,21 @@ SUB DECLARE_LOST(reason$)
     SETO O_VISION_LINK_OK,  0
     SETO O_VISION_LINK_ERR, 1
     PRINT "TASK2 lost connect: ", reason$
+ENDSUB
+
+'======================================================================
+' SUB: DECLARE_SERVER_DISCONNECT
+'   Server announced a planned disconnect ("disconnect."). Stand Task 1
+'   down cleanly and wait for the server to come back. This is expected,
+'   so the error IO (O_VISION_LINK_ERR) stays OFF — only DECLARE_LOST
+'   raises the fault output.
+'======================================================================
+SUB DECLARE_SERVER_DISCONNECT
+    GB[GB_SERVER_ALIVE]    = 0
+    GB[GB_TASK1_RESET_REQ] = 1
+    SETO O_VISION_LINK_OK,  0
+    SETO O_VISION_LINK_ERR, 0
+    PRINT "TASK2 server disconnect (planned)"
 ENDSUB
 
 '======================================================================

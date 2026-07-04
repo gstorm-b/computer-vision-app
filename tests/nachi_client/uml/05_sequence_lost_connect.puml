@@ -33,6 +33,13 @@ end
 T2 -> G : DECLARE_LOST(reason)\nGB_SERVER_ALIVE = 0\nGB_TASK1_RESET_REQ = 1\nO_VISION_LINK_OK = 0\nO_VISION_LINK_ERR = 1\nPRINT reason
 T2 -> S : TCP_CLOSE(SK_HB)
 
+note over S, T2 #EFE
+Planned close is different: the server sends "disconnect."
+before tearing the link down. Task 2 calls
+DECLARE_SERVER_DISCONNECT (GB_TASK1_RESET_REQ = 1 but
+O_VISION_LINK_ERR stays 0), then reconnects as below.
+end note
+
 == Task 1 observes reset request ==
 note right of T1
 RECEIVE_RESULT poll loop kiểm tra

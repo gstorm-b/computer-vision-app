@@ -101,6 +101,7 @@ private slots:
 private:
     QGraphicsScene *m_scene{nullptr};
     QGraphicsPixmapItem *m_imageItem{nullptr};
+    QSize m_fittedImageSize;
     QGraphicsRectItem *m_drawRectItem{nullptr};
     VisionToolPalette::ToolMode m_toolMode{VisionToolPalette::ToolMode::SelectMove};
     bool m_readOnly{false};

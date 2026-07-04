@@ -78,6 +78,8 @@ public:
                     m_hbSock->write(ack);
                     m_hbSock->flush();
                     m_ackCount = (m_ackCount + 1) % (1 << 16);
+                } else if (msg == QByteArray("disconnect.")) {
+                    m_gotDisconnectNotice = true;
                 }
                 idx = m_hbRx.indexOf('.');
             }
@@ -95,6 +97,7 @@ public:
         return m_mainSock && m_mainSock->state() == QAbstractSocket::ConnectedState;
     }
     int probesReceived() const { return m_probesReceived; }
+    bool gotDisconnectNotice() const { return m_gotDisconnectNotice; }
     QByteArray mainRx()  const { return m_mainRx; }
 
 private:
@@ -104,6 +107,7 @@ private:
     QByteArray m_mainRx;
     QByteArray m_hbRx;
     int m_probesReceived{0};
+    bool m_gotDisconnectNotice{false};
     quint16 m_ackCount{0};
 };
 
@@ -140,7 +144,7 @@ private slots:
         };
         VisionOutputRequest req(positions);
         QCOMPARE(req.buildPayload(),
-                 QByteArray("2,10.000,20.000,0.000,90.000,15.000,25.000,0.000,0.000;"));
+                 QByteArray("2,00010.00,00020.00,00000.00,00090.00,00015.00,00025.00,00000.00,00000.00;"));
 
         VisionOutputRequest empty(QVector<VisionOutputPosition>{});
         QCOMPARE(empty.buildPayload(), QByteArray("0;"));
@@ -194,7 +198,7 @@ private slots:
         VisionOutputRequest result(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 4.0}});
         QVERIFY(device.pushRequest(&result));
         QVERIFY(waitFor([&]() { return peer.mainRx().contains(';'); }));
-        QCOMPARE(peer.mainRx(), QByteArray("1,1.000,2.000,3.000,4.000;"));
+        QCOMPARE(peer.mainRx(), QByteArray("1,00001.00,00002.00,00003.00,00004.00;"));
 
         // A ';'-framed message from the client is surfaced as a request.
         peer.sendMain(QByteArray("trigger;"));
@@ -202,6 +206,25 @@ private slots:
         QCOMPARE(reqSpy.last().at(0).toByteArray(), QByteArray("trigger;"));
 
         device.deviceDisconnect();
+    }
+
+    // A graceful deviceDisconnect() sends "disconnect." on the heartbeat port
+    // before the link is torn down.
+    void test_disconnect_notice_on_graceful_close() {
+        VisionTcpipDevice device(QStringLiteral("srv_dc"), QStringLiteral("Server DC"));
+        VisionTcpipDeviceCfg cfg = makeCfg();
+        device.setVisionTcpipConfig(cfg);
+        QVERIFY(device.deviceConnect());
+
+        ClientPeer peer(/*autoAck=*/true);
+        peer.connectHeartbeat();
+        QVERIFY(waitFor([&]() { return device.isHeartbeatClientConnected()
+                                    && peer.probesReceived() >= 1; }));
+        QVERIFY(!peer.gotDisconnectNotice());
+
+        device.deviceDisconnect();
+        QVERIFY(waitFor([&]() { return peer.gotDisconnectNotice(); }));
+        QCOMPARE(device.connectStatus(), ConnectStatus::Disconnected);
     }
 
     // No ack from the heartbeat client -> server declares LostConnected.
@@ -224,6 +247,8 @@ private slots:
         QVERIFY(device.diagnostics().lostConnectionCount >= 1);
 
         device.deviceDisconnect();
+        // The notice is a graceful-close signal only; the lost path never sends it.
+        QVERIFY(!peer.gotDisconnectNotice());
     }
 
     // A second client on the main port is rejected; the first stays attached.
@@ -248,7 +273,7 @@ private slots:
         VisionOutputRequest result(QVector<VisionOutputPosition>{{5.0, 6.0, 7.0, 8.0}});
         QVERIFY(device.pushRequest(&result));
         QVERIFY(waitFor([&]() { return first.mainRx().contains(';'); }));
-        QCOMPARE(first.mainRx(), QByteArray("1,5.000,6.000,7.000,8.000;"));
+        QCOMPARE(first.mainRx(), QByteArray("1,00005.00,00006.00,00007.00,00008.00;"));
 
         device.deviceDisconnect();
     }

@@ -184,6 +184,8 @@ ENDSUB
 '======================================================================
 ' SUB: PARSE_RESULT
 '   Bóc packet$ "{N},x,y,z,r,x,y,z,r,...;" vào các global.
+'   Mỗi trục là fixed-width "%08.2f" (vd "00001.00"); VAL() tự bỏ
+'   zero-pad nên không cần xử lý thêm.
 '   Mọi sai format sẽ set GI_DETECTED_COUNT=0 và không đụng GR_POS_*.
 '======================================================================
 SUB PARSE_RESULT

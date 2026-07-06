@@ -7,10 +7,10 @@
 #include <QTimer>
 #include <QVBoxLayout>
 
-#include "widgets/qtpropertybrowser/qttreepropertybrowser.h"
-#include "widgets/qtpropertybrowser/qtvariantproperty.h"
-#include "widgets/qtpropertybrowser/qtpropertymanager.h"
-#include "widgets/qtpropertybrowser/qteditorfactory.h"
+#include "qtpropertybrowser/qttreepropertybrowser.h"
+#include "qtpropertybrowser/qtvariantproperty.h"
+#include "qtpropertybrowser/qtpropertymanager.h"
+#include "qtpropertybrowser/qteditorfactory.h"
 
 #include "custom_property_managers.h"
 

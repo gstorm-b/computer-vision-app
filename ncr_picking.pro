@@ -66,4 +66,9 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/3rdparty/advance_dockin
 INCLUDEPATH += $$PWD/3rdparty/advance_docking/include
 DEPENDPATH += $$PWD/3rdparty/advance_docking/include
 
+# Vendored Qt Solutions property browser (compiled into the app). Headers are
+# included as "qtpropertybrowser/<name>" via the 3rdparty include root below.
+include(3rdparty/qtpropertybrowser/qtpropertybrowser_vendor.pri)
+INCLUDEPATH += $$PWD/3rdparty
+
 RC_ICONS = resrc/icon/software_icon.ico

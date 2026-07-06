@@ -1,7 +1,7 @@
 #pragma once
 
-#include "widgets/qtpropertybrowser/qtpropertybrowser.h"
-#include "widgets/qtpropertybrowser/qtpropertymanager.h"
+#include "qtpropertybrowser/qtpropertybrowser.h"
+#include "qtpropertybrowser/qtpropertymanager.h"
 
 #include <QVector>
 #include <QStringList>

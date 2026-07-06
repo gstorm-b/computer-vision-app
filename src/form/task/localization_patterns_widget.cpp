@@ -7,7 +7,7 @@
 #include "form/pattern/add_pattern_wizard.h"
 #include "form/pattern/edit_pattern_wizard.h"
 #include "form/task/workspace_setting_dialog.h"
-#include "widgets/qtpropertybrowser/qtvariantproperty.h"
+#include "qtpropertybrowser/qtvariantproperty.h"
 #include "widgets/vision/vision_canvas.h"
 #include "widgets/vision/vision_geometry.h"
 #include "widgets/vision/vision_result_adapter.h"

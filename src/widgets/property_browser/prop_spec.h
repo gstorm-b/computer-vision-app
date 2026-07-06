@@ -43,7 +43,7 @@
 #include <QVariant>
 #include <QSignalBlocker>
 
-#include "widgets/qtpropertybrowser/qtvariantproperty.h"
+#include "qtpropertybrowser/qtvariantproperty.h"
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  PropSpec<Config>

@@ -12,9 +12,9 @@
 #include "DockWidget.h"
 #include "utils/theme_manager.h"
 
-#include "widgets/qtpropertybrowser/qtpropertymanager.h"
-#include "widgets/qtpropertybrowser/qtvariantproperty.h"
-#include "widgets/qtpropertybrowser/qttreepropertybrowser.h"
+#include "qtpropertybrowser/qtpropertymanager.h"
+#include "qtpropertybrowser/qtvariantproperty.h"
+#include "qtpropertybrowser/qttreepropertybrowser.h"
 
 #include "widgets/property_browser/property_browser_widget.h"
 #include "widgets/property_browser/prop_spec.h"

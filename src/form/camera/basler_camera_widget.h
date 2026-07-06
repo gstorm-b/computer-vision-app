@@ -5,9 +5,9 @@
 #include "DockWidget.h"
 #include "form/camera/basler_cam_select_dialog.h"
 
-#include "widgets/qtpropertybrowser/qtpropertymanager.h"
-#include "widgets/qtpropertybrowser/qtvariantproperty.h"
-#include "widgets/qtpropertybrowser/qttreepropertybrowser.h"
+#include "qtpropertybrowser/qtpropertymanager.h"
+#include "qtpropertybrowser/qtvariantproperty.h"
+#include "qtpropertybrowser/qttreepropertybrowser.h"
 
 #include "device/idevice.h"
 #include "device/device_manager.h"

@@ -1,6 +1,6 @@
 #include "mainwindow.h"
-#include "src/app_settings/app_settings.h"
-#include "src/utils/theme_manager.h"
+#include "core/app_settings/app_settings.h"
+#include "core/utils/theme_manager.h"
 
 #include <QApplication>
 #include <QLocale>

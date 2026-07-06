@@ -9,7 +9,7 @@
 #include <QActionGroup>
 #include <QMenu>
 #include <QStringList>
-#include "src/utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 
 #include "DockManager.h"
 #include "system_log_form.h"

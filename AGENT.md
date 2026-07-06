@@ -90,6 +90,34 @@ either update the docs or flag the drift before closing the task.
 - Do not add backwards-compatibility shims unless the user explicitly asks. The
   project has not shipped to customers yet.
 
+## Module Map And Scope Cards
+
+The build is one `.pri` per module; every module folder carries an
+`AGENTS.md` scope card (purpose, allowed dependencies, invariants, verify
+commands). Read the scope card before editing a module, and register new
+files in that module's `.pri` — never in `ncr_picking.pro`.
+
+| Module | Path | Level |
+|---|---|---|
+| core (settings/logger/utils) | `src/core/` | 0 |
+| device | `src/device/` | 1 |
+| calibration | `src/calibration/` | 1 |
+| matching | `src/matching/` | 1 |
+| model | `src/model/` | 2 |
+| runtime | `src/runtime/` | 2 |
+| form / widgets / libwg | `src/form/`, `src/widgets/`, `src/libwg/` | UI |
+| app shell (+translations) | `app/` | top |
+
+Include-layering rules (enforced by
+`tests/architecture_contract_test::test_module_include_layering_contract`):
+lower levels must not include higher ones; `model` and `runtime` may include
+each other; UI modules may include each other; only `app/` may include
+everything; no `../` escapes in quoted includes.
+
+Prebuilt third-party install trees under `3rdparty/` (Eigen, Coal, Boost,
+Assimp) are provisioned locally and NOT tracked in git — see
+`3rdparty/README.md` before assuming a fresh clone can build.
+
 ## Architecture Guardrails
 
 - Source code and tests are the highest source of truth for implemented

@@ -8,6 +8,7 @@ task; do not load the whole tree by default.
 | Area | Read |
 |---|---|
 | Agent entrypoint and authority map | [../AGENT.md](../AGENT.md) |
+| Module boundaries and invariants | `AGENTS.md` scope card inside each module folder (`src/<module>/`, `app/`) |
 | Engineering and architecture rules | [rules/design_rules.md](rules/design_rules.md) |
 | UI/QSS implementation rules | [rules/ui_design_rules.md](rules/ui_design_rules.md) |
 | UI token palette and colour migration | [rules/ui_theme_tokens.md](rules/ui_theme_tokens.md) |

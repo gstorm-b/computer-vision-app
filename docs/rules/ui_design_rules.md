@@ -150,7 +150,7 @@ is written as a token placeholder `@{group.token}` (e.g. `@{accent.primary}`,
 each placeholder with the active theme value when the sheet is loaded (global
 apply and every per-form `reloadStyleSheet()` route through it). The canonical
 token table and governance live in [ui_theme_tokens.md](ui_theme_tokens.md),
-mirrored by [src/utils/theme_manager.cpp](../../src/utils/theme_manager.cpp)
+mirrored by [src/core/utils/theme_manager.cpp](../../src/core/utils/theme_manager.cpp)
 `tokenTable()`. A reviewer rejects a raw hex that corresponds to a token — use
 the `@{token}` form instead. Raw hex is allowed only for a genuinely off-palette
 one-off, and then only with a comment justifying the exception. Unknown tokens
@@ -210,7 +210,7 @@ stays structure-only; no `styleSheet` property is set.
 
 ### 4.1 One authority, extensible
 
-`ThemeManager` (singleton, [src/utils/theme_manager.h](../../src/utils/theme_manager.h))
+`ThemeManager` (singleton, [src/core/utils/theme_manager.h](../../src/core/utils/theme_manager.h))
 owns the active style. `light` and `dark` are pre-registered; additional styles
 (e.g. `high_contrast`) are added via `registerStyle(ThemeStyle)`. A `ThemeStyle`
 carries an `isDark` flag (drives icon variant), an optional `QPalette`, and a

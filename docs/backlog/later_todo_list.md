@@ -64,7 +64,7 @@ Active theme: **Hybrid — Graphite Vision background + Navy Ops Orange accent**
 Chosen mechanism: a **runtime resolver** (not a build-time generator). `.qss`
 files reference tokens as `@{group.token}`; `ThemeManager::resolveTokens()`
 substitutes each from the canonical `tokenTable()` in
-[theme_manager.cpp](../../src/utils/theme_manager.cpp), mirroring
+[theme_manager.cpp](../../src/core/utils/theme_manager.cpp), mirroring
 [ui_theme_tokens.md](../rules/ui_theme_tokens.md), when the sheet loads. Every loader
 routes through it: global `apply()`, the `IDeviceWidget` /
 `ITaskWidget` base `reloadStyleSheet()`, and the three widgets with their own
@@ -659,7 +659,7 @@ exhaustive. Verified by contract suite (38 passed) + full Debug app build.
 **22.17 — Duplicated meta-property lookup/dispatch logic.**
 
 **Status (2026-06-24): RESOLVED.** Added a shared `vc::gadget_meta` helper
-(`displayName` / `writeProperty` / `readProperty`) to `src/qgadget_marco.h` —
+(`displayName` / `writeProperty` / `readProperty`) to `src/core/qgadget_macro.h` —
 the header that already owns the `"<prop>_name"` Q_CLASSINFO convention.
 `localization_setting_widget` (`displayNameOf` / `writeConfigField` /
 `readConfigField`) and `vision_tcpip_device_widget`'s property dispatch now both

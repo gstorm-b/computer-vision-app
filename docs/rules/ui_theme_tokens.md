@@ -6,7 +6,7 @@
 > these tokens through `.ui`, `.qss`, and `ThemeManager`.
 >
 > **Runtime mirror.** The implemented token table lives in
-> [src/utils/theme_manager.cpp](../../src/utils/theme_manager.cpp) `tokenTable()`.
+> [src/core/utils/theme_manager.cpp](../../src/core/utils/theme_manager.cpp) `tokenTable()`.
 > This document and `tokenTable()` must stay in 1:1 sync. If they drift, code is
 > the implemented truth, but the UI/token task is not closed until both are
 > reconciled.
@@ -196,7 +196,7 @@ stay inline only with a comment justifying the exception.
 
 **Rule 3.2 — Renaming or re-valuing a token is a two-source operation.** Update
 this document and the matching entry in
-[src/utils/theme_manager.cpp](../../src/utils/theme_manager.cpp) `tokenTable()`.
+[src/core/utils/theme_manager.cpp](../../src/core/utils/theme_manager.cpp) `tokenTable()`.
 `.qss` files reference the token by name (`@{token}`), so token-backed colours
 resolve everywhere on the next load.
 
@@ -250,7 +250,7 @@ Orange with another theme family), update the following locations together.
 Touching only one layer will leave visible mismatches.
 
 1. Update the token table in this document.
-2. Update `src/utils/theme_manager.cpp` `tokenTable()` to match this document.
+2. Update `src/core/utils/theme_manager.cpp` `tokenTable()` to match this document.
 3. Update `buildDarkPalette()` and `buildLightPalette()` per the QPalette
    mapping in this document.
 4. Replace only residual raw hex in `resrc/styles/dark.qss`,

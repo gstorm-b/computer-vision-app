@@ -63,7 +63,7 @@
 
 - **Done (2026-06-24):** ~~Extract shared gadget meta-property helper logic if
   property-browser dispatch keeps growing.~~ Added `vc::gadget_meta` in
-  `qgadget_marco.h`; setting + vision widgets route through it. See
+  `qgadget_macro.h`; setting + vision widgets route through it. See
   `later_todo_list.md` 22.17.
 - **Partially done (2026-06-24):** Finish QSS token mechanism and migrate
   remaining hardcoded theme colors. Added a runtime token resolver: `.qss` files now

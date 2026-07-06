@@ -1,0 +1,30 @@
+# Code ownership per module. A PR touching a path requests review from its
+# owners. Each module folder carries an AGENTS.md scope card describing its
+# boundary and invariants.
+# TODO: as the team grows, replace the default owner with real per-module
+# owners (one line per module below).
+
+*                               @gstorm-b
+
+# Domain modules
+/src/core/                      @gstorm-b
+/src/device/                    @gstorm-b
+/src/calibration/               @gstorm-b
+/src/matching/                  @gstorm-b
+/src/model/                     @gstorm-b
+/src/runtime/                   @gstorm-b
+/src/form/                      @gstorm-b
+/src/widgets/                   @gstorm-b
+/src/libwg/                     @gstorm-b
+/app/                           @gstorm-b
+
+# Reusable components and build glue
+/components/RobotKinematics/    @gstorm-b
+/qmake/                         @gstorm-b
+/3rdparty/                      @gstorm-b
+
+# Tests, tools, docs
+/tests/                         @gstorm-b
+/tools/                         @gstorm-b
+/scripts/                       @gstorm-b
+/docs/                          @gstorm-b

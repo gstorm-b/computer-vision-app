@@ -39,7 +39,7 @@ nmake /nologo
 | Path | Contents |
 |---|---|
 | `ncr_picking.pro` | Root qmake project — includes one `.pri` per module, no file lists of its own |
-| `main.cpp`, `mainwindow.*` | Application shell (declared in `app.pri`) |
+| `app/` | Application shell: entry point, main window, translations (`app/app.pri`) |
 | `src/<module>/` | Domain modules, one `.pri` each: `core` (settings/logger/utils), `device`, `calibration`, `matching`, `model`, `runtime`, `form`, `widgets`, `libwg` |
 | `components/` | Reusable libraries with their own tests/docs (RobotKinematics) |
 | `3rdparty/` | Vendored third-party code and prebuilt dependency trees |

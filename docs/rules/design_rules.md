@@ -62,7 +62,7 @@ function does not need to know which fields exist.
 
 **Where applied.**
 - [src/form/task/localization_patterns_widget.cpp](../../src/form/task/localization_patterns_widget.cpp) — `kMatchGroupSpecs` for `mtc::MatchGroupConfig`.
-- [src/matching/match_config_property_adapter.cpp](../../src/matching/match_config_property_adapter.cpp) — pattern-level specs.
+- [src/widgets/property_browser/match_config_property_adapter.cpp](../../src/widgets/property_browser/match_config_property_adapter.cpp) — pattern-level specs.
 
 ### 2.2 The table must mirror the struct exactly — both ways
 
@@ -91,7 +91,7 @@ property in the shared manager, including properties owned by other panes
 that happen to share it. This was a latent dangling-pointer bug.
 
 **Where applied.**
-- [src/matching/match_config_property_adapter.cpp](../../src/matching/match_config_property_adapter.cpp) — `destroy()` does `qDeleteAll(m_props); delete m_grpCommon; delete m_grpType;` and nothing else.
+- [src/widgets/property_browser/match_config_property_adapter.cpp](../../src/widgets/property_browser/match_config_property_adapter.cpp) — `destroy()` does `qDeleteAll(m_props); delete m_grpCommon; delete m_grpType;` and nothing else.
 
 ### 3.2 Pages that own group containers tear them down explicitly
 
@@ -481,7 +481,7 @@ review.
 
 **Rule.** Every concrete `IDeviceCfg` must declare `Q_GADGET` and expose
 its fields through the macros in
-[qgadget_marco.h](../../src/qgadget_marco.h)
+[qgadget_macro.h](../../src/core/qgadget_macro.h)
 (`G_PROPERTY_STRING_READWRITE`, `G_PROPERTY_NUMBER_READWRITE`, etc.).
 The family's JSON keys are centralised in
 [idevice_config.h](../../src/device/idevice_config.h) with the prefix
@@ -804,7 +804,7 @@ design surfaces.
 |---|---|
 | 1.x  Property managers | [custom_property_managers.h](../../src/widgets/property_browser/custom_property_managers.h) |
 | 2.x  PropSpec tables | [localization_patterns_widget.cpp](../../src/form/task/localization_patterns_widget.cpp) |
-| 3.x  Adapter ownership | [match_config_property_adapter.cpp](../../src/matching/match_config_property_adapter.cpp) |
+| 3.x  Adapter ownership | [match_config_property_adapter.cpp](../../src/widgets/property_browser/match_config_property_adapter.cpp) |
 | 4.x  Manager signals | [pattern_group_manager.cpp](../../src/matching/pattern_group_manager.cpp) |
 | 5.x  JSON delegation | [task_localization.cpp](../../src/model/task_localization.cpp), [task_factory.cpp](../../src/model/task_factory.cpp) |
 | 6.x  UI composition | → [ui_design_rules.md](ui_design_rules.md) §1–§2 |

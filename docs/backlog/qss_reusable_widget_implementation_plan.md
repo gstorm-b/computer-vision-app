@@ -164,7 +164,7 @@ Recommended location:
 Affected forms:
 
 - `src/form/add_device_wizard.ui`
-- `src/system_log_form.ui`
+- `app/system_log_form.ui`
 
 Affected QSS:
 

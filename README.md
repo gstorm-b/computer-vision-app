@@ -23,6 +23,10 @@ Local machine paths come from environment variables (no hard-coded paths):
 `QT_MSVC_DIR`, `VCVARS`, `OPENCV_ROOT`/`OPENCV_BIN`, `PYLON_ROOT`/`PYLON_RUNTIME_DIR`, ...
 See the build doc above for the full list and exact commands.
 
+Fresh clones must also provision the prebuilt `3rdparty/` install trees
+(Eigen, Coal, Boost, Assimp) — they are not tracked in git. See
+[3rdparty/README.md](3rdparty/README.md).
+
 ```bat
 call "%VCVARS%"
 mkdir %NCR_PICKING_ROOT%\build\msvc_debug & cd /d %NCR_PICKING_ROOT%\build\msvc_debug

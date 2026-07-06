@@ -45,10 +45,7 @@ below only the `app` shell. Enforced by
 affected surface in both Commission and Runtime modes and both themes.
 
 **Build registration.** `src/ui/ui.pri` only. New files: add to the matching
-`SOURCES`/`HEADERS`/`FORMS` list. NOTE: a few tracked files are intentionally
-not in the build (`forms/pattern/pattern_setting_panel.*`,
-`widgets/plc_widget/{d,m}_devices_table.*`) — pre-existing unwired code;
-leave them out unless you are wiring them in deliberately.
+`SOURCES`/`HEADERS`/`FORMS` list.
 
 **Docs.** `docs/rules/ui_design_rules.md`, `docs/rules/ui_theme_tokens.md`,
 `docs/domains/signal_map/`,

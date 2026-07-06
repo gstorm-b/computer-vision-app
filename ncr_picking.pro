@@ -24,14 +24,9 @@ include(src/matching/matching.pri)          # level 1: pattern matching
 include(src/model/model.pri)                # level 2: project/task/pipeline
 include(src/runtime/runtime.pri)            # level 2: per-device runners
 include(src/form/form.pri)                  # UI: dialogs/wizards/pages
-include(src/widgets/widgets.pri)            # UI: reusable widgets (+ vendored qtpropertybrowser)
+include(src/widgets/widgets.pri)            # UI: reusable widgets
 include(src/libwg/libwg.pri)                # UI: widget primitives
-include(app.pri)                            # app shell (top level)
-
-TRANSLATIONS += \
-    ncr_picking_ja_JP.ts
-CONFIG += lrelease
-CONFIG += embed_translations
+include(app/app.pri)                        # app shell (top level, owns translations)
 
 # Robot kinematics component (forward / inverse kinematics + optional Coal
 # mesh-collision). Reusable library under components/RobotKinematics/, consumed

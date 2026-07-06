@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions
 
-if "%NCR_PICKING_ROOT%"=="" set "NCR_PICKING_ROOT=%~dp0"
+if "%NCR_PICKING_ROOT%"=="" set "NCR_PICKING_ROOT=%~dp0.."
 for %%I in ("%NCR_PICKING_ROOT%\.") do set "NCR_PICKING_ROOT=%%~fI"
 
 if "%QT_MSVC_DIR%"=="" (

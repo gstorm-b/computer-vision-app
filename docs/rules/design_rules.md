@@ -668,7 +668,7 @@ and suppress its error IO instead of latching a lost-connect alarm.
 - Peer reference handling in
   [tests/nachi_client/task2_heartbeat.prg](../../tests/nachi_client/task2_heartbeat.prg)
   and the dev simulator
-  [virtual_device/vision_tcpip_output_device/vision_virtual_client.cpp](../../virtual_device/vision_tcpip_output_device/vision_virtual_client.cpp).
+  [tools/vision_tcpip_output_device/vision_virtual_client.cpp](../../tools/vision_tcpip_output_device/vision_virtual_client.cpp).
 
 ---
 

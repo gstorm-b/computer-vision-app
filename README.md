@@ -40,8 +40,9 @@ nmake /nologo
 | `components/` | Reusable libraries with their own tests/docs (RobotKinematics) |
 | `3rdparty/` | Vendored third-party code and prebuilt dependency trees |
 | `qmake/` | Shared qmake dependency includes (OpenCV, Pylon, deployment) |
-| `tests/` | Standalone test subprojects (architecture contract test, device tests) |
-| `virtual_device/` | Virtual vision TCP/IP device for manual integration testing |
+| `tests/` | Standalone test subprojects (architecture contract, calibration, device tests) |
+| `tools/` | Developer tools (virtual vision TCP/IP device for manual integration testing) |
+| `scripts/` | Helper scripts (`build_test.bat` builds the architecture contract test) |
 | `docs/` | Rules, domain specs, backlog, history — see [docs/README.md](docs/README.md) |
 | `uml/` | Current architecture diagrams |
 | `resrc/` | Icons, themes (QSS), application resources |

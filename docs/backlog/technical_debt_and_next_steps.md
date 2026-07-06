@@ -98,7 +98,7 @@
   dependency includes under `qmake/` for OpenCV/Pylon, migrated
   `ncr_picking.pro`, the architecture contract test, and calibration tests,
   and removed hard-coded Qt/Visual Studio/VTK defaults from helper scripts.
-  `build_test.bat` now builds the architecture contract test beside its `.pro`
+  `scripts/build_test.bat` now builds the architecture contract test beside its `.pro`
   under `tests\architecture_contract_test\build\msvc_debug`. New work must
   follow `docs/rules/build_and_verification.md`: root app builds under root
   `build\`, tests/examples/components build beside their `.pro`, and

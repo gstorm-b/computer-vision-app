@@ -1514,17 +1514,21 @@ private slots:
         QTRY_COMPARE_WITH_TIMEOUT(lastSignalValue(signalSpy, QStringLiteral("bTaskReady")).toBool(),
                                   true,
                                   1000);
-        QTRY_VERIFY_WITH_TIMEOUT(fixture.plc->digitalWrites.contains(QStringLiteral("M11")),
-                                 1000);
+        // Ready-output tags are written asynchronously via PlcRunner in no
+        // guaranteed order. Wait for the whole batch to land before asserting
+        // values; a tag checked with a plain QVERIFY right after a single QTRY
+        // can otherwise race the writer thread under load.
+        QTRY_VERIFY_WITH_TIMEOUT(
+            fixture.plc->digitalWrites.contains(QStringLiteral("M11")) &&
+                fixture.plc->digitalWrites.contains(QStringLiteral("M12")) &&
+                fixture.plc->digitalWrites.contains(QStringLiteral("M18")) &&
+                fixture.plc->wordWrites.contains(QStringLiteral("D102")) &&
+                fixture.plc->wordWrites.contains(QStringLiteral("D103")),
+            1000);
         QCOMPARE(fixture.plc->digitalWrites.value(QStringLiteral("M11")), true);
-        QVERIFY(fixture.plc->digitalWrites.contains(QStringLiteral("M12")));
         QCOMPARE(fixture.plc->digitalWrites.value(QStringLiteral("M12")), false);
-        QVERIFY(fixture.plc->digitalWrites.contains(QStringLiteral("M18")));
         QCOMPARE(fixture.plc->digitalWrites.value(QStringLiteral("M18")), false);
-        QTRY_VERIFY_WITH_TIMEOUT(fixture.plc->wordWrites.contains(QStringLiteral("D102")),
-                                 1000);
         QCOMPARE(fixture.plc->wordWrites.value(QStringLiteral("D102")), qint16(0));
-        QVERIFY(fixture.plc->wordWrites.contains(QStringLiteral("D103")));
         QCOMPARE(fixture.plc->wordWrites.value(QStringLiteral("D103")), qint16(0));
 
         fixture.controller.handlePlcValues({{QStringLiteral("M10"), true}});
@@ -1539,13 +1543,17 @@ private slots:
             LocalizationRuntimeFixture::makeMatchResult());
 
         QTRY_COMPARE_WITH_TIMEOUT(cycleSpy.count(), 1, 1000);
-        QTRY_COMPARE_WITH_TIMEOUT(fixture.plc->digitalWrites.value(QStringLiteral("M12")),
-                                  false,
-                                  1000);
-        QCOMPARE(fixture.plc->digitalWrites.value(QStringLiteral("M13")), true);
-        QCOMPARE(fixture.plc->digitalWrites.value(QStringLiteral("M14")), true);
+        // Wait for every tag that changes value in the cycle-complete batch
+        // before asserting the tags that stay put — same async-ordering reason
+        // as the ready phase. These tags already exist from the ready write, so
+        // gate on their new values rather than presence.
+        QTRY_VERIFY_WITH_TIMEOUT(
+            fixture.plc->digitalWrites.value(QStringLiteral("M12")) == false &&
+                fixture.plc->digitalWrites.value(QStringLiteral("M13")) == true &&
+                fixture.plc->digitalWrites.value(QStringLiteral("M14")) == true &&
+                fixture.plc->wordWrites.value(QStringLiteral("D102")) == qint16(1),
+            1000);
         QCOMPARE(fixture.plc->digitalWrites.value(QStringLiteral("M18")), false);
-        QCOMPARE(fixture.plc->wordWrites.value(QStringLiteral("D102")), qint16(1));
         QCOMPARE(fixture.plc->wordWrites.value(QStringLiteral("D103")), qint16(0));
     }
 

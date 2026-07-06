@@ -6,7 +6,7 @@ Scope: reviewed per-form QSS files under `resrc/styles/`, excluding the global
 theme files `dark.qss` and `light.qss`.
 
 Rule basis: `docs/rules/ui_design_rules.md` says reusable button/control
-variants should become thin subclasses under `src/form/widgets/` and be styled
+variants should become thin subclasses under `src/ui/widgets/controls/` and be styled
 by class name in the global stylesheet, instead of repeating object-name based
 rules in multiple per-form QSS files.
 

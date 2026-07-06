@@ -38,9 +38,9 @@ so anyone updating the mocks can keep them in sync.
 | Mock | Code source |
 |---|---|
 | `current/00_design_system.svg` | `docs/rules/ui_theme_tokens.md`, `resrc/styles/dark.qss`, `src/utils/theme_manager.cpp` `tokenTable()` |
-| `current/01_main_window_dashboard.svg` | `mainwindow.ui`, `src/form/task/localization_task_widget.ui`, `src/form/task/localization_dashboard_widget.ui`, `src/form/widgets/status_lamp.*`, `src/widgets/signals_monitor_widget.*` |
-| `current/02_patterns_view.svg` | `src/form/task/localization_patterns_widget.ui`, `src/form/pattern/pattern_canvas.*`, `src/form/pattern/pattern_setting_panel.*` |
-| `current/03_settings_and_wizard.svg` | `src/form/task/localization_setting_widget.ui`, `src/form/add_device_wizard.ui`, `src/widgets/signals_map_widget.*`, `src/widgets/camera_mapping_widget.*` |
+| `current/01_main_window_dashboard.svg` | `mainwindow.ui`, `src/ui/forms/task/localization_task_widget.ui`, `src/ui/forms/task/localization_dashboard_widget.ui`, `src/ui/widgets/controls/status_lamp.*`, `src/ui/widgets/signals_monitor_widget.*` |
+| `current/02_patterns_view.svg` | `src/ui/forms/task/localization_patterns_widget.ui`, `src/ui/forms/pattern/pattern_canvas.*`, `src/ui/forms/pattern/pattern_setting_panel.*` |
+| `current/03_settings_and_wizard.svg` | `src/ui/forms/task/localization_setting_widget.ui`, `src/ui/forms/add_device_wizard.ui`, `src/ui/widgets/signals_map_widget.*`, `src/ui/widgets/camera_mapping_widget.*` |
 
 ## Current-state findings
 
@@ -150,7 +150,7 @@ A 1920×1080 single-purpose surface for the shop floor. No nav, no settings.
 - **Focus ring spec.** `accent.bright`, 2 px, 3 px offset — visible against
   both `bg.surface` and `bg.window`. The current QSS only sets border on
   focused inputs and forgets a focus indicator on buttons.
-- **Reusable primitives to add to `src/form/widgets/`** (thin subclasses,
+- **Reusable primitives to add to `src/ui/widgets/controls/`** (thin subclasses,
   styled globally per the §3.6 rule):
   - `PrimaryButton`, `DangerButton`
   - `KpiTile` (caption + numeric + trend slot)

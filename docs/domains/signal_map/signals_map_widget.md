@@ -2,7 +2,7 @@
 
 > Mapping editor that lets a task config bind its logical signals to
 > communication-device tags (PLC addresses/named tags). Lives at
-> [src/widgets/signals_map_widget.{h,cpp}](../../../src/widgets/signals_map_widget.h).
+> [src/ui/widgets/signals_map_widget.{h,cpp}](../../../src/ui/widgets/signals_map_widget.h).
 
 ## Purpose
 
@@ -174,7 +174,7 @@ if (!missing.isEmpty()) {
 ```
 
 A working example is in
-[localization_setting_widget.cpp](../../../src/form/task/localization_setting_widget.cpp)
+[localization_setting_widget.cpp](../../../src/ui/forms/task/localization_setting_widget.cpp)
 (see `kSignalRows`, the lambda wired to `signalMappingChanged`, and
 `refreshCommTags`).
 
@@ -229,5 +229,5 @@ from one source of truth:
 When the monitor widget lands, factor the shared schema
 (`SignalRowSpec[]` and the `displayNameOf` / `readConfigField` /
 `writeConfigField` helpers in
-[localization_setting_widget.cpp](../../../src/form/task/localization_setting_widget.cpp))
+[localization_setting_widget.cpp](../../../src/ui/forms/task/localization_setting_widget.cpp))
 into a small header that both widgets include.

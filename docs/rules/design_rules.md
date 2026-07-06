@@ -21,7 +21,7 @@ classes balloons the public surface and duplicates the sub-property creation
 logic.
 
 **Where applied.**
-- [src/widgets/property_browser/custom_property_managers.h](../../src/widgets/property_browser/custom_property_managers.h) — `PointPropertyManager` (int) and `PointFPropertyManager` (double) each gate behaviour on `Mode`.
+- [src/ui/widgets/property_browser/custom_property_managers.h](../../src/ui/widgets/property_browser/custom_property_managers.h) — `PointPropertyManager` (int) and `PointFPropertyManager` (double) each gate behaviour on `Mode`.
 
 ### 1.2 OpenCV interop is `__has_include`-gated
 
@@ -44,7 +44,7 @@ inside `PropertyBrowserWidget`, not inside the page that uses the property.
 destroyed creates dangling editor widgets.
 
 **Where applied.**
-- [src/widgets/property_browser/property_browser_widget.cpp](../../src/widgets/property_browser/property_browser_widget.cpp) — single registration block.
+- [src/ui/widgets/property_browser/property_browser_widget.cpp](../../src/ui/widgets/property_browser/property_browser_widget.cpp) — single registration block.
 
 ---
 
@@ -61,8 +61,8 @@ this table — it does not hard-code property creation.
 function does not need to know which fields exist.
 
 **Where applied.**
-- [src/form/task/localization_patterns_widget.cpp](../../src/form/task/localization_patterns_widget.cpp) — `kMatchGroupSpecs` for `mtc::MatchGroupConfig`.
-- [src/matching/match_config_property_adapter.cpp](../../src/matching/match_config_property_adapter.cpp) — pattern-level specs.
+- [src/ui/forms/task/localization_patterns_widget.cpp](../../src/ui/forms/task/localization_patterns_widget.cpp) — `kMatchGroupSpecs` for `mtc::MatchGroupConfig`.
+- [src/ui/widgets/property_browser/match_config_property_adapter.cpp](../../src/ui/widgets/property_browser/match_config_property_adapter.cpp) — pattern-level specs.
 
 ### 2.2 The table must mirror the struct exactly — both ways
 
@@ -91,7 +91,7 @@ property in the shared manager, including properties owned by other panes
 that happen to share it. This was a latent dangling-pointer bug.
 
 **Where applied.**
-- [src/matching/match_config_property_adapter.cpp](../../src/matching/match_config_property_adapter.cpp) — `destroy()` does `qDeleteAll(m_props); delete m_grpCommon; delete m_grpType;` and nothing else.
+- [src/ui/widgets/property_browser/match_config_property_adapter.cpp](../../src/ui/widgets/property_browser/match_config_property_adapter.cpp) — `destroy()` does `qDeleteAll(m_props); delete m_grpCommon; delete m_grpType;` and nothing else.
 
 ### 3.2 Pages that own group containers tear them down explicitly
 
@@ -101,7 +101,7 @@ the group container in its own rebuild path. Manager `clear()` cannot be
 relied on — see 3.1.
 
 **Where applied.**
-- [src/form/task/localization_patterns_widget.cpp](../../src/form/task/localization_patterns_widget.cpp) — `rebuildPropertyBrowser` owns `m_groupVariant` lifecycle.
+- [src/ui/forms/task/localization_patterns_widget.cpp](../../src/ui/forms/task/localization_patterns_widget.cpp) — `rebuildPropertyBrowser` owns `m_groupVariant` lifecycle.
 
 ### 3.3 Edits are snapshotted before commit, rolled back on rejection
 
@@ -293,7 +293,7 @@ not. It also matches how downstream consumers (matchers, persistence,
 spin-box widgets) expect coordinates.
 
 **Where applied.**
-- [src/form/pattern/pattern_canvas.cpp](../../src/form/pattern/pattern_canvas.cpp).
+- [src/ui/forms/pattern/pattern_canvas.cpp](../../src/ui/forms/pattern/pattern_canvas.cpp).
 
 ### 9.2 Signals carry image-pixel state, documented
 
@@ -473,7 +473,7 @@ review.
 > `<Family>Type` enum value + To/FromString, (2) a concrete config + device
 > class, (3) one `DeviceRegistryEntry` (creator + JSON key), (4) the device
 > widget factory case in
-> [device_widget_factory.cpp](../../src/form/device_widget_factory.cpp). The four
+> [device_widget_factory.cpp](../../src/ui/forms/device_widget_factory.cpp). The four
 > top-level touchpoints above still apply only when adding a brand-new
 > **family** (a new `DeviceType` value).
 
@@ -481,7 +481,7 @@ review.
 
 **Rule.** Every concrete `IDeviceCfg` must declare `Q_GADGET` and expose
 its fields through the macros in
-[qgadget_marco.h](../../src/qgadget_marco.h)
+[qgadget_macro.h](../../src/core/qgadget_macro.h)
 (`G_PROPERTY_STRING_READWRITE`, `G_PROPERTY_NUMBER_READWRITE`, etc.).
 The family's JSON keys are centralised in
 [idevice_config.h](../../src/device/idevice_config.h) with the prefix
@@ -668,7 +668,7 @@ and suppress its error IO instead of latching a lost-connect alarm.
 - Peer reference handling in
   [tests/nachi_client/task2_heartbeat.prg](../../tests/nachi_client/task2_heartbeat.prg)
   and the dev simulator
-  [virtual_device/vision_tcpip_output_device/vision_virtual_client.cpp](../../virtual_device/vision_tcpip_output_device/vision_virtual_client.cpp).
+  [tools/vision_tcpip_output_device/vision_virtual_client.cpp](../../tools/vision_tcpip_output_device/vision_virtual_client.cpp).
 
 ---
 
@@ -746,7 +746,7 @@ flaky.
 > collapse naturally.
 >
 > **Where applied.**
-> - [src/form/add_device_wizard.cpp](../../src/form/add_device_wizard.cpp) — the
+> - [src/ui/forms/add_device_wizard.cpp](../../src/ui/forms/add_device_wizard.cpp) — the
 >   VisionOutput card has `stackPage = -1`; `selectCard()` calls
 >   `ui->adwConfigStack->hide()`.
 
@@ -802,15 +802,15 @@ design surfaces.
 
 | Rule | Primary file |
 |---|---|
-| 1.x  Property managers | [custom_property_managers.h](../../src/widgets/property_browser/custom_property_managers.h) |
-| 2.x  PropSpec tables | [localization_patterns_widget.cpp](../../src/form/task/localization_patterns_widget.cpp) |
-| 3.x  Adapter ownership | [match_config_property_adapter.cpp](../../src/matching/match_config_property_adapter.cpp) |
+| 1.x  Property managers | [custom_property_managers.h](../../src/ui/widgets/property_browser/custom_property_managers.h) |
+| 2.x  PropSpec tables | [localization_patterns_widget.cpp](../../src/ui/forms/task/localization_patterns_widget.cpp) |
+| 3.x  Adapter ownership | [match_config_property_adapter.cpp](../../src/ui/widgets/property_browser/match_config_property_adapter.cpp) |
 | 4.x  Manager signals | [pattern_group_manager.cpp](../../src/matching/pattern_group_manager.cpp) |
 | 5.x  JSON delegation | [task_localization.cpp](../../src/model/task_localization.cpp), [task_factory.cpp](../../src/model/task_factory.cpp) |
 | 6.x  UI composition | → [ui_design_rules.md](ui_design_rules.md) §1–§2 |
-| 7.x  Signal plumbing | [localization_patterns_widget.cpp](../../src/form/task/localization_patterns_widget.cpp) |
+| 7.x  Signal plumbing | [localization_patterns_widget.cpp](../../src/ui/forms/task/localization_patterns_widget.cpp) |
 | 8.x  Device resolution | [itask.cpp](../../src/model/itask.cpp) |
-| 9.x  Canvas | [pattern_canvas.cpp](../../src/form/pattern/pattern_canvas.cpp), [add_pattern_wizard.cpp](../../src/form/pattern/add_pattern_wizard.cpp) |
+| 9.x  Canvas | [pattern_canvas.cpp](../../src/ui/forms/pattern/pattern_canvas.cpp), [add_pattern_wizard.cpp](../../src/ui/forms/pattern/add_pattern_wizard.cpp) |
 | 10.x  Persistence | [task_localization.cpp](../../src/model/task_localization.cpp) |
 | 11.x  Workflow | (this document) |
 | 12.x  Device family modules | [idevice_config.h](../../src/device/idevice_config.h), [device_factory.cpp](../../src/device/device_factory.cpp), [vision_output_config.h](../../src/device/output_device/vision_output_config.h) |

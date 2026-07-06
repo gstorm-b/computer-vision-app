@@ -1,6 +1,6 @@
 #include "model/localization_pipeline.h"
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 #include "matching/image_matcher.h"
 #include "matching/match_group.h"
 #include "matching/match_pattern.h"

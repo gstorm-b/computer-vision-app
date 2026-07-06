@@ -1,7 +1,7 @@
 #ifndef MC_DEFINE_H
 #define MC_DEFINE_H
 
-#include "utils/meta_utils.h"
+#include "core/utils/meta_utils.h"
 
 #define MC_C_STX                    0x02
 #define MC_C_ETX                    0x03

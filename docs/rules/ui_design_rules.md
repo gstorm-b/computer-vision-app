@@ -150,7 +150,7 @@ is written as a token placeholder `@{group.token}` (e.g. `@{accent.primary}`,
 each placeholder with the active theme value when the sheet is loaded (global
 apply and every per-form `reloadStyleSheet()` route through it). The canonical
 token table and governance live in [ui_theme_tokens.md](ui_theme_tokens.md),
-mirrored by [src/utils/theme_manager.cpp](../../src/utils/theme_manager.cpp)
+mirrored by [src/core/utils/theme_manager.cpp](../../src/core/utils/theme_manager.cpp)
 `tokenTable()`. A reviewer rejects a raw hex that corresponds to a token — use
 the `@{token}` form instead. Raw hex is allowed only for a genuinely off-palette
 one-off, and then only with a comment justifying the exception. Unknown tokens
@@ -167,10 +167,10 @@ per-form QSS file, no property management.
 **Rule 3.8 — Reusable variant controls are thin subclasses.**
 A variant class inherits only to acquire a stable class name; it adds no logic.
 Inherit all constructors with `using Base::Base`. Place the class in
-`src/form/widgets/`.
+`src/ui/widgets/controls/`.
 
 ```cpp
-// src/form/widgets/ghost_button.h
+// src/ui/widgets/controls/ghost_button.h
 #pragma once
 #include <QPushButton>
 
@@ -201,7 +201,7 @@ GhostButton:disabled { color: #4a5260; border-color: #2e3238; }
 
 **Rule 3.10 — Promote the widget in Qt Designer.**
 Right-click the button in Designer → *Promote to…* → enter the class name
-(`GhostButton`) and header path (`form/widgets/ghost_button.h`). The `.ui`
+(`GhostButton`) and header path (`ui/widgets/controls/ghost_button.h`). The `.ui`
 stays structure-only; no `styleSheet` property is set.
 
 ---
@@ -210,7 +210,7 @@ stays structure-only; no `styleSheet` property is set.
 
 ### 4.1 One authority, extensible
 
-`ThemeManager` (singleton, [src/utils/theme_manager.h](../../src/utils/theme_manager.h))
+`ThemeManager` (singleton, [src/core/utils/theme_manager.h](../../src/core/utils/theme_manager.h))
 owns the active style. `light` and `dark` are pre-registered; additional styles
 (e.g. `high_contrast`) are added via `registerStyle(ThemeStyle)`. A `ThemeStyle`
 carries an `isDark` flag (drives icon variant), an optional `QPalette`, and a
@@ -304,7 +304,7 @@ surfaces read their colours from a C++ token source.
 
 **Rule 6.1 — Painted surfaces pull colours from a theme token header, keyed off
 `ThemeManager::isDark()`**, and repaint on `themeChanged`. See
-[src/form/pattern/pattern_theme.h](../../src/form/pattern/pattern_theme.h) for the
+[src/ui/forms/pattern/pattern_theme.h](../../src/ui/forms/pattern/pattern_theme.h) for the
 existing pattern. New painted surfaces mirror it; they do not embed raw
 `QColor(0x…)` literals in `paintEvent`.
 
@@ -368,7 +368,7 @@ Checklist for the matching files:
 | Theme reload method | exactly `reloadStyleSheet()` | — |
 | Token name | `group.semantic` from `ui_theme_tokens.md` | `accent.primary`, `bg.surface` |
 | Variant widget subclass | `PascalCase`, role-based | `GhostButton`, `PrimaryButton`, `NavButton`, `DangerButton` |
-| Variant widget source location | `src/form/widgets/<name>.h` + `.cpp` | `src/form/widgets/ghost_button.h` |
+| Variant widget source location | `src/ui/widgets/controls/<name>.h` + `.cpp` | `src/ui/widgets/controls/ghost_button.h` |
 
 ---
 
@@ -392,7 +392,7 @@ A UI change is not ready to merge unless all of these hold:
       `QPixmap` consumers refresh on `themeChanged`.
 - [ ] Custom-painted surfaces read colours from a theme token header, not raw
       `QColor` literals, and repaint on `themeChanged`.
-- [ ] Reusable button/control variants are thin subclasses in `src/form/widgets/`,
+- [ ] Reusable button/control variants are thin subclasses in `src/ui/widgets/controls/`,
       styled by class name in the global sheet — no per-form QSS added just for
       a button style.
 - [ ] Widget renders correctly in **both** dark and light before review.

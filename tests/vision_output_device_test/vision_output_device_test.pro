@@ -21,7 +21,7 @@ SOURCES += \
     main.cpp \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_device_base.cpp \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_device.cpp \
-    $$ROOT_DIR/src/logger/app_logger.cpp
+    $$ROOT_DIR/src/core/logger/app_logger.cpp
 
 HEADERS += \
     $$ROOT_DIR/src/device/idevice.h \
@@ -34,6 +34,6 @@ HEADERS += \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_config.h \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_device.h \
     $$ROOT_DIR/src/device/output_device/vision_output_request.h \
-    $$ROOT_DIR/src/logger/app_logger.h \
-    $$ROOT_DIR/src/qgadget_marco.h \
-    $$ROOT_DIR/src/utils/meta_utils.h
+    $$ROOT_DIR/src/core/logger/app_logger.h \
+    $$ROOT_DIR/src/core/qgadget_macro.h \
+    $$ROOT_DIR/src/core/utils/meta_utils.h

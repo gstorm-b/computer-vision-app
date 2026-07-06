@@ -696,7 +696,9 @@ Tests are a sibling sub-project at `tests/tests.pro`. The tests link the same fo
 - `saveLoad_homographyAndPlanePreserved` — YAML round-trip preserves H, plane and centroids.
 - `toJson_fromJson_preservesFullState` — JSON in-memory round-trip preserves H bit-equal, plane bit-equal, all diagnostics and functional `imageToRobot` / `rotateImageToRobot` outputs.
 
-Run from Qt Creator or the command line via `qmake tests/tests.pro && make && ./calib_tests`.
+Run from Qt Creator or the command line via the test subproject
+`tests/calibration_test/calibration_test.pro` (qmake + `nmake /nologo`;
+target `calibration_test`).
 
 ---
 

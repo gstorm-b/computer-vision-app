@@ -5,7 +5,7 @@
 
 #include <memory>
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 #include "matching/match_group.h"
 #include "matching/match_pattern.h"
 #include "model/robot_kinematic_picking_checker.h"

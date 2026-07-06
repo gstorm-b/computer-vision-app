@@ -10,7 +10,7 @@
 // #include <QUuid>
 
 #include "irequest.h"
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 #include "idevice_config.h"
 
 namespace vc::device {

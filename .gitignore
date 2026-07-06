@@ -90,8 +90,22 @@ desktop.ini
 # Project-specific: keep build configs that are checked in separately
 !3rdparty/**
 
-# Local Codex config for this machine only
-.codex/
+# Prebuilt third-party install trees are provisioned locally, NOT tracked
+# (see 3rdparty/README.md). Vendored source that IS tracked: advance_docking,
+# qtpropertybrowser (re-included by !3rdparty/** above).
+3rdparty/assimp/
+3rdparty/boost/
+3rdparty/coal/
+3rdparty/eigen/
+3rdparty/fcl/
+3rdparty/libccd/
 
 # Local Codex config for this machine only
 .codex/
+
+# Local agent tooling clones/configs (not part of the build)
+.agent/
+.agents/
+
+# Test run outputs
+tests/**/*_results.txt

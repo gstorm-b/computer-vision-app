@@ -14,7 +14,7 @@
 #include "task_define.h"
 #include "task_state_machine.h"
 #include "itask_config.h"
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 #include "runtime/task_runner.h"
 #include "device/idevice.h"
 

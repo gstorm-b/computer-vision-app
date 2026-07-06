@@ -13,7 +13,7 @@ Mục tiêu: thiết kế Signals monitoring widget.
     - Có method cơ bản: add row, remove row, insert row
 
 Sau khi thiết kế xong:
-    - Promote: listWidget_tag_status trong LocalizatinDashboardWidget (src/form/task) bằng SignalsMonitoringWidget.
+    - Promote: listWidget_tag_status trong LocalizatinDashboardWidget (src/ui/forms/task) bằng SignalsMonitoringWidget.
 
 Yêu cầu fix LocalizationDashboardWidget:
     - Định nghĩa Display name trực tiếp kSignalRows.

@@ -2,7 +2,7 @@
 #define VISION_OUTPUT_CONFIG_H
 
 #include "device/idevice_config.h"
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 
 #include <QJsonArray>
 #include <QJsonObject>

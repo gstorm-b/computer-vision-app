@@ -63,7 +63,7 @@
 
 - **Done (2026-06-24):** ~~Extract shared gadget meta-property helper logic if
   property-browser dispatch keeps growing.~~ Added `vc::gadget_meta` in
-  `qgadget_marco.h`; setting + vision widgets route through it. See
+  `qgadget_macro.h`; setting + vision widgets route through it. See
   `later_todo_list.md` 22.17.
 - **Partially done (2026-06-24):** Finish QSS token mechanism and migrate
   remaining hardcoded theme colors. Added a runtime token resolver: `.qss` files now
@@ -98,7 +98,7 @@
   dependency includes under `qmake/` for OpenCV/Pylon, migrated
   `ncr_picking.pro`, the architecture contract test, and calibration tests,
   and removed hard-coded Qt/Visual Studio/VTK defaults from helper scripts.
-  `build_test.bat` now builds the architecture contract test beside its `.pro`
+  `scripts/build_test.bat` now builds the architecture contract test beside its `.pro`
   under `tests\architecture_contract_test\build\msvc_debug`. New work must
   follow `docs/rules/build_and_verification.md`: root app builds under root
   `build\`, tests/examples/components build beside their `.pro`, and

@@ -1,9 +1,0 @@
-libdir=D:/Project/RobotKinematics/third_party/install/assimp/lib
-includedir=D:/Project/RobotKinematics/third_party/install/assimp/include
-
-Name: Assimp
-Description: Import various well-known 3D model formats in an uniform manner.
-Version: 6.0.5
-Libs: -L${libdir} -lassimp
-Libs.private:  
-Cflags: -I${includedir}

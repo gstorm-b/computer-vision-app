@@ -2,7 +2,7 @@
 
 #include <QMetaProperty>
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 
 namespace vc::model {
 

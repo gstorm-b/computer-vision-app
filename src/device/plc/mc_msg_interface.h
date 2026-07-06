@@ -10,7 +10,7 @@
 #include "device/plc/mc_define.h"
 
 
-#include "qgadget_marco.h"
+#include "core/qgadget_macro.h"
 
 using namespace vc::device::mc;
 

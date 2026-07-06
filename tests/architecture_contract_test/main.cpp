@@ -1,7 +1,9 @@
 #include <QtTest/QtTest>
 
+#include <QDirIterator>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QRegularExpression>
 #include <QScopedPointer>
 
 #include <memory>
@@ -26,7 +28,7 @@
 #include "runtime/plc_runner.h"
 #include "runtime/task_runner.h"
 #include "runtime/vision_output_runner.h"
-#include "widgets/vision/vision_result_adapter.h"
+#include "ui/widgets/vision/vision_result_adapter.h"
 
 using namespace vc::device;
 using namespace vc::model;
@@ -1601,6 +1603,120 @@ private slots:
         QCOMPARE(result.faultCode, LocalizationFaultCode::CameraLost);
         QCOMPARE(fixture.visionOutput->requestCount, 0);
         QCOMPARE(lastSignalValue(signalSpy, QStringLiteral("nFaultCode")).toInt(), 100);
+    }
+
+    // ---- Module include-layering contract --------------------------------
+    // Modules may only include same-or-lower dependency levels:
+    //   level 0: core
+    //   level 1: device, calibration, matching   (+ core)
+    //   level 2: model, runtime                  (+ L0/L1; model<->runtime allowed)
+    //   UI     : ui                              (everything except app)
+    //   app    : everything
+    // Scope: quoted includes whose first path segment is a known module name.
+    // Same-directory includes (no slash), Qt/OpenCV angle includes, generated
+    // ui_*.h, and third-party prefixes (qtpropertybrowser/...) are not module
+    // references and are ignored. "../" escapes are always violations.
+    void test_module_include_layering_contract()
+    {
+        const QString repoRoot = QStringLiteral(NCR_REPO_ROOT);
+        QVERIFY2(QDir(repoRoot).exists(),
+                 qPrintable(QStringLiteral("repo root missing: ") + repoRoot));
+
+        const QStringList modules = {
+            QStringLiteral("core"),   QStringLiteral("device"),
+            QStringLiteral("calibration"), QStringLiteral("matching"),
+            QStringLiteral("model"),  QStringLiteral("runtime"),
+            QStringLiteral("ui"),     QStringLiteral("app")
+        };
+
+        const QSet<QString> level01 = { QStringLiteral("core"),
+                                        QStringLiteral("device"),
+                                        QStringLiteral("calibration"),
+                                        QStringLiteral("matching") };
+        QSet<QString> level2 = level01;
+        level2 |= { QStringLiteral("model"), QStringLiteral("runtime") };
+        QSet<QString> ui = level2;
+        ui |= { QStringLiteral("ui") };
+        QSet<QString> all = ui;
+        all |= { QStringLiteral("app") };
+
+        QHash<QString, QSet<QString>> allowed;
+        allowed[QStringLiteral("core")] = { QStringLiteral("core") };
+        // Sibling exception: camera devices own their Calibrator, so device
+        // may use calibration (calibration never includes device back).
+        allowed[QStringLiteral("device")] =
+            { QStringLiteral("core"), QStringLiteral("device"),
+              QStringLiteral("calibration") };
+        allowed[QStringLiteral("calibration")] =
+            { QStringLiteral("core"), QStringLiteral("calibration") };
+        allowed[QStringLiteral("matching")] =
+            { QStringLiteral("core"), QStringLiteral("matching") };
+        allowed[QStringLiteral("model")] = level2;
+        allowed[QStringLiteral("runtime")] = level2;
+        allowed[QStringLiteral("ui")] = ui;
+        allowed[QStringLiteral("app")] = all;
+
+        const QRegularExpression includeRe(
+            QStringLiteral("^\\s*#\\s*include\\s*\"([^\"]+)\""));
+
+        QStringList violations;
+        int scannedFiles = 0;
+
+        for (const QString &module : modules) {
+            const QString dirPath = (module == QLatin1String("app"))
+                ? repoRoot + QStringLiteral("/app")
+                : repoRoot + QStringLiteral("/src/") + module;
+            QDirIterator it(dirPath,
+                            { QStringLiteral("*.h"), QStringLiteral("*.cpp") },
+                            QDir::Files, QDirIterator::Subdirectories);
+            while (it.hasNext()) {
+                const QString filePath = it.next();
+                QFile file(filePath);
+                QVERIFY2(file.open(QIODevice::ReadOnly | QIODevice::Text),
+                         qPrintable(filePath));
+                scannedFiles += 1;
+                int lineNo = 0;
+                while (!file.atEnd()) {
+                    lineNo += 1;
+                    const QString line = QString::fromUtf8(file.readLine());
+                    const auto match = includeRe.match(line);
+                    if (!match.hasMatch())
+                        continue;
+                    const QString inc = match.captured(1);
+                    if (inc.startsWith(QLatin1String("../"))) {
+                        violations << QStringLiteral("%1:%2: \"%3\" (no ../ escapes)")
+                                          .arg(filePath).arg(lineNo).arg(inc);
+                        continue;
+                    }
+                    if (inc.startsWith(QLatin1String("src/"))) {
+                        violations << QStringLiteral(
+                            "%1:%2: \"%3\" (module includes are rooted at src/ "
+                            "— write core/..., not src/core/...)")
+                            .arg(filePath).arg(lineNo).arg(inc);
+                        continue;
+                    }
+                    const int slash = inc.indexOf(QLatin1Char('/'));
+                    if (slash <= 0)
+                        continue;
+                    const QString target = inc.left(slash);
+                    if (!modules.contains(target))
+                        continue;
+                    if (!allowed.value(module).contains(target)) {
+                        violations << QStringLiteral(
+                            "%1:%2: \"%3\" (%4 must not include %5)")
+                            .arg(filePath).arg(lineNo).arg(inc)
+                            .arg(module, target);
+                    }
+                }
+            }
+        }
+
+        QVERIFY2(scannedFiles > 100,
+                 qPrintable(QStringLiteral("scanned only %1 files — wrong repo root?")
+                                .arg(scannedFiles)));
+        QVERIFY2(violations.isEmpty(),
+                 qPrintable(QStringLiteral("include-layering violations:\n")
+                            + violations.join(QLatin1Char('\n'))));
     }
 };
 

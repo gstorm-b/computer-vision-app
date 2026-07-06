@@ -16,7 +16,7 @@
 #include "widgets/vision/vision_overlay_types.h"
 
 #include "form/pattern/add_pattern_image_dialog.h"
-#include "matching/match_config_property_adapter.h"
+#include "widgets/property_browser/match_config_property_adapter.h"
 #include "matching/image_matcher.h"
 
 namespace Ui {

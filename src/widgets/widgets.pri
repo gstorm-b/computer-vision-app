@@ -28,6 +28,7 @@ SOURCES += \
     $$PWD/plc_widget/devices_monitor_widget.cpp \
     $$PWD/project_tree_widget.cpp \
     $$PWD/property_browser/custom_property_managers.cpp \
+    $$PWD/property_browser/match_config_property_adapter.cpp \
     $$PWD/property_browser/property_browser_widget.cpp \
     $$PWD/calibration/calibration_board_dialog.cpp \
     $$PWD/calibration/calibration_threshold_dialog.cpp \
@@ -67,6 +68,7 @@ HEADERS += \
     $$PWD/project_tree_widget.h \
     $$PWD/property_browser/prop_spec.h \
     $$PWD/property_browser/custom_property_managers.h \
+    $$PWD/property_browser/match_config_property_adapter.h \
     $$PWD/property_browser/property_browser_widget.h \
     $$PWD/calibration/calibration_board_dialog.h \
     $$PWD/calibration/calibration_threshold_dialog.h \

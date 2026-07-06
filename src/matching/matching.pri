@@ -1,12 +1,9 @@
 # Matching module (dependency level 1): pattern matching engine (OpenCV),
-# match configs, pattern groups. May depend on: core. Must not include UI
-# (known debt: match_config_property_adapter includes
-# widgets/property_browser/prop_spec.h; scheduled to move UI-side).
+# match configs, pattern groups. May depend on: core. Must not include UI.
 
 SOURCES += \
     $$PWD/image_matcher.cpp \
     $$PWD/imatch_type_config.cpp \
-    $$PWD/match_config_property_adapter.cpp \
     $$PWD/match_group.cpp \
     $$PWD/match_params.cpp \
     $$PWD/match_pattern.cpp \
@@ -20,7 +17,6 @@ HEADERS += \
     $$PWD/image_matcher.h \
     $$PWD/imatch_type_config.h \
     $$PWD/manager_result.h \
-    $$PWD/match_config_property_adapter.h \
     $$PWD/match_box_gripper.h \
     $$PWD/match_group.h \
     $$PWD/match_object.h \

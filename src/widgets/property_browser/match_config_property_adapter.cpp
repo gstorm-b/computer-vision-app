@@ -1,6 +1,6 @@
 #include "match_config_property_adapter.h"
-#include "match_group.h"
-#include "edge_match_config.h"
+#include "matching/match_group.h"
+#include "matching/edge_match_config.h"
 
 #include "widgets/property_browser/prop_spec.h"
 

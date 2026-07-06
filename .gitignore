@@ -93,5 +93,9 @@ desktop.ini
 # Local Codex config for this machine only
 .codex/
 
-# Local Codex config for this machine only
-.codex/
+# Local agent tooling clones/configs (not part of the build)
+.agent/
+.agents/
+
+# Test run outputs
+tests/**/*_results.txt

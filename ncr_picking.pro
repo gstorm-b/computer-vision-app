@@ -393,7 +393,6 @@ CONFIG += lrelease
 CONFIG += embed_translations
 
 INCLUDEPATH += \
-    third_party/advance_docking/inlcude \
     src/
 
 # Robot kinematics component (forward / inverse kinematics + optional Coal
@@ -405,10 +404,6 @@ INCLUDEPATH += \
 # packaging is still tracked in docs/backlog/later_todo_list.md #27.
 include(components/RobotKinematics/robotkinematics.pri)
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

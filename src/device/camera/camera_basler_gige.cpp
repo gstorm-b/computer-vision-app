@@ -1,6 +1,6 @@
 #include "camera_basler_gige.h"
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 #include <pylon/gige/GigETransportLayer.h>
 
 #include <QJsonArray>

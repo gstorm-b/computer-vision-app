@@ -10,7 +10,7 @@
 #include <QCoreApplication>
 
 #include "DockWidget.h"
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 
 #include "qtpropertybrowser/qtpropertymanager.h"
 #include "qtpropertybrowser/qtvariantproperty.h"

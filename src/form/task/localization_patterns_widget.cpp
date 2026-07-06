@@ -3,7 +3,7 @@
 
 #include "form/pattern/pattern_manager_dialog.h"
 #include "form/pattern/pattern_theme.h"
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 #include "form/pattern/add_pattern_wizard.h"
 #include "form/pattern/edit_pattern_wizard.h"
 #include "form/task/workspace_setting_dialog.h"

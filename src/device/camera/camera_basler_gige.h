@@ -8,7 +8,7 @@
 #include "device/camera/camera_device.h"
 #include "device/camera/basler_define.h"
 
-#include "qgadget_marco.h"
+#include "core/qgadget_macro.h"
 
 using namespace vc::device::basler;
 

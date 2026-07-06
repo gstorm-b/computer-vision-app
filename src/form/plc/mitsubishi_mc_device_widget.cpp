@@ -3,8 +3,8 @@
 
 #include "device/plc/mc_request.h"
 #include "device/plc/mc_msg_tcp_client.h"
-#include "logger/app_logger.h"
-#include "utils/theme_manager.h"
+#include "core/logger/app_logger.h"
+#include "core/utils/theme_manager.h"
 
 #include <QFile>
 #include <QSignalBlocker>

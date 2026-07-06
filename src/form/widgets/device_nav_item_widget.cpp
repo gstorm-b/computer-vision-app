@@ -7,8 +7,8 @@
 #include <QVBoxLayout>
 
 #include "form/widgets/device_nav_dot.h"
-#include "utils/theme_manager.h"
-#include "windows_helper.h"
+#include "core/utils/theme_manager.h"
+#include "core/utils/windows_helper.h"
 
 namespace {
 

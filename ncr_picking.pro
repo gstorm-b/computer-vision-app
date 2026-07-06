@@ -17,7 +17,7 @@ INCLUDEPATH += \
 # so adding a file touches that module's .pri, never this root file.
 # Dependency levels (low to high) — lower levels must not include higher ones;
 # see README.md "Module dependency rule".
-include(src/core.pri)                       # level 0: settings/logger/utils
+include(src/core/core.pri)                  # level 0: settings/logger/utils
 include(src/device/device.pri)              # level 1: device families
 include(src/calibration/calibration.pri)    # level 1: calibration
 include(src/matching/matching.pri)          # level 1: pattern matching

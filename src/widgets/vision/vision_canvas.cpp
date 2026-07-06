@@ -17,7 +17,7 @@
 #include <QScrollBar>
 #include <QtMath>
 
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 #include "widgets/image_widget/item_roi.h"
 #include "widgets/image_widget/item_roi_rotated.h"
 #include "widgets/vision/vision_geometry.h"

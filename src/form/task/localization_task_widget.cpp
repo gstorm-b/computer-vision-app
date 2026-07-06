@@ -12,12 +12,12 @@
 
 #include <algorithm>
 
-#include "windows_helper.h"
+#include "core/utils/windows_helper.h"
 #include "runtime/idevice_runner.h"
 #include "form/device_widget_factory.h"
 #include "form/device_widget.h"
 #include "device/idevice_config.h"
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 #include "form/task/localization_dashboard_widget.h"
 #include "form/task/localization_patterns_widget.h"
 #include "form/task/localization_setting_widget.h"

@@ -2,7 +2,7 @@
 #define NACHI_ROBOT_CONFIG_H
 
 #include "device/robot/robot_device.h"
-#include "qgadget_marco.h"
+#include "core/qgadget_macro.h"
 
 #include <QJsonObject>
 

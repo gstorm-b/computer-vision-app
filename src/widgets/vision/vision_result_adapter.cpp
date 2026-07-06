@@ -1,6 +1,6 @@
 #include "widgets/vision/vision_result_adapter.h"
 
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 #include "widgets/vision/vision_geometry.h"
 
 namespace {

@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QObject>
 #include <QFile>
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 #include "widgets/property_browser/property_browser_widget.h"
 
 class IDeviceWidget : public QWidget {

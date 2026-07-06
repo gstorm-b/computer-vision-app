@@ -4,9 +4,9 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-#include "app_settings/app_settings.h"
+#include "core/app_settings/app_settings.h"
 
-#include "windows_helper.h"
+#include "core/utils/windows_helper.h"
 #include "DockAreaTabBar.h"
 #include "DockAreaTitleBar.h"
 #include "DockAreaWidget.h"

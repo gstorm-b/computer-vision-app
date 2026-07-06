@@ -2,7 +2,7 @@
 #define VISION_TCPIP_CLIENT_CONFIG_H
 
 #include "device/output_device/vision_output_device.h"
-#include "qgadget_marco.h"
+#include "core/qgadget_macro.h"
 
 #include <QJsonObject>
 #include <QString>

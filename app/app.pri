@@ -8,8 +8,7 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/mainwindow.h \
-    $$PWD/system_log_form.h \
-    $$PWD/../windows_helper.h
+    $$PWD/system_log_form.h
 
 FORMS += \
     $$PWD/mainwindow.ui \

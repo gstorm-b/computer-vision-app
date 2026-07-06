@@ -2,8 +2,8 @@
 
 #include "form/widgets/state_pill_label.h"
 #include "form/widgets/type_chip_label.h"
-#include "logger/app_logger.h"
-#include "utils/theme_manager.h"
+#include "core/logger/app_logger.h"
+#include "core/utils/theme_manager.h"
 
 #include <QComboBox>
 #include <QDialog>

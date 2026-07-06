@@ -1,5 +1,5 @@
 #include "pattern_group_manager.h"
-#include "setting_keys.h"
+#include "core/setting_keys.h"
 #include "vision_utils.h"
 
 #include "match_pattern.h"
@@ -7,7 +7,7 @@
 #include "edge_match_config.h"
 #include "matching_types.h"
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 
 namespace mtc {
 

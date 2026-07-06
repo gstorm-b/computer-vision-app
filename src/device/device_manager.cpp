@@ -1,5 +1,5 @@
 #include "device_manager.h"
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 
 #include "device/camera/camera_device.h"
 #include "device/device_registry.h"

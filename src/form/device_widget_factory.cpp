@@ -7,7 +7,7 @@
 #include "form/plc/mitsubishi_mc_device_widget.h"
 #include "form/vision_output/vision_tcpip_device_widget.h"
 #include "form/vision_output/vision_tcpip_client_device_widget.h"
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 #include "runtime/camera_runner.h"
 #include "runtime/plc_runner.h"
 #include "runtime/vision_output_runner.h"

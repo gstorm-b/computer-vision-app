@@ -1,7 +1,7 @@
 #ifndef SYSTEM_LOG_FORM_H
 #define SYSTEM_LOG_FORM_H
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 
 #include <QVector>
 #include <QWidget>

@@ -13,9 +13,9 @@
 #include <QDebug>
 
 #include "model/task_localization.h"
-#include "logger/app_logger.h"
-#include "utils/theme_manager.h"
-#include "windows_helper.h"
+#include "core/logger/app_logger.h"
+#include "core/utils/theme_manager.h"
+#include "core/utils/windows_helper.h"
 
 // ──────────────────────────────────────────────────────────────────────────────
 //  Chip appearance helpers

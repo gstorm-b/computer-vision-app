@@ -4,7 +4,7 @@
 #include <QMessageBox>
 #include <QHostAddress>
 
-#include "windows_helper.h"
+#include "core/utils/windows_helper.h"
 
 #include "calibration/calibration_board_factory.h"
 #include "widgets/calibration/calibration_board_dialog.h"

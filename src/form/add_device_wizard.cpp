@@ -20,9 +20,9 @@
 #include "device/output_device/vision_tcpip_config.h"
 #include "device/output_device/vision_tcpip_client_config.h"
 #include "device/plc/mc_protocol_device.h"
-#include "logger/app_logger.h"
-#include "utils/theme_manager.h"
-#include "windows_helper.h"
+#include "core/logger/app_logger.h"
+#include "core/utils/theme_manager.h"
+#include "core/utils/windows_helper.h"
 
 AddDeviceWizard::AddDeviceWizard(std::shared_ptr<vc::device::DeviceManager> mng,
                                  const QString &taskName,

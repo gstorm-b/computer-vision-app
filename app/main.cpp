@@ -14,7 +14,7 @@
 #include <QtAssert>
 #include <pylon/PylonIncludes.h>
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 
 int main(int argc, char *argv[]) {
     // pylon runtime initialize

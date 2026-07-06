@@ -9,7 +9,7 @@
 #include "widgets/vision/vision_result_viewer_widget.h"
 #include "form/widgets/status_lamp.h"
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 #include "model/project.h"
 #include "model/localization_fault_code.h"
 #include "device/device_manager.h"

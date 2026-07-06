@@ -1,6 +1,6 @@
 #include "devices_monitor_widget.h"
 #include "device_row_delegate.h"
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 
 #include <QFile>
 #include <QFont>

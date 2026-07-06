@@ -2,7 +2,7 @@
 #define BASLER_DEFINE_H
 
 #include <QJsonObject>
-#include "utils/meta_utils.h"
+#include "core/utils/meta_utils.h"
 
 #include <pylon/PylonIncludes.h>
 #include <pylon/_BaslerUniversalCameraParams.h>

@@ -47,7 +47,7 @@
 
 #include "DockWidget.h"
 // #include "ads_globals.h"
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 
 /**
  * Returns a random number from 0 to highest - 1

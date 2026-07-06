@@ -15,7 +15,7 @@ include($$ROOT_DIR/components/RobotKinematics/robotkinematics.pri)
 
 SOURCES += \
     main.cpp \
-    $$ROOT_DIR/src/app_settings/app_settings.cpp \
+    $$ROOT_DIR/src/core/app_settings/app_settings.cpp \
     $$ROOT_DIR/src/calibration/calibration_board.cpp \
     $$ROOT_DIR/src/calibration/calibration_board_factory.cpp \
     $$ROOT_DIR/src/calibration/calibrator.cpp \
@@ -32,7 +32,7 @@ SOURCES += \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_client_device.cpp \
     $$ROOT_DIR/src/device/robot/kawasaki_robot_device.cpp \
     $$ROOT_DIR/src/device/robot/nachi_robot_device.cpp \
-    $$ROOT_DIR/src/logger/app_logger.cpp \
+    $$ROOT_DIR/src/core/logger/app_logger.cpp \
     $$ROOT_DIR/src/matching/image_matcher.cpp \
     $$ROOT_DIR/src/matching/imatch_type_config.cpp \
     $$ROOT_DIR/src/matching/match_group.cpp \
@@ -51,12 +51,12 @@ SOURCES += \
     $$ROOT_DIR/src/model/task_factory.cpp \
     $$ROOT_DIR/src/model/task_localization.cpp \
     $$ROOT_DIR/src/runtime/task_runner.cpp \
-    $$ROOT_DIR/src/utils/theme_manager.cpp \
+    $$ROOT_DIR/src/core/utils/theme_manager.cpp \
     $$ROOT_DIR/src/widgets/vision/vision_geometry.cpp \
     $$ROOT_DIR/src/widgets/vision/vision_result_adapter.cpp
 
 HEADERS += \
-    $$ROOT_DIR/src/app_settings/app_settings.h \
+    $$ROOT_DIR/src/core/app_settings/app_settings.h \
     $$ROOT_DIR/src/calibration/calibration_board.h \
     $$ROOT_DIR/src/calibration/calibration_board_factory.h \
     $$ROOT_DIR/src/calibration/calibrator.h \
@@ -100,7 +100,7 @@ HEADERS += \
     $$ROOT_DIR/src/device/robot/nachi_robot_config.h \
     $$ROOT_DIR/src/device/robot/nachi_robot_device.h \
     $$ROOT_DIR/src/device/robot/robot_device.h \
-    $$ROOT_DIR/src/logger/app_logger.h \
+    $$ROOT_DIR/src/core/logger/app_logger.h \
     $$ROOT_DIR/src/matching/edge_match_config.h \
     $$ROOT_DIR/src/matching/image_matcher.h \
     $$ROOT_DIR/src/matching/imatch_type_config.h \
@@ -133,7 +133,7 @@ HEADERS += \
     $$ROOT_DIR/src/model/task_factory.h \
     $$ROOT_DIR/src/model/task_localization.h \
     $$ROOT_DIR/src/model/task_localization_config.h \
-    $$ROOT_DIR/src/qgadget_marco.h \
+    $$ROOT_DIR/src/core/qgadget_macro.h \
     $$ROOT_DIR/src/runtime/device_command.h \
     $$ROOT_DIR/src/runtime/device_command_queue.h \
     $$ROOT_DIR/src/runtime/camera_runner.h \
@@ -142,8 +142,8 @@ HEADERS += \
     $$ROOT_DIR/src/runtime/plc_runner.h \
     $$ROOT_DIR/src/runtime/task_runner.h \
     $$ROOT_DIR/src/runtime/vision_output_runner.h \
-    $$ROOT_DIR/src/utils/meta_utils.h \
-    $$ROOT_DIR/src/utils/theme_manager.h \
+    $$ROOT_DIR/src/core/utils/meta_utils.h \
+    $$ROOT_DIR/src/core/utils/theme_manager.h \
     $$ROOT_DIR/src/widgets/vision/vision_geometry.h \
     $$ROOT_DIR/src/widgets/vision/vision_overlay_types.h \
     $$ROOT_DIR/src/widgets/vision/vision_result_adapter.h

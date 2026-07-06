@@ -6,7 +6,7 @@
 #include "widgets/camera_workspace_widget.h"
 #include "form/task/workspace_setting_dialog.h"
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 #include "model/project.h"
 #include "device/device_capabilities.h"
 #include "device/device_manager.h"

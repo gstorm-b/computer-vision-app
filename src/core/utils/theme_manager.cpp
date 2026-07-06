@@ -1,6 +1,6 @@
 #include "theme_manager.h"
-#include "app_settings/app_settings.h"
-#include "logger/app_logger.h"
+#include "core/app_settings/app_settings.h"
+#include "core/logger/app_logger.h"
 
 #include <QApplication>
 #include <QFile>

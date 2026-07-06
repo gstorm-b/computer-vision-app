@@ -1,6 +1,6 @@
 #include "signals_map_widget.h"
 
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 
 #include <QAbstractItemView>
 #include <QCompleter>

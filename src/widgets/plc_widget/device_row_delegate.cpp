@@ -1,5 +1,5 @@
 #include "device_row_delegate.h"
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 
 #include <QAbstractItemModel>
 #include <QAbstractItemView>

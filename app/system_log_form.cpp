@@ -1,7 +1,7 @@
 #include "system_log_form.h"
 #include "ui_system_log_form.h"
 
-#include "utils/theme_manager.h"
+#include "core/utils/theme_manager.h"
 
 #include <QComboBox>
 #include <QFile>

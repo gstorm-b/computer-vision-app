@@ -8,8 +8,8 @@
 #include "model/task_device_binding.h"
 #include "model/camera_workspace.h"
 #include "matching/pattern_group_manager.h"
-#include "qgadget_marco.h"
-#include "logger/app_logger.h"
+#include "core/qgadget_macro.h"
+#include "core/logger/app_logger.h"
 
 namespace vc::model {
 

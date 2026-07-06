@@ -2,7 +2,7 @@
 #define TASK_DEFINE_H
 
 
-#include "utils/meta_utils.h"
+#include "core/utils/meta_utils.h"
 
 namespace vc::model {
 Q_NAMESPACE

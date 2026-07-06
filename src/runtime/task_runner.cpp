@@ -5,7 +5,7 @@
 #include "runtime/vision_output_runner.h"
 #include "device/camera/camera_device.h"
 #include "device/plc/plc_device.h"
-#include "logger/app_logger.h"
+#include "core/logger/app_logger.h"
 
 #include <QEventLoop>
 

@@ -10,7 +10,7 @@ resolver, meta/gadget helpers, settings keys, Windows API helpers (`utils/`).
 
 **May include.** Qt, standard library, other `core/` headers only.
 **Must NOT include.** Any other module (`device/`, `matching/`, `model/`,
-`runtime/`, `form/`, `widgets/`, `libwg/`, `app/`). Enforced by
+`runtime/`, `ui/`, `app/`). Enforced by
 `tests/architecture_contract_test` (include-layering contract).
 
 **Invariants.**

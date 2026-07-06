@@ -9,7 +9,7 @@ checking (consumes `components/RobotKinematics`).
 **May include.** Qt, `core/`, `device/`, `calibration/`, `matching/`,
 `runtime/` (model and runtime are the same level and may include each
 other), `components/RobotKinematics`.
-**Must NOT include.** UI (`form/`, `widgets/`, `libwg/`), `app/`.
+**Must NOT include.** UI (`ui/`), `app/`.
 Enforced by the architecture contract test.
 
 **Invariants.**

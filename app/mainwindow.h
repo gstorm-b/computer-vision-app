@@ -17,7 +17,7 @@
 #include "model/project_repository.h"
 #include "model/project.h"
 
-#include "form/project_infor_setting.h"
+#include "ui/forms/project_infor_setting.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

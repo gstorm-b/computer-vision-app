@@ -40,7 +40,7 @@ nmake /nologo
 |---|---|
 | `ncr_picking.pro` | Root qmake project — includes one `.pri` per module, no file lists of its own |
 | `app/` | Application shell: entry point, main window, translations (`app/app.pri`) |
-| `src/<module>/` | Domain modules, one `.pri` each: `core` (settings/logger/utils), `device`, `calibration`, `matching`, `model`, `runtime`, `form`, `widgets`, `libwg` |
+| `src/<module>/` | Domain modules, one `.pri` each: `core` (settings/logger/utils), `device`, `calibration`, `matching`, `model`, `runtime`, `ui` (forms + widgets) |
 | `components/` | Reusable libraries with their own tests/docs (RobotKinematics) |
 | `3rdparty/` | Vendored third-party code and prebuilt dependency trees |
 | `qmake/` | Shared qmake dependency includes (OpenCV, Pylon, deployment) |
@@ -54,6 +54,7 @@ nmake /nologo
 ## Module dependency rule
 
 Lower layers must not include higher ones:
-`core` → (`device`, `matching`, `calibration`) → (`model`, `runtime`) → UI (`form`, `widgets`, `libwg`) → app shell.
-`components/*` stay standalone. Enforced conventions live in
+`core` → (`device`, `matching`, `calibration`) → (`model`, `runtime`) → `ui` → app shell.
+`components/*` stay standalone. The rule is enforced by
+`tests/architecture_contract_test`; conventions live in
 [docs/rules/design_rules.md](docs/rules/design_rules.md).

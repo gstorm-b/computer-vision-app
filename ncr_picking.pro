@@ -23,9 +23,7 @@ include(src/calibration/calibration.pri)    # level 1: calibration
 include(src/matching/matching.pri)          # level 1: pattern matching
 include(src/model/model.pri)                # level 2: project/task/pipeline
 include(src/runtime/runtime.pri)            # level 2: per-device runners
-include(src/form/form.pri)                  # UI: dialogs/wizards/pages
-include(src/widgets/widgets.pri)            # UI: reusable widgets
-include(src/libwg/libwg.pri)                # UI: widget primitives
+include(src/ui/ui.pri)                      # UI: forms (dialogs/wizards/pages) + widgets
 include(app/app.pri)                        # app shell (top level, owns translations)
 
 # Robot kinematics component (forward / inverse kinematics + optional Coal

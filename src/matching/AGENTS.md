@@ -11,7 +11,7 @@ vision utilities.
 **May include.** Qt, OpenCV, `core/`, other `matching/` headers.
 **Must NOT include.** UI, `model/`, `runtime/`, `device/`. Enforced by the
 architecture contract test. The property-browser adapter for match configs
-lives UI-side in `src/widgets/property_browser/match_config_property_adapter.*`
+lives UI-side in `src/ui/widgets/property_browser/match_config_property_adapter.*`
 — keep it there.
 
 **Invariants.**

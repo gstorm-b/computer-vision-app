@@ -28,7 +28,7 @@
 #include "runtime/plc_runner.h"
 #include "runtime/task_runner.h"
 #include "runtime/vision_output_runner.h"
-#include "widgets/vision/vision_result_adapter.h"
+#include "ui/widgets/vision/vision_result_adapter.h"
 
 using namespace vc::device;
 using namespace vc::model;
@@ -1610,7 +1610,7 @@ private slots:
     //   level 0: core
     //   level 1: device, calibration, matching   (+ core)
     //   level 2: model, runtime                  (+ L0/L1; model<->runtime allowed)
-    //   UI     : form, widgets, libwg            (everything except app)
+    //   UI     : ui                              (everything except app)
     //   app    : everything
     // Scope: quoted includes whose first path segment is a known module name.
     // Same-directory includes (no slash), Qt/OpenCV angle includes, generated
@@ -1626,8 +1626,7 @@ private slots:
             QStringLiteral("core"),   QStringLiteral("device"),
             QStringLiteral("calibration"), QStringLiteral("matching"),
             QStringLiteral("model"),  QStringLiteral("runtime"),
-            QStringLiteral("form"),   QStringLiteral("widgets"),
-            QStringLiteral("libwg"),  QStringLiteral("app")
+            QStringLiteral("ui"),     QStringLiteral("app")
         };
 
         const QSet<QString> level01 = { QStringLiteral("core"),
@@ -1637,8 +1636,7 @@ private slots:
         QSet<QString> level2 = level01;
         level2 |= { QStringLiteral("model"), QStringLiteral("runtime") };
         QSet<QString> ui = level2;
-        ui |= { QStringLiteral("form"), QStringLiteral("widgets"),
-                QStringLiteral("libwg") };
+        ui |= { QStringLiteral("ui") };
         QSet<QString> all = ui;
         all |= { QStringLiteral("app") };
 
@@ -1655,9 +1653,7 @@ private slots:
             { QStringLiteral("core"), QStringLiteral("matching") };
         allowed[QStringLiteral("model")] = level2;
         allowed[QStringLiteral("runtime")] = level2;
-        allowed[QStringLiteral("form")] = ui;
-        allowed[QStringLiteral("widgets")] = ui;
-        allowed[QStringLiteral("libwg")] = ui;
+        allowed[QStringLiteral("ui")] = ui;
         allowed[QStringLiteral("app")] = all;
 
         const QRegularExpression includeRe(

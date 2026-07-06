@@ -32,7 +32,7 @@ Verification:
 
 - Project owner confirmed local compile has no errors.
 - Project owner completed manual UI testing and reported the result as acceptable.
-- PM spot-check reviewed the relevant implementation paths in `src/widgets/vision/`, `LocalizationPatternsWidget`, `LocalizationDashboardWidget`, and `WorkspaceSettingDialog`.
+- PM spot-check reviewed the relevant implementation paths in `src/ui/widgets/vision/`, `LocalizationPatternsWidget`, `LocalizationDashboardWidget`, and `WorkspaceSettingDialog`.
 
 Residual follow-up:
 
@@ -62,7 +62,7 @@ Required fix:
 
 Suggested touchpoint:
 
-- `src/widgets/vision/vision_canvas.cpp`, `VisionCanvas::rebuildOverlayItems()`.
+- `src/ui/widgets/vision/vision_canvas.cpp`, `VisionCanvas::rebuildOverlayItems()`.
 
 Acceptance:
 
@@ -84,9 +84,9 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/form/task/localization_patterns_widget.cpp`, `installVisionWidgets()`, `displayRawImage()`, `updateWorkspaceRoiOverlay()`.
-- `src/widgets/vision/vision_roi_editor_widget.*`.
-- `src/widgets/vision/vision_canvas.*`.
+- `src/ui/forms/task/localization_patterns_widget.cpp`, `installVisionWidgets()`, `displayRawImage()`, `updateWorkspaceRoiOverlay()`.
+- `src/ui/widgets/vision/vision_roi_editor_widget.*`.
+- `src/ui/widgets/vision/vision_canvas.*`.
 
 Acceptance:
 
@@ -110,9 +110,9 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/widgets/vision/vision_tool_palette.*`.
-- `src/widgets/vision/vision_result_viewer_widget.*`.
-- `src/form/task/localization_patterns_widget.cpp`.
+- `src/ui/widgets/vision/vision_tool_palette.*`.
+- `src/ui/widgets/vision/vision_result_viewer_widget.*`.
+- `src/ui/forms/task/localization_patterns_widget.cpp`.
 
 Acceptance:
 
@@ -136,8 +136,8 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/widgets/vision/vision_canvas.cpp`.
-- Existing ROI item classes if they are reused: `src/widgets/image_widget/item_roi.*`, `src/widgets/image_widget/item_roi_rotated.*`.
+- `src/ui/widgets/vision/vision_canvas.cpp`.
+- Existing ROI item classes if they are reused: `src/ui/widgets/image_widget/item_roi.*`, `src/ui/widgets/image_widget/item_roi_rotated.*`.
 
 Acceptance:
 
@@ -186,10 +186,10 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/widgets/vision/vision_canvas.cpp`, `setImage(const cv::Mat&)`, `setImage(const QPixmap&)`, `clearImage()`.
-- `src/widgets/vision/vision_geometry.cpp`, `pixmapFromMat()`.
-- `src/form/task/localization_dashboard_widget.cpp`, `updateCycleResult()`.
-- `src/form/task/localization_patterns_widget.cpp`, `displayResultOverlay()`.
+- `src/ui/widgets/vision/vision_canvas.cpp`, `setImage(const cv::Mat&)`, `setImage(const QPixmap&)`, `clearImage()`.
+- `src/ui/widgets/vision/vision_geometry.cpp`, `pixmapFromMat()`.
+- `src/ui/forms/task/localization_dashboard_widget.cpp`, `updateCycleResult()`.
+- `src/ui/forms/task/localization_patterns_widget.cpp`, `displayResultOverlay()`.
 
 Acceptance:
 
@@ -227,9 +227,9 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/form/task/workspace_setting_dialog.*`.
-- `src/form/task/localization_patterns_widget.*`.
-- `src/widgets/vision/vision_canvas.*` if the same label rendering utility can be reused for read-only ROI labels.
+- `src/ui/forms/task/workspace_setting_dialog.*`.
+- `src/ui/forms/task/localization_patterns_widget.*`.
+- `src/ui/widgets/vision/vision_canvas.*` if the same label rendering utility can be reused for read-only ROI labels.
 
 Acceptance:
 
@@ -253,8 +253,8 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/widgets/vision/vision_canvas.cpp`, result overlay rendering.
-- `src/widgets/vision/vision_overlay_types.h` only if extra style/status metadata is needed.
+- `src/ui/widgets/vision/vision_canvas.cpp`, result overlay rendering.
+- `src/ui/widgets/vision/vision_overlay_types.h` only if extra style/status metadata is needed.
 
 Acceptance:
 
@@ -278,11 +278,11 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/widgets/vision/vision_result_viewer_widget.*`.
-- `src/widgets/vision/vision_canvas.*`.
-- `src/widgets/vision/vision_overlay_types.h`.
-- `src/form/task/localization_patterns_widget.cpp`, result table wiring.
-- `src/form/task/localization_dashboard_widget.cpp`, dashboard result table wiring if feasible in the same pass.
+- `src/ui/widgets/vision/vision_result_viewer_widget.*`.
+- `src/ui/widgets/vision/vision_canvas.*`.
+- `src/ui/widgets/vision/vision_overlay_types.h`.
+- `src/ui/forms/task/localization_patterns_widget.cpp`, result table wiring.
+- `src/ui/forms/task/localization_dashboard_widget.cpp`, dashboard result table wiring if feasible in the same pass.
 
 Acceptance:
 
@@ -310,11 +310,11 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/widgets/vision/vision_canvas.*`.
-- `src/widgets/vision/vision_result_viewer_widget.*`.
-- `src/widgets/vision/vision_overlay_types.h`.
-- `src/form/task/localization_patterns_widget.cpp`, result table selection wiring.
-- `src/form/task/localization_dashboard_widget.cpp`, dashboard table selection wiring if feasible in the same pass.
+- `src/ui/widgets/vision/vision_canvas.*`.
+- `src/ui/widgets/vision/vision_result_viewer_widget.*`.
+- `src/ui/widgets/vision/vision_overlay_types.h`.
+- `src/ui/forms/task/localization_patterns_widget.cpp`, result table selection wiring.
+- `src/ui/forms/task/localization_dashboard_widget.cpp`, dashboard table selection wiring if feasible in the same pass.
 
 Acceptance:
 
@@ -344,10 +344,10 @@ Required fix:
 
 Suggested touchpoints:
 
-- `src/widgets/vision/vision_overlay_types.h`.
-- `src/widgets/vision/vision_result_adapter.*`.
-- `src/widgets/vision/vision_canvas.*`.
-- `src/widgets/vision/vision_result_viewer_widget.*`.
+- `src/ui/widgets/vision/vision_overlay_types.h`.
+- `src/ui/widgets/vision/vision_result_adapter.*`.
+- `src/ui/widgets/vision/vision_canvas.*`.
+- `src/ui/widgets/vision/vision_result_viewer_widget.*`.
 - `src/matching/match_object.h` only for reading existing public geometry; do not redesign matcher ownership in this task.
 
 Acceptance:
@@ -366,7 +366,7 @@ The implementation must keep workspace ROI editing in the existing workspace edi
 
 Implement in this phase:
 
-- Reusable widgets under `src/widgets`, preferably `src/widgets/vision/`.
+- Reusable widgets under `src/widgets`, preferably `src/ui/widgets/vision/`.
 - Shared image canvas with stable image-pixel coordinate mapping.
 - Compact tool palette only where a real edit workflow needs it.
 - Numeric inspector only where selected ROI coordinate editing is meaningful.
@@ -391,17 +391,17 @@ Defer:
 
 ## Existing Code Touchpoints
 
-- `src/widgets/image_widget/image_widget.*`  
+- `src/ui/widgets/image_widget/image_widget.*`  
   Existing editable `QGraphicsView` with image loading, pan/zoom, normal ROI, rotated ROI, right-click menu.
-- `src/widgets/image_widget/image_view_only.*`  
+- `src/ui/widgets/image_widget/image_view_only.*`  
   Existing read-only-ish image view with simple rectangle overlays.
-- `src/widgets/image_widget/item_roi.*`  
+- `src/ui/widgets/image_widget/item_roi.*`  
   Existing axis-aligned ROI item with handles.
-- `src/widgets/image_widget/item_roi_rotated.*`  
+- `src/ui/widgets/image_widget/item_roi_rotated.*`  
   Existing rotated ROI item with rotate handle.
-- `src/form/task/localization_patterns_widget.*`  
+- `src/ui/forms/task/localization_patterns_widget.*`  
   Pattern management, test image input, raw/result/binary monitor tabs, match result table.
-- `src/form/task/localization_dashboard_widget.*`  
+- `src/ui/forms/task/localization_dashboard_widget.*`  
   Runtime dashboard, match view, result rows, condition ROI overlay.
 - `src/matching/image_matcher.h`  
   `mtc::MatchResult` contains `Objects`, `cropOffsetPoint`, `ExecutionTime`, `Image`, image size, match/fault flags.
@@ -419,7 +419,7 @@ Do not delete `ImageWidget` or `ImageViewOnly` in this pass. Migrate localizatio
 Create a small vision widget module:
 
 ```text
-src/widgets/vision/
+src/ui/widgets/vision/
   vision_geometry.h/.cpp
   vision_overlay_types.h
   vision_canvas.h/.cpp
@@ -652,8 +652,8 @@ Exit gate:
 
 Primary target:
 
-- `src/form/task/localization_patterns_widget.*`
-- `src/form/task/localization_patterns_widget.ui`
+- `src/ui/forms/task/localization_patterns_widget.*`
+- `src/ui/forms/task/localization_patterns_widget.ui`
 
 Required behavior:
 
@@ -676,8 +676,8 @@ Result test view:
 
 Primary target:
 
-- `src/form/task/localization_dashboard_widget.*`
-- `src/form/task/localization_dashboard_widget.ui`
+- `src/ui/forms/task/localization_dashboard_widget.*`
+- `src/ui/forms/task/localization_dashboard_widget.ui`
 
 Required behavior:
 
@@ -789,7 +789,7 @@ Review these before accepting the agent's implementation:
 
 ## Implementation Record
 
-- 2026-06-27: First implementation added `src/widgets/vision/` and integrated it into `LocalizationPatternsWidget` and `LocalizationDashboardWidget`.
+- 2026-06-27: First implementation added `src/ui/widgets/vision/` and integrated it into `LocalizationPatternsWidget` and `LocalizationDashboardWidget`.
 - 2026-06-27: Implementing agent reported architecture contract test passed after adapter coverage for crop-offset/result mapping.
 - 2026-06-27: Implementing agent reported focused root-app compile of changed widgets/forms passed.
 - 2026-06-27: Project owner confirmed full app compile completed with no errors.

@@ -151,4 +151,4 @@ human inspection — there is no automated test for appearance).
 2. Replace the raw values in `resrc/styles/*.qss` with the new `@{token}` forms
    (heaviest files: `localization_task_widget_*`, `add_device_wizard_*`).
 3. If any painted (non-QSS) surface uses the same identity colours, mirror them in
-   `src/form/pattern/pattern_theme.h` (see `docs/rules/ui_design_rules.md`).
+   `src/ui/forms/pattern/pattern_theme.h` (see `docs/rules/ui_design_rules.md`).

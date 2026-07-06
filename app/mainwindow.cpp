@@ -15,9 +15,9 @@
 #include "DockWidget.h"
 #include "FloatingDockContainer.h"
 
-// #include "form/navigate_form.h"
-#include "form/new_project_dialog.h"
-#include "form/add_device_wizard.h"
+// #include "ui/forms/navigate_form.h"
+#include "ui/forms/new_project_dialog.h"
+#include "ui/forms/add_device_wizard.h"
 
 #include <QInputDialog>
 
@@ -26,13 +26,13 @@
 #include "device/camera/camera_basler_gige.h"
 #include "device/plc/mc_protocol_device.h"
 
-#include "form/camera/basler_camera_widget.h"
-#include "form/plc/mitsubishi_mc_device_widget.h"
+#include "ui/forms/camera/basler_camera_widget.h"
+#include "ui/forms/plc/mitsubishi_mc_device_widget.h"
 
 #include "model/task_localization.h"
-#include "form/task/localization_task_widget.h"
-#include "form/task/localization_dashboard_widget.h"
-#include "form/task/localization_patterns_widget.h"
+#include "ui/forms/task/localization_task_widget.h"
+#include "ui/forms/task/localization_dashboard_widget.h"
+#include "ui/forms/task/localization_patterns_widget.h"
 
 using namespace ads;
 using Project     = vc::model::Project;

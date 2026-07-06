@@ -1,7 +1,7 @@
 # Model module (dependency level 2): project/task persistence, task
 # lifecycle, localization pipeline and runtime controller.
 # May depend on: core, device, matching, calibration, components.
-# Must not include UI (form/widgets/libwg).
+# Must not include UI (ui/).
 
 SOURCES += \
     $$PWD/itask.cpp \

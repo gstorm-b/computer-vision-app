@@ -11,8 +11,8 @@ Plus `DeviceFactory`, `DeviceRegistry`, `DeviceManager`.
 **May include.** Qt, `core/`, other `device/` headers, `calibration/`
 (camera devices own their `Calibrator`; calibration never includes device
 back), vendor SDKs (Pylon via env-var include paths).
-**Must NOT include.** `model/`, `runtime/`, `matching/`, any UI (`form/`,
-`widgets/`, `libwg/`), `app/`. Enforced by the architecture contract test.
+**Must NOT include.** `model/`, `runtime/`, `matching/`, any UI (`ui/`),
+`app/`. Enforced by the architecture contract test.
 
 **Invariants.**
 - Every new device subtype must update: enum/string conversion, factory

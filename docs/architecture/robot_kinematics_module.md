@@ -90,7 +90,7 @@ The RPY convention is fixed-axis roll(X)/pitch(Y)/yaw(Z), composed as
   the shared `VisionOutputDeviceCfg` base, so both the TCP server and client
   transports carry it; serialized under the `RobotKinematicCheck` JSON key.
 - **Widget** — `RobotKinematicCheckWidget`
-  ([src/form/vision_output/](../../src/form/vision_output/robot_kinematic_check_widget.cpp)):
+  ([src/ui/forms/vision_output/](../../src/ui/forms/vision_output/robot_kinematic_check_widget.cpp)):
   enable checkbox, **self-collision (mesh) checkbox**, preset selector (only
   **"Nachi MZ04D"**), and TCP offset fields. Embedded in both
   `VisionTcpipDeviceWidget` and `VisionTcpipClientDeviceWidget`. Also hosts a

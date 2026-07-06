@@ -259,7 +259,7 @@ Touching only one layer will leave visible mismatches.
 5. If the accent changed, re-derive `panel.accent.*` tokens and audit the
    `LocalizationTaskWidget` nav-panel QSS sections.
 6. If the accent changed, update
-   [src/form/pattern/pattern_theme.h](../../src/form/pattern/pattern_theme.h) and
+   [src/ui/forms/pattern/pattern_theme.h](../../src/ui/forms/pattern/pattern_theme.h) and
    any other C++ painted-surface token headers.
 7. Build and test both dark and light in the running app. QSS cannot be fully
    validated by the type-checker or test suite; visual inspection is mandatory.

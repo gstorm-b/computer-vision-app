@@ -1,6 +1,6 @@
 # Vendored Qt Solutions property browser, consumed as source by the root app.
 # Do not modify vendored files for app features; app-side extensions live in
-# src/widgets/property_browser/.
+# src/ui/widgets/property_browser/.
 # The legacy qtpropertybrowser.pri in this folder is part of the original
 # Qt Solutions distribution (expects ../common.pri) and is not used.
 # App code includes these headers as "qtpropertybrowser/<name>" via the

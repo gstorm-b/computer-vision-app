@@ -12,8 +12,8 @@ how to pick it up.
 (warning-flagged) tags to `""` and returns the list of `internalName`s now
 empty. Currently nothing in the codebase calls it.
 
-**Where.** `src/widgets/signals_map_widget.{h,cpp}`, called from a not-yet-
-chosen point in `src/form/task/localization_setting_widget.cpp`.
+**Where.** `src/ui/widgets/signals_map_widget.{h,cpp}`, called from a not-yet-
+chosen point in `src/ui/forms/task/localization_setting_widget.cpp`.
 
 **Why deferred.** Caller policy is a UX decision: validate on Save? On Apply?
 On commission start? Calling it eagerly inside `loadConfigToTask()` would
@@ -98,7 +98,7 @@ log lines stay readable after toggling the active theme.
 
 ## 3. `CalibrationBoardDialog` — preset-only selection
 
-**What.** The dialog at `src/widgets/calibration/calibration_board_dialog.{h,cpp}`
+**What.** The dialog at `src/ui/widgets/calibration/calibration_board_dialog.{h,cpp}`
 only lets the user choose a named preset from
 `CalibrationBoardFactory::availablePresets()`. There is no way to author
 a custom `FanucIRvisionBoard::Params` (custom rows/cols/spacing/margins).
@@ -148,7 +148,7 @@ without warning.
 
 **What was done.**
 - Added `applyDuplicateWarnings()` in
-  `src/widgets/camera_mapping_widget.cpp`, called from `onDataChanged()`.
+  `src/ui/widgets/camera_mapping_widget.cpp`, called from `onDataChanged()`.
 - Later rows whose `nameWidget->userData()` repeats an earlier camera id now
   get `duplicateCamera=true` on the row and `mappingWarning="duplicate"` on the
   visible camera label.
@@ -187,7 +187,7 @@ abstraction before the second vendor exists.
 
 ## 7. `AddDeviceWizard` — no Robot card
 
-**What.** The wizard at `src/form/add_device_wizard.{h,cpp,ui}` currently
+**What.** The wizard at `src/ui/forms/add_device_wizard.{h,cpp,ui}` currently
 has cards for Camera, MC and VisionOutput only. Robot devices cannot be
 created through the UI, even though `DeviceFactory::createRobotDevice`
 and `DeviceManager::getSubDeviceTypeList(Robot)` are both wired.
@@ -299,8 +299,8 @@ site, just not at the widget boundary.
 **How to pick up.** Replace `static_cast` with `qobject_cast` plus a
 nullptr check that logs `LOG_DEV_ERR` and disables the widget surface
 (no crash, just no-op). Touchpoints:
-- `src/form/camera/basler_camera_widget.cpp` ~ line 225.
-- `src/form/vision_output/vision_tcpip_device_widget.cpp` ~ line 139.
+- `src/ui/forms/camera/basler_camera_widget.cpp` ~ line 225.
+- `src/ui/forms/vision_output/vision_tcpip_device_widget.cpp` ~ line 139.
 
 ---
 
@@ -358,7 +358,7 @@ own protocol-level options (different frame types, different addressing).
 (`cbxMcFrameType`, `cbxMcCode`, `lblMcFrame`, `lblMcCode`) still use
 the `Mc` prefix.
 
-**Where.** `src/form/add_device_wizard.ui` around the visionOutput-page
+**Where.** `src/ui/forms/add_device_wizard.ui` around the visionOutput-page
 neighbourhood.
 
 **Status.** Cosmetic only. The widgets belong to the Mitsubishi MC
@@ -470,7 +470,7 @@ content stack from the top down (`idx = count()-1 … 0`), so `removeWidget()`
 shifting higher indices can no longer skip the page that slides into a vacated
 slot. Compiles in the full Debug app build.
 
-- Where. [localization_task_widget.cpp:470](../../src/form/task/localization_task_widget.cpp),
+- Where. [localization_task_widget.cpp:470](../../src/ui/forms/task/localization_task_widget.cpp),
   `onTaskDevicesChanged()`. Loop iterates `content_stack` by ascending index and
   removes inside the loop; `removeWidget` shifts later indices down while `idx`
   still increments, so a page right after a removed one is never visited. Two
@@ -486,7 +486,7 @@ slot. Compiles in the full Debug app build.
 device pages are no longer torn down/evicted. Compiles in the full Debug app
 build (`localization_task_widget.cpp`).
 
-- Where. [localization_task_widget.cpp:479](../../src/form/task/localization_task_widget.cpp).
+- Where. [localization_task_widget.cpp:479](../../src/ui/forms/task/localization_task_widget.cpp).
   `removePropertyBrowserWidget(...)` and `m_devicePages.remove(deviceId)` sit
   outside the `if (!deviceIds.contains(deviceId))` guard, so they run for every
   page found — including live ones. Cache and stack desync; a later
@@ -501,7 +501,7 @@ build (`localization_task_widget.cpp`).
 `QWidget(parent)`. This pass also verified the base widget contract during the
 full Debug app build.
 
-- Where. [device_widget.h:12](../../src/form/device_widget.h). `IDeviceWidget(QWidget *parent = nullptr) {}`
+- Where. [device_widget.h:12](../../src/ui/forms/device_widget.h). `IDeviceWidget(QWidget *parent = nullptr) {}`
   has an empty init list, so `QWidget` is default-constructed and `parent` is
   discarded. Subclasses forward `parent` expecting parent-child ownership.
 - Note. Base class is outside the reviewed changeset but every device widget
@@ -577,7 +577,7 @@ architecture contract suite (38 passed) and the full Debug app build.
 `~IDeviceWidget() override = default;` and `Q_DISABLE_COPY_MOVE(IDeviceWidget)`.
 The full Debug app build passed after moc regeneration.
 
-- Where. [device_widget.h:8](../../src/form/device_widget.h). Declares pure virtuals
+- Where. [device_widget.h:8](../../src/ui/forms/device_widget.h). Declares pure virtuals
   but no explicit virtual destructor and no `Q_DISABLE_COPY_MOVE`.
 - How to fix. Add `Q_DISABLE_COPY_MOVE(IDeviceWidget)` and
   `~IDeviceWidget() override = default;`. (Base class — coordinate with 22.5.)
@@ -588,7 +588,7 @@ The full Debug app build passed after moc regeneration.
 `nullptr`; `initWidget()` assigns it only after a successful `qobject_cast`, and
 `saveConfig()` returns early when the typed device is unavailable.
 
-- Where. [vision_tcpip_device_widget.h:54](../../src/form/vision_output/vision_tcpip_device_widget.h).
+- Where. [vision_tcpip_device_widget.h:54](../../src/ui/forms/vision_output/vision_tcpip_device_widget.h).
   No in-class initializer; assigned only inside `if (m_device)` in `initWidget()`,
   but `saveConfig()` derefs unconditionally. The factory currently guards device
   null, so the bad path is not reachable today — but the invariant is implicit.
@@ -606,7 +606,7 @@ were stale. Verified by the architecture contract suite (38 passed).
 - Where. [task_localization.cpp:85-95](../../src/model/task_localization.cpp).
   `cameraRunner()` / `plcRunner()` call `taskRunner()->runnerFor(...)` with no
   guard, while the task widget treats `taskRunner()` as possibly null
-  ([localization_task_widget.cpp:781](../../src/form/task/localization_task_widget.cpp)).
+  ([localization_task_widget.cpp:781](../../src/ui/forms/task/localization_task_widget.cpp)).
 - How to fix. Add a null guard returning nullptr for consistency.
 
 **22.13 — Reconnect `SingleShotConnection` re-arms against the wrong camera.**
@@ -652,7 +652,7 @@ was also silently missing `Connecting`). `connectStatusName` was already
 exhaustive. Verified by contract suite (38 passed) + full Debug app build.
 
 - Where. [task_localization.cpp:347](../../src/model/task_localization.cpp),
-  [vision_tcpip_device_widget.cpp:224](../../src/form/vision_output/vision_tcpip_device_widget.cpp).
+  [vision_tcpip_device_widget.cpp:224](../../src/ui/forms/vision_output/vision_tcpip_device_widget.cpp).
 - How to fix. Enumerate every `ConnectStatus` value explicitly (no-ops with
   `break;`) and drop `default:` so `-Wswitch` flags additions.
 
@@ -665,9 +665,9 @@ the header that already owns the `"<prop>_name"` Q_CLASSINFO convention.
 `readConfigField`) and `vision_tcpip_device_widget`'s property dispatch now both
 route through it. Verified by contract suite (38 passed) + full Debug app build.
 
-- Where. [localization_setting_widget.cpp:62](../../src/form/task/localization_setting_widget.cpp)
+- Where. [localization_setting_widget.cpp:62](../../src/ui/forms/task/localization_setting_widget.cpp)
   (`readConfigField`/`writeConfigField`) and
-  [vision_tcpip_device_widget.cpp:166](../../src/form/vision_output/vision_tcpip_device_widget.cpp)
+  [vision_tcpip_device_widget.cpp:166](../../src/ui/forms/vision_output/vision_tcpip_device_widget.cpp)
   re-implement the "indexOfProperty → write/readOnGadget" pattern and class-info
   `_name` resolution independently.
 - How to fix. Extract a shared `gadget_meta` helper and call from both.
@@ -694,7 +694,7 @@ now navigate with `setCurrentWidget(m_…Page)` instead of
 stack index (pages are inserted lazily in click order) no longer has to equal
 its preferred slot. Compiles in the full Debug app build.
 
-- Where. [localization_task_widget.cpp:616](../../src/form/task/localization_task_widget.cpp).
+- Where. [localization_task_widget.cpp:616](../../src/ui/forms/task/localization_task_widget.cpp).
   `kDashboardPage/kSettingsPage/kPatternsPage` are used both as `insertWidget`
   positions and `setCurrentIndex` targets, but pages are created lazily in user
   order, mixed with `setCurrentWidget(...)` navigation elsewhere.
@@ -724,7 +724,7 @@ widget's `saveConfig()` surfaces a user-facing `LOG_USER_WARN` on false instead
 of silently dropping the edit. Verified by contract suite (38 passed) + full
 Debug app build.
 
-- Where. [vision_tcpip_device_widget.cpp:208](../../src/form/vision_output/vision_tcpip_device_widget.cpp).
+- Where. [vision_tcpip_device_widget.cpp:208](../../src/ui/forms/vision_output/vision_tcpip_device_widget.cpp).
   `setVisionTcpipConfig(m_config)` result is discarded; called after every edit
   with no success/failure feedback.
 - How to fix. If the setter can fail or persists to disk, return a status and
@@ -737,7 +737,7 @@ in use") is now logged before the field is reverted, in all four device widgets
 that share the rename idiom (basler, mitsubishi, vision_tcpip, vision_tcpip
 client). Verified by the full Debug app build.
 
-- Where. [vision_tcpip_device_widget.cpp:190](../../src/form/vision_output/vision_tcpip_device_widget.cpp).
+- Where. [vision_tcpip_device_widget.cpp:190](../../src/ui/forms/vision_output/vision_tcpip_device_widget.cpp).
   When `changeDeviceName` returns false the field is reset with no user-visible
   reason. Same silent idiom as the basler / mc_protocol widgets — uniform but
   uniformly silent on a user-facing failure.
@@ -863,8 +863,8 @@ around a theme-aware `svgIcon()` helper backed by `ThemeManager::themedIcon()`.
   without needing per-call-site rewrites.
 - Direct pixmap consumers that store icon pixels in `QLabel` were refreshed on
   `themeChanged`:
-  - `src/form/add_device_wizard.cpp` card icons
-  - `src/form/widgets/device_nav_item_widget.cpp` nav-item icon label
+  - `src/ui/forms/add_device_wizard.cpp` card icons
+  - `src/ui/widgets/controls/device_nav_item_widget.cpp` nav-item icon label
 - `docs/rules/ui_design_rules.md` Rule 4.4 was updated to match the implemented
   convention: use `svgIcon(basePath)` as the normal entrypoint, fall back to the
   base asset when no `_dark` sibling exists, and explicitly refresh stored

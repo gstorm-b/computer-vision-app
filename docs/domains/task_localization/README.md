@@ -34,8 +34,8 @@ extending the localization runtime, not an operator manual.
 | Recovery policy | `src/model/localization_recovery_policy.h` |
 | Matching facade | `src/model/localization_pipeline.h`, `src/model/localization_pipeline.cpp` |
 | Runtime runners | `src/runtime/camera_runner.h`, `src/runtime/plc_runner.h`, `src/runtime/vision_output_runner.h` |
-| Dashboard | `src/form/task/localization_dashboard_widget.*` |
-| Settings UI | `src/form/task/localization_setting_widget.*` |
+| Dashboard | `src/ui/forms/task/localization_dashboard_widget.*` |
+| Settings UI | `src/ui/forms/task/localization_setting_widget.*` |
 | Architecture diagrams | `uml/03_runtime_threading.puml`, `uml/04_localization_task.puml` |
 | Contract tests | `tests/architecture_contract_test/main.cpp` |
 

@@ -6,7 +6,7 @@ thread set), per-device runners (`CameraRunner`, `PlcRunner`,
 
 **May include.** Qt, `core/`, `device/`, `model/` (model and runtime are the
 same level and may include each other).
-**Must NOT include.** UI (`form/`, `widgets/`, `libwg/`), `app/`.
+**Must NOT include.** UI (`ui/`), `app/`.
 Enforced by the architecture contract test.
 
 **Invariants.**

@@ -9,7 +9,7 @@ Source audit: `docs/backlog/qss_reusable_widget_candidates.md`
 Design authority: `docs/rules/ui_design_rules.md`
 
 Goal: remove repeated per-form QSS for reusable controls by promoting them to
-thin widget subclasses under `src/form/widgets/` and styling them once in the
+thin widget subclasses under `src/ui/widgets/controls/` and styling them once in the
 global theme files `resrc/styles/dark.qss` and `resrc/styles/light.qss`.
 
 ## Ground Rules
@@ -37,16 +37,16 @@ Widgets to introduce:
 
 Recommended location:
 
-- `src/form/widgets/connection_state_dot.h/.cpp`
-- `src/form/widgets/connection_state_label.h/.cpp`
-- `src/form/widgets/connection_action_button.h/.cpp`
-- `src/form/widgets/send_state_hint_label.h/.cpp`
+- `src/ui/widgets/controls/connection_state_dot.h/.cpp`
+- `src/ui/widgets/controls/connection_state_label.h/.cpp`
+- `src/ui/widgets/controls/connection_action_button.h/.cpp`
+- `src/ui/widgets/controls/send_state_hint_label.h/.cpp`
 
 Affected forms:
 
-- `src/form/plc/mitsubishi_mc_device_widget.ui`
-- `src/form/vision_output/vision_tcpip_device_widget.ui`
-- `src/form/vision_output/vision_tcpip_client_device_widget.ui`
+- `src/ui/forms/plc/mitsubishi_mc_device_widget.ui`
+- `src/ui/forms/vision_output/vision_tcpip_device_widget.ui`
+- `src/ui/forms/vision_output/vision_tcpip_client_device_widget.ui`
 
 Affected QSS:
 
@@ -109,12 +109,12 @@ Widget to introduce:
 
 Recommended location:
 
-- `src/form/widgets/flat_list_widget.h/.cpp`
+- `src/ui/widgets/controls/flat_list_widget.h/.cpp`
 
 Affected widgets:
 
-- `src/widgets/camera_mapping_widget.*`
-- `src/widgets/signals_monitor_widget.*`
+- `src/ui/widgets/camera_mapping_widget.*`
+- `src/ui/widgets/signals_monitor_widget.*`
 
 Affected QSS:
 
@@ -159,11 +159,11 @@ Widget to introduce:
 
 Recommended location:
 
-- `src/form/widgets/compact_combo_box.h/.cpp`
+- `src/ui/widgets/controls/compact_combo_box.h/.cpp`
 
 Affected forms:
 
-- `src/form/add_device_wizard.ui`
+- `src/ui/forms/add_device_wizard.ui`
 - `app/system_log_form.ui`
 
 Affected QSS:
@@ -206,7 +206,7 @@ Verification: user-reported app rebuild/compile passed after implementation.
 Implementation note:
 
 - The codebase already had a separate composite `StatusLamp` widget under
-  `src/form/widgets/status_lamp.*` before this phase.
+  `src/ui/widgets/controls/status_lamp.*` before this phase.
 - This phase therefore promoted the remaining raw controls in
   `LocalizationTaskWidget` as:
   - `StatusLampDot : QFrame`
@@ -218,12 +218,12 @@ Implementation note:
 
 Affected files:
 
-- `src/form/task/localization_task_widget.cpp`
-- `src/form/task/localization_task_widget.h`
-- `src/form/widgets/status_lamp_dot.h/.cpp`
-- `src/form/widgets/status_text_label.h/.cpp`
-- `src/form/widgets/device_nav_item_widget.h/.cpp`
-- `src/form/widgets/device_nav_dot.h/.cpp`
+- `src/ui/forms/task/localization_task_widget.cpp`
+- `src/ui/forms/task/localization_task_widget.h`
+- `src/ui/widgets/controls/status_lamp_dot.h/.cpp`
+- `src/ui/widgets/controls/status_text_label.h/.cpp`
+- `src/ui/widgets/controls/device_nav_item_widget.h/.cpp`
+- `src/ui/widgets/controls/device_nav_dot.h/.cpp`
 - `resrc/styles/localization_task_widget_dark.qss`
 - `resrc/styles/localization_task_widget_light.qss`
 - `resrc/styles/dark.qss`
@@ -264,9 +264,9 @@ Widgets introduced:
 
 Affected files:
 
-- `src/widgets/signals_monitor_widget.cpp`
-- `src/form/widgets/type_chip_label.h/.cpp`
-- `src/form/widgets/state_pill_label.h/.cpp`
+- `src/ui/widgets/signals_monitor_widget.cpp`
+- `src/ui/widgets/controls/type_chip_label.h/.cpp`
+- `src/ui/widgets/controls/state_pill_label.h/.cpp`
 - `resrc/styles/signals_monitor_widget_dark.qss`
 - `resrc/styles/signals_monitor_widget_light.qss`
 - `resrc/styles/dark.qss`

@@ -105,14 +105,16 @@ files in that module's `.pri` — never in `ncr_picking.pro`.
 | matching | `src/matching/` | 1 |
 | model | `src/model/` | 2 |
 | runtime | `src/runtime/` | 2 |
-| form / widgets / libwg | `src/form/`, `src/widgets/`, `src/libwg/` | UI |
+| ui (forms + widgets) | `src/ui/` | UI |
 | app shell (+translations) | `app/` | top |
 
 Include-layering rules (enforced by
 `tests/architecture_contract_test::test_module_include_layering_contract`):
 lower levels must not include higher ones; `model` and `runtime` may include
-each other; UI modules may include each other; only `app/` may include
-everything; no `../` escapes in quoted includes.
+each other; `device` may include `calibration` (cameras own a Calibrator);
+`ui` may include every non-UI module; only `app/` may include everything; no
+`../` escapes and no `src/`-prefixed quoted includes (module includes are
+rooted at `src/`, e.g. `core/...`, `ui/widgets/...`).
 
 Prebuilt third-party install trees under `3rdparty/` (Eigen, Coal, Boost,
 Assimp) are provisioned locally and NOT tracked in git — see

@@ -10,7 +10,7 @@ Two kinds of content live here. Only the first kind is tracked in git.
 | `qtpropertybrowser/` | Qt Solutions property browser, compiled into the app as source | `qtpropertybrowser_vendor.pri` included by the root `.pro` |
 
 Do not modify vendored files for app features. App-side property-browser
-extensions belong in `src/widgets/property_browser/`.
+extensions belong in `src/ui/widgets/property_browser/`.
 
 ## Provisioned locally (NOT tracked in git)
 

@@ -107,7 +107,7 @@ links to `uml_diagram/` from active docs once the old folder is deleted.
 **Priority.** P1
 
 **Status.** Implemented. `LocalizationTaskWidget` delegates device page
-creation to `src/form/device_widget_factory.*`.
+creation to `src/ui/forms/device_widget_factory.*`.
 
 **Depends on.** A00 recommended
 
@@ -116,7 +116,7 @@ creation to `src/form/device_widget_factory.*`.
 factory.
 
 **Implementation notes.**
-- Create a small UI factory, for example `src/form/device_widget_factory.*`.
+- Create a small UI factory, for example `src/ui/forms/device_widget_factory.*`.
 - Input should include:
   - `std::shared_ptr<vc::device::IDevice>`
   - `vc::runtime::IDeviceRunner*`

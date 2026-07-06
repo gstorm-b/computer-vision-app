@@ -8,6 +8,9 @@ TARGET    = architecture_contract_test
 
 ROOT_DIR  = $$PWD/../..
 
+# Absolute repo root for the include-layering contract scan.
+DEFINES += NCR_REPO_ROOT=\\\"$$clean_path($$ROOT_DIR)\\\"
+
 INCLUDEPATH += $$ROOT_DIR/src
 MOC_DIR = $$OUT_PWD/debug
 

@@ -1,0 +1,4 @@
+#ifndef KW_GET_COORDINATE_H
+#define KW_GET_COORDINATE_H
+
+#endif // KW_GET_COORDINATE_H

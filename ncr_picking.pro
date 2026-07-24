@@ -2,8 +2,7 @@ QT       += core gui network sql
 
 greaterThan(QT_MAJOR_VERSION, 5): QT += widgets
 
-CONFIG += c++17
-CONFIG += deploy_deps
+CONFIG += c++17 deploy_deps
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

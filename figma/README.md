@@ -37,9 +37,9 @@ so anyone updating the mocks can keep them in sync.
 
 | Mock | Code source |
 |---|---|
-| `current/00_design_system.svg` | `docs/rules/ui_theme_tokens.md`, `resrc/styles/dark.qss`, `src/utils/theme_manager.cpp` `tokenTable()` |
+| `current/00_design_system.svg` | `docs/rules/ui_theme_tokens.md`, `resrc/styles/dark.qss`, `src/core/utils/theme_manager.cpp` `tokenTable()` |
 | `current/01_main_window_dashboard.svg` | `mainwindow.ui`, `src/ui/forms/task/localization_task_widget.ui`, `src/ui/forms/task/localization_dashboard_widget.ui`, `src/ui/widgets/controls/status_lamp.*`, `src/ui/widgets/signals_monitor_widget.*` |
-| `current/02_patterns_view.svg` | `src/ui/forms/task/localization_patterns_widget.ui`, `src/ui/forms/pattern/pattern_canvas.*`, `src/ui/forms/pattern/pattern_setting_panel.*` |
+| `current/02_patterns_view.svg` | `src/ui/forms/task/localization_patterns_widget.ui`, `src/ui/forms/pattern/pattern_canvas.*` |
 | `current/03_settings_and_wizard.svg` | `src/ui/forms/task/localization_setting_widget.ui`, `src/ui/forms/add_device_wizard.ui`, `src/ui/widgets/signals_map_widget.*`, `src/ui/widgets/camera_mapping_widget.*` |
 
 ## Current-state findings

@@ -1,0 +1,270 @@
+{
+    "PosAndVel": {
+        "Actual_Position": [
+            "-15.148",
+            "-2.735",
+            "91.047",
+            "-0.003",
+            "86.226",
+            "164.847",
+            "422.047",
+            "-114.263",
+            "415.313",
+            "179.999",
+            "0.008",
+            "0.005"
+        ],
+        "Actual_Joint_Current": [
+            "-0.000",
+            "-0.000",
+            "0.010",
+            "-0.000",
+            "0.005",
+            "-0.005"
+        ],
+        "Actual_Joint_Velocity": [
+            "-0.000",
+            "-0.000",
+            "-0.000",
+            "0.020",
+            "-0.000",
+            "-0.000"
+        ],
+        "Actual_Joint_Acceleration": [
+            "-0.000",
+            "-0.000",
+            "0.000",
+            "-0.000",
+            "-0.000",
+            "-0.000"
+        ],
+        "Actual_PCS_TCP": [
+            "422.047",
+            "-114.263",
+            "415.313",
+            "179.999",
+            "0.008",
+            "0.005"
+        ],
+        "Actual_PCS_Base": [
+            "422.047",
+            "-114.263",
+            "415.313",
+            "179.999",
+            "0.008",
+            "0.005"
+        ],
+        "Actual_PCS_Tool": [
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000"
+        ],
+        "Actual_Override": "0.580"
+    },
+    "EndIO": {
+        "EndDI": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "EndDO": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "EndButton": [
+            0,
+            0,
+            0,
+            0
+        ],
+        "EnableEndBTN": 0,
+        "EndAI": [
+            "0.015",
+            "0.017"
+        ]
+    },
+    "ElectricBoxIO": {
+        "BoxCI": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "BoxCO": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "BoxDI": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "BoxDO": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "Conveyor": "0.000",
+        "Encode": 0
+    },
+    "ElectricBoxAnalogIO": {
+        "BoxAnalogOutMode_1": 0,
+        "BoxAnalogOutMode_2": 0,
+        "BoxAnalogOut_1": "4.000",
+        "BoxAnalogOut_2": "4.000",
+        "BoxAnalogIn_1": "-0.049",
+        "BoxAnalogIn_2": "-0.037"
+    },
+    "StateAndError": {
+        "robotState": 24,
+        "robotEnabled": 0,
+        "robotPaused": 0,
+        "robotMoving": 0,
+        "robotBlendingDone": 1,
+        "InPos": 1,
+        "Error_AxisID": 0,
+        "Error_Code": 0,
+        "IsReduceMode": 0,
+        "IsFreeDriveMode": 0,
+        "AutoMode": "1",
+        "BrakeState": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "nAxisStatus": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "nAxisErrorCode": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "nResetSafeSpace": [
+            1
+        ],
+        "nAxisGroupStatus": [
+            0
+        ],
+        "nAxisGroupErrorCode": [
+            0
+        ]
+    },
+    "FTData": {
+        "FTControlState": 0,
+        "FTData": [
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000"
+        ],
+        "FTSrcData": [
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000",
+            "0.000"
+        ]
+    },
+    "HardLoad": {
+        "EtherCAT_TotalFrame": 85598313,
+        "EtherCAT_FramesPerSecond": 1006,
+        "EtherCAT_TotalLostFrame": 0,
+        "EtherCAT_TxErrorFrame": 0,
+        "EtherCAT_RxErrorFrame": 56,
+        "Box48IN_Voltage": "48.261",
+        "Box48IN_Current": "0.000",
+        "Box48Out_Voltage": "48.184",
+        "Box48Out_Current": "0.000",
+        "Joint_temperature": [
+            "39.312",
+            "39.312",
+            "43.375",
+            "43.375",
+            "48.500",
+            "48.500"
+        ],
+        "Joint_Voltage": [
+            "48.821",
+            "48.821",
+            "48.747",
+            "48.747",
+            "48.346",
+            "48.346"
+        ]
+    },
+    "modbus": {
+        "Modbus_1": {
+            "connectStatus": "0",
+            "errorCode": "9"
+        }
+    },
+    "RobotAuthorization": {
+        "DynDeviceCode": "298098",
+        "AuthorizedTimeLeftMinutes": "Unlimited",
+        "AuthorizedTimeUsedMinutes": "163103",
+        "LangnDeviceCode": "321508",
+        "LangAuthStatus": "1",
+        "DeviceMac": "30:50:F1:00:EA:A8",
+        "DeviceSN": "OE857200012",
+        "SystemDate": "20250828"
+    },
+    "Script": {
+        "errorCode": "0",
+        "cmdid": [
+            "D27C40B260629BCFCC74D5BCFB1D6BE0",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "callstackcmdid": [
+            ""
+        ]
+    },
+    "MsgTitle": {
+        "Stamp": "1756339872781",
+        "UpdateTime": "08:11:12.781"
+    }
+}

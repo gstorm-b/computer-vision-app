@@ -5,6 +5,8 @@
 #include <QMessageBox>
 // #include
 
+/// Sets up the generated UI, makes the dialog modal, and connects the select-path/finish/cancel
+/// buttons.
 NewTaskDialog::NewTaskDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::NewTaskDialog) {
@@ -20,10 +22,14 @@ NewTaskDialog::NewTaskDialog(QWidget *parent)
             this, &NewTaskDialog::onClicked_btn_cancel);
 }
 
+/// Deletes the generated UI object.
 NewTaskDialog::~NewTaskDialog() {
     delete ui;
 }
 
+/// Prompts for a .vtask save file (default name "untitled.vtask" under the application
+/// directory); on a non-empty selection, stores the path, mirrors it into the save-path
+/// field, and moves focus to the finish button. Does nothing if the dialog is cancelled.
 void NewTaskDialog::onClicked_btn_select_path() {
     QString filePath = QFileDialog::getSaveFileName(
         this,
@@ -41,6 +47,9 @@ void NewTaskDialog::onClicked_btn_select_path() {
     ui->btn_finished->setFocus();
 }
 
+/// Requires a non-empty task name and save path, and that the save path ends in ".vtask" and
+/// is absolute (showing an information message box and returning early on any failing check),
+/// then stores the name/path and accepts the dialog.
 void NewTaskDialog::onClicked_btn_finish() {
     if (ui->ledit_task_name->text().isEmpty()) {
         QMessageBox::information(this,
@@ -70,6 +79,7 @@ void NewTaskDialog::onClicked_btn_finish() {
     this->accept();
 }
 
+/// Rejects the dialog, discarding any entered values.
 void NewTaskDialog::onClicked_btn_cancel() {
     this->reject();
 }

@@ -11,10 +11,15 @@
 #include "device/robot/nachi_robot_device.h"
 #include "device/robot/robot_device.h"
 
+/// Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).
 namespace vc::device {
 
+// Translation-unit-local factory functions and the static registry table they populate.
 namespace {
 
+/// Factory for a Basler GigE camera device: requires a non-empty DeviceId in `obj`.
+/// @return the new BaslerGigECamera (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
 IDevice *createBaslerGige(const QJsonObject &obj, QObject *parent)
 {
     const QString deviceId = obj[DEVICE_JSK_ID].toString();
@@ -31,6 +36,9 @@ IDevice *createBaslerGige(const QJsonObject &obj, QObject *parent)
     return device;
 }
 
+/// Factory for a Mitsubishi MC-protocol PLC device: requires a non-empty DeviceId in `obj`.
+/// @return the new McProtocolDevice (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
 IDevice *createMitsubishiMc(const QJsonObject &obj, QObject *parent)
 {
     const QString deviceId = obj[DEVICE_JSK_ID].toString();
@@ -47,6 +55,9 @@ IDevice *createMitsubishiMc(const QJsonObject &obj, QObject *parent)
     return device;
 }
 
+/// Factory for a Vision TCP/IP server output device: requires a non-empty DeviceId in `obj`.
+/// @return the new VisionTcpipDevice (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
 IDevice *createVisionTcpip(const QJsonObject &obj, QObject *parent)
 {
     const QString deviceId = obj[DEVICE_JSK_ID].toString();
@@ -63,6 +74,9 @@ IDevice *createVisionTcpip(const QJsonObject &obj, QObject *parent)
     return device;
 }
 
+/// Factory for a Vision TCP/IP client output device: requires a non-empty DeviceId in `obj`.
+/// @return the new VisionTcpipClientDevice (parented to `parent`, config applied via
+/// fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing
 IDevice *createVisionTcpipClient(const QJsonObject &obj, QObject *parent)
 {
     const QString deviceId = obj[DEVICE_JSK_ID].toString();
@@ -79,6 +93,9 @@ IDevice *createVisionTcpipClient(const QJsonObject &obj, QObject *parent)
     return device;
 }
 
+/// Factory for a Kawasaki robot device: requires a non-empty DeviceId in `obj`.
+/// @return the new KawasakiRobotDevice (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
 IDevice *createKawasaki(const QJsonObject &obj, QObject *parent)
 {
     const QString deviceId = obj[DEVICE_JSK_ID].toString();
@@ -95,6 +112,9 @@ IDevice *createKawasaki(const QJsonObject &obj, QObject *parent)
     return device;
 }
 
+/// Factory for a Nachi robot device: requires a non-empty DeviceId in `obj`.
+/// @return the new NachiRobotDevice (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
 IDevice *createNachi(const QJsonObject &obj, QObject *parent)
 {
     const QString deviceId = obj[DEVICE_JSK_ID].toString();
@@ -111,6 +131,8 @@ IDevice *createNachi(const QJsonObject &obj, QObject *parent)
     return device;
 }
 
+/// Static table of every registered device sub-type, in lookup/listing order; backs
+/// DeviceRegistry::entries()/find()/displayNamesFor().
 const QList<DeviceRegistryEntry> kEntries = {
     { DeviceType::Camera,
       CameraTypeToString(CameraType::BaslerGigE),
@@ -150,6 +172,9 @@ const QList<DeviceRegistryEntry> kEntries = {
       true }
 };
 
+/// Reads the sub-type token identified by `configJsonKey` from `obj`, checking the
+/// top-level key first and falling back to the nested DeviceConfig object.
+/// @return the token value, or an empty string if configJsonKey is empty or not found
 QString subTypeValueFrom(const QJsonObject &obj, const QString &configJsonKey)
 {
     if (configJsonKey.isEmpty()) {

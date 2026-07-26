@@ -7,84 +7,98 @@
 #include <map>
 #include "device/plc/plc_device.h"
 
+/// Upper bound accepted for a single SubscribeDevice()/Subscribe_deivce() amount.
 #define MC_MAXIMUM_DEVICE_AMOUNT   256
 
+/// PLC device family (config, protocol devices, and MC-protocol support types).
 namespace vc::device {
 
+/// Tracks the individual device addresses subscribed for one MC device type
+/// (X/Y/M/D) and can coalesce them into contiguous DeviceRange spans so a
+/// poll cycle can read multiple devices with a single MC-protocol command.
 class McDeviceRange {
 public:
+    /// A contiguous, inclusive span of subscribed addresses.
     struct DeviceRange {
-        int start;
-        int end;
-        int amount;
+        int start;   ///< First address in the span.
+        int end;     ///< Last address in the span (inclusive).
+        int amount;  ///< Number of addresses in the span (end - start + 1).
     };
 
+    /// Constructs an empty, unoptimized range set.
     McDeviceRange();
+    /// Destructor; no owned resources to release.
     ~McDeviceRange();
 
-    /**
-         * @brief SubscribeDevice: Add a range of devices to the subscription list
-         * @param address: start address
-         * @param amount: amount of device
-         * @param optimizal: optimize range or not
-         */
+    /// Appends `amount` consecutive addresses starting at `address` to
+    /// subscribed_devices and marks the set as unoptimized.
+    /// @param address start address
+    /// @param amount amount of devices
+    /// @param optimizal if true, calls OptimizeRange() immediately after adding
+    /// @note the amount guard (`amount < 1 && amount > MC_MAXIMUM_DEVICE_AMOUNT`)
+    /// can never be true for a single value, so out-of-range amounts are not
+    /// actually rejected here.
     void SubscribeDevice(int address, int amount, bool optimizal = false);
 
-    /**
-         * @brief OptimizeRange: Optimize device range to query multiple devices in a single command
-         */
+    /// Sorts and de-duplicates subscribed_devices, then groups consecutive
+    /// addresses into `ranges` so multiple devices can be queried in a single
+    /// command. No-op if already optimized or if there are no subscriptions.
     void OptimizeRange();
 
-    /**
-         * @brief IsOptimzed: retrieve optimized ranges status
-         * @return return optimization state
-         */
+    /// @return true once OptimizeRange() has run since the last modification
+    /// that reset the flag (SubscribeDevice() clears it again).
     inline const bool IsOptimzed() {
         return this->has_optimized;
     }
 
+    /// Clears subscribed_devices and the computed ranges.
+    /// @note does not reset has_optimized.
     void clearRanges() {
         subscribed_devices.clear();
         ranges.clear();
     }
 
-    std::vector<int> subscribed_devices;
-    std::vector<DeviceRange> ranges;
+    std::vector<int> subscribed_devices;  ///< Raw (possibly unsorted/duplicated) subscribed addresses.
+    std::vector<DeviceRange> ranges;      ///< Contiguous spans computed by OptimizeRange().
 
 private:
-    bool has_optimized;
+    bool has_optimized;  ///< True once `ranges` reflects the current subscribed_devices.
 };
 
+/// MC-protocol PlcValueMap: holds the X/Y/M/D device subscription ranges
+/// used to plan poll requests, plus the resulting M (bit) and D (word)
+/// value maps populated by Frame3E's response parsers.
 class McDeviceMap : public PlcValueMap {
 public:
+    /// Constructs an empty device map (all ranges and value maps default-empty).
     McDeviceMap();
+    /// Destructor; McDeviceRange/std::map members clean themselves up.
     ~McDeviceMap();
 
+    /// Implements PlcValueMap::clone() via the copy constructor.
+    /// @return a new McDeviceMap holding a copy of this map's ranges and values
     std::shared_ptr<PlcValueMap> clone() const {
         return std::make_shared<McDeviceMap>(*this);
     }
 
-    /**
-         * @brief Subscribe_deivce: Add a range of devices of the same type to the subscription list
-         * @param device: device type in uppercase: 'M', 'D', 'X',...
-         * @param address: start address
-         * @param amount: amount of device
-         * @param optimal: optimize all ranges or not
-         */
+    /// Adds a range of devices of the given type to that type's subscription list.
+    /// @param device device type in uppercase: 'X', 'Y', 'M', or 'D' (others are ignored)
+    /// @param address start address
+    /// @param amount amount of devices
+    /// @param optimal optimize the target range immediately after adding
     void Subscribe_deivce(char device, int address, int amount, bool optimal = true);
 
-    /**
-         * @brief OptimizeRanges: Optimize device ranges (X, Y, M, D types) to query multiple devices in a single command
-         */
+    /// Optimizes the X, Y, M, and D device ranges so each type can be queried
+    /// with as few MC-protocol commands as possible.
     void OptimizeRanges();
 
-    /**
-         * @brief GetDeviceRange: Retrieve subscription ranges of a specific device type
-         * @param device: device type in uppercase: 'X', 'Y', 'M' or 'D'
-         * @return ranges of a specific device type
-         */
+    /// Retrieves the subscription ranges for a specific device type.
+    /// @param device device type in uppercase: 'X', 'Y', 'M', or 'D'
+    /// @return pointer to the matching McDeviceRange, or nullptr if `device` is unrecognized
     McDeviceRange* GetDeviceRange(char device);
 
+    /// Clears all device ranges and the M/D value maps.
+    /// @note does not reset each range's has_optimized flag.
     void clearMap() {
         x_devices.clearRanges();
         y_devices.clearRanges();
@@ -95,13 +109,13 @@ public:
         device_map_d.clear();
     }
 
-    McDeviceRange x_devices;
-    McDeviceRange y_devices;
-    McDeviceRange m_devices;
-    McDeviceRange d_devices;
+    McDeviceRange x_devices;  ///< Subscribed ranges for X (input) devices.
+    McDeviceRange y_devices;  ///< Subscribed ranges for Y (output) devices.
+    McDeviceRange m_devices;  ///< Subscribed ranges for M (internal relay/bit) devices.
+    McDeviceRange d_devices;  ///< Subscribed ranges for D (data register/word) devices.
 
-    std::map<int, quint8> device_map_m;
-    std::map<int, qint16> device_map_d;
+    std::map<int, quint8> device_map_m;  ///< Latest polled bit value per M device address.
+    std::map<int, qint16> device_map_d;  ///< Latest polled word value per D device address.
 };
 
 }; // namespace vc::device

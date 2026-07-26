@@ -21,8 +21,10 @@
 //  Chip appearance helpers
 // ──────────────────────────────────────────────────────────────────────────────
 
+/// Short label + theme-token pair used to render a device/task type chip badge.
 struct ChipInfo { QString text; QString token; };
 
+/// Maps a device type to its chip label ("CAM"/"PLC"/"DEV") and theme color token.
 static ChipInfo chipForDeviceType(vc::device::DeviceType t) {
     switch (t) {
     case vc::device::DeviceType::Camera:   return { "CAM", QStringLiteral("device.camera") };
@@ -31,6 +33,7 @@ static ChipInfo chipForDeviceType(vc::device::DeviceType t) {
     }
 }
 
+/// Maps a task type to its chip label ("LOC"/"PICK"/"INSP") and theme color token.
 static ChipInfo chipForTaskType(vc::model::TaskType t) {
     switch (t) {
     case vc::model::TaskType::LocalizationTask: return { "LOC",  QStringLiteral("device.camera") };
@@ -43,10 +46,14 @@ static ChipInfo chipForTaskType(vc::model::TaskType t) {
 // ──────────────────────────────────────────────────────────────────────────────
 //  ProjectTreeDelegate
 // ──────────────────────────────────────────────────────────────────────────────
-static constexpr int kChipWidth  = 36;
-static constexpr int kChipHeight = 14;
-static constexpr int kChipMargin = 4;
+static constexpr int kChipWidth  = 36;   ///< Chip badge width in pixels.
+static constexpr int kChipHeight = 14;   ///< Chip badge height in pixels.
+static constexpr int kChipMargin = 4;    ///< Spacing in pixels between the chip and the row edge/text.
 
+/// Paints the row's default item content shrunk to leave room on the right,
+/// then draws a rounded, translucent-filled chip badge (from TreeItemRole::ChipText /
+/// TreeItemRole::ChipColor) over that space. Falls back to plain QStyledItemDelegate
+/// painting when the item has no chip text.
 void ProjectTreeDelegate::paint(QPainter *painter,
                                 const QStyleOptionViewItem &option,
                                 const QModelIndex &index) const
@@ -103,6 +110,8 @@ void ProjectTreeDelegate::paint(QPainter *painter,
     painter->restore();
 }
 
+/// Returns the default size hint with the height clamped to a 22px minimum,
+/// so rows are tall enough to fit the chip badge.
 QSize ProjectTreeDelegate::sizeHint(const QStyleOptionViewItem &option,
                                     const QModelIndex &index) const
 {
@@ -114,6 +123,9 @@ QSize ProjectTreeDelegate::sizeHint(const QStyleOptionViewItem &option,
 // ──────────────────────────────────────────────────────────────────────────────
 //  ProjectTreeWidget — constructor
 // ──────────────────────────────────────────────────────────────────────────────
+/// Builds the tree view + model, installs ProjectTreeDelegate, creates the
+/// "No Project" root placeholder item, wires double-click/context-menu/theme-change
+/// handling, and disables the widget until a project is set via setProject().
 ProjectTreeWidget::ProjectTreeWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -157,6 +169,10 @@ ProjectTreeWidget::ProjectTreeWidget(QWidget *parent)
 // ──────────────────────────────────────────────────────────────────────────────
 //  Public API
 // ──────────────────────────────────────────────────────────────────────────────
+/// Adopts `proj` as the active project (or clears the tree if `proj` is null),
+/// caches its device manager, re-enables the widget, sets the root item's label
+/// to the project name (or "Project" if empty), and rebuilds the tree.
+/// @param proj the project to display; a null pointer clears the current project
 void ProjectTreeWidget::setProject(std::shared_ptr<vc::model::Project> proj)
 {
     if (!proj) { clearProject(); return; }
@@ -170,6 +186,9 @@ void ProjectTreeWidget::setProject(std::shared_ptr<vc::model::Project> proj)
     refreshTree();
 }
 
+/// Releases the current project and device manager, blocks context-menu/
+/// double-click actions, removes all task/device rows, resets the root item's
+/// label to "No Project", and disables the widget.
 void ProjectTreeWidget::clearProject()
 {
     m_accessBlock = true;
@@ -184,18 +203,26 @@ void ProjectTreeWidget::clearProject()
     setEnabled(false);
 }
 
+/// Updates the root item's displayed label to `name` (or "Project" if empty),
+/// without touching the rest of the tree.
 void ProjectTreeWidget::changeProjectName(const QString &name)
 {
     if (m_rootItem)
         m_rootItem->setText(name.isEmpty() ? tr("Project") : name);
 }
 
+/// Enables or disables user interaction with the tree; when disabling, also
+/// sets m_accessBlock so double-click/context-menu handlers no-op.
+/// @param ena true to enable the tree, false to block interaction and disable it
 void ProjectTreeWidget::enableProjectTree(bool ena)
 {
     m_accessBlock = !ena;
     setEnabled(ena);
 }
 
+/// Removes all task/device rows and rebuilds them from the current project's
+/// tasks (and each task's assigned devices), then expands the whole tree.
+/// No-op if there is no root item or no current project.
 void ProjectTreeWidget::refreshTree()
 {
     if (!m_rootItem) return;
@@ -219,6 +246,10 @@ void ProjectTreeWidget::refreshTree()
 // ──────────────────────────────────────────────────────────────────────────────
 //  Tree builders
 // ──────────────────────────────────────────────────────────────────────────────
+/// Creates a task row (icon, name, id, kind, chip data) under the root item,
+/// records it in m_taskItems, then adds a child row for each of the task's
+/// assigned devices that still exists in the device manager. No-op if `task`
+/// is null or no device manager is set.
 void ProjectTreeWidget::buildTaskItem(vc::model::ITask *task)
 {
     if (!task) return;
@@ -245,6 +276,9 @@ void ProjectTreeWidget::buildTaskItem(vc::model::ITask *task)
     }
 }
 
+/// Creates a device row (type-specific icon, name, id, kind, parent task id,
+/// chip data) and appends it as a child of `taskItem`. No-op if `device` or
+/// `taskItem` is null.
 void ProjectTreeWidget::buildDeviceItem(QStandardItem *taskItem,
                                         vc::device::IDevice *device,
                                         const QString &taskId)
@@ -280,6 +314,8 @@ void ProjectTreeWidget::buildDeviceItem(QStandardItem *taskItem,
     taskItem->appendRow(item);
 }
 
+/// Looks up the task's row item by id.
+/// @return the QStandardItem for `taskId`, or nullptr if not found
 QStandardItem *ProjectTreeWidget::findTaskItem(const QString &taskId) const
 {
     return m_taskItems.value(taskId, nullptr);
@@ -288,6 +324,9 @@ QStandardItem *ProjectTreeWidget::findTaskItem(const QString &taskId) const
 // ──────────────────────────────────────────────────────────────────────────────
 //  Double-click navigation
 // ──────────────────────────────────────────────────────────────────────────────
+/// Handles a tree row double-click: emits taskDoubleClicked() for a task row
+/// or deviceDoubleClicked() for a device row. No-op if access is blocked (see
+/// m_accessBlock), the index is invalid, or no item resolves from it.
 void ProjectTreeWidget::onItemDoubleClicked(const QModelIndex &index)
 {
     if (m_accessBlock || !index.isValid()) return;
@@ -310,6 +349,12 @@ void ProjectTreeWidget::onItemDoubleClicked(const QModelIndex &index)
 // ──────────────────────────────────────────────────────────────────────────────
 //  Context menu
 // ──────────────────────────────────────────────────────────────────────────────
+/// Builds and shows a context menu appropriate to the row kind at `pos`:
+/// "New Localization Task..." for the root, "Add Device.../Delete Task" for a
+/// task row, or "Open Configuration/Move to Task.../Remove Device" for a
+/// device row. No-op if access is blocked, the position doesn't hit a valid
+/// row, or no item resolves from it.
+/// @param pos position in the tree view's viewport coordinates
 void ProjectTreeWidget::showContextMenu(const QPoint &pos)
 {
     if (m_accessBlock) return;
@@ -384,6 +429,10 @@ void ProjectTreeWidget::showContextMenu(const QPoint &pos)
 // ──────────────────────────────────────────────────────────────────────────────
 //  Context actions
 // ──────────────────────────────────────────────────────────────────────────────
+/// Prompts for a new task name (re-prompting on empty or duplicate names until
+/// valid or cancelled), then creates a vc::model::TaskLocalization and adds it
+/// to the project. The project's tasksChanged signal is expected to trigger
+/// refreshTree() via MainWindow. No-op if there is no current project.
 void ProjectTreeWidget::onContextNewTask()
 {
     if (!m_project) return;
@@ -413,22 +462,27 @@ void ProjectTreeWidget::onContextNewTask()
     LOG_USER_INFO << QString("New task created: %1 (%2)").arg(name, task->id());
 }
 
+/// Requests that the host add a device to `taskId` (shows AddDeviceWizard).
 void ProjectTreeWidget::onContextAddDevice(const QString &taskId)
 {
     emit addDeviceToTaskRequested(taskId);
 }
 
+/// Requests that the host delete the task `taskId`.
 void ProjectTreeWidget::onContextDeleteTask(const QString &taskId)
 {
     emit deleteTaskRequested(taskId);
 }
 
+/// Requests that the host remove `deviceId` from `taskId`.
 void ProjectTreeWidget::onContextDeleteDevice(const QString &taskId,
                                               const QString &deviceId)
 {
     emit deleteDeviceRequested(taskId, deviceId);
 }
 
+/// Requests that the host show a dialog to move `deviceId` (currently under
+/// `taskId`) to a different task.
 void ProjectTreeWidget::onContextMoveDevice(const QString &taskId,
                                             const QString &deviceId)
 {

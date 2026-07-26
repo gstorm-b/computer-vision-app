@@ -23,16 +23,28 @@
 using namespace std;
 using namespace cv;
 
+/// Vision/matching module: template-matching engine (ImageMatcher), pattern
+/// group/config model, and the geometry/SIMD helpers it depends on.
 namespace mtc {
 
 // ── SIMD helpers ─────────────────────────────────────────────────────────────
 
+/// Horizontally sums the four 32-bit lanes of an SSE2 vector into a scalar.
+/// @param V vector of four int32 values to reduce
+/// @return sum of all four lanes
 inline int _mm_hsum_epi32(__m128i V) {
     __m128i T = _mm_add_epi32(V, _mm_srli_si128(V, 8));
     T = _mm_add_epi32(T, _mm_srli_si128(T, 4));
     return _mm_cvtsi128_si32(T);
 }
 
+/// SSE2 dot-product of two equal-length byte buffers (kernel vs. convolution
+/// window): unpacks each 16-byte block to 16-bit lanes, multiply-adds in
+/// 128-bit chunks, then finishes any remainder (< 16 bytes) with a scalar loop.
+/// @param pCharKernel first byte buffer (e.g. template pixels)
+/// @param pCharConv second byte buffer (e.g. source window pixels)
+/// @param iLength number of bytes to accumulate over
+/// @return sum of elementwise products of the two buffers
 inline int IM_Conv_SIMD(unsigned char* pCharKernel, unsigned char* pCharConv, int iLength) {
     const int iBlockSize = 16, Block = iLength / iBlockSize;
     __m128i SumV = _mm_setzero_si128();
@@ -56,10 +68,14 @@ inline int IM_Conv_SIMD(unsigned char* pCharKernel, unsigned char* pCharConv, in
 
 // ── Comparators ──────────────────────────────────────────────────────────────
 
+/// Sort predicate ordering MatchParams by descending match score (best first).
 static bool compareScoreBig2Small(const MatchParams& lhs, const MatchParams& rhs) {
     return lhs._matchScore > rhs._matchScore;
 }
 
+/// Sort predicate ordering (point, angle) pairs by ascending angle; used to
+/// walk a rotated-rect intersection polygon's vertices in angular order
+/// around the shape's center (see SortPtWithCenter).
 static bool comparePtWithAngle(const pair<Point2f, double> lhs,
                                 const pair<Point2f, double> rhs) {
     return lhs.second < rhs.second;
@@ -67,27 +83,42 @@ static bool comparePtWithAngle(const pair<Point2f, double> lhs,
 
 // ── ImageMatcher ──────────────────────────────────────────────────────────────
 
+/// Default-constructs the matcher with an empty source image and pattern group.
 ImageMatcher::ImageMatcher() {}
 
+/// Returns the pattern group holding this matcher's learned patterns/config.
 MatchGroup* ImageMatcher::getPatternGroup() { return &m_model_src; }
 
+/// @return number of learned patterns currently stored in the pattern group.
 int ImageMatcher::getTemplateSourceSize() {
     return static_cast<int>(m_model_src.patternCount());
 }
 
+/// Loads the matching source image from disk via cv::imread, replacing any
+/// previously set source (silently becomes empty if the path fails to load).
 void ImageMatcher::setImageSource(std::string path) {
     m_img_source = cv::imread(path);
 }
 
+/// Sets the matching source image, cloning `img` so the matcher owns an
+/// independent copy of the pixel data.
 void ImageMatcher::setImageSource(cv::Mat img) {
     m_img_source = img.clone();
 }
 
+/// Sets the region of interest that matching() restricts contour search to
+/// when `usingRoi` is true.
+/// @param tl top-left corner of the ROI, in source-image pixels
+/// @param br bottom-right corner of the ROI, in source-image pixels
 void ImageMatcher::setMatchingROI(cv::Point tl, cv::Point br) {
     ROI_tl = tl;
     ROI_br = br;
 }
 
+/// Sets the condition ROI used to flag matched objects that fall (partly or
+/// fully) outside it as not possible-to-pick.
+/// @param tl top-left corner of the condition ROI, in source-image pixels
+/// @param br bottom-right corner of the condition ROI, in source-image pixels
 void ImageMatcher::setMatchingConditionROI(cv::Point tl, cv::Point br) {
     Condition_ROI_tl = tl;
     Condition_ROI_br = br;
@@ -95,6 +126,11 @@ void ImageMatcher::setMatchingConditionROI(cv::Point tl, cv::Point br) {
 
 // ── Border clear helper ───────────────────────────────────────────────────────
 
+/// Paints a solid white frame of `offset` pixels around the image's four
+/// edges in place, so contours touching the border (partial objects) are cut
+/// off before findContours runs.
+/// @param image single-channel image to modify in place
+/// @param offset border thickness in pixels on each side
 static inline void clearImageBorder(Mat& image, int offset) {
     const int cols = image.cols, rows = image.rows;
     for (int y = 0; y < offset; ++y)
@@ -111,6 +147,12 @@ static inline void clearImageBorder(Mat& image, int offset) {
 
 // ── Public matching entry points ──────────────────────────────────────────────
 
+/// Debug utility that renders a contour list on a blank white canvas (red,
+/// 2px) and writes it to disk; used ad hoc from matching() when the commented
+/// debug call is enabled.
+/// @param srcContours contours to draw, in canvas pixel coordinates
+/// @param outPath file path the rendered image is written to via cv::imwrite
+/// @param canvasSize size of the blank canvas the contours are drawn onto
 void saveContourImage(const vector<vector<Point>>& srcContours,
                       const string& outPath,
                       cv::Size canvasSize) {
@@ -121,12 +163,24 @@ void saveContourImage(const vector<vector<Point>>& srcContours,
     imwrite(outPath, contourImg);
 }
 
+/// Convenience overload: sets `image` as the source (cloned) then runs the
+/// full matching() pipeline below.
+/// @param image new source image, cloned before matching
 void ImageMatcher::matching(Mat& image, bool boundingBoxChecking,
                              int objectsNum, bool usingRoi, bool usingConditionRoi) {
     m_img_source = image.clone();
     matching(boundingBoxChecking, objectsNum, usingRoi, usingConditionRoi);
 }
 
+/// Runs the full matching pipeline against the current source image and
+/// populates match_result: grayscale + threshold pre-processing, contour
+/// extraction (optionally cropped to the matching ROI), per-contour area
+/// filtering against each pattern's expected contour area, edge-based
+/// matching (MatchEdge) for each candidate object/pattern pair, collision and
+/// condition-ROI checks, robot-pickability checks, result sorting, and
+/// annotated result-image rendering. No-ops (leaves match_result untouched)
+/// if the source image is empty; clears match_result.Objects and returns
+/// early if the pattern group has no learned patterns.
 void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi) {
     if (m_img_source.empty()) return;
 
@@ -364,20 +418,25 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
     }
 }
 
+/// Anonymous-namespace helpers for sortMatchedObjects() below.
 namespace {
 
-// Pick-priority bucket: lower value is picked first.
-//   0  no collision and inside the condition ROI
-//   1  collision but inside the condition ROI
-//   2  the rest (outside the condition ROI, regardless of collision)
+/// Pick-priority bucket for sorting: lower value is picked first.
+///   0  no collision and inside the condition ROI
+///   1  collision but inside the condition ROI
+///   2  the rest (outside the condition ROI, regardless of collision)
+/// @return priority bucket (0, 1, or 2) for `obj`
 int pickPriority(const MatchedObject& obj) {
     if (obj.isOutsideConditionRoi()) return 2;
     if (obj.hasCollision())          return 1;
     return 0;
 }
 
-// Absolute circular angular error (degrees) between an object angle and the
-// target condition angle, wrapped into [-180, 180] so 179 vs -179 is 2, not 358.
+/// Absolute circular angular error (degrees) between an object angle and the
+/// target condition angle, wrapped into [-180, 180] so 179 vs -179 is 2, not 358.
+/// @param angle measured angle, in degrees
+/// @param target reference angle to compare against, in degrees
+/// @return non-negative angular difference in degrees, at most 180
 double angleErrorDeg(double angle, double target) {
     double diff = angle - target;
     while (diff > 180.0)  diff -= 360.0;
@@ -387,6 +446,12 @@ double angleErrorDeg(double angle, double target) {
 
 } // namespace
 
+/// Stable-sorts `objects` in place, best pick candidates first: primarily by
+/// pickPriority() (no-collision-in-ROI, then collision-in-ROI, then outside
+/// ROI), and within each priority bucket by either angular error to the
+/// group's configured target angle (if m_sortByAngle is set) or by descending
+/// match score.
+/// @param objects matched objects to reorder in place
 void ImageMatcher::sortMatchedObjects(std::vector<MatchedObject>& objects) {
     const MatchGroupConfig& cfg = m_model_src.config();
     const bool   sortByAngle = cfg.m_sortByAngle;
@@ -408,12 +473,22 @@ void ImageMatcher::sortMatchedObjects(std::vector<MatchedObject>& objects) {
         });
 }
 
+/// Sets the matching source image, cloning `img` so the matcher owns an
+/// independent copy of the pixel data.
 void ImageMatcher::setMatchSourceImage(cv::Mat& img) {
     m_img_source = img.clone();
 }
 
 // ── MatchEdge ─────────────────────────────────────────────────────────────────
 
+/// Runs edge-based template matching of `edgePattern` against `img_edge`:
+/// builds an image pyramid, searches the coarsest layer over the pattern's
+/// tolerance angle range (SIMD or scalar edge scoring depending on
+/// NOT_USE_SIMD), descends the pyramid refining position/angle per layer
+/// (with optional sub-pixel estimation at layer 0), filters by score and
+/// mutual overlap, then builds one MatchedObject per surviving candidate
+/// (corners, center, score, angle) and appends the raw MatchParams to
+/// m_final_overlap_result for later overlap filtering across patterns.
 bool ImageMatcher::MatchEdge(cv::Mat& img_edge, MatchPattern* edgePattern,
                               std::vector<MatchedObject>& match_objs) {
     if (!edgePattern || !edgePattern->isPatternLearned()) return false;
@@ -696,6 +771,11 @@ bool ImageMatcher::MatchEdge(cv::Mat& img_edge, MatchPattern* edgePattern,
 
 // ── MatchEdgePattern (non-SIMD fallback) ──────────────────────────────────────
 
+/// Scalar (non-SIMD) edge-based template match at one pyramid layer: computes
+/// Sobel gradients of `matSrc`, then for every valid window position
+/// accumulates a normalized-gradient-dot-product score over the pattern's
+/// edge points (Steger-style greedy early-out via normGreediness/normMinScore
+/// bounds), writing scores at or above `minScore` into `matResult`.
 bool ImageMatcher::MatchEdgePattern(Mat& matSrc, MatchPattern* model,
                                      Mat& matResult, int layer, double minScore,
                                      const EdgeMatchConfig& cfg) {
@@ -758,6 +838,17 @@ bool ImageMatcher::MatchEdgePattern(Mat& matSrc, MatchPattern* model,
 
 // ── MatchEdgePattern_SIMD ─────────────────────────────────────────────────────
 
+/// AVX2 dot-product-of-normalized-gradients score over `length` edge points:
+/// for each point, (Sx*Tx + Sy*Ty) / max(SMag*TMag, eps), summed. Processes
+/// 8-wide float blocks with FMA and falls back to a scalar loop for the tail.
+/// @param iSx source gradient X component per point (32-byte aligned buffer)
+/// @param iSy source gradient Y component per point (32-byte aligned buffer)
+/// @param iTx template gradient X component per point (32-byte aligned buffer)
+/// @param iTy template gradient Y component per point (32-byte aligned buffer)
+/// @param SMag source gradient magnitude per point (32-byte aligned buffer)
+/// @param TMag template gradient magnitude per point (32-byte aligned buffer)
+/// @param length number of edge points to accumulate over
+/// @return summed normalized-gradient dot product over all `length` points
 inline float edge_template_match_simd_omp(const float* iSx, const float* iSy,
                                            const float* iTx, const float* iTy,
                                            const float* SMag, const float* TMag,
@@ -791,6 +882,20 @@ inline float edge_template_match_simd_omp(const float* iSx, const float* iSy,
     return total_sum + _mm_cvtss_f32(s);
 }
 
+/// SIMD (AVX2) edge-based template match at one pyramid layer: computes
+/// Sobel gradients + magnitude of `matSrc`, then for every valid window
+/// position gathers per-point source gradients into aligned scratch buffers
+/// and scores the window via edge_template_match_simd_omp() against the
+/// pattern's precomputed gradient buffers, writing the average score at or
+/// above `minScore` into `matResult`. Unlike MatchEdgePattern(), this has no
+/// early-out and always scores every point.
+/// @param matSrc source window to search, gradients computed in place
+/// @param model pattern providing the precomputed edge-point gradient
+///        buffers (pGx/pGy/pMag) for `layer`
+/// @param matResult output score map (CV_32FC1), sized to the valid search
+///        window; zero-initialized, only entries scoring >= minScore are set
+/// @param layer pyramid layer index selecting which pattern points/buffers to use
+/// @param minScore minimum average score a position must reach to be kept
 bool ImageMatcher::MatchEdgePattern_SIMD(Mat& matSrc, MatchPattern* model,
                                           Mat& matResult, int layer, double minScore) {
     const vector<PatternLayer>* patterns = model->getPatterns();
@@ -844,6 +949,16 @@ bool ImageMatcher::MatchEdgePattern_SIMD(Mat& matSrc, MatchPattern* model,
 
 // ── Geometry helpers ──────────────────────────────────────────────────────────
 
+/// Computes the bounding size needed to hold `sizeSrc` after rotating it by
+/// `rAngle` degrees about its center, so a warpAffine destination can contain
+/// the whole rotated source without clipping. Special-cases 0/90/180/270
+/// degrees (axis-aligned, no growth) and otherwise derives the size from the
+/// rotated corner extents, falling back to a tighter axis-aligned bound when
+/// that estimate looks inconsistent with `sizeDst`'s aspect.
+/// @param sizeSrc size of the image being rotated
+/// @param sizeDst size of the template being searched for (used to sanity-check the estimate)
+/// @param rAngle rotation angle in degrees
+/// @return size (width, height) large enough to contain the rotated `sizeSrc`
 Size ImageMatcher::GetBestRotationSize(Size sizeSrc, Size sizeDst, double rAngle) {
     double rad = rAngle * D2R;
     Point2f c((sizeSrc.width - 1) / 2.0f, (sizeSrc.height - 1) / 2.0f);
@@ -884,6 +999,15 @@ Size ImageMatcher::GetBestRotationSize(Size sizeSrc, Size sizeDst, double rAngle
     return ret;
 }
 
+/// Rotates point `in` about center `org` by `angle` radians, using a
+/// mathematical (y-up) rotation convention: the y-down image coordinate is
+/// mirrored about `org.y` before applying the standard rotation formula, then
+/// mirrored back, so the rotation direction matches the algorithm's angle
+/// convention rather than raw image-pixel rotation.
+/// @param in point to rotate, in image pixel coordinates
+/// @param org rotation center, in image pixel coordinates
+/// @param angle rotation angle in radians
+/// @return rotated point, in image pixel coordinates
 Point2f ImageMatcher::ptRotatePt2f(Point2f in, Point2f org, double angle) {
     double h  = org.y * 2;
     double y1 = h - in.y;
@@ -893,6 +1017,9 @@ Point2f ImageMatcher::ptRotatePt2f(Point2f in, Point2f org, double angle) {
     return Point2f((float)x, (float)(-(y - h)));
 }
 
+/// Suppresses the region around the previous best match (`ptMaxLoc`) in
+/// `matResult` by filling a rectangle sized from `sizeTemplate` and
+/// `maxOverlap` with -1, then finds and returns the next-best score location.
 Point ImageMatcher::GetNextMaxLoc(Mat& matResult, Point ptMaxLoc,
                                    Size sizeTemplate, double& maxValue, double maxOverlap) {
     int sx = (int)(ptMaxLoc.x - sizeTemplate.width  * (1 - maxOverlap));
@@ -907,6 +1034,17 @@ Point ImageMatcher::GetNextMaxLoc(Mat& matResult, Point ptMaxLoc,
     return ptNew;
 }
 
+/// Overload used with the block-max acceleration structure (see BlockMax):
+/// suppresses the region around `ptMaxLoc` in `matResult` and in `blockMax`'s
+/// per-block cache, then returns the next-best location from `blockMax`
+/// instead of a full re-scan of `matResult`.
+/// @param matResult score map to search; modified in place (region suppressed)
+/// @param ptMaxLoc location of the previous best match to suppress around
+/// @param sizeTemplate size of the template, used to size the suppression rectangle
+/// @param maxValue output; set to the next-best score found
+/// @param maxOverlap allowed overlap fraction (0..1) that shrinks the suppressed area
+/// @param blockMax block-max cache kept in sync with `matResult`; updated in place
+/// @return location of the next-best score, from `blockMax`
 Point ImageMatcher::GetNextMaxLoc(Mat& matResult, Point ptMaxLoc,
                                    Size sizeTemplate, double& maxValue,
                                    double maxOverlap, BlockMax& blockMax) {
@@ -922,6 +1060,16 @@ Point ImageMatcher::GetNextMaxLoc(Mat& matResult, Point ptMaxLoc,
     return ptRet;
 }
 
+/// Extracts a padded, de-rotated region of interest from `matSrc` centered at
+/// `ptLT`: rotates `ptLT` into the source's rotated frame, then warps `matSrc`
+/// with a rotation matrix translated so that point lands at a fixed 3px
+/// margin inside the output, producing an axis-aligned crop of `size` plus
+/// 6px padding suitable for re-matching at a finer pyramid layer.
+/// @param matSrc source image to extract from
+/// @param size nominal size of the region to extract (padded by 6px on each axis)
+/// @param ptLT reference point (in `matSrc`'s rotated coordinate frame) to center the extraction on
+/// @param dAngle rotation angle in degrees applied while extracting
+/// @param matROI output; overwritten with the extracted, padded region
 void ImageMatcher::GetRotatedROI(Mat& matSrc, Size size, Point2f ptLT,
                                   double dAngle, Mat& matROI) {
     double rad = dAngle * D2R;
@@ -936,6 +1084,10 @@ void ImageMatcher::GetRotatedROI(Mat& matSrc, Size size, Point2f ptLT,
 
 // ── Sub-pixel estimation ──────────────────────────────────────────────────────
 
+/// Refines the best match's (x, y, angle) to sub-pixel/sub-degree precision by
+/// fitting a 2nd-order polynomial surface to the 3x3x3 (x, y, angle)
+/// neighborhood of cached scores around `(*vec)[iMaxIdx]` (least squares via
+/// the normal equations) and solving for the surface's stationary point.
 bool ImageMatcher::SubPixEsimation(vector<MatchParams>* vec, double* dNewX,
                                     double* dNewY, double* dNewAngle,
                                     double dAngleStep, int iMaxIdx) {
@@ -984,6 +1136,10 @@ bool ImageMatcher::SubPixEsimation(vector<MatchParams>* vec, double* dNewX,
 
 // ── Score / overlap filters ───────────────────────────────────────────────────
 
+/// Sorts `vec` by descending score, then truncates it at the first entry
+/// scoring below `dScore` (all entries after are discarded).
+/// @param vec match candidates to sort and filter in place
+/// @param dScore minimum score a candidate must reach to be kept
 void ImageMatcher::FilterWithScore(vector<MatchParams>* vec, double dScore) {
     sort(vec->begin(), vec->end(), compareScoreBig2Small);
     int iDel = static_cast<int>(vec->size()) + 1;
@@ -994,6 +1150,12 @@ void ImageMatcher::FilterWithScore(vector<MatchParams>* vec, double dScore) {
         vec->erase(vec->begin() + iDel, vec->end());
 }
 
+/// Removes mutually-overlapping candidates from `vec`: for every pair whose
+/// rotated rectangles (`_rectR`) intersect, computes the intersection
+/// polygon area against candidate i's rect area and, if fully overlapping or
+/// the overlap ratio exceeds `dMaxOverLap`, marks the worse-scoring one
+/// deleted (worse meaning lower score, or higher score when `iMethod` is
+/// cv::TM_SQDIFF). Deleted entries are erased from `vec` at the end.
 void ImageMatcher::FilterWithRotatedRect(vector<MatchParams>* vec, int iMethod,
                                           double dMaxOverLap,
                                           std::vector<int>* del_indexes) {
@@ -1030,6 +1192,10 @@ void ImageMatcher::FilterWithRotatedRect(vector<MatchParams>* vec, int iMethod,
         it = (*it)._delete ? vec->erase(it) : ++it;
 }
 
+/// Reorders `vecSort` into angular order (ascending) around the points'
+/// centroid, so a polygon's vertices (e.g. a rotated-rect intersection) can
+/// be traced consistently for area/contour computations.
+/// @param vecSort points to reorder in place
 void ImageMatcher::SortPtWithCenter(vector<Point2f>& vecSort) {
     const int n = static_cast<int>(vecSort.size());
     Point2f center;
@@ -1050,6 +1216,11 @@ void ImageMatcher::SortPtWithCenter(vector<Point2f>& vecSort) {
     for (int i = 0; i < n; ++i) vecSort[i] = va[i].first;
 }
 
+/// Debug/visualization helper: draws each matched object's bounding
+/// quadrilateral (blue) plus its center (red dot) and top-left corner (green
+/// dot) onto `drawImage`.
+/// @param drawImage image to draw onto in place
+/// @param matchedResults objects whose geometry is drawn
 void ImageMatcher::DrawMatchResult(Mat& drawImage,
                                     vector<MatchedObject>& matchedResults) {
     cv::Scalar box_color(255, 0, 0);
@@ -1063,6 +1234,9 @@ void ImageMatcher::DrawMatchResult(Mat& drawImage,
     }
 }
 
+/// Tests whether `pt` falls within the axis-aligned box spanned by `tl`/`br`
+/// (order-independent: each corner pair is min/max-normalized first).
+/// @return true if `pt` lies within the box (inclusive of its edges)
 bool ImageMatcher::pointInBox(const cv::Point2f& tl, const cv::Point2f& br, const cv::Point2f& pt) {
     float left   = std::min(tl.x, br.x);
     float right  = std::max(tl.x, br.x);
@@ -1072,6 +1246,14 @@ bool ImageMatcher::pointInBox(const cv::Point2f& tl, const cv::Point2f& br, cons
     return (pt.x >= left && pt.x <= right && pt.y >= top && pt.y <= bottom);
 }
 
+/// Checks whether the injected robot-pickability checker (m_pickingChecker)
+/// considers `obj` reachable and (if configured) collision-free: converts the
+/// object's image position/angle plus the current match_result's crop offset
+/// to a world pick pose, then asks the checker if that pose is reachable
+/// (and, if enabled, collision-checked).
+/// @param obj matched object whose image position/angle is evaluated
+/// @return true if no checker is injected (advisory-only, does not gate
+///         matching), or the checker's own reachability/collision verdict
 bool ImageMatcher::robotPossiblePickingCheck(const MatchedObject& obj) const {
     // No robot checker configured: the check is advisory, do not gate matching.
     if (!m_pickingChecker) {

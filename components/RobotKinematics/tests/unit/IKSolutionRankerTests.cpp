@@ -41,6 +41,9 @@ void IKSolutionRankerTests::addsPostureMismatchCostWhenPreferenceIsSoft()
     QVERIFY(solution.score.totalCost >= solution.score.postureMismatchCost);
 }
 
+/// Entry point that instantiates IKSolutionRankerTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runIKSolutionRankerTests(int argc, char** argv)
 {
     IKSolutionRankerTests tests;

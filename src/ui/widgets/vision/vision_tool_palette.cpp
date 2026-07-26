@@ -4,8 +4,13 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 
+/// Anonymous namespace holding a small local factory helper for constructing the palette's
+/// tool buttons.
 namespace {
 
+/// Creates an auto-raised QToolButton with the given label/tooltip, a fixed minimum height
+/// of 24px, and no parent (caller/layout takes ownership).
+/// @param checkable whether the button toggles (used for the mutually-exclusive mode buttons).
 QToolButton *makeButton(const QString &text,
                         const QString &toolTip,
                         bool checkable = false)
@@ -21,6 +26,10 @@ QToolButton *makeButton(const QString &text,
 
 } // namespace
 
+/// Builds the eight tool buttons, registers the four mode buttons in an exclusive
+/// QButtonGroup keyed by their ToolMode value, lays them out horizontally (mode buttons,
+/// delete/fit, a stretch, then undo/redo), wires each button's signal to the corresponding
+/// palette signal/slot, and defaults the active mode to ToolMode::SelectMove.
 VisionToolPalette::VisionToolPalette(QWidget *parent)
     : QWidget(parent)
 {
@@ -66,6 +75,7 @@ VisionToolPalette::VisionToolPalette(QWidget *parent)
     setActiveMode(ToolMode::SelectMove);
 }
 
+/// Checks the button for `mode` if one is registered; does nothing otherwise.
 void VisionToolPalette::setActiveMode(ToolMode mode)
 {
     if (auto *button = buttonForMode(mode)) {
@@ -73,6 +83,8 @@ void VisionToolPalette::setActiveMode(ToolMode mode)
     }
 }
 
+/// Disables the draw-rect, draw-rotated-rect, and delete buttons when `readOnly` is true
+/// (re-enables them otherwise); the select/pan/fit/undo/redo buttons are unaffected.
 void VisionToolPalette::setReadOnly(bool readOnly)
 {
     m_rectButton->setEnabled(!readOnly);
@@ -80,22 +92,29 @@ void VisionToolPalette::setReadOnly(bool readOnly)
     m_deleteButton->setEnabled(!readOnly);
 }
 
+/// Enables/disables the undo button.
 void VisionToolPalette::setUndoAvailable(bool enabled)
 {
     m_undoButton->setEnabled(enabled);
 }
 
+/// Enables/disables the redo button.
 void VisionToolPalette::setRedoAvailable(bool enabled)
 {
     m_redoButton->setEnabled(enabled);
 }
 
+/// Slot for the mode QButtonGroup's buttonToggled signal: ignores the "unchecked" toggle
+/// event and a null button, otherwise emits toolModeRequested with the ToolMode mapped from
+/// the button's group id.
 void VisionToolPalette::onToolButtonClicked(QAbstractButton *button, bool checked)
 {
     if (!checked || !button) return;
     emit toolModeRequested(static_cast<ToolMode>(m_modeGroup->id(button)));
 }
 
+/// @return the QToolButton registered in m_modeGroup under `mode`'s integer value, or
+/// nullptr if the cast/lookup fails.
 QToolButton *VisionToolPalette::buttonForMode(ToolMode mode) const
 {
     return qobject_cast<QToolButton *>(m_modeGroup->button(static_cast<int>(mode)));

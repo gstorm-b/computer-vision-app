@@ -2,8 +2,11 @@
 #include <sstream>
 #include <string>
 
+/// Reserved upper bound on model count; not currently referenced in this file.
 #define MAX_NUM_MODEL (int)1000
 
+/// Vision/matching module: MatchGroupConfig and MatchGroup implementation
+/// (see match_group.h).
 namespace mtc {
 
 int MatchGroup::m_min_index_range = 1;

@@ -3,6 +3,7 @@
 using namespace std;
 using namespace cv;
 
+/// Vision/matching module: MatchBlock/BlockMax implementation (see utils_block_max.h).
 namespace mtc {
 
 MatchBlock::MatchBlock() {
@@ -127,4 +128,4 @@ void BlockMax::GetMaxValueLoc(double &dMax, Point &ptMaxLoc) {
     ptMaxLoc = _vecBlocks[iIndex]._pointMaxLoc;
 }
 
-}
+} // namespace mtc

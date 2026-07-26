@@ -1,0 +1,77 @@
+/* Pan/zoom viewer for the architecture diagrams page (see architecture_diagrams.dox). */
+
+.uml-viewer {
+    position: relative;
+    height: 640px;
+    margin: 12px 0 28px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fbfbfb;
+    background-image:
+        linear-gradient(45deg, #f1f1f1 25%, transparent 25%),
+        linear-gradient(-45deg, #f1f1f1 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f1f1f1 75%),
+        linear-gradient(-45deg, transparent 75%, #f1f1f1 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+    cursor: grab;
+    touch-action: none;
+}
+
+.uml-viewer.uml-grabbing {
+    cursor: grabbing;
+}
+
+.uml-viewer-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+}
+
+.uml-viewer-inner img {
+    display: block;
+    max-width: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.uml-toolbar {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 5;
+    display: flex;
+    gap: 4px;
+}
+
+.uml-toolbar button {
+    width: 28px;
+    height: 28px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    background: #ffffffdd;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.uml-toolbar button:hover {
+    background: #ffffff;
+}
+
+.uml-hint {
+    position: absolute;
+    left: 8px;
+    bottom: 6px;
+    z-index: 5;
+    font-size: 11px;
+    color: #777;
+    background: #ffffffcc;
+    padding: 2px 6px;
+    border-radius: 3px;
+    pointer-events: none;
+}

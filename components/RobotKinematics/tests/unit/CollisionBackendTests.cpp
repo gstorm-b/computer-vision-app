@@ -23,6 +23,7 @@ using namespace RobotKinematics;
 namespace {
 constexpr double kPi = 3.141592653589793238462643383279502884;
 
+/// A plain 3D point used to build synthetic STL triangle data for mesh-backend tests.
 struct Vec3
 {
     double x;
@@ -30,6 +31,7 @@ struct Vec3
     double z;
 };
 
+/// A single triangle (three vertices) used when writing a synthetic ASCII STL mesh.
 struct Triangle
 {
     Vec3 a;
@@ -37,6 +39,8 @@ struct Triangle
     Vec3 c;
 };
 
+/// Builds a single-DOF revolute joint rotating about the local Z axis, spanning
+/// +/-pi, with zero home position.
 Joint revoluteZ(const std::string& id,
                 const std::string& parent,
                 const std::string& child,
@@ -54,6 +58,8 @@ Joint revoluteZ(const std::string& id,
     return joint;
 }
 
+/// Builds a minimal 3-DOF serial robot (three Z-axis revolute joints, each link 1m
+/// apart along X) used as a lightweight fixture for mesh-collision backend tests.
 SerialRobotConfig lineRobot()
 {
     SerialRobotConfig config;
@@ -73,6 +79,8 @@ SerialRobotConfig lineRobot()
     return config;
 }
 
+/// Returns the 12 triangles (two per face) forming a closed 0.2 x 0.1 x 0.1 meter
+/// axis-aligned cuboid with one corner at the origin.
 std::vector<Triangle> cuboidTrianglesMeters()
 {
     const Vec3 p000{0.0, 0.0, 0.0};
@@ -94,6 +102,8 @@ std::vector<Triangle> cuboidTrianglesMeters()
     };
 }
 
+/// Serializes cuboidTrianglesMeters() into an ASCII STL file body (facet/outer
+/// loop/vertex blocks with a zero normal, since the loader only needs vertex geometry).
 QByteArray asciiStlBytesMeters()
 {
     QByteArray bytes;
@@ -117,6 +127,9 @@ QByteArray asciiStlBytesMeters()
     return bytes;
 }
 
+/// Writes `bytes` to a file named `fileName` in the system temp directory (removing
+/// any existing file at that path first).
+/// @return the written file's path, or an empty string if opening/writing it failed
 QString writeTempFile(const QString& fileName, const QByteArray& bytes)
 {
     const QString path = QDir::temp().filePath(fileName);
@@ -133,6 +146,9 @@ QString writeTempFile(const QString& fileName, const QByteArray& bytes)
     return path;
 }
 
+/// Builds a MeshCollisionProfile preferring the Coal backend, with two STL meshes
+/// sharing `path`: a "base_mesh" on base_link offset along X by `baseMeshOffsetX_m`,
+/// and an unoffset "link_2_mesh" on link_2.
 MeshCollisionProfile syntheticMeshProfile(const std::string& path, double baseMeshOffsetX_m = 0.85)
 {
     MeshCollisionProfile profile;
@@ -325,6 +341,8 @@ void CollisionBackendTests::meshChecksApplySafetyMarginWhenCompiled()
 #endif
 }
 
+/// Entry point invoked by TestMain to run the CollisionBackendTests suite under QtTest.
+/// @return the number of failing test functions (0 on success)
 int runCollisionBackendTests(int argc, char** argv)
 {
     CollisionBackendTests tests;

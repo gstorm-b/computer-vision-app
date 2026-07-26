@@ -17,11 +17,14 @@ using namespace RobotKinematics;
 namespace {
 constexpr double kPi = 3.141592653589793238462643383279502884;
 
+/// Returns true if the Euclidean distance between `a` and `b` is within `tol`.
 bool vecNear(const Eigen::Vector3d& a, const Eigen::Vector3d& b, double tol = 1e-12)
 {
     return (a - b).norm() <= tol;
 }
 
+/// Builds a Z-axis revolute joint with the given id, parent/child link ids, and origin pose;
+/// limits are set to +/-2*pi with no velocity/effort caps.
 Joint revoluteZ(const std::string& id, const std::string& parent, const std::string& child, const Pose& origin)
 {
     Joint joint;
@@ -35,6 +38,8 @@ Joint revoluteZ(const std::string& id, const std::string& parent, const std::str
     return joint;
 }
 
+/// Builds a 1-DOF serial robot (base -> flange) whose sole Z-axis revolute joint origin is
+/// offset `offsetX` meters along X.
 SerialRobotConfig singleJoint(double offsetX)
 {
     SerialRobotConfig config;
@@ -47,6 +52,8 @@ SerialRobotConfig singleJoint(double offsetX)
     return config;
 }
 
+/// Builds a 2-DOF planar serial robot (base -> link1 -> flange) with two Z-axis revolute
+/// joints, the second offset `l1` meters along X from the first.
 SerialRobotConfig twoJointPlanar(double l1)
 {
     SerialRobotConfig config;
@@ -62,6 +69,8 @@ SerialRobotConfig twoJointPlanar(double l1)
     return config;
 }
 
+/// Builds a 6-DOF serial robot stacking six Z-axis revolute joints, each `step` meters above
+/// the previous link along Z (a straight vertical tower).
 SerialRobotConfig sixJointTower(double step)
 {
     SerialRobotConfig config;
@@ -136,6 +145,9 @@ void ForwardKinematicsTests::sixJointTowerComposition()
     QVERIFY((pose.isometry().linear() - expectedR).norm() < 1e-9);
 }
 
+/// Entry point that instantiates ForwardKinematicsTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runForwardKinematicsTests(int argc, char** argv)
 {
     ForwardKinematicsTests tests;

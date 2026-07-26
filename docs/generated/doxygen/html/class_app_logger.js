@@ -1,0 +1,25 @@
+var class_app_logger =
+[
+    [ "LogStream", "class_app_logger_1_1_log_stream.html", "class_app_logger_1_1_log_stream" ],
+    [ "AppLogger", "class_app_logger.html#a797d28321fc7aba08c685756c44964c2", null ],
+    [ "AppLogger", "class_app_logger.html#a15c2dda73b4e32ac43556020bbac170b", null ],
+    [ "critical", "class_app_logger.html#a0db5641e36a44fffc69c67852c4eaef6", null ],
+    [ "dev_debug", "class_app_logger.html#ac65691682ff7cbc71c293f7b479c46c5", null ],
+    [ "dev_error", "class_app_logger.html#a79abce059caed5c5413884e04cb04851", null ],
+    [ "dev_info", "class_app_logger.html#aa7f904880a98ef954eb621a56481cadd", null ],
+    [ "error", "class_app_logger.html#ad13a625c045a12e5b13d21eae24c1f79", null ],
+    [ "info", "class_app_logger.html#aa69def16a957c28d166b852d87534110", null ],
+    [ "instance", "class_app_logger.html#a9285b2b64d648f308c307779f8264972", null ],
+    [ "logDev", "class_app_logger.html#a5b9d87c6dc5bd50b8dfec1811abdc2b1", null ],
+    [ "logUser", "class_app_logger.html#adad096bdd75b7401e1e1aca86d3aa7e2", null ],
+    [ "newLogAdded", "class_app_logger.html#a133157d23100440952c0843bf5296ab5", null ],
+    [ "operator=", "class_app_logger.html#a2e7703d867d1a2e3f0a595186f882329", null ],
+    [ "rotateLogFileIfNeeded", "class_app_logger.html#a1c510d06f5ba26f3f2364984c4bc4874", null ],
+    [ "warning", "class_app_logger.html#a84582ecd59d03b8bd650ac4c6e5f66af", null ],
+    [ "writeLog", "class_app_logger.html#ab95861ab56d682987a7150dd8aecf9c5", null ],
+    [ "~AppLogger", "class_app_logger.html#ab7eff52a91c9468c1ea3b7cefbf81746", null ],
+    [ "m_currentLogDate", "class_app_logger.html#a3b6972a05691e4311f49af4dcd65b349", null ],
+    [ "m_logDirectory", "class_app_logger.html#a43b04e189a87615c4a875e143255d28a", null ],
+    [ "m_logFile", "class_app_logger.html#a9627efb66f696431d14715c09ea5fdcb", null ],
+    [ "m_mutex", "class_app_logger.html#a4365ae7de1dd5f77f42b0b0f836bed85", null ]
+];

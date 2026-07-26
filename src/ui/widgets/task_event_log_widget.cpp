@@ -7,6 +7,9 @@
 //  TaskEventItemWidget
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Constructs the row widget for `event`: records its severity, tags the
+/// widget with the matching `severity` dynamic property, and builds the
+/// child layout via setupUi().
 TaskEventItemWidget::TaskEventItemWidget(const TaskEvent &event,
                                          QWidget *parent)
     : QWidget(parent)
@@ -19,6 +22,10 @@ TaskEventItemWidget::TaskEventItemWidget(const TaskEvent &event,
     setupUi(event);
 }
 
+/// Builds the row's child layout: a fixed-width severity bar, followed by a
+/// horizontal content row of fixed-width timestamp and level labels, an
+/// optional source tag (only when `event.source` is non-empty), and a
+/// stretching, mouse-selectable message label.
 void TaskEventItemWidget::setupUi(const TaskEvent &event)
 {
     auto *root = new QHBoxLayout(this);
@@ -70,6 +77,9 @@ void TaskEventItemWidget::setupUi(const TaskEvent &event)
     root->addLayout(content);
 }
 
+/// Maps a severity level to the QSS `severity` property value; unmatched/
+/// default levels map to "info".
+/// @return "warning", "error", "success", or "info"
 const char *TaskEventItemWidget::severityProperty(TaskEventLevel level)
 {
     switch (level) {
@@ -80,6 +90,9 @@ const char *TaskEventItemWidget::severityProperty(TaskEventLevel level)
     }
 }
 
+/// Maps a severity level to its short badge text; unmatched/default levels
+/// map to "INFO".
+/// @return "WARN", "ERROR", "OK", or "INFO"
 QString TaskEventItemWidget::levelText(TaskEventLevel level)
 {
     switch (level) {
@@ -95,12 +108,17 @@ QString TaskEventItemWidget::levelText(TaskEventLevel level)
 //  TaskEventLogWidget
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Constructs an empty log and applies its list-view style via setupStyle().
 TaskEventLogWidget::TaskEventLogWidget(QWidget *parent)
     : QListWidget(parent)
 {
     setupStyle();
 }
 
+/// Configures selection, scrolling, and focus behavior for the list view:
+/// single selection, per-pixel vertical scrolling, no horizontal scrollbar,
+/// uniform item sizes (faster painting), no spacing, and no focus rectangle.
+/// Visual styling itself comes from dark.qss / light.qss selectors.
 void TaskEventLogWidget::setupStyle()
 {
     setSelectionMode(QAbstractItemView::SingleSelection);
@@ -113,6 +131,8 @@ void TaskEventLogWidget::setupStyle()
     // Visual styling is owned by dark.qss / light.qss via TaskEventLogWidget selectors
 }
 
+/// Appends one event row, discarding the oldest row first if the log is at
+/// its maxEvents() capacity, and scrolls the view to the newly added row.
 void TaskEventLogWidget::appendEvent(const TaskEvent &event)
 {
     // Discard oldest row when at capacity
@@ -129,11 +149,15 @@ void TaskEventLogWidget::appendEvent(const TaskEvent &event)
     scrollToBottom();
 }
 
+/// Removes all rows from the log.
 void TaskEventLogWidget::clearEvents()
 {
     clear();
 }
 
+/// Sets the maximum retained row count, clamped to a non-negative value
+/// (0 = unlimited). Does not trim any rows already present; enforcement
+/// happens on the next appendEvent() call.
 void TaskEventLogWidget::setMaxEvents(int max)
 {
     m_maxEvents = qMax(0, max);

@@ -1,17 +1,26 @@
 #include "mc_device_map.h"
 
+/// PLC device family (config, protocol devices, and MC-protocol support types).
 namespace vc::device {
 
 //// McDeviceRange
 
+/// Constructs an empty range set with has_optimized initialized to false.
 McDeviceRange::McDeviceRange() {
     this->has_optimized = false;
 }
 
+/// Destructor. Body is intentionally empty; no owned resources to release.
 McDeviceRange::~McDeviceRange() {
 
 }
 
+/// Appends `amount` consecutive addresses starting at `address` to
+/// subscribed_devices, marks the set as unoptimized, then optimizes
+/// immediately if `optimizal` is true.
+/// @note the guard below can never reject any single `amount` value (it
+/// requires amount < 1 AND amount > MC_MAXIMUM_DEVICE_AMOUNT simultaneously),
+/// so out-of-range amounts are not actually filtered out here.
 void McDeviceRange::SubscribeDevice(int address, int amount, bool optimizal) {
     if ((amount < 1) && (amount > MC_MAXIMUM_DEVICE_AMOUNT)) {
         return;
@@ -28,6 +37,9 @@ void McDeviceRange::SubscribeDevice(int address, int amount, bool optimizal) {
     }
 }
 
+/// Sorts and de-duplicates subscribed_devices, then walks the result to build
+/// contiguous DeviceRange spans in `ranges`, merging consecutive addresses
+/// into a single span. No-op if already optimized or with no subscriptions.
 void McDeviceRange::OptimizeRange() {
     if (has_optimized) {
         return;
@@ -74,14 +86,19 @@ void McDeviceRange::OptimizeRange() {
 
 
 //// McDeviceMap
+/// Constructs an empty device map (all ranges and value maps default-empty).
 McDeviceMap::McDeviceMap() {
 
 }
 
+/// Destructor. Body is intentionally empty; McDeviceRange/std::map members
+/// clean themselves up.
 McDeviceMap::~McDeviceMap() {
 
 }
 
+/// Dispatches to the SubscribeDevice() call of the McDeviceRange matching
+/// `device`; unrecognized device letters are silently ignored.
 void McDeviceMap::Subscribe_deivce(char device, int address, int amount, bool optimal) {
     switch (device) {
     case 'X':
@@ -99,6 +116,7 @@ void McDeviceMap::Subscribe_deivce(char device, int address, int amount, bool op
     }
 }
 
+/// Optimizes the X, Y, D, and M device ranges in turn.
 void McDeviceMap::OptimizeRanges() {
     x_devices.OptimizeRange();
     y_devices.OptimizeRange();
@@ -106,6 +124,8 @@ void McDeviceMap::OptimizeRanges() {
     m_devices.OptimizeRange();
 }
 
+/// Returns the McDeviceRange member matching `device` ('X'/'Y'/'M'/'D'), or
+/// nullptr if `device` is not one of those four letters.
 McDeviceRange* McDeviceMap::GetDeviceRange(char device) {
     switch (device) {
     case 'X':

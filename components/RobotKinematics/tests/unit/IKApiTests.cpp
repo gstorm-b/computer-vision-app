@@ -8,16 +8,22 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Test-double IKSolver that always reports UnsupportedSolver, used to verify callers can
+/// observe a structured solver failure instead of a solution.
 class RejectingSolver : public IKSolver
 {
 public:
+    /// Returns the fixed solver name "rejecting".
     const char* name() const override { return "rejecting"; }
 
+    /// Always fails with IKStatus::UnsupportedSolver and message "unsupported"; ignores its
+    /// arguments.
     IKResult solve(const SerialRobotConfig&, const IKSolveContext&) const override
     {
         return IKResult{IKStatus::UnsupportedSolver, {}, "unsupported"};
     }
 
+    /// Delegates to solve(), so it fails the same way as the single-solution variant.
     IKResult solveAll(const SerialRobotConfig& config, const IKSolveContext& context) const override
     {
         return solve(config, context);
@@ -68,6 +74,9 @@ void IKApiTests::solverInterfaceCanReturnStructuredFailure()
     QCOMPARE(result.message, std::string("unsupported"));
 }
 
+/// Entry point that instantiates IKApiTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runIKApiTests(int argc, char** argv)
 {
     IKApiTests tests;

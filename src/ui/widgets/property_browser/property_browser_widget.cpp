@@ -7,6 +7,9 @@
 
 // ── Construction ─────────────────────────────────────────────────────────────
 
+/// Builds the search bar / tree browser / description panel layout, wires up
+/// the built-in property managers, and starts a 120ms debounce timer that
+/// applies the search filter after typing settles.
 PropertyBrowserWidget::PropertyBrowserWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -21,6 +24,9 @@ PropertyBrowserWidget::PropertyBrowserWidget(QWidget *parent)
 
 // ── UI layout ─────────────────────────────────────────────────────────────────
 
+/// Creates and lays out the search bar (icon + line edit), the
+/// QtTreePropertyBrowser, and the description frame in a zero-margin vertical
+/// layout; assigns objectName to each part for QSS theming.
 void PropertyBrowserWidget::setupUi()
 {
     setObjectName(QStringLiteral("PropertyBrowserWidget"));
@@ -91,6 +97,9 @@ void PropertyBrowserWidget::setupUi()
 
 // ── Manager / factory wiring ──────────────────────────────────────────────────
 
+/// Instantiates the variant/position/size/point/pointF property managers and
+/// registers the shared double/int spin-box factories against each manager's
+/// sub-manager on the tree browser.
 void PropertyBrowserWidget::setupManagers()
 {
     // ── QtVariantPropertyManager (handles int, double, bool, string …) ───────
@@ -122,22 +131,26 @@ void PropertyBrowserWidget::setupManagers()
 
 // ── Search bar ────────────────────────────────────────────────────────────────
 
+/// Toggles search bar visibility; clears any active filter text when hidden.
 void PropertyBrowserWidget::setSearchVisible(bool visible)
 {
     m_searchBar->setVisible(visible);
     if (!visible) clearSearch();
 }
 
+/// Returns whether the search bar frame is currently visible.
 bool PropertyBrowserWidget::isSearchVisible() const
 {
     return m_searchBar->isVisible();
 }
 
+/// Clears the search line edit's text.
 void PropertyBrowserWidget::clearSearch()
 {
     m_searchEdit->clear();
 }
 
+/// Returns the search line edit's current text.
 QString PropertyBrowserWidget::searchText() const
 {
     return m_searchEdit->text();
@@ -145,11 +158,13 @@ QString PropertyBrowserWidget::searchText() const
 
 // ── Description panel ─────────────────────────────────────────────────────────
 
+/// Toggles description panel visibility.
 void PropertyBrowserWidget::setDescriptionVisible(bool visible)
 {
     m_descFrame->setVisible(visible);
 }
 
+/// Returns whether the description frame is currently visible.
 bool PropertyBrowserWidget::isDescriptionVisible() const
 {
     return m_descFrame->isVisible();
@@ -157,62 +172,75 @@ bool PropertyBrowserWidget::isDescriptionVisible() const
 
 // ── Browser forwarding ────────────────────────────────────────────────────────
 
+/// Forwards to QtTreePropertyBrowser::addProperty().
 QtBrowserItem *PropertyBrowserWidget::addProperty(QtProperty *property)
 {
     return m_browser->addProperty(property);
 }
 
+/// Forwards to QtTreePropertyBrowser::removeProperty().
 void PropertyBrowserWidget::removeProperty(QtProperty *property)
 {
     m_browser->removeProperty(property);
 }
 
+/// Clears all properties from the tree browser and resets the description
+/// label to its placeholder text.
 void PropertyBrowserWidget::clear()
 {
     m_browser->clear();
     m_descLabel->setText(tr("Select a property to see its description."));
 }
 
+/// Forwards to QtTreePropertyBrowser::setExpanded().
 void PropertyBrowserWidget::setExpanded(QtBrowserItem *item, bool expanded)
 {
     m_browser->setExpanded(item, expanded);
 }
 
+/// Forwards to QtTreePropertyBrowser::setAlternatingRowColors().
 void PropertyBrowserWidget::setAlternatingRowColors(bool enable)
 {
     m_browser->setAlternatingRowColors(enable);
 }
 
+/// Forwards to QtTreePropertyBrowser::setSplitterPosition().
 void PropertyBrowserWidget::setSplitterPosition(int pos)
 {
     m_browser->setSplitterPosition(pos);
 }
 
+/// Forwards to QtTreePropertyBrowser::setResizeMode().
 void PropertyBrowserWidget::setResizeMode(QtTreePropertyBrowser::ResizeMode mode)
 {
     m_browser->setResizeMode(mode);
 }
 
+/// Forwards to QtTreePropertyBrowser::setRootIsDecorated().
 void PropertyBrowserWidget::setRootIsDecorated(bool show)
 {
     m_browser->setRootIsDecorated(show);
 }
 
+/// Forwards to QtTreePropertyBrowser::setHeaderVisible().
 void PropertyBrowserWidget::setHeaderVisible(bool visible)
 {
     m_browser->setHeaderVisible(visible);
 }
 
+/// Forwards to QtTreePropertyBrowser::setPropertiesWithoutValueMarked().
 void PropertyBrowserWidget::setPropertiesWithoutValueMarked(bool mark)
 {
     m_browser->setPropertiesWithoutValueMarked(mark);
 }
 
+/// Forwards to QtTreePropertyBrowser::setIndentation().
 void PropertyBrowserWidget::setIndentation(int i)
 {
     m_browser->setIndentation(i);
 }
 
+/// Forwards to QtTreePropertyBrowser::splitterPosition().
 int PropertyBrowserWidget::splitterPosition() const
 {
     return m_browser->splitterPosition();
@@ -220,12 +248,17 @@ int PropertyBrowserWidget::splitterPosition() const
 
 // ── Slots ─────────────────────────────────────────────────────────────────────
 
+/// Records the new search text and (re)starts the debounce timer; the actual
+/// filtering happens later in applyFilter() once typing settles.
 void PropertyBrowserWidget::onSearchChanged(const QString &text)
 {
     m_filterText = text;
     m_filterTimer.start();   // debounce
 }
 
+/// Updates the description label with the newly current item's name and
+/// tooltip (or resets to the placeholder text when `item` is null), then
+/// re-emits currentItemChanged() to this widget's own listeners.
 void PropertyBrowserWidget::onCurrentItemChanged(QtBrowserItem *item)
 {
     if (item) {
@@ -240,6 +273,9 @@ void PropertyBrowserWidget::onCurrentItemChanged(QtBrowserItem *item)
     emit currentItemChanged(item);
 }
 
+/// Lower-cases and trims the pending filter text, logs it, and applies it to
+/// the tree browser's top-level items via filterTopLevel(). Called when the
+/// debounce timer (m_filterTimer) fires.
 void PropertyBrowserWidget::applyFilter()
 {
     const QString lower = m_filterText.trimmed().toLower();
@@ -249,6 +285,9 @@ void PropertyBrowserWidget::applyFilter()
 
 // ── Filter implementation ─────────────────────────────────────────────────────
 
+/// Recursively checks whether `item`'s display name contains `lowerText`, or
+/// whether any of its descendants do.
+/// @return true if `lowerText` is empty, or a match is found in `item` or a child
 bool PropertyBrowserWidget::itemOrChildMatchesFilter(QtBrowserItem *item,
                                                      const QString &lowerText) const
 {
@@ -267,6 +306,8 @@ bool PropertyBrowserWidget::itemOrChildMatchesFilter(QtBrowserItem *item,
     return false;
 }
 
+/// Shows or hides each top-level browser item depending on whether it or any
+/// of its descendants matches `lowerText` (via itemOrChildMatchesFilter()).
 void PropertyBrowserWidget::filterTopLevel(const QString &lowerText)
 {
     // not only shows matching items, but also shows same-level siblings

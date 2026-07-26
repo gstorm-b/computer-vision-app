@@ -3,6 +3,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
+/// Constructs the ROI at `rect`, wires up movable/selectable/geometry-change flags, stores
+/// `ignore_flag`, and initializes default colors, handle size, and transform origin.
 ItemRoi::ItemRoi(const QRectF &rect,
                  QGraphicsItem *parent,
                  bool *ignore_flag)
@@ -23,26 +25,32 @@ ItemRoi::ItemRoi(const QRectF &rect,
   this->setTransformOriginPoint(rect.center());
 }
 
+/// Returns the ROI rectangle mapped into the parent item's coordinate system.
 QRectF ItemRoi::getRoi() {
   return mapRectToParent(rect());
 }
 
+/// Sets the dashed border color used when the ROI is not selected, if `normal` is valid.
 void ItemRoi::setBoundingColorNormal(QColor normal) {
   if (normal.isValid()) {
     m_bounding_color_normal = normal;
   }
 }
 
+/// Sets the dashed border color used when the ROI is selected, if `selected` is valid.
 void ItemRoi::setBoundingColorSelected(QColor selected) {
   if (selected.isValid()) {
     m_bounding_color_selected = selected;
   }
 }
 
+/// Enables/disables drawing the small center cross-hair in paint().
 void ItemRoi::setEnableDrawCenter(bool enable) {
   m_is_draw_center = enable;
 }
 
+/// Paints the ROI: an optional center cross-hair, then either the selected-state dashed
+/// rect plus the four corner resize handles, or the normal-state dashed rect.
 void ItemRoi::paint(QPainter *painter,
                            const QStyleOptionGraphicsItem *option,
                            QWidget *widget) {
@@ -94,7 +102,9 @@ void ItemRoi::paint(QPainter *painter,
   }
 }
 
-// boudingRect invovled when click event emitted, to determine which item are choosing
+/// boundingRect is consulted when a click event is dispatched, to determine which item is
+/// being chosen; returns rect() expanded to include all four corner handle rects plus a
+/// 1px margin.
 QRectF ItemRoi::boundingRect() const {
   QRectF base = rect();
   // expand bouding box for handle area
@@ -107,7 +117,8 @@ QRectF ItemRoi::boundingRect() const {
   return unionRect.adjusted(-1, -1, 1, 1);
 }
 
-// shape decide which area belongs to ROI Item
+/// shape decides which area belongs to the ROI item for hit-testing: the ROI rect, plus
+/// the four corner handle rects when the item is selected.
 QPainterPath ItemRoi::shape() const  {
   QPainterPath path;
   path.setFillRule(Qt::WindingFill);
@@ -124,6 +135,11 @@ QPainterPath ItemRoi::shape() const  {
   return path;
 }
 
+/// Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays fully
+/// inside the parent item's bounding rect.
+/// @param change the kind of item change being reported
+/// @param value the proposed new value (position, for the change handled here)
+/// @return the (possibly corrected) value to apply
 QVariant ItemRoi::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value) {
 
   // only override for item position changed
@@ -158,7 +174,8 @@ QVariant ItemRoi::itemChange(QGraphicsItem::GraphicsItemChange change, const QVa
   return QGraphicsRectItem::itemChange(change, value);
 }
 
-// return handle rect based on current position
+/// Returns the square hit/paint rect for corner `pos`, sized by effectiveHandleSize() and
+/// centered on that corner of rect().
 QRectF ItemRoi::handleRect(HandlePosition pos) const {
   QRectF r = rect();
   QPointF point;
@@ -185,6 +202,7 @@ QRectF ItemRoi::handleRect(HandlePosition pos) const {
                 handleSize, handleSize);
 }
 
+/// Returns which corner handle (if any) contains `pos` (item coordinates), or None.
 ItemRoi::HandlePosition ItemRoi::getHandleAt(const QPointF &pos) const {
   if (handleRect(TopLeft).contains(pos))
     return TopLeft;
@@ -197,6 +215,8 @@ ItemRoi::HandlePosition ItemRoi::getHandleAt(const QPointF &pos) const {
   return None;
 }
 
+/// Returns the view's current level-of-detail scale factor (clamped to a minimum of 0.05),
+/// or 1.0 if the item has no scene/view yet.
 qreal ItemRoi::currentLevelOfDetail() const
 {
   if (scene() && !scene()->views().isEmpty()) {
@@ -207,12 +227,16 @@ qreal ItemRoi::currentLevelOfDetail() const
   return 1.0;
 }
 
+/// Returns the on-screen-constant handle size (item coordinates), scaled inversely with
+/// the current level of detail and clamped to the range [8,18]/lod.
 qreal ItemRoi::effectiveHandleSize() const
 {
   const qreal lod = currentLevelOfDetail();
   return qBound<qreal>(8.0 / lod, 12.0 / lod, 18.0 / lod);
 }
 
+/// Returns true if `new_rect`, mapped to parent coordinates, is fully contained by the
+/// parent item's bounding rect; false if there is no parent.
 bool ItemRoi::isInsideParent(QRectF &new_rect) {
   if (parentItem() != nullptr) {
     QRectF childInParent = this->mapRectToParent(new_rect);
@@ -222,6 +246,9 @@ bool ItemRoi::isInsideParent(QRectF &new_rect) {
   return false;
 }
 
+/// Handles press: honors the external ignore flag, detects a corner-handle grab (capturing
+/// the original rect for resizing), otherwise defers to QGraphicsRectItem for its normal
+/// move-mode handling.
 void ItemRoi::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   if (m_ignore != nullptr) {
     if (*m_ignore == true) {
@@ -247,6 +274,9 @@ void ItemRoi::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   QGraphicsRectItem::mousePressEvent(event);
 }
 
+/// While a handle is active, resizes rect() from the drag delta (rejecting moves that
+/// would leave the parent bounds or shrink a side below m_handle_size); otherwise defers
+/// to QGraphicsRectItem for its normal move-mode handling.
 void ItemRoi::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
   if (m_ignore != nullptr) {
     if (*m_ignore == true) {
@@ -301,6 +331,8 @@ void ItemRoi::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
   QGraphicsRectItem::mouseMoveEvent(event);
 }
 
+/// Ends an active resize: re-centers the transform origin on the new rect while keeping
+/// the item's on-screen position fixed, then clears the active handle.
 void ItemRoi::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
   if (m_ignore != nullptr) {
     if (*m_ignore == true) {

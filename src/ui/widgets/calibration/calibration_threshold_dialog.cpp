@@ -18,9 +18,13 @@
 #include <vector>
 
 namespace {
+/// Fixed width/height (in pixels) used for both preview panes.
 constexpr int kPreviewSize = 360;
 } // namespace
 
+/// Constructs the dialog: stores the borrowed board pointer, builds the UI seeded from
+/// `initialThreshold`, and runs an initial recompute() (previews stay blank until setImage()
+/// delivers the first frame).
 CalibrationThresholdDialog::CalibrationThresholdDialog(calib::CalibrationBoard *board,
                                                        int initialThreshold,
                                                        QWidget *parent)
@@ -31,6 +35,11 @@ CalibrationThresholdDialog::CalibrationThresholdDialog(calib::CalibrationBoard *
     recompute();
 }
 
+/// Assembles the dialog layout: two preview panes (binarized / detection overlay) with
+/// captions, a status label, the Auto checkbox + threshold slider/spin + Re-grab button row,
+/// and the OK/Cancel button box; wires all control signals to their handlers.
+/// @param initialThreshold seed value: -1 selects Auto (Otsu) with 128 as the manual fallback,
+/// 0..255 selects manual mode pre-set to that value
 void CalibrationThresholdDialog::buildUi(int initialThreshold)
 {
     auto *root = new QVBoxLayout(this);
@@ -103,23 +112,29 @@ void CalibrationThresholdDialog::buildUi(int initialThreshold)
     connect(m_buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
 }
 
+/// Returns -1 when the Auto (Otsu) checkbox is checked, otherwise the current slider value
+/// (or 128 if the slider hasn't been created yet).
 int CalibrationThresholdDialog::trialThreshold() const
 {
     if (m_auto && m_auto->isChecked()) return -1;
     return m_slider ? m_slider->value() : 128;
 }
 
+/// Returns the dialog's current threshold selection (delegates to trialThreshold()).
 int CalibrationThresholdDialog::threshold() const
 {
     return trialThreshold();
 }
 
+/// Clones `image` into m_image and recomputes both preview panes and the status line.
 void CalibrationThresholdDialog::setImage(const cv::Mat &image)
 {
     m_image = image.clone();
     recompute();
 }
 
+/// Enables/disables the manual slider and spin box based on `autoOtsu` and recomputes the
+/// previews.
 void CalibrationThresholdDialog::onAutoToggled(bool autoOtsu)
 {
     if (m_slider) m_slider->setEnabled(!autoOtsu);
@@ -127,6 +142,8 @@ void CalibrationThresholdDialog::onAutoToggled(bool autoOtsu)
     recompute();
 }
 
+/// Mirrors the slider's new value onto the spin box (blocking its signal to avoid feedback)
+/// and recomputes the previews.
 void CalibrationThresholdDialog::onSliderChanged(int value)
 {
     if (m_spin && m_spin->value() != value) {
@@ -136,6 +153,8 @@ void CalibrationThresholdDialog::onSliderChanged(int value)
     recompute();
 }
 
+/// Mirrors the spin box's new value onto the slider (blocking its signal to avoid feedback)
+/// and recomputes the previews.
 void CalibrationThresholdDialog::onSpinChanged(int value)
 {
     if (m_slider && m_slider->value() != value) {
@@ -145,6 +164,11 @@ void CalibrationThresholdDialog::onSpinChanged(int value)
     recompute();
 }
 
+/// Re-runs binarize()/detect() on the last grabbed frame at the current trial threshold and
+/// refreshes both preview panes and the status line; a no-op until an image has been pushed
+/// via setImage().
+/// @note Applies the trial threshold to `m_board` as a side effect (setBinarizeThreshold), so
+/// the previews reflect exactly what calibration would see.
 void CalibrationThresholdDialog::recompute()
 {
     if (!m_board || !m_binView || !m_overlayView || !m_status) {

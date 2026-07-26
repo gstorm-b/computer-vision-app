@@ -13,6 +13,7 @@
 #include <QPen>
 #include <QSpinBox>
 
+/// UI widgets used by the PLC monitor/control views.
 namespace vc::widgets {
 
 namespace {
@@ -28,6 +29,9 @@ constexpr int kChipMinWidth    = 60;
 constexpr int kWordValueWidth  = 100;
 constexpr int kWordWriteWidth  = 78;
 
+/// Builds the mono-space font used for addresses/values: prefers "JetBrains Mono",
+/// falling back to "Consolas" when JetBrains Mono isn't installed (detected via
+/// QFontInfo::fixedPitch()).
 QFont monoFont(int pointSize, bool bold = false) {
     QFont f("JetBrains Mono");
     if (!QFontInfo(f).fixedPitch()) f = QFont("Consolas");
@@ -36,6 +40,8 @@ QFont monoFont(int pointSize, bool bold = false) {
     return f;
 }
 
+/// Builds the "Segoe UI" sans-serif font used for button labels, optionally with
+/// absolute letter spacing (letterSpacing left at 0 leaves Qt's default spacing).
 QFont sansFont(int pointSize, bool bold = false, qreal letterSpacing = 0.0) {
     QFont f("Segoe UI");
     f.setPointSize(pointSize);
@@ -45,6 +51,8 @@ QFont sansFont(int pointSize, bool bold = false, qreal letterSpacing = 0.0) {
     return f;
 }
 
+/// Resolves a named ThemeManager color token to a QColor for the current
+/// light/dark theme.
 QColor tokenColor(const char *name) {
     return QColor(ThemeManager::tokenValue(QString::fromLatin1(name),
                                            ThemeManager::instance()->isDark()));
@@ -53,12 +61,16 @@ QColor tokenColor(const char *name) {
 } // namespace
 
 
+/// Constructs the delegate, storing mode for the lifetime of the object.
 DeviceRowDelegate::DeviceRowDelegate(Mode mode, QObject *parent)
     : QStyledItemDelegate(parent), m_mode(mode) {}
 
 
 // ── Geometry helpers ────────────────────────────────────────────────────────
 
+/// Splits the inner (padded) action cell into three button rects for
+/// SubOn/SubOff/SubToggle using fixed width ratios (26/30/44) so TOGGLE's
+/// longer label has room; returns an empty QRect for any other btnIndex.
 QRect DeviceRowDelegate::bitButtonRect(const QRect &cell, int btnIndex) const {
     const QRect inner = cell.adjusted(kCellPadX, kCellPadY,
                                       -kCellPadX, -kCellPadY);
@@ -85,6 +97,8 @@ QRect DeviceRowDelegate::bitButtonRect(const QRect &cell, int btnIndex) const {
     return {};
 }
 
+/// Returns the rect of the Word-mode value box, anchored at the inner (padded)
+/// cell's top-left corner with fixed width kWordValueWidth and height kBtnHeight.
 QRect DeviceRowDelegate::wordValueRect(const QRect &cell) const {
     const QRect inner = cell.adjusted(kCellPadX, kCellPadY,
                                       -kCellPadX, -kCellPadY);
@@ -92,6 +106,8 @@ QRect DeviceRowDelegate::wordValueRect(const QRect &cell) const {
     return { inner.x(), y, kWordValueWidth, kBtnHeight };
 }
 
+/// Returns the rect of the Word-mode WRITE button, placed kBtnSpacing to the
+/// right of wordValueRect() within the inner (padded) cell.
 QRect DeviceRowDelegate::wordWriteRect(const QRect &cell) const {
     const QRect inner = cell.adjusted(kCellPadX, kCellPadY,
                                       -kCellPadX, -kCellPadY);
@@ -100,6 +116,8 @@ QRect DeviceRowDelegate::wordWriteRect(const QRect &cell) const {
              kWordWriteWidth, kBtnHeight };
 }
 
+/// Tests localPos against each Bit-mode button rect in turn (ON, then OFF, then
+/// TOGGLE) and returns the first match, or SubNone if none contain it.
 DeviceRowDelegate::SubButton
 DeviceRowDelegate::hitTestBit(const QRect &cell, const QPoint &localPos) const {
     if (bitButtonRect(cell, SubOn)    .contains(localPos)) return SubOn;
@@ -108,6 +126,9 @@ DeviceRowDelegate::hitTestBit(const QRect &cell, const QPoint &localPos) const {
     return SubNone;
 }
 
+/// Tests localPos against the Word-mode value rect and WRITE button rect and
+/// returns the first match (SubValue, then SubWrite), or SubNone if neither
+/// contains it.
 DeviceRowDelegate::SubButton
 DeviceRowDelegate::hitTestWord(const QRect &cell, const QPoint &localPos) const {
     if (wordValueRect(cell).contains(localPos)) return SubValue;
@@ -118,6 +139,8 @@ DeviceRowDelegate::hitTestWord(const QRect &cell, const QPoint &localPos) const 
 
 // ── sizeHint ────────────────────────────────────────────────────────────────
 
+/// Takes the base class's size hint and raises its height to at least
+/// kRowHeight (44 px) while leaving the width untouched.
 QSize DeviceRowDelegate::sizeHint(const QStyleOptionViewItem &opt,
                                   const QModelIndex &idx) const {
     QSize s = QStyledItemDelegate::sizeHint(opt, idx);
@@ -127,6 +150,9 @@ QSize DeviceRowDelegate::sizeHint(const QStyleOptionViewItem &opt,
 
 // ── paint ──────────────────────────────────────────────────────────────────
 
+/// Fills the cell's background (alternating bg.window/bg.surface by row
+/// parity, overridden with selection.bg when selected) and draws a
+/// border.default separator line along the row's bottom edge.
 void DeviceRowDelegate::paintBackground(QPainter *p,
                                         const QStyleOptionViewItem &opt,
                                         const QModelIndex &idx) const {
@@ -146,6 +172,8 @@ void DeviceRowDelegate::paintBackground(QPainter *p,
     p->restore();
 }
 
+/// Draws the address cell's centered, bold mono text: 'M' prefix in Bit mode or
+/// 'D' prefix in Word mode, followed by address zero-padded to 4 digits.
 void DeviceRowDelegate::paintAddress(QPainter *p, const QRect &cell,
                                      int address) const {
     p->save();
@@ -158,6 +186,10 @@ void DeviceRowDelegate::paintAddress(QPainter *p, const QRect &cell,
     p->restore();
 }
 
+/// Draws the Bit-mode state chip: a rounded pill centered in cell, its width
+/// sized to fit "OFF" plus 28px of padding (or kChipMinWidth if larger). Uses
+/// the success/green palette with "ON" text when on, otherwise the neutral
+/// elevated/muted palette with "OFF" text.
 void DeviceRowDelegate::paintChip(QPainter *p, const QRect &cell,
                                   bool on) const {
     p->save();
@@ -194,6 +226,7 @@ void DeviceRowDelegate::paintChip(QPainter *p, const QRect &cell,
     p->restore();
 }
 
+/// Draws the Word-mode live value as centered, bold 11pt mono text.
 void DeviceRowDelegate::paintWordVal(QPainter *p, const QRect &cell,
                                      int value) const {
     p->save();
@@ -203,6 +236,11 @@ void DeviceRowDelegate::paintWordVal(QPainter *p, const QRect &cell,
     p->restore();
 }
 
+/// Draws one rounded pill-shaped button with `label` centered inside `r`.
+/// primary buttons use the accent palette (pressed/hovered/idle shades of
+/// accent color, text.on-accent label); non-primary buttons use a neutral
+/// outline (bg.elevated/bg.window fill, border.default/accent.primary border,
+/// text.muted/text.primary label) depending on pressed/hovered.
 void DeviceRowDelegate::paintButton(QPainter *p, const QRect &r,
                                     const QString &label,
                                     bool primary, bool pressed,
@@ -238,6 +276,8 @@ void DeviceRowDelegate::paintButton(QPainter *p, const QRect &r,
     p->restore();
 }
 
+/// Draws the three Bit-mode action buttons (ON/OFF/TOGGLE) via paintButton(),
+/// marking whichever one matches m_pressedRow/m_pressedBtn for row as pressed.
 void DeviceRowDelegate::paintBitAction(QPainter *p, const QRect &cell,
                                        int row) const {
     static const struct { SubButton id; const char *label; } kBtns[] = {
@@ -253,6 +293,10 @@ void DeviceRowDelegate::paintBitAction(QPainter *p, const QRect &cell,
     }
 }
 
+/// Draws the Word-mode action cell: a spinbox-styled value box (bg.input fill,
+/// border.default border) showing pending right-aligned in mono font, followed
+/// by the WRITE button via paintButton() (marked pressed when m_pressedRow/
+/// m_pressedBtn match row/SubWrite).
 void DeviceRowDelegate::paintWordAction(QPainter *p, const QRect &cell,
                                         int row, int pending) const {
     p->save();
@@ -280,6 +324,11 @@ void DeviceRowDelegate::paintWordAction(QPainter *p, const QRect &cell,
                 /*primary*/ true, pressed, /*hovered*/ false);
 }
 
+/// Paints one cell: fills the row background/selection/separator, then
+/// dispatches by column — ColAddress to paintAddress(), ColDescription to a
+/// default-style left-aligned text draw of Qt::DisplayRole, ColState to
+/// paintChip()/paintWordVal(), and ColAction to paintBitAction()/
+/// paintWordAction() — depending on the active Mode.
 void DeviceRowDelegate::paint(QPainter *p,
                               const QStyleOptionViewItem &opt,
                               const QModelIndex &idx) const {
@@ -329,6 +378,17 @@ void DeviceRowDelegate::paint(QPainter *p,
 
 // ── Mouse handling ──────────────────────────────────────────────────────────
 
+/// Handles mouse press/release within the action column (column 3). Ignores
+/// any other column or event type (deferring to the base class). On press,
+/// hit-tests the appropriate sub-buttons for the active Mode and records
+/// m_pressedRow/m_pressedBtn for the press-flash repaint. On release, the
+/// action only fires if the release lands on the same row and sub-button that
+/// was pressed: Bit mode emits bitWriteRequested() (1 for ON, 0 for OFF, the
+/// inverse of the current BitStateRole for TOGGLE); Word mode emits
+/// wordWriteRequested() with the cell's PendingWriteRole for SubWrite, or
+/// opens the spinbox editor via QAbstractItemView::edit() for SubValue.
+/// @return true when the action-column interaction was handled; otherwise
+///         defers to QStyledItemDelegate::editorEvent().
 bool DeviceRowDelegate::editorEvent(QEvent *event,
                                     QAbstractItemModel *model,
                                     const QStyleOptionViewItem &opt,
@@ -424,6 +484,11 @@ bool DeviceRowDelegate::editorEvent(QEvent *event,
 
 // ── Editor (spinbox for Word value) ─────────────────────────────────────────
 
+/// Creates the qint16-ranged (-32768..32767), button-less, right-aligned
+/// QSpinBox used to edit the Word-mode pending value, themed from
+/// ThemeManager's bg.input/text.primary/border.default/accent.primary tokens.
+/// @return the new QSpinBox; nullptr if not in Word mode or idx isn't the
+///         action column (leaves the cell non-editable).
 QWidget *DeviceRowDelegate::createEditor(QWidget *parent,
                                          const QStyleOptionViewItem &,
                                          const QModelIndex &idx) const {
@@ -450,6 +515,8 @@ QWidget *DeviceRowDelegate::createEditor(QWidget *parent,
     return spin;
 }
 
+/// Seeds the spinbox editor with the cell's current PendingWriteRole value and
+/// selects all its text; no-op if editor isn't a QSpinBox.
 void DeviceRowDelegate::setEditorData(QWidget *editor,
                                       const QModelIndex &idx) const {
     if (auto *spin = qobject_cast<QSpinBox *>(editor)) {
@@ -458,6 +525,9 @@ void DeviceRowDelegate::setEditorData(QWidget *editor,
     }
 }
 
+/// Forces the spinbox to interpret any in-progress typed text, then writes its
+/// value into the model's PendingWriteRole for idx; no-op if editor isn't a
+/// QSpinBox.
 void DeviceRowDelegate::setModelData(QWidget *editor,
                                      QAbstractItemModel *model,
                                      const QModelIndex &idx) const {
@@ -467,6 +537,8 @@ void DeviceRowDelegate::setModelData(QWidget *editor,
     }
 }
 
+/// Sizes/positions the open editor to exactly cover wordValueRect() for the
+/// cell's rect; no-op if editor is null.
 void DeviceRowDelegate::updateEditorGeometry(QWidget *editor,
                                              const QStyleOptionViewItem &opt,
                                              const QModelIndex &) const {

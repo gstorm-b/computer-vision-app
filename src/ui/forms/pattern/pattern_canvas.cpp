@@ -13,26 +13,31 @@
 //  Constants
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Internal implementation constants for AddPatternImageCanvas (handle sizes, stand-off
+/// distances, and zoom limits).
 namespace {
-    // Handle hit-test slack and visual size — always in WIDGET pixels so
-    // handles stay easy to grab regardless of zoom level.
+    /// Handle hit-test slack, in widget pixels — always widget-space (not image-space)
+    /// so handles stay easy to grab regardless of zoom level.
     constexpr int    kHandleHitSlack = 8;
-    constexpr double kHandleVisSize  = 11.0;   // square handle, in widget px
+    constexpr double kHandleVisSize  = 11.0;   ///< Square handle visual size, in widget px.
 
-    // Rotation handle stand-off distance (image pixels, from box A centre,
-    // perpendicular to the connector direction).
+    /// Rotation-handle stand-off distance (image pixels), measured from box A's centre
+    /// perpendicular to the connector direction.
     constexpr double kRotateHandleStandoff = 28.0;
 
     // Zoom limits.
-    constexpr double kMinZoom = 0.05;
-    constexpr double kMaxZoom = 40.0;
-    constexpr double kZoomStep = 1.15;
+    constexpr double kMinZoom = 0.05;  ///< Minimum allowed zoom factor.
+    constexpr double kMaxZoom = 40.0;  ///< Maximum allowed zoom factor.
+    constexpr double kZoomStep = 1.15; ///< Multiplicative zoom change applied per wheel notch.
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Construction
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Constructs the canvas: 400×280 minimum size, opaque painting (Qt won't auto-fill the
+/// background), mouse tracking enabled (for hover-cursor updates without a button held),
+/// and strong focus so it can receive key/mouse/wheel input.
 AddPatternImageCanvas::AddPatternImageCanvas(QWidget *parent) : QWidget(parent) {
     setMinimumSize(400, 280);
     setAttribute(Qt::WA_OpaquePaintEvent, true);
@@ -42,12 +47,18 @@ AddPatternImageCanvas::AddPatternImageCanvas(QWidget *parent) : QWidget(parent) 
 
 // ── Image setters ───────────────────────────────────────────────────────────
 
+/// Replaces the displayed image with `pix`, resets the view (zoom + pan) to fit, and
+/// repaints.
 void AddPatternImageCanvas::setImage(const QPixmap &pix) {
     m_pix = pix;
     resetView();
     update();
 }
 
+/// Converts `mat` to a QPixmap and displays it, resetting the view to fit. Supports
+/// grayscale (CV_8UC1), BGR (CV_8UC3, converted to RGB), and BGRA (CV_8UC4, converted to
+/// RGBA); an empty or otherwise-typed `mat` leaves the canvas with a null pixmap.
+/// @param mat source image, in OpenCV's native BGR(A)/grayscale channel order
 void AddPatternImageCanvas::setImage(const cv::Mat &mat) {
     if (mat.empty()) { m_pix = QPixmap(); resetView(); update(); return; }
 
@@ -74,10 +85,20 @@ void AddPatternImageCanvas::setImage(const cv::Mat &mat) {
     update();
 }
 
+/// Clears the displayed image (sets a null pixmap) and repaints.
 void AddPatternImageCanvas::clearImage() { m_pix = QPixmap(); update(); }
 
+/// Sets the interaction mode (None/Crop/Pick/Box/Finish), which selects which overlay
+/// paintEvent() draws and how mouse input is interpreted; repaints.
 void AddPatternImageCanvas::setMode(Mode m)             { m_mode = m; update(); }
+/// Sets the crop-rectangle overlay, in source-image pixel coordinates, and repaints.
 void AddPatternImageCanvas::setCrop(const QRect &r)     { m_crop = r; update(); }
+/// Sets the pick point from `p`, which is treated as crop-relative coordinates:
+/// `m_pick` (absolute, source-image coordinates) becomes `p` offset by the crop's
+/// top-left when a crop is set, otherwise `p` itself; `m_pickCurrentPoint` stores the
+/// crop-relative value as given.
+/// @param p pick point in crop-relative coordinates (equal to absolute image
+/// coordinates when no crop is set)
 void AddPatternImageCanvas::setPick(const QPoint &p)    {
     m_pick = p;
     m_pickCurrentPoint = p;
@@ -87,16 +108,22 @@ void AddPatternImageCanvas::setPick(const QPoint &p)    {
     update();
 }
 
+/// Sets the picking-box width, height, jaw-pair distance, and angle, then repaints.
 void AddPatternImageCanvas::setBoxConfig(double w, double h, double d, double a) {
     m_boxW = w; m_boxH = h; m_boxDist = d; m_boxAngle = a;
     update();
 }
+/// Sets whether the canvas is locked (read-only): disables interactive dragging and
+/// draws the "LOCKED" scrim + badge over the view; repaints.
 void AddPatternImageCanvas::setLocked(bool locked)      { m_locked = locked; update(); }
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  View transform
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Returns the zoom factor that fits the whole image inside the widget (the smaller of
+/// the width and height fit ratios), clamped to [kMinZoom, kMaxZoom].
+/// @return 1.0 when no image is loaded
 double AddPatternImageCanvas::fitZoom() const {
     if (m_pix.isNull()) return 1.0;
     const double zx = double(width())  / double(m_pix.width());
@@ -104,11 +131,15 @@ double AddPatternImageCanvas::fitZoom() const {
     return qBound(kMinZoom, qMin(zx, zy), kMaxZoom);
 }
 
+/// Returns the image's bounding rectangle in widget coordinates, derived from the
+/// current pan offset (m_offset) and zoom (m_zoom).
 QRectF AddPatternImageCanvas::imageRectInWidget() const {
     return QRectF(m_offset.x(), m_offset.y(),
                   m_pix.width() * m_zoom, m_pix.height() * m_zoom);
 }
 
+/// Resets the view to fitZoom() and centers the image in the widget; resets to
+/// identity zoom/offset when no image is loaded.
 void AddPatternImageCanvas::resetView() {
     if (m_pix.isNull()) {
         m_zoom = 1.0;
@@ -120,6 +151,9 @@ void AddPatternImageCanvas::resetView() {
                        (height() - m_pix.height() * m_zoom) / 2.0);
 }
 
+/// Handles widget resize. Deliberately does not refit or recenter the image — zoom and
+/// pan are preserved across resizes; only setImage() and a middle-button double-click
+/// (see mouseDoubleClickEvent()) call resetView().
 void AddPatternImageCanvas::resizeEvent(QResizeEvent *e) {
     QWidget::resizeEvent(e);
     // Preserve the user's view (zoom + pan) on widget resize.  setImage()
@@ -130,6 +164,13 @@ void AddPatternImageCanvas::resizeEvent(QResizeEvent *e) {
 //  Painting
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Paints the canvas: dark background, the loaded image (through the current view
+/// transform), the mode-specific overlay (crop rectangle, pick crosshair, or picking
+/// box, per m_mode), and the locked scrim + badge when m_locked is set. Draws a
+/// placeholder grid and "No image" text instead when no image is loaded.
+/// @note SmoothPixmapTransform is deliberately off — the image is sampled
+/// nearest-neighbour so users see exact pixel boundaries at high zoom, which matches
+/// the pattern-inspection use case.
 void AddPatternImageCanvas::paintEvent(QPaintEvent *) {
     QPainter p(this);
     // Antialiasing for overlay shapes (crop/box outlines, handles).
@@ -353,12 +394,17 @@ void AddPatternImageCanvas::paintEvent(QPaintEvent *) {
 //  Box geometry helpers
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Returns box A's centre, in image coordinates: the pick point offset by m_boxDist
+/// along the direction m_boxAngle.
 QPointF AddPatternImageCanvas::boxACentre() const {
     const double r = qDegreesToRadians(m_boxAngle);
     return QPointF(m_pick.x() + std::cos(r) * m_boxDist,
                    m_pick.y() + std::sin(r) * m_boxDist);
 }
 
+/// Returns the rotation handle's position, in image coordinates: box A's centre offset
+/// perpendicular to the connector direction by half the box height plus
+/// kRotateHandleStandoff.
 QPointF AddPatternImageCanvas::boxRotationHandle() const {
     // Offset perpendicular to the connector direction.  Perpendicular vector
     // for angle θ is (cos(θ+90°), sin(θ+90°)) = (-sin θ, cos θ).
@@ -368,6 +414,8 @@ QPointF AddPatternImageCanvas::boxRotationHandle() const {
                    c.y() + ( std::cos(r)) * (m_boxH / 2 + kRotateHandleStandoff));
 }
 
+/// Computes box A's four corners, in image coordinates, rotated by m_boxAngle around
+/// its centre (boxACentre()).
 void AddPatternImageCanvas::boxACorners(QPointF out[4]) const {
     const double r = qDegreesToRadians(m_boxAngle);
     const double co = std::cos(r), si = std::sin(r);
@@ -386,6 +434,10 @@ void AddPatternImageCanvas::boxACorners(QPointF out[4]) const {
 //  Hit testing
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Hit-tests `widgetPos` against the crop rectangle's corner handles (with
+/// kHandleHitSlack tolerance, checked first) and then its body.
+/// @param widgetPos cursor position, in widget coordinates
+/// @return the hit corner or CH_Body, or CH_None if nothing was hit or no crop is set
 AddPatternImageCanvas::CropHandle
 AddPatternImageCanvas::hitCropHandle(const QPoint &widgetPos) const {
     if (m_crop.isNull() || m_crop.isEmpty()) return CH_None;
@@ -409,6 +461,11 @@ AddPatternImageCanvas::hitCropHandle(const QPoint &widgetPos) const {
     return CH_None;
 }
 
+/// Hit-tests `widgetPos` against the picking-box's interactive elements, in priority
+/// order: the pick crosshair, the rotation handle, the four corner handles, and finally
+/// the box body (via an inverse-rotated box-local coordinate test).
+/// @param widgetPos cursor position, in widget coordinates
+/// @return the hit handle, or BH_None if nothing was hit
 AddPatternImageCanvas::BoxHandle
 AddPatternImageCanvas::hitBoxHandle(const QPoint &widgetPos) const {
     // Pick crosshair — highest priority so the picking centre can always be
@@ -451,6 +508,11 @@ AddPatternImageCanvas::hitBoxHandle(const QPoint &widgetPos) const {
 //  Mouse interaction
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Starts an interaction on button press: the middle button begins panning (in any
+/// mode, even locked); the left button begins crop-handle dragging in Crop mode, moves
+/// the pick point (clamped to the crop or image bounds) and emits pickChanged() in Pick
+/// mode, or begins box-handle dragging in Box mode. No-op when no image is loaded, and
+/// (aside from panning) when the canvas is locked.
 void AddPatternImageCanvas::mousePressEvent(QMouseEvent *e) {
     if (m_pix.isNull()) return;
 
@@ -502,6 +564,10 @@ void AddPatternImageCanvas::mousePressEvent(QMouseEvent *e) {
     }
 }
 
+/// Continues the active drag (pan / crop resize-or-move / box resize-rotate-drag) and
+/// emits cropChanged(), pickChanged(), or boxChanged() as state updates; otherwise just
+/// updates the hover cursor to match the current mode and the handle under the cursor.
+/// No-op when no image is loaded; ignored (except panning) when the canvas is locked.
 void AddPatternImageCanvas::mouseMoveEvent(QMouseEvent *e) {
     // Middle-button pan — handled in every mode.
     if (m_panning) {
@@ -645,6 +711,8 @@ void AddPatternImageCanvas::mouseMoveEvent(QMouseEvent *e) {
     }
 }
 
+/// Ends the active pan, crop-handle drag, or box-handle drag on button release, and
+/// restores the default cursor when the middle button (pan) is released.
 void AddPatternImageCanvas::mouseReleaseEvent(QMouseEvent *e) {
     if (e->button() == Qt::MiddleButton) {
         m_panning = false;
@@ -657,6 +725,8 @@ void AddPatternImageCanvas::mouseReleaseEvent(QMouseEvent *e) {
     m_boxHandle    = BH_None;
 }
 
+/// Resets the view (zoom + pan, via resetView()) on a middle-button double-click, in
+/// any mode.
 void AddPatternImageCanvas::mouseDoubleClickEvent(QMouseEvent *e) {
     // Reset view on middle-button double-click — works in any mode.
     if (e->button() == Qt::MiddleButton) {
@@ -665,6 +735,9 @@ void AddPatternImageCanvas::mouseDoubleClickEvent(QMouseEvent *e) {
     }
 }
 
+/// Zooms in/out by a factor of kZoomStep per wheel notch, around the cursor position
+/// (the image point under the cursor stays fixed on screen); clamped to
+/// [kMinZoom, kMaxZoom]. No-op when no image is loaded.
 void AddPatternImageCanvas::wheelEvent(QWheelEvent *e) {
     if (m_pix.isNull()) return;
 

@@ -16,8 +16,10 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Absolute tolerance used when comparing loaded mesh statistics against expected values.
 constexpr double kTolerance = 1e-6;
 
+/// Plain double-precision 3D point used to build test triangle data (independent of Eigen).
 struct Vec3
 {
     double x;
@@ -25,6 +27,7 @@ struct Vec3
     double z;
 };
 
+/// Three vertices of a test triangle, in the winding order used to build STL fixtures.
 struct Triangle
 {
     Vec3 a;
@@ -32,6 +35,8 @@ struct Triangle
     Vec3 c;
 };
 
+/// Builds the 12 triangles of a closed 200x100x100 mm axis-aligned cuboid (millimeter units,
+/// consistent winding), used as the shared fixture geometry for all loader tests.
 std::vector<Triangle> cuboidTrianglesMm()
 {
     const Vec3 p000{0.0, 0.0, 0.0};
@@ -53,6 +58,8 @@ std::vector<Triangle> cuboidTrianglesMm()
     };
 }
 
+/// Serializes cuboidTrianglesMm() as an ASCII STL file (millimeter coordinates, zeroed facet
+/// normals) matching the "solid ... endsolid" text format.
 QByteArray asciiStlBytes()
 {
     QByteArray bytes;
@@ -76,6 +83,8 @@ QByteArray asciiStlBytes()
     return bytes;
 }
 
+/// Appends `value` to `bytes` as 4 raw little-endian bytes (host-endianness memcpy; test fixtures
+/// only run on little-endian targets).
 void appendLeUInt32(QByteArray& bytes, std::uint32_t value)
 {
     char raw[4];
@@ -83,6 +92,8 @@ void appendLeUInt32(QByteArray& bytes, std::uint32_t value)
     bytes.append(raw, static_cast<int>(sizeof(value)));
 }
 
+/// Appends `value` to `bytes` as 4 raw little-endian bytes (host-endianness memcpy; test fixtures
+/// only run on little-endian targets).
 void appendLeFloat(QByteArray& bytes, float value)
 {
     char raw[4];
@@ -90,6 +101,10 @@ void appendLeFloat(QByteArray& bytes, float value)
     bytes.append(raw, static_cast<int>(sizeof(value)));
 }
 
+/// Serializes cuboidTrianglesMm() as a binary STL file per the standard 80-byte header + u32
+/// triangle count + (12 floats + 2-byte attribute) per-triangle layout, converting each
+/// millimeter vertex coordinate to meters (multiplying by 0.001) so the fixture is already in
+/// meters, unlike asciiStlBytes().
 QByteArray binaryStlBytesMeters()
 {
     const std::vector<Triangle> triangles = cuboidTrianglesMm();
@@ -118,6 +133,8 @@ QByteArray binaryStlBytesMeters()
     return bytes;
 }
 
+/// Builds an ASCII STL with a single collinear triangle (0,0,0 / 1,1,1 / 2,2,2), i.e. zero area,
+/// used to exercise degenerate-triangle rejection/filtering.
 QByteArray degenerateAsciiStlBytes()
 {
     return QByteArray(
@@ -132,6 +149,10 @@ QByteArray degenerateAsciiStlBytes()
         "endsolid degenerate\n");
 }
 
+/// Writes `bytes` to `fileName` under the system temp directory, removing any pre-existing file
+/// first.
+/// @return the full path on success, or an empty string if the file could not be opened or the
+///         write was short.
 QString writeTempFile(const QString& fileName, const QByteArray& bytes)
 {
     const QString path = QDir::temp().filePath(fileName);
@@ -149,6 +170,7 @@ QString writeTempFile(const QString& fileName, const QByteArray& bytes)
 }
 }
 
+/// @see StlMeshLoaderTests::loadsAsciiStlAndNormalizesMillimetersToMeters
 void StlMeshLoaderTests::loadsAsciiStlAndNormalizesMillimetersToMeters()
 {
     const QString path = writeTempFile(QStringLiteral("rk_ascii_mesh_loader.stl"), asciiStlBytes());
@@ -262,6 +284,8 @@ void StlMeshLoaderTests::rejectsInvalidPayloadAndNonPositiveScale()
     QCOMPARE(invalidScale.status, KinematicsStatus::InvalidRequest);
 }
 
+/// Entry point invoked by TestMain to run the StlMeshLoaderTests suite under QtTest.
+/// @return the number of failing test functions (0 on success)
 int runStlMeshLoaderTests(int argc, char** argv)
 {
     StlMeshLoaderTests tests;

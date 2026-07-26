@@ -24,50 +24,81 @@
 #include <sstream>
 #include <utility>
 
+/// Robot kinematics, collision profile, and forward-kinematics types shared across the
+/// mesh collision backends.
 namespace RobotKinematics {
 
+/// Translation-unit-local helpers and caches backing the coal (HPP-FCL fork) mesh
+/// collision backend: cache-key builders, coal type conversions, and the loaded-geometry
+/// / built-runtime caches themselves.
 namespace {
+/// BVH mesh representation used by coal for all loaded triangle meshes, built with an
+/// OBBRSS (oriented bounding box + rectangular swept sphere) bounding volume hierarchy.
 using CoalBvh = coal::BVHModel<coal::OBBRSS>;
 
+/// A loaded STL mesh converted into a coal BVH, keyed and cached by resolved path plus
+/// format/units/scale so identical mesh assets are only parsed and built once.
 struct CachedCoalGeometry {
-    std::string resolvedPath;
-    TriangleMeshStatistics statistics;
-    std::shared_ptr<CoalBvh> model;
+    std::string resolvedPath;       ///< Absolute filesystem path the mesh was actually loaded from.
+    TriangleMeshStatistics statistics;  ///< Vertex/face counts and other stats reported by the STL loader.
+    std::shared_ptr<CoalBvh> model;  ///< Shared coal BVH model built from the mesh's vertices/faces.
 };
 
+/// One collision geometry entry within a built profile runtime: the source mesh
+/// description paired with its cached coal geometry and a per-check-call coal
+/// CollisionObject holding that geometry's current world transform.
 struct CoalMeshRuntimeEntry {
-    MeshCollisionGeometry mesh;
-    std::shared_ptr<CachedCoalGeometry> geometry;
-    std::unique_ptr<coal::CollisionObject> object;
+    MeshCollisionGeometry mesh;  ///< Source mesh collision geometry description from the profile.
+    std::shared_ptr<CachedCoalGeometry> geometry;  ///< Cached coal BVH backing this mesh entry.
+    std::unique_ptr<coal::CollisionObject> object;  ///< Coal collision object; transform is updated per FK pose.
 };
 
+/// A fully-built, cacheable runtime for a MeshCollisionProfile: every enabled mesh loaded
+/// as coal geometry and wrapped in a CollisionObject, ready to have transforms applied and
+/// be checked for collisions.
 struct CoalProfileRuntime {
-    std::string cacheKey;
-    std::vector<CoalMeshRuntimeEntry> meshes;
+    std::string cacheKey;  ///< Runtime cache key this instance was stored under (see profileRuntimeKey).
+    std::vector<CoalMeshRuntimeEntry> meshes;  ///< Enabled mesh entries built from the profile, in profile order.
 };
 
+/// Process-lifetime cache of loaded coal BVH geometry, keyed by geometryCacheKey() so a
+/// given STL file/format/units/scale combination is loaded and built only once.
+/// @return mutable reference to the function-local static cache map
 std::map<std::string, std::shared_ptr<CachedCoalGeometry>>& geometryCache()
 {
     static std::map<std::string, std::shared_ptr<CachedCoalGeometry>> cache;
     return cache;
 }
 
+/// Process-lifetime cache of built CoalProfileRuntime instances, keyed by
+/// profileRuntimeKey() so an unchanged profile is not rebuilt (and its meshes not
+/// reloaded) on every collision check.
+/// @return mutable reference to the function-local static cache map
 std::map<std::string, std::shared_ptr<CoalProfileRuntime>>& profileCache()
 {
     static std::map<std::string, std::shared_ptr<CoalProfileRuntime>> cache;
     return cache;
 }
 
+/// Builds an order-independent key for an unordered geometry-id pair, so that a disabled
+/// pair {a, b} matches lookups made as either (a, b) or (b, a).
+/// @return the two ids joined by a newline separator, always in the lexicographically
+///         smaller-first order
 std::string normalizePairKey(const std::string& a, const std::string& b)
 {
     return a < b ? a + "\n" + b : b + "\n" + a;
 }
 
+/// Appends `value` to `stream` at full double precision (17 significant digits), so
+/// cache keys derived from floating-point values do not collide due to truncation.
 void appendDouble(std::ostringstream& stream, double value)
 {
     stream << std::setprecision(17) << value;
 }
 
+/// Serializes a pose's rotation matrix and translation to a full-precision text key, used
+/// to detect when a mesh's link-relative pose has changed between cache lookups.
+/// @return comma-separated rotation entries (row-major) followed by translation entries
 std::string poseKey(const Pose& pose)
 {
     const Eigen::Isometry3d& iso = pose.isometry();
@@ -85,6 +116,10 @@ std::string poseKey(const Pose& pose)
     return key.str();
 }
 
+/// Builds the cache key identifying a mesh's contribution to a CoalProfileRuntime: every
+/// field that affects the built runtime entry (id, link, path, format, units, scale,
+/// margin, enabled flag, and mesh-to-link pose) is encoded so any change forces a rebuild.
+/// @return the delimited runtime key for this mesh
 std::string meshRuntimeKey(const MeshCollisionGeometry& mesh)
 {
     std::ostringstream key;
@@ -100,6 +135,10 @@ std::string meshRuntimeKey(const MeshCollisionGeometry& mesh)
     return key.str();
 }
 
+/// Builds the profileCache() lookup key for `profile` by combining its id/robot model
+/// with every mesh's meshRuntimeKey(), so any change to any mesh invalidates the cached
+/// CoalProfileRuntime and forces a rebuild.
+/// @return the delimited runtime key for the whole profile
 std::string profileRuntimeKey(const MeshCollisionProfile& profile)
 {
     std::ostringstream key;
@@ -110,6 +149,9 @@ std::string profileRuntimeKey(const MeshCollisionProfile& profile)
     return key.str();
 }
 
+/// Resolves a possibly-relative mesh path to an absolute filesystem path, treating a
+/// relative `path` as relative to the current working directory.
+/// @return the absolute path
 std::string resolveMeshPath(const std::string& path)
 {
     const QFileInfo fileInfo(QString::fromStdString(path));
@@ -119,6 +161,10 @@ std::string resolveMeshPath(const std::string& path)
     return QDir::current().absoluteFilePath(fileInfo.filePath()).toStdString();
 }
 
+/// Builds the geometryCache() lookup key for a mesh's loaded coal BVH: the resolved file
+/// path plus format/source-units/scale, since those are the only inputs that affect the
+/// loaded geometry (mesh id, link, margin, and pose do not).
+/// @return the delimited geometry cache key
 std::string geometryCacheKey(const MeshCollisionGeometry& mesh, const std::string& resolvedPath)
 {
     std::ostringstream key;
@@ -129,17 +175,21 @@ std::string geometryCacheKey(const MeshCollisionGeometry& mesh, const std::strin
     return key.str();
 }
 
+/// Converts an Eigen 3D vector to coal's Vec3s scalar-vector type.
 coal::Vec3s toCoalVector(const Eigen::Vector3d& value)
 {
     return coal::Vec3s(value.x(), value.y(), value.z());
 }
 
+/// Converts a Pose's isometry (rotation + translation) to a coal Transform3s.
 coal::Transform3s toCoalTransform(const Pose& pose)
 {
     const Eigen::Isometry3d& iso = pose.isometry();
     return coal::Transform3s(iso.linear(), iso.translation());
 }
 
+/// Builds a failed CollisionCheckResult carrying `status` and `message`, with
+/// hasCollision forced to false.
 CollisionCheckResult failure(KinematicsStatus status, const std::string& message)
 {
     CollisionCheckResult result;
@@ -149,6 +199,13 @@ CollisionCheckResult failure(KinematicsStatus status, const std::string& message
     return result;
 }
 
+/// Loads (or returns the already-cached) coal BVH geometry for a single mesh: resolves
+/// its path, checks the geometryCache(), and on a miss loads the STL file, discarding
+/// degenerate triangles, and builds the coal BVH model from its vertices/faces.
+/// @param mesh the mesh collision geometry to load; only STL format is currently supported
+/// @return the cached/loaded geometry, or a failure if the format is unsupported, the STL
+///         file failed to load, or the coal BVH build (beginModel/addSubModel/endModel)
+///         failed
 Result<std::shared_ptr<CachedCoalGeometry>> loadCoalGeometry(const MeshCollisionGeometry& mesh)
 {
     if (mesh.format != MeshFileFormat::Stl) {
@@ -217,6 +274,11 @@ Result<std::shared_ptr<CachedCoalGeometry>> loadCoalGeometry(const MeshCollision
     return Result<std::shared_ptr<CachedCoalGeometry>>::success(cachedGeometry);
 }
 
+/// Loads (or returns the already-cached) CoalProfileRuntime for a profile: builds a coal
+/// CollisionObject for every enabled mesh (skipping disabled ones), loading each mesh's
+/// geometry via loadCoalGeometry(), and caches the result under profileRuntimeKey().
+/// @return the cached/built runtime, or a failure propagated from the first mesh that
+///         fails to load
 Result<std::shared_ptr<CoalProfileRuntime>> loadProfileRuntime(const MeshCollisionProfile& profile)
 {
     const std::string cacheKey = profileRuntimeKey(profile);
@@ -254,6 +316,9 @@ Result<std::shared_ptr<CoalProfileRuntime>> loadProfileRuntime(const MeshCollisi
 
 } // namespace
 
+/// Describes the coal mesh collision backend's identity and availability, reporting it
+/// as compiled-in and available since this backend is always built.
+/// @return backend info for CollisionBackendKind::Mesh / MeshCollisionBackendKind::Coal
 CollisionBackendInfo coalMeshBackendInfo()
 {
     return CollisionBackendInfo{
@@ -268,6 +333,12 @@ CollisionBackendInfo coalMeshBackendInfo()
     };
 }
 
+/// Runs a full mesh collision check using the coal backend: validates the robot config,
+/// mesh profile, and joint vector; loads/reuses the cached CoalProfileRuntime; poses every
+/// mesh's collision object at its FK-computed link transform; then checks every eligible
+/// mesh pair (excluding same-id, same-link, and explicitly disabled pairs) for collision
+/// within the combined per-pair safety margin, using coal::distance and coal::collide and
+/// preferring the contact penetration depth as the reported distance when available.
 CollisionCheckResult checkCoalMeshBackend(const SerialRobotConfig& config,
                                           const MeshCollisionProfile& profile,
                                           const MeshCollisionCheckRequest& request)

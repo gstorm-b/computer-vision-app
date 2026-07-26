@@ -5,6 +5,7 @@
 #include <QtTest/QtTest>
 
 namespace {
+/// Returns true if the Euclidean distance between `lhs` and `rhs` is within `tolerance`.
 bool vectorNearlyEqual(const Eigen::Vector3d& lhs, const Eigen::Vector3d& rhs, double tolerance = 1e-12)
 {
     return (lhs - rhs).norm() <= tolerance;
@@ -61,6 +62,9 @@ void RobotModelConfigTests::supportsOptionalVelocityAndAccelerationLimits()
     QCOMPARE(*limits.acceleration, 10.0);
 }
 
+/// Entry point that instantiates RobotModelConfigTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runRobotModelConfigTests(int argc, char** argv)
 {
     RobotModelConfigTests tests;

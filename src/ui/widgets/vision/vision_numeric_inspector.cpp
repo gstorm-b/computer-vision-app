@@ -9,6 +9,8 @@
 
 namespace {
 
+/// Constructs a NoWheelDoubleSpinBox configured with the given range, step, and
+/// decimal precision.
 NoWheelDoubleSpinBox *makeSpinBox(double min, double max, double step, int decimals)
 {
     auto *spin = new NoWheelDoubleSpinBox;
@@ -20,6 +22,9 @@ NoWheelDoubleSpinBox *makeSpinBox(double min, double max, double step, int decim
 
 } // namespace
 
+/// Builds the form layout (title label plus center X/Y, width, height, and angle spin
+/// boxes), wires every spin box's valueChanged to emitEditedRoi(), and starts in the
+/// cleared/no-selection state.
 VisionNumericInspector::VisionNumericInspector(QWidget *parent)
     : QWidget(parent)
 {

@@ -14,6 +14,7 @@ using namespace RobotKinematics;
 namespace {
 constexpr double kPi = 3.141592653589793238462643383279502884;
 
+/// Returns true if `lhs` and `rhs` differ by no more than `tolerance` (default 1e-9).
 bool nearlyEqual(double lhs, double rhs, double tolerance = 1e-9)
 {
     return std::abs(lhs - rhs) <= tolerance;
@@ -115,6 +116,9 @@ void Robot3DVisualizerLogicTests::derivesSimplifiedMeshProfilePathBesideOriginal
              QString(QStringLiteral("/abs/dir/foo_simplified")));
 }
 
+/// Entry point that instantiates Robot3DVisualizerLogicTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runRobot3DVisualizerLogicTests(int argc, char** argv)
 {
     Robot3DVisualizerLogicTests tests;

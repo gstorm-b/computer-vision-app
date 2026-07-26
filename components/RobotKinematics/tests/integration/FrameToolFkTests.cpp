@@ -15,13 +15,14 @@ using namespace RobotKinematics;
 namespace {
 constexpr double kPi = 3.141592653589793238462643383279502884;
 
+/// True when `a` and `b` differ by no more than `tol` in Euclidean norm.
 bool vecNear(const Eigen::Vector3d& a, const Eigen::Vector3d& b, double tol = 1e-12)
 {
     return (a - b).norm() <= tol;
 }
 
-// Single revolute-Z joint whose flange sits 0.4 m along base X, plus a user frame at
-// (1,0,0) relative to the base link and a default tool.
+/// Single revolute-Z joint whose flange sits 0.4 m along base X, plus a user frame at
+/// (1,0,0) relative to the base link and a default tool.
 SerialRobotConfig oneJointWithUserFrame()
 {
     SerialRobotConfig config;
@@ -90,6 +91,8 @@ void FrameToolFkTests::jointLimitValidatorRejectsWrongDimension()
     QCOMPARE(check.status, KinematicsStatus::JointDimensionMismatch);
 }
 
+/// QtTest entry point for FrameToolFkTests: constructs the suite and runs it via QTest::qExec.
+/// @return the number of failing test functions (0 = all passed)
 int runFrameToolFkTests(int argc, char** argv)
 {
     FrameToolFkTests tests;

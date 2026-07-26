@@ -5,12 +5,18 @@
 #include <QDir>
 #include <QCoreApplication>
 
+/// Returns the process-wide AppLogger singleton, constructing it on first call
+/// (function-local static, so construction is thread-safe under C++11+ semantics).
+/// @return reference to the single AppLogger instance
 AppLogger& AppLogger::instance() {
     // Initialize only once time of life cycle
     static AppLogger _instance;
     return _instance;
 }
 
+/// Registers LogMessage with the Qt meta-type system (so it can cross the
+/// newLogAdded signal/slot boundary) and derives the log directory from the
+/// application executable's path, creating "<appDir>/logs" if it does not exist.
 AppLogger::AppLogger(QObject *parent) : QObject(parent) {
     qRegisterMetaType<LogMessage>("LogMessage");
 
@@ -25,12 +31,17 @@ AppLogger::AppLogger(QObject *parent) : QObject(parent) {
     }
 }
 
+/// Closes the log file if it is still open.
 AppLogger::~AppLogger() {
     if (m_logFile.isOpen()) {
         m_logFile.close();
     }
 }
 
+/// Ensures the current log file matches today's date, closing and reopening
+/// (creating "app_log_yyyy-MM-dd.txt" in m_logDirectory) whenever the date has
+/// rolled over or no file is currently open; logs a warning via qWarning() if the
+/// new file cannot be opened.
 void AppLogger::rotateLogFileIfNeeded() {
     QDate today = QDate::currentDate();
 
@@ -58,14 +69,21 @@ void AppLogger::rotateLogFileIfNeeded() {
     }
 }
 
+/// Logs a user-facing message (LogCategory::User, no context) at the given level.
 void AppLogger::logUser(LogLevel level, const QString &msg) {
     writeLog(LogCategory::User, level, msg, "");
 }
 
+/// Logs a developer-facing message (LogCategory::Developer) at the given level,
+/// optionally tagged with a context string (e.g. file:line).
 void AppLogger::logDev(LogLevel level, const QString &msg, const QString &context) {
     writeLog(LogCategory::Developer, level, msg, context);
 }
 
+/// Formats and dispatches a single log entry: builds the LogMessage/text line,
+/// writes it to the console (qWarning for Error/Critical, qDebug otherwise) and to
+/// the rotated log file, and emits newLogAdded for UI consumers.
+/// @note Serialized via m_mutex (QMutexLocker), so safe to call from multiple threads.
 void AppLogger::writeLog(LogCategory category, LogLevel level, const QString &msg, const QString &context) {
     QMutexLocker locker(&m_mutex);
 

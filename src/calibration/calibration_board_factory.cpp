@@ -6,6 +6,9 @@
 
 namespace calib {
 
+/// Default-constructs a board of the given type using that type's own defaults, dispatching
+/// on `type`.
+/// @return a new board instance, or nullptr if `type` is unrecognised
 std::unique_ptr<CalibrationBoard>
 CalibrationBoardFactory::create(CalibrationBoardType type)
 {
@@ -16,12 +19,16 @@ CalibrationBoardFactory::create(CalibrationBoardType type)
     return nullptr;
 }
 
+/// Constructs a FanucIRvisionBoard with explicit `params`.
 std::unique_ptr<CalibrationBoard>
 CalibrationBoardFactory::createFanucIRvision(const FanucIRvisionBoard::Params& params)
 {
     return std::make_unique<FanucIRvisionBoard>(params);
 }
 
+/// Constructs a FanucIRvisionBoard from a named preset ("iRvision-5mm", "iRvision-11.5mm",
+/// "iRvision-15mm", "iRvision-22.5mm", or "iRvision-30mm"; see availablePresets()).
+/// @return a new board instance, or nullptr for an unrecognised preset name
 std::unique_ptr<CalibrationBoard>
 CalibrationBoardFactory::createFromPreset(const std::string& presetName)
 {
@@ -38,6 +45,10 @@ CalibrationBoardFactory::createFromPreset(const std::string& presetName)
     return nullptr;
 }
 
+/// Reconstructs a board instance from JSON produced by CalibrationBoard::toJson(),
+/// dispatching on the top-level "type" field (currently only "FanucIRvision" is recognised).
+/// @return a new board instance, or nullptr if the type is unknown, the FileStorage cannot
+///         be opened, or the parsed Params fail validation
 std::unique_ptr<CalibrationBoard>
 CalibrationBoardFactory::createFromJson(const std::string& json)
 {
@@ -61,6 +72,7 @@ CalibrationBoardFactory::createFromJson(const std::string& json)
     return nullptr;
 }
 
+/// @return the list of preset names recognised by createFromPreset().
 std::vector<std::string> CalibrationBoardFactory::availablePresets()
 {
     return {

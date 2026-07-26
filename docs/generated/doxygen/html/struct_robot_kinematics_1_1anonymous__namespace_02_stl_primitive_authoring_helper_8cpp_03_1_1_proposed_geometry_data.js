@@ -1,0 +1,6 @@
+var struct_robot_kinematics_1_1anonymous__namespace_02_stl_primitive_authoring_helper_8cpp_03_1_1_proposed_geometry_data =
+[
+    [ "geometry", "struct_robot_kinematics_1_1anonymous__namespace_02_stl_primitive_authoring_helper_8cpp_03_1_1_proposed_geometry_data.html#abeeaf432bc80437f8e07f504de98e073", null ],
+    [ "rpy_rad", "struct_robot_kinematics_1_1anonymous__namespace_02_stl_primitive_authoring_helper_8cpp_03_1_1_proposed_geometry_data.html#a445e3239f2747a1d493eff9face76f83", null ],
+    [ "xyz_m", "struct_robot_kinematics_1_1anonymous__namespace_02_stl_primitive_authoring_helper_8cpp_03_1_1_proposed_geometry_data.html#a4899350e46b3c8263eede1059319e5cc", null ]
+];

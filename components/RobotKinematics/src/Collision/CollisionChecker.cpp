@@ -11,9 +11,17 @@
 #include <limits>
 #include <set>
 
+/// Robot kinematics, collision profile, and forward-kinematics types used by the primitive
+/// (sphere/capsule) self-collision checker.
 namespace RobotKinematics {
 
+/// Translation-unit-local helpers and types backing CollisionChecker::check(): a placed
+/// primitive-geometry cache entry, pair-key/clamping utilities, and the sphere/capsule
+/// distance and broad-phase routines.
 namespace {
+/// A single collision geometry placed into the robot's base frame for one FK pose: its
+/// world-space capsule segment endpoints (a sphere collapses both to the same point), center,
+/// and a conservative bounding-sphere radius used for the broad-phase check.
 struct PlacedGeometry {
     const CollisionGeometry* geometry = nullptr;
     Pose geometryInBase = Pose::identity();
@@ -23,16 +31,24 @@ struct PlacedGeometry {
     double boundingRadius_m = 0.0;
 };
 
+/// Builds an order-independent key for an unordered geometry-id pair, so a disabled pair
+/// {a, b} matches lookups made as either (a, b) or (b, a).
+/// @return the two ids joined by a newline separator, always in the lexicographically
+///         smaller-first order
 std::string normalizePairKey(const std::string& a, const std::string& b)
 {
     return a < b ? a + "\n" + b : b + "\n" + a;
 }
 
+/// Clamps `value` into the [0, 1] range, used to keep segment interpolation parameters
+/// within the bounds of the actual segment.
 double clamp01(double value)
 {
     return std::max(0.0, std::min(1.0, value));
 }
 
+/// Computes the shortest distance from `point` to the line segment [`start`, `end`],
+/// projecting the point onto the segment and clamping to its endpoints.
 double distancePointToSegment(const Eigen::Vector3d& point,
                               const Eigen::Vector3d& start,
                               const Eigen::Vector3d& end)
@@ -47,6 +63,9 @@ double distancePointToSegment(const Eigen::Vector3d& point,
     return (point - (start + t * segment)).norm();
 }
 
+/// Computes the shortest distance between line segments [`p1`, `q1`] and [`p2`, `q2`] using
+/// the standard closest-points-between-segments algorithm, handling the degenerate cases
+/// where one or both segments collapse to a point.
 double distanceSegmentToSegment(const Eigen::Vector3d& p1,
                                 const Eigen::Vector3d& q1,
                                 const Eigen::Vector3d& p2,
@@ -96,6 +115,10 @@ double distanceSegmentToSegment(const Eigen::Vector3d& p1,
     return (c1 - c2).norm();
 }
 
+/// Places `geometry` into the robot's base frame for the given FK chain: resolves its link
+/// pose, applies the geometry-to-link offset, and derives the sphere/capsule segment
+/// endpoints and bounding radius used by the primitive distance and broad-phase checks.
+/// @note assumes `chain.linkPosesInBase` contains `geometry.linkId` (callers check this first)
 PlacedGeometry placeGeometry(const FkChain& chain, const CollisionGeometry& geometry)
 {
     const Pose linkPose = chain.linkPosesInBase.at(geometry.linkId);
@@ -125,6 +148,10 @@ PlacedGeometry placeGeometry(const FkChain& chain, const CollisionGeometry& geom
     return placed;
 }
 
+/// Computes the surface-to-surface distance between two placed primitive geometries,
+/// dispatching by shape-type combination (sphere-sphere, sphere-capsule, capsule-sphere, or
+/// capsule-capsule) and subtracting both shapes' radii from the underlying center/segment
+/// distance. A negative result means the shapes overlap.
 double primitiveDistance(const PlacedGeometry& a, const PlacedGeometry& b)
 {
     const CollisionGeometry& geometryA = *a.geometry;
@@ -157,6 +184,9 @@ double primitiveDistance(const PlacedGeometry& a, const PlacedGeometry& b)
            geometryB.shape.capsule.radius_m;
 }
 
+/// Cheap broad-phase rejection test: true when the two geometries' bounding spheres (plus
+/// `extraMargin_m`) cannot possibly be closer than that margin, letting the caller skip the
+/// exact primitive distance computation for clearly-separated pairs.
 bool isBroadPhaseSeparated(const PlacedGeometry& a,
                            const PlacedGeometry& b,
                            double extraMargin_m)
@@ -167,6 +197,11 @@ bool isBroadPhaseSeparated(const PlacedGeometry& a,
 }
 }
 
+/// Runs primitive (sphere/capsule) self-collision checking for `config`: validates the robot
+/// config, profile, and joint dimension, computes the FK chain for `request.joints`, places
+/// every enabled geometry, then tests each non-disabled, distinct-link geometry pair for
+/// collision (using a broad-phase bounding-sphere rejection before the exact primitive
+/// distance) and records distance/collision results per pair.
 CollisionCheckResult CollisionChecker::check(const SerialRobotConfig& config,
                                              const CollisionProfile& profile,
                                              const CollisionCheckRequest& request)

@@ -20,21 +20,25 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Conversion factor from radians to degrees, used to express angular tolerances/errors in
+/// degrees for readable test failure messages.
 constexpr double kRadToDeg = 180.0 / 3.141592653589793238462643383279502884;
 }
 
 namespace {
 
-// One teach-pendant reference measurement (tool offset 0, robot base frame).
-// Joints are in degrees. The pose orientation is reported by the Nachi pendant in
-// Z-first order: (yaw about Z, pitch about Y, roll about X), all degrees.
+/// One teach-pendant reference measurement (tool offset 0, robot base frame).
+/// Joints are in degrees. The pose orientation is reported by the Nachi pendant in
+/// Z-first order: (yaw about Z, pitch about Y, roll about X), all degrees.
 struct TeachPoint {
     std::array<double, 6> jointsDeg;
     double x_mm, y_mm, z_mm;
     double yawZ_deg, pitchY_deg, rollX_deg;
 };
 
-// docs/preset_references/nachi-mz04d.md
+/// 21 recorded teach-pendant reference points (joints in degrees, pose in mm/degrees,
+/// Z-first orientation order) used as forward-kinematics ground truth.
+/// @note source: docs/preset_references/nachi-mz04d.md
 const std::array<TeachPoint, 21> kTeachPoints = {{
     {{28.1579, -18.8069, 163.839, -0.710019, 35.8922, 152.731}, 339.15, 182.108, 571.95, 0.301758, -1.00829, 0.060508},
     {{46.3996, -18.8029, 163.841, -0.710019, 35.8898, 152.727}, 265.078, 279.092, 571.996, 18.5415, -1.01493, 0.0655774},
@@ -59,6 +63,10 @@ const std::array<TeachPoint, 21> kTeachPoints = {{
     {{0, 90.002, -0.00217014, 0.00459559, -0.00234375, 6.05273e-05}, 351.991, 4.50987e-07, 624.996, -61.782, -89.9947, -118.218},
 }};
 
+/// Locates the Nachi MZ04D JSON preset by checking a few relative paths (accounting for
+/// differing test working directories); falls back to the first candidate if none exist.
+/// @return relative path to nachi_mz04d.json that exists on disk, or the first candidate
+///     as a fallback
 std::string nachiPresetPath()
 {
     const char* candidates[] = {
@@ -74,11 +82,18 @@ std::string nachiPresetPath()
     return candidates[0];
 }
 
+/// Compares two poses by the Frobenius norm of the difference between their 4x4 isometry
+/// matrices.
+/// @param tolerance maximum allowed matrix-difference norm
+/// @return true if the poses match within tolerance
 bool poseNear(const Pose& a, const Pose& b, double tolerance = 1e-12)
 {
     return (a.isometry().matrix() - b.isometry().matrix()).norm() <= tolerance;
 }
 
+/// Converts a recorded TeachPoint into a Pose, reordering the pendant's Z-first
+/// (yaw, pitch, roll) tuple into the (roll, pitch, yaw) order expected by
+/// Pose::fromXYZRPY_mm_deg.
 Pose expectedPose(const TeachPoint& p)
 {
     // Pose::fromXYZRPY_mm_deg takes (roll about X, pitch about Y, yaw about Z); map the
@@ -87,6 +102,9 @@ Pose expectedPose(const TeachPoint& p)
 }
 } // namespace
 
+/// Checks the C++ fallback preset passes RobotModelValidator and has the expected vendor/model
+/// identity, DOF, joint/tool counts, non-empty user frames, posture resolver name, and non-empty
+/// sources list.
 void NachiMZ04DTests::fallbackPresetIsValidAndHasRequiredMetadata()
 {
     const SerialRobotConfig config = Presets::nachiMZ04D();
@@ -103,6 +121,8 @@ void NachiMZ04DTests::fallbackPresetIsValidAndHasRequiredMetadata()
     QVERIFY(!config.sources.empty());
 }
 
+/// Loads the on-disk JSON preset and checks it matches the C++ fallback for identity, DOF,
+/// frame ids, default tool, posture resolver, and per-joint id/parent/child/axis/origin/limits.
 void NachiMZ04DTests::jsonPresetMatchesCppFallbackForSolverFacingFields()
 {
     const Result<SerialRobotConfig> loaded = PresetJsonLoader::loadFile(nachiPresetPath());
@@ -132,6 +152,8 @@ void NachiMZ04DTests::jsonPresetMatchesCppFallbackForSolverFacingFields()
     }
 }
 
+/// Runs ForwardKinematics::flangePose() over all 21 recorded teach-pendant poses and checks the
+/// position/orientation error stays within the DH-fit tolerances (<= 0.04 mm, <= 0.012 deg).
 void NachiMZ04DTests::forwardKinematicsMatchesTeachPendantPoses()
 {
     const SerialRobotConfig config = Presets::nachiMZ04D();
@@ -160,6 +182,9 @@ void NachiMZ04DTests::forwardKinematicsMatchesTeachPendantPoses()
     }
 }
 
+/// Runs ForwardKinematics::toolPose() with a fixed (44.2, 0, 139.0) mm tool offset over 4
+/// measured arm-config poses and checks the position/orientation error stays within tolerance
+/// (<= 0.05 mm, <= 0.007 deg).
 void NachiMZ04DTests::forwardKinematicsWithToolMatchesMeasuredPoses()
 {
     const SerialRobotConfig config = Presets::nachiMZ04D();
@@ -201,6 +226,9 @@ void NachiMZ04DTests::forwardKinematicsWithToolMatchesMeasuredPoses()
     }
 }
 
+/// Checks PostureResolver::classify() reproduces the Nachi manual's shoulder/elbow/wrist labels
+/// for 6 joint configurations (4 measured, 2 synthetic covering the elbow-above and wrist-flip
+/// branches), and that fromLabels() maps labels back to the expected branch signs.
 void NachiMZ04DTests::postureClassificationMatchesNachiManualRules()
 {
     const SerialRobotConfig config = Presets::nachiMZ04D();
@@ -256,6 +284,9 @@ void NachiMZ04DTests::postureClassificationMatchesNachiManualRules()
     QCOMPARE(*fromLabels.value.wrist, -1);    // flip   (J5 < 0)
 }
 
+/// Computes a target pose via FK from a known-good seed joint vector, solves IK for that target
+/// using the same seed, and checks the solved joints reproduce the target position to within
+/// 1e-6 m.
 void NachiMZ04DTests::presetRunsFkAndSeededIkRoundTrip()
 {
     const SerialRobotConfig config = Presets::nachiMZ04D();
@@ -276,6 +307,8 @@ void NachiMZ04DTests::presetRunsFkAndSeededIkRoundTrip()
     QVERIFY((solved.translation_m() - target.translation_m()).norm() <= 1e-6);
 }
 
+/// QtTest entry point for NachiMZ04DTests: constructs the suite and runs it via QTest::qExec.
+/// @return the number of failing test functions (0 = all passed)
 int runNachiMZ04DTests(int argc, char** argv)
 {
     NachiMZ04DTests tests;

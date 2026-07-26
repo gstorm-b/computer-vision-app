@@ -4,6 +4,18 @@
 #include <QDoubleSpinBox>
 #include <QHeaderView>
 
+/// Creates and configures a QtVariantProperty for a single Qt meta-property (enum properties get
+/// their enumerator names translated via QCoreApplication::translate(); other types are added by
+/// their QVariant user type). Also applies the `<prop>_name`/`<prop>_min`/`<prop>_max` classinfo
+/// entries as the property's display name/minimum/maximum, and disables the property if `prop`
+/// is not writable.
+/// @param meta meta-object used to resolve enum names and `_name`/`_min`/`_max` classinfo for `prop`
+/// @param prop the meta-property being converted into a browser property
+/// @param value the property's current value (read from the owning object/gadget)
+/// @param manager property manager used to create the QtVariantProperty
+/// @param browser unused by this helper (kept for signature symmetry with the populate* helpers)
+/// @return the newly created property, or nullptr for "objectName" or if the manager could not
+/// create a property for the value's type
 static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaProperty &prop, QVariant &value,
                                                QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) {
 
@@ -69,6 +81,11 @@ static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaPro
     return variantProp;
 }
 
+/// Populates `browser` with a "Device Information" group listing every Q_PROPERTY exposed by
+/// `gadget`'s meta-object (id, name, connection status, etc.), one row per property.
+/// @param gadget the device instance whose properties are enumerated via QObject::property()
+/// @param manager property manager used to create the group and child properties
+/// @param browser tree browser the "Device Information" group is added to
 static void populateBrowser_Device(vc::device::IDevice *gadget, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) {
     QtProperty *topItem = manager->addProperty(QtVariantPropertyManager::groupTypeId(),
                                                QLatin1String("Device Information"));
@@ -86,6 +103,12 @@ static void populateBrowser_Device(vc::device::IDevice *gadget, QtVariantPropert
     }
 }
 
+/// Populates `browser` with an "Output configuration" group listing every property of the
+/// `VisionTcpipClientDeviceCfg` Q_GADGET, read via QMetaProperty::readOnGadget (server
+/// address/ports/kinematic-check config).
+/// @param gadget the client output configuration whose properties are enumerated
+/// @param manager property manager used to create the group and child properties
+/// @param browser tree browser the "Output configuration" group is added to
 static void populateBrowser_VisionOutput(vc::device::VisionTcpipClientDeviceCfg *gadget, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) {
     QtProperty *topItem = manager->addProperty(QtVariantPropertyManager::groupTypeId(),
                                                QLatin1String("Output configuration"));
@@ -104,6 +127,15 @@ static void populateBrowser_VisionOutput(vc::device::VisionTcpipClientDeviceCfg 
     }
 }
 
+/// Generic property-browser populator for any Q_GADGET type: adds a group named `groupName` and
+/// one row per meta-property (values read via QMetaProperty::readOnGadget). Every added property
+/// is force-disabled, so these groups are always display-only regardless of whether the
+/// underlying property is writable.
+/// @param meta static meta-object of the gadget type (e.g. VisionTcpipRuntimeState::staticMetaObject)
+/// @param gadget pointer to the gadget instance to read values from
+/// @param groupName label shown for the top-level group item in the browser
+/// @param manager property manager used to create the group and child properties
+/// @param browser tree browser the group is added to
 static void populateBrowser_Gadget(const QMetaObject &meta,
                                    const void *gadget,
                                    const QString &groupName,
@@ -127,6 +159,13 @@ static void populateBrowser_Gadget(const QMetaObject &meta,
     }
 }
 
+/// Constructs the widget for `dv`, wiring it to `runner` for connect/disconnect/send requests
+/// and to `dock` as its hosting dock widget; builds the generated `.ui` form and runs
+/// initWidget() to finish setup.
+/// @param dv the vision TCP/IP client device instance this widget controls/displays
+/// @param runner runner that performs connect/disconnect/send requests on the widget's behalf
+/// @param dock hosting dock widget, if any
+/// @param parent parent widget
 VisionTcpipClientDeviceWidget::VisionTcpipClientDeviceWidget(std::shared_ptr<vc::device::IDevice> dv,
                                                              vc::runtime::VisionOutputRunner *runner,
                                                              ads::CDockWidget *dock, QWidget *parent)
@@ -140,20 +179,28 @@ VisionTcpipClientDeviceWidget::VisionTcpipClientDeviceWidget(std::shared_ptr<vc:
     initWidget();
 }
 
+/// Destroys the widget, deleting the generated `ui` form.
 VisionTcpipClientDeviceWidget::~VisionTcpipClientDeviceWidget()
 {
     delete ui;
 }
 
+/// Returns the id of the device this widget represents (delegates to IDevice::id()).
 QString VisionTcpipClientDeviceWidget::deviceId() {
     return m_device->id();
 }
 
+/// Pushes the widget's in-memory `m_config` to the device via
+/// VisionTcpipClientDevice::setVisionTcpipClientConfig(); no-op if no output device is attached.
 void VisionTcpipClientDeviceWidget::loadConfigToDevice() {
     if (!m_output_device) return;
     m_output_device->setVisionTcpipClientConfig(m_config);
 }
 
+/// Pulls the current configuration from the device into `m_config` and reflects it in the UI
+/// fields (server address, data/heartbeat ports, kinematic-check widget), guarding the update
+/// with `m_populating_browser` so the field-changed handlers don't write it straight back.
+/// No-op if no output device is attached.
 void VisionTcpipClientDeviceWidget::loadConfigToWidget() {
     if (!m_output_device) return;
     m_config = m_output_device->visionTcpipClientConfig();
@@ -166,6 +213,13 @@ void VisionTcpipClientDeviceWidget::loadConfigToWidget() {
     m_populating_browser = false;
 }
 
+/// One-time widget setup run from the constructor: builds the property browser, loads the
+/// dark/light theme stylesheets, wires the runner/device signals (connection state, main-link
+/// state) and UI controls (connect button, config fields, position table buttons, kinematic
+/// check widget), seeds the position table with one row, and sets the initial connection visual
+/// from the device's current connection state.
+/// @note connections to `m_output_device`/`m_runner` are only made if `m_device`/`m_runner` are
+/// non-null; without a runner an error is logged and connect/disconnect controls stay inert.
 void VisionTcpipClientDeviceWidget::initWidget() {
     initPropertyBrowser();
     setupThemeReload(QStringLiteral(":/styles/vision_tcpip_client_device_widget_dark.qss"),
@@ -231,6 +285,13 @@ void VisionTcpipClientDeviceWidget::initWidget() {
                                : vc::device::ConnectStatus::Disconnected);
 }
 
+/// Handles edits made in the property browser: routes a changed value back to either the device
+/// (currently only the "name" property, renamed via DeviceManager::changeDeviceName(), reverting
+/// the displayed value and warning the user if the new name is already taken) or to the output
+/// config gadget (`m_config`, written via QMetaProperty::writeOnGadget then persisted through
+/// saveConfig()). Ignored while `m_populating_browser` is true to avoid feedback loops.
+/// @param property the browser property whose value changed
+/// @param variant the new value
 void VisionTcpipClientDeviceWidget::onPropertyValueChanged(QtProperty *property, const QVariant &variant) {
     if (m_populating_browser) {
         return;
@@ -270,16 +331,22 @@ void VisionTcpipClientDeviceWidget::onPropertyValueChanged(QtProperty *property,
     }
 }
 
+/// Persists `m_config` to the device via VisionTcpipClientDevice::setVisionTcpipClientConfig().
 void VisionTcpipClientDeviceWidget::saveConfig() {
     m_output_device->setVisionTcpipClientConfig(m_config);
 }
 
+/// Placeholder hook for refreshing the config from the device; currently only guards against a
+/// null `m_device` and otherwise does nothing.
 void VisionTcpipClientDeviceWidget::refreshConfig() {
     if (!m_device) {
         return;
     }
 }
 
+/// Slot for the IP/port field editing-finished/valueChanged signals: copies the trimmed IP and
+/// both port spin-box values into `m_config`, persists them via saveConfig(), and repopulates
+/// the property browser to reflect the change. Ignored while `m_populating_browser` is true.
 void VisionTcpipClientDeviceWidget::onFieldConfigChanged() {
     if (m_populating_browser) return;
     m_config.m_serverAddress  = ui->ledit_ip->text().trimmed();
@@ -289,6 +356,9 @@ void VisionTcpipClientDeviceWidget::onFieldConfigChanged() {
     populateBrowser();
 }
 
+/// Slot for the connect/disconnect button: requests a disconnect via the runner if the device
+/// is currently connected, connecting, or recovering (LostConnected); otherwise requests a new
+/// connection. No-op if no runner is attached.
 void VisionTcpipClientDeviceWidget::onConnectClicked() {
     if (!m_runner) return;
     // The client is "active" (dialing / connected / recovering) for any status
@@ -306,6 +376,10 @@ void VisionTcpipClientDeviceWidget::onConnectClicked() {
     }
 }
 
+/// Slot invoked when the runner reports a connection state change: updates the connect
+/// button/status visuals, repopulates the property browser, and refreshes the send-result
+/// section's enabled state from the device's current main-link connection flag.
+/// @param state the new connection status reported by the runner
 void VisionTcpipClientDeviceWidget::onConnectionStateChanged(vc::device::ConnectStatus state) {
     updateConnectionVisual(state);
     populateBrowser();
@@ -314,6 +388,11 @@ void VisionTcpipClientDeviceWidget::onConnectionStateChanged(vc::device::Connect
     updateSendSection(mainConnected);
 }
 
+/// Rebuilds the entire property browser from scratch: clears the variant manager, then adds the
+/// "Device Information", "Output configuration", and (if an output device is attached) read-only
+/// "Runtime State"/"Diagnostics" groups from fresh snapshots of the device's state. Editor
+/// signals are blocked and `m_populating_browser` is set for the duration so this rebuild
+/// doesn't trigger onPropertyValueChanged().
 void VisionTcpipClientDeviceWidget::populateBrowser() {
     m_variantEditor->blockSignals(true);
     m_populating_browser = true;
@@ -341,10 +420,16 @@ void VisionTcpipClientDeviceWidget::populateBrowser() {
     m_variantEditor->blockSignals(false);
 }
 
+/// Slot for VisionTcpipClientDevice::mainClientStateChanged(): forwards the new main-link
+/// connection state to updateSendSection().
+/// @param connected whether the device's main data link is currently connected
 void VisionTcpipClientDeviceWidget::onMainClientStateChanged(bool connected) {
     updateSendSection(connected);
 }
 
+/// Enables/disables the "Send Result" button and updates the hint label's text and `sendState`
+/// dynamic property (repolishing the label) to reflect whether the main data link is connected.
+/// @param mainLinkConnected whether the device's main data link is currently connected
 void VisionTcpipClientDeviceWidget::updateSendSection(bool mainLinkConnected) {
     ui->btn_send_result->setEnabled(mainLinkConnected);
     ui->lbl_send_hint->setText(mainLinkConnected
@@ -356,6 +441,13 @@ void VisionTcpipClientDeviceWidget::updateSendSection(bool mainLinkConnected) {
     ui->lbl_send_hint->style()->polish(ui->lbl_send_hint);
 }
 
+/// Appends a new row to the position table, populating it with one borderless, button-less
+/// QDoubleSpinBox per column (x, y, z, r) preset to `x`/`y`/`z`/`r`, with a ±99999 range and 3
+/// decimal places.
+/// @param x initial value for the x column's spin box
+/// @param y initial value for the y column's spin box
+/// @param z initial value for the z column's spin box
+/// @param r initial value for the r column's spin box
 void VisionTcpipClientDeviceWidget::addPositionRow(double x, double y, double z, double r) {
     auto *tbl = ui->tbl_positions;
     const int row = tbl->rowCount();
@@ -373,12 +465,15 @@ void VisionTcpipClientDeviceWidget::addPositionRow(double x, double y, double z,
     }
 }
 
+/// Slot for the "Add row" button: appends a new (blank) position row, capped at 20 rows total.
 void VisionTcpipClientDeviceWidget::onAddRow() {
     if (ui->tbl_positions->rowCount() < 20) {
         addPositionRow();
     }
 }
 
+/// Slot for the "Remove row" button: removes the currently selected row, or the last row if
+/// none is selected and the table isn't empty.
 void VisionTcpipClientDeviceWidget::onRemoveRow() {
     const int row = ui->tbl_positions->currentRow();
     if (row >= 0) {
@@ -388,6 +483,10 @@ void VisionTcpipClientDeviceWidget::onRemoveRow() {
     }
 }
 
+/// Slot for the "Send Result" button: reads every row of the position table into a
+/// VisionOutputPosition (skipping any cell whose widget doesn't cast to QDoubleSpinBox) and
+/// hands the resulting list to the runner via requestSendResult(). No-op unless a runner and
+/// output device are present and the device's main link is connected.
 void VisionTcpipClientDeviceWidget::onSendResult() {
     if (!m_runner || !m_output_device || !m_output_device->isMainClientConnected()) {
         return;
@@ -409,6 +508,11 @@ void VisionTcpipClientDeviceWidget::onSendResult() {
     m_runner->requestSendResult(positions);
 }
 
+/// Refreshes the connection indicator dot, status label text, connect button label, and enabled
+/// state of the IP/port config fields (locked while the client is active) to match `status`.
+/// Also updates the `connectionState` dynamic property (and repolishes) on the indicator dot,
+/// status label, and connect button so the stylesheet can react to it.
+/// @param status the connection status to reflect in the UI
 void VisionTcpipClientDeviceWidget::updateConnectionVisual(vc::device::ConnectStatus status) {
     using vc::device::ConnectStatus;
     const bool connected = status == ConnectStatus::Connected;

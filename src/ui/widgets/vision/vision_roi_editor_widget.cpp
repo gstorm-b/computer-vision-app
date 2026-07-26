@@ -6,6 +6,10 @@
 #include "ui/widgets/vision/vision_numeric_inspector.h"
 #include "ui/widgets/vision/vision_tool_palette.h"
 
+/// Builds the tool palette / canvas / numeric inspector child widgets, lays them out
+/// vertically (palette and inspector fixed, canvas stretched to fill remaining space),
+/// and connects tool-mode, undo/redo, delete, fit, selection, and ROI-edit signals between
+/// them so the three widgets stay in sync.
 VisionRoiEditorWidget::VisionRoiEditorWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -53,18 +57,22 @@ VisionRoiEditorWidget::VisionRoiEditorWidget(QWidget *parent)
             m_canvas, &VisionCanvas::updateSelectedRoi);
 }
 
+/// @param image OpenCV matrix to display as the canvas background.
 void VisionRoiEditorWidget::setImage(const cv::Mat &image)
 {
     m_canvas->setImage(image);
     m_numericInspector->setImageSize(m_canvas->imageSize());
 }
 
+/// @param pixmap pre-rendered pixmap to display as the canvas background.
 void VisionRoiEditorWidget::setImage(const QPixmap &pixmap)
 {
     m_canvas->setImage(pixmap);
     m_numericInspector->setImageSize(m_canvas->imageSize());
 }
 
+/// Clears the canvas's displayed image and resets the numeric inspector to an empty image
+/// size with no active selection.
 void VisionRoiEditorWidget::clearImage()
 {
     m_canvas->clearImage();
@@ -72,27 +80,34 @@ void VisionRoiEditorWidget::clearImage()
     m_numericInspector->clearSelection();
 }
 
+/// Forwards `rois` to the canvas as the editable ROI set, replacing any ROIs previously set.
 void VisionRoiEditorWidget::setRois(const QVector<VisionRoi> &rois)
 {
     m_canvas->setEditableRois(rois);
 }
 
+/// @return the canvas's current editable ROI set.
 QVector<VisionRoi> VisionRoiEditorWidget::rois() const
 {
     return m_canvas->editableRois();
 }
 
+/// Forwards `rois` to the canvas as the read-only auxiliary ROI overlay, replacing any
+/// previously set.
 void VisionRoiEditorWidget::setAuxiliaryRois(const QVector<VisionRoi> &rois)
 {
     m_canvas->setAuxiliaryRois(rois);
 }
 
+/// Propagates `readOnly` to both the canvas (disables ROI editing) and the tool palette
+/// (disables the draw/delete controls).
 void VisionRoiEditorWidget::setReadOnly(bool readOnly)
 {
     m_canvas->setReadOnly(readOnly);
     m_toolPalette->setReadOnly(readOnly);
 }
 
+/// @return the ROI currently selected on the canvas.
 VisionRoi VisionRoiEditorWidget::selectedRoi() const
 {
     return m_canvas->selectedRoi();

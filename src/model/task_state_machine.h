@@ -5,8 +5,17 @@
 
 #include "model/task_define.h"
 
+/// Task model layer: per-task configuration types, state machines, and device/camera
+/// bindings for the picking application.
 namespace vc::model {
 
+/// Checks whether a task is allowed to move from state `from` to state `to` according to
+/// the task lifecycle graph (Idle -> Commission* -> Runtime* -> Ready/RunningCycle/
+/// Recovering -> Stopping -> Idle, with Faulted reachable from most states and only able
+/// to proceed to Stopping). Staying in the same state is always allowed.
+/// @param from current task state
+/// @param to candidate next task state
+/// @return true if the transition is permitted by the state machine
 inline bool canTransitionTaskState(TaskState from, TaskState to)
 {
     if (from == to) {
@@ -64,6 +73,12 @@ inline bool canTransitionTaskState(TaskState from, TaskState to)
     return false;
 }
 
+/// Builds a human-readable log message describing an accepted task state transition, in
+/// the form "Task state transition: <from> -> <to>", optionally suffixed with "(reason)".
+/// @param from previous task state
+/// @param to new task state
+/// @param reason optional free-text reason appended in parentheses; ignored if blank
+/// @return the formatted message
 inline QString buildTaskStateTransitionMessage(TaskState from,
                                                TaskState to,
                                                const QString &reason = QString())
@@ -76,6 +91,12 @@ inline QString buildTaskStateTransitionMessage(TaskState from,
     return message;
 }
 
+/// Builds a human-readable log message describing a rejected task state transition, in the
+/// form "Rejected task state transition: <from> -> <to>", optionally suffixed with "(reason)".
+/// @param from current task state (transition was not applied)
+/// @param to the disallowed candidate state
+/// @param reason optional free-text reason appended in parentheses; ignored if blank
+/// @return the formatted message
 inline QString buildInvalidTaskStateTransitionMessage(TaskState from,
                                                       TaskState to,
                                                       const QString &reason = QString())

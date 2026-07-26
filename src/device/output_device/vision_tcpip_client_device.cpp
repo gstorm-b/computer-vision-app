@@ -5,6 +5,8 @@
 
 namespace vc::device {
 
+/// Constructs the device with its default-initialized VisionTcpipClientDeviceCfg, registers
+/// that config with the base IDevice, and syncs the initial runtime-state snapshot.
 VisionTcpipClientDevice::VisionTcpipClientDevice(QString id, QString name, QObject* parent)
     : VisionTcpipDeviceBase(std::move(id), std::move(name), parent) {
 
@@ -12,10 +14,17 @@ VisionTcpipClientDevice::VisionTcpipClientDevice(QString id, QString name, QObje
     syncRuntimeState();
 }
 
+/// Tears down the transport (aborts/deletes any connector or attached sockets, stops the
+/// reconnect timer) before destruction.
 VisionTcpipClientDevice::~VisionTcpipClientDevice() {
     stopTransport();
 }
 
+/// Replaces the active config after validating `cfg` is a VisionOutput config whose
+/// sub-type is VisionTcpipClient. Rejects (logs and returns) a null/wrong-type config or
+/// any change attempted while the device is connected; otherwise copies `cfg` into
+/// m_config under m_mutex and re-registers it with the base IDevice.
+/// @param cfg candidate config; must be a VisionTcpipClientDeviceCfg
 void VisionTcpipClientDevice::setDeviceConfig(IDeviceCfg *cfg) {
     if (!cfg) {
         return;
@@ -40,6 +49,9 @@ void VisionTcpipClientDevice::setDeviceConfig(IDeviceCfg *cfg) {
     IDevice::setDeviceConfig(&m_config);
 }
 
+/// Typed config setter: copies `cfg` into m_config under m_mutex and re-registers it with
+/// the base IDevice. No-op while the device is connected.
+/// @param cfg the new client config, copied by value into m_config
 void VisionTcpipClientDevice::setVisionTcpipClientConfig(VisionTcpipClientDeviceCfg& cfg) {
     if (this->isDeviceConnected()) {
         return;
@@ -50,6 +62,10 @@ void VisionTcpipClientDevice::setVisionTcpipClientConfig(VisionTcpipClientDevice
     IDevice::setDeviceConfig(&m_config);
 }
 
+/// Deserializes device state (including the config) from JSON, holding m_mutex for the
+/// duration of the base IDevice::fromJson() call.
+/// @param obj JSON object describing this device
+/// @return whatever IDevice::fromJson() reports
 bool VisionTcpipClientDevice::fromJson(const QJsonObject &obj) {
     QMutexLocker locker(&m_mutex);
     return IDevice::fromJson(obj);
@@ -60,6 +76,10 @@ bool VisionTcpipClientDevice::fromJson(const QJsonObject &obj) {
 // heartbeat links are actually up (see evaluateConnected()); while dialing
 // or reconnecting the status is Connecting.
 // =====================================================================
+/// Starts the outbound transport: marks the device Connecting and kicks off
+/// attemptConnect() to dial both the main and heartbeat ports.
+/// @return always true (dialing is asynchronous; failures surface via onMainConnectError /
+/// onHeartbeatConnectError instead)
 bool VisionTcpipClientDevice::startTransport() {
     setConnectionStatus(ConnectStatus::Connecting);
     attemptConnect();
@@ -69,6 +89,8 @@ bool VisionTcpipClientDevice::startTransport() {
     return true;
 }
 
+/// Stops the reconnect timer and aborts/deletes any in-flight connector sockets, then
+/// detaches the attached heartbeat and main sockets via the base class helpers.
 void VisionTcpipClientDevice::stopTransport() {
     if (m_reconnectTimer && m_reconnectTimer->isActive()) {
         m_reconnectTimer->stop();
@@ -91,6 +113,8 @@ void VisionTcpipClientDevice::stopTransport() {
     detachMainSocket();
 }
 
+/// Reacts to a dropped link: falls back from Connected to Connecting (unless already in a
+/// LostConnected state from a heartbeat-loss path) and schedules a reconnect attempt.
 void VisionTcpipClientDevice::onLinkLost() {
     // A link dropped. If we were fully Connected, fall back to Connecting; a
     // heartbeat-loss path already set LostConnected and must stay visible
@@ -104,6 +128,10 @@ void VisionTcpipClientDevice::onLinkLost() {
 // =====================================================================
 // Outbound connection management
 // =====================================================================
+/// Dials the main and heartbeat ports if not already connected/connecting: for each link
+/// still missing both its live socket and its in-flight connector, creates a QTcpSocket,
+/// wires its connected/errorOccurred signals, and calls connectToHost(). No-op if the
+/// device is not active.
 void VisionTcpipClientDevice::attemptConnect() {
     if (!isActive()) {
         return;
@@ -136,6 +164,9 @@ void VisionTcpipClientDevice::attemptConnect() {
     }
 }
 
+/// Slot for the main connector's connected() signal: hands the now-live socket off to
+/// attachMainSocket() (which the base rewires for readyRead/disconnected) and re-checks
+/// whether both links are up.
 void VisionTcpipClientDevice::onMainConnected() {
     QTcpSocket *sock = m_mainConnector;
     m_mainConnector = nullptr;
@@ -147,6 +178,8 @@ void VisionTcpipClientDevice::onMainConnected() {
     evaluateConnected();
 }
 
+/// Slot for the heartbeat connector's connected() signal: hands the now-live socket off to
+/// attachHeartbeatSocket() and re-checks whether both links are up.
 void VisionTcpipClientDevice::onHeartbeatConnected() {
     QTcpSocket *sock = m_hbConnector;
     m_hbConnector = nullptr;
@@ -157,6 +190,10 @@ void VisionTcpipClientDevice::onHeartbeatConnected() {
     evaluateConnected();
 }
 
+/// Slot for the main connector's errorOccurred() signal: records the error in
+/// m_diagnostics.lastError, discards the failed connector, and schedules a reconnect if
+/// the device is still active.
+/// @param err unused; the failure text is instead read from the connector's errorString()
 void VisionTcpipClientDevice::onMainConnectError(QAbstractSocket::SocketError err) {
     Q_UNUSED(err);
     if (m_mainConnector) {
@@ -171,6 +208,10 @@ void VisionTcpipClientDevice::onMainConnectError(QAbstractSocket::SocketError er
     }
 }
 
+/// Slot for the heartbeat connector's errorOccurred() signal: records the error in
+/// m_diagnostics.lastError, discards the failed connector, and schedules a reconnect if
+/// the device is still active.
+/// @param err unused; the failure text is instead read from the connector's errorString()
 void VisionTcpipClientDevice::onHeartbeatConnectError(QAbstractSocket::SocketError err) {
     Q_UNUSED(err);
     if (m_hbConnector) {
@@ -185,6 +226,9 @@ void VisionTcpipClientDevice::onHeartbeatConnectError(QAbstractSocket::SocketErr
     }
 }
 
+/// Arms a one-shot reconnect: lazily creates m_reconnectTimer wired to attemptConnect(),
+/// then (re)starts it for m_config.m_reconnectIntervalMs if it isn't already running.
+/// No-op if the device is not active.
 void VisionTcpipClientDevice::scheduleReconnect() {
     if (!isActive()) {
         return;
@@ -200,6 +244,9 @@ void VisionTcpipClientDevice::scheduleReconnect() {
     }
 }
 
+/// Promotes the device to ConnectStatus::Connected once the device is active and both the
+/// main and heartbeat sockets exist and report QAbstractSocket::ConnectedState; otherwise
+/// leaves the current status untouched.
 void VisionTcpipClientDevice::evaluateConnected() {
     // Connected is reported ONLY when both the main and heartbeat links are up.
     if (isActive() && m_mainSocket && m_hbSocket

@@ -25,6 +25,11 @@ namespace vc::device {
 // =====================================================================
 // Connect / disconnect lifecycle
 // =====================================================================
+/// Activates the device: if already active, just re-syncs runtime state and
+/// returns true; otherwise opens the transport (startTransport()). On transport
+/// failure, tears it back down, records the failure in diagnostics/connection
+/// status, and returns false.
+/// @return true if the device is (now) active and its transport is open
 bool VisionTcpipDeviceBase::deviceConnect() {
     QMutexLocker locker(&m_mutex);
 
@@ -48,6 +53,10 @@ bool VisionTcpipDeviceBase::deviceConnect() {
     return true;
 }
 
+/// Deactivates the device: sends a best-effort disconnect notice on the
+/// heartbeat channel before tearing down the transport, then clears the last
+/// error and marks the connection status as Disconnected.
+/// @return always true
 bool VisionTcpipDeviceBase::deviceDisconnect() {
     QMutexLocker locker(&m_mutex);
     m_active = false;
@@ -60,6 +69,8 @@ bool VisionTcpipDeviceBase::deviceDisconnect() {
     return true;
 }
 
+/// Forces a disconnect if the device is currently connected or active;
+/// otherwise a no-op.
 void VisionTcpipDeviceBase::deviceTerminate() {
     LOG_DEV_DEBUG << "VisionTcpipDeviceBase terminate" << name() << "id" << id();
     if (isDeviceConnected() || m_active) {
@@ -67,6 +78,13 @@ void VisionTcpipDeviceBase::deviceTerminate() {
     }
 }
 
+/// Writes a VisionOutputRequest's payload to the main channel socket. Rejects
+/// requests that are not Request_VisionOutput or when no main link is connected.
+/// When the request is a Result, first runs the advisory robot-kinematics
+/// reachability check (runKinematicCheck()) before building/sending the payload.
+/// @param request the request to send; must be a VisionOutputRequest
+/// @return true if the full payload was written to the socket; false if the
+///         request was rejected or the write was short
 bool VisionTcpipDeviceBase::pushRequest(IRequest *request) {
     if (!request || request->type() != RequestType::Request_VisionOutput) {
         return false;
@@ -98,25 +116,33 @@ bool VisionTcpipDeviceBase::pushRequest(IRequest *request) {
     return true;
 }
 
+/// Internal helpers for the robot-kinematics reachability/collision check, not
+/// exposed outside this translation unit.
 namespace {
 
-// The RobotKinematics component ships Nachi MZ04D as its only built-in C++
-// preset. The picking TCP is appended as the default tool from the config.
+/// Preset name for the only built-in C++ robot preset shipped by the
+/// RobotKinematics component; the picking TCP is appended to it as the default
+/// tool from the device config (see buildRobotConfig()).
 constexpr char kNachiMz04dPreset[] = "Nachi MZ04D";
-constexpr char kPickingToolId[]    = "picking_tcp";
+constexpr char kPickingToolId[]    = "picking_tcp";  ///< Tool id used for the picking-TCP tool appended in buildRobotConfig().
 
-// The Nachi MZ04D *simplified* (voxel) mesh-collision profile is resolved from
-// two locations, in order: (1) deployed next to the binary by the
-// robotkinematics.pri post-link copy, (2) the source tree (dev runs). The
-// simplified profile is used (same as the widget tester) because it is fast
-// enough for the per-cycle result send path. See docs/backlog/later_todo_list.md #27.
+/// Path (relative to the deployed binary) of the Nachi MZ04D *simplified* (voxel)
+/// mesh-collision profile, copied next to the binary by the robotkinematics.pri
+/// post-link step. The simplified profile is used (same as the widget tester)
+/// because it is fast enough for the per-cycle result send path. See
+/// docs/backlog/later_todo_list.md #27.
 constexpr char kSimplifiedMeshProfileDeployedRel[] =
     "robot_assets/Nachi/MZ04/nachi_mz04d_mesh_collision_simplified.json";
+/// Source-tree fallback path for the same profile, used when the deployed copy
+/// is not found (dev runs).
 constexpr char kSimplifiedMeshProfileSourceRel[] =
     "components/RobotKinematics/presets/Nachi/MZ04/nachi_mz04d_mesh_collision_simplified.json";
 
-// Resolve a repo-relative asset by walking up from the application directory and
-// the current working directory (source-tree fallback for dev runs).
+/// Resolves a repo-relative asset path by walking up from the application
+/// directory and the current working directory (source-tree fallback for dev
+/// runs), returning the first candidate that exists on disk.
+/// @param relative repo-relative path of the asset to locate
+/// @return absolute path to the asset, or an empty string if not found
 QString resolveAssetPath(const QString &relative) {
     const QFileInfo direct(relative);
     if (direct.exists()) return direct.absoluteFilePath();
@@ -135,8 +161,12 @@ QString resolveAssetPath(const QString &relative) {
     return {};
 }
 
-// Build the selected robot config with the picking TCP appended as default tool.
-// Returns false when the preset name is not recognised.
+/// Builds the selected robot config (currently only the Nachi MZ04D preset is
+/// recognised) with the picking TCP appended as the default tool, using the TCP
+/// offset/orientation from `kc`.
+/// @param kc kinematic-check config supplying the preset name and TCP pose
+/// @param out output robot config; populated on success
+/// @return false when `kc.presetName` does not match a known preset (`out` untouched)
 bool buildRobotConfig(const RobotKinematicCheckConfig &kc,
                       RobotKinematics::SerialRobotConfig &out) {
     if (kc.presetName != QLatin1String(kNachiMz04dPreset))
@@ -153,8 +183,11 @@ bool buildRobotConfig(const RobotKinematicCheckConfig &kc,
     return true;
 }
 
-// Lazily loaded, shared Nachi MZ04D simplified mesh-collision profile (voxel
-// meshes). The profile is fixed for the preset, so it is loaded once and reused.
+/// Lazily loaded, shared Nachi MZ04D simplified mesh-collision profile (voxel
+/// meshes), resolved via the deployed path then the source-tree fallback. The
+/// profile is fixed for the preset, so it is loaded once (function-local static)
+/// and reused; logs and returns nullptr if the file cannot be found or parsed.
+/// @return pointer to the cached profile, or nullptr if loading failed
 const RobotKinematics::MeshCollisionProfile *nachiSimplifiedMeshProfile() {
     static const std::optional<RobotKinematics::MeshCollisionProfile> profile =
         []() -> std::optional<RobotKinematics::MeshCollisionProfile> {
@@ -186,6 +219,14 @@ const RobotKinematics::MeshCollisionProfile *nachiSimplifiedMeshProfile() {
 
 } // namespace
 
+/// Advisory robot-kinematics reachability (and, if enabled, self-collision)
+/// check over the outgoing pick poses: solves IK per pose against the
+/// configured preset/tool, logs unreachable poses and any detected
+/// self-collisions, and emits kinematicCheckResult(). No-op if the check is
+/// disabled in config, or if the configured preset is not recognised. Never
+/// blocks or alters the sent payload — this runs before the write in
+/// pushRequest() purely for logging/telemetry.
+/// @param positions pick poses (x, y, z, r) to test for reachability
 void VisionTcpipDeviceBase::runKinematicCheck(const QVector<VisionOutputPosition> &positions) {
     const RobotKinematicCheckConfig kc = kinematicCheckConfig();
     if (!kc.enabled) return;
@@ -246,6 +287,10 @@ void VisionTcpipDeviceBase::runKinematicCheck(const QVector<VisionOutputPosition
 // =====================================================================
 // Socket attach / detach (shared by both transports)
 // =====================================================================
+/// Adopts `sock` as the main-channel socket: clears the RX buffer, wires
+/// disconnected/readyRead handlers, syncs runtime state, and emits
+/// mainClientStateChanged(true). No-op if `sock` is null.
+/// @param sock connected socket handed off by the concrete transport
 void VisionTcpipDeviceBase::attachMainSocket(QTcpSocket *sock) {
     if (!sock) return;
     m_mainSocket = sock;
@@ -262,6 +307,11 @@ void VisionTcpipDeviceBase::attachMainSocket(QTcpSocket *sock) {
     emit mainClientStateChanged(true);
 }
 
+/// Adopts `sock` as the heartbeat-channel socket: clears the RX buffer, resets
+/// heartbeat state, wires disconnected/readyRead handlers, then (since the
+/// software is always the heartbeat master) immediately sends the first probe
+/// and starts the heartbeat timer. No-op if `sock` is null.
+/// @param sock connected socket handed off by the concrete transport
 void VisionTcpipDeviceBase::attachHeartbeatSocket(QTcpSocket *sock) {
     if (!sock) return;
     m_hbSocket = sock;
@@ -282,6 +332,10 @@ void VisionTcpipDeviceBase::attachHeartbeatSocket(QTcpSocket *sock) {
     syncRuntimeState();
 }
 
+/// Disconnects signals from the main socket, aborts it, schedules it for
+/// deletion (deleteLater()), clears m_mainSocket and the RX buffer, syncs
+/// runtime state, and emits mainClientStateChanged(false). No-op if no main
+/// socket is attached.
 void VisionTcpipDeviceBase::detachMainSocket() {
     if (!m_mainSocket) return;
     m_mainSocket->disconnect(this);
@@ -293,6 +347,9 @@ void VisionTcpipDeviceBase::detachMainSocket() {
     emit mainClientStateChanged(false);
 }
 
+/// Stops the heartbeat timer, then (if attached) disconnects signals from the
+/// heartbeat socket, aborts it, schedules it for deletion, and clears
+/// m_hbSocket. Always clears the RX buffer and resets heartbeat state.
 void VisionTcpipDeviceBase::detachHeartbeatSocket() {
     stopHeartbeatTimer();
     if (m_hbSocket) {
@@ -308,6 +365,10 @@ void VisionTcpipDeviceBase::detachHeartbeatSocket() {
 // =====================================================================
 // Main channel framing (';'-terminated)
 // =====================================================================
+/// Reads all available bytes from the main socket into m_mainRxBuffer, then
+/// extracts and dispatches (via handleMainPayload()) every complete,
+/// terminator-delimited message currently buffered, leaving any partial
+/// trailing message for the next call.
 void VisionTcpipDeviceBase::onMainSocketReadyRead() {
     if (!m_mainSocket) return;
     m_mainRxBuffer.append(m_mainSocket->readAll());
@@ -321,6 +382,8 @@ void VisionTcpipDeviceBase::onMainSocketReadyRead() {
     }
 }
 
+/// Handles the main socket's disconnected signal: detaches the socket and, if
+/// the device is still active, notifies the subclass via onLinkLost().
 void VisionTcpipDeviceBase::onMainSocketDisconnected() {
     if (!m_mainSocket) return;
     LOG_DEV_INFO << "VisionTcpip main link disconnected" << name();
@@ -330,6 +393,8 @@ void VisionTcpipDeviceBase::onMainSocketDisconnected() {
     }
 }
 
+/// Records receipt of a complete main-channel message in diagnostics and
+/// forwards it to listeners via mainRequestReceived(); does not parse the payload.
 void VisionTcpipDeviceBase::handleMainPayload(const QByteArray &payload) {
     LOG_DEV_DEBUG << "VisionTcpip main RX:" << payload;
     ++m_diagnostics.mainPayloadsReceived;
@@ -339,6 +404,10 @@ void VisionTcpipDeviceBase::handleMainPayload(const QByteArray &payload) {
 // =====================================================================
 // Heartbeat channel ('.'-terminated)
 // =====================================================================
+/// Reads all available bytes from the heartbeat socket into m_hbRxBuffer, then
+/// extracts and dispatches (via handleHeartbeatPayload()) every complete,
+/// terminator-delimited message currently buffered, leaving any partial
+/// trailing message for the next call.
 void VisionTcpipDeviceBase::onHeartbeatSocketReadyRead() {
     if (!m_hbSocket) return;
     m_hbRxBuffer.append(m_hbSocket->readAll());
@@ -352,6 +421,9 @@ void VisionTcpipDeviceBase::onHeartbeatSocketReadyRead() {
     }
 }
 
+/// Handles the heartbeat socket's disconnected signal: detaches the socket,
+/// syncs runtime state, and — if the device is still active — notifies the
+/// subclass via onLinkLost().
 void VisionTcpipDeviceBase::onHeartbeatSocketDisconnected() {
     if (!m_hbSocket) return;
     LOG_DEV_INFO << "VisionTcpip heartbeat link disconnected" << name();
@@ -362,6 +434,13 @@ void VisionTcpipDeviceBase::onHeartbeatSocketDisconnected() {
     }
 }
 
+/// Parses one heartbeat reply of the form "ack,{msg_count}." and validates it
+/// against the expected sequence: declares a lost connection (via
+/// declareLostConnection()) on malformed format, an out-of-range count, or a
+/// count mismatch with m_expectedAckCount. On a valid match, records the ack,
+/// clears the awaiting-reply flag, restarts the reply timer, and advances
+/// m_expectedAckCount (wrapping at VISION_OUTPUT_MSG_COUNT_LIMIT).
+/// @param payload raw heartbeat message, including its terminating '.'
 void VisionTcpipDeviceBase::handleHeartbeatPayload(const QByteArray &payload) {
     // Valid form: "ack,{msg_count}."
     if (!payload.startsWith(VISION_OUTPUT_HB_ACK_PREFIX) || !payload.endsWith('.')) {
@@ -395,6 +474,10 @@ void VisionTcpipDeviceBase::handleHeartbeatPayload(const QByteArray &payload) {
     syncRuntimeState();
 }
 
+/// Periodic heartbeat-timer callback: if a probe reply has been awaited longer
+/// than cfgHeartbeatTimeoutMs() since the last valid reply, declares a lost
+/// connection (via declareLostConnection()); otherwise sends the next probe.
+/// No-op if the heartbeat socket is not connected.
 void VisionTcpipDeviceBase::onHeartbeatTick() {
     if (!m_hbSocket || m_hbSocket->state() != QAbstractSocket::ConnectedState) {
         return;
@@ -412,6 +495,10 @@ void VisionTcpipDeviceBase::onHeartbeatTick() {
     sendHeartbeatProbe();
 }
 
+/// Best-effort graceful goodbye on the heartbeat channel: writes the
+/// disconnect-notice message and blocks briefly for it to flush. No-op if the
+/// heartbeat socket is not connected, so the caller can always follow with
+/// detachHeartbeatSocket()/stopTransport() unconditionally.
 void VisionTcpipDeviceBase::sendDisconnectNotice() {
     // Bounded wait so the notice clears the socket buffer before the imminent
     // detachHeartbeatSocket()->abort(), which would otherwise discard it.
@@ -431,6 +518,10 @@ void VisionTcpipDeviceBase::sendDisconnectNotice() {
     LOG_DEV_INFO << "VisionTcpip sent disconnect notice" << name();
 }
 
+/// Writes the heartbeat probe message to the heartbeat socket and marks a
+/// reply as awaited. Starts (but does not restart) m_hbLastReplyTimer if it is
+/// not already running, since it measures time since the last valid reply, not
+/// time since the last probe. No-op if no heartbeat socket is attached.
 void VisionTcpipDeviceBase::sendHeartbeatProbe() {
     if (!m_hbSocket) return;
 
@@ -448,6 +539,8 @@ void VisionTcpipDeviceBase::sendHeartbeatProbe() {
     syncRuntimeState();
 }
 
+/// Lazily creates the (precise) heartbeat QTimer wired to onHeartbeatTick(),
+/// then (re)applies cfgHeartbeatIntervalMs() and starts it.
 void VisionTcpipDeviceBase::startHeartbeatTimer() {
     if (!m_hbTimer) {
         m_hbTimer = new QTimer(this);
@@ -459,6 +552,7 @@ void VisionTcpipDeviceBase::startHeartbeatTimer() {
     m_hbTimer->start();
 }
 
+/// Stops the heartbeat timer if it exists and is currently running.
 void VisionTcpipDeviceBase::stopHeartbeatTimer() {
     if (m_hbTimer && m_hbTimer->isActive()) {
         m_hbTimer->stop();
@@ -468,6 +562,11 @@ void VisionTcpipDeviceBase::stopHeartbeatTimer() {
 // =====================================================================
 // Lost-connection / state bookkeeping
 // =====================================================================
+/// Records `reason` in diagnostics (lastError, lastHeartbeatLossReason, and
+/// incremented lostConnectionCount), emits heartbeatLost(reason), detaches both
+/// sockets, sets ConnectStatus::LostConnected, and — if the device is still
+/// active — notifies the subclass via onLinkLost().
+/// @param reason human-readable description of why the connection was declared lost
 void VisionTcpipDeviceBase::declareLostConnection(const QString &reason) {
     LOG_DEV_ERR << "VisionTcpip lost connection:" << reason;
     m_diagnostics.lastError = reason;
@@ -484,6 +583,8 @@ void VisionTcpipDeviceBase::declareLostConnection(const QString &reason) {
     }
 }
 
+/// Resets the ack-sequence counters and awaiting-reply flag to their initial
+/// state, invalidates the reply timer, and syncs runtime state.
 void VisionTcpipDeviceBase::resetHeartbeatState() {
     m_expectedAckCount = 0;
     m_lastAckCount     = 0;
@@ -492,6 +593,8 @@ void VisionTcpipDeviceBase::resetHeartbeatState() {
     syncRuntimeState();
 }
 
+/// Recomputes m_runtimeState (main/heartbeat connected flags, awaiting-reply
+/// flag, and ack counters) from the current socket/heartbeat state.
 void VisionTcpipDeviceBase::syncRuntimeState() {
     m_runtimeState.mainClientConnected =
         m_mainSocket && m_mainSocket->state() == QAbstractSocket::ConnectedState;

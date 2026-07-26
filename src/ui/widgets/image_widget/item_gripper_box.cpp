@@ -1,6 +1,8 @@
 #include "item_gripper_box.h"
 #include <QtMath>
 
+/// Constructs the item with default distance (40.0), equal 20x20 finger
+/// squares, zero placement angle, movable/selectable flags, and hover events enabled.
 ItemGripperBox::ItemGripperBox(QGraphicsItem *parent)
     : QGraphicsItem(parent),
     m_distance(40.0),
@@ -12,10 +14,14 @@ ItemGripperBox::ItemGripperBox(QGraphicsItem *parent)
   setAcceptHoverEvents(true);
 }
 
+/// Returns the center-to-origin distance for both finger squares.
 qreal ItemGripperBox::distance() const {
   return m_distance;
 }
 
+/// Sets the center-to-origin distance for both finger squares (fuzzy-compared
+/// to avoid float-noise churn); invalidates the bounding-rect cache and
+/// triggers a repaint only when the value actually changes.
 void ItemGripperBox::setDistance(qreal d) {
   if (!qFuzzyCompare(d + 1.0, m_distance + 1.0)) {
     prepareGeometryChange();
@@ -25,10 +31,13 @@ void ItemGripperBox::setDistance(qreal d) {
   }
 }
 
+/// Returns the size of the first finger square (at m_placementAngle).
 QSizeF ItemGripperBox::size1() const {
   return m_size1;
 }
 
+/// Sets the size of the first finger square; invalidates the bounding-rect
+/// cache and triggers a repaint only when the value actually changes.
 void ItemGripperBox::setSize1(const QSizeF &s) {
   if (s != m_size1) {
     prepareGeometryChange();
@@ -38,7 +47,10 @@ void ItemGripperBox::setSize1(const QSizeF &s) {
   }
 }
 
+/// Returns the size of the second finger square (at m_placementAngle + 180°).
 QSizeF ItemGripperBox::size2() const { return m_size2; }
+/// Sets the size of the second finger square; invalidates the bounding-rect
+/// cache and triggers a repaint only when the value actually changes.
 void ItemGripperBox::setSize2(const QSizeF &s) {
   if (s != m_size2) {
     prepareGeometryChange();
@@ -48,10 +60,14 @@ void ItemGripperBox::setSize2(const QSizeF &s) {
   }
 }
 
+/// Returns the placement angle (degrees) along which the two finger squares are placed.
 qreal ItemGripperBox::placementAngle() const {
   return m_placementAngle;
 }
 
+/// Sets the placement angle in degrees (fuzzy-compared to avoid float-noise
+/// churn); invalidates the bounding-rect cache and triggers a repaint only
+/// when the value actually changes.
 void ItemGripperBox::setPlacementAngle(qreal angleDeg) {
   if (!qFuzzyCompare(angleDeg + 1.0, m_placementAngle + 1.0)) {
     prepareGeometryChange();
@@ -61,12 +77,17 @@ void ItemGripperBox::setPlacementAngle(qreal angleDeg) {
   }
 }
 
+/// Returns the local-coordinate point at `dist` from the origin along
+/// `angleDeg`. `angleDeg` is treated as a standard math angle (counter-clockwise,
+/// 0 along +x); negated for y since Qt's y axis points down.
 QPointF ItemGripperBox::pointAtAngleAndDistance(qreal angleDeg, qreal dist) const {
   qreal a = qDegreesToRadians(angleDeg);
   // Qt coordinate: +x sang phải, +y xuống dưới -> y = -sin(angle) để angle tính theo độ toán học (ccw)
   return QPointF(dist * qCos(a), -dist * qSin(a));
 }
 
+/// Returns the union of both finger-square rects plus a 2.0 margin (for pen
+/// width/antialiasing), using the cached value when still valid.
 QRectF ItemGripperBox::boundingRect() const {
   if (m_cacheValid)
     return m_cachedBounding;
@@ -97,6 +118,8 @@ QRectF ItemGripperBox::boundingRect() const {
   return m_cachedBounding;
 }
 
+/// Draws both finger squares as dark-blue outlined rectangles and a small red
+/// dot at the local origin. `option` and `widget` are unused.
 void ItemGripperBox::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
   Q_UNUSED(option)
   Q_UNUSED(widget)

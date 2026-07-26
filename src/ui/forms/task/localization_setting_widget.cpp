@@ -29,15 +29,17 @@ using vc::device::DeviceType;
 
 namespace {
 
-// Static schema of signal-tag rows, derived from TaskLocalizeConfigPrivate.
-// Order = visual order in the SignalsMapWidget. Keeping it as a table here
-// (rather than scraping the meta object) means a missed/renamed field becomes
-// a visible diff in code review, per the project's "table-driven UI" rule.
+/// Static schema of signal-tag rows, derived from TaskLocalizeConfigPrivate.
+/// Order = visual order in the SignalsMapWidget. Keeping it as a table here
+/// (rather than scraping the meta object) means a missed/renamed field becomes
+/// a visible diff in code review, per the project's "table-driven UI" rule.
 struct SignalRowSpec {
-    const char *internalName;   // matches the P_PROPERTY_STRING_READWRITE name
-    SignalsMapWidget::Type type;
+    const char *internalName;   ///< Matches the P_PROPERTY_STRING_READWRITE name.
+    SignalsMapWidget::Type type;  ///< Row kind (Number or Bool) determining which tag list it binds to.
 };
 
+/// Fixed, ordered table of signal rows appended to the signals map widget;
+/// see SignalRowSpec for why this is a table rather than reflection-driven.
 constexpr SignalRowSpec kSignalRows[] = {
     // Number signals
     { "nActiveCamera",      SignalsMapWidget::Type::Number },
@@ -56,16 +58,20 @@ constexpr SignalRowSpec kSignalRows[] = {
     { "bTaskFault",         SignalsMapWidget::Type::Bool },
 };
 
-// Thin wrappers over the shared vc::gadget_meta helpers (qgadget_marco.h),
-// bound to TaskLocalizeConfig's meta object. Falls back to the internal name
-// when no Q_CLASSINFO("<name>_name", …) entry is present.
+/// Thin wrapper over the shared vc::gadget_meta helpers (qgadget_marco.h),
+/// bound to TaskLocalizeConfig's meta object. Falls back to the internal name
+/// when no Q_CLASSINFO("<name>_name", …) entry is present.
+/// @param internalName the P_PROPERTY_STRING_READWRITE field name
+/// @return the human-readable display name for that field
 QString displayNameOf(const char *internalName) {
     return vc::gadget_meta::displayName(TaskLocalizeConfig::staticMetaObject,
                                         internalName);
 }
 
-// Setter dispatch — writes `value` into the matching field of the config's
-// private data via the Q_PROPERTY system. Returns true on success.
+/// Setter dispatch — writes `value` into the matching field of the config's
+/// private data via the Q_PROPERTY system. Returns true on success.
+/// @return true if the field was found and written; false (with a logged
+///         error) otherwise
 bool writeConfigField(TaskLocalizeConfig &cfg, const QString &internalName,
                       const QString &value) {
     if (!vc::gadget_meta::writeProperty(TaskLocalizeConfig::staticMetaObject,
@@ -76,12 +82,19 @@ bool writeConfigField(TaskLocalizeConfig &cfg, const QString &internalName,
     return true;
 }
 
+/// Getter dispatch — reads the field named `internalName` from `cfg`'s
+/// private data via the Q_PROPERTY system and returns it as a string.
 QString readConfigField(const TaskLocalizeConfig &cfg, const QString &internalName) {
     return vc::gadget_meta::readProperty(TaskLocalizeConfig::staticMetaObject,
                                          &cfg, internalName).toString();
 }
 
 // ── Image conversion (matches the helpers used by the pattern dialogs) ──────
+/// Converts an OpenCV Mat to a QPixmap, supporting CV_8UC1 (grayscale),
+/// CV_8UC3 (assumed BGR, converted to RGB), and CV_8UC4 (assumed BGRA,
+/// converted to RGBA).
+/// @return the converted pixmap, or a null QPixmap if `mat` is empty or its
+///         type is not one of the three supported above
 QPixmap matToPixmap(const cv::Mat &mat) {
     if (mat.empty()) return {};
 
@@ -105,6 +118,10 @@ QPixmap matToPixmap(const cv::Mat &mat) {
     return QPixmap::fromImage(img);
 }
 
+/// Converts a QPixmap to an OpenCV Mat. Format_Grayscale8 is copied as-is
+/// (CV_8UC1); Format_RGB888 is converted RGB→BGR (CV_8UC3); any other format
+/// is first converted to Format_RGBA8888 then to BGRA (CV_8UC4).
+/// @return the converted Mat, or an empty cv::Mat if `pixmap`'s image is null
 cv::Mat pixmapToMat(const QPixmap &pixmap) {
     const QImage qimg = pixmap.toImage();
     if (qimg.isNull()) return cv::Mat();
@@ -138,6 +155,7 @@ cv::Mat pixmapToMat(const QPixmap &pixmap) {
 
 } // namespace
 
+/// Constructs the generated UI and runs initWidget() to bind it to `task`.
 LocalizationSettingWidget::LocalizationSettingWidget(
         std::shared_ptr<vc::model::ITask> task,
         ads::CDockWidget *dock, QWidget *parent)
@@ -148,11 +166,16 @@ LocalizationSettingWidget::LocalizationSettingWidget(
     initWidget();
 }
 
+/// Destroys the generated UI object.
 LocalizationSettingWidget::~LocalizationSettingWidget()
 {
     delete ui;
 }
 
+/// One-time setup: resolves m_localizeTask, loads the config, appends the
+/// fixed signal-row schema, wires up all combo/list/dialog connections and
+/// the devicesChanged/deviceModified signals, then loads the config into
+/// the UI.
 void LocalizationSettingWidget::initWidget() {
     m_localizeTask = dynamic_cast<TaskLocalization *>(m_task.get());
     if (!m_localizeTask) {
@@ -231,6 +254,9 @@ void LocalizationSettingWidget::initWidget() {
     loadConfigToWidget();
 }
 
+/// Rebuilds the vision-output-device and comm-device (PLC) comboboxes from
+/// the task's currently assigned devices, keeping each combo's previously
+/// selected device id selected if still present.
 void LocalizationSettingWidget::rebuildDeviceCombos() {
     if (!m_localizeTask) return;
 
@@ -260,6 +286,8 @@ void LocalizationSettingWidget::rebuildDeviceCombos() {
     fill(ui->cbb_comm_device, commDevs, currentComm);
 }
 
+/// Rebuilds the camera mapping widget's available camera options from the
+/// task's currently assigned Camera-type devices.
 void LocalizationSettingWidget::rebuildCameraList() {
     if (!m_localizeTask) return;
     const auto cams = m_localizeTask->assignedDevicesOfType(DeviceType::Camera);
@@ -272,6 +300,8 @@ void LocalizationSettingWidget::rebuildCameraList() {
     ui->listView_cameras_map->setCameraOptions(idToName);
 }
 
+/// Rebuilds the camera workspace list widget with the task's assigned
+/// cameras and refreshes each row's ROI/condition-ROI/reference-image state.
 void LocalizationSettingWidget::rebuildCameraWorkspaceList() {
     if (!m_localizeTask) return;
 
@@ -287,6 +317,7 @@ void LocalizationSettingWidget::rebuildCameraWorkspaceList() {
         refreshWorkspaceRow(it.key());
 }
 
+/// Push the current workspace state of one camera to its row widget.
 void LocalizationSettingWidget::refreshWorkspaceRow(const QString &cameraId) {
     const vc::model::CameraWorkspace ws = m_config.cameraWorkspace(cameraId);
     const QRectF roi(ws.roi.x, ws.roi.y, ws.roi.width, ws.roi.height);
@@ -298,6 +329,9 @@ void LocalizationSettingWidget::refreshWorkspaceRow(const QString &cameraId) {
         !ws.referenceImage.empty());
 }
 
+/// Reloads the whole widget (loadConfigToWidget()) when `deviceId` refers to
+/// a device assigned to this task, in response to that device being
+/// modified elsewhere.
 void LocalizationSettingWidget::refreshDevicePresentation(const QString &deviceId) {
     if (!m_localizeTask || deviceId.isEmpty() || !m_localizeTask->hasDevice(deviceId))
         return;
@@ -305,6 +339,8 @@ void LocalizationSettingWidget::refreshDevicePresentation(const QString &deviceI
     loadConfigToWidget();
 }
 
+/// Updates the "use workspace" (ROI) flag for `cameraId`'s workspace,
+/// persists it via pushConfigToTask(), and refreshes its row UI.
 void LocalizationSettingWidget::onWorkspaceUseToggled(const QString &cameraId, bool enabled) {
     if (cameraId.isEmpty()) return;
 
@@ -316,6 +352,8 @@ void LocalizationSettingWidget::onWorkspaceUseToggled(const QString &cameraId, b
     refreshWorkspaceRow(cameraId);
 }
 
+/// Updates the "use condition workspace" flag for `cameraId`'s workspace,
+/// persists it via pushConfigToTask(), and refreshes its row UI.
 void LocalizationSettingWidget::onWorkspaceConditionToggled(const QString &cameraId, bool enabled) {
     if (cameraId.isEmpty()) return;
 
@@ -327,6 +365,10 @@ void LocalizationSettingWidget::onWorkspaceConditionToggled(const QString &camer
     refreshWorkspaceRow(cameraId);
 }
 
+/// Opens a WorkspaceSettingDialog for `cameraId` so the user can define the
+/// working/condition ROIs and optionally grab a reference image through the
+/// live CameraRunner; on acceptance, writes the resulting ROIs, flags, and
+/// reference image back into the camera's workspace config and persists it.
 void LocalizationSettingWidget::onWorkspaceSetRequested(const QString &cameraId) {
     if (!m_localizeTask || cameraId.isEmpty()) return;
 
@@ -397,6 +439,10 @@ void LocalizationSettingWidget::onWorkspaceSetRequested(const QString &cameraId)
     refreshWorkspaceRow(cameraId);
 }
 
+/// Refreshes the bool/number IO tag lists shown in the signals map widget
+/// from the digital/word IO providers exposed by the device identified by
+/// `deviceId`; clears both tag lists if the device is missing or does not
+/// implement the required IO provider interfaces.
 void LocalizationSettingWidget::refreshCommTags(const QString &deviceId) {
     if (!m_localizeTask || deviceId.isEmpty()) {
         ui->listView_signals_map->setBoolTags({});
@@ -427,6 +473,8 @@ void LocalizationSettingWidget::refreshCommTags(const QString &deviceId) {
     ui->listView_signals_map->setNumberTags(wordProvider->availableWordIoNames());
 }
 
+/// Reloads m_config from the task and repopulates every UI element (device
+/// combos, camera map, workspace rows, signal-tag values) to reflect it.
 void LocalizationSettingWidget::loadConfigToWidget() {
     if (!m_localizeTask) return;
     m_config = m_localizeTask->taskLocalizeConfig();
@@ -467,10 +515,12 @@ void LocalizationSettingWidget::loadConfigToWidget() {
     }
 }
 
+/// Pushes the widget's current config (m_config) into the bound task.
 void LocalizationSettingWidget::loadConfigToTask() {
     pushConfigToTask();
 }
 
+/// Writes m_config back into m_localizeTask via setTaskLocalizeConfig().
 void LocalizationSettingWidget::pushConfigToTask() {
     if (!m_localizeTask) return;
     m_localizeTask->setTaskLocalizeConfig(m_config);

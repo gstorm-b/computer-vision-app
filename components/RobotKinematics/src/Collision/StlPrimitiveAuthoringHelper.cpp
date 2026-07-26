@@ -14,24 +14,32 @@
 namespace RobotKinematics {
 
 namespace {
-constexpr double kPi = 3.14159265358979323846;
+/// Internal helpers backing StlPrimitiveAuthoringHelper::proposeFromFile: bounding-box math,
+/// draft geometry assembly, and draft JSON serialization. Not part of the public API.
+constexpr double kPi = 3.14159265358979323846;  ///< Used to build quarter-turn RPY offsets for axis-aligned capsules.
 
+/// A single draft primitive (sphere or capsule) proposed from mesh bounds, paired with the
+/// xyz/rpy pose (in meters/radians) used to place it relative to the mesh origin.
 struct ProposedGeometryData {
-    CollisionGeometry geometry;
-    std::array<double, 3> xyz_m = {0.0, 0.0, 0.0};
-    std::array<double, 3> rpy_rad = {0.0, 0.0, 0.0};
+    CollisionGeometry geometry;                          ///< Draft collision geometry (shape, pose, margin, enabled flag).
+    std::array<double, 3> xyz_m = {0.0, 0.0, 0.0};        ///< Translation of geometryToLink, duplicated here for JSON emission.
+    std::array<double, 3> rpy_rad = {0.0, 0.0, 0.0};      ///< Fixed-axis roll/pitch/yaw of geometryToLink, duplicated here for JSON emission.
 };
 
+/// Builds a failed Result carrying KinematicsStatus::InvalidRequest and `message`.
 Result<StlPrimitiveProposal> invalidRequest(const std::string& message)
 {
     return Result<StlPrimitiveProposal>::failure(KinematicsStatus::InvalidRequest, message);
 }
 
+/// Returns `value`, or `fallback` when `value` is empty (used to fill in placeholder ids/names
+/// for draft proposals when the caller's request left them blank).
 std::string defaultIfEmpty(const std::string& value, const std::string& fallback)
 {
     return value.empty() ? fallback : value;
 }
 
+/// Returns the midpoint of the mesh's axis-aligned bounding box (per-axis average of min/max bounds).
 Eigen::Vector3d boundsCenter(const StlMeshStatistics& statistics)
 {
     return Eigen::Vector3d(
@@ -40,6 +48,7 @@ Eigen::Vector3d boundsCenter(const StlMeshStatistics& statistics)
         0.5 * (statistics.minimumBounds_m[2] + statistics.maximumBounds_m[2]));
 }
 
+/// Returns the index (0=X, 1=Y, 2=Z) of the bounding box's longest axis.
 int longestAxisIndex(const StlMeshStatistics& statistics)
 {
     int axisIndex = 0;
@@ -53,6 +62,8 @@ int longestAxisIndex(const StlMeshStatistics& statistics)
     return axisIndex;
 }
 
+/// Returns the fixed-axis roll/pitch/yaw (radians) that aligns a capsule's local Z axis with
+/// mesh axis `axisIndex` (0=X: +90 deg pitch, 1=Y: -90 deg roll, 2=Z: identity).
 std::array<double, 3> rpyForAxisIndex(int axisIndex)
 {
     if (axisIndex == 0) {
@@ -64,6 +75,11 @@ std::array<double, 3> rpyForAxisIndex(int axisIndex)
     return {0.0, 0.0, 0.0};
 }
 
+/// Proposes a bounding sphere centered on the mesh bounds, with radius set to half the norm
+/// of the per-axis bounding lengths (a conservative, non-tight fit).
+/// @param statistics mesh bounding-box statistics to fit the sphere to
+/// @param request geometry/link ids, margin, and enabled flag to carry into the draft geometry
+/// @return the proposed sphere geometry plus the xyz/rpy pose used to place it
 ProposedGeometryData makeSphereProposal(const StlMeshStatistics& statistics,
                                         const StlPrimitiveProposalRequest& request)
 {
@@ -87,6 +103,11 @@ ProposedGeometryData makeSphereProposal(const StlMeshStatistics& statistics,
     return proposal;
 }
 
+/// Proposes a bounding capsule aligned to the mesh's longest axis: radius from the two shorter
+/// axis lengths, and cylinder length reduced by the end caps (clamped to non-negative).
+/// @param statistics mesh bounding-box statistics to fit the capsule to
+/// @param request geometry/link ids, margin, and enabled flag to carry into the draft geometry
+/// @return the proposed capsule geometry plus the xyz/rpy pose used to place it
 ProposedGeometryData makeCapsuleProposal(const StlMeshStatistics& statistics,
                                          const StlPrimitiveProposalRequest& request)
 {
@@ -115,6 +136,8 @@ ProposedGeometryData makeCapsuleProposal(const StlMeshStatistics& statistics,
     return proposal;
 }
 
+/// Serializes one proposed geometry (id, link, enabled, margin, pose, and shape-specific
+/// dimensions) into the JSON object shape expected under a collision profile's "geometries" array.
 QJsonObject toGeometryJson(const ProposedGeometryData& proposal)
 {
     QJsonObject object;
@@ -146,6 +169,13 @@ QJsonObject toGeometryJson(const ProposedGeometryData& proposal)
     return object;
 }
 
+/// Builds the full draft collision-profile JSON document (schema, profile metadata, the single
+/// proposed geometry, an empty disabledPairs list, and a source/metadata block flagging the
+/// result as requiring manual review before use) and renders it as indented JSON text.
+/// @param proposal the geometry/pose to embed as the sole entry in "geometries"
+/// @param request supplies the profile id and robot model name for the profile block
+/// @param primitiveKind literal "sphere" or "capsule", recorded in metadata.primitive
+/// @return the indented JSON document as a string
 std::string draftJsonFor(const ProposedGeometryData& proposal,
                          const StlPrimitiveProposalRequest& request,
                          const char* primitiveKind)
@@ -182,6 +212,10 @@ std::string draftJsonFor(const ProposedGeometryData& proposal,
 }
 }
 
+/// Loads an STL mesh from disk and proposes conservative bounding-sphere and bounding-capsule
+/// collision geometries from its vertex bounds, along with draft collision-profile JSON for each.
+/// The proposals are drafts only (see StlPrimitiveProposal::reviewNote) and are not validated
+/// against runtime collision-profile rules.
 Result<StlPrimitiveProposal> StlPrimitiveAuthoringHelper::proposeFromFile(
     const std::string& path,
     const StlPrimitiveProposalRequest& request)

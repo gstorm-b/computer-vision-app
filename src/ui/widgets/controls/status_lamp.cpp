@@ -2,6 +2,8 @@
 
 #include <QStyle>
 
+/// Builds the name/state QLabel pair inside a tight QVBoxLayout and sets the
+/// initial `status` dynamic property so the first QSS polish reads Off.
 StatusLamp::StatusLamp(QWidget *parent)
     : QFrame(parent)
 {
@@ -24,11 +26,15 @@ StatusLamp::StatusLamp(QWidget *parent)
     setProperty("status", statusProperty(m_status));
 }
 
+/// Sets the fixed name label text, upper-casing `name` before display.
 void StatusLamp::setLampName(const QString &name)
 {
     m_nameLabel->setText(name.toUpper());
 }
 
+/// Updates m_status and, when `stateText` is non-empty, the state label text,
+/// then re-applies the `status` dynamic property and forces a style
+/// unpolish/polish + repaint so QSS severity colouring updates immediately.
 void StatusLamp::setStatus(Status status, const QString &stateText)
 {
     m_status = status;
@@ -42,6 +48,7 @@ void StatusLamp::setStatus(Status status, const QString &stateText)
     update();
 }
 
+/// Maps `s` to the QSS `status` property string ("ok"/"warning"/"error"/"off").
 const char *StatusLamp::statusProperty(Status s)
 {
     switch (s) {

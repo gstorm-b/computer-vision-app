@@ -14,15 +14,24 @@
 #include <QMessageBox>
 #include <QDebug>
 
+/// Minimum allowed value for a pattern group activation index.
 #define PT_GROUP_INDEX_MIN  1
+/// Maximum allowed value for a pattern group activation index.
 #define PT_GROUP_INDEX_MAX  32
 
+/// Minimum allowed value for a pattern activation index.
 #define PT_PATTERN_INDEX_MIN  1
+/// Maximum allowed value for a pattern activation index.
 #define PT_PATTERN_INDEX_MAX  4
 
+/// Modal dialog for creating/editing a pattern group's name and activation index (1-32),
+/// validating both fields before accepting.
 class AddGroupDialog : public QDialog {
     Q_OBJECT
 public:
+    /// Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to
+    /// validateAndAccept().
+    /// @param dialog_title window title shown on the dialog
     explicit AddGroupDialog(QString &dialog_title, QWidget *parent = nullptr) : QDialog(parent) {
         this->setWindowTitle(dialog_title);
 
@@ -43,14 +52,18 @@ public:
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     }
 
+    /// Sets the text of the group-name field.
     inline void setGroupName(QString &name) const {
         groupNameEdit->setText(name);
     }
 
+    /// Returns the current text of the group-name field.
     inline QString getGroupName() const {
         return groupNameEdit->text();
     }
 
+    /// Sets the group-index field to `index` (formatted as a number); no-op if the range check
+    /// below fails.
     inline void setGroupIndex(int index) const {
         if ((index < PT_GROUP_INDEX_MIN) && (index >PT_GROUP_INDEX_MAX)) {
             return;
@@ -58,11 +71,15 @@ public:
         groupIndexEdit->setText(QString::number(index));
     }
 
+    /// Returns the group-index field's text parsed as an integer.
     inline int getGroupIndex() const {
         return groupIndexEdit->text().toInt();
     }
 
 private slots:
+    /// Validates that the name is non-empty and the index is a non-empty value within
+    /// [PT_GROUP_INDEX_MIN, PT_GROUP_INDEX_MAX], showing a warning message box and returning
+    /// early on failure; calls accept() once both checks pass.
     void validateAndAccept() {
         if (getGroupName().isEmpty()) {
             QMessageBox::warning(this, tr("Invalid Name"), tr("Pattern group name cannot empty."));
@@ -85,13 +102,18 @@ private slots:
     }
 
 private:
-    QLineEdit *groupNameEdit;
-    QLineEdit *groupIndexEdit;
+    QLineEdit *groupNameEdit;   ///< Input field for the group's display name.
+    QLineEdit *groupIndexEdit;  ///< Input field (int-validated) for the group's activation index.
 };
 
+/// Modal dialog for creating/editing a pattern's name and activation index (1-4), validating
+/// both fields before accepting.
 class AddPatternDialog : public QDialog {
     Q_OBJECT
 public:
+    /// Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to
+    /// validateAndAccept().
+    /// @param dialog_title window title shown on the dialog
     explicit AddPatternDialog(QString &dialog_title, QWidget *parent = nullptr) : QDialog(parent) {
         this->setWindowTitle(dialog_title);
 
@@ -112,14 +134,18 @@ public:
         connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
     }
 
+    /// Sets the text of the pattern-name field.
     inline void setPatternName(QString &name) const {
         patternNameEdit->setText(name);
     }
 
+    /// Returns the current text of the pattern-name field.
     inline QString getPatternName() const {
         return patternNameEdit->text();
     }
 
+    /// Sets the pattern-index field to `index` (formatted as a number); no-op if the range check
+    /// below fails.
     inline void setPatternIndex(int index) const {
         if ((index < PT_PATTERN_INDEX_MIN) && (index >PT_PATTERN_INDEX_MAX)) {
             return;
@@ -127,11 +153,15 @@ public:
         patternIndexEdit->setText(QString::number(index));
     }
 
+    /// Returns the pattern-index field's text parsed as an integer.
     inline int getPatternIndex() const {
         return patternIndexEdit->text().toInt();
     }
 
 private slots:
+    /// Validates that the name is non-empty and the index is a non-empty value within
+    /// [PT_PATTERN_INDEX_MIN, PT_PATTERN_INDEX_MAX], showing a warning message box and returning
+    /// early on failure; calls accept() once both checks pass.
     void validateAndAccept() {
         if (patternNameEdit->text().isEmpty()) {
             QMessageBox::warning(this, tr("Invalid Name"), tr("Pattern name cannot empty."));
@@ -154,8 +184,8 @@ private slots:
     }
 
 private:
-    QLineEdit *patternNameEdit;
-    QLineEdit *patternIndexEdit;
+    QLineEdit *patternNameEdit;   ///< Input field for the pattern's display name.
+    QLineEdit *patternIndexEdit;  ///< Input field (int-validated) for the pattern's activation index.
 };
 
 // class CMenu : public QMenu {

@@ -13,6 +13,8 @@ using namespace RobotKinematics;
 namespace {
 constexpr double kPi = 3.141592653589793238462643383279502884;
 
+/// Builds a Z-axis revolute joint with the given id, parent/child link ids, and origin pose;
+/// limits are set to +/-pi with no velocity/effort caps.
 Joint revoluteZ(const std::string& id,
                 const std::string& parent,
                 const std::string& child,
@@ -30,6 +32,9 @@ Joint revoluteZ(const std::string& id,
     return joint;
 }
 
+/// Builds a fixture 3-DOF serial robot (base_link -> link_1 -> link_2 -> flange, each hop
+/// 1m along X) with three Z-axis revolute joints, used as the shared kinematic model for the
+/// collision-distance fixtures in this suite.
 SerialRobotConfig threeStageRobot()
 {
     SerialRobotConfig config;
@@ -49,6 +54,7 @@ SerialRobotConfig threeStageRobot()
     return config;
 }
 
+/// Returns the zero joint vector for the 3-DOF threeStageRobot() fixture.
 JointVector zeros()
 {
     return JointVector::fromRadians({0.0, 0.0, 0.0});
@@ -166,6 +172,9 @@ void CollisionPrimitiveDistanceTests::capsuleCapsuleDistanceAndSafetyMarginAreAp
     QVERIFY(marginResult.hasCollision);
 }
 
+/// Entry point that instantiates CollisionPrimitiveDistanceTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runCollisionPrimitiveDistanceTests(int argc, char** argv)
 {
     CollisionPrimitiveDistanceTests tests;

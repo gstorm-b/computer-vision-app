@@ -1,0 +1,23 @@
+var searchData=
+[
+  ['_5fangleend_0',['_angleEnd',['../classmtc_1_1_match_params.html#a57bdfb885ba14e49e2c77180146e7f53',1,'mtc::MatchParams']]],
+  ['_5fanglestart_1',['_angleStart',['../classmtc_1_1_match_params.html#a5fcef8b679c9dcae7fd2ec4653779f41',1,'mtc::MatchParams']]],
+  ['_5fdelete_2',['_delete',['../classmtc_1_1_match_params.html#a4e53452cc94122f80cb01e424676dfaf',1,'mtc::MatchParams']]],
+  ['_5fmatchangle_3',['_matchAngle',['../classmtc_1_1_match_params.html#a6e318c7deaaeb7a1933cfe4928b3441d',1,'mtc::MatchParams']]],
+  ['_5fmatchscore_4',['_matchScore',['../classmtc_1_1_match_params.html#ab11f9a5dd881e08ee159f6e6a0d2f350',1,'mtc::MatchParams']]],
+  ['_5fmatsrc_5',['_matSrc',['../classmtc_1_1_block_max.html#a4c7cddc338d6d3a6e686e0844354bef9',1,'mtc::BlockMax']]],
+  ['_5fmaxscoreindex_6',['_maxScoreIndex',['../classmtc_1_1_match_params.html#a709ab66b66d7b8194132e48b94e26918',1,'mtc::MatchParams']]],
+  ['_5fmaxvalue_7',['_maxValue',['../classmtc_1_1_match_block.html#a5a37a7f7ffe9081739ede4afd6a77c7e',1,'mtc::MatchBlock']]],
+  ['_5fmm_5fhsum_5fepi32_8',['_mm_hsum_epi32',['../namespacemtc.html#aaf662746567c7eb4cfa0140d797ded7e',1,'mtc']]],
+  ['_5fnewangle_9',['_newAngle',['../classmtc_1_1_match_params.html#a5e8efb06f6a444e111503de1e6b5f676',1,'mtc::MatchParams']]],
+  ['_5fpoint_10',['_point',['../classmtc_1_1_match_params.html#ab6fdf4b0535e62194c83727609592c97',1,'mtc::MatchParams']]],
+  ['_5fpointmaxloc_11',['_pointMaxLoc',['../classmtc_1_1_match_block.html#aa500edee6061bb6f06cf32fe0086a7f2',1,'mtc::MatchBlock']]],
+  ['_5fpointsubpixel_12',['_pointSubPixel',['../classmtc_1_1_match_params.html#a798d1d8b31f5edbd1e1c8bcc7d1d36f4',1,'mtc::MatchParams']]],
+  ['_5fposonborder_13',['_posOnBorder',['../classmtc_1_1_match_params.html#af7a3042a8d9c0f47f8a1ec2b27a79bc6',1,'mtc::MatchParams']]],
+  ['_5frect_14',['_rect',['../classmtc_1_1_match_block.html#a3dfdeb9402be5c3dcbc165158db6c605',1,'mtc::MatchBlock']]],
+  ['_5frectbounding_15',['_rectBounding',['../classmtc_1_1_match_params.html#ae209bff3f1f9651e536fff446cf6db86',1,'mtc::MatchParams']]],
+  ['_5frectr_16',['_rectR',['../classmtc_1_1_match_params.html#a3f7261c64b619efede33970ff763cdba',1,'mtc::MatchParams']]],
+  ['_5frectroi_17',['_rectRoi',['../classmtc_1_1_match_params.html#abea958101452f609317dd1cd50a826a6',1,'mtc::MatchParams']]],
+  ['_5fvecblocks_18',['_vecBlocks',['../classmtc_1_1_block_max.html#a399c184fbf07fb18adcadd98017953f9',1,'mtc::BlockMax']]],
+  ['_5fvecresult_19',['_vecResult',['../classmtc_1_1_match_params.html#aee8481d41cd26ded0d678a5c160a3e07',1,'mtc::MatchParams']]]
+];

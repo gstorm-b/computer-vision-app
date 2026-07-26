@@ -45,55 +45,45 @@
 
 #include "qtpropertybrowser/qtvariantproperty.h"
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  PropSpec<Config>
-//
-//  One row in a property spec table. Fields:
-//    key         — unique internal id (ASCII, used as map key)
-//    label       — user-visible name in the property browser
-//    description — shown in the description panel; nullptr → no tooltip
-//    propType    — QMetaType type id: QMetaType::Double, Int, Bool, QString …
-//    min/max/step — range and step attributes (invalid QVariant = skip)
-//    decimals    — precision for Double; -1 = use manager default
-//    readOnly    — disables the editor widget for this property
-//    read        — extract the value from the config as a QVariant
-//    write       — apply a changed QVariant value back to the config
-// ─────────────────────────────────────────────────────────────────────────────
-
+/// One row in a property spec table. Fields:
+///   key         — unique internal id (ASCII, used as map key)
+///   label       — user-visible name in the property browser
+///   description — shown in the description panel; nullptr → no tooltip
+///   propType    — QMetaType type id: QMetaType::Double, Int, Bool, QString …
+///   min/max/step — range and step attributes (invalid QVariant = skip)
+///   decimals    — precision for Double; -1 = use manager default
+///   readOnly    — disables the editor widget for this property
+///   read        — extract the value from the config as a QVariant
+///   write       — apply a changed QVariant value back to the config
 template<typename Config>
 struct PropSpec {
-    const char *key;
-    const char *label;
-    const char *description;    // may be nullptr
-    int         propType;       // QMetaType::Double / Int / Bool / QString …
-    QVariant    min, max, step;
-    int         decimals{-1};
-    bool        readOnly{false};
+    const char *key;             ///< Unique internal id (ASCII, used as the lookup-map key).
+    const char *label;           ///< User-visible name shown in the property browser.
+    const char *description;    ///< Shown in the description panel; nullptr means no tooltip.
+    int         propType;       ///< QMetaType type id: QMetaType::Double / Int / Bool / QString …
+    QVariant    min, max, step;  ///< Range/step attributes; an invalid QVariant means "skip this attribute".
+    int         decimals{-1};    ///< Precision for Double properties; -1 = use the manager default.
+    bool        readOnly{false}; ///< When true, disables the editor widget for this property.
 
-    std::function<QVariant(const Config &)>         read;
-    std::function<void(Config &, const QVariant &)> write;
+    std::function<QVariant(const Config &)>         read;   ///< Extracts this property's current value from the config.
+    std::function<void(Config &, const QVariant &)> write;  ///< Applies a changed value back to the config.
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  PropGroup<Config>
-//
-//  A labelled collection of specs that forms one collapsible group in the
-//  property browser.
-// ─────────────────────────────────────────────────────────────────────────────
-
+/// A labelled collection of PropSpec entries that forms one collapsible group
+/// in the property browser.
 template<typename Config>
 struct PropGroup {
-    const char              *label;
-    QList<PropSpec<Config>>  specs;
+    const char              *label;   ///< Group label shown in the property browser.
+    QList<PropSpec<Config>>  specs;   ///< Specs built as sub-properties of this group.
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  PropSpecHelper  —  free functions operating on spec lists
-// ─────────────────────────────────────────────────────────────────────────────
-
+/// Free functions that build, refresh, and dispatch value changes for
+/// PropSpec/PropGroup tables against a QtVariantPropertyManager-based browser.
 namespace PropSpecHelper {
 
-// Apply numeric attributes from a spec to a freshly created property.
+/// Applies a spec's optional min/max/step/decimals/description attributes to
+/// `prop` (skipping any that are unset) and sets its enabled state from
+/// spec.readOnly.
 template<typename Config>
 inline void applyAttributes(QtVariantPropertyManager       *mgr,
                              QtVariantProperty              *prop,
@@ -107,7 +97,12 @@ inline void applyAttributes(QtVariantPropertyManager       *mgr,
     prop->setEnabled(!spec.readOnly);
 }
 
-// Build one spec as a standalone property and optionally populate lookup maps.
+/// Creates one standalone QtVariantProperty from `spec` (applying its
+/// attributes and initial value from `cfg`), and records it in `propMap`/
+/// `propKeyMap` when those are provided.
+/// @param propMap optional {key → prop} map to populate for later lookup
+/// @param propKeyMap optional {prop → key} reverse map to populate
+/// @return the created property, or nullptr if the manager failed to create it
 template<typename Config>
 inline QtVariantProperty *buildOne(QtVariantPropertyManager          *mgr,
                                     const PropSpec<Config>             &spec,
@@ -127,8 +122,9 @@ inline QtVariantProperty *buildOne(QtVariantPropertyManager          *mgr,
     return prop;
 }
 
-// Build all specs as sub-properties of `group` (may be nullptr for no group).
-// Returns the {key → prop} map; fills propKeyMap for reverse lookups.
+/// Builds every spec in `specs` (via buildOne) as a sub-property of `group`
+/// (pass nullptr for no group).
+/// @return the {key → prop} map for all built specs; also fills propKeyMap for reverse lookups
 template<typename Config>
 inline QMap<QString, QtVariantProperty *>
 buildGroup(QtVariantPropertyManager            *mgr,
@@ -145,8 +141,9 @@ buildGroup(QtVariantPropertyManager            *mgr,
     return propMap;
 }
 
-// Build multiple PropGroups, adding each as a top-level property in the browser.
-// Returns merged {key → prop} map; fills propKeyMap.
+/// Builds every group in `groups` (via buildGroup) and adds each resulting
+/// group property as a top-level property of `browser`.
+/// @return the merged {key → prop} map across all groups; also fills propKeyMap
 template<typename Config>
 inline QMap<QString, QtVariantProperty *>
 buildGroups(QtVariantPropertyManager              *mgr,
@@ -166,7 +163,9 @@ buildGroups(QtVariantPropertyManager              *mgr,
     return combined;
 }
 
-// Refresh all values from cfg into existing properties (suppresses valueChanged).
+/// Pushes each spec's current value (via spec.read(cfg)) into its matching
+/// existing property in `propMap`, wrapping the update in a QSignalBlocker on
+/// `mgr` so it does not trigger valueChanged.
 template<typename Config>
 inline void refresh(QtVariantPropertyManager                   *mgr,
                     const QList<PropSpec<Config>>              &specs,
@@ -180,7 +179,7 @@ inline void refresh(QtVariantPropertyManager                   *mgr,
     }
 }
 
-// Refresh multiple groups.
+/// Calls refresh() for every group in `groups` against the shared `propMap`.
 template<typename Config>
 inline void refreshGroups(QtVariantPropertyManager                   *mgr,
                            const QList<PropGroup<Config>>            &groups,
@@ -191,7 +190,9 @@ inline void refreshGroups(QtVariantPropertyManager                   *mgr,
         refresh(mgr, grp.specs, cfg, propMap);
 }
 
-// Dispatch: if `key` matches any spec, write val to cfg and return true.
+/// Finds the spec in `specs` whose key matches `key` and, if found, calls its
+/// write() to apply `val` to `cfg`.
+/// @return true if a matching spec was found and its write() was invoked
 template<typename Config>
 inline bool dispatch(const QList<PropSpec<Config>> &specs,
                      const QString                  &key,
@@ -207,7 +208,9 @@ inline bool dispatch(const QList<PropSpec<Config>> &specs,
     return false;
 }
 
-// Dispatch across multiple groups.
+/// Calls dispatch() against each group's specs in turn, stopping at (and
+/// returning true from) the first group whose dispatch() succeeds.
+/// @return true if any group's dispatch() matched and wrote `key`
 template<typename Config>
 inline bool dispatchGroups(const QList<PropGroup<Config>> &groups,
                             const QString                  &key,

@@ -11,6 +11,9 @@
 #include "ui/widgets/calibration/calibration_threshold_dialog.h"
 #include "ui/widgets/calibration/calibration_points_table.h"
 
+/// Converts an OpenCV Mat (8-bit grayscale, BGR, or BGRA) to a QPixmap for display.
+/// @param mat source image; must be CV_8UC1, CV_8UC3 (BGR), or CV_8UC4 (BGRA)
+/// @return the converted pixmap, or a null QPixmap if `mat`'s type is unsupported
 inline QPixmap cvMatToQPixmap(const cv::Mat& mat) {
     QImage qimg;
     if (mat.type() == CV_8UC1) {
@@ -44,6 +47,17 @@ inline QPixmap cvMatToQPixmap(const cv::Mat& mat) {
     return QPixmap::fromImage(qimg);
 }
 
+/// Creates and registers a QtVariantProperty for a single Qt meta-property, handling
+/// enum types specially (registers the enum's key names) and setting the display
+/// name / minimum / maximum attributes from the class-info entries
+/// "<prop>_name", "<prop>_min", "<prop>_max" when present. The "objectName"
+/// property is skipped.
+/// @param meta meta-object of the class owning `prop` (used to read class-info and enum names)
+/// @param prop the meta-property being converted
+/// @param value the property's current value
+/// @param manager property manager the new property is registered with
+/// @param browser unused for creation itself but kept for signature symmetry with callers
+/// @return the created property, or nullptr for objectName / on failure to create a property
 static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaProperty &prop, QVariant &value,
                                         QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) {
 

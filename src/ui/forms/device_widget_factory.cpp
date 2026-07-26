@@ -12,6 +12,9 @@
 #include "runtime/plc_runner.h"
 #include "runtime/vision_output_runner.h"
 
+/// Dispatches on device->deviceType() (and the relevant subtype enum) to construct the
+/// matching device widget; logs via LOG_DEV_ERR and returns nullptr for a null device or any
+/// unsupported type/subtype combination.
 QWidget *DeviceWidgetFactory::createDeviceWidget(
     const std::shared_ptr<vc::device::IDevice> &device,
     vc::runtime::IDeviceRunner *runner,

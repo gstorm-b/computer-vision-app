@@ -12,6 +12,8 @@
 
 namespace {
 
+/// Returns the font used for the device-name label: JetBrains Mono at 9pt,
+/// falling back to Consolas when JetBrains Mono is not installed.
 QFont deviceNavNameFont()
 {
     QFont font(QStringLiteral("JetBrains Mono"));
@@ -21,6 +23,8 @@ QFont deviceNavNameFont()
     return font;
 }
 
+/// Returns the font used for the short device-type label: bold 7.5pt with
+/// slightly widened letter spacing.
 QFont deviceNavTypeFont()
 {
     QFont font;
@@ -30,6 +34,7 @@ QFont deviceNavTypeFont()
     return font;
 }
 
+/// Forces `widget` to re-evaluate its QSS (unpolish + polish) and repaint; no-op if null.
 void repolish(QWidget *widget)
 {
     if (!widget)
@@ -41,6 +46,8 @@ void repolish(QWidget *widget)
 
 } // namespace
 
+/// Builds the icon/name/type layout, applies default device type, unselected
+/// state, and "off" indicator, and re-applies the current icon on theme changes.
 DeviceNavItemWidget::DeviceNavItemWidget(QWidget *parent)
     : QFrame(parent)
 {
@@ -56,6 +63,7 @@ DeviceNavItemWidget::DeviceNavItemWidget(QWidget *parent)
     });
 }
 
+/// Sets the device id (mirrored into the "deviceId" property); no-op if unchanged.
 void DeviceNavItemWidget::setDeviceId(const QString &deviceId)
 {
     if (m_deviceId == deviceId)
@@ -64,11 +72,13 @@ void DeviceNavItemWidget::setDeviceId(const QString &deviceId)
     setProperty("deviceId", deviceId);
 }
 
+/// Returns the device id set via setDeviceId()/setDevice().
 QString DeviceNavItemWidget::deviceId() const
 {
     return m_deviceId;
 }
 
+/// Sets the visible device-name label text; no-op if unchanged or before initUi().
 void DeviceNavItemWidget::setDeviceName(const QString &name)
 {
     if (m_nameLabel && m_nameLabel->text() == name)
@@ -77,11 +87,14 @@ void DeviceNavItemWidget::setDeviceName(const QString &name)
         m_nameLabel->setText(name);
 }
 
+/// Returns the current device-name label text, or an empty string if the label doesn't exist yet.
 QString DeviceNavItemWidget::deviceName() const
 {
     return m_nameLabel ? m_nameLabel->text() : QString();
 }
 
+/// Sets the device type: updates the "deviceType" style property and resets
+/// the type label and icon to their defaults for `type`, then repolishes.
 void DeviceNavItemWidget::setDeviceType(vc::device::DeviceType type)
 {
     m_deviceType = type;
@@ -91,11 +104,14 @@ void DeviceNavItemWidget::setDeviceType(vc::device::DeviceType type)
     refreshStyle();
 }
 
+/// Returns the device type set via setDeviceType()/setDevice().
 vc::device::DeviceType DeviceNavItemWidget::deviceType() const
 {
     return m_deviceType;
 }
 
+/// Sets the short type-label text, falling back to defaultTypeLabelFor(m_deviceType)
+/// when `text` is empty; no-op if unchanged.
 void DeviceNavItemWidget::setTypeLabelText(const QString &text)
 {
     if (!m_typeLabel)
@@ -107,11 +123,14 @@ void DeviceNavItemWidget::setTypeLabelText(const QString &text)
     m_typeLabel->setText(resolvedText);
 }
 
+/// Returns the current type-label text, or an empty string if the label doesn't exist.
 QString DeviceNavItemWidget::typeLabelText() const
 {
     return m_typeLabel ? m_typeLabel->text() : QString();
 }
 
+/// Sets the device icon rendered at `size` (falls back to 14x14 when invalid);
+/// clears the icon label when `icon` is null.
 void DeviceNavItemWidget::setIcon(const QIcon &icon, const QSize &size)
 {
     if (!m_iconLabel)
@@ -125,6 +144,9 @@ void DeviceNavItemWidget::setIcon(const QIcon &icon, const QSize &size)
     m_iconLabel->setPixmap(icon.pixmap(m_iconSize));
 }
 
+/// Loads an SVG icon from `iconPath` and applies it via setIcon(); remembers
+/// `iconPath`/`size` so the icon can be re-rendered on theme changes. Clears
+/// the icon when `iconPath` is empty.
 void DeviceNavItemWidget::setIconPath(const QString &iconPath, const QSize &size)
 {
     m_iconPath = iconPath;
@@ -135,6 +157,8 @@ void DeviceNavItemWidget::setIconPath(const QString &iconPath, const QSize &size
     setIcon(svgIcon(iconPath), size);
 }
 
+/// Sets the "navActive" style property used by QSS to highlight the selected
+/// item, then repolishes; no-op if already in that state.
 void DeviceNavItemWidget::setSelected(bool selected)
 {
     if (m_selected == selected && property("navActive").toBool() == selected)
@@ -145,11 +169,14 @@ void DeviceNavItemWidget::setSelected(bool selected)
     refreshStyle();
 }
 
+/// Returns whether this item is currently marked selected.
 bool DeviceNavItemWidget::isSelected() const
 {
     return m_selected;
 }
 
+/// Sets the indicator dot's "lampState" property (falls back to "off" when
+/// `state` is empty) and repolishes it; no-op if unchanged.
 void DeviceNavItemWidget::setIndicatorState(const QString &state)
 {
     if (!m_indicatorDot)
@@ -163,17 +190,22 @@ void DeviceNavItemWidget::setIndicatorState(const QString &state)
     repolish(m_indicatorDot);
 }
 
+/// Returns the indicator dot's current "lampState" property value, or an
+/// empty string if the dot doesn't exist.
 QString DeviceNavItemWidget::indicatorState() const
 {
     return m_indicatorDot ? m_indicatorDot->property("lampState").toString()
                           : QString();
 }
 
+/// Maps `status` to an indicator state via indicatorStateFor() and applies it.
 void DeviceNavItemWidget::setConnectStatus(vc::device::ConnectStatus status)
 {
     setIndicatorState(indicatorStateFor(status));
 }
 
+/// Copies id, name, type, and connect status from `device` into this widget;
+/// no-op if `device` is null.
 void DeviceNavItemWidget::setDevice(const std::shared_ptr<vc::device::IDevice> &device)
 {
     if (!device)
@@ -185,11 +217,14 @@ void DeviceNavItemWidget::setDevice(const std::shared_ptr<vc::device::IDevice> &
     setConnectStatus(device->connectStatus());
 }
 
+/// Returns the indicator dot widget.
 DeviceNavDot *DeviceNavItemWidget::indicatorDot() const
 {
     return m_indicatorDot;
 }
 
+/// Repolishes this widget and its name/type labels so QSS reflects the
+/// latest style properties.
 void DeviceNavItemWidget::refreshStyle()
 {
     repolish(this);
@@ -197,6 +232,7 @@ void DeviceNavItemWidget::refreshStyle()
     repolish(m_typeLabel);
 }
 
+/// Maps a device type to its QSS "deviceType" role string.
 QString DeviceNavItemWidget::roleForDeviceType(vc::device::DeviceType type)
 {
     switch (type) {
@@ -214,6 +250,7 @@ QString DeviceNavItemWidget::roleForDeviceType(vc::device::DeviceType type)
     }
 }
 
+/// Maps a device type to its default short type-label text (e.g. "CAM", "PLC").
 QString DeviceNavItemWidget::defaultTypeLabelFor(vc::device::DeviceType type)
 {
     switch (type) {
@@ -231,6 +268,7 @@ QString DeviceNavItemWidget::defaultTypeLabelFor(vc::device::DeviceType type)
     }
 }
 
+/// Maps a device type to its default SVG icon resource path.
 QString DeviceNavItemWidget::defaultIconPathFor(vc::device::DeviceType type)
 {
     switch (type) {
@@ -248,6 +286,8 @@ QString DeviceNavItemWidget::defaultIconPathFor(vc::device::DeviceType type)
     }
 }
 
+/// Maps a connect status to an indicator lamp state: "on" for Connected,
+/// "warn" for Connecting, "off" for every other status.
 QString DeviceNavItemWidget::indicatorStateFor(vc::device::ConnectStatus status)
 {
     switch (status) {
@@ -264,6 +304,8 @@ QString DeviceNavItemWidget::indicatorStateFor(vc::device::ConnectStatus status)
     return QStringLiteral("off");
 }
 
+/// Emits activated() on a left-click (when a device id is set) before
+/// forwarding the event to QFrame::mousePressEvent().
 void DeviceNavItemWidget::mousePressEvent(QMouseEvent *event)
 {
     if (event && event->button() == Qt::LeftButton && !m_deviceId.isEmpty())
@@ -271,6 +313,9 @@ void DeviceNavItemWidget::mousePressEvent(QMouseEvent *event)
     QFrame::mousePressEvent(event);
 }
 
+/// Builds the icon box (icon label + indicator dot), the name/type label
+/// column, and the row layout; sets the pointing-hand cursor and initial
+/// style properties.
 void DeviceNavItemWidget::initUi()
 {
     setAttribute(Qt::WA_Hover);

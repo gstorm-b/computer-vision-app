@@ -76,13 +76,16 @@ bool ThemeManager::isDark() const {
     return currentStyle().isDark;
 }
 
+/// Internal storage for the §5 QSS design-token table used by resolveTokens()/tokenValue().
 namespace {
 
-// Canonical §5 design tokens (ui_design_rules.md). The {dark, light} value pair
-// for each token is the single source of truth for QSS colour resolution; it must
-// stay in sync with the §5 table and with buildDark/LightPalette() per §11.2.
+/// Canonical §5 design tokens (ui_design_rules.md). The {dark, light} value pair
+/// for each token is the single source of truth for QSS colour resolution; it must
+/// stay in sync with the §5 table and with buildDark/LightPalette() per §11.2.
 struct TokenValue { const char* dark; const char* light; };
 
+/// Returns the static, lazily-initialized table mapping each §5 token name to
+/// its {dark, light} hex/rgba value pair.
 const QHash<QString, TokenValue>& tokenTable() {
     static const QHash<QString, TokenValue> table = {
         // §5.1 Background

@@ -5,6 +5,8 @@
 namespace RobotKinematics {
 
 namespace {
+/// Appends a MeshCollisionProfileValidationIssue built from `status`, `field`, and `message`
+/// to `result.issues`.
 void addIssue(MeshCollisionProfileValidationResult& result,
               const std::string& field,
               const std::string& message,
@@ -13,22 +15,33 @@ void addIssue(MeshCollisionProfileValidationResult& result,
     result.issues.push_back(MeshCollisionProfileValidationIssue{status, field, message});
 }
 
+/// Returns true if `linkId` is non-empty and present in `linkIds`.
 bool hasLinkId(const std::set<std::string>& linkIds, const std::string& linkId)
 {
     return !linkId.empty() && linkIds.find(linkId) != linkIds.end();
 }
 }
 
+/// Returns true when no validation issues were recorded.
 bool MeshCollisionProfileValidationResult::ok() const
 {
     return issues.empty();
 }
 
+/// Returns KinematicsStatus::Ok when there are no issues, otherwise the status of the first
+/// recorded issue.
 KinematicsStatus MeshCollisionProfileValidationResult::status() const
 {
     return ok() ? KinematicsStatus::Ok : issues.front().status;
 }
 
+/// Validates `profile` against `config`: checks that profile.id and profile.robotModel are
+/// non-empty; that each mesh entry has a unique non-empty id, references a link id declared
+/// in `config`, has a non-empty path, a positive scaleToMeters, a non-negative margin_m, a
+/// positive quality.triangleCount when provided, a non-negative quality.maxSimplificationError_m
+/// when provided, and (when quality.mode is Simplified) a non-empty quality.simplifiedFrom;
+/// and that each disabledPairs entry refers to mesh ids that exist in the profile. All
+/// violations are collected rather than stopping at the first one found.
 MeshCollisionProfileValidationResult MeshCollisionProfileValidator::validate(
     const SerialRobotConfig& config,
     const MeshCollisionProfile& profile)

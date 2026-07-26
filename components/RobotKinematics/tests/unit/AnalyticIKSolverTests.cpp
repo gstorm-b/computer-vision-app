@@ -107,6 +107,8 @@ void AnalyticIKSolverTests::analyticSolveRecoversSeededConfiguration()
     QVERIFY((result.best().joints.values() - seed.values()).norm() <= 1e-6);
 }
 
+/// Entry point invoked by TestMain to run the AnalyticIKSolverTests suite under QtTest.
+/// @return the number of failing test functions (0 on success)
 int runAnalyticIKSolverTests(int argc, char** argv)
 {
     AnalyticIKSolverTests tests;

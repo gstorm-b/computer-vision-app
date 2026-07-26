@@ -2,6 +2,8 @@
 
 namespace RobotKinematics {
 
+/// Returns the JSON/config string identifier for `backendKind` ("none", "coal", "fcl", or
+/// "vtk_debug"); falls back to "none" for any unrecognized enumerator value.
 std::string toString(const MeshCollisionBackendKind backendKind)
 {
     switch (backendKind) {
@@ -18,6 +20,8 @@ std::string toString(const MeshCollisionBackendKind backendKind)
     return "none";
 }
 
+/// Parses a mesh collision backend preference string ("none", "coal", "fcl", or "vtk_debug")
+/// into its MeshCollisionBackendKind enumerator.
 Result<MeshCollisionBackendKind> meshCollisionBackendKindFromString(const std::string& value)
 {
     if (value == "none") {

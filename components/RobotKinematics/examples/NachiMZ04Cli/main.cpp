@@ -22,6 +22,9 @@ using namespace RobotKinematics;
 
 namespace {
 
+/// Builds the list of directories to search when resolving repo-relative resource paths:
+/// the current working directory, the application directory, and up to 8 of its ancestor
+/// directories, with duplicates removed.
 QStringList searchRoots()
 {
     QStringList roots;
@@ -36,6 +39,9 @@ QStringList searchRoots()
     return roots;
 }
 
+/// Resolves `relativePath` against the current directory first, then each of searchRoots()
+/// in turn, returning the first existing match as an absolute path.
+/// @return the resolved absolute path, or an empty string if no candidate exists
 QString resolveRepoPath(const QString& relativePath)
 {
     const QFileInfo direct(relativePath);
@@ -53,6 +59,7 @@ QString resolveRepoPath(const QString& relativePath)
     return {};
 }
 
+/// Prints the pose's translation (converted to millimeters) and rotation quaternion to stdout.
 void printPose(const Pose& pose)
 {
     const Eigen::Vector3d t = pose.translation_m();
@@ -69,6 +76,7 @@ void printPose(const Pose& pose)
               << "z=" << q.z() << "\n";
 }
 
+/// Prints the joint vector to stdout as a bracketed, comma-separated list of degree values.
 void printJointDegrees(const JointVector& joints)
 {
     const std::vector<double> values_deg = joints.toDegrees();
@@ -79,6 +87,11 @@ void printJointDegrees(const JointVector& joints)
     std::cout << "] deg\n";
 }
 
+/// End-to-end demo for the Nachi MZ04D preset: runs forward kinematics on a sample joint set
+/// (also re-expressed in a "ceiling" user frame), solves inverse kinematics back from the
+/// resulting flange pose, then loads the robot's collision profile (resolved via
+/// resolveRepoPath()) and runs a primitive self-collision check, printing results throughout.
+/// @return 0 on success, 1 if IK solving, collision-profile loading, or the collision check fails
 int runNachiExample()
 {
     const SerialRobotConfig config = Presets::nachiMZ04D();
@@ -179,6 +192,8 @@ int runNachiExample()
 
 } // namespace
 
+/// Entry point for the NachiMZ04Cli example: creates a minimal QCoreApplication (needed for
+/// Qt types used by the library) and runs runNachiExample().
 int main(int argc, char* argv[])
 {
     QCoreApplication app(argc, argv);

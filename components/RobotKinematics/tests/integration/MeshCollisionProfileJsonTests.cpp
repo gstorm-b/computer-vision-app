@@ -13,6 +13,8 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Returns a well-formed mesh-collision profile JSON document (single mesh on link_2, coal/
+/// fcl/vtk_debug backend preference) used as the happy-path fixture across several tests.
 std::string validMeshProfileJson()
 {
     return R"json(
@@ -63,6 +65,8 @@ std::string validMeshProfileJson()
 }
 }
 
+/// Checks that an unrecognized top-level field and a mesh missing scaleToMeters both fail
+/// to load with KinematicsStatus::InvalidRobotConfig.
 void MeshCollisionProfileJsonTests::loaderRejectsUnknownTopLevelFieldsAndMissingScale()
 {
     const Result<MeshCollisionProfile> unknownField =
@@ -79,6 +83,8 @@ void MeshCollisionProfileJsonTests::loaderRejectsUnknownTopLevelFieldsAndMissing
     QCOMPARE(missingScale.status, KinematicsStatus::InvalidRobotConfig);
 }
 
+/// Checks that loading validMeshProfileJson() yields the expected profile id, robot model,
+/// ordered backend preference, mesh link id/scale/quality mode, and metadata entry.
 void MeshCollisionProfileJsonTests::loaderParsesBackendPreferenceAndMetadata()
 {
     const Result<MeshCollisionProfile> loaded =
@@ -98,6 +104,9 @@ void MeshCollisionProfileJsonTests::loaderParsesBackendPreferenceAndMetadata()
     QCOMPARE(loaded.value.metadata.at("reviewState"), std::string("draft"));
 }
 
+/// Writes a profile JSON with a relative mesh path to a temp directory, loads it via
+/// loadFile(), and checks the mesh's path is resolved to an absolute path anchored at that
+/// directory.
 void MeshCollisionProfileJsonTests::loaderResolvesRelativeMeshPathsFromProfileFile()
 {
     QTemporaryDir tempDir;
@@ -155,6 +164,8 @@ void MeshCollisionProfileJsonTests::loaderResolvesRelativeMeshPathsFromProfileFi
              QDir::cleanPath(QDir(tempDir.path()).absoluteFilePath(QStringLiteral("meshes/link.stl"))));
 }
 
+/// Checks that a non-numeric meshToLink translation component, a string scaleToMeters, and a
+/// string margin_m each independently fail to load with InvalidRobotConfig.
 void MeshCollisionProfileJsonTests::loaderRejectsNonNumericMeshTransformsAndOptions()
 {
     const Result<MeshCollisionProfile> badTransform =
@@ -177,6 +188,10 @@ void MeshCollisionProfileJsonTests::loaderRejectsNonNumericMeshTransformsAndOpti
     QCOMPARE(badMargin.status, KinematicsStatus::InvalidRobotConfig);
 }
 
+/// Loads a valid profile, then mutates its single mesh to reference a non-existent link and
+/// to have inconsistent "simplified" quality metadata (no simplifiedFrom, negative error
+/// bound), and checks that MeshCollisionProfileValidator::validate() reports at least three
+/// issues with InvalidRobotConfig.
 void MeshCollisionProfileJsonTests::validatorRejectsInvalidLinkAndBrokenSimplifiedMetadata()
 {
     Result<MeshCollisionProfile> loaded =
@@ -196,6 +211,9 @@ void MeshCollisionProfileJsonTests::validatorRejectsInvalidLinkAndBrokenSimplifi
     QVERIFY(validation.issues.size() >= std::size_t(3));
 }
 
+/// Checks that a profile with two meshes sharing the same id, and separately a profile whose
+/// disabledPairs entry names a mesh id that does not exist, both fail to load with
+/// InvalidRobotConfig.
 void MeshCollisionProfileJsonTests::loaderRejectsDuplicateMeshIdsAndInvalidDisabledPairs()
 {
     const Result<MeshCollisionProfile> duplicateIds =
@@ -212,6 +230,9 @@ void MeshCollisionProfileJsonTests::loaderRejectsDuplicateMeshIdsAndInvalidDisab
     QCOMPARE(invalidPair.status, KinematicsStatus::InvalidRobotConfig);
 }
 
+/// Entry point that constructs MeshCollisionProfileJsonTests and runs it under QTest::qExec,
+/// forwarding argc/argv (e.g. for -maxwarnings or slot-filter arguments).
+/// @return process-style exit code from QTest::qExec (0 on success)
 int runMeshCollisionProfileJsonTests(int argc, char** argv)
 {
     MeshCollisionProfileJsonTests tests;

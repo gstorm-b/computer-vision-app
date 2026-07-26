@@ -5,12 +5,18 @@
 #include <QJsonDocument>
 #include <QDateTime>
 
+/// Persistence-layer namespace: Project and ProjectRepository (SQLite-backed
+/// load/save of a Project, including its device/task JSON and per-task image blobs).
 namespace vc::model {
 
-QString ProjectRepository::m_lastMsg;
+QString ProjectRepository::m_lastMsg;  ///< Text of the most recent SQL/repository error, set by the last failing call.
 
 // ─── Schema ──────────────────────────────────────────────────
 
+/// SQLite DDL for the project database: `project_info` (key/value metadata),
+/// `project_data` (single-row JSON blob for the full Project tree), and
+/// `project_images` (per-task/image-name BLOB storage). Statements are split on
+/// ';' and executed individually by createSchema().
 static const char* kSchema = R"(
 CREATE TABLE IF NOT EXISTS project_info (
     key   TEXT PRIMARY KEY,
@@ -30,6 +36,11 @@ CREATE TABLE IF NOT EXISTS project_images (
 
 // ─── Helpers ─────────────────────────────────────────────────
 
+/// Opens (creating if needed) a SQLite database at `path` under connection name
+/// `connName`, and enables WAL journaling and foreign-key enforcement.
+/// @param path filesystem path to the .db file
+/// @param connName name to register the connection under in QSqlDatabase
+/// @return true if the database was opened successfully
 static bool openDB(const QString& path, const QString& connName) {
     auto db = QSqlDatabase::addDatabase("QSQLITE", connName);
     db.setDatabaseName(path);
@@ -42,6 +53,7 @@ static bool openDB(const QString& path, const QString& connName) {
     return true;
 }
 
+/// Closes and unregisters the named QSqlDatabase connection.
 static void closeDB(const QString& connName) {
     QSqlDatabase::database(connName).close();
     QSqlDatabase::removeDatabase(connName);
@@ -50,6 +62,11 @@ static void closeDB(const QString& connName) {
 
 // ─── Image helpers ───────────────────────────────────────────
 
+/// Encodes an OpenCV image to a BMP-in-memory byte buffer for BLOB storage.
+/// @note despite the ".bmp" extension and PNG-compression parameter passed to
+/// imencode(), the codec used is selected by the extension string ("bmp"); the
+/// PNG compression parameter has no effect on BMP output.
+/// @return the encoded bytes, or an empty QByteArray if `image` is empty
 static QByteArray serializeImage(const cv::Mat& image) {
     if (image.empty()) {
         return QByteArray();
@@ -63,6 +80,10 @@ static QByteArray serializeImage(const cv::Mat& image) {
     return QByteArray(reinterpret_cast<const char*>(buffer.data()), static_cast<int>(buffer.size()));
 }
 
+/// Decodes an in-memory encoded image byte buffer (as produced by
+/// serializeImage()) back into an OpenCV image, preserving the original channel
+/// layout (cv::IMREAD_UNCHANGED).
+/// @return the decoded image, or an empty cv::Mat if `byteArray` is empty
 static cv::Mat deserializeImage(const QByteArray& byteArray) {
     if (byteArray.isEmpty()) {
         return cv::Mat();
@@ -76,6 +97,10 @@ static cv::Mat deserializeImage(const QByteArray& byteArray) {
 
 // ─── Schema creation ─────────────────────────────────────────
 
+/// Executes each statement in kSchema (split on ';') against the named connection
+/// to create the project_info/project_data/project_images tables if they don't
+/// already exist. On failure, m_lastMsg holds the SQL error text and remaining
+/// statements are not attempted.
 bool ProjectRepository::createSchema(const QString& connName) {
     auto db = QSqlDatabase::database(connName);
     for (const QString& stmt :
@@ -93,6 +118,10 @@ bool ProjectRepository::createSchema(const QString& connName) {
 
 // ─── Public API ──────────────────────────────────────────────
 
+/// Creates a new project database file at `path`: opens/creates it, applies the
+/// schema, and seeds the project_info table with name, SOFTWARE_VERSION,
+/// created_at/updated_at (both set to `str_time`), an empty description, and
+/// schema_version "1.0".
 bool ProjectRepository::createNew(const QString& path,
                                   const QString& projectName,
                                   const QString& str_time) {
@@ -130,6 +159,11 @@ bool ProjectRepository::createNew(const QString& path,
     return ok;
 }
 
+/// Saves `project` to the database at `path` inside a single transaction:
+/// upserts name/version/updated_at/description into project_info, serializes the
+/// whole project (project.toJson()) into project_data, and writes all tasks'
+/// image BLOBs via saveImages(). Commits on success; rolls back and records
+/// m_lastMsg on any failure.
 bool ProjectRepository::save(const QString& path,
                              const Project& project) {
     const QString conn = "proj_save_" + path;
@@ -193,6 +227,11 @@ bool ProjectRepository::save(const QString& path,
     return ok;
 }
 
+/// Loads a project from the database at `path` into `out`: reads project_info
+/// key/value rows, parses the project_data JSON blob via out.fromJson(), applies
+/// name/description/created_at/updated_at from project_info (overriding whatever
+/// fromJson() set for those fields), and loads all tasks' image BLOBs via
+/// loadImages().
 bool ProjectRepository::load(const QString& path, Project& out) {
     const QString conn = "vc_load_" + path;
     bool ok = true;
@@ -255,10 +294,16 @@ bool ProjectRepository::load(const QString& path, Project& out) {
     return ok;
 }
 
+/// Returns the text of the most recent error recorded by any ProjectRepository
+/// operation (open/schema/save/load/image failures).
 QString ProjectRepository::lastMsg() {
     return m_lastMsg;
 }
 
+/// Replaces the entire project_images table with the current image maps of
+/// `tasks`: deletes all existing rows, then inserts one row per (task id, image
+/// name) pair from each task's getTaskImageMap(), encoding each image via
+/// serializeImage().
 bool ProjectRepository::saveImages(const QString& connName,
                                    const QVector<ITask*>& tasks) {
     auto db = QSqlDatabase::database(connName);
@@ -287,6 +332,10 @@ bool ProjectRepository::saveImages(const QString& connName,
     return true;
 }
 
+/// Loads image BLOBs from project_images for each task in `tasks` and injects
+/// them via task->loadTaskImageMap(): for each task, queries rows matching its
+/// id, decodes each image_data BLOB with deserializeImage(), and builds an
+/// image-name -> cv::Mat map.
 bool ProjectRepository::loadImages(const QString& connName,
                                    QVector<ITask*>& tasks) {
     auto db = QSqlDatabase::database(connName);

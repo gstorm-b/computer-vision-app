@@ -2,8 +2,13 @@
 
 #include <Eigen/Geometry>
 
+/// Serial-robot kinematics library: robot model description, forward/inverse kinematics
+/// solvers, posture resolution, and collision checking for articulated manipulators.
 namespace RobotKinematics {
 
+/// Counts the movable (revolute/prismatic) joints in `config` by scanning config.joints in
+/// order; joints of other types (e.g. fixed) don't increment the count.
+/// @return the number of revolute/prismatic joints found
 int ForwardKinematics::movableJointCount(const SerialRobotConfig& config)
 {
     int count = 0;
@@ -15,6 +20,15 @@ int ForwardKinematics::movableJointCount(const SerialRobotConfig& config)
     return count;
 }
 
+/// Walks `config.joints` in order, accumulating each joint's origin transform and, for
+/// revolute/prismatic joints, the motion implied by `joints`, to build the full chain:
+/// per-movable-joint axis/origin data, the base-relative pose of every named link, and the
+/// resulting flange pose.
+/// @param joints joint values, one per movable joint; if shorter than the number of movable
+///        joints encountered so far, the missing trailing values default to 0.0
+/// @return the resolved chain: per-movable-joint frame data (chain order), base-relative link
+///         poses keyed by link id, and the flange pose (config.frames.flangeLinkId's recorded
+///         pose if present, otherwise the final accumulated pose)
 FkChain ForwardKinematics::computeChain(const SerialRobotConfig& config, const JointVector& joints)
 {
     FkChain chain;
@@ -64,17 +78,25 @@ FkChain ForwardKinematics::computeChain(const SerialRobotConfig& config, const J
     return chain;
 }
 
+/// Computes the base -> flange pose for `joints` by building the full chain via computeChain()
+/// and returning just its flange pose.
 Pose ForwardKinematics::flangePose(const SerialRobotConfig& config, const JointVector& joints)
 {
     return computeChain(config, joints).flangeInBase;
 }
 
+/// Computes the base -> tool TCP pose by composing the flange pose (flangePose()) with the
+/// active tool's flange -> TCP transform.
 Pose ForwardKinematics::toolPose(const SerialRobotConfig& config, const JointVector& joints,
                                  const Pose& flangeToTcp)
 {
     return flangePose(config, joints) * flangeToTcp;
 }
 
+/// Looks up `frame.parentLinkId` among `chain.linkPosesInBase` and composes that link's
+/// base-relative pose with `frame.transform` to resolve the user frame's base-relative pose.
+/// @return success with the resolved pose, or a KinematicsStatus::FrameNotFound failure if the
+///         parent link isn't recorded in `chain`
 Result<Pose> ForwardKinematics::userFrameInBase(const FkChain& chain, const UserFrame& frame)
 {
     const auto it = chain.linkPosesInBase.find(frame.parentLinkId);

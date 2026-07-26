@@ -16,6 +16,10 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Locates the on-disk `virtual_6dof_test_arm.json` preset by probing a handful of
+/// candidate relative paths (to tolerate different CTest/build working directories);
+/// falls back to the first candidate if none exist.
+/// @return the first candidate path found to exist, or the first candidate as a fallback
 std::string virtualPresetPath()
 {
     const char* candidates[] = {
@@ -32,11 +36,17 @@ std::string virtualPresetPath()
     return candidates[0];
 }
 
+/// Compares two poses by the Frobenius norm of the difference between their
+/// homogeneous transform matrices.
+/// @return true when the poses match within `tolerance`
 bool poseNear(const Pose& a, const Pose& b, double tolerance = 1e-12)
 {
     return (a.isometry().matrix() - b.isometry().matrix()).norm() <= tolerance;
 }
 
+/// Asserts (via QCOMPARE/QVERIFY) that two SerialRobotConfig instances agree on every
+/// field the IK/FK solvers consume: identity model, DOF, link/joint/tool counts, frame
+/// ids, default tool, posture resolver, source list, and per-joint/per-tool geometry.
 void compareSolverFacingConfig(const SerialRobotConfig& a, const SerialRobotConfig& b)
 {
     QCOMPARE(a.identity.model, b.identity.model);
@@ -109,6 +119,8 @@ void Virtual6DofTestArmTests::presetRunsFkAndSeededIkRoundTrip()
     QVERIFY((solved.translation_m() - target.translation_m()).norm() <= 1e-6);
 }
 
+/// Entry point invoked by TestMain to run the Virtual6DofTestArmTests suite under QtTest.
+/// @return the number of failing test functions (0 on success)
 int runVirtual6DofTestArmTests(int argc, char** argv)
 {
     Virtual6DofTestArmTests tests;

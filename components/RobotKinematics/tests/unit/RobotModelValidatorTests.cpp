@@ -5,6 +5,9 @@
 #include <QtTest/QtTest>
 
 namespace {
+/// Builds a fully-populated, well-formed serial 6-DOF revolute robot config (identity,
+/// frames, links, joints with limits/home, a user frame, and a default tool) used as the
+/// valid-config baseline that each test perturbs to trigger a specific validation issue.
 RobotKinematics::SerialRobotConfig validSixDofConfig()
 {
     RobotKinematics::SerialRobotConfig config;
@@ -41,6 +44,8 @@ RobotKinematics::SerialRobotConfig validSixDofConfig()
     return config;
 }
 
+/// Returns true if `result.issues` contains at least one issue whose `field` member equals
+/// `field`.
 bool hasIssueForField(const RobotKinematics::ModelValidationResult& result, const std::string& field)
 {
     for (const RobotKinematics::ModelValidationIssue& issue : result.issues) {
@@ -148,6 +153,9 @@ void RobotModelValidatorTests::acceptsFixedJointBeyondConfiguredDof()
     QVERIFY(result.ok());
 }
 
+/// Entry point that instantiates RobotModelValidatorTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runRobotModelValidatorTests(int argc, char** argv)
 {
     RobotModelValidatorTests tests;

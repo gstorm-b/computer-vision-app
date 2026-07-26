@@ -1,5 +1,8 @@
 #include "group_frame_widget.h"
 
+/// Constructs the frame with default header styling (dark gray background, bold 10pt
+/// "Segoe UI" title font, "Header" title), disables the frame border, and creates the
+/// QVBoxLayout used by addWidget(), reserving 30px at the top for the header bar.
 GroupFrameWidget::GroupFrameWidget(QWidget* parent)
     : QFrame(parent),
     m_headerBackground(Qt::darkGray),
@@ -14,50 +17,67 @@ GroupFrameWidget::GroupFrameWidget(QWidget* parent)
     setLayout(m_layout);
 }
 
+/// Adds `w` to the frame's body layout, below the header bar.
+/// @param w widget to add
 void GroupFrameWidget::addWidget(QWidget* w) {
     m_layout->addWidget(w);
 }
 
+/// Returns the header bar's fill color.
 QColor GroupFrameWidget::headerBackground() const {
     return m_headerBackground;
 }
 
+/// Sets the header bar's fill color, requests a repaint, and emits
+/// headerBackGroundColorChanged().
 void GroupFrameWidget::setHeaderBackground(const QColor& color) {
     m_headerBackground = color;
     update();
     emit headerBackGroundColorChanged();
 }
 
+/// Returns the font used to draw the header title text.
 QFont GroupFrameWidget::headerFont() const {
     return m_headerFont;
 }
 
+/// Sets the font used to draw the header title text, requests a repaint, and emits
+/// headerFontChanged().
 void GroupFrameWidget::setHeaderFont(const QFont& font) {
     m_headerFont = font;
     update();
     emit headerFontChanged();
 }
 
+/// Returns the color used to draw the header title text.
 QColor GroupFrameWidget::headerColor() const {
     return m_headerColor;
 }
 
+/// Sets the color used to draw the header title text, requests a repaint, and emits
+/// headerColorChanged().
 void GroupFrameWidget::setHeaderColor(const QColor& color) {
     m_headerColor = color;
     update();
     emit headerColorChanged();
 }
 
+/// Returns the current header title text.
 QString GroupFrameWidget::title() const {
     return m_title;
 }
 
+/// Sets the header title text, requests a repaint, and emits titleChanged().
 void GroupFrameWidget::setTitle(const QString& t) {
     m_title = t;
     update();
     emit titleChanged();
 }
 
+/// Paints the default frame background via the current style, then fills a header bar
+/// spanning the top 30 pixels of the widget with m_headerBackground and draws m_title
+/// left-aligned/vertically centered inside it using m_headerFont and m_headerColor.
+/// @param event forwarded to QFrame::paintEvent() for the default frame drawing
 void GroupFrameWidget::paintEvent(QPaintEvent* event) {
     QFrame::paintEvent(event);
 

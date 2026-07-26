@@ -16,14 +16,19 @@ namespace vc::model {
 
 namespace {
 
-// ── Image-blob key ────────────────────────────────────────────────────────────
-// Stable per-pattern key for the project_images table.  Pattern *names* may
-// be renamed by the user without going through a "rename in storage" step,
-// so we key on the stable (groupNumber, patternNumber) pair instead.
+/// Image-blob key: builds the stable per-pattern key used in the project_images table.
+/// Pattern *names* may be renamed by the user without going through a "rename in
+/// storage" step, so this keys on the stable (groupNumber, patternNumber) pair instead.
 inline QString imageKey(int groupNumber, int patternNumber) {
     return QStringLiteral("g%1_p%2").arg(groupNumber).arg(patternNumber);
 }
 
+/// Parses `key` back into its (groupNumber, patternNumber) components; the inverse of
+/// imageKey().
+/// @param key candidate key string, expected form "g{int}_p{int}"
+/// @param groupNumber output; set to the parsed group number on success
+/// @param patternNumber output; set to the parsed pattern number on success
+/// @return true if `key` matched the expected form
 inline bool parseImageKey(const QString &key, int &groupNumber, int &patternNumber) {
     // Expected form: "g{int}_p{int}"
     static const QRegularExpression re(QStringLiteral("^g(-?\\d+)_p(-?\\d+)$"));
@@ -39,6 +44,11 @@ inline bool parseImageKey(const QString &key, int &groupNumber, int &patternNumb
 
 
 
+/// Constructs the task: sets its name and (silently, via a temporary signal block) its
+/// TaskLocalizeConfig, initializes the per-device-type assignment limits, creates the
+/// pattern manager, registers the Qt meta-types used by queued cross-thread signals, and
+/// starts the dedicated matching-worker thread and the runtime controller.
+/// @param parent optional QObject parent
 TaskLocalization::TaskLocalization(QString name, QString id, QObject* parent)
     : ITask(id, parent), m_config()
 {
@@ -68,6 +78,8 @@ TaskLocalization::TaskLocalization(QString name, QString id, QObject* parent)
     createRuntimeController();
 }
 
+/// Destroys the runtime controller and stops the matching-worker thread, waiting up to
+/// 3 seconds for it to quit before deleting it (logging a warning if it times out).
 TaskLocalization::~TaskLocalization()
 {
     destroyRuntimeController();
@@ -81,6 +93,9 @@ TaskLocalization::~TaskLocalization()
     }
 }
 
+/// Replaces the task's configuration and re-applies it to the running runtime
+/// controller (queued onto its own thread if it has one).
+/// @param cfg new localization configuration
 void TaskLocalization::setTaskLocalizeConfig(const TaskLocalizeConfig &cfg)
 {
     m_config = cfg;
@@ -88,6 +103,11 @@ void TaskLocalization::setTaskLocalizeConfig(const TaskLocalizeConfig &cfg)
     queueConfigureRuntimeController();
 }
 
+/// Returns whether the task already has as many assigned devices of type `t` as the
+/// corresponding entry in m_limitDeviceMap allows.
+/// @param t device type to check
+/// @return true if the limit is reached, or if the task has no project or the project
+///   has no DeviceManager
 bool TaskLocalization::isReachLimitOfDeviceType(vc::device::DeviceType t) const {
 
     QList<std::shared_ptr<vc::device::IDevice>> result;
@@ -114,6 +134,10 @@ bool TaskLocalization::isReachLimitOfDeviceType(vc::device::DeviceType t) const 
     return false;
 }
 
+/// Starts the runtime phase: transitions to RuntimeStarting, syncs per-device runners,
+/// enters the runtime task-runner phase, (re)creates and moves the runtime controller
+/// onto the runtime thread, then calls setupTask(). Transitions to Faulted (without
+/// emitting runtimeStarted()) if setup leaves the controller missing or invalid.
 void TaskLocalization::beginRuntime(bool mergeToTaskThread)
 {
     if (mergeToTaskThread) {
@@ -144,6 +168,9 @@ void TaskLocalization::beginRuntime(bool mergeToTaskThread)
     emit runtimeStarted();
 }
 
+/// Ends the runtime phase: destroys the current runtime controller, delegates to
+/// ITask::endRuntime() to stop the task's threads, then immediately recreates a fresh
+/// (idle) runtime controller so the task is ready for the next beginRuntime()/setupTask().
 void TaskLocalization::endRuntime()
 {
     destroyRuntimeController();
@@ -151,6 +178,8 @@ void TaskLocalization::endRuntime()
     createRuntimeController();
 }
 
+/// Stops everything regardless of current phase: destroys the runtime controller,
+/// delegates to ITask::stopAll(), then recreates a fresh runtime controller.
 void TaskLocalization::stopAll()
 {
     destroyRuntimeController();
@@ -160,6 +189,9 @@ void TaskLocalization::stopAll()
 
 // ── Typed runner helpers ──────────────────────────────────────────────────────
 
+/// Returns the CameraRunner registered for `deviceId`, or nullptr if the task has no
+/// TaskRunner yet or the runner registered for that id isn't a CameraRunner.
+/// @param deviceId id of the assigned camera device
 vc::runtime::CameraRunner *TaskLocalization::cameraRunner(const QString &deviceId) const
 {
     if (!taskRunner()) return nullptr;
@@ -167,6 +199,9 @@ vc::runtime::CameraRunner *TaskLocalization::cameraRunner(const QString &deviceI
         taskRunner()->runnerFor(deviceId));
 }
 
+/// Returns the PlcRunner registered for `deviceId`, or nullptr if the task has no
+/// TaskRunner yet or the runner registered for that id isn't a PlcRunner.
+/// @param deviceId id of the assigned PLC device
 vc::runtime::PlcRunner *TaskLocalization::plcRunner(const QString &deviceId) const
 {
     if (!taskRunner()) return nullptr;
@@ -174,6 +209,9 @@ vc::runtime::PlcRunner *TaskLocalization::plcRunner(const QString &deviceId) con
         taskRunner()->runnerFor(deviceId));
 }
 
+/// Returns the PlcDevice bound to m_plcDeviceId (the primary PLC resolved by
+/// setupTask()/buildRuntimeContext()), or nullptr if no PLC id is set yet or its runner
+/// isn't available.
 vc::device::PlcDevice *TaskLocalization::plcDevice() const
 {
     if (m_plcDeviceId.isEmpty()) return nullptr;
@@ -181,6 +219,11 @@ vc::device::PlcDevice *TaskLocalization::plcDevice() const
     return runner ? runner->typedDevice() : nullptr;
 }
 
+/// Serializes the base ITask fields plus the pattern library (m_patternManager) under
+/// the "patternManager" key. Training images are not included here — they travel
+/// separately through the project_images BLOB table (see getTaskImageMap()/
+/// loadTaskImageMap()).
+/// @return the serialized task
 QJsonObject TaskLocalization::toJson() const {
     QJsonObject obj = ITask::toJson();
 
@@ -193,6 +236,10 @@ QJsonObject TaskLocalization::toJson() const {
     return obj;
 }
 
+/// Restores the base ITask fields via ITask::fromJson(), then rebuilds the pattern
+/// library from the "patternManager" key. Pattern training images are not restored here
+/// — they're injected later via loadTaskImageMap().
+/// @param obj serialized task previously produced by toJson()
 bool TaskLocalization::fromJson(const QJsonObject& obj) {
     bool isOk = ITask::fromJson(obj);
     if (!isOk) return false;
@@ -208,6 +255,10 @@ bool TaskLocalization::fromJson(const QJsonObject& obj) {
 
 // ── Image BLOB I/O ───────────────────────────────────────────────────────────
 
+/// Collects every image blob associated with this task for storage: each pattern's raw
+/// training image (keyed via imageKey(groupNumber, patternNumber), skipping patterns
+/// with no training image) plus each camera workspace's reference image (key form
+/// "ws_{cameraId}", from m_config.cameraWorkspaces()).
 QMap<QString, cv::Mat> TaskLocalization::getTaskImageMap() {
     QMap<QString, cv::Mat> map;
 
@@ -232,6 +283,10 @@ QMap<QString, cv::Mat> TaskLocalization::getTaskImageMap() {
     return map;
 }
 
+/// Re-injects previously stored image blobs (produced by getTaskImageMap()) back into
+/// their owning objects: camera workspace reference images by camera id, or pattern
+/// training images by (groupNumber, patternNumber) resolved through m_patternManager.
+/// Logs and continues past unresolvable keys/groups/patterns rather than aborting.
 bool TaskLocalization::loadTaskImageMap(QMap<QString, cv::Mat> &mapping) {
     if (!m_patternManager) return false;
     if (mapping.isEmpty())  return true;   // nothing to inject
@@ -281,6 +336,9 @@ bool TaskLocalization::loadTaskImageMap(QMap<QString, cv::Mat> &mapping) {
 
 // ── Task lifecycle ────────────────────────────────────────────────────────────
 
+/// Builds the runtime context and applies it to the runtime controller via
+/// setupRuntimeController(), caching the resolved primary PLC device id and the
+/// resulting validity in m_plcDeviceId / m_isValid.
 void TaskLocalization::setupTask()
 {
     if (!m_runtimeController) {
@@ -293,6 +351,9 @@ void TaskLocalization::setupTask()
     m_isValid = result.valid;
 }
 
+/// Triggers one localization cycle: requires a valid runtime controller and the task to
+/// currently be Ready or RunningCycle, then queues controller->execute() onto the
+/// controller's own thread.
 void TaskLocalization::executeLocalization()
 {
     if (!m_runtimeController || !m_runtimeController->isValid()) {
@@ -317,6 +378,10 @@ void TaskLocalization::executeLocalization()
     }
 }
 
+/// Switches the active camera used by the runtime controller to camera `number`, after
+/// validating (only while the task runner is in its Runtime phase) that the number maps
+/// to a device id which is both assigned to this task and actually of Camera type.
+/// @param number camera slot number to activate, as bound in m_config's device bindings
 void TaskLocalization::setCameraNumber(int number) {
     if (!taskRunner()) {
         return;
@@ -347,14 +412,21 @@ void TaskLocalization::setCameraNumber(int number) {
     queueSetActiveCameraNumber(number);
 }
 
+/// Switches the active pattern group used by the runtime controller to `number`.
+/// @param number pattern group number to activate
 void TaskLocalization::setPatternNumber(int number) {
     queueSetActivePatternGroupNumber(number);
 }
 
+/// Forwards a batch of changed PLC signal values to the runtime controller.
+/// @param values changed signal name/value pairs, as reported by the PLC comm device
 void TaskLocalization::onCommDeviceValueChanged(QMap<QString, QVariant> values) {
     queueHandlePlcValues(values);
 }
 
+/// Slot for a PLC-driven camera-number signal: converts `value` to int (logging if it
+/// isn't numeric) and calls setCameraNumber() with the result regardless.
+/// @param value raw signal value received from the PLC
 void TaskLocalization::onSignalChangeCameraNumber(QVariant value) {
     bool is_ok = false;
     int number = value.toInt(&is_ok);
@@ -368,6 +440,9 @@ void TaskLocalization::onSignalChangeCameraNumber(QVariant value) {
 }
 
 
+/// Slot for a PLC-driven pattern-number signal: converts `value` to int (logging if it
+/// isn't numeric) and calls setPatternNumber() with the result regardless.
+/// @param value raw signal value received from the PLC
 void TaskLocalization::onSignalChangePatternNumber(QVariant value) {
     bool is_ok = false;
     int number = value.toInt(&is_ok);
@@ -380,16 +455,26 @@ void TaskLocalization::onSignalChangePatternNumber(QVariant value) {
     setPatternNumber(number);
 }
 
+/// Slot: transitions the task to RunningCycle in response to the runtime controller's
+/// runtimeCycleStarted signal.
+/// @param message context string passed through as the transition reason
 void TaskLocalization::onRuntimeCycleStarted(const QString &message)
 {
     transitionTaskState(TaskState::RunningCycle, message);
 }
 
+/// Slot: transitions the task to Recovering in response to the runtime controller's
+/// runtimeRecovering signal.
+/// @param message context string passed through as the transition reason
 void TaskLocalization::onRuntimeRecovering(const QString &message)
 {
     transitionTaskState(TaskState::Recovering, message);
 }
 
+/// Slot: transitions the task to Ready in response to the runtime controller's
+/// runtimeReady signal, unless the task has already moved to Faulted, Stopping, or Idle
+/// (in which case a stale "ready" notification is ignored).
+/// @param message context string passed through as the transition reason
 void TaskLocalization::onRuntimeReady(const QString &message)
 {
     if (taskState() == TaskState::Faulted ||
@@ -401,11 +486,16 @@ void TaskLocalization::onRuntimeReady(const QString &message)
     transitionTaskState(TaskState::Ready, message);
 }
 
+/// Slot: transitions the task to Faulted in response to the runtime controller's
+/// runtimeFault signal.
+/// @param message context string passed through as the transition reason
 void TaskLocalization::onRuntimeFault(const QString &message)
 {
     transitionTaskState(TaskState::Faulted, message);
 }
 
+/// Lazily creates the runtime controller (no-op if one already exists), configures it
+/// with the current m_config, and wires its signals to this task.
 void TaskLocalization::createRuntimeController()
 {
     if (m_runtimeController) {
@@ -417,6 +507,10 @@ void TaskLocalization::createRuntimeController()
     wireRuntimeControllerSignals();
 }
 
+/// Detaches and destroys the current runtime controller (no-op if none exists):
+/// disconnects all signal/slot links between it and this task, then deletes it — via a
+/// queued deleteLater() on its own thread if that thread is different and running, or
+/// immediately/synchronously otherwise.
 void TaskLocalization::destroyRuntimeController()
 {
     if (!m_runtimeController) {
@@ -438,6 +532,13 @@ void TaskLocalization::destroyRuntimeController()
     }
 }
 
+/// Connects the runtime controller's signals (state notifications, cycle results, log
+/// entries) to this task's slots/signals, and — if the matching worker exists — wires
+/// runtimeMatchingRequested to run image matching on the matchingRunner thread and post
+/// the result back to the controller via onRuntimeMatchingFinished().
+/// @note All connections use Qt::QueuedConnection. The matching-worker lambda guards the
+///   controller with a QPointer since it runs on a different thread and the controller
+///   may be destroyed/recreated concurrently.
 void TaskLocalization::wireRuntimeControllerSignals()
 {
     if (!m_runtimeController) {
@@ -498,6 +599,11 @@ void TaskLocalization::wireRuntimeControllerSignals()
     }
 }
 
+/// Deep-copies `source` into an independent MatchGroup (own MatchGroupConfig, including
+/// cloned typeConfig, plus copies of each pattern's config with its raw training image).
+/// Worker threads operate on this snapshot instead of the live PatternGroupManager
+/// group, so GUI-thread pattern edits cannot race the matcher.
+/// @param source pattern group to copy; may be null
 std::shared_ptr<mtc::MatchGroup>
 TaskLocalization::snapshotPatternGroup(const std::shared_ptr<mtc::MatchGroup> &source)
 {
@@ -519,6 +625,13 @@ TaskLocalization::snapshotPatternGroup(const std::shared_ptr<mtc::MatchGroup> &s
     return snapshot;
 }
 
+/// Assembles a RuntimeContext snapshot for the runtime controller: resolves the primary
+/// PLC and vision-output runners/ids from m_config's device bindings, copies the robot
+/// kinematic-check settings from the assigned vision-output device's config, resolves
+/// each bound camera's runner and calibrator, and takes a deep-copy snapshot of every
+/// pattern group (see snapshotPatternGroup()) with the first camera/pattern-group picked
+/// as active.
+/// @return the populated runtime context, ready for setupRuntimeController()/setup()
 LocalizationRuntimeController::RuntimeContext
 TaskLocalization::buildRuntimeContext() const
 {
@@ -575,6 +688,12 @@ TaskLocalization::buildRuntimeContext() const
     return context;
 }
 
+/// Builds the runtime context and calls the runtime controller's setup() with it —
+/// directly if already on the controller's thread, otherwise via a blocking queued
+/// invocation so the caller still gets the SetupResult synchronously.
+/// @return the controller's setup result, or a result with a single "Runtime controller
+///   is null." error if there is no runtime controller
+/// @note Blocks the calling thread until setup() completes when called cross-thread.
 LocalizationRuntimeController::SetupResult TaskLocalization::setupRuntimeController()
 {
     LocalizationRuntimeController::SetupResult result;
@@ -595,6 +714,9 @@ LocalizationRuntimeController::SetupResult TaskLocalization::setupRuntimeControl
     return result;
 }
 
+/// Applies a copy of the current m_config to the runtime controller's configure(),
+/// directly if already on its thread, otherwise queued onto it. No-op if there is no
+/// runtime controller.
 void TaskLocalization::queueConfigureRuntimeController()
 {
     auto *controller = m_runtimeController;
@@ -611,6 +733,9 @@ void TaskLocalization::queueConfigureRuntimeController()
     }, Qt::QueuedConnection);
 }
 
+/// Queues a call to the runtime controller's setActiveCameraNumber(number) onto its own
+/// thread; no-op if there is no runtime controller.
+/// @param number camera number to activate
 void TaskLocalization::queueSetActiveCameraNumber(int number)
 {
     auto *controller = m_runtimeController;
@@ -622,6 +747,9 @@ void TaskLocalization::queueSetActiveCameraNumber(int number)
     }, Qt::QueuedConnection);
 }
 
+/// Queues a call to the runtime controller's setActivePatternGroupNumber(number) onto
+/// its own thread; no-op if there is no runtime controller.
+/// @param number pattern group number to activate
 void TaskLocalization::queueSetActivePatternGroupNumber(int number)
 {
     auto *controller = m_runtimeController;
@@ -633,6 +761,9 @@ void TaskLocalization::queueSetActivePatternGroupNumber(int number)
     }, Qt::QueuedConnection);
 }
 
+/// Queues a copy of `values` to the runtime controller's handlePlcValues() onto its own
+/// thread; no-op if there is no runtime controller.
+/// @param values changed PLC signal name/value pairs to forward
 void TaskLocalization::queueHandlePlcValues(const QMap<QString, QVariant> &values)
 {
     auto *controller = m_runtimeController;
@@ -645,6 +776,12 @@ void TaskLocalization::queueHandlePlcValues(const QMap<QString, QVariant> &value
     }, Qt::QueuedConnection);
 }
 
+/// Creates the matching-worker QObject on matchingRunner (deleted when the thread
+/// finishes) and connects startCommissionMatchingRequest to run a commission match on
+/// the worker thread, emitting commissionMatchingFinished() with the result.
+/// @note The connected lambda runs on matchingRunner's thread even though it captures
+///   `this`; it only reads m_pipeline (used solely for matching) and emits a signal, so
+///   no additional locking is taken.
 void TaskLocalization::wireMatchingWorkerSignals() {
     m_matchingWorker = new QObject();
     m_matchingWorker->moveToThread(matchingRunner);

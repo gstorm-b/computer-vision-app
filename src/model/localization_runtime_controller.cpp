@@ -13,15 +13,24 @@
 #include "runtime/plc_runner.h"
 #include "runtime/vision_output_runner.h"
 
+/// Task-localization runtime: binds the camera/primary-PLC/vision-output device roles,
+/// drives the grab -> match -> send cycle state machine per execute trigger, and applies
+/// per-role connection-recovery policies (retry/escalate) on connection loss.
 namespace vc::model {
 
+/// Internal helpers used only within this translation unit: connection-status health
+/// checks/naming and recovery log-message formatting.
 namespace {
 
+/// Returns true only for ConnectStatus::Connected; every other status (including
+/// LostConnected/Connecting) is treated as unhealthy for readiness purposes.
 bool isHealthyStatus(vc::device::ConnectStatus status)
 {
     return status == vc::device::ConnectStatus::Connected;
 }
 
+/// Maps a ConnectStatus value to its human-readable name for log/status messages.
+/// @return the status name, or "Unknown" for any value not covered by the switch
 QString connectStatusName(vc::device::ConnectStatus status)
 {
     switch (status) {
@@ -42,6 +51,9 @@ QString connectStatusName(vc::device::ConnectStatus status)
     return QStringLiteral("Unknown");
 }
 
+/// Formats a "recovering" log/status message reporting the role, target device, current
+/// connection status, retry count vs. the configured maximum, and the retry interval.
+/// @return the formatted message string
 QString buildRecoveryProgressMessage(const LocalizationRecoveryPolicy &policy,
                                      const QString &deviceId,
                                      int retryCount,
@@ -56,6 +68,9 @@ QString buildRecoveryProgressMessage(const LocalizationRecoveryPolicy &policy,
              QString::number(policy.retryIntervalMs));
 }
 
+/// Formats a "ready again" log/status message announcing that a role recovered after
+/// `retryCount` retries.
+/// @return the formatted message string
 QString buildRecoveryReadyMessage(const LocalizationRecoveryPolicy &policy,
                                   const QString &deviceId,
                                   int retryCount)
@@ -69,6 +84,9 @@ QString buildRecoveryReadyMessage(const LocalizationRecoveryPolicy &policy,
 
 } // namespace
 
+/// Registers the queued-connection meta-types used by this controller's signals
+/// (CycleResult, TaskLogEntry, LocalizationFaultCode, CameraWorkspace, and the shared
+/// robot-picking-checker pointer) so they can cross thread/queued signal boundaries.
 LocalizationRuntimeController::LocalizationRuntimeController(QObject *parent)
     : QObject(parent)
 {
@@ -83,12 +101,21 @@ LocalizationRuntimeController::LocalizationRuntimeController(QObject *parent)
         "std::shared_ptr<mtc::IRobotPickingChecker>");
 }
 
+/// Stores the task's localization config and rebuilds the PLC tag / signal-name
+/// mapping table from it.
+/// @param config the new task-localization configuration to adopt
 void LocalizationRuntimeController::configure(const TaskLocalizeConfig &config)
 {
     m_config = config;
     m_signalMapper.configure(m_config);
 }
 
+/// Switches the active camera role to `cameraNumber`: disconnects the previous camera
+/// runner (if different), rebinds recovery/signal connections to the new one, revalidates
+/// its calibration, rebuilds the robot-picking checker, and requests a connect. Ignored
+/// while a cycle is running, and faults out (bTaskFault/nFaultCode) if no runner is
+/// registered for `cameraNumber` or its calibration is invalid.
+/// @param cameraNumber the 1-based camera role number to activate
 void LocalizationRuntimeController::setActiveCameraNumber(int cameraNumber)
 {
     if (m_cycleState == CycleState::Running) {
@@ -144,6 +171,10 @@ void LocalizationRuntimeController::setActiveCameraNumber(int cameraNumber)
     }
 }
 
+/// Switches the active pattern group used for matching and publishes bPatternValid;
+/// raises bTaskFault/nFaultCode(PatternInvalid) if the group has no usable train images.
+/// Ignored while a cycle is running.
+/// @param patternGroupNumber the pattern-group key to activate
 void LocalizationRuntimeController::setActivePatternGroupNumber(int patternGroupNumber)
 {
     if (m_cycleState == CycleState::Running) {
@@ -163,6 +194,10 @@ void LocalizationRuntimeController::setActivePatternGroupNumber(int patternGroup
     }
 }
 
+/// Replaces the stored per-role connection-recovery policies (retry limits/intervals,
+/// which statuses are retryable) used for the camera, primary-PLC, and vision-output
+/// roles. Takes effect on the next status change / setup call; does not itself touch any
+/// live connection.
 void LocalizationRuntimeController::setRecoveryPolicies(
     const LocalizationRecoveryPolicy &cameraPolicy,
     const LocalizationRecoveryPolicy &plcPolicy,
@@ -173,6 +208,13 @@ void LocalizationRuntimeController::setRecoveryPolicies(
     m_visionOutputRecoveryPolicy = visionOutputPolicy;
 }
 
+/// (Re)initializes the runtime from `context`: adopts its config, resets all role
+/// bindings and cycle state, validates that the primary-PLC, vision-output, and every
+/// declared camera role has a runner, wires the PLC valueChanged connection, binds the
+/// fixed and active-camera roles, validates the active pattern group and camera
+/// calibration, rebuilds the robot-picking checker, and (if everything validated) kicks
+/// off connect requests for all three roles. Returns a SetupResult with `valid` true only
+/// when all required roles/config resolved; `errors` lists every missing/invalid piece found.
 LocalizationRuntimeController::SetupResult
 LocalizationRuntimeController::setup(const RuntimeContext &context)
 {
@@ -272,6 +314,9 @@ LocalizationRuntimeController::setup(const RuntimeContext &context)
     return result;
 }
 
+/// Manual (non-PLC-triggered) request to start a localization cycle; behaves like an
+/// execute-trigger rising edge. Logs and returns without effect if the runtime failed
+/// setup, or if it is not currently in the ReadyForTrigger state.
 void LocalizationRuntimeController::execute()
 {
     if (!m_valid) {
@@ -288,6 +333,12 @@ void LocalizationRuntimeController::execute()
     startCycle();
 }
 
+/// Slot for the primary PLC's raw tag values: maps each tag to a named signal via
+/// m_signalMapper, emits signalChanged for all of them, and reacts to the three
+/// recognized control signals — nActiveCamera (switches camera), nActivePatternGroup
+/// (switches pattern group), and bExecuteTrigger (starts a cycle on rising edge, or on
+/// falling edge either clears bMatchingFinished and re-arms/recovers depending on whether
+/// the pending cycle faulted).
 void LocalizationRuntimeController::handlePlcValues(const QMap<QString, QVariant> &values)
 {
     if (values.isEmpty()) {
@@ -338,6 +389,9 @@ void LocalizationRuntimeController::handlePlcValues(const QMap<QString, QVariant
     }
 }
 
+/// Tears down all live signal/slot connections and recovery contexts for the three
+/// device roles (PLC value updates, camera grab/command results, vision-output result)
+/// ahead of a fresh setup().
 void LocalizationRuntimeController::resetRuntimeBindings()
 {
     disconnect(m_plcValueConnection);
@@ -354,6 +408,8 @@ void LocalizationRuntimeController::resetRuntimeBindings()
     clearRoleContext(RunnerRole::Camera);
 }
 
+/// Binds the two fixed device roles (primary PLC and vision output) from m_context to
+/// their recovery contexts, if their runners are present.
 void LocalizationRuntimeController::bindFixedRoleRunners()
 {
     const QString plcId = m_context.primaryPlcDeviceId;
@@ -373,6 +429,10 @@ void LocalizationRuntimeController::bindFixedRoleRunners()
     }
 }
 
+/// Binds the Camera role's recovery context to the runner registered for
+/// `cameraNumber`; clears the role context instead if no device id/runner is registered
+/// for that camera number.
+/// @param cameraNumber the camera role number to bind as active
 void LocalizationRuntimeController::bindActiveCameraRole(int cameraNumber)
 {
     const QString cameraId = m_context.cameraDeviceIds.value(cameraNumber);
@@ -388,6 +448,13 @@ void LocalizationRuntimeController::bindActiveCameraRole(int cameraNumber)
                     m_cameraRecoveryPolicy);
 }
 
+/// Replaces the recovery context for `role` (clearing any previous one) and connects the
+/// role-specific connectStatusChanged/errorOccurred handlers on `runner`. No-op if
+/// `runner` is null.
+/// @param role which device role this binding is for
+/// @param runner the device runner backing the role
+/// @param deviceId the device id associated with `runner`, stored for logging/messages
+/// @param policy the recovery policy (retry limits/interval) to apply for this role
 void LocalizationRuntimeController::bindRoleContext(
     RunnerRole role,
     vc::runtime::IDeviceRunner *runner,
@@ -436,6 +503,8 @@ void LocalizationRuntimeController::bindRoleContext(
     }
 }
 
+/// Disconnects `role`'s runner from this controller (all signals) and removes its
+/// recovery context, if one is registered.
 void LocalizationRuntimeController::clearRoleContext(RunnerRole role)
 {
     const int key = roleKey(role);
@@ -450,6 +519,9 @@ void LocalizationRuntimeController::clearRoleContext(RunnerRole role)
     m_recoveryContexts.remove(key);
 }
 
+/// Checks that the PrimaryPlc, VisionOutput, and Camera roles are all bound and their
+/// runner's device reports ConnectStatus::Connected.
+/// @return true only if all three required roles are present and healthy
 bool LocalizationRuntimeController::allRequiredRolesHealthy() const
 {
     for (RunnerRole role : {RunnerRole::PrimaryPlc, RunnerRole::VisionOutput, RunnerRole::Camera}) {
@@ -468,6 +540,11 @@ bool LocalizationRuntimeController::allRequiredRolesHealthy() const
     return true;
 }
 
+/// Transitions to CycleState::ReadyForTrigger, publishes the initial ready outputs, logs
+/// `message` at INFO, and emits runtimeReady(message). No-op while a cycle is running, or
+/// if setup is invalid, a required role is unhealthy, the pattern group is invalid, or
+/// the active camera calibration is invalid.
+/// @param message text to log and include in the runtimeReady signal
 void LocalizationRuntimeController::markRuntimeReady(const QString &message)
 {
     if (m_cycleState == CycleState::Running) {
@@ -486,6 +563,11 @@ void LocalizationRuntimeController::markRuntimeReady(const QString &message)
     emit runtimeReady(message);
 }
 
+/// Emits signalChanged(name, value) and, if `name` maps to a PLC tag via the signal
+/// mapper, also writes `value` to that tag as digital I/O through the primary PLC
+/// runner. No PLC write occurs if no primary PLC runner is currently bound.
+/// @param name the logical signal name (e.g. "bTaskReady")
+/// @param value the boolean value to publish
 void LocalizationRuntimeController::publishBoolSignal(const QString &name, bool value)
 {
     emit signalChanged(name, value);
@@ -500,6 +582,11 @@ void LocalizationRuntimeController::publishBoolSignal(const QString &name, bool 
     }
 }
 
+/// Emits signalChanged(name, value) and, if `name` maps to a PLC tag via the signal
+/// mapper, also writes `value` (narrowed to qint16) to that tag as word I/O through the
+/// primary PLC runner. No PLC write occurs if no primary PLC runner is currently bound.
+/// @param name the logical signal name (e.g. "nFaultCode")
+/// @param value the integer value to publish; truncated to 16 bits when written to the PLC
 void LocalizationRuntimeController::publishNumberSignal(const QString &name, int value)
 {
     emit signalChanged(name, value);
@@ -514,6 +601,9 @@ void LocalizationRuntimeController::publishNumberSignal(const QString &name, int
     }
 }
 
+/// Publishes the PLC output signal set for a fresh "ready and idle" state: task/camera/
+/// pattern valid, matching not busy/finished/detected/low-area, no fault, zero detected
+/// count, and fault code None.
 void LocalizationRuntimeController::publishInitialReadyOutputs()
 {
     publishBoolSignal(QStringLiteral("bTaskReady"), true);
@@ -529,6 +619,9 @@ void LocalizationRuntimeController::publishInitialReadyOutputs()
                         localizationFaultCodeValue(LocalizationFaultCode::None));
 }
 
+/// Publishes the PLC output signal set for the start of a localization cycle: task no
+/// longer ready, matching busy, finished/detected/low-area/fault cleared, and detected
+/// count/fault code reset to 0/None.
 void LocalizationRuntimeController::publishCycleStartOutputs()
 {
     publishBoolSignal(QStringLiteral("bTaskReady"), false);
@@ -542,6 +635,10 @@ void LocalizationRuntimeController::publishCycleStartOutputs()
                         localizationFaultCodeValue(LocalizationFaultCode::None));
 }
 
+/// Publishes the PLC output signal set for a completed, non-faulted cycle: matching no
+/// longer busy, finished, detected flag and low-area flag reflect `result`, no fault, and
+/// nDetectedNumber/nFaultCode(None) reflect `result.detectedNumber`.
+/// @param result the completed cycle's outcome to report
 void LocalizationRuntimeController::publishCycleSuccessOutputs(const CycleResult &result)
 {
     publishBoolSignal(QStringLiteral("bMatchingBusy"), false);
@@ -554,6 +651,10 @@ void LocalizationRuntimeController::publishCycleSuccessOutputs(const CycleResult
                         localizationFaultCodeValue(LocalizationFaultCode::None));
 }
 
+/// Publishes the PLC output signal set for a faulted cycle: matching no longer busy,
+/// finished, task not ready, detected/low-area cleared, task fault raised, detected count
+/// reset to 0, and nFaultCode set to `code`.
+/// @param code the fault code to publish
 void LocalizationRuntimeController::publishCycleFaultOutputs(LocalizationFaultCode code)
 {
     publishBoolSignal(QStringLiteral("bMatchingBusy"), false);
@@ -566,6 +667,10 @@ void LocalizationRuntimeController::publishCycleFaultOutputs(LocalizationFaultCo
     publishNumberSignal(QStringLiteral("nFaultCode"), localizationFaultCodeValue(code));
 }
 
+/// Builds a TaskLogEntry timestamped with the current local date/time and emits
+/// taskLogAppended with it.
+/// @param severity log level label (e.g. "INFO", "WARN", "ERROR")
+/// @param message the log message text
 void LocalizationRuntimeController::appendTaskLog(const QString &severity,
                                                   const QString &message)
 {
@@ -576,6 +681,9 @@ void LocalizationRuntimeController::appendTaskLog(const QString &severity,
     emit taskLogAppended(entry);
 }
 
+/// Checks that the active pattern group (falling back to the first available group if
+/// none is set) exists and contains at least one pattern with a non-empty raw train
+/// image.
 bool LocalizationRuntimeController::validateActivePatternGroup(QStringList *errors) const
 {
     int groupNumber = m_activePatternGroupNumber;
@@ -599,6 +707,8 @@ bool LocalizationRuntimeController::validateActivePatternGroup(QStringList *erro
     return false;
 }
 
+/// Looks up the calibrator registered for the active camera number and checks that it is
+/// calibrated.
 bool LocalizationRuntimeController::validateActiveCameraCalibration(QStringList *errors) const
 {
     const calib::Calibrator calibrator = m_context.cameraCalibrators.value(m_activeCameraNumber);
@@ -610,6 +720,10 @@ bool LocalizationRuntimeController::validateActiveCameraCalibration(QStringList 
     return true;
 }
 
+/// Resets m_pickingChecker and, if robot-kinematic checking is enabled in
+/// m_context.robotCheckConfig and the active camera's calibrator is calibrated, rebuilds
+/// it as a new RobotKinematicPickingChecker for that calibrator/config. Called once at
+/// setup() and again whenever the active camera changes.
 void LocalizationRuntimeController::rebuildPickingChecker()
 {
     m_pickingChecker.reset();
@@ -625,6 +739,10 @@ void LocalizationRuntimeController::rebuildPickingChecker()
         calibrator, m_context.robotCheckConfig);
 }
 
+/// Returns the currently-active pattern group (falling back to the first available
+/// group in m_context.patternGroups if none is explicitly set), for use as a stable
+/// snapshot handed off to the matching request.
+/// @return the active pattern group, or null if none is registered
 std::shared_ptr<mtc::MatchGroup>
 LocalizationRuntimeController::snapshotActivePatternGroup() const
 {
@@ -636,6 +754,13 @@ LocalizationRuntimeController::snapshotActivePatternGroup() const
     return m_context.patternGroups.value(groupNumber);
 }
 
+/// Converts each matched object's image-space center/angle to a robot world-space
+/// position via the active camera's calibrator (applying the camera-workspace crop
+/// offset when in use), and builds the send list: an object is included (capped at 2
+/// positions) only if it has no collision, is not outside the condition ROI, and is
+/// reported pickable; skipped objects get a descriptive `status` string. Also fills
+/// `rows` (if given) with one ResultRow per matched object for UI/logging, in original
+/// match order.
 QVector<vc::device::VisionOutputPosition>
 LocalizationRuntimeController::buildVisionOutputPositions(
     const mtc::MatchResult &matchResult,
@@ -718,6 +843,8 @@ LocalizationRuntimeController::buildVisionOutputPositions(
     return positions;
 }
 
+/// Returns the CameraRunner bound to the Camera role's recovery context.
+/// @return the active camera runner, or null if no camera role is currently bound
 vc::runtime::CameraRunner *LocalizationRuntimeController::activeCameraRunner() const
 {
     const int key = roleKey(RunnerRole::Camera);
@@ -727,6 +854,8 @@ vc::runtime::CameraRunner *LocalizationRuntimeController::activeCameraRunner() c
     return qobject_cast<vc::runtime::CameraRunner *>(m_recoveryContexts.value(key).runner.data());
 }
 
+/// Returns the PlcRunner bound to the PrimaryPlc role's recovery context.
+/// @return the primary PLC runner, or null if no primary-PLC role is currently bound
 vc::runtime::PlcRunner *LocalizationRuntimeController::primaryPlcRunner() const
 {
     const int key = roleKey(RunnerRole::PrimaryPlc);
@@ -736,6 +865,8 @@ vc::runtime::PlcRunner *LocalizationRuntimeController::primaryPlcRunner() const
     return qobject_cast<vc::runtime::PlcRunner *>(m_recoveryContexts.value(key).runner.data());
 }
 
+/// Returns the VisionOutputRunner bound to the VisionOutput role's recovery context.
+/// @return the vision-output runner, or null if no vision-output role is currently bound
 vc::runtime::VisionOutputRunner *LocalizationRuntimeController::visionOutputRunner() const
 {
     const int key = roleKey(RunnerRole::VisionOutput);
@@ -745,6 +876,12 @@ vc::runtime::VisionOutputRunner *LocalizationRuntimeController::visionOutputRunn
     return qobject_cast<vc::runtime::VisionOutputRunner *>(m_recoveryContexts.value(key).runner.data());
 }
 
+/// Starts a new localization cycle: revalidates the pattern group, camera calibration,
+/// and camera runner availability (aborting the cycle with the matching fault code on
+/// failure); otherwise transitions to CycleState::Running, bumps m_activeCycleId,
+/// resets m_pendingCycleResult, publishes the cycle-start outputs, emits
+/// runtimeCycleStarted, wires the camera's grabFinished (single-shot)/commandFinished
+/// connections, and requests a single-shot grab.
 void LocalizationRuntimeController::startCycle()
 {
     if (m_cycleState != CycleState::ReadyForTrigger) {
@@ -795,6 +932,14 @@ void LocalizationRuntimeController::startCycle()
     cameraRunner->requestSingleShot();
 }
 
+/// Aborts the in-progress cycle: disconnects the camera grab/command and vision-output
+/// result connections, bumps m_activeCycleId (invalidating any pending async result),
+/// marks m_pendingCycleResult as faulted with `code`, publishes the cycle-fault outputs,
+/// emits cycleResultUpdated, logs an ERROR entry with `message`, transitions to
+/// WaitingTriggerReset (if the execute trigger is still asserted) or Recovering
+/// otherwise, and emits runtimeRecovering.
+/// @param code the fault code to record and publish
+/// @param message human-readable description of what failed, used in the log entry
 void LocalizationRuntimeController::abortCycle(LocalizationFaultCode code,
                                                const QString &message)
 {
@@ -822,6 +967,15 @@ void LocalizationRuntimeController::abortCycle(LocalizationFaultCode code,
     emit runtimeRecovering(message);
 }
 
+/// Central connection-status handler for all three device roles. On a healthy status,
+/// clears the role's retry bookkeeping and, once every required role is healthy again,
+/// calls markRuntimeReady (using a "recovered" message if this role had been retrying).
+/// On an unhealthy status: if a cycle is running, aborts it with the role-specific fault
+/// code; then consults decideRecoveryAction on the role's policy to either schedule a
+/// reconnect retry (emitting runtimeRecovering) or escalate to raiseRoleFault. Removes
+/// the role's context outright if its runner pointer has gone null.
+/// @param role which device role reported the status change
+/// @param status the runner's new ConnectStatus
 void LocalizationRuntimeController::handleRoleStatusChanged(RunnerRole role,
                                                             vc::device::ConnectStatus status)
 {
@@ -902,6 +1056,11 @@ void LocalizationRuntimeController::handleRoleStatusChanged(RunnerRole role,
     }
 }
 
+/// Logs the scheduled retry and, after the role's configured retryIntervalMs elapses,
+/// clears the role's retryScheduled flag and calls requestRoleConnectNow for it (both
+/// re-checked against the current recovery context in case the role was rebound/removed
+/// in the meantime). No-op if the role has no recovery context or a null runner.
+/// @param role which device role to schedule a reconnect attempt for
 void LocalizationRuntimeController::scheduleRoleReconnect(RunnerRole role)
 {
     const int key = roleKey(role);
@@ -933,6 +1092,11 @@ void LocalizationRuntimeController::scheduleRoleReconnect(RunnerRole role)
     });
 }
 
+/// Casts the role's bound runner to its concrete type (CameraRunner/PlcRunner/
+/// VisionOutputRunner) and calls requestConnect() on it immediately, then logs the
+/// attempt. Removes the role's recovery context if its runner pointer has gone null;
+/// no-op if the role has no recovery context at all.
+/// @param role which device role to request an immediate connect for
 void LocalizationRuntimeController::requestRoleConnectNow(RunnerRole role)
 {
     const int key = roleKey(role);
@@ -977,6 +1141,13 @@ void LocalizationRuntimeController::requestRoleConnectNow(RunnerRole role)
                   << "max=" << context.policy.maxRetries;
 }
 
+/// Escalates a role's connection failure to a hard fault (retries exhausted): picks a
+/// role-specific LocalizationFaultCode (CameraConnectFailed/CameraLost for the camera
+/// depending on `status`, PlcLost, or VisionOutputLost), publishes bTaskFault/
+/// nFaultCode, sets CycleState::Faulted, logs the formatted recovery-failure message at
+/// ERROR, and emits runtimeFault. No-op if the role has no recovery context.
+/// @param role which device role exhausted its recovery retries
+/// @param status the role's connection status that triggered the escalation
 void LocalizationRuntimeController::raiseRoleFault(RunnerRole role,
                                                    vc::device::ConnectStatus status)
 {
@@ -1015,6 +1186,13 @@ void LocalizationRuntimeController::raiseRoleFault(RunnerRole role,
     emit runtimeFault(message);
 }
 
+/// Slot for the active camera's grabFinished signal: disconnects the grab/command
+/// connections (they were single-use for this cycle), ignores stale results if the cycle
+/// is no longer Running, aborts the cycle with CameraGrabTimeout on a failed/empty grab,
+/// aborts with PatternInvalid if the active pattern-group snapshot is unavailable, else
+/// stores a clone of the grabbed frame in m_pendingCycleResult.rawImage and emits
+/// runtimeMatchingRequested to hand the frame off to the matcher.
+/// @param result the camera grab outcome (success flag + captured frame)
 void LocalizationRuntimeController::onCameraGrabFinished(vc::device::GrabResult result)
 {
     disconnect(m_cameraGrabConnection);
@@ -1046,6 +1224,14 @@ void LocalizationRuntimeController::onCameraGrabFinished(vc::device::GrabResult 
                                   result.frame.clone(), m_pickingChecker);
 }
 
+/// Callback for the matcher's result, invoked with the cycle id that was passed to
+/// runtimeMatchingRequested. Ignores stale/mismatched cycle ids or a cycle that is no
+/// longer Running; converts `matchResult` to world-space positions via
+/// buildVisionOutputPositions (aborting the cycle if that conversion faults), records
+/// the outcome in m_pendingCycleResult, then requests the vision-output runner to send
+/// the positions, wiring a single-shot connection to onVisionOutputResultFinished for
+/// the actual send outcome. Aborts with VisionOutputLost if no vision-output runner is
+/// bound.
 void LocalizationRuntimeController::onRuntimeMatchingFinished(int cycleId,
                                                               mtc::MatchResult matchResult)
 {
@@ -1090,6 +1276,12 @@ void LocalizationRuntimeController::onRuntimeMatchingFinished(int cycleId,
     visionRunner->requestSendResult(positions);
 }
 
+/// Slot for the active camera's commandFinished signal: only acts when the cycle is
+/// Running and the failed command is the CameraSingleShot request; aborts the cycle with
+/// CameraGrabTimeout (using the runner's failure message) if that failure's code is
+/// TimedOut. All other command results/kinds/codes are ignored here (the grab result
+/// itself is handled by onCameraGrabFinished).
+/// @param result the camera command's completion status/code/message
 void LocalizationRuntimeController::onCameraCommandFinished(
     vc::runtime::DeviceCommandResult result)
 {
@@ -1104,6 +1296,15 @@ void LocalizationRuntimeController::onCameraCommandFinished(
     }
 }
 
+/// Slot for the vision-output runner's resultRequestFinished signal, completing the
+/// current cycle: disconnects the single-shot connection, ignores the result if the
+/// cycle is no longer Running, aborts with VisionOutputSendFailed on failure, else
+/// publishes the cycle-success outputs, emits cycleResultUpdated, logs an INFO summary
+/// (detected/sent counts and matching time), and transitions to WaitingTriggerReset (if
+/// the execute trigger is still asserted, logging a WARN to wait for its reset) or back
+/// to ReadyForTrigger via markRuntimeReady otherwise.
+/// @param ok whether the vision-output device accepted the sent positions
+/// @param message failure detail when `ok` is false; used as the abort message
 void LocalizationRuntimeController::onVisionOutputResultFinished(bool ok,
                                                                  const QString &message)
 {
@@ -1137,31 +1338,46 @@ void LocalizationRuntimeController::onVisionOutputResultFinished(bool ok,
     }
 }
 
+/// Forwards the primary PLC runner's connectStatusChanged signal to
+/// handleRoleStatusChanged for the PrimaryPlc role.
 void LocalizationRuntimeController::onPrimaryPlcStatusChanged(vc::device::ConnectStatus status)
 {
     handleRoleStatusChanged(RunnerRole::PrimaryPlc, status);
 }
 
+/// Forwards the vision-output runner's connectStatusChanged signal to
+/// handleRoleStatusChanged for the VisionOutput role.
 void LocalizationRuntimeController::onVisionOutputStatusChanged(vc::device::ConnectStatus status)
 {
     handleRoleStatusChanged(RunnerRole::VisionOutput, status);
 }
 
+/// Forwards the active camera runner's connectStatusChanged signal to
+/// handleRoleStatusChanged for the Camera role.
 void LocalizationRuntimeController::onCameraStatusChanged(vc::device::ConnectStatus status)
 {
     handleRoleStatusChanged(RunnerRole::Camera, status);
 }
 
+/// Logs the primary PLC runner's errorOccurred signal as a warning; does not affect
+/// cycle/connection state (connection loss is handled separately via
+/// onPrimaryPlcStatusChanged).
 void LocalizationRuntimeController::onPrimaryPlcError(const QString &message)
 {
     LOG_USER_WARN << "primary_plc runtime error:" << message;
 }
 
+/// Logs the vision-output runner's errorOccurred signal as a warning; does not affect
+/// cycle/connection state (connection loss is handled separately via
+/// onVisionOutputStatusChanged).
 void LocalizationRuntimeController::onVisionOutputError(const QString &message)
 {
     LOG_USER_WARN << "vision_output runtime error:" << message;
 }
 
+/// Logs the active camera runner's errorOccurred signal as a warning; does not affect
+/// cycle/connection state (connection loss is handled separately via
+/// onCameraStatusChanged).
 void LocalizationRuntimeController::onCameraError(const QString &message)
 {
     LOG_USER_WARN << "camera runtime error:" << message;

@@ -15,11 +15,16 @@
 namespace RobotKinematics {
 
 namespace {
+/// Builds a failure Result<MeshCollisionProfile> carrying `message` with status
+/// KinematicsStatus::InvalidRobotConfig; used as the terminal early-return for every
+/// validation failure in loadJson.
 Result<MeshCollisionProfile> invalid(const std::string& message)
 {
     return Result<MeshCollisionProfile>::failure(KinematicsStatus::InvalidRobotConfig, message);
 }
 
+/// Returns true if every key present in `object` is one of the recognized top-level
+/// mesh-collision-profile fields (schema, profile, meshes, disabledPairs, sources, metadata).
 bool hasOnlyKnownTopLevelFields(const QJsonObject& object)
 {
     const std::set<QString> known = {
@@ -33,21 +38,27 @@ bool hasOnlyKnownTopLevelFields(const QJsonObject& object)
     return true;
 }
 
+/// Reads `key` from `object` as a string, returning an empty std::string when the key is
+/// absent or its value is not a string.
 std::string stringField(const QJsonObject& object, const char* key)
 {
     return object.value(key).toString().toStdString();
 }
 
+/// Returns true if `value` is a JSON number and its double representation is finite
+/// (excludes NaN/infinity as well as non-numeric JSON values).
 bool isFiniteNumber(const QJsonValue& value)
 {
     return value.isDouble() && std::isfinite(value.toDouble());
 }
 
+/// Returns true if `object` contains `key` and its value is a finite JSON number.
 bool hasFiniteNumericField(const QJsonObject& object, const char* key)
 {
     return object.contains(key) && isFiniteNumber(object.value(key));
 }
 
+/// Returns true if `object`'s `key` field is a JSON array of exactly 3 finite numbers.
 bool hasFiniteNumericArray(const QJsonObject& object, const char* key)
 {
     const QJsonArray array = object.value(key).toArray();
@@ -62,6 +73,10 @@ bool hasFiniteNumericArray(const QJsonObject& object, const char* key)
     return true;
 }
 
+/// Builds a Pose from `object`'s "xyz_m" and "rpy_rad" 3-element JSON arrays (x/y/z in
+/// meters, roll/pitch/yaw in radians).
+/// @note callers in this file validate both arrays with hasFiniteNumericArray before invoking
+/// this; it does not itself check array size or numeric type.
 Pose poseFromObject(const QJsonObject& object)
 {
     const QJsonArray xyz = object.value("xyz_m").toArray();
@@ -70,6 +85,9 @@ Pose poseFromObject(const QJsonObject& object)
                                   rpy.at(0).toDouble(), rpy.at(1).toDouble(), rpy.at(2).toDouble());
 }
 
+/// Parses a mesh source-units string ("m" or "mm") into its MeshSourceUnits enumerator.
+/// @return the matching MeshSourceUnits on success; a failure Result with
+/// KinematicsStatus::InvalidRobotConfig otherwise
 Result<MeshSourceUnits> parseSourceUnits(const QString& value)
 {
     if (value == "m") {
@@ -82,6 +100,9 @@ Result<MeshSourceUnits> parseSourceUnits(const QString& value)
                                             "mesh sourceUnits must be 'm' or 'mm'");
 }
 
+/// Parses a mesh file-format string (currently only "stl") into its MeshFileFormat enumerator.
+/// @return the matching MeshFileFormat on success; a failure Result with
+/// KinematicsStatus::InvalidRobotConfig otherwise
 Result<MeshFileFormat> parseFormat(const QString& value)
 {
     if (value == "stl") {
@@ -91,6 +112,10 @@ Result<MeshFileFormat> parseFormat(const QString& value)
                                            "mesh format must be 'stl'");
 }
 
+/// Parses a mesh quality-mode string ("original", "simplified", or "convex") into its
+/// MeshQualityMode enumerator.
+/// @return the matching MeshQualityMode on success; a failure Result with
+/// KinematicsStatus::InvalidRobotConfig otherwise
 Result<MeshQualityMode> parseQualityMode(const QString& value)
 {
     if (value == "original") {
@@ -107,6 +132,9 @@ Result<MeshQualityMode> parseQualityMode(const QString& value)
 }
 }
 
+/// Loads a mesh collision profile from the JSON file at `path`, then rewrites every mesh's
+/// `path` field that is not already absolute into an absolute path resolved against the
+/// profile file's own directory.
 Result<MeshCollisionProfile> MeshCollisionProfileJsonLoader::loadFile(const std::string& path)
 {
     QFile file(QString::fromStdString(path));
@@ -131,6 +159,12 @@ Result<MeshCollisionProfile> MeshCollisionProfileJsonLoader::loadFile(const std:
     return loaded;
 }
 
+/// Parses and validates a mesh collision profile encoded as JSON text against the
+/// "robot-kinematics-collision-mesh/v1" schema (m/rad units only): populates id, robotModel,
+/// backendPreference, and per-mesh geometry (meshToLink pose, scaleToMeters, margin_m,
+/// enabled, format, sourceUnits, and quality mode/triangleCount/simplifiedFrom/
+/// maxSimplificationError_m), enforcing unique mesh ids; also populates disabledPairs
+/// (validated against the parsed mesh ids), sources, and string-valued metadata.
 Result<MeshCollisionProfile> MeshCollisionProfileJsonLoader::loadJson(const std::string& json)
 {
     QJsonParseError error;

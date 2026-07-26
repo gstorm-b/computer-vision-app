@@ -22,44 +22,58 @@
 
 using namespace RobotKinematics;
 
+/// Local helper types and functions for the mesh collision benchmark CLI: building
+/// synthetic/file-driven scenarios, timing repeated CollisionBackends::checkMesh calls,
+/// and printing the results.
 namespace {
-constexpr double kPi = 3.141592653589793238462643383279502884;
+constexpr double kPi = 3.141592653589793238462643383279502884;  ///< Pi, used to build revolute joint limits and benchmark joint angles.
 
+/// A single 3D point in meters, used to describe synthetic STL triangle vertices.
 struct Vec3
 {
-    double x;
-    double y;
-    double z;
+    double x;  ///< X coordinate in meters.
+    double y;  ///< Y coordinate in meters.
+    double z;  ///< Z coordinate in meters.
 };
 
+/// A single synthetic mesh triangle, defined by its three vertices in meters.
 struct Triangle
 {
-    Vec3 a;
-    Vec3 b;
-    Vec3 c;
+    Vec3 a;  ///< First vertex.
+    Vec3 b;  ///< Second vertex.
+    Vec3 c;  ///< Third vertex.
 };
 
+/// One benchmark case: a robot/mesh-profile pair plus the joint configuration to evaluate it at.
 struct ScenarioDefinition
 {
-    std::string label;
-    SerialRobotConfig robot;
-    MeshCollisionProfile profile;
-    JointVector joints;
+    std::string label;  ///< Human-readable name printed alongside the scenario's measurement.
+    SerialRobotConfig robot;  ///< Robot configuration used for forward kinematics during the check.
+    MeshCollisionProfile profile;  ///< Mesh collision profile (link meshes + backend preference) checked against.
+    JointVector joints;  ///< Joint configuration the scenario is evaluated at.
 };
 
+/// Timing and collision-result summary produced by running a scenario through measureScenario().
 struct ScenarioMeasurement
 {
-    std::string label;
-    KinematicsStatus status = KinematicsStatus::Ok;
-    bool hasCollision = false;
-    std::size_t pairCount = 0;
-    std::size_t contactCount = 0;
-    double distance_m = 0.0;
-    qint64 totalNs = 0;
-    int iterations = 0;
-    int warmupIterations = 0;
+    std::string label;  ///< Scenario label this measurement corresponds to.
+    KinematicsStatus status = KinematicsStatus::Ok;  ///< Status of the last (or failing warm-up) collision check.
+    bool hasCollision = false;  ///< Whether the last collision check reported any colliding pair.
+    std::size_t pairCount = 0;  ///< Number of collision pairs reported by the last check.
+    std::size_t contactCount = 0;  ///< Contact count of the first reported pair (0 if no pairs).
+    double distance_m = 0.0;  ///< Distance in meters of the first reported pair (0 if no pairs).
+    qint64 totalNs = 0;  ///< Total elapsed nanoseconds across the measured iterations.
+    int iterations = 0;  ///< Number of measured (non-warm-up) iterations actually run.
+    int warmupIterations = 0;  ///< Number of warm-up iterations configured for this measurement.
 };
 
+/// Builds a revolute joint rotating about its local Z axis, with limits set to [-pi, pi]
+/// and home position 0.
+/// @param id joint identifier
+/// @param parent parent link id
+/// @param child child link id
+/// @param origin joint origin pose relative to the parent link
+/// @return the constructed Joint
 Joint revoluteZ(const std::string& id,
                 const std::string& parent,
                 const std::string& child,
@@ -77,6 +91,10 @@ Joint revoluteZ(const std::string& id,
     return joint;
 }
 
+/// Builds a fixed 3-DOF synthetic serial robot ("CollisionLineRobot") made of three
+/// 1 m revolute-Z links in a straight line, used as the fixture robot for the synthetic
+/// benchmark scenarios.
+/// @return the constructed robot configuration
 SerialRobotConfig lineRobot()
 {
     SerialRobotConfig config;
@@ -96,6 +114,9 @@ SerialRobotConfig lineRobot()
     return config;
 }
 
+/// Builds the 12 triangles (2 per face) of a 0.2 x 0.1 x 0.1 m axis-aligned cuboid with
+/// one corner at the origin, used as the synthetic collision mesh geometry.
+/// @return the cuboid's triangles, in meters
 std::vector<Triangle> cuboidTrianglesMeters()
 {
     const Vec3 p000{0.0, 0.0, 0.0};
@@ -117,6 +138,9 @@ std::vector<Triangle> cuboidTrianglesMeters()
     };
 }
 
+/// Serializes cuboidTrianglesMeters() as an ASCII STL "solid cuboid" document (facet
+/// normals are written as 0 0 0 since only geometry, not normals, is needed by the check).
+/// @return the ASCII STL file content, in meters
 QByteArray asciiStlBytesMeters()
 {
     QByteArray bytes;
@@ -140,6 +164,12 @@ QByteArray asciiStlBytesMeters()
     return bytes;
 }
 
+/// Writes `bytes` to `fileName` under the system temp directory, first removing any
+/// existing file at that path.
+/// @param fileName file name (not full path) to create under QDir::temp()
+/// @param bytes content to write
+/// @return the full temp-file path on success, or an empty string if the file could not
+///         be opened or the write was short
 QString writeTempFile(const QString& fileName, const QByteArray& bytes)
 {
     const QString path = QDir::temp().filePath(fileName);
@@ -156,6 +186,11 @@ QString writeTempFile(const QString& fileName, const QByteArray& bytes)
     return path;
 }
 
+/// Builds a Coal-backed mesh collision profile for the synthetic scenarios: the same
+/// mesh file at `path` is attached both to base_link (offset 0.85 m along X) and to
+/// link_2 (no offset), so the two instances can be moved apart/together by the joint angles.
+/// @param path filesystem path to the mesh file (STL) shared by both geometries
+/// @return the constructed mesh collision profile
 MeshCollisionProfile syntheticMeshProfile(const std::string& path)
 {
     MeshCollisionProfile profile;
@@ -184,6 +219,10 @@ MeshCollisionProfile syntheticMeshProfile(const std::string& path)
     return profile;
 }
 
+/// Parses a comma-separated list of joint values (radians) from a --joints-rad argument.
+/// @param csv comma-separated joint values; empty tokens are skipped
+/// @return the parsed values on success, or InvalidRequest with a message naming the
+///         offending token if any token fails to parse as a finite double
 Result<std::vector<double>> parseJointCsv(const QString& csv)
 {
     const QStringList tokens = csv.split(',', Qt::SkipEmptyParts);
@@ -204,6 +243,12 @@ Result<std::vector<double>> parseJointCsv(const QString& csv)
     return Result<std::vector<double>>::success(values);
 }
 
+/// Builds a synthetic benchmark scenario: writes the synthetic cuboid STL fixture to a
+/// temp file, then assembles lineRobot() + syntheticMeshProfile() at the given joint angles.
+/// @param label human-readable scenario name
+/// @param joints joint angles in radians (converted via JointVector::fromRadians)
+/// @return the constructed scenario on success, or InvalidRequest if the STL fixture
+///         could not be written
 Result<ScenarioDefinition> buildSyntheticScenario(const std::string& label, const std::vector<double>& joints)
 {
     const QString meshPath =
@@ -221,6 +266,14 @@ Result<ScenarioDefinition> buildSyntheticScenario(const std::string& label, cons
     return Result<ScenarioDefinition>::success(std::move(scenario));
 }
 
+/// Builds a file-driven benchmark scenario by loading a robot preset JSON, a mesh
+/// collision profile JSON, and a joints-rad CSV string, failing on the first error found.
+/// @param label human-readable scenario name
+/// @param presetPath path to the robot preset JSON file
+/// @param meshProfilePath path to the mesh collision profile JSON file
+/// @param jointsCsv comma-separated joint values in radians
+/// @return the constructed scenario on success, or the status/message of whichever
+///         load/parse step failed first
 Result<ScenarioDefinition> loadJsonScenario(const QString& label,
                                             const QString& presetPath,
                                             const QString& meshProfilePath,
@@ -254,6 +307,15 @@ Result<ScenarioDefinition> loadJsonScenario(const QString& label,
     return Result<ScenarioDefinition>::success(std::move(scenario));
 }
 
+/// Runs `warmupIterations` untimed CollisionBackends::checkMesh calls followed by
+/// `iterations` timed calls for `scenario`, using a QElapsedTimer around the timed loop.
+/// If a warm-up call fails, returns immediately with that failure's status/result and
+/// totalNs left at 0; if a timed call fails, the timed loop stops early and the
+/// already-elapsed time is still reported.
+/// @param scenario scenario (robot + mesh profile + joints) to check
+/// @param iterations number of timed iterations to run
+/// @param warmupIterations number of untimed iterations to run before timing starts
+/// @return summary of the last executed check plus elapsed timing
 ScenarioMeasurement measureScenario(const ScenarioDefinition& scenario,
                                     const int iterations,
                                     const int warmupIterations)
@@ -301,6 +363,9 @@ ScenarioMeasurement measureScenario(const ScenarioDefinition& scenario,
     };
 }
 
+/// Prints a single-line "key=value" summary of `measurement` to stdout, including
+/// total elapsed time in milliseconds and average time per iteration in microseconds.
+/// @param measurement measurement to print
 void printMeasurement(const ScenarioMeasurement& measurement)
 {
     const double totalMs = static_cast<double>(measurement.totalNs) / 1.0e6;
@@ -322,6 +387,15 @@ void printMeasurement(const ScenarioMeasurement& measurement)
 }
 }
 
+/// Entry point for the RobotKinematics mesh collision benchmark CLI. Parses --iterations,
+/// --warmup, and either the synthetic scenarios (default) or a single file-driven scenario
+/// (when --preset-json/--mesh-profile-json/--joints-rad are all supplied), runs
+/// measureScenario() for each and prints its result, and optionally dumps per-pair
+/// distance/contact info via --dump-pairs.
+/// @param argc argument count, forwarded to QCoreApplication
+/// @param argv argument vector, forwarded to QCoreApplication
+/// @return 0 on success; 1 on invalid arguments, scenario build/load failure, or a
+///         benchmark scenario failing before measurement completed
 int main(int argc, char* argv[])
 {
     QCoreApplication app(argc, argv);

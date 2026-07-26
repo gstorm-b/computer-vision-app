@@ -3,6 +3,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
+/// Constructs the ROI at `rect`, wires up movable/selectable/geometry-change flags, stores
+/// `ignore_flag`, and initializes default handle/rotation-offset sizes and transform origin.
 ItemRoiRotated::ItemRoiRotated(const QRectF &rect, QGraphicsItem *parent,
                                bool *ignore_flag)
     : QGraphicsRectItem(rect, parent),
@@ -19,10 +21,14 @@ ItemRoiRotated::ItemRoiRotated(const QRectF &rect, QGraphicsItem *parent,
   this->setTransformOriginPoint(rect.center());
 }
 
+/// Returns the ROI rectangle mapped into the parent item's coordinate system.
 QRectF ItemRoiRotated::getRoi() {
   return mapRectToParent(rect());
 }
 
+/// Paints the ROI: a center marker, then either the selected-state dashed rect plus the
+/// four corner resize handles and the rotation handle/link line, or the normal-state
+/// dashed rect.
 void ItemRoiRotated::paint(QPainter *painter,
                            const QStyleOptionGraphicsItem *option,
                            QWidget *widget) {
@@ -80,7 +86,9 @@ void ItemRoiRotated::paint(QPainter *painter,
   }
 }
 
-// boudingRect invovled when click event emitted, to determine which item are choosing
+/// boundingRect is consulted when a click event is dispatched, to determine which item is
+/// being chosen; returns rect() expanded to include all four corner handle rects and the
+/// rotate handle rect, plus a 1px margin.
 QRectF ItemRoiRotated::boundingRect() const {
   QRectF base = rect();
   // expand bouding box for handle area
@@ -94,7 +102,8 @@ QRectF ItemRoiRotated::boundingRect() const {
   return unionRect.adjusted(-1, -1, 1, 1);
 }
 
-// shape decide which area belongs to ROI Item
+/// shape decides which area belongs to the ROI item for hit-testing: the ROI rect, plus
+/// the four corner handle rects and the rotate handle ellipse when the item is selected.
 QPainterPath ItemRoiRotated::shape() const  {
   QPainterPath path;
   path.setFillRule(Qt::WindingFill);
@@ -113,6 +122,11 @@ QPainterPath ItemRoiRotated::shape() const  {
   return path;
 }
 
+/// Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays fully
+/// inside the parent item's bounding rect.
+/// @param change the kind of item change being reported
+/// @param value the proposed new value (position, for the change handled here)
+/// @return the (possibly corrected) value to apply
 QVariant ItemRoiRotated::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value) {
 
   // only override for item position changed
@@ -147,7 +161,8 @@ QVariant ItemRoiRotated::itemChange(QGraphicsItem::GraphicsItemChange change, co
   return QGraphicsRectItem::itemChange(change, value);
 }
 
-// return handle rect based on current position
+/// Returns the square hit/paint rect for corner `pos`, sized by effectiveHandleSize() and
+/// centered on that corner of rect().
 QRectF ItemRoiRotated::handleRect(HandlePosition pos) const {
   QRectF r = rect();
   QPointF point;
@@ -174,6 +189,9 @@ QRectF ItemRoiRotated::handleRect(HandlePosition pos) const {
                 handleSize, handleSize);
 }
 
+/// Returns the circular hit/paint rect for the rotation handle, positioned above the
+/// center of the top edge by effectiveRotationHandleOffset() and sized by
+/// effectiveHandleSize().
 QRectF ItemRoiRotated::rotateHandleRect() const {
   QRectF r = rect();
   // calculate center of top edge
@@ -185,6 +203,7 @@ QRectF ItemRoiRotated::rotateHandleRect() const {
                 handleSize, handleSize);
 }
 
+/// Returns which handle (corner or rotate) contains `pos` (item coordinates), or None.
 ItemRoiRotated::HandlePosition ItemRoiRotated::getHandleAt(const QPointF &pos) const {
   if (handleRect(TopLeft).contains(pos))
     return TopLeft;
@@ -199,6 +218,8 @@ ItemRoiRotated::HandlePosition ItemRoiRotated::getHandleAt(const QPointF &pos) c
   return None;
 }
 
+/// Returns the view's current level-of-detail scale factor (clamped to a minimum of 0.05),
+/// or 1.0 if the item has no scene/view yet.
 qreal ItemRoiRotated::currentLevelOfDetail() const
 {
   if (scene() && !scene()->views().isEmpty()) {
@@ -209,18 +230,25 @@ qreal ItemRoiRotated::currentLevelOfDetail() const
   return 1.0;
 }
 
+/// Returns the on-screen-constant handle size (item coordinates), scaled inversely with
+/// the current level of detail and clamped to the range [10,22]/lod.
 qreal ItemRoiRotated::effectiveHandleSize() const
 {
   const qreal lod = currentLevelOfDetail();
   return qBound<qreal>(10.0 / lod, 14.0 / lod, 22.0 / lod);
 }
 
+/// Returns the on-screen-constant distance from the top edge to the rotation handle (item
+/// coordinates), scaled inversely with the current level of detail and clamped to the
+/// range [18,36]/lod.
 qreal ItemRoiRotated::effectiveRotationHandleOffset() const
 {
   const qreal lod = currentLevelOfDetail();
   return qBound<qreal>(18.0 / lod, 24.0 / lod, 36.0 / lod);
 }
 
+/// Returns true if `new_rect`, mapped to parent coordinates, is fully contained by the
+/// parent item's bounding rect; false if there is no parent.
 bool ItemRoiRotated::isInsideParent(QRectF &new_rect) {
   if (parentItem() != nullptr) {
     QRectF childInParent = this->mapRectToParent(new_rect);
@@ -230,6 +258,9 @@ bool ItemRoiRotated::isInsideParent(QRectF &new_rect) {
   return false;
 }
 
+/// Handles press: honors the external ignore flag, detects a rotation-handle grab
+/// (capturing the rotation origin/angle) or a corner-handle grab (capturing the original
+/// rect), otherwise defers to QGraphicsRectItem for its normal move-mode handling.
 void ItemRoiRotated::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   if (m_ignore != nullptr) {
     if (*m_ignore == true) {
@@ -265,6 +296,11 @@ void ItemRoiRotated::mousePressEvent(QGraphicsSceneMouseEvent *event) {
   QGraphicsRectItem::mousePressEvent(event);
 }
 
+/// While the rotation handle is active, rotates the item to track the mouse angle
+/// (reverting if that would push the rect outside the parent); while a corner handle is
+/// active, resizes rect() from the drag delta (rejecting moves that would leave the parent
+/// bounds or shrink a side below 2*m_handle_size); otherwise defers to QGraphicsRectItem
+/// for its normal move-mode handling.
 void ItemRoiRotated::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
   if (m_ignore != nullptr) {
     if (*m_ignore == true) {
@@ -335,6 +371,9 @@ void ItemRoiRotated::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
   QGraphicsRectItem::mouseMoveEvent(event);
 }
 
+/// Ends an active resize (rotation is excluded): re-centers the transform origin on the
+/// new rect while keeping the item's on-screen position fixed, then clears the active
+/// handle.
 void ItemRoiRotated::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
   if (m_ignore != nullptr) {
     if (*m_ignore == true) {

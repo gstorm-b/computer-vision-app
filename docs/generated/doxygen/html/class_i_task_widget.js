@@ -1,0 +1,26 @@
+var class_i_task_widget =
+[
+    [ "ITaskWidget", "class_i_task_widget.html#a2e5d45b19d18392b722bc7e671bd1c66", null ],
+    [ "addPropertyToBrowser", "class_i_task_widget.html#a698cbb40f38b9ed4964985b8644555cf", null ],
+    [ "changePropertyBrowserDefault", "class_i_task_widget.html#a2d3cfd0e4167c2c20e5be77f37577f43", null ],
+    [ "changePropertyBrowserWidget", "class_i_task_widget.html#a10a14337d5a3fc21d68cbc7d30a07435", null ],
+    [ "embedBrowserInWidget", "class_i_task_widget.html#a23854620a628779514575881f0425c3e", null ],
+    [ "initBrowserInWidget", "class_i_task_widget.html#a5f1b0800b45f464ac947560ec69a6aa0", null ],
+    [ "initPropertyBrowser", "class_i_task_widget.html#a359284998e5564a7ad6092d9d6999f52", null ],
+    [ "loadConfigToTask", "class_i_task_widget.html#a163399d48508ee50c2168e5decdddf2a", null ],
+    [ "loadConfigToWidget", "class_i_task_widget.html#a181de94b85b0dd2670d256894cdab5ce", null ],
+    [ "reloadStyleSheet", "class_i_task_widget.html#a80ba1a32ae7655a1980f215f41d3f051", null ],
+    [ "removePropertyBrowserWidget", "class_i_task_widget.html#a631a2a6279eb7fa88f6b0898fbefec04", null ],
+    [ "setupThemeReload", "class_i_task_widget.html#a386d4bb80424ed2c1f3fb252da639611", null ],
+    [ "m_browserBox", "class_i_task_widget.html#a5294cb2db4ce9803dc42065a82dec3ed", null ],
+    [ "m_browserStackWidget", "class_i_task_widget.html#ace48b61af3936f96ddeffbde00784673", null ],
+    [ "m_darkQssPath", "class_i_task_widget.html#a3d41d3ad22f8b93eea071c6ba84789d1", null ],
+    [ "m_dock", "class_i_task_widget.html#a2948b66503f894973c97bcef926bf3ef", null ],
+    [ "m_lightQssPath", "class_i_task_widget.html#a94c62a67d1709077d6460128a61b1a9c", null ],
+    [ "m_propBrowser", "class_i_task_widget.html#a323d09ad76e449391413657585911d94", null ],
+    [ "m_propertyBrowserWidgets", "class_i_task_widget.html#a1c38e24752b9876e97d40f6966782610", null ],
+    [ "m_task", "class_i_task_widget.html#aff5d6fbf6d49cb923b0c18fb2efd6740", null ],
+    [ "m_variantEditor", "class_i_task_widget.html#a0e32019d2cf8858b52d0d55045afff0a", null ],
+    [ "m_variantFactory", "class_i_task_widget.html#a830ae29fb5507043995d2b6e80917996", null ],
+    [ "m_variantManager", "class_i_task_widget.html#a5965ce907c7efa589d15d1809256fb94", null ]
+];

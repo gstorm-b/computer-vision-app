@@ -5,14 +5,26 @@
 #include <cmath>
 #include <optional>
 
+/// Built-in robot presets shipped with RobotKinematics (e.g. the Nachi MZ04D config below).
 namespace RobotKinematics::Presets {
 
+/// Internal helpers used only while assembling the Nachi MZ04D preset: angle-conversion
+/// constants and a factory for the six identical-shape revolute joints.
 namespace {
-constexpr double kPi = 3.141592653589793238462643383279502884;
-constexpr double kHalfPi = kPi / 2.0;
+constexpr double kPi = 3.141592653589793238462643383279502884;  ///< Pi to double precision, for radian conversions.
+constexpr double kHalfPi = kPi / 2.0;  ///< Pi/2, used as the recurring +/-90 deg DH twist angle below.
 
+/// Converts an angle from degrees to radians using #kPi.
 constexpr double deg(double d) { return d * kPi / 180.0; }
 
+/// Builds one revolute joint with a Z-axis rotation axis, zero home position, and a "JT<n>"
+/// alias derived from the numeric suffix of `id` (e.g. id "J1" -> alias "JT1").
+/// @param id joint identifier (expected form "J<n>")
+/// @param parent parent link id
+/// @param child child link id
+/// @param origin joint origin pose relative to the parent link
+/// @param limits joint position/velocity/effort limits
+/// @return the constructed Joint
 Joint revolute(const std::string& id,
                const std::string& parent,
                const std::string& child,
@@ -33,6 +45,11 @@ Joint revolute(const std::string& id,
 }
 } // namespace
 
+/// Builds the SerialRobotConfig preset for the Nachi MZ04D 6-DOF serial arm: link/joint
+/// topology and DH-derived origins, joint position limits from the teach pendant, tool
+/// definitions, shoulder/elbow/wrist posture labeling, default IK solver parameters, and
+/// source/metadata references back to docs/preset_references/nachi-mz04d.md.
+/// @return the fully populated Nachi MZ04D robot configuration
 SerialRobotConfig nachiMZ04D()
 {
     SerialRobotConfig config;

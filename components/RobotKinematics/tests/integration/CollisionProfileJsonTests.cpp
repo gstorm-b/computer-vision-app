@@ -15,6 +15,9 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Locates the virtual 6-DOF test arm's collision profile JSON fixture by probing a small set of
+/// relative paths (accounting for different test-runner working directories); falls back to the
+/// first candidate (unopened) if none exist so the caller gets a meaningful "file not found".
 std::string virtualCollisionProfilePath()
 {
     const char* candidates[] = {
@@ -30,6 +33,9 @@ std::string virtualCollisionProfilePath()
     return candidates[0];
 }
 
+/// Locates the Nachi MZ04D collision profile JSON fixture by probing a small set of relative
+/// paths (accounting for different test-runner working directories); falls back to the first
+/// candidate (unopened) if none exist so the caller gets a meaningful "file not found".
 std::string nachiCollisionProfilePath()
 {
     const char* candidates[] = {
@@ -45,6 +51,10 @@ std::string nachiCollisionProfilePath()
     return candidates[0];
 }
 
+/// Asserts (via QCOMPARE/QVERIFY) that `actual` matches `expected` field-by-field: id, robot
+/// model, geometry/disabled-pair/source/metadata counts, and per-geometry id, link id, shape
+/// type, sphere/capsule dimensions, geometry-to-link transform (within 1e-12 matrix norm),
+/// margin, and enabled flag.
 void compareProfiles(const CollisionProfile& expected, const CollisionProfile& actual)
 {
     QCOMPARE(actual.id, expected.id);
@@ -147,6 +157,9 @@ void CollisionProfileJsonTests::nachiProfileJsonMatchesCppFallbackAndRepresentat
                             .arg(collisionResult.pairs.size())));
 }
 
+/// QtTest entry point for CollisionProfileJsonTests: constructs the suite and runs it via
+/// QTest::qExec.
+/// @return the number of failing test functions (0 = all passed)
 int runCollisionProfileJsonTests(int argc, char** argv)
 {
     CollisionProfileJsonTests tests;

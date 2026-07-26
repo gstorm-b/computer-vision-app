@@ -5,11 +5,21 @@
 #include <cmath>
 #include <optional>
 
+/// Built-in preset robot configurations shipped with RobotKinematics (test fixtures and
+/// reference arms usable without an external JSON preset file).
 namespace RobotKinematics::Presets {
 
+/// Translation-unit-local helpers for building the virtual 6-DOF test arm preset.
 namespace {
-constexpr double kPi = 3.141592653589793238462643383279502884;
+constexpr double kPi = 3.141592653589793238462643383279502884;  ///< Pi, used for the default +/-pi revolute joint range.
 
+/// Builds a Revolute Joint with a full +/-pi range, no velocity/acceleration limits, a
+/// zero home position, and an alias derived from `id` (e.g. "J1" -> "JT1").
+/// @param id joint id (expected in the form "J<n>"); also used to derive the JT-alias
+/// @param parent parent link id
+/// @param child child link id
+/// @param origin joint origin pose relative to the parent link
+/// @param axis joint rotation axis, expressed in the joint's local frame
 Joint revolute(const std::string& id,
                const std::string& parent,
                const std::string& child,
@@ -30,6 +40,12 @@ Joint revolute(const std::string& id,
 }
 }
 
+/// Builds the "Virtual6DofTestArm" preset: a fixture 6-DOF serial revolute arm (base_link
+/// through flange, joints J1-J6 built via revolute()) with a vision user frame, default
+/// and probe tools, shoulder/elbow/wrist posture labels, an adaptive damped
+/// least-squares solver configuration, a project_fixture source reference, and
+/// collision-profile/purpose metadata.
+/// @return the fully populated SerialRobotConfig for this test fixture
 SerialRobotConfig virtual6DofTestArm()
 {
     SerialRobotConfig config;

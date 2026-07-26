@@ -4,10 +4,14 @@
 
 #include "core/logger/app_logger.h"
 
+/// Application data-model types: tasks, device bindings, and localization signal mapping.
 namespace vc::model {
 
+/// Translation-unit-local helpers backing LocalizationSignalMapper::configure().
 namespace {
 
+/// TaskLocalizeConfig gadget property names eligible for PLC-tag mapping; configure() looks up
+/// each by name via QMetaObject so the list order does not affect behavior.
 constexpr const char *kSignalFields[] = {
     "nActiveCamera",
     "nActivePatternGroup",
@@ -24,6 +28,11 @@ constexpr const char *kSignalFields[] = {
     "bTaskFault",
 };
 
+/// Reads the trimmed-nothing string value of gadget property `fieldName` from `config` via
+/// QMetaObject reflection.
+/// @param config the localization config gadget to read from
+/// @param fieldName name of a TaskLocalizeConfig property (see kSignalFields)
+/// @return the property's string value, or an empty string if `fieldName` is not a known property
 QString readSignalTag(const TaskLocalizeConfig &config, const char *fieldName)
 {
     const QMetaObject &meta = TaskLocalizeConfig::staticMetaObject;

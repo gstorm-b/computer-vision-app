@@ -49,17 +49,24 @@
 
 using namespace RobotKinematics;
 
+/// Internal helpers used only within this translation unit: asset-path resolution, VTK/Eigen
+/// pose-matrix conversions, and the static part/pose constants used to build and pose the
+/// Nachi MZ04D example scene.
 namespace
 {
+/// Static descriptor for one visual part (STL mesh) of the robot model: which file to load,
+/// how to display it, and which FK link drives its pose.
 struct RobotVisualPartSpec
 {
-    const char* key;
-    const char* displayName;
-    const char* fileName;
-    const char* colorName;
-    const char* linkId;
+    const char* key;         ///< Stable identifier used to look up per-part UI/debug state (e.g. "j1", "tool").
+    const char* displayName; ///< Human-readable name used in status/warning messages.
+    const char* fileName;    ///< STL file name, resolved under the Nachi asset directory.
+    const char* colorName;   ///< vtkNamedColors color name applied to the mesh actor.
+    const char* linkId;      ///< FK link id (key into FkChain::linkPosesInBase) that drives this part's pose.
 };
 
+/// The 8 STL visual parts (base + joints 1-6 + tool) that make up the Nachi MZ04D example
+/// scene, in the order loadRobotVisuals() adds them and the per-part checkbox arrays index them.
 constexpr std::array<RobotVisualPartSpec, 8> kRobotParts = {{
     {"base", "Base", "MZ04-01_base.stl", "Silver", "base_link"},
     {"j1", "Joint 1", "MZ04-01_j1.stl", "SlateGray", "link_1"},
@@ -71,31 +78,45 @@ constexpr std::array<RobotVisualPartSpec, 8> kRobotParts = {{
     {"tool", "Centering Tool Mesh", "Centering_tool.stl", "DarkOrange", "flange"},
 }};
 
+/// Joint angles (degrees) for the "Midpoint" sample-pose button: joint 2 raised 90 deg, all
+/// other joints at zero.
 constexpr std::array<double, 6> kMidPointDegrees = {
     0.0, 90.0, 0.0, 0.0, 0.0, 0.0,
 };
 
 
+/// Joint angles (degrees) for teach-pendant measurement point 1, from
+/// docs/preset_references/nachi-mz04d.md.
 constexpr std::array<double, 6> kTeachPoint1Degrees = {
     28.1579, -18.8069, 163.839, -0.710019, 35.8922, 152.731,
 };
 
+/// Joint angles (degrees) for teach-pendant measurement point 20, from
+/// docs/preset_references/nachi-mz04d.md.
 constexpr std::array<double, 6> kTeachPoint20Degrees = {
     -0.00219726, 0.00430813, 179.996, 0.00459559, 0.0046875, -0.000121055,
 };
 
+/// RGB color (0-1) applied to any actor whose link/geometry is currently reported as colliding.
 constexpr std::array<double, 3> kCollisionHighlightColor = {
     0.92, 0.28, 0.18,
 };
 
+/// RGB color (0-1) for non-colliding primitive-backend sphere collision debug actors.
 constexpr std::array<double, 3> kPrimitiveSphereColor = {
     0.35, 0.86, 0.72,
 };
 
+/// RGB color (0-1) for non-colliding primitive-backend capsule collision debug actors.
 constexpr std::array<double, 3> kPrimitiveCapsuleColor = {
     0.98, 0.78, 0.34,
 };
 
+/// Locates the Nachi runtime asset directory (`presets/Nachi/MZ04`) by checking the application
+/// directory, the current working directory, and up to 8 ancestor directories of the
+/// application directory.
+/// @return absolute path to the asset directory, or an empty string if none of the candidate
+/// roots contain it.
 QString findAssetsDirectory()
 {
     const QString appDirPath = QCoreApplication::applicationDirPath();
@@ -123,6 +144,10 @@ QString findAssetsDirectory()
     return QString();
 }
 
+/// Builds the de-duplicated list of candidate root directories (application directory, current
+/// working directory, and up to 8 ancestor directories of the application directory) used by
+/// findRepoRelativePath() to resolve preset-metadata-relative paths.
+/// @return candidate root directories, most-specific first.
 QStringList searchRootPaths()
 {
     const QString appDirPath = QCoreApplication::applicationDirPath();
@@ -142,6 +167,11 @@ QStringList searchRootPaths()
     return candidateRoots;
 }
 
+/// Resolves a path stored in preset metadata (e.g. a collision profile path) against the repo:
+/// tries `relativePath` directly first, then joins it with each of searchRootPaths() until a
+/// file exists.
+/// @param relativePath path as recorded in preset metadata
+/// @return absolute path to the first existing match, or an empty string if none exists.
 QString findRepoRelativePath(const QString& relativePath)
 {
     if (relativePath.isEmpty()) {
@@ -163,11 +193,13 @@ QString findRepoRelativePath(const QString& relativePath)
     return QString();
 }
 
+/// Formats `value` as a fixed-point decimal string with the given number of decimal places.
 QString formatNumber(double value, int decimals)
 {
     return QString::number(value, 'f', decimals);
 }
 
+/// Copies a 4x4 Eigen transform into a newly allocated vtkMatrix4x4 with the same element values.
 vtkSmartPointer<vtkMatrix4x4> toVtkMatrix(const Eigen::Matrix4d& values)
 {
     vtkSmartPointer<vtkMatrix4x4> matrix = vtkSmartPointer<vtkMatrix4x4>::New();
@@ -179,6 +211,14 @@ vtkSmartPointer<vtkMatrix4x4> toVtkMatrix(const Eigen::Matrix4d& values)
     return matrix;
 }
 
+/// Builds the 4x4 transform used to place a unit-sized VTK debug primitive (sphere/cylinder) at
+/// a collision geometry's pose: combines `poseInBase`'s rotation with `sourceToGeometryRotation`
+/// (to align the VTK source's default axis with the geometry's own axis) and the per-axis
+/// `scaleMm`, and converts the pose's meter translation to millimeters (the scene's world unit).
+/// @param poseInBase pose of the geometry origin in the robot base frame (meters)
+/// @param sourceToGeometryRotation extra rotation applied before scaling
+/// @param scaleMm per-axis scale, in millimeters, applied to the unit-sized VTK source
+/// @return 4x4 transform suitable for vtkProp3D::SetUserMatrix
 Eigen::Matrix4d scaledTransformMm(const Pose& poseInBase,
                                   const Eigen::Matrix3d& sourceToGeometryRotation,
                                   const Eigen::Vector3d& scaleMm)
@@ -190,6 +230,11 @@ Eigen::Matrix4d scaledTransformMm(const Pose& poseInBase,
     return matrix;
 }
 
+/// Builds a debug actor around an already-sized unit VTK polydata source (sphere/cylinder):
+/// applies `color`/`opacity`, surface representation with dark edges, and leaves it hidden
+/// (VisibilityOff) until applyDebugVisualState() shows it.
+/// @param source unit-sized VTK source; caller has already set its radius/height/resolution
+/// @return newly created actor, not yet added to the renderer
 vtkSmartPointer<vtkActor> makePrimitiveActor(vtkPolyDataAlgorithm* source,
                                              const std::array<double, 3>& color,
                                              double opacity)
@@ -210,6 +255,9 @@ vtkSmartPointer<vtkActor> makePrimitiveActor(vtkPolyDataAlgorithm* source,
     return actor;
 }
 
+/// Computes, for each movable (revolute/prismatic) joint in `config` (in configured order), the
+/// midpoint of its limit range, or its home value when the joint has no configured limits.
+/// @return degrees for each movable joint, indexed 0..N-1 in configured joint order.
 std::array<double, 6> midpointDegrees(const SerialRobotConfig& config)
 {
     std::array<double, 6> midpoint{};
@@ -231,6 +279,8 @@ std::array<double, 6> midpointDegrees(const SerialRobotConfig& config)
     return midpoint;
 }
 
+/// Computes, for each movable (revolute/prismatic) joint in `config`, its configured home value.
+/// @return home-position degrees for each movable joint, indexed 0..N-1 in configured joint order.
 std::array<double, 6> homeDegrees(const SerialRobotConfig& config)
 {
     std::array<double, 6> home{};
@@ -246,12 +296,17 @@ std::array<double, 6> homeDegrees(const SerialRobotConfig& config)
     return home;
 }
 
+/// Looks up `linkId`'s pose within `chain`.
+/// @return the link's pose in the base frame, or Pose::identity() if the chain has no entry for it.
 Pose poseForLinkId(const FkChain& chain, const std::string& linkId)
 {
     const auto it = chain.linkPosesInBase.find(linkId);
     return it == chain.linkPosesInBase.end() ? Pose::identity() : it->second;
 }
 
+/// Maps a visual-part key to its 0-based FK joint index.
+/// @return joint index 0-5 for keys "j1".."j6", or -1 for parts with no associated joint
+/// (e.g. "base", "tool").
 int jointAxisIndexForPartKey(const QString& key)
 {
     if (key == QStringLiteral("j1")) {
@@ -270,6 +325,11 @@ int jointAxisIndexForPartKey(const QString& key)
     return -1;
 }
 
+/// Returns the hardcoded visual-alignment correction pose for the STL part identified by `key`,
+/// reconciling each mesh's CAD export frame with the canonical FK link frame; this is where
+/// per-mesh placement tuning is edited (see body comment).
+/// @param key part key ("base", "j1".."j6", "tool"); unrecognized keys return Pose::identity()
+/// @return correction pose, applied after the FK home-relative delta in updateSceneFromChain()
 Pose visualHomeCorrectionForPartKey(const QString& key)
 {
     // Placement tuning lives here. When a mesh was exported in a CAD frame that does not
@@ -296,6 +356,10 @@ Pose visualHomeCorrectionForPartKey(const QString& key)
     return Pose::identity();
 }
 
+/// Builds the example robot configuration used by this demo: the Nachi MZ04D preset extended
+/// with an example "centering_tool" TCP tool (45, 0, 112 mm offset from the flange), recorded
+/// as the default example tool under metadata key "example_visual_tool".
+/// @return the extended configuration used to construct MainWindow's kinematics helpers.
 SerialRobotConfig buildExampleConfig()
 {
     SerialRobotConfig config = Presets::nachiMZ04D();
@@ -309,6 +373,11 @@ SerialRobotConfig buildExampleConfig()
 }
 } // namespace
 
+/// Constructs the main window: builds the example Nachi MZ04D configuration and kinematics
+/// helpers (robot_, frameRegistry_, toolRegistry_, postureResolver_), wires up the VTK viewport
+/// and UI controls, loads the robot/collision debug visuals, then poses the robot at its home
+/// joint configuration and refreshes the scene/readouts.
+/// @param parent optional parent widget
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -335,11 +404,15 @@ MainWindow::MainWindow(QWidget *parent)
     applyJointStateToSceneAndReadouts();
 }
 
+/// Destroys the generated UI (`ui`); the VTK smart pointers and loaded actors clean themselves up.
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/// Builds the VTK render pipeline: creates the QVTKOpenGLNativeWidget/render-window/renderer
+/// hosted inside `ui->vtkContainerWidget`, sets a gradient background, adds a camera key light,
+/// a wireframe ground plane, and an interactive orientation-marker axes widget.
 void MainWindow::setupVtkViewport()
 {
     auto* hostLayout = new QVBoxLayout(ui->vtkContainerWidget);
@@ -392,6 +465,9 @@ void MainWindow::setupVtkViewport()
     orientationMarker_->InteractiveOff();
 }
 
+/// Validates the posture resolver (warns the user via a message box if it could not be created,
+/// disabling posture controls), then loads the primitive and mesh collision profiles and queries
+/// mesh-backend availability.
 void MainWindow::setupModelState()
 {
     if (!postureResolver_) {
@@ -406,6 +482,9 @@ void MainWindow::setupModelState()
     meshBackendInfo_ = CollisionBackends::meshInfo();
 }
 
+/// Configures static UI state after construction: splitter stretch factors, all populate*()
+/// control-population passes, the IK-results/collision-pairs table header behavior, and the
+/// initial status labels; finishes by refreshing action (button enabled) state.
 void MainWindow::setupUiState()
 {
     ui->mainSplitter->setStretchFactor(0, 0);
@@ -433,6 +512,9 @@ void MainWindow::setupUiState()
     updateActionState();
 }
 
+/// Wires every interactive control (joint spin boxes, tool/reference-frame combos, sample-pose
+/// buttons, IK buttons and results table, collision controls, backend combo, and the per-part
+/// visibility/origin/axis checkboxes) to the scene/readout update logic.
 void MainWindow::connectSignals()
 {
     for (QDoubleSpinBox* spinBox : jointSpinBoxes()) {
@@ -488,6 +570,9 @@ void MainWindow::connectSignals()
     }
 }
 
+/// Fills the tool combo box from `config_.tools` (preferring the example "centering_tool", else
+/// falling back to `config_.defaultToolId`) and the reference-frame combo box with "Base" plus
+/// every configured user frame.
 void MainWindow::populateCombos()
 {
     ui->toolComboBox->clear();
@@ -512,6 +597,9 @@ void MainWindow::populateCombos()
     }
 }
 
+/// Sets the unit suffix (" deg") and valid range on each movable-joint spin box, taking the
+/// range from the joint's configured limits or defaulting to ±360 deg when unlimited; also sets
+/// the unit suffixes (mm/deg) on the IK target spin boxes.
 void MainWindow::populateJointControls()
 {
     int movableIndex = 0;
@@ -538,8 +626,12 @@ void MainWindow::populateJointControls()
     ui->targetRxSpinBox->setSuffix(QStringLiteral(" deg"));
 }
 
+/// Fills the shoulder/elbow/wrist posture-request combo boxes with "Any" plus the configured
+/// negative/positive branch labels for each axis (via the local addBranchItems() helper).
 void MainWindow::populatePostureControls()
 {
+    /// Clears `comboBox` and repopulates it with "Any" plus the negative/positive branch labels
+    /// configured for `axis` in `config_.posture.labels` (left empty if the axis is not configured).
     const auto addBranchItems = [&](QComboBox* comboBox, const char* axis) {
         comboBox->clear();
         comboBox->addItem(QStringLiteral("Any"), QString());
@@ -560,6 +652,8 @@ void MainWindow::populatePostureControls()
     addBranchItems(ui->wristRequestComboBox, "wrist");
 }
 
+/// Sets tooltips on the teach-point sample buttons pointing at their source measurement in
+/// docs/preset_references/nachi-mz04d.md.
 void MainWindow::populateSampleButtons()
 {
     ui->teachPoint1Button->setToolTip(
@@ -568,6 +662,9 @@ void MainWindow::populateSampleButtons()
         QStringLiteral("Teach-pendant measurement point 20 from docs/preset_references/nachi-mz04d.md"));
 }
 
+/// Initializes the collision-control panel: safety-margin suffix, default checkbox states, and
+/// status/note labels reflecting whether a valid primitive collision profile
+/// (`collisionProfileAvailable_`) loaded.
 void MainWindow::populateCollisionControls()
 {
     ui->collisionSafetyMarginSpinBox->setSuffix(QStringLiteral(" mm"));
@@ -585,8 +682,13 @@ void MainWindow::populateCollisionControls()
             : QStringLiteral("Collision checking is unavailable until a valid profile loads."));
 }
 
+/// Rebuilds the wireframe debug actors for the mesh collision profiles: removes any previously
+/// added actors from `meshOriginalDebugStates_`/`meshSimplifiedDebugStates_`, then for each
+/// enabled mesh in a valid `meshOriginalProfile_`/`meshSimplifiedProfile_` loads its STL and adds
+/// a hidden wireframe actor (shown later by applyDebugVisualState()).
 void MainWindow::loadMeshCollisionDebugVisuals()
 {
+    /// Removes each state's actor from the renderer, then clears `states`.
     const auto removeActors = [this](std::vector<MeshDebugState>& states) {
         for (MeshDebugState& state : states) {
             if (state.actor) {
@@ -598,6 +700,9 @@ void MainWindow::loadMeshCollisionDebugVisuals()
     removeActors(meshOriginalDebugStates_);
     removeActors(meshSimplifiedDebugStates_);
 
+    /// For each enabled mesh in `profileState` (skipped entirely if the profile is invalid),
+    /// loads the STL from disk, adds a hidden wireframe actor in `color` to the renderer, and
+    /// appends its MeshDebugState (link id, mesh-to-link offset, mm scale) to `output`.
     const auto loadStatesFor = [this](const MeshProfileState& profileState,
                                       std::vector<MeshDebugState>& output,
                                       const std::array<double, 3>& color) {
@@ -650,6 +755,10 @@ void MainWindow::loadMeshCollisionDebugVisuals()
     loadStatesFor(meshSimplifiedProfile_, meshSimplifiedDebugStates_, kMeshSimplifiedColor);
 }
 
+/// Rebuilds the primitive-backend collision debug actors (`primitiveDebugStates_`) from
+/// `collisionProfile_`: for each enabled geometry, creates a sphere actor or a
+/// cylinder+two-endcap-spheres actor set (unit-sized, scaled/positioned later per joint state by
+/// updateCollisionDebugVisuals()), added hidden to the renderer.
 void MainWindow::loadCollisionDebugVisuals()
 {
     primitiveDebugStates_.clear();
@@ -709,6 +818,9 @@ void MainWindow::loadCollisionDebugVisuals()
     }
 }
 
+/// Sets the default debug-checkbox state (all parts visible, origins/axes hidden), disables the
+/// base/tool axis checkboxes (those parts have no associated FK joint axis), and sets the debug
+/// hint label text describing where placement parameters live in this file.
 void MainWindow::populateDebugControls()
 {
     const std::array<QCheckBox*, 8> visible = partVisibleCheckBoxes();
@@ -736,6 +848,11 @@ void MainWindow::populateDebugControls()
                        "the actual FK joint axis from `chain.joints`."));
 }
 
+/// Loads the 8 STL meshes listed in `kRobotParts` from the resolved asset directory, builds a
+/// shaded actor plus an origin-axes actor and a joint-axis line actor for each, computes each
+/// part's home-pose FK link transform and visual correction, and appends a VisualPartState to
+/// `visualParts_`. Resets the camera and shows a status-bar/warning message summarizing any
+/// missing or unreadable meshes.
 void MainWindow::loadRobotVisuals()
 {
     assetsDirectory_ = findAssetsDirectory();
@@ -839,6 +956,9 @@ void MainWindow::loadRobotVisuals()
     }
 }
 
+/// Recomputes the forward-kinematics chain from the current joint spin-box values and refreshes
+/// everything that depends on it: the 3D scene transforms, pose readouts, joint-limit status,
+/// current posture classification, and collision state; re-renders the VTK viewport at the end.
 void MainWindow::applyJointStateToSceneAndReadouts()
 {
     const JointVector joints = currentJointVector();
@@ -854,6 +974,10 @@ void MainWindow::applyJointStateToSceneAndReadouts()
     renderWindow_->Render();
 }
 
+/// Applies `chain`'s link poses to every loaded visual part's VTK actor (mesh, origin axes, and
+/// joint-axis line, the latter recomputed from the FK joint's actual origin/axis in `chain`),
+/// then refreshes the collision/mesh debug overlays and visibility state.
+/// @param chain forward-kinematics result for the current joint state
 void MainWindow::updateSceneFromChain(const FkChain& chain)
 {
     for (VisualPartState& part : visualParts_) {
@@ -898,6 +1022,10 @@ void MainWindow::updateSceneFromChain(const FkChain& chain)
     applyDebugVisualState();
 }
 
+/// Repositions each primitive-backend debug actor (`primitiveDebugStates_`) for the current
+/// joint state: spheres get a uniform mm scale, capsules get a scaled/rotated cylinder body plus
+/// two endcap spheres offset by ±half the capsule length along its axis.
+/// @param chain forward-kinematics result providing each geometry's link pose
 void MainWindow::updateCollisionDebugVisuals(const FkChain& chain)
 {
     if (!collisionProfileAvailable_) {
@@ -947,8 +1075,14 @@ void MainWindow::updateCollisionDebugVisuals(const FkChain& chain)
     }
 }
 
+/// Repositions every mesh-collision debug actor (in both `meshOriginalDebugStates_` and
+/// `meshSimplifiedDebugStates_`) for the current joint state, scaling each by its own
+/// `stlScaleToMm`.
+/// @param chain forward-kinematics result providing each mesh's link pose
 void MainWindow::updateMeshDebugVisuals(const FkChain& chain)
 {
+    /// Repositions each mesh actor in `states` whose link id is present in `chain`; entries
+    /// without an actor or a matching link are left untouched.
     const auto updateGroup = [&chain](std::vector<MeshDebugState>& states) {
         for (MeshDebugState& state : states) {
             if (!state.actor) {
@@ -968,6 +1102,11 @@ void MainWindow::updateMeshDebugVisuals(const FkChain& chain)
     updateGroup(meshSimplifiedDebugStates_);
 }
 
+/// Applies all per-part/per-geometry debug visibility and highlight-color state to the scene:
+/// mesh/origin/axis actor visibility from the corresponding checkboxes (highlighting parts whose
+/// link is in `collidingLinkIds_`), and primitive/mesh collision-shape actor visibility gated by
+/// the "show collision shapes" checkbox and the currently selected `backendSelection_`
+/// (highlighting geometries in `collidingGeometryIds_`); re-renders the viewport at the end.
 void MainWindow::applyDebugVisualState()
 {
     const std::array<QCheckBox*, 8> visible = partVisibleCheckBoxes();
@@ -1020,6 +1159,8 @@ void MainWindow::applyDebugVisualState()
         }
     }
 
+    /// Sets each mesh actor in `states` visible/hidden per `visible`, coloring colliding meshes
+    /// (per `collidingGeometryIds_`) with the highlight color and others with their base color.
     const auto applyMeshGroup = [&](std::vector<MeshDebugState>& states, bool visible) {
         for (MeshDebugState& state : states) {
             if (!state.actor) {
@@ -1041,6 +1182,11 @@ void MainWindow::applyDebugVisualState()
     }
 }
 
+/// Recomputes and displays the flange and TCP pose readouts (Nachi pendant XYZ/RzRyRx
+/// convention) in the currently selected reference frame; on failure to resolve the selected
+/// tool or reference frame, sets the affected fields to "n/a" and reports the error via
+/// updateIkStatus() instead.
+/// @param chain forward-kinematics result for the current joint state
 void MainWindow::updatePoseReadouts(const FkChain& chain)
 {
     const Result<Tool> tool = selectedTool();
@@ -1085,6 +1231,9 @@ void MainWindow::updatePoseReadouts(const FkChain& chain)
     ui->tcpRxLineEdit->setText(formatNumber(tcpDisplay.rx_deg, 4));
 }
 
+/// Validates `joints` against the configured joint limits and updates `ui->jointStatusLabel`
+/// with either a within-limits confirmation or the first reported limit violation (joint id,
+/// value, and allowed range in degrees).
 void MainWindow::updateJointStatus(const JointVector& joints)
 {
     const JointLimitCheck check = JointLimitValidator::validate(config_, joints);
@@ -1108,6 +1257,9 @@ void MainWindow::updateJointStatus(const JointVector& joints)
     ui->jointStatusLabel->setText(Robot3DVisualizer::statusText(check.status));
 }
 
+/// Classifies the current arm posture (shoulder/elbow/wrist) for `joints` via `postureResolver_`
+/// and updates the corresponding value labels, showing "Unavailable" if no resolver was created
+/// or classification fails.
 void MainWindow::updateCurrentPosture(const JointVector& joints)
 {
     if (!postureResolver_) {
@@ -1133,6 +1285,12 @@ void MainWindow::updateCurrentPosture(const JointVector& joints)
         Robot3DVisualizer::postureLabel(config_.posture, "wrist", posture.value.wrist));
 }
 
+/// Runs a self-collision check for `joints` against the currently selected backend
+/// (`backendSelection_`: primitive, mesh-original, or mesh-simplified), populates
+/// `collidingGeometryIds_`/`collidingLinkIds_`/`lastCollisionPairs_` and the collision-pairs
+/// table, and updates `ui->collisionStatusLabel` with the outcome (or with why checking is
+/// unavailable/disabled). No-ops the check (but still clears prior state) when the "enable
+/// collision check" checkbox is unchecked.
 void MainWindow::updateCollisionState(const JointVector& joints)
 {
     collidingGeometryIds_.clear();
@@ -1222,6 +1380,7 @@ void MainWindow::updateCollisionState(const JointVector& joints)
         collidingLinkIds_.insert(pair.linkB);
     }
 
+    /// Short label for the currently selected collision backend, used in the status message suffix.
     const QString backendLabel = [this]() -> QString {
         switch (backendSelection_) {
         case BackendSelection::Primitive:
@@ -1261,12 +1420,15 @@ void MainWindow::updateCollisionState(const JointVector& joints)
     applyDebugVisualState();
 }
 
+/// Shows `message` in both the IK status label and the main window's status bar.
 void MainWindow::updateIkStatus(const QString& message)
 {
     ui->ikStatusLabel->setText(message);
     statusBar()->showMessage(message);
 }
 
+/// Enables `ui->applySelectedSolutionButton` only when a valid row is currently selected in the
+/// IK results table.
 void MainWindow::updateActionState()
 {
     const int currentRow = ui->ikResultsTableWidget->currentRow();
@@ -1274,6 +1436,10 @@ void MainWindow::updateActionState()
     ui->applySelectedSolutionButton->setEnabled(hasSelection);
 }
 
+/// Computes the current TCP pose (selected tool, expressed in the selected reference frame) and
+/// copies it into the IK target spin boxes (blocking their signals while doing so, so this does
+/// not itself trigger a re-solve); reports an error via updateIkStatus() if the selected tool or
+/// reference frame cannot be resolved.
 void MainWindow::resetTargetToCurrentTcp()
 {
     const JointVector joints = currentJointVector();
@@ -1310,6 +1476,11 @@ void MainWindow::resetTargetToCurrentTcp()
     updateIkStatus(QStringLiteral("Copied current TCP pose into the IK target fields."));
 }
 
+/// Builds an IKRequest from the current target spin boxes, requested posture, reference frame,
+/// tool, and options, then solves it with `robot_.solve()` or `robot_.solveAll()`; populates the
+/// results table and reports a summary (solution count and status) via updateIkStatus().
+/// @param solveAll if true, calls solveAll() to enumerate every solution branch instead of just
+/// the best one
 void MainWindow::solveInverseKinematics(bool solveAll)
 {
     const Result<std::optional<ArmPosture>> postureRequest = requestedPosture();
@@ -1356,6 +1527,10 @@ void MainWindow::solveInverseKinematics(bool solveAll)
     updateIkStatus(summary);
 }
 
+/// Stores `result.solutions` in `lastIkSolutions_` and rebuilds the IK results table: one row
+/// per solution with rank, per-joint degrees, position/orientation error, posture labels, and a
+/// total-cost cell whose tooltip breaks down the individual cost components; selects the first
+/// row (the best solution) when any exist.
 void MainWindow::populateIkResults(const IKResult& result)
 {
     lastIkSolutions_ = result.solutions;
@@ -1401,6 +1576,9 @@ void MainWindow::populateIkResults(const IKResult& result)
     updateActionState();
 }
 
+/// Rebuilds the collision-pairs table from `result.pairs`, sorted with colliding pairs first
+/// (then by ascending clearance distance) and colliding rows highlighted; clears the table if
+/// `result` did not complete successfully.
 void MainWindow::populateCollisionPairs(const CollisionCheckResult& result)
 {
     if (!result.ok()) {
@@ -1452,6 +1630,8 @@ void MainWindow::populateCollisionPairs(const CollisionCheckResult& result)
     }
 }
 
+/// Copies the joint angles of the currently selected IK results-table row into the joint spin
+/// boxes via setJointDegrees(); reports via updateIkStatus() if no row is selected.
 void MainWindow::applySelectedIkSolution()
 {
     const int row = ui->ikResultsTableWidget->currentRow();
@@ -1470,6 +1650,10 @@ void MainWindow::applySelectedIkSolution()
     updateIkStatus(QStringLiteral("Applied IK solution #%1 to the joint controls.").arg(row + 1));
 }
 
+/// Sets each joint spin box to the corresponding value in `degrees` (blocking signals so this
+/// does not recursively trigger per-spin-box change handlers), then refreshes the scene and
+/// readouts once via applyJointStateToSceneAndReadouts().
+/// @param degrees target angle in degrees for each of the 6 movable joints, in spin-box order
 void MainWindow::setJointDegrees(const std::array<double, 6>& degrees)
 {
     const std::array<QDoubleSpinBox*, 6> spins = jointSpinBoxes();
@@ -1480,6 +1664,7 @@ void MainWindow::setJointDegrees(const std::array<double, 6>& degrees)
     applyJointStateToSceneAndReadouts();
 }
 
+/// @return the current joint state read directly from the 6 joint spin boxes, in degrees.
 JointVector MainWindow::currentJointVector() const
 {
     const std::array<QDoubleSpinBox*, 6> spins = jointSpinBoxes();
@@ -1493,6 +1678,7 @@ JointVector MainWindow::currentJointVector() const
     });
 }
 
+/// @return the 6 movable-joint spin boxes (joint1..joint6), in joint order.
 std::array<QDoubleSpinBox*, 6> MainWindow::jointSpinBoxes() const
 {
     return {{
@@ -1505,6 +1691,7 @@ std::array<QDoubleSpinBox*, 6> MainWindow::jointSpinBoxes() const
     }};
 }
 
+/// @return the 6 IK target spin boxes (X, Y, Z, Rz, Ry, Rx), in that order.
 std::array<QDoubleSpinBox*, 6> MainWindow::targetSpinBoxes() const
 {
     return {{
@@ -1517,6 +1704,7 @@ std::array<QDoubleSpinBox*, 6> MainWindow::targetSpinBoxes() const
     }};
 }
 
+/// @return the 8 per-part "visible" checkboxes, in `kRobotParts` order (base, j1..j6, tool).
 std::array<QCheckBox*, 8> MainWindow::partVisibleCheckBoxes() const
 {
     return {{
@@ -1531,6 +1719,7 @@ std::array<QCheckBox*, 8> MainWindow::partVisibleCheckBoxes() const
     }};
 }
 
+/// @return the 8 per-part "show origin axes" checkboxes, in `kRobotParts` order.
 std::array<QCheckBox*, 8> MainWindow::partOriginCheckBoxes() const
 {
     return {{
@@ -1545,6 +1734,7 @@ std::array<QCheckBox*, 8> MainWindow::partOriginCheckBoxes() const
     }};
 }
 
+/// @return the 8 per-part "show joint axis" checkboxes, in `kRobotParts` order.
 std::array<QCheckBox*, 8> MainWindow::partAxisCheckBoxes() const
 {
     return {{
@@ -1559,12 +1749,20 @@ std::array<QCheckBox*, 8> MainWindow::partAxisCheckBoxes() const
     }};
 }
 
+/// @return the tool currently selected in `ui->toolComboBox` (looked up in `toolRegistry_`), or
+/// the registry's default tool if the combo box has no valid selection.
 Result<Tool> MainWindow::selectedTool() const
 {
     const QString toolId = ui->toolComboBox->currentData().toString();
     return toolId.isEmpty() ? toolRegistry_.getDefault() : toolRegistry_.get(ToolId{toolId.toStdString()});
 }
 
+/// Resolves the reference frame currently selected in `ui->referenceFrameComboBox` to a pose in
+/// the base frame: identity for "Base" (or an empty selection), otherwise looks up the user
+/// frame in `frameRegistry_` and evaluates it against `chain`.
+/// @param chain forward-kinematics result used to evaluate a user-defined frame, if selected
+/// @return the resolved reference frame pose, or a failure Result if the selected frame id is
+/// not registered
 Result<Pose> MainWindow::selectedReferenceInBase(const FkChain& chain) const
 {
     const QString frameId = ui->referenceFrameComboBox->currentData().toString();
@@ -1579,6 +1777,11 @@ Result<Pose> MainWindow::selectedReferenceInBase(const FkChain& chain) const
     return ForwardKinematics::userFrameInBase(chain, frame.value);
 }
 
+/// Reads the shoulder/elbow/wrist posture-request combo boxes and resolves them (via
+/// `postureResolver_->fromLabels()`) into an ArmPosture to constrain the next IK solve.
+/// @return std::nullopt if no posture resolver exists or no branch was requested (any combo left
+/// at "Any"); otherwise the resolved posture, or a failure Result if the selected label
+/// combination could not be resolved.
 Result<std::optional<ArmPosture>> MainWindow::requestedPosture() const
 {
     if (!postureResolver_) {
@@ -1586,6 +1789,7 @@ Result<std::optional<ArmPosture>> MainWindow::requestedPosture() const
     }
 
     std::map<std::string, std::string> labels;
+    /// Records the selected label for `axis` in `labels`, if `comboBox` has a non-empty selection.
     const auto capture = [&](QComboBox* comboBox, const std::string& axis) {
         const QString value = comboBox->currentData().toString();
         if (!value.isEmpty()) {
@@ -1608,6 +1812,12 @@ Result<std::optional<ArmPosture>> MainWindow::requestedPosture() const
     return Result<std::optional<ArmPosture>>::success(posture.value);
 }
 
+/// Loads and validates the original and simplified mesh collision profiles referenced by
+/// `config_.metadata["meshCollisionProfile"]`: resolves the original path via
+/// findRepoRelativePath(), derives the simplified path via
+/// Robot3DVisualizer::meshProfileSimplifiedPath(), and loads/validates each into
+/// `meshOriginalProfile_`/`meshSimplifiedProfile_` (leaving both with an explanatory `note` if
+/// metadata is missing or a file cannot be found).
 void MainWindow::loadMeshCollisionProfiles()
 {
     meshOriginalProfile_ = MeshProfileState{};
@@ -1631,6 +1841,9 @@ void MainWindow::loadMeshCollisionProfiles()
         return;
     }
 
+    /// Loads the mesh collision profile JSON at `path` and validates it against `config_`,
+    /// writing the outcome (loaded/valid flags, source path, and a human-readable note including
+    /// mesh count and backend preference on success) into `state`.
     const auto loadAndValidate = [this](const QString& path, MeshProfileState& state) {
         state.loaded = false;
         state.valid = false;
@@ -1685,6 +1898,10 @@ void MainWindow::loadMeshCollisionProfiles()
     loadAndValidate(resolvedSimplified, meshSimplifiedProfile_);
 }
 
+/// Rebuilds `ui->collisionBackendComboBox` (primitive always available; mesh-original/simplified
+/// added only when the mesh backend is compiled in and their respective profile is valid),
+/// resets the selection to the primitive backend, and updates the mesh-backend availability and
+/// per-profile status labels.
 void MainWindow::populateBackendControls()
 {
     QSignalBlocker blocker(ui->collisionBackendComboBox);
@@ -1720,6 +1937,9 @@ void MainWindow::populateBackendControls()
                 .arg(QString::fromStdString(meshBackendInfo_.detail)));
     }
 
+    /// Formats a one-line status string for a mesh profile: "OK - source (note)" when valid,
+    /// "Invalid - note" when loaded but failed validation, the stored note if present, or
+    /// "Not loaded" otherwise.
     const auto stateText = [](const MeshProfileState& state) {
         if (state.valid) {
             return QStringLiteral("OK - %1 (%2)").arg(state.source, state.note);
@@ -1737,6 +1957,12 @@ void MainWindow::populateBackendControls()
     ui->meshSimplifiedProfileValueLabel->setText(stateText(meshSimplifiedProfile_));
 }
 
+/// Loads the primitive collision profile referenced by
+/// `config_.metadata["collisionProfile"]`, falling back to the built-in conservative
+/// `CollisionProfiles::nachiMZ04D()` profile if metadata is missing, the file cannot be found,
+/// or loading fails; validates whichever profile was obtained against `config_` and only marks
+/// `collisionProfileAvailable_` true if validation succeeds. Records the source and any
+/// fallback/validation notes in `collisionProfileSource_`/`collisionProfileNote_`.
 void MainWindow::loadCollisionProfile()
 {
     collisionProfileAvailable_ = false;

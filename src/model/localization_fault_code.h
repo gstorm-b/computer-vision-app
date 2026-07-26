@@ -5,19 +5,26 @@
 
 namespace vc::model {
 
+/// Fault codes reported by the localization task's runtime/recovery logic (see
+/// LocalizationRuntimeController), grouped by subsystem: 100s camera, 200s vision output,
+/// 300s PLC, 400s pattern/calibration, 500s internal.
 enum class LocalizationFaultCode : int {
-    None = 0,
-    CameraLost = 100,
-    CameraConnectFailed = 101,
-    CameraGrabTimeout = 102,
-    VisionOutputLost = 200,
-    VisionOutputSendFailed = 201,
-    PlcLost = 300,
-    PatternInvalid = 400,
-    CalibrationInvalid = 401,
-    InternalError = 500,
+    None = 0,                     ///< No fault.
+    CameraLost = 100,             ///< Camera connection was lost after being connected.
+    CameraConnectFailed = 101,    ///< Camera failed to (re)connect.
+    CameraGrabTimeout = 102,      ///< Camera did not deliver a frame within the grab timeout.
+    VisionOutputLost = 200,       ///< Vision-output device connection was lost, or failed to connect.
+    VisionOutputSendFailed = 201, ///< Vision-output device failed to send the matching result.
+    PlcLost = 300,                ///< Primary PLC connection was lost, or failed to connect.
+    PatternInvalid = 400,         ///< Active pattern/match group is missing or invalid.
+    CalibrationInvalid = 401,     ///< Active camera calibration is missing or invalid.
+    InternalError = 500,          ///< Unexpected internal error not covered by another code.
 };
 
+/// Returns the stable, human-readable identifier for `code` (e.g. "CameraLost"), used for
+/// logging/diagnostics; falls back to "Unknown" for any value not in the switch.
+/// @param code fault code to name
+/// @return the identifier string for `code`
 inline QString localizationFaultCodeName(LocalizationFaultCode code)
 {
     switch (code) {
@@ -46,6 +53,9 @@ inline QString localizationFaultCodeName(LocalizationFaultCode code)
     return QStringLiteral("Unknown");
 }
 
+/// Returns the numeric fault-code value (e.g. for publishing over "nFaultCode").
+/// @param code fault code to convert
+/// @return the underlying int value of `code`
 inline int localizationFaultCodeValue(LocalizationFaultCode code)
 {
     return static_cast<int>(code);

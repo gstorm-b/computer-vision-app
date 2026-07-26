@@ -123,8 +123,11 @@
 #include "QJsonObject"
 #include "opencv2/opencv.hpp"
 
+/// JSON <-> OpenCV geometry conversion helpers (cv::Point/Point2f/Size2f to/from
+/// QJsonObject), used when persisting calibration/ROI geometry to settings/JSON files.
 namespace jsu {
 
+/// @return `point` encoded as a QJsonObject with "X"/"Y" fields.
 inline QJsonObject Point2f2Json(cv::Point2f point) {
     QJsonObject json;
     json["X"] = point.x;
@@ -132,6 +135,7 @@ inline QJsonObject Point2f2Json(cv::Point2f point) {
     return json;
 }
 
+/// @return `point` encoded as a QJsonObject with "X"/"Y" fields.
 inline QJsonObject Point2Json(cv::Point point) {
     QJsonObject json;
     json["X"] = point.x;
@@ -139,6 +143,8 @@ inline QJsonObject Point2Json(cv::Point point) {
     return json;
 }
 
+/// @return a cv::Point built from `obj`'s "X"/"Y" fields (each read as double, then
+///         truncated to int by cv::Point's assignment).
 inline cv::Point Json2Point(QJsonObject &obj) {
     cv::Point point;
     point.x = obj["X"].toDouble();
@@ -146,6 +152,7 @@ inline cv::Point Json2Point(QJsonObject &obj) {
     return point;
 }
 
+/// @return a cv::Point2f built from `obj`'s "X"/"Y" fields.
 inline cv::Point2f Json2Point2f(QJsonObject &obj) {
     cv::Point2f point;
     point.x = obj["X"].toDouble();
@@ -153,6 +160,7 @@ inline cv::Point2f Json2Point2f(QJsonObject &obj) {
     return point;
 }
 
+/// @return `_size` encoded as a QJsonObject with "W"/"H" fields.
 inline QJsonObject Size2f2Json(cv::Size2f _size) {
     QJsonObject json;
     json["W"] = _size.width;
@@ -160,6 +168,7 @@ inline QJsonObject Size2f2Json(cv::Size2f _size) {
     return json;
 }
 
+/// @return a cv::Size2f built from `obj`'s "W"/"H" fields.
 inline cv::Size2f Json2Size2f(QJsonObject &obj) {
     cv::Size2f sz;
     sz.width = obj["W"].toDouble();

@@ -8,11 +8,17 @@
 namespace RobotKinematics {
 
 namespace {
+/// Wraps an Eigen rigid transform as a Pose (thin adapter over Pose::fromIsometry).
 Pose poseFromIsometry(const Eigen::Isometry3d& transform)
 {
     return Pose::fromIsometry(transform);
 }
 
+/// Builds the classic DH "Z" homogeneous transform: a rotation about Z by `theta`
+/// composed with a translation along Z by `d`.
+/// @param theta rotation about the Z axis, in radians
+/// @param d translation along the Z axis, in meters
+/// @return the composed Isometry3d transform
 Eigen::Isometry3d rzTz(double theta, double d)
 {
     Eigen::Isometry3d transform = Eigen::Isometry3d::Identity();
@@ -21,6 +27,11 @@ Eigen::Isometry3d rzTz(double theta, double d)
     return transform;
 }
 
+/// Builds the classic DH "X" homogeneous transform: a translation along X by `a`
+/// composed with a rotation about X by `alpha`.
+/// @param a translation along the X axis, in meters
+/// @param alpha rotation about the X axis, in radians
+/// @return the composed Isometry3d transform
 Eigen::Isometry3d txRx(double a, double alpha)
 {
     Eigen::Isometry3d transform = Eigen::Isometry3d::Identity();
@@ -30,6 +41,11 @@ Eigen::Isometry3d txRx(double a, double alpha)
 }
 }
 
+/// Builds a serial-robot configuration from a row of standard Denavit-Hartenberg
+/// parameters: for each row it synthesizes a "base_link"..."flange" link chain and
+/// inserts a movable joint (revolute or prismatic, carrying the row's DH-derived origin)
+/// followed by a Fixed joint encoding the remaining DH offset, then validates the
+/// assembled config via RobotModelValidator.
 Result<SerialRobotConfig> DhAdapter::fromStandardDh(const RobotIdentity& identity,
                                                     const std::vector<StandardDhParameter>& rows)
 {

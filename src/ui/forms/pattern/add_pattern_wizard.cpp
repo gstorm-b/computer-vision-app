@@ -21,12 +21,13 @@
 
 namespace {
 
-constexpr int CW = 560;
-constexpr int CH = 380;
-constexpr int DIALOG_W = 920;
-constexpr int DIALOG_H = 640;
+constexpr int CW = 560;         ///< Fixed width (px) of the image/crop/pick/box canvases.
+constexpr int CH = 380;         ///< Fixed height (px) of the image/crop/pick/box canvases.
+constexpr int DIALOG_W = 920;   ///< Fixed overall wizard dialog width (px).
+constexpr int DIALOG_H = 640;   ///< Fixed overall wizard dialog height (px).
 
-// Apply a uniform style to a labeled "section title" (uppercase muted).
+/// Builds a labeled "section title" QLabel with a uniform uppercase, muted,
+/// letter-spaced style; `hint` (if given) is appended after the label text.
 QLabel *makeFieldLabel(const QString &text, const QString &hint = {}) {
     auto *lbl = new QLabel(text + (hint.isEmpty() ? "" : "  " + hint));
     lbl->setStyleSheet(QString(
@@ -36,12 +37,14 @@ QLabel *makeFieldLabel(const QString &text, const QString &hint = {}) {
     return lbl;
 }
 
+/// Creates a 1px-tall QFrame styled as a horizontal divider line.
 QFrame *makeHSeparator() {
     auto *f = new QFrame; f->setFixedHeight(1);
     f->setStyleSheet(QString("background: %1;").arg(ptn::BD));
     return f;
 }
 
+/// Creates a 1px-wide QFrame styled as a vertical divider line.
 QFrame *makeVSeparator() {
     auto *f = new QFrame; f->setFixedWidth(1);
     f->setStyleSheet(QString("background: %1;").arg(ptn::BD));
@@ -54,6 +57,8 @@ QFrame *makeVSeparator() {
 //  AddPatternWizard
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Constructs the wizard fixed-size, modal, applies the pattern theme
+/// stylesheet, builds every step page, and jumps to Step 1 (Image).
 AddPatternWizard::AddPatternWizard(const QString &groupName,
                                    const QStringList &usedNames,
                                    const QList<int>  &usedNumbers,
@@ -75,6 +80,8 @@ AddPatternWizard::AddPatternWizard(const QString &groupName,
 //  UI construction
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Assembles the dialog's top-level layout (header, step rail, stacked step
+/// pages, footer) and forces the crop canvas into its initial "no crop" mode.
 void AddPatternWizard::buildUi() {
     auto *root = new QVBoxLayout(this);
     root->setContentsMargins(0, 0, 0, 0);
@@ -100,6 +107,8 @@ void AddPatternWizard::buildUi() {
         m_cropCanvas->setMode(AddPatternImageCanvas::None);
 }
 
+/// Builds the fixed-height title bar: wizard title, subtitle label
+/// (updated per-step by goToStep()), and a close button wired to onCancel().
 QWidget *AddPatternWizard::buildHeader() {
     auto *w = new QFrame;
     w->setFixedHeight(54);
@@ -137,6 +146,8 @@ QWidget *AddPatternWizard::buildHeader() {
     return w;
 }
 
+/// Creates a single round numbered "step bubble" label for the step rail,
+/// initially styled as not-done and current only when `idx` is 0.
 QLabel *AddPatternWizard::makeStepBubble(int idx) {
     auto *b = new QLabel(QString::number(idx + 1));
     b->setAlignment(Qt::AlignCenter);
@@ -145,6 +156,9 @@ QLabel *AddPatternWizard::makeStepBubble(int idx) {
     return b;
 }
 
+/// Builds the horizontal 5-cell step rail (bubble + title + subline per
+/// step) and populates m_stepBubbles / m_stepLabels for later restyling by
+/// updateStepRail().
 QWidget *AddPatternWizard::buildStepRail() {
     auto *w = new QFrame;
     w->setFixedHeight(50);
@@ -192,6 +206,8 @@ QWidget *AddPatternWizard::buildStepRail() {
     return w;
 }
 
+/// Builds the fixed-height footer bar: status label (updated by
+/// updateFooterStatus()) plus Cancel/Back/Next buttons wired to their slots.
 QWidget *AddPatternWizard::buildFooter() {
     auto *w = new QFrame;
     w->setFixedHeight(54);
@@ -228,6 +244,9 @@ QWidget *AddPatternWizard::buildFooter() {
 
 // ── Step 1 ──────────────────────────────────────────────────────────────────
 
+/// Builds Step 1 ("Image"): left-side image preview label plus a right-hand
+/// column for the pattern name/number fields and the camera/file capture
+/// buttons.
 QWidget *AddPatternWizard::buildStepImage() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -310,6 +329,9 @@ QWidget *AddPatternWizard::buildStepImage() {
 
 // ── Step 2 ──────────────────────────────────────────────────────────────────
 
+/// Builds Step 2 ("Crop"): the crop canvas plus a right-hand column with the
+/// "use original frame" checkbox, X/Y/W/H spin boxes mirroring the crop
+/// rect, and Reset / 1:1 Center shortcut buttons.
 QWidget *AddPatternWizard::buildStepCrop() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -376,6 +398,9 @@ QWidget *AddPatternWizard::buildStepCrop() {
 
 // ── Step 3 ──────────────────────────────────────────────────────────────────
 
+/// Builds Step 3 ("Pick Point"): the pick canvas plus a right-hand column
+/// with X/Y spin boxes mirroring the pick position, a Center shortcut, and
+/// an info note explaining how the pick offset is used at match time.
 QWidget *AddPatternWizard::buildStepPick() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -435,6 +460,11 @@ QWidget *AddPatternWizard::buildStepPick() {
 
 // ── Step 4 ──────────────────────────────────────────────────────────────────
 
+/// Builds Step 4 ("Picking Box"): the box canvas plus a right-hand column
+/// with width/height and distance/angle spin boxes for the symmetric jaw
+/// pair, and Reset / Rotate +90° shortcut buttons. Wires the canvas'
+/// boxChanged/pickChanged signals back into the spin boxes and m_box*/m_pick
+/// state (see inline comments below for the exact coordinate-frame handling).
 QWidget *AddPatternWizard::buildStepBox() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -539,6 +569,9 @@ QWidget *AddPatternWizard::buildStepBox() {
 
 // ── Step 5 ──────────────────────────────────────────────────────────────────
 
+/// Builds Step 5 ("Finish"): the read-only finish canvas plus a right-hand
+/// column with the HTML summary label (refreshed by refreshFinishSummary())
+/// and a note describing what happens on Apply.
 QWidget *AddPatternWizard::buildStepFinish() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -580,6 +613,11 @@ QWidget *AddPatternWizard::buildStepFinish() {
 //  Step rail / nav
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Navigates the wizard to `step` (0-4): rejects moves forward past an
+/// invalid step (see currentStepValid()), switches the visible stack page,
+/// pushes the accumulated state (image/crop/pick/box) into the canvas being
+/// entered, refreshes the step rail, footer status, subtitle, and Back/Next
+/// button state, and rewires Next to Apply on the final step.
 void AddPatternWizard::goToStep(int step) {
     if (step < 0 || step > 4) return;
 
@@ -650,6 +688,8 @@ void AddPatternWizard::goToStep(int step) {
     }
 }
 
+/// Restyles every step bubble/label to reflect the current step: done
+/// (checkmark), current (highlighted), or upcoming (muted).
 void AddPatternWizard::updateStepRail() {
     for (int i = 0; i < m_stepBubbles.size(); ++i) {
         const bool done    = i < m_currentStep;
@@ -662,6 +702,10 @@ void AddPatternWizard::updateStepRail() {
     }
 }
 
+/// Checks whether the current step's inputs are complete enough to advance.
+/// Only Step 1 (Image) is gated: requires a non-empty, unused-in-group name,
+/// an unused-in-group number >= 1, and a captured/loaded image. Steps 2-5
+/// have no blocking requirement.
 bool AddPatternWizard::currentStepValid() const {
     switch (m_currentStep) {
     case 0: {
@@ -677,6 +721,9 @@ bool AddPatternWizard::currentStepValid() const {
     return false;
 }
 
+/// Recomputes the footer status text for the current step: an actionable
+/// hint when the step is invalid, or a "✓ ..." summary of the current
+/// image/crop/pick/box state when it is valid.
 void AddPatternWizard::updateFooterStatus() {
     if (!m_footerStatus) return;
     QString s;
@@ -718,6 +765,9 @@ void AddPatternWizard::updateFooterStatus() {
     m_footerStatus->setText(s);
 }
 
+/// Rebuilds the Step 5 HTML summary (name/number, image source, crop,
+/// pick point, box size, and symmetric offset/angle) and sets it on
+/// m_finishSummary.
 void AddPatternWizard::refreshFinishSummary() {
     if (!m_finishSummary) return;
     QString html = QString(
@@ -756,16 +806,26 @@ void AddPatternWizard::refreshFinishSummary() {
 
 // ── Slots ───────────────────────────────────────────────────────────────────
 
+/// Advances the wizard to the next step (Next button; no-op past Step 5).
 void AddPatternWizard::onNext()    { goToStep(m_currentStep + 1); }
+/// Moves the wizard back to the previous step (Back button; no-op before Step 1).
 void AddPatternWizard::onBack()    { goToStep(m_currentStep - 1); }
+/// Cancels the wizard, closing the dialog with QDialog::Rejected.
 void AddPatternWizard::onCancel()  { reject(); }
+/// Confirms the wizard (Apply on Step 5), closing the dialog with QDialog::Accepted.
 void AddPatternWizard::onApply()   { accept(); }
 
+/// Records "camera" as the image source and emits requestCameraImage() so
+/// the host can capture a frame and feed it back via setCameraImage().
 void AddPatternWizard::onPickFromCameraClicked() {
     m_imageSource = "camera";
     emit requestCameraImage();
 }
 
+/// Prompts the user for an image file via QFileDialog, loads it with
+/// cv::imread (unchanged channel layout), and on success feeds it into
+/// Step 1 via setLoadedImage(). Silently does nothing if the dialog is
+/// cancelled or the file fails to decode.
 void AddPatternWizard::onPickFromFileClicked() {
     const QString file = QFileDialog::getOpenFileName(
         this, tr("Open pattern image"), QString(),
@@ -777,6 +837,9 @@ void AddPatternWizard::onPickFromFileClicked() {
     setLoadedImage(mat, QFileInfo(file).fileName());
 }
 
+/// Clears the currently captured/loaded image and its source/filename,
+/// resets the Step 1 preview to its empty placeholder, and hides the
+/// discard button.
 void AddPatternWizard::onDiscardImageClicked() {
     m_capturedMat.release();
     m_imageSource.clear();
@@ -788,6 +851,13 @@ void AddPatternWizard::onDiscardImageClicked() {
     updateFooterStatus();
 }
 
+/// Stores a clone of `image` as the captured source (marking the source as
+/// "camera"), converts it to a QImage for preview (BGR888->RGB888 for 3-channel,
+/// direct copy for 8-bit grayscale; other formats are left unpreviewed),
+/// updates the Step 1 preview/status, and re-derives the geometry spin-box
+/// ranges and default crop/pick via onImageSizeChanged(). Does nothing if
+/// `image` is empty.
+/// @param image captured frame in OpenCV BGR (CV_8UC3) or grayscale (CV_8UC1) format
 void AddPatternWizard::setCameraImage(const cv::Mat &image) {
     if (image.empty()) return;
     m_capturedMat = image.clone();
@@ -822,6 +892,11 @@ void AddPatternWizard::setCameraImage(const cv::Mat &image) {
     updateFooterStatus();
 }
 
+/// Feeds `image` through setCameraImage() (for the preview/geometry setup),
+/// then overrides the recorded source to "file" and stores `filename`,
+/// updating the status label to show the loaded filename.
+/// @param image the loaded image data (OpenCV format, see setCameraImage())
+/// @param filename display name of the source file, shown in the status label
 void AddPatternWizard::setLoadedImage(const cv::Mat &image, const QString &filename) {
     setCameraImage(image);
     m_imageSource   = "file";
@@ -830,6 +905,12 @@ void AddPatternWizard::setLoadedImage(const cv::Mat &image, const QString &filen
                                   .arg(tr("LOADED")).arg(filename));
 }
 
+/// Widens the crop/pick/box spin-box ranges to span the newly-(re)loaded
+/// image (in image pixels), then clamps or re-centers the current crop rect
+/// and pick point so both stay inside the new image bounds, pushing the
+/// clamped values back into their spin boxes. All range/value changes are
+/// signal-blocked to avoid re-triggering onCropChanged() etc. No-op if
+/// either dimension is non-positive.
 void AddPatternWizard::onImageSizeChanged(int imageW, int imageH) {
     if (imageW <= 0 || imageH <= 0) return;
 
@@ -888,6 +969,9 @@ void AddPatternWizard::onImageSizeChanged(int imageW, int imageH) {
     setV(m_pickXSpin, m_pick.x());  setV(m_pickYSpin, m_pick.y());
 }
 
+/// Updates the stored pattern name from the name field, shows/clears the
+/// "already exists" error label depending on whether the trimmed name
+/// collides with m_usedNames, and refreshes the footer status.
 void AddPatternWizard::onNameChanged(const QString &v) {
     m_name = v;
     if (m_lblNameError) {
@@ -899,6 +983,9 @@ void AddPatternWizard::onNameChanged(const QString &v) {
     updateFooterStatus();
 }
 
+/// Updates the stored pattern number from the number field, shows/clears the
+/// "already exists" error label depending on whether `v` collides with
+/// m_usedNumbers, and refreshes the footer status.
 void AddPatternWizard::onNumberChanged(int v) {
     m_number = v;
     if (m_lblNumberError) {
@@ -910,6 +997,10 @@ void AddPatternWizard::onNumberChanged(int v) {
     updateFooterStatus();
 }
 
+/// Toggles whether the original (uncropped) frame is used as the pattern
+/// image: switches the crop canvas between None/Crop interaction modes and,
+/// when reverting to "keep original", resets the box canvas' crop overlay to
+/// the full captured frame.
 void AddPatternWizard::onKeepOriginalToggled(bool on) {
     m_keepOriginal = on;
     if (m_cropCanvas) {
@@ -924,6 +1015,9 @@ void AddPatternWizard::onKeepOriginalToggled(bool on) {
     updateFooterStatus();
 }
 
+/// Updates the stored crop rect, mirrors it into the X/Y/W/H spin boxes
+/// (signal-blocked to avoid feedback) and back into the crop canvas, then
+/// refreshes the footer status.
 void AddPatternWizard::onCropChanged(const QRect &r) {
     m_crop = r;
     if (m_cropX) {
@@ -935,6 +1029,9 @@ void AddPatternWizard::onCropChanged(const QRect &r) {
     updateFooterStatus();
 }
 
+/// Resets the crop rect to a centered region inset by 1/8 of the image
+/// dimensions on each side (falling back to the canvas size CW x CH if no
+/// image is loaded), then applies it via onCropChanged().
 void AddPatternWizard::onResetCrop() {
     // Use the loaded image's dimensions — crop geometry is in image pixels.
     const int iw = m_capturedMat.empty() ? CW : m_capturedMat.cols;
@@ -946,6 +1043,9 @@ void AddPatternWizard::onResetCrop() {
                         qMax(20, ih - 2 * marginY)));
 }
 
+/// Resets the crop rect to a centered square (1:1 aspect ratio) sized to the
+/// smaller image dimension minus a 40px margin, then applies it via
+/// onCropChanged().
 void AddPatternWizard::onCenter1to1Crop() {
     const int iw = m_capturedMat.empty() ? CW : m_capturedMat.cols;
     const int ih = m_capturedMat.empty() ? CH : m_capturedMat.rows;
@@ -953,6 +1053,10 @@ void AddPatternWizard::onCenter1to1Crop() {
     onCropChanged(QRect((iw - s) / 2, (ih - s) / 2, s, s));
 }
 
+/// Updates the stored pick point from whichever coordinate the current mode
+/// expects (full-frame `p` when using the original frame, crop-relative
+/// `imgp` when cropped), mirrors it into the pick spin boxes (signal-blocked)
+/// and back into the pick canvas, then refreshes the footer status.
 void AddPatternWizard::onPickChanged(const QPoint &p, const QPoint &imgp) {
     if (m_keepOriginal) {
         m_pick = p;
@@ -967,6 +1071,9 @@ void AddPatternWizard::onPickChanged(const QPoint &p, const QPoint &imgp) {
     updateFooterStatus();
 }
 
+/// Centers the pick point: within the crop rect when cropping is active, or
+/// within the full captured frame (falling back to CW x CH) when using the
+/// original frame; applies the result via onPickChanged().
 void AddPatternWizard::onPickCenter() {
     QPoint temp;
     if (!m_keepOriginal) {
@@ -982,6 +1089,9 @@ void AddPatternWizard::onPickCenter() {
     }
 }
 
+/// Pulls the current width/height/distance/angle values out of the Step 4
+/// spin boxes into m_boxW/H/Dist/Angle, pushes them into the box canvas, and
+/// refreshes the footer status.
 void AddPatternWizard::onBoxChanged() {
     if (m_boxWSpin)     m_boxW     = m_boxWSpin->value();
     if (m_boxHSpin)     m_boxH     = m_boxHSpin->value();
@@ -992,6 +1102,9 @@ void AddPatternWizard::onBoxChanged() {
     updateFooterStatus();
 }
 
+/// Resets the picking box to its default size/offset (120x80, distance 90,
+/// angle 0), writes the values into the Step 4 spin boxes, and applies them
+/// via onBoxChanged().
 void AddPatternWizard::onBoxReset() {
     m_boxW = 120; m_boxH = 80; m_boxDist = 90; m_boxAngle = 0;
     if (m_boxWSpin)     m_boxWSpin->setValue(m_boxW);
@@ -1001,6 +1114,9 @@ void AddPatternWizard::onBoxReset() {
     onBoxChanged();
 }
 
+/// Rotates the picking box by +90 degrees, wrapping the result back into
+/// the [-180, 180] range, writes it into the angle spin box, and applies it
+/// via onBoxChanged().
 void AddPatternWizard::onBoxRotate90() {
     m_boxAngle += 90;
     while (m_boxAngle > 180)  m_boxAngle -= 360;

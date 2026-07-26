@@ -52,8 +52,11 @@
 
 namespace {
 
-// Convert a QPixmap back to a cv::Mat (inverse of matToPixmap). Used to persist
-// the workspace reference image chosen in the workspace dialog.
+/// Converts a QPixmap back to a cv::Mat (inverse of matToPixmap). Used to persist the
+/// workspace reference image chosen in the workspace dialog.
+/// @param pixmap source pixmap; converted via QImage with format-specific handling
+///        (Grayscale8, RGB888, or RGBA8888 fallback with BGR/BGRA channel swap)
+/// @return the converted, deep-copied cv::Mat, or an empty Mat if the pixmap is null
 cv::Mat pixmapToMat(const QPixmap &pixmap) {
     const QImage qimg = pixmap.toImage();
     if (qimg.isNull()) return cv::Mat();
@@ -85,6 +88,12 @@ cv::Mat pixmapToMat(const QPixmap &pixmap) {
     }
 }
 
+/// Swaps `oldWidget` for `newWidget` inside `layout`, hiding the old widget and showing the
+/// new one. No-op if any argument is null. Used to swap the plain designer image-view widgets
+/// for the VisionCanvas / VisionResultViewerWidget instances installed by installVisionWidgets().
+/// @param layout the layout holding oldWidget
+/// @param oldWidget the widget being replaced; hidden after the swap
+/// @param newWidget the replacement widget; shown after the swap
 void replacePageWidget(QLayout *layout, QWidget *oldWidget, QWidget *newWidget)
 {
     if (!layout || !oldWidget || !newWidget) return;
@@ -93,11 +102,18 @@ void replacePageWidget(QLayout *layout, QWidget *oldWidget, QWidget *newWidget)
     newWidget->show();
 }
 
+/// Resolves a theme token name to a QColor for the current light/dark theme via ThemeManager.
+/// @param token theme token key (e.g. "accent.primary", "text.muted")
+/// @return the token's color for the currently active theme
 QColor themeTokenColor(const QString &token)
 {
     return QColor(ThemeManager::tokenValue(token, ThemeManager::instance()->isDark()));
 }
 
+/// Returns the first candidate in `candidates` that is non-null, non-empty, and converts to a
+/// valid QPixmap (via vision::pixmapFromMat), or nullptr if none qualify.
+/// @param candidates images to test, in priority order
+/// @return pointer to the first renderable candidate, or nullptr
 const cv::Mat *firstRenderableImage(std::initializer_list<const cv::Mat *> candidates)
 {
     for (const cv::Mat *candidate : candidates) {
@@ -109,6 +125,8 @@ const cv::Mat *firstRenderableImage(std::initializer_list<const cv::Mat *> candi
     return nullptr;
 }
 
+/// Page indices into `stackedWidget_ImageView`: raw camera/file image, match-result overlay,
+/// and binarized preview, respectively.
 constexpr int kMonitorPageRaw = 0;
 constexpr int kMonitorPageResult = 1;
 constexpr int kMonitorPageBinary = 2;
@@ -118,14 +136,22 @@ constexpr int kMonitorPageBinary = 2;
 namespace {
 
 // State pill stylesheet templates ─ identical layout, different accent.
+/// State-pill stylesheet template — identical layout for every state; only the foreground
+/// (%1) and background (%2) accent colors differ.
 const char* kPillBase =
     "QLabel { color: %1; background-color: %2; border-radius: 13px; "
     "padding: 3px 10px; font: 600 9pt \"Segoe UI\"; }";
 
+/// Fills kPillBase with the given foreground/background colors for the status-pill QLabel.
+/// @param fg foreground (text) color, as a CSS color string
+/// @param bg background color, as a CSS color string
+/// @return the resulting Qt stylesheet fragment
 QString pillStyle(const QString &fg, const QString &bg) {
     return QString(kPillBase).arg(fg, bg);
 }
 
+/// Extracts the human-readable error message from a PatternGroupManager result.
+/// @return `r.error` converted from std::wstring to QString
 inline QString resultMessage(const mtc::ManagerResult &r) {
     return QString::fromStdWString(r.error);
 }
@@ -134,6 +160,9 @@ inline QString resultMessage(const mtc::ManagerResult &r) {
 
 // ── Image conversion helper ──────────────────────────────────────────────────
 
+/// Converts an OpenCV cv::Mat (8-bit grayscale, BGR, or BGRA) to a QPixmap for display,
+/// deep-copying pixel data and swapping channel order (BGR/BGRA to RGB/RGBA) as needed.
+/// @param mat source image; must be CV_8UC1, CV_8UC3, or CV_8UC4
 QPixmap LocalizationPatternsWidget::matToPixmap(const cv::Mat &mat) {
     if (mat.empty()) return {};
 
@@ -160,6 +189,9 @@ QPixmap LocalizationPatternsWidget::matToPixmap(const cv::Mat &mat) {
     return QPixmap::fromImage(img);
 }
 
+/// Declarative table of the group-level "Group Settings" properties shown in the property
+/// browser (name, number, sort-by-angle, sort angle) — each entry pairs a property-browser
+/// spec with a getter/setter into mtc::MatchGroupConfig, consumed by PropSpecHelper.
 static const QList<PropSpec<mtc::MatchGroupConfig>> kMatchGroupSpecs = {
     { "groupName",       "Group name",           "Group defined name.",
      QMetaType::QString, "",   "",   "",  -1, false,
@@ -191,6 +223,9 @@ static const QList<PropSpec<mtc::MatchGroupConfig>> kMatchGroupSpecs = {
 // ── Pattern-level "Common" parameters (per-pattern identity + search) ─────────
 // Moved here from MatchConfigPropertyAdapter: these are per-pattern, whereas the
 // adapter now owns only the group-level algorithm (Edge-Based) config.
+/// Declarative table of per-pattern "Common" properties (identity + search params) shown in
+/// the property browser; each entry pairs a property-browser spec with a getter/setter into
+/// mtc::MatchPatternConfig, consumed by PropSpecHelper.
 static const QList<PropSpec<mtc::MatchPatternConfig>> kCommonSpecs = {
     { "patternName",       "Pattern Name",           "Name of pattern.",
      QMetaType::QString, 0,   -1,   0,  0, false,
@@ -298,6 +333,8 @@ static const QList<PropSpec<mtc::MatchPatternConfig>> kCommonSpecs = {
 
 // ── Construction ─────────────────────────────────────────────────────────────
 
+/// Constructs the widget for `task`, sets up the generated UI, and runs initWidget() to wire
+/// toolbar/tree/property-browser signals and seed initial state.
 LocalizationPatternsWidget::LocalizationPatternsWidget(
         std::shared_ptr<vc::model::ITask> task,
         ads::CDockWidget *dock, QWidget *parent)
@@ -308,16 +345,27 @@ LocalizationPatternsWidget::LocalizationPatternsWidget(
     initWidget();
 }
 
+/// Releases property-browser state (unbinds the adapter, deletes owned Qt properties) before
+/// destroying the generated UI.
 LocalizationPatternsWidget::~LocalizationPatternsWidget() {
     clearPropertyBrowserState();
     delete ui;
 }
 
+/// No-op: this widget has no config to push back into the task (all edits commit directly
+/// through PatternGroupManager as they happen).
 void LocalizationPatternsWidget::loadConfigToTask()   {}
+/// No-op: this widget has no widget-side config to (re)load from the task at open time (the
+/// pattern tree is populated separately via wireManagerSignals()/rebuildTreeFromManager()).
 void LocalizationPatternsWidget::loadConfigToWidget() {}
 
 // ── initWidget ───────────────────────────────────────────────────────────────
 
+/// Builds and wires all widget-owned state after ui->setupUi(): stylesheet reload hooks,
+/// splitter ratios, the pattern-thumbnail scene, the task/pattern-manager bindings, the
+/// property browser plus its Edge-Based config adapter, the vision canvas/result-viewer
+/// widgets, toolbar/tree/manager signal wiring, and the result table — then seeds the group
+/// combo, groups/patterns KPI, status pill, and monitor page (Raw) with their initial values.
 void LocalizationPatternsWidget::initWidget() {
     setupThemeReload(QStringLiteral(":/styles/localization_patterns_widget_dark.qss"),
                      QStringLiteral(":/styles/localization_patterns_widget_light.qss"));
@@ -397,6 +445,10 @@ void LocalizationPatternsWidget::initWidget() {
 
 // ── Wiring helpers ───────────────────────────────────────────────────────────
 
+/// Connects every toolbar control (camera trigger/choose-image/set-workspace/run-match
+/// buttons, view-tab buttons, binary-threshold slider+spinboxes, group/camera combos, ROI
+/// checkboxes) to their handler slots, then seeds the camera combo and "Use ROI" checkbox and
+/// disables Run Match until an image and a group are available.
 void LocalizationPatternsWidget::wireToolbar() {
     connect(ui->btn_trigger_camera, &QToolButton::clicked,
             this, &LocalizationPatternsWidget::onTriggerCameraClicked);
@@ -465,6 +517,10 @@ void LocalizationPatternsWidget::wireToolbar() {
     ui->btn_run_match->setEnabled(false);
 }
 
+/// Connects the pattern tree widget's click/request/change signals (group and pattern click,
+/// add/delete requests, edit request, and change notifications) to their handler slots.
+/// @note editPatternRequested is deferred via QTimer::singleShot(0, ...) so the triggering
+///       row's Edit button is not destroyed mid-emission when the tree rebuilds on accept.
 void LocalizationPatternsWidget::wireTree() {
     auto *tree = ui->treeWidget_patternEditor;
     connect(tree, &PatternTreeWidget::groupClicked,
@@ -500,6 +556,10 @@ void LocalizationPatternsWidget::wireTree() {
             this, &LocalizationPatternsWidget::onTreePatternChanged);
 }
 
+/// Rebuilds the tree from the current manager state, then subscribes to PatternGroupManager's
+/// groupAdded/Removed/Changed and patternAdded/Removed/Changed signals to keep the pattern
+/// tree, group combo, groups/patterns KPI, and cached selection in sync with manager mutations
+/// coming from any source (this widget's own edits, or programmatic/project-load changes).
 void LocalizationPatternsWidget::wireManagerSignals() {
     if (!m_patternManager) return;
 
@@ -618,8 +678,8 @@ void LocalizationPatternsWidget::wireManagerSignals() {
     });
 }
 
-// Pull the full library state from the manager and rebuild the tree from
-// scratch.  Used at init and after bulk re-orderings.
+/// Pulls the full library state from the manager and rebuilds the tree from scratch. Used at
+/// init and after bulk re-orderings.
 void LocalizationPatternsWidget::rebuildTreeFromManager() {
     if (!m_patternManager || !ui->treeWidget_patternEditor) return;
 
@@ -642,6 +702,9 @@ void LocalizationPatternsWidget::rebuildTreeFromManager() {
     ui->treeWidget_patternEditor->setGroups(rows);
 }
 
+/// Connects the shared QtVariantPropertyManager's valueChanged signal to
+/// onPropertyValueChanged() (group-level property edits only — pattern-level edits are
+/// absorbed by m_configAdapter), then builds the initial property-browser contents.
 void LocalizationPatternsWidget::wirePropertyBrowser() {
     // Manager-level valueChanged: pattern-level edits are absorbed by the
     // adapter (it ignores anything not in its key map).  This handler is
@@ -654,6 +717,9 @@ void LocalizationPatternsWidget::wirePropertyBrowser() {
 
 // ── Property browser construction ────────────────────────────────────────────
 
+/// Tears down all property-browser state owned by this widget: clears the variant editor,
+/// unbinds the Edge-Based config adapter, and deletes the group/common root QtVariantProperty
+/// instances (their child properties go with them).
 void LocalizationPatternsWidget::clearPropertyBrowserState() {
     if (m_variantEditor) {
         m_variantEditor->clear();
@@ -674,6 +740,9 @@ void LocalizationPatternsWidget::clearPropertyBrowserState() {
     m_commonVariant = nullptr;
 }
 
+/// Builds the "Group Settings" property-browser group from kMatchGroupSpecs, bound to
+/// m_workingGroupConfig, and records each generated QtProperty's spec key in
+/// m_groupPropKeys/m_groupProps for later dispatch/refresh.
 void LocalizationPatternsWidget::buildGroupProperties() {
     m_groupVariant = m_variantManager->addProperty(
         QtVariantPropertyManager::groupTypeId(), tr("Group Settings"));
@@ -686,6 +755,9 @@ void LocalizationPatternsWidget::buildGroupProperties() {
         m_groupProps[it.key()] = it.value();
 }
 
+/// Builds the "Pattern" (Common) property-browser group from kCommonSpecs, bound to
+/// m_workingPatternCfg, and records each generated QtProperty's spec key in
+/// m_commonPropKeys/m_commonProps for later dispatch/refresh.
 void LocalizationPatternsWidget::buildCommonProperties() {
     m_commonVariant = m_variantManager->addProperty(
         QtVariantPropertyManager::groupTypeId(), tr("Pattern"));
@@ -698,6 +770,10 @@ void LocalizationPatternsWidget::buildCommonProperties() {
         m_commonProps[it.key()] = it.value();
 }
 
+/// Rebuilds the entire property browser from scratch: tears down the current tree, then
+/// (re)builds the Group Settings block when a group is bound, the Edge-Based block via
+/// m_configAdapter, and the Pattern (Common) block when a pattern is bound; mounts them in
+/// Group Settings -> Edge-Based -> Pattern order and resyncs the binary-view controls.
 void LocalizationPatternsWidget::rebuildPropertyBrowser() {
     if (!m_variantManager || !m_variantEditor || !m_configAdapter) return;
 
@@ -732,12 +808,18 @@ void LocalizationPatternsWidget::rebuildPropertyBrowser() {
     seedBinaryControlsFromConfig();
 }
 
+/// Binds `pattern` as the active pattern for the property browser: copies its config into
+/// m_workingPatternCfg (or resets to a default config if `pattern` is null) and rebuilds the
+/// property browser to reflect it.
+/// @param pattern pattern to bind, or nullptr to clear the working pattern config
 void LocalizationPatternsWidget::bindPatternToBrowser(mtc::MatchPattern *pattern) {
     m_boundPattern      = pattern;
     m_workingPatternCfg = pattern ? pattern->config() : mtc::MatchPatternConfig{};
     rebuildPropertyBrowser();
 }
 
+/// Clears the bound pattern and resets the working pattern config to its defaults, then
+/// rebuilds the property browser (drops the Pattern block).
 void LocalizationPatternsWidget::unbindPattern() {
     m_boundPattern = nullptr;
     m_workingPatternCfg = mtc::MatchPatternConfig{};
@@ -746,6 +828,11 @@ void LocalizationPatternsWidget::unbindPattern() {
 
 // ── Selection ────────────────────────────────────────────────────────────────
 
+/// Selects group `groupIndex` as the active group: clears any pattern selection, resolves and
+/// binds the group from the pattern manager (making its config plus Edge-Based and binary
+/// controls editable even without a pattern selected), rebuilds the property browser, and
+/// resyncs the editor image.
+/// @param groupIndex user-facing group number to select
 void LocalizationPatternsWidget::selectGroup(int groupIndex) {
     m_selectedGroupIndex   = groupIndex;
     m_selectedPatternIndex = -1;
@@ -766,6 +853,12 @@ void LocalizationPatternsWidget::selectGroup(int groupIndex) {
     syncEditorImageForSelection();
 }
 
+/// Selects pattern `patternIndex` within group `groupIndex`: binds the owning group (for the
+/// Group Settings and Edge-Based blocks) and the pattern itself (for the Common block), then
+/// refreshes the pattern thumbnail and editor image. No-op if the group or pattern cannot be
+/// resolved.
+/// @param groupIndex user-facing group number containing the pattern
+/// @param patternIndex user-facing pattern number to select
 void LocalizationPatternsWidget::selectPattern(int groupIndex, int patternIndex) {
     m_selectedGroupIndex   = groupIndex;
     m_selectedPatternIndex = patternIndex;
@@ -787,6 +880,8 @@ void LocalizationPatternsWidget::selectPattern(int groupIndex, int patternIndex)
     }
 }
 
+/// Clears both group and pattern selection, resets the working group config, unbinds the
+/// pattern, clears the thumbnail, and resyncs the editor image.
 void LocalizationPatternsWidget::clearSelection() {
     m_selectedGroupIndex   = -1;
     m_selectedPatternIndex = -1;
@@ -797,6 +892,11 @@ void LocalizationPatternsWidget::clearSelection() {
     syncEditorImageForSelection();
 }
 
+/// Refreshes the pattern-thumbnail view for `pattern`: shows "No pattern selected" and an
+/// empty pixmap when `pattern` is null or has no image; otherwise renders the pick-position
+/// overlay image (falling back to the raw image) and updates the caption with name, pixel
+/// size, and minimum score.
+/// @param pattern pattern to display, or nullptr to clear the thumbnail
 void LocalizationPatternsWidget::updatePatternThumb(mtc::MatchPattern *pattern) {
     if (!pattern || pattern->isImageEmpty()) {
         m_thumbPixmap->setPixmap(QPixmap{});
@@ -820,6 +920,9 @@ void LocalizationPatternsWidget::updatePatternThumb(mtc::MatchPattern *pattern) 
 }
 
 // ── Camera combo ────────────────────────────────────────────────────
+/// Rebuilds the camera combo box from the task's currently-assigned Camera-type devices,
+/// preserving the previous selection (by device id) if it is still present, and enables the
+/// "Trigger Camera" button only when at least one camera is assigned.
 void LocalizationPatternsWidget::rebuildCameraCombo() {
     if (!m_localizeTask || !ui->comboBox_camera) return;
 
@@ -855,6 +958,10 @@ void LocalizationPatternsWidget::rebuildCameraCombo() {
 
 // ── Group combo ──────────────────────────────────────────────────────────────
 
+/// Rebuilds the active-group combo box from the pattern manager's current groups, preserving
+/// the previous selection (by group number) if still present, or selecting the first group
+/// otherwise; enables "Run Match" only when at least one group exists and a test image is
+/// loaded.
 void LocalizationPatternsWidget::rebuildGroupCombo() {
     if (!m_patternManager) return;
 
@@ -882,6 +989,8 @@ void LocalizationPatternsWidget::rebuildGroupCombo() {
     ui->btn_run_match->setEnabled(hasGroup && !m_currentImage.empty());
 }
 
+/// Selects the group corresponding to the newly-active combo entry.
+/// @param comboIndex new current index of comboBox_pattern_group; ignored if negative
 void LocalizationPatternsWidget::onActiveGroupChanged(int comboIndex) {
     if (comboIndex < 0) return;
     const int groupNumber =
@@ -891,6 +1000,8 @@ void LocalizationPatternsWidget::onActiveGroupChanged(int comboIndex) {
 
 // ── Tree click handlers ─────────────────────────────────────────────────────
 
+/// Handles a group row click in the pattern tree: selects the group and syncs the
+/// active-group combo to match (without re-triggering onActiveGroupChanged).
 void LocalizationPatternsWidget::onTreeGroupClicked(int groupIndex,
                                                     const MatchGroupConfig &) {
     selectGroup(groupIndex);
@@ -903,6 +1014,8 @@ void LocalizationPatternsWidget::onTreeGroupClicked(int groupIndex,
     }
 }
 
+/// Handles a pattern row click in the pattern tree: selects the pattern and syncs the
+/// active-group combo to its owning group (without re-triggering onActiveGroupChanged).
 void LocalizationPatternsWidget::onTreePatternClicked(int groupIndex,
                                                       int patternIndex,
                                                       const MatchPatternConfig &) {
@@ -917,6 +1030,9 @@ void LocalizationPatternsWidget::onTreePatternClicked(int groupIndex,
 
 // ── Tree intent handlers ────────────────────────────────────────────────────
 
+/// Prompts for a new pattern group's name/number via AddGroupDialog, validates that both are
+/// unique, and adds the group through the pattern manager. Shows a warning dialog and aborts
+/// on a duplicate name/number or a manager-reported failure.
 void LocalizationPatternsWidget::onTreeAddGroupRequested() {
     if (!m_patternManager) return;
 
@@ -948,6 +1064,12 @@ void LocalizationPatternsWidget::onTreeAddGroupRequested() {
     }
 }
 
+/// Runs the 5-step Add Pattern wizard for group `groupIndex`: seeds it with the group's
+/// existing pattern names/numbers (for inline uniqueness validation), forwards its
+/// camera-capture requests to onTriggerCameraClicked(), and on acceptance adds the captured
+/// pattern image through the pattern manager, then writes back the wizard's pick-position and
+/// picking-box geometry into the newly-created pattern's config.
+/// @param groupIndex group to add the new pattern to; no-op (with a warning) if not found
 void LocalizationPatternsWidget::onTreeAddPatternRequested(int groupIndex) {
     if (!m_patternManager) return;
 
@@ -1037,6 +1159,12 @@ void LocalizationPatternsWidget::onTreeAddPatternRequested(int groupIndex) {
 
 // ── Edit Pattern Wizard entry points ────────────────────────────────────────
 
+/// Opens the Edit Pattern Wizard for pattern `patternNumber` in group `groupNumber`: prefills
+/// it from the pattern's current name/pick-position/picking-box config, then — on acceptance —
+/// commits the edited name/number/pick-position/picking-box back through the pattern manager
+/// (the raw image itself is left untouched; the Edit wizard locks it).
+/// @param groupNumber user-facing group number containing the pattern
+/// @param patternNumber user-facing pattern number to edit
 bool LocalizationPatternsWidget::editPattern(int groupNumber, int patternNumber) {
     if (!m_patternManager) return false;
 
@@ -1112,6 +1240,8 @@ bool LocalizationPatternsWidget::editPattern(int groupNumber, int patternNumber)
     return true;
 }
 
+/// Opens the Edit Pattern Wizard for the currently-selected pattern; shows an informational
+/// message and does nothing if no pattern is selected.
 void LocalizationPatternsWidget::editSelectedPattern() {
     if (m_selectedGroupIndex < 0 || m_selectedPatternIndex < 0) {
         QMessageBox::information(this, tr("Edit pattern"),
@@ -1121,6 +1251,10 @@ void LocalizationPatternsWidget::editSelectedPattern() {
     editPattern(m_selectedGroupIndex, m_selectedPatternIndex);
 }
 
+/// Confirms with the user, then removes group `groupIndex` (and all its patterns) through the
+/// pattern manager; on success, mirrors the removal in the tree widget and clears the
+/// selection if the removed group was selected.
+/// @param groupIndex user-facing group number to delete
 void LocalizationPatternsWidget::onTreeDeleteGroupRequested(int groupIndex) {
     if (!m_patternManager) return;
 
@@ -1148,6 +1282,12 @@ void LocalizationPatternsWidget::onTreeDeleteGroupRequested(int groupIndex) {
     if (m_selectedGroupIndex == groupIndex) clearSelection();
 }
 
+/// Confirms with the user, then removes pattern `patternIndex` from group `groupIndex` through
+/// the pattern manager; on success, locates and removes the matching row in the tree widget
+/// (by pattern number, since the tree indexes patterns by list position) and clears the
+/// pattern selection if it was the one removed.
+/// @param groupIndex user-facing group number containing the pattern
+/// @param patternIndex user-facing pattern number to delete
 void LocalizationPatternsWidget::onTreeDeletePatternRequested(int groupIndex,
                                                               int patternIndex) {
     if (!m_patternManager) return;
@@ -1199,11 +1339,15 @@ void LocalizationPatternsWidget::onTreeDeletePatternRequested(int groupIndex,
 // Tree-state change notifications: used for live rename / renumber from the
 // tree's inline editors.  We mirror those into the manager.
 
+/// Currently unhandled: bulk group-list change notifications from the tree's inline editors
+/// are not yet mirrored into the pattern manager.
 void LocalizationPatternsWidget::onTreeGroupsChanged(
         const QList<MatchGroupConfig> &) {
 
 }
 
+/// Live-rename notification from the tree's inline editor for group `groupIndex`. Not yet
+/// wired to the pattern manager — see the in-body note for why.
 void LocalizationPatternsWidget::onTreeGroupChanged(int /*groupIndex*/,
                                                     const MatchGroupConfig &) {
     // Not wiring rename here yet — manager update would need both old and
@@ -1211,6 +1355,8 @@ void LocalizationPatternsWidget::onTreeGroupChanged(int /*groupIndex*/,
     // enhancement is to track previous name per row.
 }
 
+/// Live-rename/renumber notification from the tree's inline editor for a pattern. Not yet
+/// wired to the pattern manager (same caveat as onTreeGroupChanged()).
 void LocalizationPatternsWidget::onTreePatternChanged(int /*groupIndex*/,
                                                       int /*patternIndex*/,
                                                       const MatchPatternConfig &) {
@@ -1218,6 +1364,8 @@ void LocalizationPatternsWidget::onTreePatternChanged(int /*groupIndex*/,
 }
 
 // --
+/// Camera single-shot completion handler: forwards the grabbed frame into setCameraImage() on
+/// success; ignored on grab failure.
 void LocalizationPatternsWidget::onCameraGrabFinished(vc::device::GrabResult result) {
     if (result.isGrabSuccess) {
         this->setCameraImage(result.frame);
@@ -1227,6 +1375,9 @@ void LocalizationPatternsWidget::onCameraGrabFinished(vc::device::GrabResult res
 
 // ── Toolbar ─────────────────────────────────────────────────────────────────
 
+/// Requests a single-shot grab from the active camera's runner: validates a camera is
+/// selected, the task is in Commission state, and the runner resolves to a CameraRunner;
+/// connects a one-shot handler (onCameraGrabFinished) before issuing the request.
 void LocalizationPatternsWidget::onTriggerCameraClicked() {
     // Should not normally fire when no camera is assigned — the Trigger
     // button is disabled via rebuildCameraCombo() in that case.  Guard
@@ -1267,6 +1418,9 @@ void LocalizationPatternsWidget::onTriggerCameraClicked() {
     // emit requestCameraImage(cameraId);
 }
 
+/// Prompts for an image file via a file dialog, loads it with cv::imread (unchanged, i.e.
+/// preserving channel count/alpha), and feeds it into the widget as the current test image via
+/// setCameraImage(). Shows an error status message on load failure.
 void LocalizationPatternsWidget::onChooseImageClicked() {
     const QString path = QFileDialog::getOpenFileName(
         this, tr("Open test image"),
@@ -1286,11 +1440,17 @@ void LocalizationPatternsWidget::onChooseImageClicked() {
             .arg(img.cols).arg(img.rows));
 }
 
+/// Returns the device id stored as itemData for the current camera-combo selection, or an
+/// empty string if there is no combo or no selection.
 QString LocalizationPatternsWidget::activeCameraId() const {
     return ui->comboBox_camera ? ui->comboBox_camera->currentData().toString()
                                : QString();
 }
 
+/// Refreshes the workspace/condition ROI overlay on the raw preview from the active camera's
+/// workspace config, and — if the result view is currently showing a previous match result —
+/// redraws that overlay too (ROI visibility affects it). Falls back to clearing the legacy
+/// imageView_Raw ROI when the VisionCanvas preview is not installed.
 void LocalizationPatternsWidget::updateWorkspaceRoiOverlay() {
     const QVector<VisionRoi> overlays = buildWorkspaceOverlayRois();
     if (m_rawPreview) {
@@ -1307,6 +1467,10 @@ void LocalizationPatternsWidget::updateWorkspaceRoiOverlay() {
     ui->imageView_Raw->removeAllROI();
 }
 
+/// Toggles the active camera's workspace `useWorkspace` flag and persists it into the task's
+/// TaskLocalizeConfig; refreshes the ROI overlay to reflect the new use/muted color. No-op if
+/// there is no active task/camera or the flag already equals `enabled`.
+/// @param enabled new "Use ROI" state from the checkbox
 void LocalizationPatternsWidget::onUseRoiToggled(bool enabled) {
     if (!m_localizeTask) return;
 
@@ -1326,6 +1490,8 @@ void LocalizationPatternsWidget::onUseRoiToggled(bool enabled) {
     updateWorkspaceRoiOverlay();
 }
 
+/// Reflects the active camera's workspace `useWorkspace` flag into the "Use ROI" checkbox,
+/// blocking signals so the read-back does not re-trigger onUseRoiToggled().
 void LocalizationPatternsWidget::syncUseRoiCheckbox() {
     if (!ui->cbx_use_match_area) return;
 
@@ -1338,6 +1504,11 @@ void LocalizationPatternsWidget::syncUseRoiCheckbox() {
     ui->cbx_use_match_area->setChecked(useWs);
 }
 
+/// Opens WorkspaceSettingDialog for the active camera, seeded with its current reference
+/// image and working/condition ROIs; wires the dialog's "grab from camera" request to a
+/// single-shot camera grab. On acceptance, writes the resulting ROIs (presence of a positive
+/// width/height implies "use it") and reference image back into the task's
+/// TaskLocalizeConfig, then resyncs the "Use ROI" checkbox and ROI overlay.
 void LocalizationPatternsWidget::onSetWorkspaceClicked() {
     if (!m_localizeTask) return;
 
@@ -1408,11 +1579,14 @@ void LocalizationPatternsWidget::onSetWorkspaceClicked() {
     setState(State::Idle, tr("Workspace updated."));
 }
 
+/// Switches the monitor to the Raw page and refreshes its ROI overlay.
 void LocalizationPatternsWidget::onShowRawView() {
     setMonitorPage(kMonitorPageRaw);
     updateWorkspaceRoiOverlay();
 }
 
+/// Switches the monitor to the Result page, redrawing the last match-result overlay if one
+/// exists.
 void LocalizationPatternsWidget::onShowResultView() {
     if (m_hasLastMatchResult) {
         displayResultOverlay(m_currentImage, m_lastMatchResult);
@@ -1420,11 +1594,17 @@ void LocalizationPatternsWidget::onShowResultView() {
     setMonitorPage(kMonitorPageResult);
 }
 
+/// Switches the monitor to the Binary page and (re)renders the binarized preview.
 void LocalizationPatternsWidget::onShowBinaryView() {
     setMonitorPage(kMonitorPageBinary);
     displayBinaryImage();
 }
 
+/// Reacts to any binary-view control change (auto toggle, threshold slider/spin, maxValue
+/// spin): enables/disables the threshold controls per auto-mode, persists the threshold and
+/// maxValue onto the bound group's shared EdgeMatchConfig (auto mode stores threshold as -1),
+/// refreshes the Edge-Based property-browser mirror on successful commit, and re-renders the
+/// binarized preview. No persistence happens when no group is bound.
 void LocalizationPatternsWidget::onBinaryThresholdChanged() {
     const bool autoMode = ui->chk_binary_auto->isChecked();
     const bool hasGroup = (m_boundMatchGroup != nullptr);
@@ -1448,6 +1628,10 @@ void LocalizationPatternsWidget::onBinaryThresholdChanged() {
     displayBinaryImage();
 }
 
+/// Runs a matching test pass on the current test image against the selected group: shows a
+/// warning and returns early if no image is loaded or no group is selected; otherwise sets a
+/// "Matching..." busy state, flushes the state-pill repaint, and starts the test via
+/// runMatchingTest(). Shows an error state if the test could not be started.
 void LocalizationPatternsWidget::onRunMatchingClicked() {
     if (m_currentImage.empty()) {
         setState(State::Warning, tr("No image loaded."));
@@ -1471,6 +1655,12 @@ void LocalizationPatternsWidget::onRunMatchingClicked() {
 
 // ── External image input ─────────────────────────────────────────────────────
 
+/// External entry point for image input (camera, file, network, or the toolbar's
+/// choose-image/trigger-camera actions). Routes the image to whichever consumer currently
+/// wants it: the active Add Pattern wizard, the legacy AddPatternImageDialog if visible, or
+/// — as the default case — stores it as the current test image and refreshes the raw/binary
+/// views, ROI overlay, and status label. Shows an error state on an empty image.
+/// @param image captured/loaded frame; ignored (with an error state) if empty
 void LocalizationPatternsWidget::setCameraImage(const cv::Mat &image) {
     if (image.empty()) {
         setState(State::Error, tr("Received empty image."));
@@ -1508,6 +1698,9 @@ void LocalizationPatternsWidget::setCameraImage(const cv::Mat &image) {
     setState(State::Idle, tr("Image ready."));
 }
 
+/// Installs the VisionCanvas (raw view) and VisionResultViewerWidget (result view) in place of
+/// the designer-placed plain image-view widgets, and wires the result viewer's
+/// object-selection signal to syncResultSelectionFromViewer(). No-op if already installed.
 void LocalizationPatternsWidget::installVisionWidgets()
 {
     if (m_rawPreview || m_resultViewer) return;
@@ -1524,6 +1717,8 @@ void LocalizationPatternsWidget::installVisionWidgets()
             this, &LocalizationPatternsWidget::syncResultSelectionFromViewer);
 }
 
+/// Refreshes the raw-view image to reflect the current selection: shows the loaded test image
+/// if one exists, else the selected pattern's raw image if bound, else clears the raw preview.
 void LocalizationPatternsWidget::syncEditorImageForSelection()
 {
     if (!m_currentImage.empty()) {
@@ -1541,6 +1736,10 @@ void LocalizationPatternsWidget::syncEditorImageForSelection()
     }
 }
 
+/// Builds the VisionRoi overlays for the active camera's workspace and condition ROIs, colored
+/// by whether each is currently in use (accent/info color) or only defined (muted color).
+/// Returns an empty list if there is no task, no test image loaded, or the "Show ROI" checkbox
+/// is unchecked; ROIs with non-positive width/height are omitted.
 QVector<VisionRoi> LocalizationPatternsWidget::buildWorkspaceOverlayRois() const
 {
     QVector<VisionRoi> rois;
@@ -1592,6 +1791,9 @@ QVector<VisionRoi> LocalizationPatternsWidget::buildWorkspaceOverlayRois() const
 
 // ── Property browser change handlers ─────────────────────────────────────────
 
+/// Commits m_workingPatternCfg (pattern "Common" params) through the pattern manager so the
+/// live MatchPattern picks up the change; re-resolves m_boundPattern by the (possibly new)
+/// name afterward.
 bool LocalizationPatternsWidget::commitWorkingPatternConfig() {
     // Commit m_workingPatternCfg (pattern "Common" params) through the manager
     // so the live MatchPattern picks up the change.
@@ -1624,6 +1826,9 @@ bool LocalizationPatternsWidget::commitWorkingPatternConfig() {
     return true;
 }
 
+/// Commits m_workingGroupConfig through the pattern manager (shared by the Group Settings and
+/// Edge-Based property groups plus the binary-view controls), using the group's current live
+/// name as the lookup key (a rename may already be staged in the working copy).
 bool LocalizationPatternsWidget::commitWorkingGroupConfig() {
     // Commit m_workingGroupConfig through the manager.  Shared by the Group
     // Settings + Edge-Based property groups and the binary-view controls.
@@ -1653,6 +1858,10 @@ bool LocalizationPatternsWidget::commitWorkingGroupConfig() {
     return true;
 }
 
+/// Handles an Edge-Based property edit forwarded by m_configAdapter (which has already written
+/// into m_workingGroupConfig's typeConfig): commits the change, resyncs the binary-view
+/// controls (the edit may have touched binaryThreshold/binaryMaxValue), and re-renders the
+/// binary preview if it is the page currently shown.
 void LocalizationPatternsWidget::onGroupTypeConfigModified() {
     // Edge-Based edit — the adapter has already written to m_workingGroupConfig's
     // typeConfig.  Commit, then keep the binary-view controls in sync (the edit
@@ -1665,6 +1874,13 @@ void LocalizationPatternsWidget::onGroupTypeConfigModified() {
     }
 }
 
+/// Dispatches a property-browser value change to the matching config: Group Settings edits
+/// (key found in m_groupPropKeys) are written into m_workingGroupConfig and committed via
+/// commitWorkingGroupConfig(); Pattern "Common" edits (key found in m_commonPropKeys) are
+/// written into m_workingPatternCfg and committed via commitWorkingPatternConfig(). Edge-Based
+/// edits are not handled here — they flow through the adapter to onGroupTypeConfigModified().
+/// @param property the QtProperty whose value changed
+/// @param value the new value to dispatch via PropSpecHelper
 void LocalizationPatternsWidget::onPropertyValueChanged(QtProperty *property,
                                                         const QVariant &value) {
     // Group Settings edits.  (Edge-Based edits flow through the adapter →
@@ -1693,6 +1909,11 @@ void LocalizationPatternsWidget::onPropertyValueChanged(QtProperty *property,
 
 // ── Matching commission ─────────────────────────────────────────────
 
+/// Handles the asynchronous completion of a commissioned matching run: caches the result,
+/// updates the KPI strip and result table, redraws the result overlay, switches to the Result
+/// page, and sets the status pill/message based on whether a match was found and whether the
+/// matched area is below the configured limit.
+/// @param result the completed matching pass's result
 void LocalizationPatternsWidget::onMatchingCommissionDone(mtc::MatchResult result) {
     m_lastMatchResult = result;
     m_hasLastMatchResult = true;
@@ -1717,6 +1938,8 @@ void LocalizationPatternsWidget::onMatchingCommissionDone(mtc::MatchResult resul
 
 // ── Status / KPIs ────────────────────────────────────────────────────────────
 
+/// Updates the status pill's text/color role and the status message label.
+/// @param state new pill state (drives both the label text and its "pillState" style property)
 void LocalizationPatternsWidget::setState(State state, const QString &message) {
     static const QHash<State, QString> kLabel = {
         { State::Idle,    QStringLiteral("● IDLE")    },
@@ -1742,6 +1965,8 @@ void LocalizationPatternsWidget::setState(State state, const QString &message) {
     ui->label_status_text->setText(message.isEmpty() ? tr("Ready") : message);
 }
 
+/// Refreshes the "Groups: N - Patterns: M" status label from the pattern manager's current
+/// group/pattern counts; shows zero counts when there is no pattern manager.
 void LocalizationPatternsWidget::updateGroupsCount() {
     if (!m_patternManager) {
         ui->label_status_groups->setText(tr("Groups: 0  ·  Patterns: 0"));
@@ -1755,6 +1980,8 @@ void LocalizationPatternsWidget::updateGroupsCount() {
             .arg(m_patternManager->groupCount()).arg(totalPatterns));
 }
 
+/// Resets the KPI strip labels (result count, execution time, below-limit flag) to placeholder
+/// dashes and clears the result table.
 void LocalizationPatternsWidget::resetKpis() {
     ui->label_match_result_num->setText("—");
     ui->label_match_execution_time->setText("—");
@@ -1762,6 +1989,10 @@ void LocalizationPatternsWidget::resetKpis() {
     clearResultTable();
 }
 
+/// Populates the KPI strip labels from a completed match result: total object count, possible-
+/// picking count, execution time (ms), and whether the matched area is below the configured
+/// limit.
+/// @param result the completed matching pass's result
 void LocalizationPatternsWidget::applyKpis(const mtc::MatchResult &result) {
     ui->label_match_total_objects->setText(
         QString::number(result.Objects.size()));
@@ -1775,6 +2006,10 @@ void LocalizationPatternsWidget::applyKpis(const mtc::MatchResult &result) {
 
 // ── Image display ────────────────────────────────────────────────────────────
 
+/// Displays `image` in the raw-view: routes through the VisionCanvas preview (with the
+/// workspace ROI overlay refreshed) when installed, else falls back to the legacy
+/// imageView_Raw widget.
+/// @param image image to display
 void LocalizationPatternsWidget::displayRawImage(const cv::Mat &image) {
     cv::Mat img = image;
     if (m_rawPreview) {
@@ -1786,6 +2021,14 @@ void LocalizationPatternsWidget::displayRawImage(const cv::Mat &image) {
     }
 }
 
+/// Renders the match-result overlay for `image`/`result`: builds a VisionResultOverlay from
+/// the result (using the active camera's workspace for ROI context), hides the ROI overlays
+/// when "Show ROI" is unchecked, and displays it via the VisionResultViewerWidget — preferring
+/// `image` but falling back to `result.Image` if `image` is empty/unrenderable. Falls back to
+/// the legacy imageView_Result widget (rendering result.Image directly) when the result viewer
+/// is not installed.
+/// @param image the source image the match was run against
+/// @param result the completed matching pass's result
 void LocalizationPatternsWidget::displayResultOverlay(const cv::Mat &image,
                                                       const mtc::MatchResult &result) {
     const QString camId = activeCameraId();
@@ -1819,6 +2062,11 @@ void LocalizationPatternsWidget::displayResultOverlay(const cv::Mat &image,
     ui->imageView_Result->loadImageOpenCv(img, true);
 }
 
+/// Binarizes m_currentImage at the current threshold (auto/Otsu when the "Auto" checkbox is
+/// checked, else the slider value) and maxValue, displays it in imageView_Binary without
+/// resetting zoom/pan (so dragging the threshold slider does not jump the view), and updates
+/// the info label with the threshold actually used. Clears the view and shows "No image" when
+/// there is no current test image.
 void LocalizationPatternsWidget::displayBinaryImage() {
     if (m_currentImage.empty()) {
         ui->imageView_Binary->clearCurrentImage();
@@ -1839,6 +2087,9 @@ void LocalizationPatternsWidget::displayBinaryImage() {
                       : tr("Manual = %1  ·  max %2").arg(threshold).arg(maxValue));
 }
 
+/// Pulls the binary threshold/maxValue from the bound group's shared EdgeMatchConfig and seeds
+/// the binary-view controls (auto checkbox, threshold slider/spin, maxValue spin) from them,
+/// blocking their signals during the sync; all controls are disabled when no group is bound.
 void LocalizationPatternsWidget::seedBinaryControlsFromConfig() {
     // Pull the binary threshold / maxValue from the bound group's shared edge
     // config.  Controls are disabled when no group is selected.
@@ -1867,6 +2118,9 @@ void LocalizationPatternsWidget::seedBinaryControlsFromConfig() {
     ui->spn_binary_maxvalue ->setEnabled(hasGroup);
 }
 
+/// Switches stackedWidget_ImageView to `page` and updates the Raw/Result/Binary view-toggle
+/// buttons' checked state to match.
+/// @param page one of kMonitorPageRaw, kMonitorPageResult, kMonitorPageBinary
 void LocalizationPatternsWidget::setMonitorPage(int page) {
     ui->stackedWidget_ImageView->setCurrentIndex(page);
     ui->btn_view_raw->setChecked(page == kMonitorPageRaw);
@@ -1876,6 +2130,12 @@ void LocalizationPatternsWidget::setMonitorPage(int page) {
 
 // ── Matching test ────────────────────────────────────────────────────────────
 
+/// Starts an asynchronous commissioned matching pass on m_currentImage against the selected
+/// group: validates the group is non-empty, clips the active camera's workspace ROI to the
+/// image bounds (falling back to matching the full frame with a warning if the ROI would end
+/// up empty/out of bounds), then kicks off TaskLocalization::startCommissionMatching and
+/// connects a one-shot handler (onMatchingCommissionDone) for its completion.
+/// @param outResult unused; the result arrives asynchronously via onMatchingCommissionDone
 bool LocalizationPatternsWidget::runMatchingTest(mtc::MatchResult &outResult) {
     if (!m_patternManager) return false;
     if (m_selectedGroupIndex < 0) return false;
@@ -1924,6 +2184,9 @@ bool LocalizationPatternsWidget::runMatchingTest(mtc::MatchResult &outResult) {
 // -> considering using OK/NG Row for dectected object under thresh score
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Builds the result table (Pane 1 bottom): configures result_table's columns/headers,
+/// selection/edit behavior, default column widths, and wires row-selection sync plus an
+/// Escape-key shortcut to clear the result selection.
 void LocalizationPatternsWidget::buildResultTable() {
     if (!ui->pane_monitor) return;
 
@@ -1960,11 +2223,17 @@ void LocalizationPatternsWidget::buildResultTable() {
             this, &LocalizationPatternsWidget::clearResultSelection);
 }
 
+/// Clears the result-object selection and empties the result table (removes all rows).
 void LocalizationPatternsWidget::clearResultTable() {
     clearResultSelection();
     if (m_resultTable) m_resultTable->setRowCount(0);
 }
 
+/// Repopulates the result table from a completed match result: one row per detected object,
+/// with pattern number/name, score, center X/Y, angle, and an OK/Collision/Outside status —
+/// each colour-coded via the `ptn` palette (OK green, collision/mismatch warn/err). Clears any
+/// existing selection and rows first; leaves the table empty if the result has no objects.
+/// @param result the completed matching pass's result
 void LocalizationPatternsWidget::populateResultTable(const mtc::MatchResult &result) {
     if (!m_resultTable) return;
 
@@ -2031,6 +2300,9 @@ void LocalizationPatternsWidget::populateResultTable(const mtc::MatchResult &res
     }
 }
 
+/// Mirrors the result table's current row selection into the result viewer: resolves the row
+/// to its overlay object index (via resultOverlayIndexForRow()) and selects/clears the
+/// matching object in the viewer.
 void LocalizationPatternsWidget::syncResultSelectionFromTable()
 {
     if (!m_resultViewer || !m_resultTable) return;
@@ -2049,6 +2321,11 @@ void LocalizationPatternsWidget::syncResultSelectionFromTable()
     }
 }
 
+/// Mirrors a result-viewer object selection back into the result table: finds and selects the
+/// table row whose stored object index matches `objectIndex`, or clears the table selection if
+/// `objectIndex` is non-positive or no row matches. Blocks the table's signals during the sync
+/// to avoid feeding the change back into syncResultSelectionFromTable().
+/// @param objectIndex 1-based object index as reported by the result viewer, or <= 0 for "none"
 void LocalizationPatternsWidget::syncResultSelectionFromViewer(int objectIndex)
 {
     if (!m_resultTable) return;
@@ -2069,6 +2346,8 @@ void LocalizationPatternsWidget::syncResultSelectionFromViewer(int objectIndex)
     m_resultTable->clearSelection();
 }
 
+/// Clears the result-object selection in both the result table (signals blocked) and the
+/// result viewer.
 void LocalizationPatternsWidget::clearResultSelection()
 {
     if (m_resultTable) {
@@ -2080,6 +2359,9 @@ void LocalizationPatternsWidget::clearResultSelection()
     }
 }
 
+/// Returns the overlay object index stored (in Qt::UserRole) on column 0 of table row `row`,
+/// or -1 if there is no result table, `row` is out of range, or no index was stored.
+/// @param row result-table row index
 int LocalizationPatternsWidget::resultOverlayIndexForRow(int row) const
 {
     if (!m_resultTable || row < 0 || row >= m_resultTable->rowCount()) {

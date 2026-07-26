@@ -1,0 +1,28 @@
+var dir_b70b8b783a8b9aa73bee47b1192dd9af =
+[
+    [ "edge_match_config.h", "edge__match__config_8h.html", "edge__match__config_8h" ],
+    [ "image_matcher.cpp", "image__matcher_8cpp.html", "image__matcher_8cpp" ],
+    [ "image_matcher.h", "image__matcher_8h.html", "image__matcher_8h" ],
+    [ "imatch_type_config.cpp", "imatch__type__config_8cpp.html", null ],
+    [ "imatch_type_config.h", "imatch__type__config_8h.html", "imatch__type__config_8h" ],
+    [ "manager_result.h", "manager__result_8h.html", "manager__result_8h" ],
+    [ "match_box_gripper.h", "match__box__gripper_8h.html", "match__box__gripper_8h" ],
+    [ "match_group.cpp", "match__group_8cpp.html", "match__group_8cpp" ],
+    [ "match_group.h", "match__group_8h.html", "match__group_8h" ],
+    [ "match_object.h", "match__object_8h.html", "match__object_8h" ],
+    [ "match_params.cpp", "match__params_8cpp.html", null ],
+    [ "match_params.h", "match__params_8h.html", "match__params_8h" ],
+    [ "match_pattern.cpp", "match__pattern_8cpp.html", null ],
+    [ "match_pattern.h", "match__pattern_8h.html", "match__pattern_8h" ],
+    [ "match_pattern_config.cpp", "match__pattern__config_8cpp.html", null ],
+    [ "match_pattern_config.h", "match__pattern__config_8h.html", "match__pattern__config_8h" ],
+    [ "match_pattern_layer.h", "match__pattern__layer_8h.html", "match__pattern__layer_8h" ],
+    [ "matching_types.h", "matching__types_8h.html", "matching__types_8h" ],
+    [ "pattern_group_manager.cpp", "pattern__group__manager_8cpp.html", "pattern__group__manager_8cpp" ],
+    [ "pattern_group_manager.h", "pattern__group__manager_8h.html", "pattern__group__manager_8h" ],
+    [ "robot_picking_checker.h", "robot__picking__checker_8h.html", "robot__picking__checker_8h" ],
+    [ "utils_block_max.cpp", "utils__block__max_8cpp.html", null ],
+    [ "utils_block_max.h", "utils__block__max_8h.html", "utils__block__max_8h" ],
+    [ "vision_utils.cpp", "vision__utils_8cpp.html", null ],
+    [ "vision_utils.h", "vision__utils_8h.html", "vision__utils_8h" ]
+];

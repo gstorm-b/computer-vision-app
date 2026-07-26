@@ -8,6 +8,7 @@
 //  PatternGroupItemWidget
 // ============================================================================
 
+/// Builds the row UI and populates it from `cfg`.
 PatternGroupItemWidget::PatternGroupItemWidget(const MatchGroupConfig &cfg,
                                                QWidget *parent)
     : QWidget(parent), m_config(cfg)
@@ -16,6 +17,7 @@ PatternGroupItemWidget::PatternGroupItemWidget(const MatchGroupConfig &cfg,
     refresh();
 }
 
+/// Builds the row layout (accent bar, labels, buttons) and wires button signals.
 void PatternGroupItemWidget::setupUi()
 {
     setAutoFillBackground(false);
@@ -63,23 +65,28 @@ void PatternGroupItemWidget::setupUi()
             this, &PatternGroupItemWidget::addPatternRequested);
 }
 
+/// Updates the name/number labels from m_config.
 void PatternGroupItemWidget::refresh()
 {
     m_nameLabel->setText(m_config.name);
     m_numberLabel->setText(QStringLiteral("# %1").arg(m_config.number));
 }
 
+/// Replace all displayed data without rebuilding the widget.
 void PatternGroupItemWidget::setConfig(const MatchGroupConfig &cfg)
 {
     m_config = cfg;
     refresh();
 }
 
+/// Returns the currently displayed group configuration.
 MatchGroupConfig PatternGroupItemWidget::config() const
 {
     return m_config;
 }
 
+/// Emits clicked() unless the press landed on a child button (in which case the
+/// button's own click handling takes over and the event is ignored here).
 void PatternGroupItemWidget::mousePressEvent(QMouseEvent *event)
 {
     // Walk up from the widget under the cursor; if we hit a button → skip click
@@ -97,6 +104,7 @@ void PatternGroupItemWidget::mousePressEvent(QMouseEvent *event)
 //  PatternItemWidget
 // ============================================================================
 
+/// Builds the row UI and populates it from `cfg`.
 PatternItemWidget::PatternItemWidget(const MatchPatternConfig &cfg,
                                      QWidget *parent)
     : QWidget(parent), m_config(cfg)
@@ -105,6 +113,7 @@ PatternItemWidget::PatternItemWidget(const MatchPatternConfig &cfg,
     refresh();
 }
 
+/// Builds the row layout (thumbnail, info column, buttons) and wires button signals.
 void PatternItemWidget::setupUi()
 {
     setAutoFillBackground(false);
@@ -163,6 +172,8 @@ void PatternItemWidget::setupUi()
             this, &PatternItemWidget::deleteRequested);
 }
 
+/// Updates the thumbnail and name/number/threshold labels from m_config; shows a
+/// "No Image" placeholder when the thumbnail is null.
 void PatternItemWidget::refresh()
 {
     m_nameLabel->setText(m_config.name);
@@ -181,17 +192,20 @@ void PatternItemWidget::refresh()
     }
 }
 
+/// Replace all displayed data (name/number/threshold/thumbnail) without rebuilding the widget.
 void PatternItemWidget::setConfig(const MatchPatternConfig &cfg)
 {
     m_config = cfg;
     refresh();
 }
 
+/// Returns the currently displayed pattern configuration.
 MatchPatternConfig PatternItemWidget::config() const
 {
     return m_config;
 }
 
+/// Emits clicked() unless the press landed on a child button.
 void PatternItemWidget::mousePressEvent(QMouseEvent *event)
 {
     QWidget *w = childAt(event->pos());
@@ -207,12 +221,14 @@ void PatternItemWidget::mousePressEvent(QMouseEvent *event)
 //  FooterItemWidget
 // ============================================================================
 
+/// Builds the row UI (buttons only, no config to display).
 FooterItemWidget::FooterItemWidget(QWidget *parent)
     : QWidget(parent)
 {
     setupUi();
 }
 
+/// Builds the row layout (two buttons) and wires their click signals.
 void FooterItemWidget::setupUi()
 {
     auto *root = new QHBoxLayout(this);
@@ -244,6 +260,8 @@ void FooterItemWidget::setupUi()
 //  PatternTreeWidget
 // ============================================================================
 
+/// Applies the tree's static styling and appends the pinned footer row; the tree is
+/// empty of groups until setGroups()/addGroup() is called.
 PatternTreeWidget::PatternTreeWidget(QWidget *parent)
     : QTreeWidget(parent)
 {
@@ -253,6 +271,7 @@ PatternTreeWidget::PatternTreeWidget(QWidget *parent)
 
 // ── Public API ───────────────────────────────────────────────────────────────
 
+/// Replaces all groups with `groups`, rebuilds the tree, and expands every group.
 void PatternTreeWidget::setGroups(const QList<MatchGroupConfig> &groups)
 {
     m_groups = groups;
@@ -260,11 +279,14 @@ void PatternTreeWidget::setGroups(const QList<MatchGroupConfig> &groups)
     expandAll();
 }
 
+/// Returns the current groups (and their nested patterns) in display order.
 QList<MatchGroupConfig> PatternTreeWidget::groups() const
 {
     return m_groups;
 }
 
+/// Appends `group` as a new top-level tree item (before the footer) and emits
+/// groupsChanged().
 void PatternTreeWidget::addGroup(const MatchGroupConfig &group)
 {
     m_groups.append(group);
@@ -282,6 +304,10 @@ void PatternTreeWidget::addGroup(const MatchGroupConfig &group)
     emit groupsChanged(m_groups);
 }
 
+/// Removes the group at `groupIndex` (mapped via mapGroupNumber()) and defers the tree
+/// rebuild to the next event loop iteration so it is safe to call from a signal handler
+/// still on the call stack.
+/// @param groupIndex group number to remove (not a raw list index)
 void PatternTreeWidget::removeGroup(int groupIndex)
 {
     groupIndex = mapGroupNumber(groupIndex);
@@ -296,6 +322,9 @@ void PatternTreeWidget::removeGroup(int groupIndex)
     });
 }
 
+/// Replaces the config for the group at `groupIndex` (mapped via mapGroupNumber()),
+/// updates its row widget in place, and emits groupChanged()/groupsChanged().
+/// @param groupIndex group number to update (not a raw list index)
 void PatternTreeWidget::updateGroup(int groupIndex, const MatchGroupConfig &group)
 {
     groupIndex = mapGroupNumber(groupIndex);
@@ -314,6 +343,9 @@ void PatternTreeWidget::updateGroup(int groupIndex, const MatchGroupConfig &grou
     emit groupsChanged(m_groups);
 }
 
+/// Appends `pattern` to the group at `groupIndex` (mapped via mapGroupNumber()),
+/// inserts its row widget, expands the group, and emits groupChanged()/groupsChanged().
+/// @param groupIndex group number to append to (not a raw list index)
 void PatternTreeWidget::addPattern(int groupIndex, const MatchPatternConfig &pattern)
 {
     groupIndex = mapGroupNumber(groupIndex);
@@ -333,6 +365,9 @@ void PatternTreeWidget::addPattern(int groupIndex, const MatchPatternConfig &pat
     emit groupsChanged(m_groups);
 }
 
+/// Removes the pattern at `patternIndex` from the group at `groupIndex` (mapped via
+/// mapGroupNumber()) and defers the tree rebuild to the next event loop iteration.
+/// @param groupIndex group number containing the pattern (not a raw list index)
 void PatternTreeWidget::removePattern(int groupIndex, int patternIndex)
 {
     groupIndex = mapGroupNumber(groupIndex);
@@ -350,6 +385,10 @@ void PatternTreeWidget::removePattern(int groupIndex, int patternIndex)
     });
 }
 
+/// Replaces the pattern at `patternIndex` within the group at `groupIndex` (mapped via
+/// mapGroupNumber()), updates its row widget in place, and emits
+/// patternChanged()/groupsChanged().
+/// @param groupIndex group number containing the pattern (not a raw list index)
 void PatternTreeWidget::updatePattern(int groupIndex, int patternIndex,
                                       const MatchPatternConfig &pattern)
 {
@@ -373,6 +412,7 @@ void PatternTreeWidget::updatePattern(int groupIndex, int patternIndex,
     emit groupsChanged(m_groups);
 }
 
+/// Sort all groups ascending by MatchGroupConfig::number and rebuild.
 void PatternTreeWidget::autoSort()
 {
     std::sort(m_groups.begin(), m_groups.end(),
@@ -385,6 +425,9 @@ void PatternTreeWidget::autoSort()
 
 // ── Private helpers ──────────────────────────────────────────────────────────
 
+/// Configures the tree's static QTreeWidget properties (no header, root decoration,
+/// animation, single selection, scroll behavior); visual styling itself lives in
+/// dark.qss/light.qss.
 void PatternTreeWidget::setupStyle()
 {
     setHeaderHidden(true);
@@ -397,6 +440,8 @@ void PatternTreeWidget::setupStyle()
     // Visual styling owned by dark.qss / light.qss via PatternTreeWidget selectors
 }
 
+/// Clears and rebuilds the entire tree from m_groups, preserving which groups were
+/// expanded beforehand.
 void PatternTreeWidget::rebuildTree()
 {
     const QSet<int> expanded = expandedGroupIndices();
@@ -416,6 +461,8 @@ void PatternTreeWidget::rebuildTree()
     restoreExpanded(expanded);
 }
 
+/// Creates the top-level tree item and PatternGroupItemWidget for `group`, inserts it
+/// before the footer, wires its signals, and appends its patterns.
 void PatternTreeWidget::appendGroupItem(const MatchGroupConfig &group, int groupIndex)
 {
     auto *treeItem = new QTreeWidgetItem();
@@ -453,6 +500,8 @@ void PatternTreeWidget::appendGroupItem(const MatchGroupConfig &group, int group
         appendPatternItem(treeItem, group.patterns[pi], groupIndex, pi);
 }
 
+/// Creates a child tree item and PatternItemWidget for `pattern` under `parentItem`
+/// and wires its signals.
 void PatternTreeWidget::appendPatternItem(QTreeWidgetItem *parentItem,
                                           const MatchPatternConfig &pattern,
                                           int groupIndex, int patternIndex)
@@ -484,6 +533,7 @@ void PatternTreeWidget::appendPatternItem(QTreeWidgetItem *parentItem,
             });
 }
 
+/// (Re)creates the pinned footer row (FooterItemWidget) as the tree's last item.
 void PatternTreeWidget::appendFooterItem()
 {
     m_footerItem = new QTreeWidgetItem();
@@ -506,6 +556,8 @@ void PatternTreeWidget::appendFooterItem()
             this, &PatternTreeWidget::autoSort);
 }
 
+/// Maps a group's MatchGroupConfig::number to its current index in m_groups.
+/// @return the matching index, or -1 if no group has that number
 int PatternTreeWidget::mapGroupNumber(int groupIndex) {
     int map_number = -1;
     for (int idx=0;idx<m_groups.size();idx++) {
@@ -517,6 +569,8 @@ int PatternTreeWidget::mapGroupNumber(int groupIndex) {
     return map_number;
 }
 
+/// Maps a pattern's MatchPatternConfig::number to its index within `cfgs`.
+/// @return the matching index, or -1 if no pattern has that number
 int PatternTreeWidget::mapPatternNumber(int patternIndex, QList<MatchPatternConfig> &cfgs) {
     int map_number = -1;
     for (int idx=0;idx<cfgs.size();idx++) {
@@ -528,6 +582,7 @@ int PatternTreeWidget::mapPatternNumber(int patternIndex, QList<MatchPatternConf
     return map_number;
 }
 
+/// Returns the indices (within m_groups) of all currently expanded group rows.
 QSet<int> PatternTreeWidget::expandedGroupIndices() const
 {
     QSet<int> result;
@@ -539,6 +594,7 @@ QSet<int> PatternTreeWidget::expandedGroupIndices() const
     return result;
 }
 
+/// Re-expands the group rows at `indices` after a rebuild.
 void PatternTreeWidget::restoreExpanded(const QSet<int> &indices)
 {
     for (int idx : indices) {

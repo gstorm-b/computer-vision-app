@@ -71,6 +71,9 @@ void FrameToolTests::frameRegistryMissingReturnsFrameNotFound()
     QCOMPARE(got.status, KinematicsStatus::FrameNotFound);
 }
 
+/// Entry point that instantiates FrameToolTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runFrameToolTests(int argc, char** argv)
 {
     FrameToolTests tests;

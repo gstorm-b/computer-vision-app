@@ -9,7 +9,19 @@
 #include <QFile>
 #include <QSignalBlocker>
 
-// hepler function
+/// Creates and configures a single QtVariantProperty mirroring meta-property `prop` (read from
+/// `value`): enum-typed properties are mapped to QtVariantPropertyManager::enumTypeId() with
+/// translated enum-key names, other types use the property's own QVariant user type; the
+/// display name and "minimum"/"maximum" attributes are pulled from `<propName>_name`,
+/// `<propName>_min`, `<propName>_max` class-info entries on `meta` when present, and the
+/// property is disabled when `prop` is not writable. Returns nullptr for the "objectName"
+/// property or if the manager could not create one. `browser` is accepted for signature
+/// symmetry with the populate_* callers but is not used directly in this function.
+/// @param meta the meta-object owning `prop` (used for class-info lookups and enum translation)
+/// @param prop the meta-property to mirror into the browser
+/// @param value the current value of `prop`
+/// @param manager the variant property manager used to create the property
+/// @return the newly created property, or nullptr (see above)
 static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaProperty &prop, QVariant &value,
                                         QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) {
 
@@ -75,6 +87,12 @@ static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaPro
     return variantProp;
 }
 
+/// Adds a "Device Information" group to `browser` and fills it with one property per Qt
+/// property exposed on `gadget`'s meta-object (e.g. IDevice's id/name/type), via
+/// addPropertyToBrowser.
+/// @param gadget the device instance whose properties are mirrored
+/// @param manager variant property manager backing the new properties
+/// @param browser tree browser the group and properties are added to
 static void populateBrowser_Device(vc::device::IDevice *gadget, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) {
     QtProperty *topItem = manager->addProperty(QtVariantPropertyManager::groupTypeId(),
                                                QLatin1String("Device Information"));
@@ -92,6 +110,11 @@ static void populateBrowser_Device(vc::device::IDevice *gadget, QtVariantPropert
     }
 }
 
+/// Adds an "Interface" group to `browser` and fills it with one property per Qt property
+/// exposed on the message-interface config gadget's meta-object, via addPropertyToBrowser.
+/// @param gadget the message interface config (e.g. Ethernet TCP settings) whose properties are mirrored
+/// @param manager variant property manager backing the new properties
+/// @param browser tree browser the group and properties are added to
 static void populateBrowser_MsgInterface(vc::device::McMsgItfConfig *gadget, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) {
     QtProperty *topItem = manager->addProperty(QtVariantPropertyManager::groupTypeId(),
                                                QLatin1String("Interface"));
@@ -110,6 +133,12 @@ static void populateBrowser_MsgInterface(vc::device::McMsgItfConfig *gadget, QtV
     }
 }
 
+/// Adds a "Protocol format" group to `browser` and fills it with one property per Qt property
+/// exposed on the MC context gadget's meta-object (frame type, data code, addressing, etc.), via
+/// addPropertyToBrowser.
+/// @param gadget the MC protocol context whose properties are mirrored
+/// @param manager variant property manager backing the new properties
+/// @param browser tree browser the group and properties are added to
 static void populateBrowser_McContext(vc::device::McContext *gadget, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) {
     QtProperty *topItem = manager->addProperty(QtVariantPropertyManager::groupTypeId(),
                                                QLatin1String("Protocol format"));
@@ -128,6 +157,8 @@ static void populateBrowser_McContext(vc::device::McContext *gadget, QtVariantPr
     }
 }
 
+/// Constructs the widget for device `dv`, sets up the generated .ui, and calls initWidget() to
+/// build the property browser, the M/D monitor widgets, and all signal/slot wiring.
 MitsubishiMcDeviceWidget::MitsubishiMcDeviceWidget(std::shared_ptr<vc::device::IDevice> dv,
                                           vc::runtime::PlcRunner *runner,
                                           ads::CDockWidget *dock, QWidget *parent)
@@ -141,22 +172,37 @@ MitsubishiMcDeviceWidget::MitsubishiMcDeviceWidget(std::shared_ptr<vc::device::I
     initWidget();
 }
 
+/// Destroys the generated UI object. The device (shared_ptr) and runner (owned elsewhere) are
+/// not deleted here.
 MitsubishiMcDeviceWidget::~MitsubishiMcDeviceWidget() {
     delete ui;
 }
 
+/// Returns the id of the underlying device.
 QString MitsubishiMcDeviceWidget::deviceId() {
     return m_device->id();
 }
 
+/// No-op override: property-browser edits are already pushed to the device immediately (via
+/// onPropertyValueChanged/saveConfig), so there is nothing extra to push here.
 void MitsubishiMcDeviceWidget::loadConfigToDevice() {
     // do nothing
 }
 
+/// No-op override: the widget's fields are (re)populated as part of initWidget()/populateBrowser(),
+/// so there is nothing extra to load here.
 void MitsubishiMcDeviceWidget::loadConfigToWidget() {
     // do nothing
 }
 
+/// Slot for QtVariantPropertyManager::valueChanged: looks up which meta-object owns the edited
+/// property by name (the device itself, the MC context, or its message-interface config) and
+/// writes the new value back onto the matching gadget/object via QMetaProperty::writeOnGadget
+/// (or, for the device's "name" property, via DeviceManager::changeDeviceName, reverting the
+/// property display if the rename is rejected). Ignored while populateBrowser() is rebuilding
+/// the browser (m_populating_browser) to avoid feedback loops. Context/interface edits trigger
+/// saveConfig() plus the relevant UI refresh (monitor ranges + meta summary, or connection
+/// fields).
 void MitsubishiMcDeviceWidget::onPropertyValueChanged(QtProperty *property, const QVariant &variant) {
     if (m_populating_browser) {
         return;
@@ -214,6 +260,9 @@ void MitsubishiMcDeviceWidget::onPropertyValueChanged(QtProperty *property, cons
     }
 }
 
+/// Slot for the connect/disconnect button: requests a connect through the runner if the device
+/// is currently not connected, otherwise requests a disconnect. No-op if the device or runner
+/// is missing.
 void MitsubishiMcDeviceWidget::onBtnConnect() {
     if (!m_device || !m_runner) {
         return;
@@ -227,11 +276,17 @@ void MitsubishiMcDeviceWidget::onBtnConnect() {
     }
 }
 
+/// Reapplies the current in-memory config's monitor ranges and pushes m_config to the device
+/// via McProtocolDevice::setMcProtocolConfig.
 void MitsubishiMcDeviceWidget::saveConfig() {
     rebuildMonitorRanges();
     m_mc_device->setMcProtocolConfig(m_config);
 }
 
+/// Slot for PlcRunner::connectStatusChanged: refreshes the connection visual, and additionally
+/// clears both monitor widgets' cached bit/word values when the link is disconnected, lost, or
+/// failed to connect. Every ConnectStatus value is enumerated explicitly (no default:) so that
+/// adding a new value surfaces a compiler warning here.
 void MitsubishiMcDeviceWidget::onConnectionStateChanged(vc::device::ConnectStatus state) {
     updateConnectionVisual(state);
     switch (state) {
@@ -251,6 +306,8 @@ void MitsubishiMcDeviceWidget::onConnectionStateChanged(vc::device::ConnectStatu
     }
 }
 
+/// Slot for PlcRunner::pollingUpdate: downcasts `device_map` to McDeviceMap and forwards the
+/// polled M (bit) and D (word) register values into the corresponding monitor widgets.
 void MitsubishiMcDeviceWidget::onPollingUpdateValue(std::shared_ptr<vc::device::PlcValueMap> device_map) {
     m_device_map = *(static_cast<vc::device::McDeviceMap*>(device_map.get()));
     if (m_monitor_m) {
@@ -267,6 +324,12 @@ void MitsubishiMcDeviceWidget::onPollingUpdateValue(std::shared_ptr<vc::device::
     }
 }
 
+/// One-time widget setup: initialises the property browser, applies the per-form theme QSS,
+/// wires the runner's connectStatusChanged/pollingUpdate signals (logging an error if no runner
+/// was supplied, leaving controls disabled), caches the device's current McProtocolConfig,
+/// creates and embeds the M (bit) and D (word) DevicesMonitorWidget instances into the .ui
+/// splitter containers, refreshes the monitor ranges/meta summary/property browser, and
+/// connects the connection-card controls (connect button, IP/port/timeout edits).
 void MitsubishiMcDeviceWidget::initWidget() {
     initPropertyBrowser();
     setupThemeReload(QStringLiteral(":/styles/mitsubishi_mc_device_widget_dark.qss"),
@@ -331,6 +394,8 @@ void MitsubishiMcDeviceWidget::initWidget() {
 }
 
 
+/// Reapplies the current M/D start-address and amount from m_config's context onto the M and D
+/// monitor widgets' ranges. No-op if the context is not set.
 void MitsubishiMcDeviceWidget::rebuildMonitorRanges() {
     if (!m_config.context()) return;
     const int m_start = m_config.context()->startMAddress();
@@ -341,6 +406,9 @@ void MitsubishiMcDeviceWidget::rebuildMonitorRanges() {
     if (m_monitor_d) m_monitor_d->setRange(d_start, d_amount);
 }
 
+/// Updates the meta-summary label with the current frame type, data code, and refresh interval
+/// read from m_config's context (formatted as "FRAME type - code - INTERVAL n ms", with an em
+/// dash placeholder when the frame/code strings are empty). No-op if the context is missing.
 void MitsubishiMcDeviceWidget::refreshMetaSummary() {
     auto *ctx = m_config.context();
     if (!ctx) return;
@@ -352,6 +420,11 @@ void MitsubishiMcDeviceWidget::refreshMetaSummary() {
                                     .arg(ctx->refreshInterval()));
 }
 
+/// Loads the connection card's fields from the current message-interface config: IP/port only
+/// when the interface is EthernetTCPIP (otherwise the IP field is cleared/disabled and the port
+/// field is disabled), plus the connect and response timeouts. Signal blockers on all four
+/// fields (and the m_loading_connection_fields flag) prevent the edits from re-triggering the
+/// on*EditFinished handlers. No-op if the context or message config is not set.
 void MitsubishiMcDeviceWidget::populateConnectionFields() {
     if (!m_config.context()) return;
     auto *msg = m_config.context()->msgConfig();
@@ -378,6 +451,9 @@ void MitsubishiMcDeviceWidget::populateConnectionFields() {
     m_loading_connection_fields = false;
 }
 
+/// Slot for the IP field's editingFinished: commits the trimmed IP text into the Ethernet-TCP
+/// message config and calls saveConfig(). Skipped while fields are being programmatically
+/// loaded, if the interface is not EthernetTCPIP, or if the value did not change.
 void MitsubishiMcDeviceWidget::onIpEditFinished() {
     if (m_loading_connection_fields) return;
     auto *msg = m_config.context() ? m_config.context()->msgConfig() : nullptr;
@@ -389,6 +465,10 @@ void MitsubishiMcDeviceWidget::onIpEditFinished() {
     saveConfig();
 }
 
+/// Slot for the port field's editingFinished: commits the new port number into the
+/// Ethernet-TCP message config and calls saveConfig(). Skipped while fields are being
+/// programmatically loaded, if the interface is not EthernetTCPIP, or if the value did not
+/// change.
 void MitsubishiMcDeviceWidget::onPortEditFinished() {
     if (m_loading_connection_fields) return;
     auto *msg = m_config.context() ? m_config.context()->msgConfig() : nullptr;
@@ -400,6 +480,9 @@ void MitsubishiMcDeviceWidget::onPortEditFinished() {
     saveConfig();
 }
 
+/// Slot for the connect-timeout field's editingFinished: applies the new value via
+/// McMsgItfConfig::SetConnectTimeout and calls saveConfig(). Skipped while fields are being
+/// programmatically loaded, if there is no message config, or if the value did not change.
 void MitsubishiMcDeviceWidget::onConnectTimeoutEditFinished() {
     if (m_loading_connection_fields) return;
     auto *msg = m_config.context() ? m_config.context()->msgConfig() : nullptr;
@@ -410,6 +493,10 @@ void MitsubishiMcDeviceWidget::onConnectTimeoutEditFinished() {
     saveConfig();
 }
 
+/// Slot for the response-timeout field's editingFinished: applies the new value via
+/// McMsgItfConfig::SetWaitResponseTimeout and calls saveConfig(). Skipped while fields are
+/// being programmatically loaded, if there is no message config, or if the value did not
+/// change.
 void MitsubishiMcDeviceWidget::onResponseTimeoutEditFinished() {
     if (m_loading_connection_fields) return;
     auto *msg = m_config.context() ? m_config.context()->msgConfig() : nullptr;
@@ -420,6 +507,10 @@ void MitsubishiMcDeviceWidget::onResponseTimeoutEditFinished() {
     saveConfig();
 }
 
+/// Updates the connection dot/label/button to reflect `status`: sets the "connectionState"
+/// dynamic property ("connected"/"disconnected") on all three widgets, updates their text
+/// ("CONNECTED"/"DISCONNECTED", "Disconnect"/"Connect"), and re-polishes each so the QSS
+/// styling keyed on that property takes effect immediately.
 void MitsubishiMcDeviceWidget::updateConnectionVisual(vc::device::ConnectStatus status) {
     const bool connected = (status == vc::device::ConnectStatus::Connected);
     const QString stateVal = connected ? QStringLiteral("connected")
@@ -440,12 +531,17 @@ void MitsubishiMcDeviceWidget::updateConnectionVisual(vc::device::ConnectStatus 
     }
 }
 
+/// Currently a stub: only guards on a missing device and otherwise does nothing.
 void MitsubishiMcDeviceWidget::refreshConfig() {
     if (!m_device) {
         return;
     }
 }
 
+/// Slot for DevicesMonitorWidget::bitWriteRequested (M/bit monitor): builds an MCRequest::WriteBit
+/// request for register "M" + address (4-digit zero-padded) with `value` as the single bit
+/// payload and pushes it to the device. No-op if the device is missing or not connected.
+/// @param address the M-register address to write
 void MitsubishiMcDeviceWidget::onBitWriteRequested(int address, quint8 value) {
     if (!m_device || !m_device->isDeviceConnected()) {
         return;
@@ -456,6 +552,12 @@ void MitsubishiMcDeviceWidget::onBitWriteRequested(int address, quint8 value) {
     m_device->pushRequest(static_cast<vc::device::IRequest*>(&request));
 }
 
+/// Slot for DevicesMonitorWidget::wordWriteRequested (D/word monitor): builds an
+/// MCRequest::WriteWord request for register "D" + address (4-digit zero-padded) with `value`
+/// as the single word payload and pushes it to the device. No-op if the device is missing or
+/// not connected.
+/// @param address the D-register address to write
+/// @param value the word value to write
 void MitsubishiMcDeviceWidget::onWordWriteRequested(int address, qint16 value) {
     if (!m_device || !m_device->isDeviceConnected()) {
         return;
@@ -466,6 +568,11 @@ void MitsubishiMcDeviceWidget::onWordWriteRequested(int address, qint16 value) {
     m_device->pushRequest(static_cast<vc::device::IRequest*>(&request));
 }
 
+/// Rebuilds the property browser from scratch: clears the variant manager (destroying the
+/// previous properties) then re-adds the Device Information, Protocol format, and Interface
+/// groups via populateBrowser_Device/populateBrowser_McContext/populateBrowser_MsgInterface.
+/// Guards re-entrant edits with m_populating_browser and suppresses editor repaints via
+/// blockSignals for the duration of the rebuild.
 void MitsubishiMcDeviceWidget::populateBrowser() {
     m_variantEditor->blockSignals(true);
     m_populating_browser = true;

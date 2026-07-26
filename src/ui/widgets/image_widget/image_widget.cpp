@@ -7,12 +7,18 @@
 #include <QGraphicsPixmapItem>
 #include <QScrollBar>
 
+/// Debug-only logging helper: when ENABLE_DEBUG_MODE is defined, expands to `qDebug() << msg`;
+/// otherwise expands to nothing so the call is compiled out entirely.
 #ifdef ENABLE_DEBUG_MODE
 #define PRINT_DEBUG_INFO(msg)　qDebug() << msg
 #else
 #define PRINT_DEBUG_INFO(msg) //
 #endif
 
+/// Constructs the image view: creates the backing QGraphicsScene, initializes all ROI/pan/mode
+/// state to its defaults, sets the background brush, configures the viewport to fully repaint on
+/// every update (avoids ghosting), disables smooth pixmap transform (avoids blur when zoomed in),
+/// and builds the right-click context menus via init_mouse_menu().
 ImageWidget::ImageWidget(QWidget *parent)
     : QGraphicsView(parent),
     m_scene(new QGraphicsScene(this)),
@@ -39,10 +45,17 @@ ImageWidget::ImageWidget(QWidget *parent)
   init_mouse_menu();
 }
 
+/// Destructor. Currently a no-op: explicit deletion of m_pixmapItem is left commented out since
+/// it is owned by m_scene and is cleaned up when the scene is destroyed.
 ImageWidget::~ImageWidget() {
   // delete m_pixmapItem;
 }
 
+/// Assigns the QSettings instance used to persist things like the last-used file directory. If
+/// the widget currently owns an internally-created QSettings (not previously supplied by a
+/// caller), that instance is deleted before the new one is installed; ownership of `setting`
+/// itself is then considered the caller's (see m_using_user_setting).
+/// @param setting settings instance to adopt; a null pointer is ignored (no-op)
 void ImageWidget::setSettings(QSettings *setting) {
   if (setting == nullptr) {
     return;
@@ -56,6 +69,8 @@ void ImageWidget::setSettings(QSettings *setting) {
   m_using_user_setting = true;
 }
 
+/// Clears the reference to a caller-supplied QSettings without deleting it (ownership stays with
+/// the caller). No-op if the widget isn't currently using an externally supplied QSettings.
 void ImageWidget::removeSettings() {
   if ((m_using_user_setting) && (this->m_setting != nullptr)){
     this->m_setting = nullptr;
@@ -63,10 +78,18 @@ void ImageWidget::removeSettings() {
   }
 }
 
+/// Returns the pixmap currently displayed by the view.
+/// @note Dereferences m_pixmapItem without a null check; calling this before any image has been
+/// loaded (or after removeImage()) is undefined behavior.
 QPixmap ImageWidget::getImage() {
   return m_pixmapItem->pixmap();
 }
 
+/// Returns the sub-image of the current pixmap covered by `roi`'s rectangle, aligned to whole
+/// pixels and clipped to the pixmap bounds.
+/// @param roi region of interest to crop; may be nullptr
+/// @return a copy of the cropped pixmap, or a null QPixmap if roi is null or the aligned rect
+/// doesn't overlap the image
 QPixmap ImageWidget::getCroppedFromRoi(ItemRoi *roi) {
   if (roi == nullptr) {
     return QPixmap();
@@ -85,14 +108,20 @@ QPixmap ImageWidget::getCroppedFromRoi(ItemRoi *roi) {
   return pixmap.copy(roi_int);
 }
 
+/// Enables or disables showing the right-click context menu on right-mouse-button release.
 void ImageWidget::setEnableMouseMenu(bool enable) {
   m_using_mouse_menu = enable;
 }
 
+/// Returns whether the right-click context menu is currently enabled.
 const bool ImageWidget::isUseMouseMenu() {
   return m_using_mouse_menu;
 }
 
+/// Loads an image file from disk into the view: reads it via QImage, creates or updates the
+/// pixmap item, expands the scene rect around it, and fits it into the view preserving aspect
+/// ratio. Logs and returns without changing state if the file fails to load.
+/// @param filePath path to the image file to load
 void ImageWidget::loadImage(const QString &filePath) {
   QImage image(filePath);
   if (image.isNull()) {
@@ -115,6 +144,10 @@ void ImageWidget::loadImage(const QString &filePath) {
   this->fitInView(m_pixmap_bounding_rect, Qt::KeepAspectRatio);
 }
 
+/// Loads an in-memory pixmap into the view (e.g. a frame already decoded elsewhere), creating or
+/// updating the pixmap item, expanding the scene rect around it, and fitting it into the view
+/// preserving aspect ratio.
+/// @param pixmap pixmap to display
 void ImageWidget::loadImage(QPixmap &pixmap) {
   if (!m_pixmapItem) {
     createPixmapItem(pixmap);
@@ -130,6 +163,8 @@ void ImageWidget::loadImage(QPixmap &pixmap) {
   this->fitInView(m_pixmap_bounding_rect, Qt::KeepAspectRatio);
 }
 
+/// Removes the currently displayed pixmap item from the scene and deletes it, then re-fits the
+/// (now empty) view. No-op, with a debug log, if no image is currently loaded.
 void ImageWidget::removeImage() {
   if (!hadImage()) {
     PRINT_DEBUG_INFO("[IMG ROI Widget] Remove failed, image empty.");
@@ -142,6 +177,10 @@ void ImageWidget::removeImage() {
   this->fitInView(m_pixmap_bounding_rect, Qt::KeepAspectRatio);
 }
 
+/// Begins interactive ROI drawing: clears the current scene selection and switches to
+/// IModeDrawing, remembering `roi_type` for when the drag finishes (see draw_endROI). Only takes
+/// effect if the widget isn't already in some other interaction mode.
+/// @param roi_type the ROI shape to create once drawing completes
 void ImageWidget::startDrawROI(ImageWidget::ItemAddType roi_type) {
   if (m_current_mode == IModeNone) {
     // this->setCursor(Qt::CrossCursor);
@@ -151,6 +190,8 @@ void ImageWidget::startDrawROI(ImageWidget::ItemAddType roi_type) {
   }
 }
 
+/// Removes and deletes every currently-selected item in the scene (e.g. selected ROIs). No-op if
+/// nothing is selected.
 void ImageWidget::deletedSelectedItems() {
   QList<QGraphicsItem*> selected_items = m_scene->selectedItems();
   if (selected_items.empty()) {
@@ -164,6 +205,9 @@ void ImageWidget::deletedSelectedItems() {
   }
 }
 
+/// Handles right/left mouse button presses by delegating to rightMouseButtonPressed() /
+/// leftMouseButtonPressed(); forwards the event to the base QGraphicsView implementation unless
+/// one of those handlers reports it fully handled the event.
 void ImageWidget::mousePressEvent(QMouseEvent *event) {
   // custom handle mouse press event
   switch (event->button()) {
@@ -184,6 +228,10 @@ void ImageWidget::mousePressEvent(QMouseEvent *event) {
   QGraphicsView::mousePressEvent(event);
 }
 
+/// Drives per-mode mouse-move behavior: while panning (IModePan), scrolls the view by the pointer
+/// delta since the last move; while drawing (IModeDrawing), updates the in-progress ROI rectangle
+/// via draw_updateROI() and returns without forwarding to the base class. Other modes fall
+/// through to the base QGraphicsView handling.
 void ImageWidget::mouseMoveEvent(QMouseEvent *event) {
   switch (m_current_mode) {
     case IModeNone:
@@ -214,6 +262,9 @@ void ImageWidget::mouseMoveEvent(QMouseEvent *event) {
   QGraphicsView::mouseMoveEvent(event);
 }
 
+/// Handles right/left mouse button releases by delegating to rightMouseButtonReleased() /
+/// leftMouseButtonReleased(); forwards the event to the base class unless one of those handlers
+/// reports it fully handled the event.
 void ImageWidget::mouseReleaseEvent(QMouseEvent *event) {
   // custom handle mouse release event
   switch (event->button()) {
@@ -234,6 +285,9 @@ void ImageWidget::mouseReleaseEvent(QMouseEvent *event) {
   QGraphicsView::mouseReleaseEvent(event);
 }
 
+/// On a middle-button double-click while not otherwise interacting (IModeNone), re-fits the
+/// image into the view (resetting zoom/pan). Always forwards the event to the base class
+/// afterward.
 void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event) {
   switch (event->button()) {
     case Qt::MiddleButton:
@@ -248,6 +302,10 @@ void ImageWidget::mouseDoubleClickEvent(QMouseEvent *event) {
   QGraphicsView::mouseDoubleClickEvent(event);
 }
 
+/// While Ctrl is held, treats the wheel as a zoom gesture: temporarily switches to IModeZoom,
+/// scales the view by a fixed factor (1.15 to zoom in, 0.85 to zoom out) based on wheel
+/// direction, then restores the previous interaction mode and swallows the event. Otherwise
+/// forwards to the base QGraphicsView wheel handling.
 void ImageWidget::wheelEvent(QWheelEvent *event) {
   if (event->modifiers() & Qt::ControlModifier) {
     changeInteractMode(IModeZoom);
@@ -261,6 +319,9 @@ void ImageWidget::wheelEvent(QWheelEvent *event) {
   QGraphicsView::wheelEvent(event);
 }
 
+/// On Escape, cancels any in-progress ROI drawing (draw_cancelROI()) and returns to IModeNone.
+/// While not interacting (IModeNone), Delete removes selected items via deletedSelectedItems().
+/// Every event is forwarded to the base class afterward regardless of handling above.
 void ImageWidget::keyPressEvent(QKeyEvent *event) {
   if (event->key() == Qt::Key_Escape) {
     if (m_roi_started) {
@@ -291,6 +352,8 @@ void ImageWidget::keyPressEvent(QKeyEvent *event) {
   QGraphicsView::keyPressEvent(event);
 }
 
+/// Releasing Ctrl while panning (IModePan) clears the last pan point and returns to IModeNone.
+/// Always forwards the event to the base class afterward.
 void ImageWidget::keyReleaseEvent(QKeyEvent *event) {
   if ((event->key() == Qt::Key_Control) && (m_current_mode == IModePan)) {
     m_last_pan_point = QPoint();
@@ -303,6 +366,10 @@ void ImageWidget::keyReleaseEvent(QKeyEvent *event) {
   QGraphicsView::keyReleaseEvent(event);
 }
 
+/// Switches the current interaction mode to `mode` (no-op if already in that mode), remembering
+/// the previous mode, updating the cursor, and recomputing m_scene_interacting (true whenever the
+/// new mode is not IModeNone).
+/// @param mode the interaction mode to switch to
 void ImageWidget::changeInteractMode(InteractMode mode) {
   if (mode != m_current_mode) {
     m_previous_mode = m_current_mode;
@@ -317,6 +384,8 @@ void ImageWidget::changeInteractMode(InteractMode mode) {
   }
 }
 
+/// Swaps back to the previously active interaction mode (no-op if it equals the current mode),
+/// updating the cursor and m_scene_interacting accordingly.
 void ImageWidget::backToPreviousMode() {
   if (m_previous_mode == m_current_mode) {
     return;
@@ -334,6 +403,8 @@ void ImageWidget::backToPreviousMode() {
   //          << interactMode2String(m_current_mode));
 }
 
+/// Sets the view's cursor to match the current interaction mode: arrow for IModeNone, closed hand
+/// for IModePan, cross for IModeDrawing; IModeZoom leaves the cursor unchanged.
 void ImageWidget::changeCursor() {
   switch (m_current_mode) {
     case IModeNone:
@@ -351,6 +422,8 @@ void ImageWidget::changeCursor() {
   }
 }
 
+/// Creates the context-menu QActions and builds the three right-click QMenu variants (no image,
+/// image loaded, ROI selected) used by showRightMouseClickMenu().
 void ImageWidget::init_mouse_menu() {
   action_add_roi = new QAction("Add ROI", this);
   action_delete_roi = new QAction("Delete selected ROIs", this);
@@ -373,6 +446,9 @@ void ImageWidget::init_mouse_menu() {
   menu_right_mouse_roi->addAction(action_delete_roi);
 }
 
+/// Creates the QGraphicsPixmapItem for `pixmap`, assigns it to m_pixmapItem, and adds it to the
+/// scene.
+/// @param pixmap the pixmap to wrap and add to the scene
 void ImageWidget::createPixmapItem(QPixmap &pixmap) {
   // m_pixmapItem = new PixmapBoundingLine(pixmap);
   m_pixmapItem = new QGraphicsPixmapItem(pixmap);
@@ -381,10 +457,13 @@ void ImageWidget::createPixmapItem(QPixmap &pixmap) {
   m_scene->addItem(m_pixmapItem);
 }
 
+/// Returns whether an image (pixmap item) is currently loaded.
 bool ImageWidget::hadImage() {
   return (m_pixmapItem != nullptr);
 }
 
+/// Deletes every ROI item (ItemRoi or ItemRoiRotated) currently in the scene. No-op if the scene
+/// doesn't exist.
 void ImageWidget::removeAllRoi() {
     if (!m_scene) return;
 
@@ -398,10 +477,19 @@ void ImageWidget::removeAllRoi() {
     }
 }
 
+/// Removes `item` from the scene. Does not delete it; the caller retains ownership.
+/// @param item item to remove from the scene
 void ImageWidget::removeRoi(QGraphicsItem *item) {
     m_scene->removeItem(item);
 }
 
+/// Creates and adds a new ROI graphics item to the scene, anchored to the current pixmap item.
+/// @param rtype ROI shape to create: NormalROI builds an ItemRoi from `rect`; RotatedROI builds
+/// an ItemRoiRotated from m_temp_roi's current rect instead (the `rect` parameter is unused in
+/// that branch); any other value (e.g. PickingPosition) is a no-op
+/// @param rect rectangle to use for the NormalROI case
+/// @note the newly created ROI is discarded if smaller than 10x10; otherwise it is kept and
+/// reported via signal_new_roi_added(). No-op if no pixmap is loaded or the widget has no scene.
 void ImageWidget::addRoi(ImageWidget::ItemAddType rtype, QRectF rect) {
     if (this->m_pixmapItem == nullptr) {
         return;
@@ -454,10 +542,13 @@ void ImageWidget::addRoi(ImageWidget::ItemAddType rtype, QRectF rect) {
     }
 }
 
+/// Returns the pixmap item currently displayed by the view (nullptr if no image is loaded).
 QGraphicsPixmapItem* ImageWidget::getPixmapItem() {
   return m_pixmapItem;
 }
 
+/// Re-fits the current pixmap into the view, preserving aspect ratio, and refreshes the cached
+/// bounding rect used by other fit/reset operations. No-op if no image is loaded.
 void ImageWidget::fitImageView() {
     if (m_pixmapItem == nullptr) {
         return;
@@ -466,6 +557,9 @@ void ImageWidget::fitImageView() {
     this->fitInView(m_pixmap_bounding_rect, Qt::KeepAspectRatio);
 }
 
+/// Returns a human-readable name for `mode`, used for debug logging.
+/// @param mode the interaction mode to describe
+/// @return "None"/"Zoom"/"Pan"/"Drawing" for known modes, "Unknown" otherwise
 QString ImageWidget::interactMode2String(InteractMode mode) {
   switch (mode) {
     case IModeNone:
@@ -480,10 +574,20 @@ QString ImageWidget::interactMode2String(InteractMode mode) {
   return "Unknown";
 }
 
+/// Right-button press is not specially handled here; right-click actions are dispatched on
+/// release instead (see rightMouseButtonReleased()).
+/// @return always false
 bool ImageWidget::rightMouseButtonPressed(QMouseEvent *event) {
   return false;
 }
 
+/// Handles a left mouse-button press depending on modifiers and current mode: Ctrl+click starts
+/// panning (unless an ROI draw is already in progress); while in drawing mode with no modifiers,
+/// marks the first ROI corner (draw_startROI()) or completes the ROI (draw_endROI()) depending on
+/// whether drawing has already started.
+/// @return true if drawing fully consumed the click (draw_startROI()/draw_endROI() result);
+/// false otherwise, including the Ctrl+pan case (which still updates view state but lets the
+/// base view also process the event)
 bool ImageWidget::leftMouseButtonPressed(QMouseEvent *event) {
   if ((event->modifiers() & Qt::ControlModifier) && (!m_roi_started)) {
     m_has_panned = false;
@@ -507,6 +611,9 @@ bool ImageWidget::leftMouseButtonPressed(QMouseEvent *event) {
   return false;
 }
 
+/// Shows the right-click context menu (showRightMouseClickMenu()) if it is enabled
+/// (m_using_mouse_menu); otherwise no-op.
+/// @return always false
 bool ImageWidget::rightMouseButtonReleased(QMouseEvent *event) {
   if (m_using_mouse_menu) {
     showRightMouseClickMenu(event);
@@ -514,6 +621,10 @@ bool ImageWidget::rightMouseButtonReleased(QMouseEvent *event) {
   return false;
 }
 
+/// Handles left-button release per current mode: for IModePan, clears the pan point, restores
+/// the previous interaction mode, and reports whether an actual pan occurred; other modes take no
+/// action here.
+/// @return true if a pan just completed with actual movement (m_has_panned); false otherwise
 bool ImageWidget::leftMouseButtonReleased(QMouseEvent *event) {
   switch (m_current_mode) {
     case IModeNone:
@@ -545,6 +656,12 @@ bool ImageWidget::leftMouseButtonReleased(QMouseEvent *event) {
   return false;
 }
 
+/// Builds and executes the appropriate right-click context menu (ROI-selected / image-loaded /
+/// no-image variant) at the event's global position, then dispatches whichever action the user
+/// picked: add ROI, delete selected ROIs, save the selected ROI's cropped image to disk
+/// (prompting for a save path and remembering the chosen directory), load a new image, remove the
+/// current image, or reset the view transform.
+/// @param event the mouse event that triggered the menu (used for its screen position)
 void ImageWidget::showRightMouseClickMenu(QMouseEvent *event) {
   QMenu *showMenu = nullptr;
 
@@ -627,6 +744,10 @@ void ImageWidget::showRightMouseClickMenu(QMouseEvent *event) {
   }
 }
 
+/// Prompts the user with a file-open dialog (defaulting to the last used directory, filtered to
+/// common image types) and, if a file is chosen, remembers its directory in QSettings and loads
+/// it via loadImage(). Lazily creates an internal QSettings("DGB", "Image widget") if none has
+/// been set yet.
 void ImageWidget::showChooseImageDialog() {
   if (m_setting == nullptr) {
     m_setting = new QSettings("DGB", "Image widget");
@@ -647,6 +768,10 @@ void ImageWidget::showChooseImageDialog() {
   }
 }
 
+/// Marks the first corner of a new ROI being drawn at the event's scene position and creates the
+/// temporary dashed-outline rectangle item used while dragging.
+/// @return true if this press started a new ROI drag; false if the click was outside the current
+/// pixmap or a drag was already in progress
 bool ImageWidget::draw_startROI(QMouseEvent *event) {
   if (!m_pixmapItem->contains(mapToScene(event->pos()))) {
     return false;
@@ -672,6 +797,13 @@ bool ImageWidget::draw_startROI(QMouseEvent *event) {
   return false;
 }
 
+/// Finishes the in-progress ROI drag at the event's scene position: if the release is at the
+/// same point as the start (no actual drag), the temporary rectangle is discarded; otherwise a
+/// real ItemRoi or ItemRoiRotated (matching m_draw_roi_type) is created from the temporary
+/// rectangle, discarded if smaller than 10x10, and otherwise kept and reported via
+/// signal_draw_roi_finished(). Leaves interaction mode at IModeNone on completion.
+/// @return false if the release point is outside the pixmap (drag left unresolved); true
+/// otherwise, including when the resulting ROI was rejected for being too small
 bool ImageWidget::draw_endROI(QMouseEvent *event) {
   if (!m_pixmapItem->contains(mapToScene(event->pos()))) {
     return false;
@@ -745,6 +877,9 @@ bool ImageWidget::draw_endROI(QMouseEvent *event) {
   return true;
 }
 
+/// Updates the temporary ROI rectangle's extent to span from the drag start point to the event's
+/// current scene position (normalized so width/height stay positive). No-op if the pointer is
+/// outside the pixmap.
 void ImageWidget::draw_updateROI(QMouseEvent *event) {
   if (!m_pixmapItem->contains(mapToScene(event->pos()))) {
     return;
@@ -758,6 +893,8 @@ void ImageWidget::draw_updateROI(QMouseEvent *event) {
   PRINT_DEBUG_INFO("[IMG ROI Widget] Add new ROI: change position." << newRect);
 }
 
+/// Cancels an in-progress ROI drag: stops mouse tracking and removes/deletes the temporary
+/// rectangle item.
 void ImageWidget::draw_cancelROI() {
   m_roi_started = false;
   setMouseTracking(false);

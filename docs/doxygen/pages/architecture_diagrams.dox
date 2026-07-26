@@ -1,0 +1,154 @@
+/**
+@page architecture_diagrams Architecture Diagrams
+
+@brief Rendered UML architecture diagrams (source: `uml/*.puml`), with pan/zoom.
+
+These diagrams are hand-authored PlantUML describing the code as it exists now (see
+`uml/README.md` for the full index and current-architecture notes). They are rendered to SVG
+by the docs build (docs/doxygen/build_docs.bat) and embedded below with a small pan/zoom
+viewer: scroll/pinch to zoom, drag to pan, and double-click or the toolbar to reset.
+
+@htmlonly
+<link rel="stylesheet" href="uml_pan_zoom.css">
+@endhtmlonly
+
+@section diag_01 01. Project Overview
+High-level package/module structure and dependency direction.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="project_overview.svg" alt="Project Overview diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@section diag_02 02. Device Families
+Device base classes, family sub-type dispatch, concrete devices, configs, factory, and manager.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="device_families.svg" alt="Device Families diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@section diag_03 03. Runtime Threading
+Task runner, per-device runners, QThread ownership, and runtime coordination relationships.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="runtime_threading.svg" alt="Runtime Threading diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@section diag_04 04. Localization Task
+Localization task model, configuration, device assignment, signals, matcher, and pattern manager.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="localization_task.svg" alt="Localization Task diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@section diag_05 05. Matching &amp; Calibration
+Matching library and calibration module relationships.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="matching_calibration.svg" alt="Matching &amp; Calibration diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@section diag_06 06. UI Widgets
+Main task UI shell, task pages, device widgets, and reusable mapping widgets.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="ui_widgets.svg" alt="UI Widgets diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@section diag_07 07. Persistence Sequence
+Project save/load sequence through repository, task factory, device factory, JSON, and image BLOBs.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="persistence_sequence.svg" alt="Persistence Sequence diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@section diag_08 08. Runtime State Machines
+Task runner phase, localization task state, and localization runtime cycle state transitions.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="runtime_state_machines.svg" alt="Runtime State Machines diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@section diag_09 09. RobotKinematics Component
+Current <code>components/RobotKinematics</code> component: solver hierarchy, config, results, collision backends, presets, and Vision Output integration.
+
+@htmlonly
+<div class="uml-viewer" data-uml-viewer>
+  <div class="uml-toolbar">
+    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
+    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
+    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
+  </div>
+  <div class="uml-viewer-inner"><img src="robot_kinematics.svg" alt="RobotKinematics Component diagram"></div>
+  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
+</div>
+@endhtmlonly
+
+@htmlonly
+<script src="uml_pan_zoom.js"></script>
+@endhtmlonly
+
+*/

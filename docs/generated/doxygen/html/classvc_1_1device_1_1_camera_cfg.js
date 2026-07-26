@@ -1,0 +1,26 @@
+var classvc_1_1device_1_1_camera_cfg =
+[
+    [ "acquisitionFrameRate", "classvc_1_1device_1_1_camera_cfg.html#aa54ff09907b9d765ba3153f149a9d5cc", null ],
+    [ "calibBoardPreset", "classvc_1_1device_1_1_camera_cfg.html#a68ecb9127ae226936dfa969fd68961cd", null ],
+    [ "calibrator", "classvc_1_1device_1_1_camera_cfg.html#a5c5b3af0283edda51839280d9f49551b", null ],
+    [ "calibThreshold", "classvc_1_1device_1_1_camera_cfg.html#aca194f0f36316ff093c17a20ec752978", null ],
+    [ "cameraType", "classvc_1_1device_1_1_camera_cfg.html#a00a7cc82c5427757d4dd7b6d81161b05", null ],
+    [ "enableBlackLightControl", "classvc_1_1device_1_1_camera_cfg.html#a9061ce3d0d7060f2214c4c424bf835ea", null ],
+    [ "exposureTime", "classvc_1_1device_1_1_camera_cfg.html#a172b116c151bb2ba761667f763c31494", null ],
+    [ "exposureTimeLimit", "classvc_1_1device_1_1_camera_cfg.html#a40cebbeb9a74c683d6fc2dece17564d9", null ],
+    [ "fromJson", "classvc_1_1device_1_1_camera_cfg.html#afddad218984a57270a397be373c5d26a", null ],
+    [ "gain", "classvc_1_1device_1_1_camera_cfg.html#a9bc58c58666aa5f2b91979b525791682", null ],
+    [ "gainLimit", "classvc_1_1device_1_1_camera_cfg.html#aefa9ca57743a7bf33f291ee9b33d5ffc", null ],
+    [ "setAcquisitionFrameRate", "classvc_1_1device_1_1_camera_cfg.html#a3b7a09a06bd2e23b7d4e99d07c8b2504", null ],
+    [ "setCalibBoardPreset", "classvc_1_1device_1_1_camera_cfg.html#af21ef50ab3179ea784efc41935e5eb3c", null ],
+    [ "setCalibrator", "classvc_1_1device_1_1_camera_cfg.html#a38177ef52f13710590f1c97a2b25dd1c", null ],
+    [ "setCalibThreshold", "classvc_1_1device_1_1_camera_cfg.html#a007d0c376f8654cb08bfe68425e6e622", null ],
+    [ "setExposureTime", "classvc_1_1device_1_1_camera_cfg.html#a38487ad10e0fb568668153453bdba724", null ],
+    [ "setExposureTimeLimit", "classvc_1_1device_1_1_camera_cfg.html#a6f3888d1519c5da3bfe72828435ff1b9", null ],
+    [ "setGain", "classvc_1_1device_1_1_camera_cfg.html#a79842b29b109e16ae865b0302d772927", null ],
+    [ "setGainLimit", "classvc_1_1device_1_1_camera_cfg.html#a1d20c260398c7d369e48b50e95c40629", null ],
+    [ "toJson", "classvc_1_1device_1_1_camera_cfg.html#a530be26d49e84c25294fc232583e35d0", null ],
+    [ "m_calibBoardPreset", "classvc_1_1device_1_1_camera_cfg.html#a18b479043e873bfa258e68409a66f60f", null ],
+    [ "m_calibrator", "classvc_1_1device_1_1_camera_cfg.html#a8a71bb04e445f9fc71fd27c65e17b4d2", null ],
+    [ "m_calibThreshold", "classvc_1_1device_1_1_camera_cfg.html#abac8e880be1b67dc412b32ad98781d0d", null ]
+];

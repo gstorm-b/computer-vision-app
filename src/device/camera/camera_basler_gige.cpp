@@ -8,8 +8,13 @@
 
 using namespace Pylon;
 
+/// Device implementations: this file defines BaslerGigeCfg (JSON (de)serialization of Basler
+/// GigE camera settings) and BaslerGigECamera (Pylon/GenICam-backed GigE camera device).
 namespace vc::device {
 
+/// Serializes this config to JSON, extending CameraCfg::toJson() with all Basler-specific
+/// fields (identity, backlight, exposure, gain, frame rate, and IO line capabilities).
+/// @return the populated JSON object
 QJsonObject BaslerGigeCfg::toJson() const {
     QJsonObject obj = CameraCfg::toJson();
     obj["ModelName"]                = m_modelName;
@@ -40,6 +45,10 @@ QJsonObject BaslerGigeCfg::toJson() const {
     return obj;
 }
 
+/// Populates this config from JSON previously written by toJson(), including the
+/// ioCapabilities array (entries with an empty name are skipped).
+/// @param obj the JSON object to read
+/// @return false if the base CameraCfg::fromJson() check fails (e.g. wrong camera type), else true
 bool BaslerGigeCfg::fromJson(const QJsonObject &obj) {
     // check camera type first
     if (!CameraCfg::fromJson(obj)) {
@@ -85,6 +94,8 @@ bool BaslerGigeCfg::fromJson(const QJsonObject &obj) {
     return true;
 }
 
+/// Constructs the device and registers m_config as its IDeviceCfg, with signals blocked
+/// during registration so construction does not emit a config-changed notification.
 BaslerGigECamera::BaslerGigECamera(QString id, QString name, QObject* parent)
     : CameraDevice(id, name, parent) {
 
@@ -93,6 +104,7 @@ BaslerGigECamera::BaslerGigECamera(QString id, QString name, QObject* parent)
     this->blockSignals(false);
 }
 
+/// Disconnects the camera if currently connected, logging the device name/id either way.
 void BaslerGigECamera::deviceTerminate() {
     if (isDeviceConnected()) {
         LOG_DEV_DEBUG << "Basler GigE Camera disconnect";
@@ -102,6 +114,12 @@ void BaslerGigECamera::deviceTerminate() {
                   << ", id" << id();
 }
 
+/// Connects to the physical Basler GigE camera configured by m_config.m_ipAddress: enumerates
+/// GigE devices via the Pylon transport layer, matches by IP address, opens the camera instance,
+/// caps the internal grab buffer at 64, reads the discovered IO line capabilities, and reads
+/// current settings back from the hardware. On any failure the connection status is set to
+/// ConnectFailed with a translated message in m_last_msg.
+/// @return true if the camera was found, opened, and initialized successfully; false otherwise
 bool BaslerGigECamera::deviceConnect() {
     m_camera_ip_address = m_config.m_ipAddress;
 
@@ -181,6 +199,9 @@ bool BaslerGigECamera::deviceConnect() {
     return true;
 }
 
+/// Stops any in-progress grab and closes the camera instance if open, resets the shot-ready
+/// flags, and updates the connection status.
+/// @return false if there is no camera instance (status set to NoConnection); true otherwise
 bool BaslerGigECamera::deviceDisconnect() {
     if (m_camera_instance == nullptr) {
         LOG_USER_INFO << tr("Camera disconnect failed, m_camera_instance is null");
@@ -205,6 +226,9 @@ bool BaslerGigECamera::deviceDisconnect() {
     return true;
 }
 
+/// Thread-safe replacement of the entire Basler config, then re-registers it as the device's
+/// IDeviceCfg so IDevice::setDeviceConfig can emit its change notification.
+/// @param cfg the new config to copy into m_config
 void BaslerGigECamera::setBaslerGigeConfig(BaslerGigeCfg& cfg) {
     QMutexLocker locker(&m_mutex);
     m_config = cfg;
@@ -213,10 +237,15 @@ void BaslerGigECamera::setBaslerGigeConfig(BaslerGigeCfg& cfg) {
     IDevice::setDeviceConfig(&m_config);
 }
 
+/// Returns a copy of the current Basler GigE config.
 BaslerGigeCfg BaslerGigECamera::baslerGigeConfig() const {
     return m_config;
 }
 
+/// IDevice generic config setter: casts `cfg` to BaslerGigeCfg and copies its fields
+/// (identity, exposure, gain, frame rate, backlight, IO capabilities) into m_config one by
+/// one, thread-safe via m_mutex, then re-registers m_config to emit the change notification.
+/// @param cfg the source config; ignored (no-op) if null
 void BaslerGigECamera::setDeviceConfig(IDeviceCfg *cfg) {
     if (!cfg) {
         return;
@@ -247,11 +276,17 @@ void BaslerGigECamera::setDeviceConfig(IDeviceCfg *cfg) {
     IDevice::setDeviceConfig(&m_config);
 }
 
+/// Thread-safe setter for the single-shot grab timeout.
+/// @param ms timeout in milliseconds
 void BaslerGigECamera::setGrabTimeout(int ms) {
     QMutexLocker locker(&m_mutex);
     m_grab_timeout = ms;
 }
 
+/// Thread-safe setter for the exposure time, validated against the configured
+/// [m_paramsExposureMin, m_paramsExposureMax] range; emits exposureChanged on success.
+/// @param exposure the new exposure time to apply
+/// @return false if `exposure` is outside the configured min/max range; true otherwise
 bool BaslerGigECamera::setExposure(double exposure) {
     QMutexLocker locker(&m_mutex);
     if ((exposure < m_config.m_paramsExposureMin) ||
@@ -264,6 +299,11 @@ bool BaslerGigECamera::setExposure(double exposure) {
     return true;
 }
 
+/// Thread-safe setter for the gain, validated against the configured
+/// [m_paramsGainMin, m_paramsGainMax] range (stored truncated to int); emits gainChanged
+/// on success.
+/// @param gain the new gain value to apply
+/// @return false if `gain` is outside the configured min/max range; true otherwise
 bool BaslerGigECamera::setGain(double gain) {
     QMutexLocker locker(&m_mutex);
     if ((gain < m_config.m_paramsGainMin) ||
@@ -276,11 +316,15 @@ bool BaslerGigECamera::setGain(double gain) {
     return true;
 }
 
+/// Sets the auto-backlight-control flag and emits backlightControlChanged.
 void BaslerGigECamera::setBacklightControl(bool enable) {
     m_config.m_autoBacklightControl = enable;
     emit backlightControlChanged(enable);
 }
 
+/// @note Not yet implemented: always returns false without querying the camera. The intended
+/// GenICam LineSelector-based read logic is left commented out below as reference.
+/// @return always false
 bool BaslerGigECamera::readIO(QString name) {
     if (m_camera_instance == nullptr) {
         LOG_DEV_ERR << "set output fail, camera instance is null";
@@ -309,6 +353,12 @@ bool BaslerGigECamera::readIO(QString name) {
     // }
 }
 
+/// Writes a boolean value to the named GenICam output line via the LineSelector/LineSource/
+/// UserOutputSelector/UserOutputValue nodes (line is fixed to UserOutput1 source).
+/// @param name the GenICam line name (LineSelector symbolic) to write
+/// @param value the output state to set
+/// @return false if the camera instance is null, LineSelector is unavailable, or `name` is not
+///         one of the line's symbolics; true otherwise
 bool BaslerGigECamera::writeIO(QString name, bool value) {
     if (m_camera_instance == nullptr) {
         LOG_DEV_ERR << "set output fail, camera instance is null";
@@ -338,6 +388,10 @@ bool BaslerGigECamera::writeIO(QString name, bool value) {
     return true;
 }
 
+/// Pushes the current m_config exposure/gain/frame-rate settings to the camera's GenApi node
+/// map (ExposureAuto, ExposureTimeAbs when exposure mode is Off, GainRaw,
+/// AcquisitionFrameRateEnable/Abs), then emits parametersApplied(true).
+/// @return false if the camera instance is null; true otherwise
 bool BaslerGigECamera::applyParametersChange() {
     if (m_camera_instance == nullptr) {
         LOG_DEV_ERR << "setting parameters fail, camera instance is null";
@@ -379,6 +433,15 @@ bool BaslerGigECamera::applyParametersChange() {
     return true;
 }
 
+/// Grabs a single frame synchronously (5000ms timeout via Pylon GrabOne), toggling the
+/// configured backlight output line on/off around the grab if auto-backlight-control is
+/// enabled, converting the result to a cv::Mat via pylon_image_to_mat(), and emitting
+/// grabFinished with the outcome.
+/// @note the success branch declares a local `result` that shadows the function-scope one;
+///       grabFinished is emitted with that local (isGrabSuccess=true, frame set), but the
+///       GrabResult actually returned by this function is the outer one, which is never
+///       updated to reflect success and so always reports isGrabSuccess=false.
+/// @return a GrabResult; see note above regarding its isGrabSuccess field
 GrabResult BaslerGigECamera::grabSingleShot() {
     GrabResult result;
     result.isGrabSuccess = false;
@@ -440,23 +503,28 @@ GrabResult BaslerGigECamera::grabSingleShot() {
     return result;
 }
 
+/// @note Not yet implemented: always returns false.
 bool BaslerGigECamera::startAutoContinuousShot() {
 
     return false;
 }
 
+/// @note Not yet implemented: no-op.
 void BaslerGigECamera::stopAutoContinousShot() {
 
 }
 
+/// @note Not yet implemented: always returns false.
 bool BaslerGigECamera::startContinuousShot() {
     return false;
 }
 
+/// @note Not yet implemented: no-op.
 void BaslerGigECamera::stopContinuousShot() {
 
 }
 
+/// @note Not yet implemented: always returns a default-constructed (unsuccessful) GrabResult.
 GrabResult BaslerGigECamera::softwareTriggerShot() {
     return GrabResult();
 }
@@ -465,6 +533,11 @@ GrabResult BaslerGigECamera::softwareTriggerShot() {
 //     LOG_DEV_DEBUG << "Basler camera set output by name, please use method setOutputLineState(QString, bool).";
 // }
 
+/// Writes a boolean output state to the named GenICam line via the LineSelector/LineSource/
+/// UserOutputSelector/UserOutputValue nodes (line is fixed to UserOutput1 source); logs and
+/// silently does nothing further if the camera instance, line, or LineSelector is unavailable.
+/// @param line the GenICam line name (LineSelector symbolic) to write
+/// @param value the output state to set
 void BaslerGigECamera::setOutputLineState(QString line, bool value) {
     if (m_camera_instance == nullptr) {
         LOG_DEV_ERR << "set output fail, camera instance is null";
@@ -491,6 +564,10 @@ void BaslerGigECamera::setOutputLineState(QString line, bool value) {
     }
 }
 
+/// Rebuilds m_io_lines (cleared first) by enumerating the camera's GenICam LineSelector
+/// symbolics and, for each line, querying its LineMode entries to determine whether it
+/// supports Input and/or Output and whether LineMode is writable; logs the discovered
+/// capability per line. Silently ignores any Pylon::GenericException.
 void BaslerGigECamera::initializeIOPort() {
     m_io_lines.clear();
     try {
@@ -550,6 +627,11 @@ void BaslerGigECamera::initializeIOPort() {
     }
 }
 
+/// Reads exposure/gain/frame-rate limits and current values, plus identity fields
+/// (model name, serial number, user-defined name, IP address), directly from the camera's
+/// GenApi node map into m_config. Falls back to the hardware-read exposure/gain values when
+/// the currently configured ones are outside the hardware's min/max range, and falls back the
+/// frame rate to the hardware-read value when the configured one is outside [1.0, 100.0].
 void BaslerGigECamera::readCameraSetting() {
     if (m_camera_instance == nullptr) {
         LOG_DEV_ERR << "read parameters setting from camera, m_camera_instance is null";
@@ -608,6 +690,8 @@ void BaslerGigECamera::readCameraSetting() {
     }
 }
 
+/// Pushes the current m_config exposure/gain/frame-rate settings to the camera's GenApi node
+/// map (ExposureAuto, ExposureTimeAbs, GainRaw, AcquisitionFrameRateEnable/Abs).
 void BaslerGigECamera::loadSettingToCamera() {
     if (m_camera_instance == nullptr) {
         LOG_DEV_ERR << "set parameters setting to camera, m_camera_instance is null";
@@ -635,6 +719,11 @@ void BaslerGigECamera::loadSettingToCamera() {
 
 }
 
+/// Converts a Pylon grab result into an OpenCV cv::Mat: converts to BGR8packed for color
+/// images or Mono8 for monochrome images, then wraps the converted buffer and clones it into
+/// `mat`. Logs an error and sets `mat` to an empty cv::Mat for any other output pixel format.
+/// @param ptrGrabResult the Pylon grab result to convert
+/// @param mat output matrix; overwritten with a cloned copy of the converted image
 inline void BaslerGigECamera::pylon_image_to_mat(Pylon::CInstantCamera::GrabResultPtr_t &ptrGrabResult, cv::Mat &mat) {
     Pylon::CPylonImage pylon_image;
     Pylon::CImageFormatConverter formatConverter;

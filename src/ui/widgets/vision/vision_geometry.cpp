@@ -7,6 +7,8 @@
 
 namespace {
 
+/// Rotates `point` about `center` by `angleDeg` degrees (counter-clockwise in Qt's
+/// y-down coordinate space, matching qDegreesToRadians conventions).
 QPointF rotatePoint(const QPointF &point, const QPointF &center, double angleDeg)
 {
     const double radians = qDegreesToRadians(angleDeg);

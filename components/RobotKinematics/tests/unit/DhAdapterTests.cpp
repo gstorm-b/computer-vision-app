@@ -37,6 +37,9 @@ void DhAdapterTests::standardDhPlanarTwoJointMatchesExpectedFk()
     QVERIFY((flange.translation_m() - expected).norm() <= 1e-12);
 }
 
+/// Entry point that instantiates DhAdapterTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runDhAdapterTests(int argc, char** argv)
 {
     DhAdapterTests tests;

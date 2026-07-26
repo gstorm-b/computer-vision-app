@@ -5,6 +5,8 @@
 namespace RobotKinematics {
 
 namespace {
+/// Appends a CollisionProfileValidationIssue built from `status`, `field`, and `message` to
+/// `result.issues`.
 void addIssue(CollisionProfileValidationResult& result,
               const std::string& field,
               const std::string& message,
@@ -13,22 +15,32 @@ void addIssue(CollisionProfileValidationResult& result,
     result.issues.push_back(CollisionProfileValidationIssue{status, field, message});
 }
 
+/// Returns true if `linkId` is non-empty and present in `linkIds`.
 bool hasLinkId(const std::set<std::string>& linkIds, const std::string& linkId)
 {
     return !linkId.empty() && linkIds.find(linkId) != linkIds.end();
 }
 }
 
+/// Returns true when no validation issues were recorded.
 bool CollisionProfileValidationResult::ok() const
 {
     return issues.empty();
 }
 
+/// Returns KinematicsStatus::Ok when there are no issues, otherwise the status of the first
+/// recorded issue.
 KinematicsStatus CollisionProfileValidationResult::status() const
 {
     return ok() ? KinematicsStatus::Ok : issues.front().status;
 }
 
+/// Validates `profile` against `config`: checks that profile.id and profile.robotModel are
+/// non-empty; that each geometry has a unique non-empty id, references a link id declared in
+/// `config`, has a non-negative margin_m, and has a positive sphere radius or positive capsule
+/// radius/length depending on its shape type; and that each disabledPairs entry refers to
+/// geometry ids that exist in the profile. All violations are collected rather than stopping
+/// at the first one found.
 CollisionProfileValidationResult CollisionProfileValidator::validate(const SerialRobotConfig& config,
                                                                      const CollisionProfile& profile)
 {

@@ -1,6 +1,8 @@
 #include "plc_mitsu_device_wizard.h"
 #include "ui_plc_mitsu_device_wizard.h"
 
+/// Constructs the wizard, sets up the generated UI, and calls setupWidget() to populate combo
+/// boxes and align form labels.
 PlcMitsuDeviceWizard::PlcMitsuDeviceWizard(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::PlcMitsuDeviceWizard) {
@@ -8,6 +10,7 @@ PlcMitsuDeviceWizard::PlcMitsuDeviceWizard(QWidget *parent)
     setupWidget();
 }
 
+/// Deletes the generated UI object.
 PlcMitsuDeviceWizard::~PlcMitsuDeviceWizard() {
     delete ui;
 }
@@ -16,6 +19,10 @@ PlcMitsuDeviceWizard::~PlcMitsuDeviceWizard() {
 //     // obj[DEVICE_JSK_PLC_TYPE] = cbx_plc_brand->currentText();
 // }
 
+/// Populates cbb_protocol_type with "MC Protocol" and cbb_interface_type with "Ethernet TCP/IP";
+/// connects cbb_interface_type's index change to refresh cbb_frame_type's options ("3E" for index
+/// 0, "1C, 3C" for index 1) and switch stack_wg to the matching page; then aligns all form row
+/// label widths.
 void PlcMitsuDeviceWizard::setupWidget() {
     ui->cbb_protocol_type->addItem(tr("MC Protocol"));
 
@@ -36,6 +43,8 @@ void PlcMitsuDeviceWizard::setupWidget() {
     fixedAllRowWidth();
 }
 
+/// Finds all QFormLayout children of this widget and, if any are found, forwards them to
+/// syncFormLabelsWidth() to align their row-label widths; does nothing if there are none.
 void PlcMitsuDeviceWizard::fixedAllRowWidth() {
     QList<QFormLayout*> layouts = this->findChildren<QFormLayout*>();
     if (layouts.empty()) {
@@ -44,6 +53,8 @@ void PlcMitsuDeviceWizard::fixedAllRowWidth() {
     syncFormLabelsWidth(layouts);
 }
 
+/// Scans every row's label in `layouts`, finds the widest label's size-hint width, and fixes
+/// every label to that common width so label columns line up across all the given layouts.
 void PlcMitsuDeviceWizard::syncFormLabelsWidth(QList<QFormLayout*> layouts) {
     int maxWidth = 0;
     QList<QLabel*> allLabels;

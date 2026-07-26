@@ -52,8 +52,18 @@ package "RobotKinematics (components/RobotKinematics/)" {
   }
   SerialRobotConfig *-- "n" Tool
 
-  struct IKRequest { +targetPose; tool; seedJoint; options }
-  struct IKResult  { +status; solutions[]; ok(); best() }
+  struct IKRequest {
+    +targetPose
+    +tool
+    +seedJoint
+    +options
+  }
+  struct IKResult {
+    +status
+    +solutions[]
+    +ok()
+    +best()
+  }
 
   class ForwardKinematics <<static>> {
     +flangePose(config, joints) : Pose

@@ -11,15 +11,23 @@
 #include <utility>
 #include <vector>
 
+/// Robot kinematics library: forward/inverse kinematics types, models, and solvers for
+/// serial robot manipulators.
 namespace RobotKinematics {
 
+/// Internal helpers, tolerances, and geometry-extraction routines used only within this
+/// translation unit to implement the analytic spherical-wrist IK solver.
 namespace {
-constexpr double kPi = 3.141592653589793238462643383279502884;
-constexpr double kGeomTol = 1e-6;      // meters / radians for morphology checks
-constexpr double kAcceptPos = 1e-6;    // accept solution if FK residual is below
-constexpr double kAcceptOri = 1e-6;
-constexpr double kDupTol = 1e-6;       // duplicate joint-vector tolerance
+constexpr double kPi = 3.141592653589793238462643383279502884;  ///< Value of Pi (double precision), used for angle-wrapping.
+constexpr double kGeomTol = 1e-6;      ///< Tolerance in meters/radians for morphology checks (axis intersection, perpendicularity, parallelism).
+constexpr double kAcceptPos = 1e-6;    ///< Position-error tolerance (meters) below which an FK-verified candidate solution is accepted.
+constexpr double kAcceptOri = 1e-6;    ///< Orientation-error tolerance (radians) below which an FK-verified candidate solution is accepted.
+constexpr double kDupTol = 1e-6;       ///< Joint-vector norm tolerance below which two candidate solutions are treated as duplicates.
 
+/// Collects pointers to the configuration's movable joints (Revolute or Prismatic) in
+/// declaration order, skipping fixed joints.
+/// @param config the serial robot configuration to scan
+/// @return pointers into `config.joints` for each movable joint, in order
 std::vector<const Joint*> movableJoints(const SerialRobotConfig& config)
 {
     std::vector<const Joint*> joints;
@@ -31,6 +39,10 @@ std::vector<const Joint*> movableJoints(const SerialRobotConfig& config)
     return joints;
 }
 
+/// Builds the joint vector at the robot's home configuration (each movable joint's
+/// `home` value), in the same order as movableJoints().
+/// @param config the serial robot configuration
+/// @return the home joint vector, sized to the movable joint count
 JointVector homeJoint(const SerialRobotConfig& config)
 {
     Eigen::VectorXd q(ForwardKinematics::movableJointCount(config));
@@ -43,7 +55,12 @@ JointVector homeJoint(const SerialRobotConfig& config)
     return JointVector(q);
 }
 
-// Least-squares point closest to a set of axis lines. Returns false if singular.
+/// Computes the least-squares point closest to a set of axis lines (each defined by a
+/// point and a direction).
+/// @param points a point on each axis line
+/// @param dirs the direction of each axis line (need not be pre-normalized)
+/// @param out output; set to the least-squares closest point on success
+/// @return false if the normal-equations matrix is singular (e.g. parallel/degenerate axes)
 bool closestPointToAxes(const std::vector<Eigen::Vector3d>& points,
                         const std::vector<Eigen::Vector3d>& dirs,
                         Eigen::Vector3d& out)
@@ -64,32 +81,44 @@ bool closestPointToAxes(const std::vector<Eigen::Vector3d>& points,
     return true;
 }
 
+/// Computes the perpendicular distance from point `x` to the line through `p` with
+/// direction `u`.
+/// @param x the point to measure from
+/// @param p a point on the line
+/// @param u the line direction (need not be pre-normalized)
+/// @return the perpendicular distance
 double distanceToAxis(const Eigen::Vector3d& x, const Eigen::Vector3d& p, const Eigen::Vector3d& u)
 {
     const Eigen::Vector3d n = u.normalized();
     return ((Eigen::Matrix3d::Identity() - n * n.transpose()) * (x - p)).norm();
 }
 
-// All geometry needed to solve a standard articulated spherical-wrist 6R, extracted from
-// the canonical model at the home configuration. valid == false => unsupported morphology.
+/// All geometry needed to solve a standard articulated spherical-wrist 6R, extracted from
+/// the canonical model at the home configuration. valid == false => unsupported morphology.
 struct ArmWristGeometry {
-    bool valid = false;
-    std::string link3Id;
-    Eigen::Vector3d shoulder;   // intersection of axis 1 and axis 2
-    Eigen::Vector3d u1;         // axis 1 direction
-    Eigen::Vector3d radial0;    // home radial direction (horizontal, in arm plane)
-    Eigen::Vector3d wristInFlange; // wrist center expressed in the flange frame (constant)
-    double upperArm = 0.0;      // shoulder -> elbow length
-    double foreArm = 0.0;       // elbow -> wrist-center length
-    double beta1Home = 0.0;     // home upper-arm plane angle
-    double elbowHome = 0.0;     // home forearm-relative plane angle
-    double s2 = 1.0;            // sign mapping q2 -> upper-arm angle
-    double s3 = 1.0;            // sign mapping q3 -> elbow angle
-    double mu = 0.0;            // wrist reduction offsets
-    double delta = 0.0;
-    Eigen::Matrix3d A4 = Eigen::Matrix3d::Identity(); // rotation part of joint-4 origin
+    bool valid = false;  ///< True once the model has been confirmed to match the supported articulated spherical-wrist 6R morphology.
+    std::string link3Id;  ///< Link id of joint 3's child link (elbow link), used to query its pose via linkPose().
+    Eigen::Vector3d shoulder;   ///< Intersection point of axis 1 and axis 2 (shoulder point), in base frame at home.
+    Eigen::Vector3d u1;         ///< Axis 1 direction (unit vector), in base frame at home.
+    Eigen::Vector3d radial0;    ///< Home radial direction (horizontal, in arm plane), perpendicular to u1.
+    Eigen::Vector3d wristInFlange; ///< Wrist center expressed in the flange frame; constant across configurations.
+    double upperArm = 0.0;      ///< Shoulder -> elbow length (m).
+    double foreArm = 0.0;       ///< Elbow -> wrist-center length (m).
+    double beta1Home = 0.0;     ///< Home upper-arm plane angle (angle of the shoulder->elbow vector in the arm plane).
+    double elbowHome = 0.0;     ///< Home forearm-relative plane angle (elbow angle relative to the upper arm at home).
+    double s2 = 1.0;            ///< Sign mapping the plane-angle delta to joint 2 (q2 = s2 * (beta1 - beta1Home)).
+    double s3 = 1.0;            ///< Sign mapping the plane-angle delta to joint 3 (q3 = s3 * (E - elbowHome)).
+    double mu = 0.0;            ///< Wrist-reduction offset applied to q4 in the N = Rz(q4+mu) Ry(q5) Rz(q6+delta-mu) decomposition.
+    double delta = 0.0;         ///< Wrist-reduction offset applied to q6 in the N = Rz(q4+mu) Ry(q5) Rz(q6+delta-mu) decomposition.
+    Eigen::Matrix3d A4 = Eigen::Matrix3d::Identity(); ///< Rotation part of joint-4's origin transform (link3 frame -> joint-4 frame).
 };
 
+/// Computes the forward-kinematics chain for joint vector `q` and returns the pose of
+/// link `linkId` in the base frame.
+/// @param config the serial robot configuration
+/// @param q the full 6-joint vector to evaluate the chain at
+/// @param linkId the link whose pose is requested
+/// @return the link's pose in base frame, or Pose::identity() if `linkId` is not found in the chain
 Pose linkPose(const SerialRobotConfig& config, const Eigen::Matrix<double, 6, 1>& q,
               const std::string& linkId)
 {
@@ -98,6 +127,15 @@ Pose linkPose(const SerialRobotConfig& config, const Eigen::Matrix<double, 6, 1>
     return it == chain.linkPosesInBase.end() ? Pose::identity() : it->second;
 }
 
+/// Extracts and validates the articulated spherical-wrist 6R geometry (shoulder point,
+/// upper-arm/forearm lengths, home plane angles, q2/q3 sign conventions, and wrist-reduction
+/// mu/delta offsets) from the robot's home configuration by sampling its forward kinematics.
+/// Rejects the model (returns `.valid == false`) unless it has exactly 6 movable joints,
+/// wrist axes 4/5/6 intersect at a common point, shoulder axes 1/2 intersect with axis 1
+/// perpendicular to axis 2 and axis 2 parallel to axis 3, the elbow is off the J1 axis, and
+/// the wrist reduction decomposes as a supported Rz-Ry-Rz rotation.
+/// @param config the serial robot configuration to analyze
+/// @return the extracted geometry; check `.valid` before using any other field
 ArmWristGeometry extractGeometry(const SerialRobotConfig& config)
 {
     ArmWristGeometry g;
@@ -201,7 +239,13 @@ ArmWristGeometry extractGeometry(const SerialRobotConfig& config)
     return g;
 }
 
-// ZYZ Euler branches of N = Rz(A) Ry(q5) Rz(B); returns (q4,q5,q6) after applying mu/delta.
+/// Computes the two ZYZ Euler-angle branches (q5 >= 0 and q5 <= 0) that decompose
+/// N = Rz(A) Ry(q5) Rz(B), then maps each branch to joint angles (q4,q5,q6) via the
+/// mu/delta wrist-reduction offsets.
+/// @param N the wrist relative-rotation matrix to decompose (e.g. A4^T * R03^T * R_target)
+/// @param mu wrist-reduction offset subtracted from A to form q4
+/// @param delta wrist-reduction offset combined with mu and subtracted from B to form q6
+/// @param out output; out[0] is the q5>=0 branch, out[1] is the q5<=0 branch
 void wristAngles(const Eigen::Matrix3d& N, double mu, double delta,
                  std::array<Eigen::Vector3d, 2>& out)
 {
@@ -221,6 +265,12 @@ void wristAngles(const Eigen::Matrix3d& N, double mu, double delta,
     }
 }
 
+/// Wraps angle `q` by a multiple of 2*pi (preferring the unshifted value) to bring it
+/// within `limits`, if given.
+/// @param q the candidate joint angle (radians)
+/// @param limits optional joint limits; if absent, `q` is returned unchanged and `ok` is true
+/// @param ok output; true if a representation of `q` within limits was found
+/// @return `q` (or `q` shifted by +-2*pi) within limits, or the original `q` if none fits
 double wrapToLimits(double q, const std::optional<JointLimits>& limits, bool& ok)
 {
     ok = true;
@@ -238,14 +288,20 @@ double wrapToLimits(double q, const std::optional<JointLimits>& limits, bool& ok
     return q;
 }
 
+/// Returns -1 if `v` is negative, otherwise 1; used to report elbow/shoulder/wrist posture signs.
 int branchSign(double v) { return v < 0.0 ? -1 : 1; }
 }
 
+/// Returns the solver's identifier, "analytic_6dof_spherical_wrist".
 const char* Analytic6DofSphericalWristSolver::name() const
 {
     return "analytic_6dof_spherical_wrist";
 }
 
+/// Checks whether `config` is a serial, all-revolute 6-DOF robot whose geometry matches
+/// the supported articulated spherical-wrist morphology (see extractGeometry()).
+/// @param config the serial robot configuration to check
+/// @return true if this solver can be used for `config`
 bool Analytic6DofSphericalWristSolver::supportsModel(const SerialRobotConfig& config) const
 {
     if (config.topology != RobotTopologyType::Serial || ForwardKinematics::movableJointCount(config) != 6) {
@@ -259,6 +315,12 @@ bool Analytic6DofSphericalWristSolver::supportsModel(const SerialRobotConfig& co
     return extractGeometry(config).valid;
 }
 
+/// Computes all analytic IK branches via solveAll() and returns the single solution
+/// closest to `context.request.seedJoint` (or `previousJoint` if no seed is given); if
+/// neither reference is available, returns the first branch found.
+/// @param config the serial robot configuration
+/// @param context the IK target pose and solve options (seed/previous joints)
+/// @return an IKResult containing at most one solution, or the failure status from solveAll()
 IKResult Analytic6DofSphericalWristSolver::solve(const SerialRobotConfig& config,
                                                  const IKSolveContext& context) const
 {
@@ -289,6 +351,16 @@ IKResult Analytic6DofSphericalWristSolver::solve(const SerialRobotConfig& config
     return all;
 }
 
+/// Analytically solves inverse kinematics for the articulated spherical-wrist 6R model,
+/// enumerating all geometric branches (2 shoulder x 2 elbow x 2 wrist = up to 8 candidates),
+/// verifying each by forward kinematics against `context.targetFlangeInBase`, and discarding
+/// candidates that fall outside joint limits, fail the position/orientation tolerance check,
+/// or duplicate an already-found solution.
+/// @param config the serial robot configuration; must satisfy supportsModel()
+/// @param context the IK target pose and solve options
+/// @return IKStatus::UnsupportedSolver if the model geometry doesn't match; Singularity if
+///   the wrist center lies on the J1 axis; TargetUnreachable if no in-limit branch passes
+///   the FK check; otherwise Ok with all found solutions (posture-tagged by joint sign)
 IKResult Analytic6DofSphericalWristSolver::solveAll(const SerialRobotConfig& config,
                                                     const IKSolveContext& context) const
 {

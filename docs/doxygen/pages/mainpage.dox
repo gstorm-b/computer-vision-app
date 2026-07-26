@@ -1,0 +1,54 @@
+/**
+@mainpage ncr_picking Developer Reference
+
+@section mp_overview Project Snapshot
+
+`ncr_picking` is a Qt/C++ industrial vision-picking application. The first commercial path is
+one application with explicit Commission and Runtime modes, centered on `vc::model::ITask` /
+`vc::model::TaskLocalization`.
+
+First-release integrations:
+- Basler GigE camera (`vc::device::CameraBaslerGige`)
+- Mitsubishi MC PLC (`vc::device::McProtocolDevice`)
+- VisionOutput TCP/IP server/client (`vc::device::VisionTcpipDevice`)
+- Advisory RobotKinematics checking for outgoing pick poses (`RobotKinematics::SerialRobotKinematics`)
+
+@section mp_modules Module Map
+
+| Module | Path | Level |
+|---|---|---|
+| core (settings/logger/utils) | `src/core/` | 0 |
+| device | `src/device/` | 1 |
+| calibration | `src/calibration/` | 1 |
+| matching | `src/matching/` | 1 |
+| model | `src/model/` | 2 |
+| runtime | `src/runtime/` | 2 |
+| ui (forms + widgets) | `src/ui/` | UI |
+| app shell (+translations) | `app/` | top |
+| RobotKinematics | `components/RobotKinematics/` | component |
+
+Lower levels must not include higher ones; `model` and `runtime` may include each other;
+`device` may include `calibration`; `ui` may include every non-UI module; only `app/` may
+include everything. Enforced by `tests/architecture_contract_test`.
+
+@section mp_diagrams Where To Start
+
+- @ref architecture_diagrams "Architecture Diagrams" &mdash; the hand-authored UML (PlantUML)
+  architecture reference, rendered to SVG with pan/zoom.
+- The [Classes](annotated.html) and [Files](files.html) tabs above for the generated API
+  reference (every class/struct/enum and its members, including private ones).
+- `docs/README.md` in the repository for the full documentation map (this Doxygen reference
+  complements, but does not replace, the hand-written docs under `docs/`).
+
+@section mp_authority Source Of Truth
+
+Source code and tests are the highest source of truth for implemented behavior. If this
+generated reference and the repository's `docs/rules/` disagree, treat the code (and thus this
+reference, since it is generated from the code) as authoritative, and flag the drift.
+
+@section mp_rebuild Regenerating This Reference
+
+See `docs/rules/documentation_build.md` for the full Doxygen + Graphviz + PlantUML build
+pipeline (environment variables, `docs/doxygen/build_docs.bat`, and where the output lands).
+
+*/

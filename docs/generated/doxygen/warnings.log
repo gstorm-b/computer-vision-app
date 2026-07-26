@@ -1,0 +1,149 @@
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:169: warning: no matching class member found for 
+  void mtc::ImageMatcher::matching(Mat &image, bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)
+Possible candidates:
+  'void mtc::ImageMatcher::matching(cv::Mat &image, bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)' at line 75 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+  'void mtc::ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)' at line 87 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1023: warning: no matching class member found for 
+  Point mtc::ImageMatcher::GetNextMaxLoc(Mat &matResult, Point ptMaxLoc, Size sizeTemplate, double &maxValue, double maxOverlap)
+Possible candidates:
+  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap)' at line 197 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap, BlockMax &blockMax)' at line 202 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1048: warning: no matching class member found for 
+  Point mtc::ImageMatcher::GetNextMaxLoc(Mat &matResult, Point ptMaxLoc, Size sizeTemplate, double &maxValue, double maxOverlap, BlockMax &blockMax)
+Possible candidates:
+  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap)' at line 197 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap, BlockMax &blockMax)' at line 202 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+C:/DGB/Project/computer-vision-app/src/matching/utils_block_max.cpp:12: warning: no matching class member found for 
+  mtc::MatchBlock::MatchBlock(Rect rect, double val_max, Point ptMaxLoc)
+Possible candidates:
+  'mtc::MatchBlock::MatchBlock()' at line 16 of file C:/DGB/Project/computer-vision-app/src/matching/utils_block_max.h
+  'mtc::MatchBlock::MatchBlock(cv::Rect rect, double val_max, cv::Point ptMaxLoc)' at line 18 of file C:/DGB/Project/computer-vision-app/src/matching/utils_block_max.h
+C:/DGB/Project/computer-vision-app/src/ui/forms/plc/mitsubishi_mc_device_widget.cpp:12: warning: The following parameter of addPropertyToBrowser(const QMetaObject &meta, QMetaProperty &prop, QVariant &value, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) is not documented:
+  parameter 'browser'
+C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/pattern_manager_dialog.h:32: warning: The following parameter of AddGroupDialog::AddGroupDialog(QString &dialog_title, QWidget *parent=nullptr) is not documented:
+  parameter 'parent'
+C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/pattern_manager_dialog.h:114: warning: The following parameter of AddPatternDialog::AddPatternDialog(QString &dialog_title, QWidget *parent=nullptr) is not documented:
+  parameter 'parent'
+C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/add_pattern_wizard.cpp:60: warning: The following parameter of AddPatternWizard::AddPatternWizard(const QString &groupName, const QStringList &usedNames, const QList< int > &usedNumbers, QWidget *parent=nullptr) is not documented:
+  parameter 'parent'
+C:/DGB/Project/computer-vision-app/src/core/logger/app_logger.h:52: warning: The following parameters of AppLogger::LogStream::LogStream(LogLevel level, AppLogger *logger, QString ctx=QString()) are not documented:
+  parameter 'level'
+  parameter 'logger'
+C:/DGB/Project/computer-vision-app/src/ui/forms/camera/basler_camera_widget.h:39: warning: The following parameter of BaslerCameraWidget::BaslerCameraWidget(std::shared_ptr< vc::device::IDevice > dv, vc::runtime::CameraRunner *runner, ads::CDockWidget *dock=nullptr, QWidget *parent=nullptr) is not documented:
+  parameter 'parent'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/calibration/calibration_threshold_dialog.cpp:25: warning: The following parameter of CalibrationThresholdDialog::CalibrationThresholdDialog(calib::CalibrationBoard *board, int initialThreshold, QWidget *parent=nullptr) is not documented:
+  parameter 'parent'
+C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/edit_pattern_wizard.cpp:42: warning: The following parameter of EditPatternWizard::EditPatternWizard(const QString &groupName, const Pattern &pattern, const QStringList &usedNames, const QList< int > &usedNumbers, QWidget *parent=nullptr) is not documented:
+  parameter 'parent'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/image_view_only.cpp:109: warning: The following parameter of ImageViewOnly::loadImageFromPath(QString &path, bool fitsize=true) is not documented:
+  parameter 'path'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/image_view_only.cpp:123: warning: The following parameter of ImageViewOnly::loadImageOpenCv(cv::Mat &image, bool fitsize=false) is not documented:
+  parameter 'image'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.h:208: warning: The following parameter of PatternTreeWidget::addPattern(int groupIndex, const MatchPatternConfig &pattern) is not documented:
+  parameter 'pattern'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.h:213: warning: The following parameter of PatternTreeWidget::removePattern(int groupIndex, int patternIndex) is not documented:
+  parameter 'patternIndex'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.h:202: warning: The following parameter of PatternTreeWidget::updateGroup(int groupIndex, const MatchGroupConfig &group) is not documented:
+  parameter 'group'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.h:218: warning: The following parameters of PatternTreeWidget::updatePattern(int groupIndex, int patternIndex, const MatchPatternConfig &pattern) are not documented:
+  parameter 'patternIndex'
+  parameter 'pattern'
+C:/DGB/Project/computer-vision-app/src/ui/forms/project_infor_setting.cpp:4: warning: The following parameter of ProjectInforSetting::ProjectInforSetting(std::shared_ptr< vc::model::Project > proj, QWidget *parent=nullptr) is not documented:
+  parameter 'parent'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/property_browser_widget.h:33: warning: explicit link request to 'searchBar' could not be resolved
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/property_browser_widget.h:34: warning: explicit link request to 'searchEdit' could not be resolved
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/property_browser_widget.h:35: warning: explicit link request to 'descFrame' could not be resolved
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/property_browser_widget.h:36: warning: explicit link request to 'descLabel' could not be resolved
+C:/DGB/Project/computer-vision-app/src/core/utils/windows_helper.h:107: warning: The following parameters of ThemedSvgIconEngine::pixmap(const QSize &size, QIcon::Mode mode, QIcon::State state) are not documented:
+  parameter 'mode'
+  parameter 'state'
+C:/DGB/Project/computer-vision-app/src/core/utils/theme_manager.h:70: warning: The following parameter of ThemeManager::resolveTokens(const QString &qss, bool dark) is not documented:
+  parameter 'qss'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/vision_result_adapter.h:18: warning: The following parameters of VisionResultAdapter::fromMatchResult(const mtc::MatchResult &result, const QSize &sourceImageSize, const vc::model::CameraWorkspace *workspace=nullptr, const QMap< QString, QVariant > *runtimeSignalValues=nullptr) are not documented:
+  parameter 'result'
+  parameter 'workspace'
+C:/DGB/Project/computer-vision-app/src/matching/vision_utils.h:167: warning: The following parameters of vsu::drawAxes2Img(cv::Mat &img, cv::Point position, double angle, bool radian, int length, double hookSize=0.4, cv::Scalar xColour=DEFAULT_COLOR_BLUE, cv::Scalar yColour=DEFAULT_COLOR_RED, cv::Scalar centerColour=DEFAULT_COLOR_YELLOW) are not documented:
+  parameter 'xColour'
+  parameter 'yColour'
+  parameter 'centerColour'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/vision_tool_palette.cpp:11: warning: The following parameters of anonymous_namespace{vision_tool_palette.cpp}::makeButton(const QString &text, const QString &toolTip, bool checkable=false) are not documented:
+  parameter 'text'
+  parameter 'toolTip'
+C:/DGB/Project/computer-vision-app/src/calibration/calibration_board.h:11: warning: The following parameters of calib::writePrintablePng(const std::string &path, const cv::Mat &img, double pxPerMm) are not documented:
+  parameter 'path'
+  parameter 'img'
+C:/DGB/Project/computer-vision-app/src/calibration/calibration_board.cpp:41: warning: The following parameter of calib::CalibrationBoard::binarize(const cv::Mat &image, double *usedThreshold=nullptr) const is not documented:
+  parameter 'image'
+C:/DGB/Project/computer-vision-app/src/calibration/calibration_board.h:45: warning: The following parameter of calib::CalibrationBoard::detect(const cv::Mat &image, std::vector< cv::Point2f > &imagePoints, std::vector< cv::Point2f > *cornerImagePoints=nullptr, cv::Mat *debugOverlay=nullptr) const=0 is not documented:
+  parameter 'image'
+C:/DGB/Project/computer-vision-app/src/calibration/calibrator.cpp:85: warning: The following parameters of calib::anonymous_namespace{calibrator.cpp}::writeStateTo(cv::FileStorage &fs, const cv::Mat &H, const cv::Vec4d &plane, const cv::Point2f &imgC, const cv::Point2f &robC, const std::vector< cv::Point2f > &imagePts, const std::vector< cv::Point3f > &robotPts, double reprojErrPx, double reprojErrMm, double planeFitMaxErr, bool calibrated) are not documented:
+  parameter 'H'
+  parameter 'plane'
+  parameter 'imgC'
+  parameter 'robC'
+  parameter 'imagePts'
+  parameter 'robotPts'
+  parameter 'reprojErrPx'
+  parameter 'reprojErrMm'
+  parameter 'planeFitMaxErr'
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:484: warning: argument 'imgEdge' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:484: warning: argument 'pattern' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:484: warning: argument 'matchObjs' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:484: warning: The following parameters of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs) are not documented:
+  parameter 'img_edge'
+  parameter 'edgePattern'
+  parameter 'match_objs'
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h:67: warning: The following parameter of mtc::ImageMatcher::matching(cv::Mat &image, bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi) is not documented:
+  parameter 'image'
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1002: warning: argument 'in' of command @param is not found in the argument list of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1002: warning: argument 'org' of command @param is not found in the argument list of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1002: warning: The following parameters of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle) are not documented:
+  parameter 'ptInput'
+  parameter 'ptOrg'
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1087: warning: argument 'iMaxScoreIndex' of command @param is not found in the argument list of mtc::ImageMatcher::SubPixEsimation(std::vector< MatchParams > *vec, double *dNewX, double *dNewY, double *dNewAngle, double dAngleStep, int iMaxIdx)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1087: warning: The following parameter of mtc::ImageMatcher::SubPixEsimation(std::vector< MatchParams > *vec, double *dNewX, double *dNewY, double *dNewAngle, double dAngleStep, int iMaxIdx) is not documented:
+  parameter 'iMaxIdx'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/prop_spec.h:100: warning: The following parameters of PropSpecHelper::buildOne(QtVariantPropertyManager *mgr, const PropSpec< Config > &spec, const Config &cfg, QMap< QString, QtVariantProperty * > *propMap=nullptr, QMap< QtProperty *, QString > *propKeyMap=nullptr) are not documented:
+  parameter 'mgr'
+  parameter 'spec'
+  parameter 'cfg'
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Kinematics/ForwardKinematics.cpp:23: warning: argument joints from the argument list of RobotKinematics::ForwardKinematics::computeChain has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Kinematics/ForwardKinematics.cpp:23: warning: The following parameter of RobotKinematics::ForwardKinematics::computeChain(const SerialRobotConfig &config, const JointVector &joints) is not documented:
+  parameter 'config'
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Posture/PostureResolver.cpp:48: warning: The following parameter of RobotKinematics::Serial6DofSignPostureResolver::classify(const SerialRobotConfig &config, const JointVector &joints) const is not documented:
+  parameter 'config'
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Model/RobotModelValidator.cpp:40: warning: The following parameters of RobotKinematics::anonymous_namespace{RobotModelValidator.cpp}::addIssue(ModelValidationResult &result, const std::string &field, const std::string &message, KinematicsStatus status=KinematicsStatus::InvalidRobotConfig) are not documented:
+  parameter 'field'
+  parameter 'message'
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Collision/StlMeshLoader.cpp:63: warning: The following parameters of RobotKinematics::anonymous_namespace{StlMeshLoader.cpp}::appendTriangle(TriangleMesh &mesh, const Eigen::Vector3d &a, const Eigen::Vector3d &b, const Eigen::Vector3d &c, const StlMeshLoadOptions &options, std::string &error) are not documented:
+  parameter 'a'
+  parameter 'b'
+  parameter 'c'
+  parameter 'options'
+C:/DGB/Project/computer-vision-app/src/device/plc/memory_utils.h:10: warning: The following parameters of vc::device::appendToByteArray_uint16(QByteArray &array, quint16 value, bool littleEndian=true) are not documented:
+  parameter 'array'
+  parameter 'value'
+C:/DGB/Project/computer-vision-app/src/device/plc/memory_utils.h:22: warning: The following parameters of vc::device::appendToByteArray_uint32(QByteArray &array, quint32 value, int byteCount, bool littleEndian=true) are not documented:
+  parameter 'array'
+  parameter 'value'
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:38: warning: argument 'o' of command @param is not found in the argument list of vc::device::DeviceFactory::fromJson(const QJsonObject &obj, QObject *parent=nullptr)
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:38: warning: The following parameter of vc::device::DeviceFactory::fromJson(const QJsonObject &obj, QObject *parent=nullptr) is not documented:
+  parameter 'obj'
+C:/DGB/Project/computer-vision-app/src/device/device_manager.cpp:24: warning: The following parameter of vc::device::DeviceManager::DeviceManager(vc::model::Project *proj=nullptr, QObject *parent=nullptr) is not documented:
+  parameter 'parent'
+C:/DGB/Project/computer-vision-app/src/device/device_registry.h:50: warning: The following parameter of vc::device::DeviceRegistry::displayNamesFor(DeviceType deviceType, bool includeUnavailable=false) is not documented:
+  parameter 'deviceType'
+C:/DGB/Project/computer-vision-app/src/device/plc/mc_fame_3e.cpp:168: warning: argument 'byte' of command @param is not found in the argument list of vc::device::Frame3E::make_send_data(Context_Mc3E *ctx, QByteArray &data)
+C:/DGB/Project/computer-vision-app/src/device/plc/mc_fame_3e.cpp:168: warning: The following parameter of vc::device::Frame3E::make_send_data(Context_Mc3E *ctx, QByteArray &data) is not documented:
+  parameter 'data'
+C:/DGB/Project/computer-vision-app/src/device/plc/mc_fame_3e.cpp:453: warning: The following parameters of vc::device::Frame3E::parse_write(vc::device::MCRequest *request, Context_Mc3E *ctx, QByteArray &data) are not documented:
+  parameter 'request'
+  parameter 'ctx'
+C:/DGB/Project/computer-vision-app/src/device/plc/mc_request.h:51: warning: The following parameters of vc::device::MCRequest::MCRequest(RqType rqtype, QString head_device, int amount) are not documented:
+  parameter 'rqtype'
+  parameter 'amount'
+C:/DGB/Project/computer-vision-app/src/model/task_factory.cpp:12: warning: argument 'o' of command @param is not found in the argument list of vc::model::TaskFactory::fromJson(const QJsonObject &obj, QObject *parent=nullptr)
+C:/DGB/Project/computer-vision-app/src/model/task_factory.cpp:12: warning: The following parameter of vc::model::TaskFactory::fromJson(const QJsonObject &obj, QObject *parent=nullptr) is not documented:
+  parameter 'obj'
+C:/DGB/Project/computer-vision-app/src/ui/widgets/plc_widget/devices_monitor_widget.cpp:22: warning: The following parameter of vc::widgets::DevicesMonitorWidget::DevicesMonitorWidget(Mode mode, QWidget *parent=nullptr) is not documented:
+  parameter 'parent'

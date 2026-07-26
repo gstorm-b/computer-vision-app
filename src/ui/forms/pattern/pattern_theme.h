@@ -13,44 +13,48 @@
 //  surfaces that cannot be styled via QSS (custom-painted or runtime-built).
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Pattern UI theme tokens (Hybrid Graphite Vision + Orange palette): hex color constants and
+/// reusable QSS-fragment builders for C++ painted / inline-styled surfaces in the pattern
+/// manager and device wizards that cannot be styled via the QSS files under resrc/styles/*.qss.
 namespace ptn {
 
 // ── Surfaces ─────────────────────────────────────────────────────────────────
-constexpr const char* BG     = "#1a1c20";   // bg.window — page background
-constexpr const char* SURF   = "#22252a";   // bg.surface — cards, headers
-constexpr const char* SURF2  = "#2c3038";   // bg.elevated — raised modals
-constexpr const char* HD     = "#1a1c20";   // bg.window — header strip background
+constexpr const char* BG     = "#1a1c20";   ///< bg.window — page background.
+constexpr const char* SURF   = "#22252a";   ///< bg.surface — cards, headers.
+constexpr const char* SURF2  = "#2c3038";   ///< bg.elevated — raised modals.
+constexpr const char* HD     = "#1a1c20";   ///< bg.window — header strip background.
 
 // ── Borders ──────────────────────────────────────────────────────────────────
-constexpr const char* BD     = "#3a3f48";   // border.default
-constexpr const char* BD2    = "#4e5562";   // border.strong — input / hover borders
+constexpr const char* BD     = "#3a3f48";   ///< border.default.
+constexpr const char* BD2    = "#4e5562";   ///< border.strong — input / hover borders.
 
 // ── Text ─────────────────────────────────────────────────────────────────────
-constexpr const char* TXT    = "#e0e4ea";   // text.primary
-constexpr const char* TXT2   = "#7a8898";   // text.muted — secondary text
-constexpr const char* TXT3   = "#7a8898";   // text.muted — hint text
-constexpr const char* TXT4   = "#4a5260";   // text.disabled
-constexpr const char* TXT5   = "#4a5260";   // text.disabled — placeholder / label text
+constexpr const char* TXT    = "#e0e4ea";   ///< text.primary.
+constexpr const char* TXT2   = "#7a8898";   ///< text.muted — secondary text.
+constexpr const char* TXT3   = "#7a8898";   ///< text.muted — hint text.
+constexpr const char* TXT4   = "#4a5260";   ///< text.disabled.
+constexpr const char* TXT5   = "#4a5260";   ///< text.disabled — placeholder / label text.
 
 // ── Accents ──────────────────────────────────────────────────────────────────
-constexpr const char* ACC    = "#e87c00";   // accent.primary (orange)
-constexpr const char* OK     = "#40c870";   // state.success — connected / healthy green
-constexpr const char* WARN   = "#ffb020";   // state.warning
-constexpr const char* ERR    = "#ff5252";   // state.error
-constexpr const char* OUTPUT = "#9cdcfe";   // PLC output ID — semantic light blue (not in theme palette)
+constexpr const char* ACC    = "#e87c00";   ///< accent.primary (orange).
+constexpr const char* OK     = "#40c870";   ///< state.success — connected / healthy green.
+constexpr const char* WARN   = "#ffb020";   ///< state.warning.
+constexpr const char* ERR    = "#ff5252";   ///< state.error.
+constexpr const char* OUTPUT = "#9cdcfe";   ///< PLC output ID — semantic light blue (not in theme palette).
 
 // ── Edit Pattern Wizard "lock" color ────────────────────────────────────────
-constexpr const char* LOCK   = "#6a5acd";   // Purple for locked/identity step
+constexpr const char* LOCK   = "#6a5acd";   ///< Purple for locked/identity step.
 
 // ── Fonts ────────────────────────────────────────────────────────────────────
-constexpr const char* FONT_SANS = "Space Grotesk, Segoe UI, sans-serif";
-constexpr const char* FONT_MONO = "JetBrains Mono, Consolas, monospace";
+constexpr const char* FONT_SANS = "Space Grotesk, Segoe UI, sans-serif";  ///< Default sans-serif font stack for UI text.
+constexpr const char* FONT_MONO = "JetBrains Mono, Consolas, monospace";  ///< Monospace font stack for numeric/code fields.
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Reusable QSS fragments
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Apply to top-level pattern widget / wizard to set base background + text.
+/// Apply to top-level pattern widget / wizard to set base background + text.
+/// @return QSS rule setting QWidget background/text/font and making QLabel/QFrame backgrounds transparent
 inline QString baseStyleSheet() {
     return QString(
         "QWidget { background-color: %1; color: %2; font-family: %3; }"
@@ -59,7 +63,8 @@ inline QString baseStyleSheet() {
     ).arg(BG, TXT, FONT_SANS);
 }
 
-// Section header label (uppercase, bold, muted).
+/// Section header label (uppercase, bold, muted).
+/// @return QSS rule for a bold, letter-spaced label with a bottom border, meant for section headers
 inline QString sectionHeaderStyle() {
     return QString(
         "background-color: %1; color: %2; "
@@ -68,7 +73,9 @@ inline QString sectionHeaderStyle() {
     ).arg(HD, TXT3, "Segoe UI", BD);
 }
 
-// Toolbar frame style.
+/// Toolbar frame style.
+/// @return QSS rule for the `#toolbar` QFrame and its QToolButton/QLabel children, including
+///         hover/pressed/disabled button states
 inline QString toolbarStyle() {
     return QString(
         "QFrame#toolbar { background-color: %1; border-bottom: 1px solid %2; }"
@@ -82,7 +89,8 @@ inline QString toolbarStyle() {
     ).arg(HD, BD, TXT2, SURF2, BD2, TXT, TXT4);
 }
 
-// Input field style (line edits, spinboxes).
+/// Input field style (line edits, spinboxes).
+/// @return QSS rule for QLineEdit/QSpinBox/QDoubleSpinBox/QComboBox, including focus and disabled states
 inline QString inputStyle() {
     return QString(
         "QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox {"
@@ -97,7 +105,8 @@ inline QString inputStyle() {
     ).arg(BG, TXT, BD2, FONT_MONO, ACC, TXT4);
 }
 
-// Primary button (accent fill).
+/// Primary button (accent fill).
+/// @return QSS rule for a QPushButton filled with the accent color, with hover and disabled states
 inline QString primaryButtonStyle() {
     return QString(
         "QPushButton {"
@@ -108,7 +117,8 @@ inline QString primaryButtonStyle() {
     ).arg(ACC, SURF2, TXT4);
 }
 
-// Ghost button (secondary).
+/// Ghost button (secondary).
+/// @return QSS rule for a transparent-background, bordered QPushButton, with hover and disabled states
 inline QString ghostButtonStyle() {
     return QString(
         "QPushButton {"
@@ -120,7 +130,11 @@ inline QString ghostButtonStyle() {
     ).arg(TXT2, BD, SURF2, TXT, BD2, TXT4);
 }
 
-// Active step pill (in wizard step rail).
+/// Active step pill (in wizard step rail): picks background/foreground/border colors based on
+/// whether the step is completed, the current step, or upcoming.
+/// @param done true if this step has already been completed (renders with the success color)
+/// @param current true if this is the active step (renders with the accent color); ignored if `done`
+/// @return QSS rule for a fixed-size circular QLabel styled for the resolved step state
 inline QString stepBubbleStyle(bool done, bool current) {
     const char *bg     = done ? OK : current ? ACC : SURF;
     const char *fg     = (done || current) ? "white" : TXT3;

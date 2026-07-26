@@ -5,6 +5,8 @@
 #include "matching/match_group.h"
 #include "matching/match_pattern.h"
 
+/// LocalizationPipeline member definitions: builds a matcher's pattern model from a MatchGroup
+/// and runs workspace-aware ImageMatcher matching for the runtime and commission paths.
 namespace vc::model {
 
 bool LocalizationPipeline::loadModel(mtc::ImageMatcher &matcher,

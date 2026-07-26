@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['baslergige_0',['BaslerGigE',['../namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38abe47d320a3803f16f5c6c720fdded2e9',1,'vc::device']]],
+  ['baslerusb_1',['BaslerUSB',['../namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38a9ac02d8ae6da9bed67cdbc45ae6f152b',1,'vc::device']]],
+  ['bh_5fbl_2',['BH_BL',['../class_add_pattern_image_canvas.html#a868a43b27eef499b61cddc30bb83235ba861ea5e4af420db964fd3f87f9b985ee',1,'AddPatternImageCanvas']]],
+  ['bh_5fbody_3',['BH_Body',['../class_add_pattern_image_canvas.html#a868a43b27eef499b61cddc30bb83235ba7fe9f3e0a0d3b61ef6b99fc23c3ec635',1,'AddPatternImageCanvas']]],
+  ['bh_5fbr_4',['BH_BR',['../class_add_pattern_image_canvas.html#a868a43b27eef499b61cddc30bb83235ba744cf13b8cd0172b088ccd995f93014d',1,'AddPatternImageCanvas']]],
+  ['bh_5fnone_5',['BH_None',['../class_add_pattern_image_canvas.html#a868a43b27eef499b61cddc30bb83235ba938ff88795182dc36e085e2de5716222',1,'AddPatternImageCanvas']]],
+  ['bh_5fpick_6',['BH_Pick',['../class_add_pattern_image_canvas.html#a868a43b27eef499b61cddc30bb83235ba04666be3769ff6969c32fb2a04ec70c3',1,'AddPatternImageCanvas']]],
+  ['bh_5frotate_7',['BH_Rotate',['../class_add_pattern_image_canvas.html#a868a43b27eef499b61cddc30bb83235ba2dd110fdd81712316c87080822105818',1,'AddPatternImageCanvas']]],
+  ['bh_5ftl_8',['BH_TL',['../class_add_pattern_image_canvas.html#a868a43b27eef499b61cddc30bb83235bafc5c7d6352b9f3c7d9fd73114b57383c',1,'AddPatternImageCanvas']]],
+  ['bh_5ftr_9',['BH_TR',['../class_add_pattern_image_canvas.html#a868a43b27eef499b61cddc30bb83235badc76d6fa5e876dc5aa35ae3cab3fdde1',1,'AddPatternImageCanvas']]],
+  ['binary_10',['Binary',['../namespacevc_1_1device_1_1mc.html#a67328b18acd39ab07ad908e6d3b58b1ca245c4ccc253bb60a0a4cd1a1abe24fb4',1,'vc::device::mc::Binary'],['../namespace_robot_kinematics.html#adc914a228f3198b515c137ac7dc6e515a6ce976e8f061b2b5cfe4d0c50c3405dd',1,'RobotKinematics::Binary']]],
+  ['bit_11',['Bit',['../classvc_1_1widgets_1_1_device_row_delegate.html#a1dc77bd09070655d866cce49913cbddfa67ccaceabbc48b5973358fc7ed63cf99',1,'vc::widgets::DeviceRowDelegate::Bit'],['../classvc_1_1widgets_1_1_devices_monitor_widget.html#a253f24866824d9da5e3bca0182f01055aed98fd4f2d1aeadad43670b2d07d5b40',1,'vc::widgets::DevicesMonitorWidget::Bit']]],
+  ['bitstaterole_12',['BitStateRole',['../classvc_1_1widgets_1_1_device_row_delegate.html#a7fd33aff5a295646af48e5b8bfbd9127aff87e83065a2ad3b25b1e98544a9d8e7',1,'vc::widgets::DeviceRowDelegate']]],
+  ['bool_13',['Bool',['../class_signals_map_widget.html#a119c86d6902fec8a6216cc9c6115266fac26f15e86e3de4c398a8273272aba034',1,'SignalsMapWidget::Bool'],['../class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034',1,'SignalsMonitorWidget::Bool']]],
+  ['bottomleft_14',['BottomLeft',['../class_item_roi.html#a59fe0cb7bca7ede5bea98e7c9c58a7beac160507f8e096c68af685235e0fc514a',1,'ItemRoi::BottomLeft'],['../class_item_roi_rotated.html#a1d1ff7ae87399bfa2414dd50a75bd045a13bbef7a67ac998394760b2bffeb631b',1,'ItemRoiRotated::BottomLeft']]],
+  ['bottomright_15',['BottomRight',['../class_item_roi.html#a59fe0cb7bca7ede5bea98e7c9c58a7bea9750afb314084952e0db234c4f77a28a',1,'ItemRoi::BottomRight'],['../class_item_roi_rotated.html#a1d1ff7ae87399bfa2414dd50a75bd045a014d8f02a9b3113b939071206c590dac',1,'ItemRoiRotated::BottomRight']]],
+  ['box_16',['Box',['../class_add_pattern_image_canvas.html#ac7c41f6b171f5fff0b533ac0b75f623fa8c88d50dd59e4f41d5d78fac785e190e',1,'AddPatternImageCanvas']]],
+  ['bufferempty_17',['BufferEmpty',['../classvc_1_1device_1_1_mc_msg_interface.html#a97383e18c9eeb3bab24c811c419deda0ab46c793c37b9455d6b426b9db2ce0abe',1,'vc::device::McMsgInterface']]],
+  ['busy_18',['Busy',['../class_localization_patterns_widget.html#a8f21ff6f70a9180743ee162b4f180a9bad8a942ef2b04672adfafef0ad817a407',1,'LocalizationPatternsWidget::Busy'],['../namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13ad8a942ef2b04672adfafef0ad817a407',1,'vc::runtime::Busy']]]
+];

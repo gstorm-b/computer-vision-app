@@ -22,13 +22,19 @@
 #include "ui/widgets/image_widget/item_roi_rotated.h"
 #include "ui/widgets/vision/vision_geometry.h"
 
+/// File-local helpers for theme-aware pens/colors and for building the small
+/// graphics-scene overlay items (label chips, arrow markers) drawn by VisionCanvas.
 namespace {
 
+/// Resolves a theme token (e.g. "state.error") to a QColor for the current
+/// light/dark theme via ThemeManager.
 QColor tokenColor(const QString &token)
 {
     return QColor(ThemeManager::tokenValue(token, ThemeManager::instance()->isDark()));
 }
 
+/// Builds a QPen with the given color/width/style and marks it cosmetic (constant
+/// on-screen width regardless of the view's zoom transform).
 QPen cosmeticPen(const QColor &color, qreal width, Qt::PenStyle style = Qt::SolidLine)
 {
     QPen pen(color, width, style);
@@ -36,6 +42,9 @@ QPen cosmeticPen(const QColor &color, qreal width, Qt::PenStyle style = Qt::Soli
     return pen;
 }
 
+/// Picks the base overlay pen color/width for a result object by state: red for
+/// faulted (thicker if also sent to output), amber for rejected, green for sent to
+/// output, blue otherwise.
 QPen makeOverlayPen(const VisionResultObject &object)
 {
     if (object.faulted) {
@@ -51,6 +60,8 @@ QPen makeOverlayPen(const VisionResultObject &object)
     return cosmeticPen(tokenColor(QStringLiteral("state.info")), 2.0);
 }
 
+/// Returns `color` with its alpha multiplied by `scale` (clamped to [0,1]); used to
+/// dim/mute overlay colors without changing hue.
 QColor colorWithAlphaScale(const QColor &color, qreal scale)
 {
     QColor scaled = color;
@@ -58,6 +69,9 @@ QColor colorWithAlphaScale(const QColor &color, qreal scale)
     return scaled;
 }
 
+/// Derives the on-screen pen for a result object's outline from its base overlay
+/// pen (see makeOverlayPen): widens it when selected/hovered, or fades it via
+/// colorWithAlphaScale when muted (another object is selected).
 QPen makeResultPen(const VisionResultObject &object,
                    bool selected,
                    bool muted,
@@ -74,6 +88,8 @@ QPen makeResultPen(const VisionResultObject &object,
     return pen;
 }
 
+/// Builds the dashed cosmetic pen used to draw a picking-box polygon, with width
+/// stepped up when selected/hovered.
 QPen makePickingBoxPen(const QColor &baseColor, bool selected, bool hovered)
 {
     QPen pen(baseColor, selected ? 2.4 : (hovered ? 2.0 : 1.6), Qt::DashLine);
@@ -81,6 +97,8 @@ QPen makePickingBoxPen(const QColor &baseColor, bool selected, bool hovered)
     return pen;
 }
 
+/// Composes the result object's label chip text from the fields the current
+/// VisionOverlayVisibility enables: pattern id/name, match score, and point angle.
 QString overlayLabel(const VisionResultObject &object,
                      const VisionOverlayVisibility &visibility)
 {
@@ -97,6 +115,11 @@ QString overlayLabel(const VisionResultObject &object,
     return parts.join(QStringLiteral("  "));
 }
 
+/// Adds a translucent black rounded-rect "chip" with `text` at `scenePos` to
+/// `scene` (used for labels, OUT/FAULT markers, and the runtime-signal readout).
+/// The chip ignores view transformations so its size stays constant on screen.
+/// @return the created rect item (owned by the scene), or nullptr if `scene` is
+/// null or `text` is empty.
 QGraphicsRectItem *addOverlayChip(QGraphicsScene *scene,
                                   const QPointF &scenePos,
                                   const QString &text,
@@ -128,6 +151,8 @@ QGraphicsRectItem *addOverlayChip(QGraphicsScene *scene,
     return chipItem;
 }
 
+/// Returns `vector` scaled to unit length, or (0,0) if its length is below a small
+/// epsilon (avoids division by ~zero).
 QPointF normalizeVector(const QPointF &vector)
 {
     const qreal length = std::hypot(vector.x(), vector.y());
@@ -135,6 +160,9 @@ QPointF normalizeVector(const QPointF &vector)
     return QPointF(vector.x() / length, vector.y() / length);
 }
 
+/// Builds a painter path for a straight arrow of `length` pointing along
+/// `direction`, with a V-shaped arrowhead of `headSize`. Returns an empty path if
+/// `direction` is a zero vector.
 QPainterPath arrowPath(const QPointF &direction, qreal length, qreal headSize)
 {
     const QPointF unit = normalizeVector(direction);
@@ -157,6 +185,11 @@ QPainterPath arrowPath(const QPointF &direction, qreal length, qreal headSize)
     return path;
 }
 
+/// Adds an arrow-shaped path item (see arrowPath) at `scenePos` to `scene`, used to
+/// mark a result object's orientation axes and corner locators. The item ignores
+/// view transformations so its size stays constant on screen.
+/// @return the created path item (owned by the scene), or nullptr if `scene` is
+/// null or the arrow path is empty (zero-length direction).
 QGraphicsPathItem *addArrowMarker(QGraphicsScene *scene,
                                   const QPointF &scenePos,
                                   const QPointF &direction,
@@ -178,12 +211,17 @@ QGraphicsPathItem *addArrowMarker(QGraphicsScene *scene,
     return item;
 }
 
+/// Returns the accent color used to draw picking-box outlines, faded when `muted`
+/// is true.
 QColor pickingBoxColor(bool muted)
 {
     const QColor color = tokenColor(QStringLiteral("accent.primary"));
     return muted ? colorWithAlphaScale(color, 0.30) : color;
 }
 
+/// Picks the scene position for a label/chip attached to `bounds`: 30px above the
+/// top-left corner when that fits on screen, otherwise just inside the top-left
+/// corner.
 QPointF labelAnchorForBounds(const QRectF &bounds)
 {
     const qreal aboveY = bounds.top() - 30.0;
@@ -195,30 +233,49 @@ QPointF labelAnchorForBounds(const QRectF &bounds)
 
 } // namespace
 
+/// Internal helper types backing VisionCanvas's editable ROI items: a QObject-based
+/// signal mixin plus the axis-aligned and rotated ROI graphics-item implementations.
 namespace vision_canvas_detail {
 
+/// QObject mixin providing the geometry/selection change signals shared by all
+/// editable ROI item types (a separate base since the ROI items also derive from a
+/// QGraphicsItem-based type via multiple inheritance).
 class VisionCanvasItemBase : public QObject {
     Q_OBJECT
 public:
+    /// Constructs the signal mixin with the given QObject parent.
     explicit VisionCanvasItemBase(QObject *parent = nullptr) : QObject(parent) {}
 signals:
+    /// Emitted while the item's geometry is being interactively changed (drag in progress).
     void geometryChanged();
+    /// Emitted once an interactive geometry change (move/resize) has completed.
     void geometryFinished();
+    /// Emitted when the item's QGraphicsItem selection state changes.
     void selectionChanged();
 };
 
+/// Abstract interface for an editable ROI backed by a QGraphicsItem: exposes the
+/// underlying graphics item and a conversion to the plain VisionRoi data type.
 class RoiItemBase : public VisionCanvasItemBase {
     Q_OBJECT
 public:
     using VisionCanvasItemBase::VisionCanvasItemBase;
     virtual ~RoiItemBase() = default;
 
+    /// Returns the QGraphicsItem this ROI is implemented as (for scene membership,
+    /// deletion, selection, etc.).
     virtual QGraphicsItem *graphicsItem() = 0;
+    /// Returns the current geometry/state of this ROI as a plain VisionRoi value.
     virtual VisionRoi roi() const = 0;
 };
 
+/// Editable axis-aligned rectangular ROI item: wraps ItemRoi (the resize/move
+/// handle behavior) and adds the id/label needed to round-trip to/from VisionRoi.
 class VisionRectRoiItem : public RoiItemBase, public ItemRoi {
 public:
+    /// Constructs the item centered on `roi.center` with the size from `roi.size`,
+    /// parented under `parentItem` (the image item) and sharing `ignoreFlag` with
+    /// the canvas to suppress feedback while scene interaction is locked.
     explicit VisionRectRoiItem(const VisionRoi &roi,
                                QGraphicsItem *parentItem,
                                bool *ignoreFlag)
@@ -236,6 +293,8 @@ public:
         }
     }
 
+    /// Returns the current geometry as a VisionRoi (axis-aligned shape), reading
+    /// center/size/visibility/selection back from the underlying QGraphicsItem.
     VisionRoi roi() const
     {
         VisionRoi roi;
@@ -249,12 +308,15 @@ public:
         return roi;
     }
 
+    /// Returns this item as a QGraphicsItem.
     QGraphicsItem *graphicsItem() override
     {
         return this;
     }
 
 protected:
+    /// Forwards to ItemRoi::itemChange and additionally emits selectionChanged()
+    /// when the item's selection state flips.
     QVariant itemChange(QGraphicsItem::GraphicsItemChange change,
                         const QVariant &value) override
     {
@@ -264,12 +326,16 @@ protected:
         return ItemRoi::itemChange(change, value);
     }
 
+    /// Forwards to ItemRoi::mouseMoveEvent and emits geometryChanged() so the
+    /// canvas can react live while the ROI is being dragged/resized.
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override
     {
         ItemRoi::mouseMoveEvent(event);
         emit geometryChanged();
     }
 
+    /// Forwards to ItemRoi::mouseReleaseEvent and emits geometryChanged() followed
+    /// by geometryFinished() so the canvas can push an undo snapshot once the drag ends.
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override
     {
         ItemRoi::mouseReleaseEvent(event);
@@ -278,12 +344,18 @@ protected:
     }
 
 private:
-    QString m_id;
-    QString m_label;
+    QString m_id;     ///< Stable identifier carried over from the source VisionRoi.
+    QString m_label;  ///< Display label carried over from the source VisionRoi.
 };
 
+/// Editable rotated rectangular ROI item: wraps ItemRoiRotated (the resize/rotate
+/// handle behavior) and adds the id/label needed to round-trip to/from VisionRoi.
 class VisionRotatedRoiItem : public RoiItemBase, public ItemRoiRotated {
 public:
+    /// Constructs the item centered on `roi.center` with the size from `roi.size`
+    /// and initial rotation `roi.angleDeg`, parented under `parentItem` (the image
+    /// item) and sharing `ignoreFlag` with the canvas to suppress feedback while
+    /// scene interaction is locked.
     explicit VisionRotatedRoiItem(const VisionRoi &roi,
                                   QGraphicsItem *parentItem,
                                   bool *ignoreFlag)
@@ -299,6 +371,8 @@ public:
         setRotation(roi.angleDeg);
     }
 
+    /// Returns the current geometry as a VisionRoi (rotated shape), reading
+    /// center/size/rotation/visibility/selection back from the underlying QGraphicsItem.
     VisionRoi roi() const
     {
         VisionRoi roi;
@@ -313,12 +387,15 @@ public:
         return roi;
     }
 
+    /// Returns this item as a QGraphicsItem.
     QGraphicsItem *graphicsItem() override
     {
         return this;
     }
 
 protected:
+    /// Forwards to ItemRoiRotated::itemChange and additionally emits
+    /// selectionChanged() when the item's selection state flips.
     QVariant itemChange(QGraphicsItem::GraphicsItemChange change,
                         const QVariant &value) override
     {
@@ -328,12 +405,17 @@ protected:
         return ItemRoiRotated::itemChange(change, value);
     }
 
+    /// Forwards to ItemRoiRotated::mouseMoveEvent and emits geometryChanged() so
+    /// the canvas can react live while the ROI is being dragged/resized/rotated.
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override
     {
         ItemRoiRotated::mouseMoveEvent(event);
         emit geometryChanged();
     }
 
+    /// Forwards to ItemRoiRotated::mouseReleaseEvent and emits geometryChanged()
+    /// followed by geometryFinished() so the canvas can push an undo snapshot once
+    /// the drag ends.
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override
     {
         ItemRoiRotated::mouseReleaseEvent(event);
@@ -342,12 +424,16 @@ protected:
     }
 
 private:
-    QString m_id;
-    QString m_label;
+    QString m_id;     ///< Stable identifier carried over from the source VisionRoi.
+    QString m_label;  ///< Display label carried over from the source VisionRoi.
 };
 
 } // namespace vision_canvas_detail
 
+/// Constructs the canvas: creates and installs the QGraphicsScene, configures the
+/// mouse-tracking/focus/viewport-update settings needed for hover highlighting and
+/// smooth panning, and re-themes the background plus auxiliary/overlay items
+/// whenever ThemeManager reports a theme change.
 VisionCanvas::VisionCanvas(QWidget *parent)
     : QGraphicsView(parent),
       m_scene(new QGraphicsScene(this))
@@ -368,11 +454,18 @@ VisionCanvas::VisionCanvas(QWidget *parent)
             });
 }
 
+/// Converts `image` to a QPixmap (see vision::pixmapFromMat) and displays it; see
+/// the QPixmap overload for fit/zoom behavior.
 void VisionCanvas::setImage(const cv::Mat &image)
 {
     setImage(vision::pixmapFromMat(image));
 }
 
+/// Displays `pixmap` as the canvas background image, creating the pixmap item on
+/// first use and otherwise updating it in place. Rebuilds the editable/auxiliary/
+/// overlay items against the new image, and re-fits the view only when the
+/// pixmap's size differs from the last one shown (so same-size live-feed frames
+/// keep the user's current zoom/pan). A null pixmap clears the canvas instead.
 void VisionCanvas::setImage(const QPixmap &pixmap)
 {
     if (pixmap.isNull()) {
@@ -404,6 +497,9 @@ void VisionCanvas::setImage(const QPixmap &pixmap)
     }
 }
 
+/// Removes the displayed image and all editable/auxiliary/overlay items, resets
+/// the undo history to a single empty snapshot, clears the result-object
+/// selection/hover state, and forces the next setImage() call to re-fit the view.
 void VisionCanvas::clearImage()
 {
     for (vision_canvas_detail::RoiItemBase *item : m_editableItems) {
@@ -435,12 +531,16 @@ void VisionCanvas::clearImage()
     rebuildOverlayItems();
 }
 
+/// Switches between edit mode (ROI drawing/dragging) and read-only mode (result
+/// object hover/selection); updates the cursor to match.
 void VisionCanvas::setReadOnly(bool readOnly)
 {
     m_readOnly = readOnly;
     syncCursor();
 }
 
+/// Sets the active drawing/interaction tool, updates the cursor, and emits
+/// toolModeChanged() if the mode actually changed.
 void VisionCanvas::setToolMode(VisionToolPalette::ToolMode mode)
 {
     const bool changed = (m_toolMode != mode);
@@ -451,6 +551,10 @@ void VisionCanvas::setToolMode(VisionToolPalette::ToolMode mode)
     }
 }
 
+/// Replaces the set of user-editable ROIs and resets the undo/redo history to a
+/// single snapshot of the new state (this is the entry point for loading ROIs from
+/// outside the widget, as opposed to interactive edits which push onto the
+/// existing history).
 void VisionCanvas::setEditableRois(const QVector<VisionRoi> &rois)
 {
     rebuildEditableRois(rois);
@@ -461,6 +565,9 @@ void VisionCanvas::setEditableRois(const QVector<VisionRoi> &rois)
     emitRoisChanged();
 }
 
+/// Reads the current editable ROIs back from the live graphics items, normalizing
+/// each one (see vision::normalizedRoi).
+/// @return the current editable ROIs in item order.
 QVector<VisionRoi> VisionCanvas::editableRois() const
 {
     QVector<VisionRoi> rois;
@@ -472,12 +579,18 @@ QVector<VisionRoi> VisionCanvas::editableRois() const
     return rois;
 }
 
+/// Replaces the read-only auxiliary ROI overlays (e.g. reference regions) drawn
+/// alongside the editable ROIs.
 void VisionCanvas::setAuxiliaryRois(const QVector<VisionRoi> &rois)
 {
     m_auxiliaryRois = rois;
     rebuildAuxiliaryRois();
 }
 
+/// Sets the vision-analysis result overlay data (accepted/rejected objects, ROI
+/// overlays, runtime signal values) and rebuilds the overlay graphics items.
+/// @note Does not change which overlay categories are visible; see the note below
+/// on setOverlayVisibility() ownership.
 void VisionCanvas::setResultOverlay(const VisionResultOverlay &overlay)
 {
     // Overlay visibility is sticky UI state owned by setOverlayVisibility().
@@ -487,12 +600,20 @@ void VisionCanvas::setResultOverlay(const VisionResultOverlay &overlay)
     rebuildOverlayItems();
 }
 
+/// Sets which overlay categories (rejected candidates, picking boxes, fault/sent
+/// markers, runtime signal values, etc.) are drawn, and rebuilds the overlay items
+/// to match.
 void VisionCanvas::setOverlayVisibility(const VisionOverlayVisibility &visibility)
 {
     m_overlayVisibility = visibility;
     rebuildOverlayItems();
 }
 
+/// Selects the result object with the given index (clearing any hover state once a
+/// real selection is made), rebuilds the overlay to highlight/mute accordingly, and
+/// emits resultObjectSelectionChanged(). No-op if `objectIndex` is already selected.
+/// @param objectIndex the VisionResultObject::index to select, or a non-positive
+/// value to clear the selection
 void VisionCanvas::setSelectedResultObject(int objectIndex)
 {
     if (m_selectedResultObject == objectIndex) return;
@@ -504,11 +625,19 @@ void VisionCanvas::setSelectedResultObject(int objectIndex)
     emit resultObjectSelectionChanged(m_selectedResultObject);
 }
 
+/// Clears the current result-object selection (equivalent to setSelectedResultObject(-1)).
 void VisionCanvas::clearSelectedResultObject()
 {
     setSelectedResultObject(-1);
 }
 
+/// Hit-tests `scenePoint` against the result overlay's polygons to find which
+/// result object it falls in. Accepted objects are checked first (preferring the
+/// currently-selected object if the point still falls inside it, so overlapping
+/// polygons don't fight the user's selection), then rejected candidates if the
+/// "show rejected" visibility flag is on. Later-drawn (later-index) objects win
+/// ties within the same list.
+/// @return the matched object's index, or -1 if no polygon contains the point.
 int VisionCanvas::resultObjectAtScenePoint(const QPointF &scenePoint) const
 {
     auto matchIndex = [scenePoint](const QVector<VisionResultObject> &objects, int preferredIndex) {
@@ -539,6 +668,9 @@ int VisionCanvas::resultObjectAtScenePoint(const QPointF &scenePoint) const
     return -1;
 }
 
+/// Updates which result object is hover-highlighted, refreshing the cursor (unless
+/// currently panning) and rebuilding the overlay to show the hover state. No-op if
+/// `objectIndex` is already hovered.
 void VisionCanvas::setHoveredResultObject(int objectIndex)
 {
     if (m_hoveredResultObject == objectIndex) return;
@@ -551,6 +683,8 @@ void VisionCanvas::setHoveredResultObject(int objectIndex)
     rebuildOverlayItems();
 }
 
+/// Finds the first editable ROI item currently selected in the graphics scene.
+/// @return the selected ROI, or a default-constructed (empty-id) VisionRoi if none is selected.
 VisionRoi VisionCanvas::selectedRoi() const
 {
     for (vision_canvas_detail::RoiItemBase *item : m_editableItems) {
@@ -561,17 +695,23 @@ VisionRoi VisionCanvas::selectedRoi() const
     return {};
 }
 
+/// Returns whether an editable ROI is currently selected (based on selectedRoi() having a non-empty id).
 bool VisionCanvas::hasSelectedRoi() const
 {
     return !selectedRoi().id.isEmpty();
 }
 
+/// Returns the pixel size of the currently displayed image, or an empty QSize if no image is set.
 QSize VisionCanvas::imageSize() const
 {
     if (!m_imageItem) return {};
     return m_imageItem->pixmap().size();
 }
 
+/// Applies an externally-edited geometry/state for the editable ROI matching
+/// `roi.id`: clamps it to the image bounds, rebuilds the editable items from the
+/// updated list, emits the roisChanged/selectedRoiChanged signals, and pushes an
+/// undo snapshot if the result actually changed. No-op if no ROI with that id exists.
 void VisionCanvas::updateSelectedRoi(const VisionRoi &roi)
 {
     for (vision_canvas_detail::RoiItemBase *item : m_editableItems) {
@@ -591,6 +731,8 @@ void VisionCanvas::updateSelectedRoi(const VisionRoi &roi)
     }
 }
 
+/// Removes the currently-selected editable ROI (if any) and pushes an undo
+/// snapshot. Does nothing in read-only mode or when no ROI is selected.
 void VisionCanvas::deleteSelectedRoi()
 {
     if (m_readOnly) return;
@@ -609,6 +751,7 @@ void VisionCanvas::deleteSelectedRoi()
     pushUndoSnapshotIfChanged();
 }
 
+/// Fits the view's zoom/pan so the full image is visible, preserving aspect ratio. No-op if no image is set.
 void VisionCanvas::fitImageToView()
 {
     if (m_imageItem) {
@@ -616,18 +759,23 @@ void VisionCanvas::fitImageToView()
     }
 }
 
+/// Steps the editable-ROI history one entry back, if not already at the oldest entry.
 void VisionCanvas::undo()
 {
     if (m_historyIndex <= 0) return;
     applyUndoSnapshot(m_historyIndex - 1);
 }
 
+/// Steps the editable-ROI history one entry forward, if not already at the newest entry.
 void VisionCanvas::redo()
 {
     if (m_historyIndex < 0 || m_historyIndex + 1 >= m_history.size()) return;
     applyUndoSnapshot(m_historyIndex + 1);
 }
 
+/// Routes a mouse press to panning (Ctrl+click or Pan tool), result-object
+/// selection (read-only mode, left click), ROI drawing (rect/rotated-rect tool),
+/// or the base QGraphicsView handling, in that priority order.
 void VisionCanvas::mousePressEvent(QMouseEvent *event)
 {
     setFocus(Qt::MouseFocusReason);
@@ -663,6 +811,8 @@ void VisionCanvas::mousePressEvent(QMouseEvent *event)
     QGraphicsView::mousePressEvent(event);
 }
 
+/// Continues an in-progress pan or ROI draw, or (in read-only mode) updates the
+/// hovered result object; otherwise forwards to the base QGraphicsView handling.
 void VisionCanvas::mouseMoveEvent(QMouseEvent *event)
 {
     if (m_panning) {
@@ -682,6 +832,9 @@ void VisionCanvas::mouseMoveEvent(QMouseEvent *event)
     QGraphicsView::mouseMoveEvent(event);
 }
 
+/// Ends an in-progress pan or ROI draw (updating the hover state after a pan), or
+/// forwards to the base QGraphicsView handling and refreshes the ROI selection
+/// from the scene.
 void VisionCanvas::mouseReleaseEvent(QMouseEvent *event)
 {
     if (m_panning) {
@@ -701,6 +854,8 @@ void VisionCanvas::mouseReleaseEvent(QMouseEvent *event)
     updateSelectionFromScene();
 }
 
+/// Middle-button double-click fits the image to the view; other buttons fall
+/// through to the base QGraphicsView handling.
 void VisionCanvas::mouseDoubleClickEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::MiddleButton) {
@@ -710,6 +865,8 @@ void VisionCanvas::mouseDoubleClickEvent(QMouseEvent *event)
     QGraphicsView::mouseDoubleClickEvent(event);
 }
 
+/// Ctrl+wheel zooms the view in/out by a fixed 15% step per notch; plain wheel
+/// falls through to the base QGraphicsView handling (scrolling).
 void VisionCanvas::wheelEvent(QWheelEvent *event)
 {
     if (event->modifiers() & Qt::ControlModifier) {
@@ -722,6 +879,8 @@ void VisionCanvas::wheelEvent(QWheelEvent *event)
     QGraphicsView::wheelEvent(event);
 }
 
+/// Clears the hovered result object when the mouse leaves the viewport in
+/// read-only mode (unless currently panning).
 void VisionCanvas::leaveEvent(QEvent *event)
 {
     if (m_readOnly && !m_panning) {
@@ -730,6 +889,10 @@ void VisionCanvas::leaveEvent(QEvent *event)
     QGraphicsView::leaveEvent(event);
 }
 
+/// Handles canvas shortcuts: Escape cancels an in-progress pan, exits the Pan tool
+/// back to select/move, or clears the result-object selection (in that priority
+/// order); Delete removes the selected ROI. Falls through to the base
+/// QGraphicsView handling otherwise.
 void VisionCanvas::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Escape && m_panning) {
@@ -759,6 +922,9 @@ void VisionCanvas::keyPressEvent(QKeyEvent *event)
     QGraphicsView::keyPressEvent(event);
 }
 
+/// Discards and rebuilds the auxiliary-ROI overlay graphics items (dashed polygon
+/// plus label chip per visible, valid auxiliary ROI) from m_auxiliaryRois. No-op if
+/// no image is currently displayed.
 void VisionCanvas::rebuildAuxiliaryRois()
 {
     for (QGraphicsItem *item : m_auxiliaryItems) {
@@ -792,6 +958,11 @@ void VisionCanvas::rebuildAuxiliaryRois()
     }
 }
 
+/// Discards and rebuilds every result-overlay graphics item (accepted/rejected
+/// object outlines, center markers, orientation/corner-locator arrows, picking-box
+/// polygons, label chips, OUT/FAULT markers, ROI overlays, and the runtime-signal
+/// readout chip) from m_overlay and the current selection/hover state and
+/// visibility flags. No-op if no image is currently displayed.
 void VisionCanvas::rebuildOverlayItems()
 {
     for (QGraphicsItem *item : m_overlayItems) {
@@ -801,6 +972,10 @@ void VisionCanvas::rebuildOverlayItems()
 
     if (!m_imageItem) return;
 
+    /// Draws one result-object list (accepted or rejected candidates) into the
+    /// overlay: outline polygon, center dot, orientation arrows, picking boxes,
+    /// corner locators, label chip, and OUT/FAULT markers, styled by
+    /// selected/hovered/muted state.
     auto addObjectItems = [this](const QVector<VisionResultObject> &objects, bool respectRejectedToggle) {
         const bool hasSelection = m_selectedResultObject > 0;
         for (const VisionResultObject &object : objects) {
@@ -973,6 +1148,10 @@ void VisionCanvas::rebuildOverlayItems()
     }
 }
 
+/// Discards and rebuilds the editable ROI graphics items from `rois`: each ROI is
+/// clamped to the image bounds, invalid ROIs are skipped, and the concrete item
+/// type (rotated vs. axis-aligned) is chosen from VisionRoi::shape. No-op if no
+/// image is currently displayed.
 void VisionCanvas::rebuildEditableRois(const QVector<VisionRoi> &rois)
 {
     for (vision_canvas_detail::RoiItemBase *item : m_editableItems) {
@@ -1002,6 +1181,8 @@ void VisionCanvas::rebuildEditableRois(const QVector<VisionRoi> &rois)
     }
 }
 
+/// Adds `item` to the tracked editable items and wires its geometry/selection
+/// signals to the corresponding onEditableItem* slots. No-op if `item` is null.
 void VisionCanvas::registerEditableItem(vision_canvas_detail::RoiItemBase *item)
 {
     if (!item) return;
@@ -1011,18 +1192,27 @@ void VisionCanvas::registerEditableItem(vision_canvas_detail::RoiItemBase *item)
     connect(item, SIGNAL(selectionChanged()), this, SLOT(onEditableItemSelectionChanged()));
 }
 
+/// Re-reads the selected ROI from the scene and emits selectedRoiChanged() (used
+/// after a mouse release so external listeners see the graphics scene's actual
+/// selection state).
 void VisionCanvas::updateSelectionFromScene()
 {
     VisionRoi roi = selectedRoi();
     emit selectedRoiChanged(roi);
 }
 
+/// Emits roisChanged() with the current editable ROI list and selectedRoiChanged()
+/// with the current selection.
 void VisionCanvas::emitRoisChanged()
 {
     emit roisChanged(editableRois());
     emit selectedRoiChanged(selectedRoi());
 }
 
+/// Appends the current editable-ROI state to the undo history, truncating any
+/// redo entries beyond the current position, unless history recording is locked
+/// (see applyUndoSnapshot) or the state is identical to the current history entry.
+/// Emits undoAvailabilityChanged() when a snapshot is pushed.
 void VisionCanvas::pushUndoSnapshotIfChanged()
 {
     if (m_historyLocked) return;
@@ -1041,6 +1231,11 @@ void VisionCanvas::pushUndoSnapshotIfChanged()
     emit undoAvailabilityChanged(m_historyIndex > 0, false);
 }
 
+/// Rebuilds the editable ROIs from history entry `index` and moves the history
+/// cursor there, locking pushUndoSnapshotIfChanged() out for the duration so the
+/// rebuild does not itself get recorded as a new undo step. Emits
+/// undoAvailabilityChanged() and the ROI-changed signals. No-op if `index` is out
+/// of range.
 void VisionCanvas::applyUndoSnapshot(int index)
 {
     if (index < 0 || index >= m_history.size()) return;
@@ -1052,6 +1247,9 @@ void VisionCanvas::applyUndoSnapshot(int index)
     emitRoisChanged();
 }
 
+/// Returns the current editable ROIs with selection state cleared, so undo/redo
+/// history entries are compared and restored independent of which ROI happened to
+/// be selected.
 QVector<VisionRoi> VisionCanvas::currentSnapshot() const
 {
     QVector<VisionRoi> snapshot = editableRois();
@@ -1061,11 +1259,15 @@ QVector<VisionRoi> VisionCanvas::currentSnapshot() const
     return snapshot;
 }
 
+/// Returns the displayed image's bounding rect in scene coordinates, or an empty
+/// rect if no image is set.
 QRectF VisionCanvas::imageBounds() const
 {
     return m_imageItem ? m_imageItem->boundingRect() : QRectF();
 }
 
+/// Clamps `scenePoint` to the displayed image's bounds, so ROI drawing can't start
+/// or extend outside the image. Returns `scenePoint` unchanged if there is no image.
 QPointF VisionCanvas::clampScenePointToImage(const QPointF &scenePoint) const
 {
     const QRectF bounds = imageBounds();
@@ -1074,6 +1276,10 @@ QPointF VisionCanvas::clampScenePointToImage(const QPointF &scenePoint) const
                    qBound(bounds.top(), scenePoint.y(), bounds.bottom()));
 }
 
+/// Sets the viewport cursor to match current interaction state, in priority order:
+/// closed hand while panning, open hand in the Pan tool, crosshair in a draw tool,
+/// pointing hand when hovering a result object in read-only mode, otherwise the
+/// default arrow.
 void VisionCanvas::syncCursor()
 {
     if (m_panning) {
@@ -1100,6 +1306,7 @@ void VisionCanvas::syncCursor()
     setCursor(Qt::ArrowCursor);
 }
 
+/// Starts an interactive pan from viewport position `pos` and updates the cursor.
 void VisionCanvas::beginPan(const QPoint &pos)
 {
     m_panning = true;
@@ -1107,6 +1314,7 @@ void VisionCanvas::beginPan(const QPoint &pos)
     syncCursor();
 }
 
+/// Scrolls the view by the delta between `pos` and the last recorded pan point.
 void VisionCanvas::updatePan(const QPoint &pos)
 {
     const QPoint delta = pos - m_lastPanPoint;
@@ -1115,12 +1323,15 @@ void VisionCanvas::updatePan(const QPoint &pos)
     m_lastPanPoint = pos;
 }
 
+/// Ends the current interactive pan and updates the cursor.
 void VisionCanvas::endPan()
 {
     m_panning = false;
     syncCursor();
 }
 
+/// Starts drawing a new ROI rectangle anchored at `imagePoint`, creating (or
+/// resetting) the zero-size dashed preview rect item.
 void VisionCanvas::beginDraw(const QPointF &imagePoint)
 {
     m_drawing = true;
@@ -1135,12 +1346,18 @@ void VisionCanvas::beginDraw(const QPointF &imagePoint)
     }
 }
 
+/// Resizes the in-progress draw preview rect to span from the draw start point to `imagePoint`.
 void VisionCanvas::updateDraw(const QPointF &imagePoint)
 {
     if (!m_drawRectItem) return;
     m_drawRectItem->setRect(QRectF(m_drawStart, imagePoint).normalized());
 }
 
+/// Finishes drawing: removes the preview rect and, if the drawn rectangle is at
+/// least 4x4 pixels, appends a new VisionRoi (axis-aligned or rotated, per the
+/// active tool mode) with an auto-generated id/label, then rebuilds the editable
+/// ROIs, emits the ROI-changed signals, and pushes an undo snapshot. Rectangles
+/// smaller than 4x4 are discarded as accidental clicks.
 void VisionCanvas::endDraw(const QPointF &imagePoint)
 {
     m_drawing = false;
@@ -1168,17 +1385,22 @@ void VisionCanvas::endDraw(const QPointF &imagePoint)
     pushUndoSnapshotIfChanged();
 }
 
+/// Slot: forwards a live geometry change from any editable ROI item to emitRoisChanged().
 void VisionCanvas::onEditableItemGeometryChanged()
 {
     emitRoisChanged();
 }
 
+/// Slot: called when an editable ROI item's interactive geometry change
+/// completes; re-emits the ROI-changed signals and pushes an undo snapshot.
 void VisionCanvas::onEditableItemGeometryFinished()
 {
     emitRoisChanged();
     pushUndoSnapshotIfChanged();
 }
 
+/// Slot: called when any editable ROI item's selection state changes; re-emits
+/// selectedRoiChanged() with the current selection.
 void VisionCanvas::onEditableItemSelectionChanged()
 {
     emit selectedRoiChanged(selectedRoi());

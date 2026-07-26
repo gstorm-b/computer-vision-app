@@ -7,6 +7,9 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Builds a PostureMetadata fixture with shoulder/elbow/wrist label axes matching the
+/// serial_6dof_shoulder_elbow_wrist resolver ("lefty"/"righty", "below"/"above",
+/// "non-flip"/"flip").
 PostureMetadata metadata()
 {
     PostureMetadata posture;
@@ -47,6 +50,9 @@ void PostureResolverTests::classifiesSerialSixDofSignBranches()
     QCOMPARE(*posture.value.wrist, -1);
 }
 
+/// Entry point that instantiates PostureResolverTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runPostureResolverTests(int argc, char** argv)
 {
     PostureResolverTests tests;

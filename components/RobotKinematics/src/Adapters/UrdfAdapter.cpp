@@ -17,6 +17,8 @@
 namespace RobotKinematics {
 
 namespace {
+/// Maps a JointType to its URDF `type` attribute string; anything other than
+/// Prismatic/Fixed is reported as "revolute".
 std::string jointTypeName(JointType type)
 {
     if (type == JointType::Prismatic) {
@@ -28,6 +30,8 @@ std::string jointTypeName(JointType type)
     return "revolute";
 }
 
+/// Parses a URDF joint `type` attribute string into a JointType; any value other than
+/// "prismatic"/"fixed" (including unrecognized strings) resolves to Revolute.
 JointType jointTypeFromName(const QString& type)
 {
     if (type == "prismatic") {
@@ -39,6 +43,10 @@ JointType jointTypeFromName(const QString& type)
     return JointType::Revolute;
 }
 
+/// Extracts URDF-convention roll/pitch/yaw Euler angles from a Pose's rotation matrix.
+/// @param pose the pose whose orientation is decomposed
+/// @return vector of (roll, pitch, yaw) in radians; the pitch asin input is clamped to
+/// [-1, 1] to avoid NaN from floating-point rounding at/near gimbal lock
 Eigen::Vector3d rpyFromPose(const Pose& pose)
 {
     const Eigen::Matrix3d r = pose.isometry().linear();
@@ -48,6 +56,7 @@ Eigen::Vector3d rpyFromPose(const Pose& pose)
     return Eigen::Vector3d(roll, pitch, yaw);
 }
 
+/// Formats a 3-vector as a space-separated "x y z" string for URDF xyz/rpy attributes.
 std::string vec3(const Eigen::Vector3d& v)
 {
     std::ostringstream out;
@@ -55,6 +64,9 @@ std::string vec3(const Eigen::Vector3d& v)
     return out.str();
 }
 
+/// Parses a space-separated "x y z" URDF attribute string into a Vector3d.
+/// @param value the attribute text to parse
+/// @param fallback value returned unchanged if `value` does not split into exactly 3 parts
 Eigen::Vector3d parseVec3(const QString& value, const Eigen::Vector3d& fallback)
 {
     const QStringList parts = value.split(' ', Qt::SkipEmptyParts);
@@ -65,6 +77,10 @@ Eigen::Vector3d parseVec3(const QString& value, const Eigen::Vector3d& fallback)
 }
 }
 
+/// Serializes a serial robot configuration to a minimal URDF XML document: emits a
+/// `<link>` per link and a `<joint>` per joint (with origin xyz/rpy, and axis/limit for
+/// non-fixed joints), plus a trailing XML comment when posture/tools/sources metadata
+/// exists that URDF cannot represent. Validates `config` first via RobotModelValidator.
 Result<std::string> UrdfAdapter::exportSerialRobot(const SerialRobotConfig& config)
 {
     const ModelValidationResult validation = RobotModelValidator::validateSerialRobotConfig(config);
@@ -98,6 +114,12 @@ Result<std::string> UrdfAdapter::exportSerialRobot(const SerialRobotConfig& conf
     return Result<std::string>::success(xml.str());
 }
 
+/// Parses a URDF XML document into a serial robot configuration: reads all `<link>` and
+/// `<joint>` elements, then walks the joint graph from `baseLinkId` to `flangeLinkId`
+/// (following each joint's parent/child link chain) to build the ordered joint list.
+/// Non-fixed joints without an explicit `<limit>` default to +/-pi radians. The dof count
+/// is the number of Revolute/Prismatic joints in the resulting chain. The assembled
+/// config is validated via RobotModelValidator before being returned.
 Result<SerialRobotConfig> UrdfAdapter::importSerialRobot(const std::string& urdf,
                                                          const std::string& baseLinkId,
                                                          const std::string& flangeLinkId)

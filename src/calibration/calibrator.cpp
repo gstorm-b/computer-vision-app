@@ -6,12 +6,21 @@
 #include <algorithm>
 #include <cmath>
 
+/// Implementation of the Calibrator class: homography + work-plane fitting,
+/// angle conversion, and cv::FileStorage-based persistence (see calibrator.h).
 namespace calib {
 
+/// File-local helpers used only by Calibrator's implementation: plane
+/// fitting, plane-Z lookup, and FileStorage state (de)serialization.
 namespace {
 
-// Fit a plane ax + by + cz + d = 0 through N >= 3 points by SVD on the
-// centred coordinates. Returns false if N < 3 or the matrix is degenerate.
+/// Fits a plane ax + by + cz + d = 0 through `pts` by SVD on the centred
+/// coordinates, then normalizes the normal and flips its sign so c >= 0
+/// (keeps a non-vertical work plane's normal pointing toward +Z).
+/// @param pts robot-space points to fit; need at least 3
+/// @param plane output plane coefficients (a, b, c, d) with a^2+b^2+c^2 = 1
+/// @return false if pts.size() < 3, the SVD result is degenerate (fewer than
+///         3 rows in vt), or the resulting normal is ~zero length
 bool fitPlane(const std::vector<cv::Point3f>& pts, cv::Vec4d& plane)
 {
     if (pts.size() < 3) return false;
@@ -61,6 +70,8 @@ bool fitPlane(const std::vector<cv::Point3f>& pts, cv::Vec4d& plane)
     return true;
 }
 
+/// Evaluates the fitted plane at (x, y) to get the corresponding z.
+/// @return 0.0 if the plane is (near-)vertical (|c| < 1e-12), since z is then undefined
 double planeZ(const cv::Vec4d& plane, double x, double y)
 {
     const double a = plane[0], b = plane[1], c = plane[2], d = plane[3];
@@ -68,9 +79,14 @@ double planeZ(const cv::Vec4d& plane, double x, double y)
     return -(a * x + b * y + d) / c;
 }
 
-constexpr double kDeg2Rad = CV_PI / 180.0;
-constexpr double kRad2Deg = 180.0 / CV_PI;
+constexpr double kDeg2Rad = CV_PI / 180.0;   ///< Degrees-to-radians conversion factor.
+constexpr double kRad2Deg = 180.0 / CV_PI;   ///< Radians-to-degrees conversion factor.
 
+/// Serializes the full calibrator state (homography, work plane, centroids,
+/// raw correspondences, and diagnostics) into an already-open cv::FileStorage;
+/// shared by save() (file-backed) and toJson() (in-memory JSON).
+/// @param fs target storage, left open; the caller releases/retrieves it
+/// @param calibrated written as the integer "calibrated" flag (1 or 0)
 void writeStateTo(cv::FileStorage& fs,
                   const cv::Mat& H,
                   const cv::Vec4d& plane,
@@ -101,8 +117,12 @@ void writeStateTo(cv::FileStorage& fs,
 // =====================================================================
 // Construction / state
 // =====================================================================
+/// Default-constructs an uncalibrated instance (see clear() for the initial
+/// field values).
 Calibrator::Calibrator() = default;
 
+/// Resets all accumulated correspondences, the fitted homography/plane,
+/// cached centroids, and diagnostics back to their initial (uncalibrated) state.
 void Calibrator::clear()
 {
     m_imagePts.clear();
@@ -118,6 +138,11 @@ void Calibrator::clear()
     m_planeFitMaxErr = -1.0;
 }
 
+/// Appends image/robot point correspondences to the accumulated dataset used
+/// by the next calibrate() call; each robot point carries its measured Z so a
+/// (possibly tilted) work plane can be fitted later.
+/// @note no-op if the two arrays differ in length; also marks the calibrator
+///       as no longer calibrated since the fit is now stale
 void Calibrator::addCorrespondences(const std::vector<cv::Point2f>& imagePoints,
                                     const std::vector<cv::Point3f>& robotPointsMm)
 {
@@ -130,6 +155,12 @@ void Calibrator::addCorrespondences(const std::vector<cv::Point2f>& imagePoints,
 // =====================================================================
 // Calibration
 // =====================================================================
+/// Fits the image<->robot homography (RANSAC) and the 3D work plane from the
+/// accumulated correspondences, then computes reprojection/plane-fit
+/// diagnostics and caches the point centroids used by the angle-conversion
+/// helpers. Leaves the calibrator uncalibrated if there are fewer than 4
+/// correspondences, the homography could not be estimated or inverted, or
+/// the plane fit failed.
 bool Calibrator::calibrate(double ransacReprojThreshold)
 {
     m_calibrated = false;
@@ -188,6 +219,8 @@ bool Calibrator::calibrate(double ransacReprojThreshold)
 // =====================================================================
 // image <-> robot
 // =====================================================================
+/// Maps a single image pixel to robot mm (X, Y) via the homography, with Z
+/// read off the fitted work plane at that (X, Y).
 cv::Point3f Calibrator::imageToRobot(const cv::Point2f& imagePx) const
 {
     if (!m_calibrated) return { 0.f, 0.f, 0.f };
@@ -198,6 +231,8 @@ cv::Point3f Calibrator::imageToRobot(const cv::Point2f& imagePx) const
     return cv::Point3f(xy.x, xy.y, static_cast<float>(z));
 }
 
+/// Maps a single robot-space point back to image pixels via the inverse
+/// homography; the input Z is ignored.
 cv::Point2f Calibrator::robotToImage(const cv::Point3f& robotMm) const
 {
     if (!m_calibrated) return { 0.f, 0.f };
@@ -206,6 +241,9 @@ cv::Point2f Calibrator::robotToImage(const cv::Point3f& robotMm) const
     return out.front();
 }
 
+/// Batch version of imageToRobot(const cv::Point2f&): maps every image pixel
+/// to robot (X, Y, Z) using a single perspectiveTransform call.
+/// @return empty vector if uncalibrated or imagePts is empty
 std::vector<cv::Point3f> Calibrator::imageToRobot(const std::vector<cv::Point2f>& imagePts) const
 {
     std::vector<cv::Point3f> out;
@@ -220,6 +258,9 @@ std::vector<cv::Point3f> Calibrator::imageToRobot(const std::vector<cv::Point2f>
     return out;
 }
 
+/// Batch version of robotToImage(const cv::Point3f&): maps every robot XY
+/// (Z ignored) back to image pixels using a single perspectiveTransform call.
+/// @return empty vector if uncalibrated or robotPts is empty
 std::vector<cv::Point2f> Calibrator::robotToImage(const std::vector<cv::Point3f>& robotPts) const
 {
     std::vector<cv::Point2f> out;
@@ -234,15 +275,15 @@ std::vector<cv::Point2f> Calibrator::robotToImage(const std::vector<cv::Point3f>
 // =====================================================================
 // Angle conversion
 // =====================================================================
-// Empirical method: map the dataset-centroid anchor + a unit-direction step
-// through H (or H^-1). Anchor at the centroid keeps the angle estimate well-
-// conditioned even when the homography contains mild perspective.
-//
-// Image convention:  CCW from +X with image Y pointing down
-//                    -> direction(theta) = (cos theta, -sin theta)
-// Robot convention:  CCW from +X around +Z (right-hand rule, top-down)
-//                    -> direction(R)     = (cos R,      sin R)
-//
+/// Converts an image-plane angle to the equivalent robot-plane angle by
+/// mapping a unit-direction step, anchored at the dataset image centroid,
+/// through the homography H and reading off the resulting direction's angle.
+/// @note Empirical method: anchoring at the centroid keeps the angle estimate
+///       well-conditioned even when H carries mild perspective distortion.
+///       Image convention: CCW from +X with image Y pointing down, i.e.
+///       direction(theta) = (cos theta, -sin theta). Robot convention: CCW
+///       from +X around +Z (right-hand rule, top-down), i.e.
+///       direction(R) = (cos R, sin R).
 double Calibrator::rotateImageToRobot(double angleImg, bool radians) const
 {
     if (!m_calibrated) return 0.0;
@@ -261,6 +302,9 @@ double Calibrator::rotateImageToRobot(double angleImg, bool radians) const
     return radians ? angleRob : angleRob * kRad2Deg;
 }
 
+/// Converts a robot-plane angle to the equivalent image-plane angle: the
+/// inverse of rotateImageToRobot(), mapping a unit-direction step anchored at
+/// the robot centroid through the inverse homography Hinv.
 double Calibrator::rotateRobotToImage(double angleRob, bool radians) const
 {
     if (!m_calibrated) return 0.0;
@@ -279,6 +323,8 @@ double Calibrator::rotateRobotToImage(double angleRob, bool radians) const
     return radians ? angleImg : angleImg * kRad2Deg;
 }
 
+/// Rotates `offset` by `theta` about the Z axis and adds it to `A`, giving
+/// B = A + Rz(theta) * offset (the Z component of offset passes through unchanged).
 cv::Point3f Calibrator::translateWithZAxis(const cv::Point3f &A, const cv::Point3f &offset, double theta, double isRad) const
 {
     double theta_rad = theta;
@@ -300,6 +346,8 @@ cv::Point3f Calibrator::translateWithZAxis(const cv::Point3f &A, const cv::Point
 // =====================================================================
 // Persistence
 // =====================================================================
+/// Writes the full calibrator state to a cv::FileStorage-backed file (format
+/// determined by the file extension, e.g. YAML/XML).
 bool Calibrator::save(const std::string& filePath) const
 {
     if (!m_calibrated) return false;
@@ -313,6 +361,7 @@ bool Calibrator::save(const std::string& filePath) const
     return true;
 }
 
+/// Loads calibrator state from a cv::FileStorage-backed file via readFromStorage().
 bool Calibrator::load(const std::string& filePath)
 {
     cv::FileStorage fs(filePath, cv::FileStorage::READ);
@@ -325,6 +374,12 @@ bool Calibrator::load(const std::string& filePath)
 // =====================================================================
 // Shared parser used by load(file) and fromJson(string)
 // =====================================================================
+/// Reads homography, work plane, centroids, raw correspondences, and
+/// diagnostics from `fs` and commits them to the instance; used by both
+/// load(file) and fromJson(string).
+/// @note on success, m_calibrated ends up true whenever a valid homography
+///       was read, regardless of the stored "calibrated" flag (H is
+///       guaranteed non-empty by the time m_calibrated is assigned)
 bool Calibrator::readFromStorage(cv::FileStorage& fs)
 {
     int calibFlag = 0;
@@ -382,6 +437,8 @@ bool Calibrator::readFromStorage(cv::FileStorage& fs)
     return true;
 }
 
+/// Serializes the full instance state to an in-memory JSON string via
+/// writeStateTo() (same fields as save(), without touching disk).
 std::string Calibrator::toJson() const
 {
     cv::FileStorage fs(".json",
@@ -395,6 +452,9 @@ std::string Calibrator::toJson() const
     return fs.releaseAndGetString();
 }
 
+/// Restores calibrator state from a JSON string produced by toJson(), via
+/// clear() followed by readFromStorage(); the instance ends up in an
+/// "already-calibrated" state without re-running the homography fit.
 bool Calibrator::fromJson(const std::string& json)
 {
     cv::FileStorage fs(json,

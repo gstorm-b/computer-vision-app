@@ -13,6 +13,8 @@ using namespace RobotKinematics;
 namespace {
 constexpr double kPi = 3.141592653589793238462643383279502884;
 
+/// Builds a single-DOF revolute joint rotating about the local Z axis, spanning
+/// +/-pi, with zero home position.
 Joint revoluteZ(const std::string& id,
                 const std::string& parent,
                 const std::string& child,
@@ -30,6 +32,8 @@ Joint revoluteZ(const std::string& id,
     return joint;
 }
 
+/// Builds a minimal 3-DOF serial robot (three Z-axis revolute joints, each link 1m
+/// apart along X) used as a lightweight fixture for collision-checker tests.
 SerialRobotConfig lineRobot()
 {
     SerialRobotConfig config;
@@ -49,6 +53,9 @@ SerialRobotConfig lineRobot()
     return config;
 }
 
+/// Builds a CollisionProfile with three geometries placed along lineRobot() (a base
+/// sphere, an X-offset link_1 sphere, and a flange capsule) used to test pair ordering
+/// and distance computation.
 CollisionProfile placementProfile()
 {
     CollisionProfile profile;
@@ -79,6 +86,7 @@ CollisionProfile placementProfile()
     return profile;
 }
 
+/// Returns the all-zero joint vector representing lineRobot()'s home/rest configuration.
 JointVector homeJoints()
 {
     return JointVector::fromRadians({0.0, 0.0, 0.0});
@@ -156,6 +164,8 @@ void CollisionCheckerTests::stopsAfterFirstCollisionWhenReturnAllPairsIsFalse()
     QCOMPARE(result.pairs.front().geometryB, std::string("link_1_sphere"));
 }
 
+/// Entry point invoked by TestMain to run the CollisionCheckerTests suite under QtTest.
+/// @return the number of failing test functions (0 on success)
 int runCollisionCheckerTests(int argc, char** argv)
 {
     CollisionCheckerTests tests;

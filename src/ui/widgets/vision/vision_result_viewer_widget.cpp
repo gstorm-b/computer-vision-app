@@ -11,6 +11,8 @@
 
 namespace {
 
+/// Constructs a checkable QAction with the given label, initially checked according
+/// to `checked` (defaults to true).
 QAction *makeToggleAction(QObject *parent, const QString &text, bool checked = true)
 {
     auto *action = new QAction(text, parent);
@@ -19,6 +21,8 @@ QAction *makeToggleAction(QObject *parent, const QString &text, bool checked = t
     return action;
 }
 
+/// Constructs an auto-raised toolbar QToolButton with the given text and tooltip and a
+/// minimum height of 24px.
 QToolButton *makeToolbarButton(const QString &text, const QString &toolTip)
 {
     auto *button = new QToolButton;
@@ -31,6 +35,11 @@ QToolButton *makeToolbarButton(const QString &text, const QString &toolTip)
 
 } // namespace
 
+/// Builds the toolbar (fit button and overlay-visibility menu with one toggle action
+/// per VisionOverlayVisibility flag) and the read-only, pan-mode VisionCanvas, wires
+/// the fit button to VisionCanvas::fitImageToView, forwards the canvas's selection
+/// signal, and connects every overlay toggle to push visibilityFromActions() to the
+/// canvas whenever it changes.
 VisionResultViewerWidget::VisionResultViewerWidget(QWidget *parent)
     : QWidget(parent)
 {

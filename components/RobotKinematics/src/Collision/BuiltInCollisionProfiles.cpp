@@ -2,9 +2,19 @@
 
 #include <RobotKinematics/Core/Pose.h>
 
+/// Built-in collision profiles: conservative-primitive collision approximations
+/// (spheres/capsules per link) for robot models shipped with the project, used
+/// as fallbacks when no vendor-specific collision profile is available.
 namespace RobotKinematics::CollisionProfiles {
 
 namespace {
+/// Builds a sphere CollisionGeometry attached to `linkId`, offset from the link
+/// frame by `geometryToLink`.
+/// @param id unique geometry identifier within the owning profile
+/// @param linkId kinematic link the sphere is rigidly attached to
+/// @param geometryToLink pose of the sphere's frame relative to the link frame
+/// @param radius_m sphere radius in metres
+/// @param margin_m extra clearance margin added around the shape (metres)
 CollisionGeometry sphere(const std::string& id,
                          const std::string& linkId,
                          const Pose& geometryToLink,
@@ -21,6 +31,14 @@ CollisionGeometry sphere(const std::string& id,
     return geometry;
 }
 
+/// Builds a capsule CollisionGeometry attached to `linkId`, offset from the link
+/// frame by `geometryToLink`.
+/// @param id unique geometry identifier within the owning profile
+/// @param linkId kinematic link the capsule is rigidly attached to
+/// @param geometryToLink pose of the capsule's frame relative to the link frame
+/// @param radius_m capsule radius in metres
+/// @param length_m capsule segment length in metres (excluding end caps)
+/// @param margin_m extra clearance margin added around the shape (metres)
 CollisionGeometry capsule(const std::string& id,
                           const std::string& linkId,
                           const Pose& geometryToLink,
@@ -39,12 +57,21 @@ CollisionGeometry capsule(const std::string& id,
     return geometry;
 }
 
+/// Builds a DisabledCollisionPair excluding geometries `a` and `b` from
+/// pairwise collision checks, annotated with `reason` (e.g. adjacent-joint
+/// contact that would otherwise produce false-positive collisions).
 DisabledCollisionPair disabled(const std::string& a, const std::string& b, const std::string& reason)
 {
     return DisabledCollisionPair{a, b, reason};
 }
 }
 
+/// Builds the conservative-primitive collision profile for the
+/// "Virtual6DofTestArm" project fixture: one sphere/capsule per link
+/// (base through flange) sized to conservatively enclose the visual model,
+/// with adjacent-joint pairs disabled and metadata marking it as an
+/// unrated, project-owned approximation.
+/// @return the fully populated CollisionProfile for the virtual 6-DOF test arm
 CollisionProfile virtual6DofTestArm()
 {
     CollisionProfile profile;
@@ -85,6 +112,11 @@ CollisionProfile virtual6DofTestArm()
     return profile;
 }
 
+/// Builds the conservative-primitive collision profile for the Nachi MZ04D
+/// robot, estimated from the vendor's visual CAD assets: one sphere/capsule
+/// per link (base through flange) with adjacent-joint pairs disabled and
+/// metadata marking it as an unrated, CAD-based estimate.
+/// @return the fully populated CollisionProfile for the Nachi MZ04D
 CollisionProfile nachiMZ04D()
 {
     CollisionProfile profile;

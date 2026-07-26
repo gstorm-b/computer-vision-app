@@ -14,6 +14,8 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Builds a single movable (revolute or prismatic) joint with the given parent/child link
+/// ids, motion axis, and [lower, upper] limits; home position defaults to 0.
 Joint movableJoint(const std::string& id,
                    JointType type,
                    const std::string& parent,
@@ -33,6 +35,9 @@ Joint movableJoint(const std::string& id,
     return joint;
 }
 
+/// Builds a synthetic 6-DOF serial fixture: an XYZ prismatic Cartesian stage (+/-1 m each
+/// axis) followed by an RxRyRz revolute wrist (+/-2 rad each axis), used as a known-solvable
+/// target for IK convergence tests.
 SerialRobotConfig cartesianWristFixture()
 {
     SerialRobotConfig config;
@@ -54,6 +59,8 @@ SerialRobotConfig cartesianWristFixture()
     return config;
 }
 
+/// Computes the angle (in radians) of the relative rotation between poses `a` and `b`,
+/// used as an orientation-error metric in IK convergence checks.
 double orientationError_rad(const Pose& a, const Pose& b)
 {
     const Eigen::AngleAxisd angleAxis(a.isometry().linear() * b.isometry().linear().transpose());
@@ -128,6 +135,9 @@ void NumericalIKSolverTests::reportsFailureWhenIterationBudgetIsTooSmall()
     QCOMPARE(result.status, IKStatus::MaxIterationsReached);
 }
 
+/// Entry point that instantiates NumericalIKSolverTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runNumericalIKSolverTests(int argc, char** argv)
 {
     NumericalIKSolverTests tests;

@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
+/// Sets the window title and builds the dialog UI seeded from `currentPreset`.
 CalibrationBoardDialog::CalibrationBoardDialog(const QString &currentPreset,
                                                QWidget *parent)
     : QDialog(parent) {
@@ -16,6 +17,9 @@ CalibrationBoardDialog::CalibrationBoardDialog(const QString &currentPreset,
     buildUi(currentPreset);
 }
 
+/// Populates the preset combo from calib::CalibrationBoardFactory::availablePresets(),
+/// preselects `currentPreset` if found, lays out the combo + details preview + OK/Cancel
+/// buttons, wires their signals, and runs an initial updatePreview().
 void CalibrationBoardDialog::buildUi(const QString &currentPreset) {
     auto *root = new QVBoxLayout(this);
 
@@ -48,10 +52,14 @@ void CalibrationBoardDialog::buildUi(const QString &currentPreset) {
     updatePreview();
 }
 
+/// Returns the combo box's current text, or an empty string if the combo hasn't been built.
 QString CalibrationBoardDialog::selectedPreset() const {
     return m_combo ? m_combo->currentText() : QString();
 }
 
+/// Rebuilds `m_preview`'s text from the board created for the currently selected preset:
+/// type name and total dot count, plus (for a FanucIRvisionBoard) grid size, dot spacing,
+/// and margin. Shows "Unknown preset." if the preset name doesn't resolve to a board.
 void CalibrationBoardDialog::updatePreview() {
     if (!m_combo || !m_preview) {
         return;

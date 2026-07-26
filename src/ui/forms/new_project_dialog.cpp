@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+/// Sets up the generated UI, makes the dialog modal, and connects the finish/cancel buttons.
 NewProjectDialog::NewProjectDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::NewProjectDialog) {
@@ -19,6 +20,7 @@ NewProjectDialog::NewProjectDialog(QWidget *parent)
             this, &NewProjectDialog::onClicked_btn_cancel);
 }
 
+/// Deletes the generated UI object.
 NewProjectDialog::~NewProjectDialog() {
     delete ui;
 }
@@ -40,6 +42,8 @@ NewProjectDialog::~NewProjectDialog() {
 //     ui->btn_finished->setFocus();
 // }
 
+/// Requires a non-empty task name (shows an information message box and returns early otherwise),
+/// then stores the entered name/description and accepts the dialog.
 void NewProjectDialog::onClicked_btn_finish() {
     if (ui->ledit_task_name->text().isEmpty()) {
         QMessageBox::information(this,
@@ -73,6 +77,7 @@ void NewProjectDialog::onClicked_btn_finish() {
     this->accept();
 }
 
+/// Rejects the dialog, discarding any entered values.
 void NewProjectDialog::onClicked_btn_cancel() {
     this->reject();
 }

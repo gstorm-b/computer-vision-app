@@ -5,6 +5,8 @@
 
 namespace {
 
+/// Builds a non-editable, axis-aligned VisionRoi representing a workspace/condition
+/// ROI rectangle: `roi.visible` is true only when `rect` has positive width and height.
 VisionRoi makeWorkspaceRoi(const QString &id,
                            const QString &label,
                            const cv::Rect2f &rect,
@@ -22,6 +24,12 @@ VisionRoi makeWorkspaceRoi(const QString &id,
     return roi;
 }
 
+/// Converts a single mtc::MatchedObject into a VisionResultObject: copies pattern
+/// name/index, score, center, and the four corner points (all offset by `offset`),
+/// collects picking-box polygons (preferring the gripper box's left/right point sets,
+/// falling back to the rotated pickingBox rect when neither gripper polygon is
+/// present), and derives rejected/faulted from the object's collision, condition-ROI,
+/// and pick-eligibility state.
 VisionResultObject makeResultObject(const mtc::MatchedObject &object,
                                     const QPointF &offset)
 {
@@ -75,6 +83,10 @@ VisionResultObject makeResultObject(const mtc::MatchedObject &object,
     return resultObject;
 }
 
+/// Appends the workspace ROI and/or condition ROI (when present on `workspace`) to
+/// `overlay->roiOverlays`, colored via the active theme's accent/info token when the
+/// corresponding "use" flag is enabled, or the muted text token otherwise. Does
+/// nothing if `overlay` or `workspace` is null.
 void appendWorkspaceOverlays(VisionResultOverlay *overlay,
                              const vc::model::CameraWorkspace *workspace)
 {

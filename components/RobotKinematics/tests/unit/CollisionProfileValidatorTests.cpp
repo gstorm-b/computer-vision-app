@@ -15,6 +15,8 @@ using namespace RobotKinematics;
 namespace {
 constexpr double kPi = 3.141592653589793238462643383279502884;
 
+/// Builds a Z-axis revolute joint at the identity origin with the given id and parent/child
+/// link ids; limits are set to +/-pi with no velocity/effort caps.
 Joint revoluteZ(const std::string& id, const std::string& parent, const std::string& child)
 {
     Joint joint;
@@ -29,6 +31,8 @@ Joint revoluteZ(const std::string& id, const std::string& parent, const std::str
     return joint;
 }
 
+/// Builds a fixture 2-DOF serial robot (base_link -> link_1 -> flange) with two Z-axis
+/// revolute joints, used as the shared robot model for the validator fixtures in this suite.
 SerialRobotConfig threeLinkRobot()
 {
     SerialRobotConfig config;
@@ -47,6 +51,8 @@ SerialRobotConfig threeLinkRobot()
     return config;
 }
 
+/// Builds a well-formed CollisionProfile for threeLinkRobot(): a sphere on base_link and a
+/// capsule on link_1, with the adjacent pair disabled via a "adjacent_joint_contact" reason.
 CollisionProfile validProfile()
 {
     CollisionProfile profile;
@@ -144,6 +150,9 @@ void CollisionProfileValidatorTests::invalidDisabledPairsAreRejected()
     QVERIFY(QString::fromStdString(result.issues.back().field).contains("disabledPairs"));
 }
 
+/// Entry point that instantiates CollisionProfileValidatorTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runCollisionProfileValidatorTests(int argc, char** argv)
 {
     CollisionProfileValidatorTests tests;

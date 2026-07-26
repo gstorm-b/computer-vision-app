@@ -30,6 +30,9 @@ tree by default.
    architecture, and coding conventions.
 3. `docs/rules/build_and_verification.md` for the qmake/MSVC build and test
    flow.
+3a. `docs/rules/documentation_build.md` for the Doxygen/Graphviz/PlantUML
+    generated API reference, and `docs/rules/design_rules.md` §18 for the
+    `///` Doxygen comment style all class/method/member comments must follow.
 4. `docs/backlog/technical_debt_and_next_steps.md` for the active
    implementation backlog after restructure closeout.
 5. `docs/backlog/later_todo_list.md` before flagging or fixing known deferred

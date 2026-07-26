@@ -1,0 +1,26 @@
+var class_vision_result_viewer_widget =
+[
+    [ "VisionResultViewerWidget", "class_vision_result_viewer_widget.html#a23c7b603f03086c6871f00a4661d8569", null ],
+    [ "clearResult", "class_vision_result_viewer_widget.html#a839baa154e85c212dd2c110683797080", null ],
+    [ "clearSelectedResultObject", "class_vision_result_viewer_widget.html#ab6dcb067156897c3feed0fc50036a219", null ],
+    [ "resultObjectSelectionChanged", "class_vision_result_viewer_widget.html#a0c7007682df1674e1465742b6961b41a", null ],
+    [ "setImage", "class_vision_result_viewer_widget.html#a6526d7b1cf4c6850d9ed70c903868af1", null ],
+    [ "setImage", "class_vision_result_viewer_widget.html#a7c7cab0b3d775e86f89d7052171eb6ec", null ],
+    [ "setOverlay", "class_vision_result_viewer_widget.html#a31adfc529b32b1115de4477798f51617", null ],
+    [ "setOverlayVisibility", "class_vision_result_viewer_widget.html#a169f17ffcf772f866cb141f9583ee3c5", null ],
+    [ "setSelectedResultObject", "class_vision_result_viewer_widget.html#ad8265a84bb7311222ab97390a7c97249", null ],
+    [ "syncActions", "class_vision_result_viewer_widget.html#ada92e05f0185a8fe70fe599efe286986", null ],
+    [ "visibilityFromActions", "class_vision_result_viewer_widget.html#a4d03e8f88d0f2c4f51340528de531c4d", null ],
+    [ "m_angleAction", "class_vision_result_viewer_widget.html#a6b5bddad63fdfd4b01c8972add4da43d", null ],
+    [ "m_canvas", "class_vision_result_viewer_widget.html#a496c704153a0f31582b9eacabc7849de", null ],
+    [ "m_faultAction", "class_vision_result_viewer_widget.html#a2c818b916fa62f3641ebe406e5a48191", null ],
+    [ "m_fitButton", "class_vision_result_viewer_widget.html#ad240859ea00073278e3fbf4167ca95d6", null ],
+    [ "m_outputAction", "class_vision_result_viewer_widget.html#a2455a6a54c3c1a5e3811775d53e95e5c", null ],
+    [ "m_overlay", "class_vision_result_viewer_widget.html#a05c07e5681fb5318fcdc7c69dfb4add7", null ],
+    [ "m_overlayButton", "class_vision_result_viewer_widget.html#a2446ef95f38f7393c92890d729d3ffa6", null ],
+    [ "m_patternAction", "class_vision_result_viewer_widget.html#a4e3db87de7b32904e2d12f21828bb632", null ],
+    [ "m_pickingBoxAction", "class_vision_result_viewer_widget.html#aecd5e0d37a72eb731c24797ba15a9823", null ],
+    [ "m_rejectedAction", "class_vision_result_viewer_widget.html#a3d3ad3756ff8b5898a326ac1241c8aa0", null ],
+    [ "m_scoreAction", "class_vision_result_viewer_widget.html#aafcff4b3a9515a2ec9ea03bb77bb95da", null ],
+    [ "m_signalsAction", "class_vision_result_viewer_widget.html#ae2d9a5f3bba3f4bc7aa8bbc81479cd1d", null ]
+];

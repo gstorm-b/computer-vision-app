@@ -10,27 +10,38 @@
 #include <QByteArray>
 #include <QJsonObject>
 
+/// Device-family classes for the MC (Mitsubishi) protocol PLC integration.
 namespace vc::device {
 
+/// McMsgItfConfig for the Ethernet TCP/IP transport: adds the target IP address and port,
+/// on top of the base connect/write/response timeouts.
 class McMsgEthernetTcpCfg : public McMsgItfConfig {
     Q_GADGET
 
-    G_PROPERTY_STRING_READWRITE(QString, ipAddress, "IP Address")
-    G_PROPERTY_NUMBER_READWRITE(int, portNumber, 0, 100000, "Port number")
+    G_PROPERTY_STRING_READWRITE(QString, ipAddress, "IP Address")   ///< Q_GADGET property backed by m_ipAddress; PLC IP address to connect to.
+    G_PROPERTY_NUMBER_READWRITE(int, portNumber, 0, 100000, "Port number")   ///< Q_GADGET property backed by m_portNumber; PLC TCP port to connect to.
 
 public:
+    /// Default-constructs the config with the member-initializer defaults (192.168.0.1:5000).
     explicit McMsgEthernetTcpCfg() {
 
     }
 
+    /// Returns this gadget's static meta-object, used by property-browser/serialization
+    /// code to enumerate its Q_PROPERTY / Q_CLASSINFO entries.
     const QMetaObject &getMetaObject() const override {
         return vc::device::McMsgEthernetTcpCfg::staticMetaObject;
     }
 
+    /// Identifies this config as the Ethernet TCP/IP transport type.
+    /// @return McMsgItfType::EthernetTCPIP
     McMsgItfType type() const override {
         return McMsgItfType::EthernetTCPIP;
     }
 
+    /// Serializes this config to JSON, extending McMsgItfConfig::toJson() with
+    /// "ipAddress" and "portNumber".
+    /// @return the populated JSON object
     QJsonObject toJson() const override {
         QJsonObject obj = McMsgItfConfig::toJson();
         obj["ipAddress"] = m_ipAddress;
@@ -38,6 +49,9 @@ public:
         return obj;
     }
 
+    /// Populates this config from JSON written by toJson(), delegating the base timeouts
+    /// to McMsgItfConfig::fromJson() first and defaulting ipAddress/portNumber if missing.
+    /// @return always true
     bool fromJson(const QJsonObject &obj) override {
         McMsgItfConfig::fromJson(obj);
         m_ipAddress = obj["ipAddress"].toString("192.168.0.1");
@@ -46,12 +60,16 @@ public:
     }
 
 public:
-    QString m_ipAddress{"192.168.0.1"};
-    int m_portNumber{5000};
+    QString m_ipAddress{"192.168.0.1"};   ///< PLC IP address; backing store for the ipAddress property.
+    int m_portNumber{5000};   ///< PLC TCP port; backing store for the portNumber property.
 };
 
+/// McMsgInterface transport that talks to the PLC over a plain TCP/IP socket
+/// (QTcpSocket), driven synchronously via waitFor*() calls.
 class McEthernetTcpPort : public McMsgInterface {
 public:
+    /// Constructs the port in the NotInit state and allocates the underlying QTcpSocket
+    /// (not yet connected).
     McEthernetTcpPort() :
         m_socket(nullptr) {
 
@@ -61,10 +79,14 @@ public:
         m_socket = new QTcpSocket;
     }
 
+    /// Destructor. Does not close/delete the socket itself; callers must invoke
+    /// DestroyMsgPort() first if that cleanup is needed.
     ~McEthernetTcpPort() {
 
     }
 
+    /// Adopts `cfg` as this port's IP/port/timeout configuration.
+    /// @return false if `cfg` is null or not an EthernetTCPIP config, true after copying it
     bool SetConfig(McMsgItfConfig *cfg) override {
         if (!cfg) {
             return false;
@@ -78,12 +100,16 @@ public:
         return true;
     }
 
+    /// @note Not yet implemented; always reports the connection as usable.
     const bool ConnectionCheck() override {
         // implements connection check later
 
         return true;
     }
 
+    /// Connects the socket to the configured host/port, blocking up to
+    /// m_config.m_connectTimeout ms for the connection to complete.
+    /// @return Connected on success, ConnectFail on timeout (m_error_description is set)
     MsgIfState ConnectToPort() override {
         m_socket->connectToHost(QHostAddress(m_config.m_ipAddress), m_config.m_portNumber);
         m_total_wait_time = 0;
@@ -97,6 +123,8 @@ public:
         return m_port_state;
     }
 
+    /// Disconnects the socket from the host if not already unconnected.
+    /// @return NoConnection (always)
     MsgIfState DisconnectFromPort() override {
         if (m_socket->state() != QAbstractSocket::UnconnectedState) {
             m_socket->disconnectFromHost();
@@ -105,6 +133,10 @@ public:
         return m_port_state;
     }
 
+    /// Writes `buffer` to the socket, blocking up to m_config.m_writeTimeout ms for the
+    /// bytes to be flushed.
+    /// @return BufferEmpty if `buffer` is empty, WriteTimeout on write timeout,
+    /// ErrorOcurred if an exception was thrown (m_error_description is set), NoError on success
     const MsgErrorState SendMsg(QByteArray &buffer) override {
         if (buffer.isEmpty()) {
             m_error_state = MsgErrorState::BufferEmpty;
@@ -129,6 +161,12 @@ public:
         return m_error_state;
     }
 
+    /// Waits up to `wait_buffer` ms for readyRead, then appends any available bytes to `buffer`.
+    /// Accumulates elapsed wait time across calls (m_total_wait_time) so repeated
+    /// BufferEmpty results eventually surface as ResponseTimeout once
+    /// m_config.m_responseTimeout is exceeded.
+    /// @return NoError if bytes were appended (resets the accumulated wait time), BufferEmpty
+    /// while still under the response timeout, ResponseTimeout once it is exceeded
     const MsgErrorState ReceiveMsg(QByteArray &buffer, int wait_buffer = 1) override {        
         m_socket->waitForReadyRead(wait_buffer);
 
@@ -150,24 +188,33 @@ public:
         return m_error_state;
     }
 
+    /// Discards any bytes currently buffered on the socket by reading and dropping them.
     void clearBuffer() override {
         if(m_socket) {
             m_socket->readAll();
         }
     }
 
+    /// Returns the description of the most recent connect/send/receive error, if any.
     QString GetErrorDescription() override {
         return m_error_description;
     }
 
+    /// Identifies this port as the Ethernet TCP/IP transport type.
+    /// @return McMsgItfType::EthernetTCPIP
     const McMsgItfType type() const override {
         return McMsgItfType::EthernetTCPIP;
     }
 
+    /// Returns the underlying QTcpSocket as a QIODevice; ownership stays with this port.
     QIODevice* ioDevice() const override {
         return static_cast<QIODevice*>(m_socket);
     }
 
+    /// Disconnects the port, then aborts and deletes the socket synchronously on the
+    /// calling (worker) thread.
+    /// @note deliberately not deleteLater(): during teardown the worker event loop may
+    /// already be stopped, which would leak the socket and leave the PLC connection half-open.
     void DestroyMsgPort() override {
         DisconnectFromPort();
         if (m_socket != nullptr) {
@@ -182,9 +229,9 @@ public:
     }
 
 private:
-    QTcpSocket *m_socket;
-    McMsgEthernetTcpCfg m_config;
-    int m_total_wait_time{0};
+    QTcpSocket *m_socket;   ///< Owned TCP socket; null after DestroyMsgPort().
+    McMsgEthernetTcpCfg m_config;   ///< IP/port/timeout configuration applied via SetConfig().
+    int m_total_wait_time{0};   ///< Elapsed wait time (ms) accumulated across ReceiveMsg() calls toward m_config.m_responseTimeout.
 };
 
 } // namespace vc::device

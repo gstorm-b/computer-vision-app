@@ -2,6 +2,8 @@
 
 namespace mtc {
 
+/// Copy-constructs, deep-copying the training image (m_rawImage.clone()) so this config
+/// owns an independent pixel buffer; all other fields are value-copied.
 MatchPatternConfig::MatchPatternConfig(const MatchPatternConfig& other) {
     m_patternName        = other.m_patternName;
     m_patternIndex       = other.m_patternIndex;
@@ -17,6 +19,9 @@ MatchPatternConfig::MatchPatternConfig(const MatchPatternConfig& other) {
     m_pickingOffset      = other.m_pickingOffset;
 }
 
+/// Copy-assigns, deep-copying the training image (m_rawImage.clone()) so this config
+/// owns an independent pixel buffer; all other fields are value-copied. Self-assignment
+/// safe (no-op when `&other == this`).
 MatchPatternConfig& MatchPatternConfig::operator=(const MatchPatternConfig& other) {
     if (this != &other) {
         m_patternName        = other.m_patternName;

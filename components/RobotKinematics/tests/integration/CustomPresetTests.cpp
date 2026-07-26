@@ -14,6 +14,8 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Builds a single movable Joint (Prismatic or Revolute) connecting `parent` to `child`, with
+/// the given `axis` and symmetric position/velocity-unset limits [`lower`, `upper`].
 Joint movableJoint(const std::string& id,
                    JointType type,
                    const std::string& parent,
@@ -32,6 +34,8 @@ Joint movableJoint(const std::string& id,
     return joint;
 }
 
+/// Builds a custom 3-prismatic + 3-revolute (Cartesian-then-wrist) 6-DOF robot config via
+/// SerialRobotConfigBuilder, with a default identity tool, for use as a non-preset IK fixture.
 SerialRobotConfigBuilder cartesianBuilder()
 {
     SerialRobotConfigBuilder builder;
@@ -89,6 +93,8 @@ void CustomPresetTests::jsonLoaderRejectsNonCanonicalUnits()
     QCOMPARE(loaded.status, KinematicsStatus::InvalidRobotConfig);
 }
 
+/// QtTest entry point for CustomPresetTests: constructs the suite and runs it via QTest::qExec.
+/// @return the number of failing test functions (0 = all passed)
 int runCustomPresetTests(int argc, char** argv)
 {
     CustomPresetTests tests;

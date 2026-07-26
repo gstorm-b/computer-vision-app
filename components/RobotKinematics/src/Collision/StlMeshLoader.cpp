@@ -14,14 +14,21 @@
 #include <cstring>
 #include <limits>
 
+/// Namespace for the RobotKinematics library: robot kinematics and collision-geometry types and
+/// utilities, including the STL mesh loading facilities implemented in this file.
 namespace RobotKinematics {
 
+/// Internal helpers used only by this translation unit to parse binary/ASCII STL payloads into
+/// a TriangleMesh (translation-unit-local linkage).
 namespace {
+/// Builds a failed Result<TriangleMesh> carrying KinematicsStatus::InvalidRequest and `message`.
 Result<TriangleMesh> invalid(const std::string& message)
 {
     return Result<TriangleMesh>::failure(KinematicsStatus::InvalidRequest, message);
 }
 
+/// Reads a little-endian 32-bit unsigned integer out of `bytes` at byte offset `offset`.
+/// @note Does not bounds-check `offset`; callers must ensure at least 4 bytes remain.
 std::uint32_t readLeUInt32(const QByteArray& bytes, int offset)
 {
     std::uint32_t value = 0;
@@ -29,6 +36,8 @@ std::uint32_t readLeUInt32(const QByteArray& bytes, int offset)
     return value;
 }
 
+/// Reads a little-endian 32-bit IEEE-754 float out of `bytes` at byte offset `offset`.
+/// @note Does not bounds-check `offset`; callers must ensure at least 4 bytes remain.
 float readLeFloat(const QByteArray& bytes, int offset)
 {
     float value = 0.0f;
@@ -36,11 +45,14 @@ float readLeFloat(const QByteArray& bytes, int offset)
     return value;
 }
 
+/// True when all three components of `vertex` are finite (neither NaN nor infinite).
 bool isFinite(const Eigen::Vector3d& vertex)
 {
     return std::isfinite(vertex.x()) && std::isfinite(vertex.y()) && std::isfinite(vertex.z());
 }
 
+/// True when triangle (a, b, c) is degenerate: the cross product of its two edge vectors from
+/// `a` has norm at or below the 1e-12 area threshold (near-zero area / collinear vertices).
 bool isDegenerateTriangle(const Eigen::Vector3d& a,
                           const Eigen::Vector3d& b,
                           const Eigen::Vector3d& c)
@@ -48,6 +60,14 @@ bool isDegenerateTriangle(const Eigen::Vector3d& a,
     return ((b - a).cross(c - a)).norm() <= 1e-12;
 }
 
+/// Validates triangle (a, b, c) and, if acceptable, appends its vertices and face to `mesh`.
+/// Non-finite vertices are always rejected. A degenerate (near-zero-area) triangle is rejected
+/// only when `options.rejectDegenerateTriangles` is set; otherwise it is silently dropped
+/// without being appended, which still counts as success.
+/// @param mesh mesh the triangle's vertices/face are appended to when accepted
+/// @param error set to a description of the problem when this returns false
+/// @return false only for non-finite vertices or a rejected degenerate triangle; true otherwise,
+/// including the silently-dropped degenerate case
 bool appendTriangle(TriangleMesh& mesh,
                     const Eigen::Vector3d& a,
                     const Eigen::Vector3d& b,
@@ -75,6 +95,10 @@ bool appendTriangle(TriangleMesh& mesh,
     return true;
 }
 
+/// Computes vertex/triangle counts and the axis-aligned bounding box from `mesh.vertices_m`,
+/// and writes them together with `scaleToMeters` into `mesh.statistics`.
+/// @note Assumes `mesh.vertices_m` is non-empty; on an empty mesh the min/max bounds are left
+/// at their numeric_limits::max()/lowest() sentinel values.
 void finalizeStatistics(TriangleMesh& mesh, const double scaleToMeters)
 {
     Eigen::Vector3d minimum = Eigen::Vector3d::Constant(std::numeric_limits<double>::max());
@@ -92,6 +116,13 @@ void finalizeStatistics(TriangleMesh& mesh, const double scaleToMeters)
     mesh.statistics.scaleToMeters = scaleToMeters;
 }
 
+/// Parses `bytes` as a binary STL file: validates the 84-byte header plus fixed 50-bytes-per-
+/// triangle payload against the declared triangle count, then decodes each triangle's three
+/// vertices (skipping the per-triangle normal vector and the 2-byte attribute field), scaling
+/// coordinates by `options.scaleToMeters`.
+/// @return the parsed mesh, or an InvalidRequest failure if the payload is too small, its size
+/// doesn't match the declared triangle count, a triangle fails validation (see appendTriangle),
+/// or no triangles remain
 Result<TriangleMesh> parseBinary(const QByteArray& bytes, const StlMeshLoadOptions& options)
 {
     if (bytes.size() < 84) {
@@ -142,6 +173,13 @@ Result<TriangleMesh> parseBinary(const QByteArray& bytes, const StlMeshLoadOptio
     return Result<TriangleMesh>::success(mesh);
 }
 
+/// Parses `bytes` as an ASCII STL file: decodes the bytes as UTF-8, then scans every trimmed
+/// line starting with "vertex " for three whitespace-separated numeric coordinates (scaled by
+/// `options.scaleToMeters`); every 3 consecutive vertices form one triangle. Other STL keywords
+/// (facet/normal/loop/endloop/endfacet) are ignored rather than validated.
+/// @return the parsed mesh, or an InvalidRequest failure if a vertex line is malformed, the
+/// vertex count is not a multiple of 3, a triangle fails validation (see appendTriangle), or no
+/// triangles remain after filtering degenerate faces
 Result<TriangleMesh> parseAscii(const QByteArray& bytes, const StlMeshLoadOptions& options)
 {
     const QString text = QString::fromUtf8(bytes);
@@ -201,6 +239,11 @@ Result<TriangleMesh> parseAscii(const QByteArray& bytes, const StlMeshLoadOption
 }
 }
 
+/// Loads an STL mesh from the file at `path`, auto-detecting the format: always attempts binary
+/// STL parsing first, falling back to ASCII STL parsing only if the binary parse fails. Fails
+/// with InvalidRequest if `options.scaleToMeters` is not positive, the file cannot be opened for
+/// reading, or both binary and ASCII parsing fail (the ASCII parser's failure result is returned
+/// in that case).
 Result<TriangleMesh> StlMeshLoader::loadFile(const std::string& path,
                                              const StlMeshLoadOptions& options)
 {

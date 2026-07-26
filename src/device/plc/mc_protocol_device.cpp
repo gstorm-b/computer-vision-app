@@ -10,6 +10,12 @@ namespace vc::device {
 
 namespace {
 
+/// Parses a "<prefix><digits>" device tag (e.g. "M12", case-insensitive prefix, whitespace
+/// trimmed) into a numeric address, requiring the prefix to match `expectedPrefix`.
+/// @param tag the raw tag text to parse
+/// @param expectedPrefix the required device-type prefix ('M' or 'D'); a different prefix is rejected
+/// @param address output; set to the parsed non-negative address on success, left untouched on failure
+/// @return true if `tag` matched the expected prefix and a valid non-negative number
 bool parseMcTag(const QString &tag, QChar expectedPrefix, int *address)
 {
     if (!address) {
@@ -40,16 +46,26 @@ bool parseMcTag(const QString &tag, QChar expectedPrefix, int *address)
 
 } // namespace
 
+/// Constructs the device, forwarding id/name/parent to PlcDevice and registering m_config as
+/// the active configuration via IDevice::setDeviceConfig.
+/// @param id unique device identifier
+/// @param name display name
+/// @param parent optional QObject parent for lifetime management
 McProtocolDevice::McProtocolDevice(QString id, QString name, QObject* parent)
     : PlcDevice(id, name, parent) {
 
     IDevice::setDeviceConfig(&m_config);
 }
 
+/// Destructor. Body is intentionally empty; connection teardown happens via
+/// deviceTerminate()/deviceDisconnect() before destruction.
+/// @note May run on a different thread than the one that created the device.
 McProtocolDevice::~McProtocolDevice() {
     // Destructor call from another thread
 }
 
+/// Terminates the device: logs the request and, if still connected, disconnects (stopping the
+/// polling timer and releasing the transport) via deviceDisconnect().
 void McProtocolDevice::deviceTerminate() {
     LOG_DEV_DEBUG << "MC protocol device terminate, device name" << name()
                   << ", id" << id();
@@ -59,6 +75,12 @@ void McProtocolDevice::deviceTerminate() {
     }
 }
 
+/// Establishes the MC protocol connection: an idempotent no-op re-publish of Connected if
+/// already connected; otherwise (re)initializes the transport/frame codec, opens the socket
+/// connection, and starts the polling timer on success.
+/// @return true if already connected or newly connected; false if initialization or the socket
+/// connect failed (status published as ConnectFailed)
+/// @note Locks m_mutex for the duration of the call.
 bool McProtocolDevice::deviceConnect() {
     QMutexLocker locker(&m_mutex);
 
@@ -94,12 +116,19 @@ bool McProtocolDevice::deviceConnect() {
     return true;
 }
 
+/// Tears down the connection (releases the transport and publishes Disconnected status) and
+/// logs the disconnect.
+/// @return always true.
 bool McProtocolDevice::deviceDisconnect() {
     teardownConnection(ConnectStatus::Disconnected);
     LOG_USER_INFO << "MC Device disconnected";
     return true;
 }
 
+/// Stops (without deleting) the reused polling timer and destroys/releases the message-interface
+/// transport and frame codec, leaving the device ready for a clean reconnect.
+/// @note Caller must hold m_mutex; safe to call from within the timer's own slot chain since the
+/// timer is only stopped, never deleted.
 void McProtocolDevice::releaseConnectionResources() {
     // Caller holds m_mutex. The polling timer is created once and reused across
     // connect cycles; only stop it here (never delete) because this can run
@@ -118,12 +147,20 @@ void McProtocolDevice::releaseConnectionResources() {
     m_frame.reset();
 }
 
+/// Releases connection resources under m_mutex and publishes `finalStatus` as the new
+/// connection state.
+/// @param finalStatus the terminal ConnectStatus to publish (e.g. Disconnected, LostConnected)
 void McProtocolDevice::teardownConnection(ConnectStatus finalStatus) {
     QMutexLocker locker(&m_mutex);
     releaseConnectionResources();
     this->setConnectionStatus(finalStatus);
 }
 
+/// Applies a new device configuration (expected to be a McProtocolConfig) if non-null and the
+/// device is not currently connected: updates the MC context, recomputes the polling device
+/// map, and republishes the config via IDevice::setDeviceConfig.
+/// @param cfg the new device configuration; ignored if null or if the device is currently connected
+/// @note Locks m_mutex while applying the change.
 void McProtocolDevice::setDeviceConfig(IDeviceCfg *cfg) {
     if (!cfg) {
         return;
@@ -141,6 +178,9 @@ void McProtocolDevice::setDeviceConfig(IDeviceCfg *cfg) {
     IDevice::setDeviceConfig(&m_config);
 }
 
+/// Applies a new MC protocol configuration directly (bypassing the polymorphic IDeviceCfg
+/// interface), ignored while the device is connected. Otherwise behaves like setDeviceConfig().
+/// @param cfg the new MC protocol configuration to adopt
 void McProtocolDevice::setMcProtocolConfig(McProtocolConfig& cfg) {
     if (this->isDeviceConnected()) {
         return;
@@ -153,18 +193,26 @@ void McProtocolDevice::setMcProtocolConfig(McProtocolConfig& cfg) {
     IDevice::setDeviceConfig(&m_config);
 }
 
+/// Returns a copy of the current MC protocol configuration.
 McProtocolConfig McProtocolDevice::mcProtocolConfig() const {
     return m_config;
 }
 
+/// Returns the list of digital ("M") device tag names currently subscribed in the device map.
 QStringList McProtocolDevice::availableDigitalIoNames() const {
     return m_m_device_names;
 }
 
+/// Returns the list of word ("D") device tag names currently subscribed in the device map.
 QStringList McProtocolDevice::availableWordIoNames() const {
     return m_d_device_names;
 }
 
+/// Parses `tag` as an "M<address>" digital IO tag, builds a single-bit WriteBit MC request for
+/// it, and queues the request via pushRequest().
+/// @param tag digital IO tag, e.g. "M12"
+/// @param value bit value to write (mapped to 0x01/0x00)
+/// @return true if the tag parsed, the request was valid, and it was queued; false otherwise (logged)
 bool McProtocolDevice::writeDigitalIoByName(const QString &tag, bool value)
 {
     int address = 0;
@@ -183,6 +231,11 @@ bool McProtocolDevice::writeDigitalIoByName(const QString &tag, bool value)
     return pushRequest(&request);
 }
 
+/// Parses `tag` as a "D<address>" word IO tag, builds a single-word WriteWord MC request for
+/// it, and queues the request via pushRequest().
+/// @param tag word IO tag, e.g. "D34"
+/// @param value word value to write
+/// @return true if the tag parsed, the request was valid, and it was queued; false otherwise (logged)
 bool McProtocolDevice::writeWordIoByName(const QString &tag, qint16 value)
 {
     int address = 0;
@@ -201,6 +254,11 @@ bool McProtocolDevice::writeWordIoByName(const QString &tag, qint16 value)
     return pushRequest(&request);
 }
 
+/// Clones `request` (must be of type Request_MC) into an MCRequest, detaches its value payload,
+/// and appends it to the ad-hoc request queue for the next polling cycle.
+/// @param request the request to enqueue; rejected if its type() is not RequestType::Request_MC
+/// @return true if enqueued, false if the type check failed
+/// @note Locks m_mutex while mutating the queue.
 bool McProtocolDevice::pushRequest(IRequest *request) {
     if (request->type() != RequestType::Request_MC) {
         return false;
@@ -214,6 +272,11 @@ bool McProtocolDevice::pushRequest(IRequest *request) {
     return true;
 }
 
+/// Restores device state from `obj` via IDevice::fromJson(), then recomputes the polling
+/// device map to match the restored configuration.
+/// @param obj serialized device state
+/// @return the result of IDevice::fromJson(obj)
+/// @note Locks m_mutex for the duration.
 bool McProtocolDevice::fromJson(const QJsonObject &obj) {
     QMutexLocker locker(&m_mutex);
     bool state = IDevice::fromJson(obj);
@@ -221,6 +284,8 @@ bool McProtocolDevice::fromJson(const QJsonObject &obj) {
     return state;
 }
 
+/// Polling timer slot; stops the timer if the device is no longer connected, otherwise drives
+/// the next polling_query() step.
 void McProtocolDevice::onPollingTimerTimeOut() {
     if (!this->isDeviceConnected()) {
         if(m_polling_timer) {
@@ -235,10 +300,16 @@ void McProtocolDevice::onPollingTimerTimeOut() {
     polling_query();
 }
 
+/// Slot for the message interface's readyRead signal; forwards to response_handle() to process
+/// the pending reply.
 void McProtocolDevice::onMsgInterfaceReadReady() {
     response_handle();
 }
 
+/// Queues a heartbeat write toggling the configured "active" M-bit device, then flips the
+/// cached value so the next call sends the opposite state.
+/// @note Appends directly to m_request_queue without the m_mutex locking pushRequest() uses;
+/// only safe because this runs on the same (polling) call path as the queue drain.
 void McProtocolDevice::onSetCommActiveDevice() {
     std::shared_ptr<MCRequest> request = std::make_shared<MCRequest>(
         MCRequest::WriteBit, 'M', m_comm_active_m_device, 1);
@@ -248,6 +319,13 @@ void McProtocolDevice::onSetCommActiveDevice() {
     m_comm_active_m_device_value = !m_comm_active_m_device_value;
 }
 
+/// (Re)builds the MC transport stack for the currently configured protocol: releases any
+/// previous transport, then constructs the frame codec and message interface matching the
+/// config's frame/message types, wires up the read-ready signal, (re)creates the polling timer
+/// on first use, refreshes its interval, recomputes the polling device map, and resets all
+/// per-session state (queues, counters, buffers).
+/// @return true if both the frame type and message-interface type are recognized/supported;
+/// false if either is unsupported, leaving the device unusable for connect.
 bool McProtocolDevice::initialize_mc_device() {
     // Clear any transport left over from a previous (possibly failed) session
     // before building a fresh one, so connect attempts never stack sockets.
@@ -314,6 +392,12 @@ bool McProtocolDevice::initialize_mc_device() {
     return true;
 }
 
+/// Drives one step of the polling state machine: if a response is still outstanding, checks for
+/// timeout and retries; otherwise pops the next ad-hoc request (if any) or the next scheduled
+/// polling request round-robin, updates m_data_update_state accordingly (emitting
+/// pollingUpdate() and queuing the heartbeat write when a full round completes), and dispatches
+/// it via request_handle().
+/// @note Locks m_mutex only while draining m_request_queue.
 void McProtocolDevice::polling_query() {
     if (m_wait_for_response) {
         auto current_time_point = std::chrono::high_resolution_clock::now();
@@ -358,6 +442,9 @@ void McProtocolDevice::polling_query() {
     request_handle();
 }
 
+/// Encodes m_current_request into a frame and sends it over the message interface; on send
+/// failure, retries up to 5 times before disconnecting; on success, records the send timestamp
+/// and marks the device as waiting for a response.
 void McProtocolDevice::request_handle() {
     if (m_current_request != nullptr) {
         QByteArray send_frame;
@@ -393,6 +480,12 @@ void McProtocolDevice::request_handle() {
     }
 }
 
+/// Reads and parses the next reply for m_current_request, carrying over any partial bytes from
+/// a previous split read; on a complete response (ok/error/invalid) clears the read buffer and
+/// outstanding-request state, and on a still-incomplete frame stores the accumulated bytes back
+/// into m_read_buffer for the next call.
+/// @note Continues the polling round via polling_query() when the state machine is mid-round
+/// (QueryContinue).
 void McProtocolDevice::response_handle() {
     if (!m_wait_for_response) {
         return;
@@ -444,6 +537,9 @@ void McProtocolDevice::response_handle() {
     }
 }
 
+/// Handles a response timeout: gives up (marks the device lost) after more than 5 retries,
+/// otherwise clears the transport's receive buffer and any partial frame, and resends the
+/// current request via request_handle().
 void McProtocolDevice::retry_request_handle() {
     m_retry_count += 1;
     if (m_retry_count > 5) {
@@ -463,6 +559,9 @@ void McProtocolDevice::retry_request_handle() {
 }
 
 
+/// Rebuilds the device map's subscribed M/D address ranges from the current context, merges
+/// them into optimal contiguous ranges, and regenerates the polling request queue and per-tag
+/// name lists.
 void McProtocolDevice::optimizeDeviceMap() {
     m_device_map.clearMap();
     McContext *ctx = m_config.context();
@@ -474,6 +573,9 @@ void McProtocolDevice::optimizeDeviceMap() {
     update_d_map();
 }
 
+/// Rebuilds the digital (M) device-value map, its "last known value" shadow map, and the
+/// exposed tag-name list from the device map's subscribed M ranges, and appends one ReadBit
+/// polling request per range.
 void McProtocolDevice::update_m_map() {
     if (m_device_map.m_devices.ranges.empty()) {
         return;
@@ -504,6 +606,9 @@ void McProtocolDevice::update_m_map() {
     }
 }
 
+/// Rebuilds the word (D) device-value map, its "last known value" shadow map, and the exposed
+/// tag-name list from the device map's subscribed D ranges, and appends one ReadWord polling
+/// request per range.
 void McProtocolDevice::update_d_map() {
     if (m_device_map.d_devices.ranges.empty()) {
         return;
@@ -534,6 +639,12 @@ void McProtocolDevice::update_d_map() {
     }
 }
 
+/// Compares the freshly polled M and D device maps against their "last known value" shadows,
+/// emits deviceMChanged()/deviceDChanged() for each changed address (suppressed during the very
+/// first polling round), accumulates the changes into a single valueChanged(QMap) signal, and
+/// updates the shadow maps in place.
+/// @note If a map's size changed since the last comparison, its shadow map is first resynced via
+/// update_last_m_map()/update_last_d_map() before the value diff.
 void McProtocolDevice::check_device_changed() {
     QMap<QString, QVariant> changedValues;
     if ((!m_device_map.device_map_m.empty()) && (!m_last_device_M_map.empty())) {
@@ -585,6 +696,8 @@ void McProtocolDevice::check_device_changed() {
     }
 }
 
+/// Adds any address present in the current M device map but missing from m_last_device_M_map,
+/// seeding it with the current value (used to resync the shadow map after a size change).
 void McProtocolDevice::update_last_m_map() {
     for (std::map<int, quint8>::iterator it = m_device_map.device_map_m.begin();
          it != m_device_map.device_map_m.end();
@@ -596,6 +709,8 @@ void McProtocolDevice::update_last_m_map() {
     }
 }
 
+/// Adds any address present in the current D device map but missing from m_last_device_D_map,
+/// seeding it with the current value (used to resync the shadow map after a size change).
 void McProtocolDevice::update_last_d_map() {
     for (std::map<int, qint16>::iterator it = m_device_map.device_map_d.begin();
          it != m_device_map.device_map_d.end();
@@ -607,6 +722,8 @@ void McProtocolDevice::update_last_d_map() {
     }
 }
 
+/// Tears down the connection and publishes LostConnected status after repeated response
+/// timeouts.
 void McProtocolDevice::setDeviceLostConnect() {
     teardownConnection(ConnectStatus::LostConnected);
     LOG_USER_ERR << "MC Device lost connect.";

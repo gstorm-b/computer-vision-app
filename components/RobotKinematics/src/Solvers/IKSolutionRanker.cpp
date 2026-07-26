@@ -4,14 +4,28 @@
 
 #include <algorithm>
 
+/// Core kinematics types and algorithms: robot models, forward/inverse kinematics,
+/// posture resolution, and the solvers that implement them.
 namespace RobotKinematics {
 
+/// Internal helpers used only by IKSolutionRanker::postureMatches()/score(): posture-branch
+/// matching and the individual cost terms folded into IKSolution::score.
 namespace {
+/// Checks a single posture-branch constraint: satisfied if `requested` is unset (no
+/// constraint), or if `candidate` is set and equal to `requested`.
+/// @return true when the branch is unconstrained or matches; false on an unmet constraint
 bool optionalBranchMatches(const std::optional<int>& candidate, const std::optional<int>& requested)
 {
     return !requested.has_value() || (candidate.has_value() && *candidate == *requested);
 }
 
+/// Computes a joint-limit-avoidance cost for `joints`: for each revolute/prismatic joint that
+/// has limits, adds the reciprocal of its limit range fraction remaining to the nearer bound
+/// (clamped to at least 1e-6 to avoid dividing by zero), so the cost rises sharply as a joint
+/// approaches either limit and is 0 for joints with no limits.
+/// @param config supplies joint order/type and limits, indexed in parallel with `joints`
+/// @param joints candidate joint values to evaluate
+/// @return summed margin cost across all limited joints (0.0 if none have limits)
 double jointLimitMarginCost(const SerialRobotConfig& config, const JointVector& joints)
 {
     double cost = 0.0;
@@ -32,6 +46,10 @@ double jointLimitMarginCost(const SerialRobotConfig& config, const JointVector& 
     return cost;
 }
 
+/// Counts posture mismatches between `candidate` and `requested`: adds 1.0 for each of
+/// shoulder/elbow/wrist that fails optionalBranchMatches(), plus 1.0 for every vendor-specific
+/// posture entry in `requested` that `candidate` is missing or disagrees with.
+/// @return total mismatch count; 0.0 means `candidate` fully satisfies `requested`
 double postureMismatchCost(const ArmPosture& candidate, const ArmPosture& requested)
 {
     double cost = 0.0;
@@ -54,11 +72,20 @@ double postureMismatchCost(const ArmPosture& candidate, const ArmPosture& reques
 }
 }
 
+/// Returns whether `candidate` satisfies every branch/vendor-specific constraint set in
+/// `requested` (delegates to postureMismatchCost() and checks for an exact zero).
 bool IKSolutionRanker::postureMatches(const ArmPosture& candidate, const ArmPosture& requested)
 {
     return postureMismatchCost(candidate, requested) == 0.0;
 }
 
+/// Builds a scored IKSolution for a candidate joint configuration: classifies `joints`' arm
+/// posture via the config's posture resolver (if one is registered for it), then sums
+/// position/orientation error with weighted joint-limit-avoidance, seed-distance,
+/// motion-continuity, and posture-mismatch (weighted x100) costs into
+/// IKSolution::score.totalCost. Seed-distance and motion-continuity costs are only computed
+/// when `request` carries a seed/previous joint vector of matching size; posture-mismatch cost
+/// is only computed when `request.posture` is set.
 IKSolution IKSolutionRanker::score(const SerialRobotConfig& config,
                                    const IKRequest& request,
                                    JointVector joints,

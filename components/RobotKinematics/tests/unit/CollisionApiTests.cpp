@@ -76,6 +76,8 @@ void CollisionApiTests::profileCanStoreSphereAndCapsuleGeometry()
     QCOMPARE(profile.metadata.at("reviewState"), std::string("draft"));
 }
 
+/// Entry point invoked by TestMain to run the CollisionApiTests suite under QtTest.
+/// @return the number of failing test functions (0 on success)
 int runCollisionApiTests(int argc, char** argv)
 {
     CollisionApiTests tests;

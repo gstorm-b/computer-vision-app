@@ -9,17 +9,23 @@ using namespace cv;
 
 namespace mtc {
 
+/// Default-constructs with an empty config and no parent group.
 MatchPattern::MatchPattern() {}
 
+/// Constructs with a copy of `config` and a back-pointer to the owning `parent` group.
 MatchPattern::MatchPattern(const MatchPatternConfig& config, MatchGroup* parent)
     : m_config(config), m_parentGroup(parent) {}
 
+/// Edge algorithm config is shared at the group level — fetches it from the parent group
+/// (nullptr if no parent or the group is not EdgeBased).
 const EdgeMatchConfig* MatchPattern::groupEdgeConfig() const {
     return m_parentGroup ? m_parentGroup->config().edgeConfig() : nullptr;
 }
 
 // ── Learn ─────────────────────────────────────────────────────────────────────
 
+/// Loads the training image from `path` then learns the pattern; returns false if the
+/// image could not be loaded.
 bool MatchPattern::learnPattern(std::wstring path) {
     m_hasPatternLearned = false;
     this->setRawImage(path);
@@ -28,11 +34,19 @@ bool MatchPattern::learnPattern(std::wstring path) {
     return learnPattern();
 }
 
+/// Sets `imgPattern` as the training image then learns the pattern.
 bool MatchPattern::learnPattern(cv::Mat& imgPattern) {
     this->setRawImage(imgPattern);
     return this->learnPattern();
 }
 
+/// Builds the image pyramid and, for each level, the Canny edge map, gradient
+/// magnitude/angle, and resampled contour-derived pattern points used by the Edge-Based
+/// matcher; also selects the largest sub-98%-area contour (via fixed or Otsu threshold)
+/// for the low-workpiece area pre-filter. Requires the parent group's edge config to be
+/// available (only EdgeBased is implemented); returns false otherwise or if the working
+/// image is empty.
+/// @return true on success; sets m_hasPatternLearned to true
 bool MatchPattern::learnPattern() {
     m_hasPatternLearned = false;
     m_image = m_config.m_rawImage.clone();
@@ -164,26 +178,34 @@ bool MatchPattern::learnPattern() {
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
+/// Replaces the per-pattern config with a copy of `cfg`.
 void MatchPattern::setConfig(MatchPatternConfig& cfg) {
     m_config = cfg;
 }
 
+/// Returns a copy of the current per-pattern config.
 MatchPatternConfig MatchPattern::patternConfig() const {
     return m_config;
 }
 
+/// Returns a pointer to the internal config (no copy).
 const MatchPatternConfig* MatchPattern::patternConfigPtr() const {
     return &m_config;
 }
 
 // ── Image API ─────────────────────────────────────────────────────────────────
 
+/// Loads the raw training image from `path` (wide-character filesystem path) and stores
+/// it via setRawImage(cv::Mat&); does nothing if `path` is empty.
 void MatchPattern::setRawImage(std::wstring path) {
     if (path.empty()) return;
     cv::Mat raw = vsu::imread_wstring(path);
     this->setRawImage(raw);
 }
 
+/// Stores `imgPattern` as the raw training image, converting BGR/BGRA input to grayscale
+/// first (channel count 3/4), otherwise cloning the input directly; marks the pattern as
+/// not-yet-learned. Does nothing if `imgPattern` is empty.
 void MatchPattern::setRawImage(cv::Mat& imgPattern) {
     m_hasPatternLearned = false;
     if (imgPattern.empty()) return;
@@ -195,14 +217,18 @@ void MatchPattern::setRawImage(cv::Mat& imgPattern) {
         m_config.m_rawImage = imgPattern.clone();
 }
 
+/// Returns a clone of the stored raw training image.
 cv::Mat MatchPattern::getRawImage() const {
     return m_config.m_rawImage.clone();
 }
 
+/// Returns the size descriptor of the stored raw training image.
 cv::MatSize MatchPattern::getRawImageSize() {
     return m_config.m_rawImage.size;
 }
 
+/// Returns a BGR copy of the working image with the pick position/angle drawn as axes;
+/// returns an empty Mat if no working image has been set.
 cv::Mat MatchPattern::getImageWithPickPosition() {
     if (m_image.empty()) return cv::Mat();
     cv::Mat out;
@@ -215,6 +241,9 @@ cv::Mat MatchPattern::getImageWithPickPosition() {
     return out;
 }
 
+/// Returns the Canny edge image of the working image using automatic median-based
+/// thresholds (kernel size taken from the group's edge config, default 3 if unavailable);
+/// returns an empty Mat if no working image has been set.
 cv::Mat MatchPattern::getImageWithCannyThreshold() {
     if (m_image.empty()) return cv::Mat();
 
@@ -237,10 +266,14 @@ cv::Mat MatchPattern::getImageWithCannyThreshold() {
 
 // ── Private helpers ───────────────────────────────────────────────────────────
 
+/// Clears the previously learned per-level pattern data (m_patterns).
 void MatchPattern::clearPatternData() {
     m_patterns.clear();
 }
 
+/// Computes m_minReduceArea from the group's edge config's minReduceLength (default 32 if
+/// no edge config is available) and sets m_topLayer to the number of area-halving (÷4)
+/// steps needed for the working image's area to drop below m_minReduceArea.
 void MatchPattern::findTopLayer() {
     const EdgeMatchConfig* ecfg = groupEdgeConfig();
     const int minLen = ecfg ? ecfg->minReduceLength : 32;
@@ -255,21 +288,26 @@ void MatchPattern::findTopLayer() {
 
 // ── Friend (MatchGroup) API ───────────────────────────────────────────────────
 
+/// Replaces the per-pattern config with a copy of `cfg`; always succeeds.
 ManagerResult MatchPattern::setConfig(const MatchPatternConfig& cfg) {
     m_config = cfg;
     return ManagerResult::success();
 }
 
+/// Sets the pattern's display name; always succeeds.
 ManagerResult MatchPattern::setName(const std::wstring& name) {
     m_config.m_patternName = name;
     return ManagerResult::success();
 }
 
+/// Sets the pattern's index within its group; always succeeds.
 ManagerResult MatchPattern::setNumber(int number) {
     m_config.m_patternIndex = number;
     return ManagerResult::success();
 }
 
+/// Sets both the stored raw training image and the working image to clones of `image`
+/// (bypasses the grayscale-conversion path used by setRawImage()).
 void MatchPattern::setImage(const cv::Mat& image) {
     m_config.m_rawImage = image.clone();
     m_image = image.clone();

@@ -3,9 +3,18 @@
 #include "CoalMeshCollisionBackend.h"
 #endif
 
+/// Robot kinematics, collision profile, and mesh-backend selection types used by the
+/// CollisionBackends dispatch layer.
 namespace RobotKinematics {
 
+/// Translation-unit-local helpers for resolving which mesh collision backend a request
+/// should use and for naming the requested-but-unavailable backend in error messages.
 namespace {
+/// Returns the name of the mesh backend the caller asked for (request override takes
+/// priority over the profile's preference order), for use in diagnostic messages when no
+/// compiled backend can serve it.
+/// @return the backend's toString() name, or "none" if neither the request nor the profile
+///         specify a preference
 std::string requestedMeshBackendName(const MeshCollisionProfile& profile,
                                      const MeshCollisionCheckRequest& request)
 {
@@ -18,6 +27,12 @@ std::string requestedMeshBackendName(const MeshCollisionProfile& profile,
     return "none";
 }
 
+/// Picks which compiled mesh backend should serve `request`: an explicit
+/// `request.preferredBackend` is honored only if it is actually compiled in (Coal build
+/// only), otherwise falls back to scanning the profile's backend preference order, and
+/// finally defaults to Coal if compiled in or None if no mesh backend is available at all.
+/// @return the backend kind to use, or MeshCollisionBackendKind::None if no compiled
+///         backend can satisfy the request
 MeshCollisionBackendKind selectCompiledBackend(const MeshCollisionProfile& profile,
                                                const MeshCollisionCheckRequest& request)
 {
@@ -50,6 +65,9 @@ MeshCollisionBackendKind selectCompiledBackend(const MeshCollisionProfile& profi
 }
 }
 
+/// Returns static metadata for the always-available built-in primitive (sphere/capsule)
+/// self-collision backend: available, supports distance queries, but not mesh geometry or
+/// contact points.
 CollisionBackendInfo CollisionBackends::primitiveInfo()
 {
     return CollisionBackendInfo{
@@ -64,6 +82,9 @@ CollisionBackendInfo CollisionBackends::primitiveInfo()
     };
 }
 
+/// Returns static metadata for the mesh collision backend: delegates to
+/// coalMeshBackendInfo() when the Coal backend is compiled in, otherwise reports an
+/// unavailable "mesh_unavailable" backend with all capability flags false.
 CollisionBackendInfo CollisionBackends::meshInfo()
 {
 #ifdef ROBOTKINEMATICS_HAVE_COAL_MESH_BACKEND
@@ -82,11 +103,16 @@ CollisionBackendInfo CollisionBackends::meshInfo()
 #endif
 }
 
+/// Lists metadata for every collision backend this build knows about (primitive, then mesh),
+/// regardless of whether the mesh backend is actually available.
+/// @return {primitiveInfo(), meshInfo()}
 std::vector<CollisionBackendInfo> CollisionBackends::availableBackends()
 {
     return {primitiveInfo(), meshInfo()};
 }
 
+/// Runs the built-in primitive (sphere/capsule) self-collision check by forwarding directly
+/// to CollisionChecker::check().
 CollisionCheckResult CollisionBackends::checkPrimitive(const SerialRobotConfig& config,
                                                        const CollisionProfile& profile,
                                                        const CollisionCheckRequest& request)
@@ -94,6 +120,11 @@ CollisionCheckResult CollisionBackends::checkPrimitive(const SerialRobotConfig& 
     return CollisionChecker::check(config, profile, request);
 }
 
+/// Runs mesh-based self-collision checking for `config`, dispatching to the Coal backend
+/// when it is both compiled in and selected by selectCompiledBackend(); otherwise returns
+/// an UnsupportedSolver failure result naming the requested backend.
+/// @return the mesh backend's collision result on success, or an UnsupportedSolver failure
+///         result if no compiled backend can serve the request
 CollisionCheckResult CollisionBackends::checkMesh(const SerialRobotConfig& config,
                                                   const MeshCollisionProfile& profile,
                                                   const MeshCollisionCheckRequest& request)

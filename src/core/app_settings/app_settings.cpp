@@ -13,17 +13,14 @@
 //  File format constants
 // ---------------------------------------------------------------------------
 
-static constexpr quint32 kMagic      = 0x4E435253u;   // "NCRS"
-static constexpr quint32 kVersion    = 1u;
-static constexpr int     kHeaderSize = 4 + 4 + 32;    // magic + version + SHA-256
+static constexpr quint32 kMagic      = 0x4E435253u;   ///< File magic number, ASCII "NCRS".
+static constexpr quint32 kVersion    = 1u;            ///< Settings file schema version.
+static constexpr int     kHeaderSize = 4 + 4 + 32;    ///< magic + version + SHA-256 header size, in bytes.
 
-// ---------------------------------------------------------------------------
-//  Obfuscation key (64 bytes, compile-time constant).
-//
-//  NOTE: Changing this key invalidates all existing settings files on disk —
-//  users will receive a clean defaults reset on next launch.  Increment
-//  kVersion as well when doing so.
-// ---------------------------------------------------------------------------
+/// Obfuscation key (64 bytes, compile-time constant).
+/// @note Changing this key invalidates all existing settings files on disk — users
+/// will receive a clean defaults reset on next launch. Increment kVersion as well
+/// when doing so.
 static constexpr quint8 kObfKey[] = {
     0xA3, 0x7F, 0x2C, 0xE1, 0x58, 0x94, 0x0B, 0xD6,
     0x3A, 0xF2, 0x71, 0xCC, 0x45, 0x89, 0x1E, 0xB0,
@@ -41,12 +38,17 @@ static constexpr quint8 kObfKey[] = {
 
 AppSettings* AppSettings::s_instance = nullptr;
 
+/// Returns the process-wide AppSettings singleton, lazily constructing it (parented
+/// to qApp) on first call.
 AppSettings* AppSettings::instance() {
     if (!s_instance)
         s_instance = new AppSettings(qApp);
     return s_instance;
 }
 
+/// Seeds compile-time defaults for every known key, then overlays any values found on
+/// disk via load(). Defaults are applied first so that keys added in future schema
+/// versions always have a valid fallback value even against an older settings file.
 AppSettings::AppSettings(QObject* parent) : QObject(parent) {
     // Compile-time defaults — applied before load() so that keys added in
     // future schema versions always have a valid fallback value.
@@ -60,34 +62,42 @@ AppSettings::AppSettings(QObject* parent) : QObject(parent) {
 //  Known settings — typed accessors
 // ---------------------------------------------------------------------------
 
+/// Returns the current UI theme id (e.g. "light"/"dark"); defaults to "light" until changed.
 QString AppSettings::theme() const {
     return m_data.value(AppKey::Theme).toString();
 }
 
+/// Returns the current UI locale code (e.g. "en"); defaults to "en" until changed.
 QString AppSettings::language() const {
     return m_data.value(AppKey::Language).toString();
 }
 
+/// Returns the last folder path the user browsed to in a folder-picker dialog.
 QString AppSettings::lastFolderAccessDir() const {
     return m_data.value(AppKey::lastFolderAccessDir).toString();
 }
 
+/// Returns the last folder path the user browsed to in an image-picker dialog.
 QString AppSettings::lastImageAccessDir() const {
     return m_data.value(AppKey::lastImageAccessDir).toString();
 }
 
+/// Sets the UI theme id and persists it (no-op if unchanged; see setValue).
 void AppSettings::setTheme(const QString& styleId) {
     setValue(AppKey::Theme, styleId);
 }
 
+/// Sets the UI locale code and persists it (no-op if unchanged; see setValue).
 void AppSettings::setLanguage(const QString& localeCode) {
     setValue(AppKey::Language, localeCode);
 }
 
+/// Sets the last folder-picker access directory and persists it (no-op if unchanged; see setValue).
 void AppSettings::setLastFolderAccessDir(const QString& dir) {
     setValue(AppKey::lastFolderAccessDir, dir);
 }
 
+/// Sets the last image-picker access directory and persists it (no-op if unchanged; see setValue).
 void AppSettings::setLastImageAccessDir(const QString& path) {
     setValue(AppKey::lastImageAccessDir, path);
 }
@@ -96,10 +106,13 @@ void AppSettings::setLastImageAccessDir(const QString& path) {
 //  Generic API
 // ---------------------------------------------------------------------------
 
+/// Returns the raw value stored under `key`, or `fallback` if the key is unset.
 QVariant AppSettings::value(const QString& key, const QVariant& fallback) const {
     return m_data.value(key, fallback);
 }
 
+/// Sets the raw value for `key`, persists it to disk via save(), and emits
+/// settingChanged. Does nothing (no save, no signal) if `val` equals the current value.
 void AppSettings::setValue(const QString& key, const QVariant& val) {
     if (m_data.value(key) == val) return;   // no-op when unchanged
     m_data[key] = val;
@@ -111,11 +124,16 @@ void AppSettings::setValue(const QString& key, const QVariant& val) {
 //  Persistence
 // ---------------------------------------------------------------------------
 
+/// Returns the absolute path of the settings file ("settings.dat" in the OS
+/// application-data directory for this app).
 QString AppSettings::filePath() {
     return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
            + QStringLiteral("/settings.dat");
 }
 
+/// Reads and decodes the settings file at filePath(), merging decoded values on top of
+/// the current (default) m_data. Leaves m_data untouched (i.e. all defaults) if the
+/// file is missing, unreadable, or fails integrity/format checks in decode().
 void AppSettings::load() {
     QFile f(filePath());
     if (!f.open(QFile::ReadOnly)) return;
@@ -129,6 +147,8 @@ void AppSettings::load() {
         m_data[it.key()] = it.value();
 }
 
+/// Encodes m_data and writes it (truncating any existing file) to filePath(), creating
+/// the parent directory first if needed. Silently does nothing if the file can't be opened.
 void AppSettings::save() const {
     const QString path = filePath();
     QDir().mkpath(QFileInfo(path).absolutePath());
@@ -142,6 +162,10 @@ void AppSettings::save() const {
 //  Encode / Decode
 // ---------------------------------------------------------------------------
 
+/// Serializes `map` to the on-disk settings format: CBOR-encodes it, computes a
+/// SHA-256 of the plain CBOR payload, then prepends the magic/version/hash header to
+/// the XOR-obfuscated CBOR bytes (see the file-format layout documented on
+/// AppSettings in app_settings.h).
 QByteArray AppSettings::encode(const QVariantMap& map) {
     const QByteArray cbor = QCborValue::fromVariant(map).toCbor();
     const QByteArray hash = QCryptographicHash::hash(cbor, QCryptographicHash::Sha256);
@@ -164,6 +188,9 @@ QByteArray AppSettings::encode(const QVariantMap& map) {
     return out;
 }
 
+/// Parses and validates a settings file previously produced by encode(): checks the
+/// magic number, de-obfuscates the payload, verifies its SHA-256 against the stored
+/// hash, then CBOR-decodes it into `out`.
 bool AppSettings::decode(const QByteArray& raw, QVariantMap& out) {
     if (raw.size() < kHeaderSize) return false;
 
@@ -189,6 +216,8 @@ bool AppSettings::decode(const QByteArray& raw, QVariantMap& out) {
     return true;
 }
 
+/// XORs every byte of `data` against the repeating compile-time key kObfKey.
+/// Symmetric: calling this again on the result recovers the original bytes.
 QByteArray AppSettings::obfuscate(const QByteArray& data) {
     static constexpr int keyLen = static_cast<int>(sizeof(kObfKey));
     QByteArray result = data;

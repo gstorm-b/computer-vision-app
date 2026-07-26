@@ -1,0 +1,25 @@
+var class_group_frame =
+[
+    [ "GroupFrame", "class_group_frame.html#acbf40d92b16afce5b24dd19c4e41b4c3", null ],
+    [ "headerBackground", "class_group_frame.html#aec0d98299d43315dbabcabd995c7ef04", null ],
+    [ "headerBackGroundColorChanged", "class_group_frame.html#adc336590887151aa35a74513b71dc24f", null ],
+    [ "headerColor", "class_group_frame.html#a2c329776a6a1028b46765a82d92aef08", null ],
+    [ "headerColorChanged", "class_group_frame.html#a847a98bbd22d3207d483e5c4284ca304", null ],
+    [ "headerFont", "class_group_frame.html#a17964814c2d60b7874b1600b978fe1ed", null ],
+    [ "headerFontChanged", "class_group_frame.html#a0b7848eaedf34ed0b257e4076afc61b2", null ],
+    [ "paintEvent", "class_group_frame.html#ae0d1e91a602a1443d8b1eb0bc2ccfc92", null ],
+    [ "setHeaderBackground", "class_group_frame.html#ad7906972abd49ff93f8e3fecc2e3ef25", null ],
+    [ "setHeaderColor", "class_group_frame.html#a658a920e9fede0616643f002fb260811", null ],
+    [ "setHeaderFont", "class_group_frame.html#aadfd3ad85251359063d69adae57088fd", null ],
+    [ "setTitle", "class_group_frame.html#ad8b49fd5ca284d04c1e4a0fb320bc7f6", null ],
+    [ "title", "class_group_frame.html#a50511ba806e856efae48fa17c1dc7d9a", null ],
+    [ "titleChanged", "class_group_frame.html#a4abe3d8b41e591f3eaf5b009ff41cbd3", null ],
+    [ "m_headerBackground", "class_group_frame.html#aae4e7fbb71c9d2217622cfdff4072ea9", null ],
+    [ "m_headerColor", "class_group_frame.html#a1e74220643dca0dbe306c55b76b7b2fe", null ],
+    [ "m_headerFont", "class_group_frame.html#a396d734d98a86026b6dacde1a08d5b14", null ],
+    [ "m_title", "class_group_frame.html#afec4d7a5b16b3b0faf52b58844c0e23c", null ],
+    [ "headerBackground", "class_group_frame.html#a6b7280d9e6323cf8a04013fbd987232f", null ],
+    [ "headerColor", "class_group_frame.html#ae1686049af1798ce75aa4d6af0ef49a9", null ],
+    [ "headerFont", "class_group_frame.html#a88918ac6e77b6446f36ab4fd1da3ecf8", null ],
+    [ "title", "class_group_frame.html#a57e46ebb7ef043d2591eb2c4a4c551ea", null ]
+];

@@ -9,6 +9,8 @@
 
 namespace vc::model {
 
+/// Builds an ITask from a JSON object, validating that the required top-level keys
+/// (id, name, taskType, taskConfig) are present before dispatching to create().
 ITask* TaskFactory::fromJson(const QJsonObject& obj,
                              QObject* parent) {
 
@@ -26,6 +28,7 @@ ITask* TaskFactory::fromJson(const QJsonObject& obj,
     return TaskFactory::create(taskTypeFromString(type), obj, parent);
 }
 
+/// Dispatches task creation to the type-specific create* helper matching `type`.
 ITask* TaskFactory::create(const TaskType& type, const QJsonObject& obj, QObject* parent) {
     switch (type) {
     case vc::model::TaskType::LocalizationTask:
@@ -37,6 +40,9 @@ ITask* TaskFactory::create(const TaskType& type, const QJsonObject& obj, QObject
 }
 
 
+/// Creates a TaskLocalization from `obj`: reads its id/name, then restores the rest
+/// (config, device ids, pattern library) via TaskLocalization::fromJson(). The task is
+/// still returned (for the user to see/repair in the UI) even if that restore fails.
 ITask* TaskFactory::createTaskLocalization(const QJsonObject& obj, QObject* parent) {
     const QString taskId = obj["id"].toString();
     QString taskName     = obj["name"].toString();

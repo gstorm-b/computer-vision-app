@@ -4,8 +4,12 @@
 #include <QMutexLocker>
 #include <utility>
 
+/// Device-layer types: concrete IDevice/IDeviceCfg implementations (PLC,
+/// vision-output transports, etc.) and their supporting config/state types.
 namespace vc::device {
 
+/// Constructs the server device: installs m_config as the active device
+/// config and syncs the runtime-state snapshot.
 VisionTcpipDevice::VisionTcpipDevice(QString id, QString name, QObject* parent)
     : VisionTcpipDeviceBase(std::move(id), std::move(name), parent) {
 
@@ -13,10 +17,15 @@ VisionTcpipDevice::VisionTcpipDevice(QString id, QString name, QObject* parent)
     syncRuntimeState();
 }
 
+/// Tears down the transport (closes/deletes the listeners, detaches any
+/// live sockets) before destruction.
 VisionTcpipDevice::~VisionTcpipDevice() {
     stopTransport();
 }
 
+/// Installs `cfg` as the active config after checking it is a VisionOutput /
+/// VisionTCPIP config and the device is not currently connected (config is
+/// locked while the link is live).
 void VisionTcpipDevice::setDeviceConfig(IDeviceCfg *cfg) {
     if (!cfg) {
         return;
@@ -42,6 +51,9 @@ void VisionTcpipDevice::setDeviceConfig(IDeviceCfg *cfg) {
     IDevice::setDeviceConfig(&m_config);
 }
 
+/// Replaces the current server config with `cfg`.
+/// @return false (config unchanged) if the device is connected — the config
+///         is locked while the link is live and the caller must disconnect first
 bool VisionTcpipDevice::setVisionTcpipConfig(VisionTcpipDeviceCfg& cfg) {
     if (this->isDeviceConnected()) {
         // Config is locked while the link is live; caller must disconnect first.
@@ -55,6 +67,8 @@ bool VisionTcpipDevice::setVisionTcpipConfig(VisionTcpipDeviceCfg& cfg) {
     return true;
 }
 
+/// Loads the device config from `obj` (delegates to IDevice::fromJson)
+/// while holding the device mutex.
 bool VisionTcpipDevice::fromJson(const QJsonObject &obj) {
     QMutexLocker locker(&m_mutex);
     return IDevice::fromJson(obj);
@@ -63,6 +77,10 @@ bool VisionTcpipDevice::fromJson(const QJsonObject &obj) {
 // =====================================================================
 // Transport: listen + accept (one client per port)
 // =====================================================================
+/// Opens the main and heartbeat QTcpServer listeners on the configured
+/// address/ports and wires their newConnection signals.
+/// @return true and sets ConnectStatus::Connected on success; false (with
+///         m_last_msg set to the socket error) if either listen() call fails
 bool VisionTcpipDevice::startTransport() {
     m_mainServer = new QTcpServer(this);
     m_hbServer   = new QTcpServer(this);
@@ -98,6 +116,8 @@ bool VisionTcpipDevice::startTransport() {
     return true;
 }
 
+/// Detaches any live sockets, then closes and schedules deletion of both
+/// QTcpServer listeners.
 void VisionTcpipDevice::stopTransport() {
     detachHeartbeatSocket();
     detachMainSocket();
@@ -117,6 +137,9 @@ void VisionTcpipDevice::stopTransport() {
 // =====================================================================
 // Accept handlers — single active client per port
 // =====================================================================
+/// Drains pending connections on the main-port listener: the first is
+/// attached as the live main socket, any further pending ones (while a
+/// main client is already attached) are rejected and disconnected.
 void VisionTcpipDevice::onMainNewConnection() {
     while (m_mainServer && m_mainServer->hasPendingConnections()) {
         QTcpSocket *sock = m_mainServer->nextPendingConnection();
@@ -131,6 +154,9 @@ void VisionTcpipDevice::onMainNewConnection() {
     }
 }
 
+/// Drains pending connections on the heartbeat-port listener: the first is
+/// attached as the live heartbeat socket, any further pending ones (while a
+/// heartbeat client is already attached) are rejected and disconnected.
 void VisionTcpipDevice::onHeartbeatNewConnection() {
     while (m_hbServer && m_hbServer->hasPendingConnections()) {
         QTcpSocket *sock = m_hbServer->nextPendingConnection();

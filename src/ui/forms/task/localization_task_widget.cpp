@@ -22,6 +22,11 @@
 #include "ui/forms/task/localization_patterns_widget.h"
 #include "ui/forms/task/localization_setting_widget.h"
 
+/// Maps a task's current lifecycle state to the visual state of the READY status
+/// lamp ("on" while Ready/RunningCycle, "warn" during transitional phases,
+/// "error" when Faulted, "off" for Idle/anything else).
+/// @param state the task's current TaskState
+/// @return one of "on", "warn", "error", "off"
 static QString readyLampStateForTask(vc::model::TaskState state)
 {
     switch (state) {
@@ -45,6 +50,9 @@ static QString readyLampStateForTask(vc::model::TaskState state)
 // ──────────────────────────────────────────────────────────────────────────────
 //  Constructor / Destructor
 // ──────────────────────────────────────────────────────────────────────────────
+/// Constructs the widget for `task`, wires up the generated Ui form, and runs
+/// full initialisation (nav panel, status lamps, device pages, Commission
+/// entry) via initWidget().
 LocalizationTaskWidget::LocalizationTaskWidget(std::shared_ptr<vc::model::ITask> task,
                                                ads::CDockWidget *dock, QWidget *parent)
     : ITaskWidget(task, dock, parent),
@@ -54,6 +62,10 @@ LocalizationTaskWidget::LocalizationTaskWidget(std::shared_ptr<vc::model::ITask>
     initWidget();
 }
 
+/// Stops all per-device threads before tearing down the widget. This moves
+/// devices back to the main thread so DeviceManager can keep using them. The
+/// TaskRunner stays alive (owned by ITask) so other task widgets / future
+/// runs can re-enter Commission cleanly.
 LocalizationTaskWidget::~LocalizationTaskWidget()
 {
     // Stop all per-device threads before tearing down the widget.  This
@@ -65,12 +77,22 @@ LocalizationTaskWidget::~LocalizationTaskWidget()
     delete ui;
 }
 
+/// No-op override: this task has no config-to-task push path outside of
+/// saveConfig()/setTaskLocalizeConfig().
 void LocalizationTaskWidget::loadConfigToTask()  {}
+/// No-op override: this task has no config-to-widget pull path implemented.
 void LocalizationTaskWidget::loadConfigToWidget() {}
 
 // ──────────────────────────────────────────────────────────────────────────────
 //  initWidget
 // ──────────────────────────────────────────────────────────────────────────────
+/// Full widget initialisation: binds the underlying TaskLocalization and its
+/// config, applies the theme stylesheets, builds the property browser / nav
+/// panel / status lamps, wires device-manager and task-state signals, hooks
+/// the breadcrumb runtime buttons, and begins the Commission phase for the
+/// task before showing the Dashboard page.
+/// @note starting Commission here spins up a per-device HighPriority QThread
+/// for each currently assigned device.
 void LocalizationTaskWidget::initWidget()
 {
     if (m_task) {
@@ -163,6 +185,12 @@ void LocalizationTaskWidget::initWidget()
 // ──────────────────────────────────────────────────────────────────────────────
 //  Nav panel init
 // ──────────────────────────────────────────────────────────────────────────────
+/// Builds the left-hand nav panel: sizes the panel per the design handoff,
+/// sets fonts/text for the task header labels, styles the add-device button,
+/// configures the Dashboard/Patterns/Settings nav buttons (icons + mutually
+/// exclusive QButtonGroup + click routing), lays out the scrollable device
+/// list container, and styles the breadcrumb labels/buttons before calling
+/// rebuildDeviceNav() to populate the device list.
 void LocalizationTaskWidget::initNavPanel()
 {
     // ── Per design handoff: nav panel is 188px wide ─────────────────────────
@@ -279,6 +307,10 @@ void LocalizationTaskWidget::initNavPanel()
 // ──────────────────────────────────────────────────────────────────────────────
 //  Status lamps
 // ──────────────────────────────────────────────────────────────────────────────
+/// Dynamically builds the four status-lamp columns (READY, CAM, PLC, OUT),
+/// each a dot + text label stacked vertically, and appends them into
+/// `ui->frame_status_lamps`'s layout. Populates m_statusLamps with the
+/// created widgets and calls updateStatusLamps() to set their initial state.
 void LocalizationTaskWidget::initStatusLamps()
 {
     const QStringList labels = { "READY", "CAM", "PLC", "OUT" };
@@ -318,6 +350,13 @@ void LocalizationTaskWidget::initStatusLamps()
     updateStatusLamps();
 }
 
+/// Recomputes and applies the four status lamps' "lampState" property
+/// (on/warn/error/off) from the currently assigned devices' types (CAM/PLC/OUT
+/// presence) and the task's current TaskState (READY lamp, via
+/// readyLampStateForTask()), then re-polishes each lamp widget so the
+/// stylesheet picks up the new property value.
+/// @note the localization task has no robot; the OUT lamp tracks the
+/// assigned Vision Output device instead.
 void LocalizationTaskWidget::updateStatusLamps()
 {
     // States: [0]=READY, [1]=CAM, [2]=PLC, [3]=OUT
@@ -368,6 +407,9 @@ void LocalizationTaskWidget::updateStatusLamps()
     }
 }
 
+/// Refreshes the nav-panel state label ("STATE  <NAME>"), its "taskState"
+/// stylesheet property, and its tooltip from the underlying task's current
+/// TaskState (Idle if there is no bound task), then re-polishes the label.
 void LocalizationTaskWidget::updateTaskStateUi()
 {
     const vc::model::TaskState state =
@@ -385,6 +427,9 @@ void LocalizationTaskWidget::updateTaskStateUi()
 // ──────────────────────────────────────────────────────────────────────────────
 //  Content stack init
 // ──────────────────────────────────────────────────────────────────────────────
+/// Currently a no-op placeholder: the dashboard-page insertion logic it once
+/// held is commented out below (dashboard construction now happens lazily in
+/// showDashboardPage() instead).
 void LocalizationTaskWidget::initContentStack()
 {
     // showDashboardPage();
@@ -407,6 +452,11 @@ void LocalizationTaskWidget::initContentStack()
     // Now: 0=dashboard, 1=page_task_config (settings)
 }
 
+/// Reacts to the task's assigned-device set changing: removes and deletes
+/// content-stack pages (and their property-browser entries) for any device
+/// that is no longer assigned, resyncs the TaskRunner's per-device runners
+/// with the new set (starting/stopping as needed), and rebuilds the device
+/// nav list.
 void LocalizationTaskWidget::onTaskDevicesChanged() {
     QStringList deviceIds = m_localizeTask->assignedDeviceIds();
     // Iterate from the top down: removeWidget() shifts higher indices, so a
@@ -440,6 +490,12 @@ void LocalizationTaskWidget::onTaskDevicesChanged() {
 // ──────────────────────────────────────────────────────────────────────────────
 //  Device nav rebuild
 // ──────────────────────────────────────────────────────────────────────────────
+/// Clears and rebuilds the device-nav list widget from the task's assigned
+/// devices: sorts them by DeviceType (Camera → PLC → VisionOutput → Robot)
+/// then by name, creates a DeviceNavItemWidget per device wired to
+/// onDeviceNavClicked(), shows a "No devices assigned" placeholder label when
+/// the list is empty, and refreshes nav-item styles, status lamps, and the
+/// device-nav connection dots afterward.
 void LocalizationTaskWidget::rebuildDeviceNav()
 {
     // Clear existing items
@@ -506,6 +562,13 @@ void LocalizationTaskWidget::rebuildDeviceNav()
 // ──────────────────────────────────────────────────────────────────────────────
 //  Device nav connection dots
 // ──────────────────────────────────────────────────────────────────────────────
+/// (Re)subscribes each device-nav connection dot to its runner's
+/// connectStatusChanged signal: drops all previous subscriptions, then for
+/// each current nav item looks up its runner via TaskRunner::runnerFor(),
+/// seeds the dot from the device's current connectStatus(), and connects the
+/// runner's signal to update it going forward. Called after a nav rebuild
+/// and on task-state changes, since runners are created/destroyed across
+/// phase transitions.
 void LocalizationTaskWidget::wireDeviceNavDots()
 {
     // Drop previous subscriptions before re-binding (dots may have been
@@ -543,6 +606,11 @@ void LocalizationTaskWidget::wireDeviceNavDots()
 // ──────────────────────────────────────────────────────────────────────────────
 //  Navigation
 // ──────────────────────────────────────────────────────────────────────────────
+/// Switches the content stack to the Dashboard page, lazily constructing a
+/// LocalizationDashboardWidget (or a bare placeholder QWidget if there is no
+/// bound task) on first visit. Clears the active device selection, checks
+/// the Dashboard nav button, updates the breadcrumb, and hides the property
+/// browser.
 void LocalizationTaskWidget::showDashboardPage()
 {
     // Lazy-construct the patterns widget the first time the user clicks here.
@@ -568,6 +636,11 @@ void LocalizationTaskWidget::showDashboardPage()
     ui->wg_property_browser->setVisible(false);
 }
 
+/// Switches the content stack to the Settings page, lazily constructing a
+/// LocalizationSettingWidget (or a bare placeholder QWidget if there is no
+/// bound task) on first visit. Clears the active device selection, checks
+/// the Settings nav button, updates the breadcrumb, and hides the property
+/// browser.
 void LocalizationTaskWidget::showSettingsPage()
 {
     // Lazy-construct the patterns widget the first time the user clicks here.
@@ -596,6 +669,11 @@ void LocalizationTaskWidget::showSettingsPage()
 // ──────────────────────────────────────────────────────────────────────────────
 //  Patterns page (LocalizationTask only)
 // ──────────────────────────────────────────────────────────────────────────────
+/// Switches the content stack to the Patterns page (LocalizationTask only),
+/// lazily constructing a LocalizationPatternsWidget (or a bare placeholder
+/// QWidget if there is no bound task) on first visit. Clears the active
+/// device selection, checks the Patterns nav button, updates the breadcrumb,
+/// and hides the property browser.
 void LocalizationTaskWidget::showPatternsPage()
 {
     // Lazy-construct the patterns widget the first time the user clicks here.
@@ -619,6 +697,14 @@ void LocalizationTaskWidget::showPatternsPage()
     ui->wg_property_browser->setVisible(false);
 }
 
+/// Switches the content stack to the config page for `deviceId` (creating it
+/// on demand via getOrCreateDeviceConfigPage()), unchecks the Dashboard/
+/// Settings nav buttons, updates the breadcrumb with the device's name and
+/// device-type colour role, populates the property browser for the device,
+/// shows the property browser, and resizes the content stack/scroll area to
+/// the page's minimum size hint.
+/// @param deviceId id of the device whose config page should become active;
+/// no-op if the page cannot be resolved/created
 void LocalizationTaskWidget::showDeviceConfigPage(const QString &deviceId)
 {
     QWidget *page = getOrCreateDeviceConfigPage(deviceId);
@@ -656,17 +742,23 @@ void LocalizationTaskWidget::showDeviceConfigPage(const QString &deviceId)
     ui->scrollArea->setWidgetResizable(true);
 }
 
+/// Slot for DeviceNavItemWidget::activated: shows the config page for the
+/// clicked device.
 void LocalizationTaskWidget::onDeviceNavClicked(const QString &deviceId)
 {
     showDeviceConfigPage(deviceId);
 }
 
+/// Slot for the breadcrumb "Start" tool button: enters Runtime (non-auto)
+/// if the task is currently in the Commission phase.
 void LocalizationTaskWidget::onTbtnEnterRuntime() {
     if (m_localizeTask->taskState() == vc::model::TaskState::Commission) {
         m_localizeTask->beginRuntime(false);
     }
 }
 
+/// Slot for the breadcrumb "Stop" tool button: ends Runtime if the task is
+/// not currently in Commission, then (re-)enters Commission.
 void LocalizationTaskWidget::onTbtnExitRuntime() {
     if (m_localizeTask->taskState() != vc::model::TaskState::Commission) {
         m_localizeTask->endRuntime();
@@ -674,6 +766,8 @@ void LocalizationTaskWidget::onTbtnExitRuntime() {
     m_localizeTask->beginCommission();
 }
 
+/// Updates each device-nav item's selected/highlighted style to reflect
+/// whether its device id matches m_activeDeviceId.
 void LocalizationTaskWidget::refreshNavItemStyles()
 {
     for (auto it = m_navItems.cbegin(); it != m_navItems.cend(); ++it) {
@@ -683,6 +777,12 @@ void LocalizationTaskWidget::refreshNavItemStyles()
     }
 }
 
+/// Sets the breadcrumb's current-item label text and its "breadcrumbRole"
+/// stylesheet property (used to colour it by page/device-type), then
+/// re-polishes the label.
+/// @param label text to show in the breadcrumb
+/// @param role stylesheet role used to colour the breadcrumb (e.g. "accent",
+/// "muted", or a device-type role from DeviceNavItemWidget::roleForDeviceType())
 void LocalizationTaskWidget::updateBreadcrumb(const QString &label, const QString &role)
 {
     ui->lbl_bc_current->setText(label);
@@ -692,6 +792,12 @@ void LocalizationTaskWidget::updateBreadcrumb(const QString &label, const QStrin
     ui->lbl_bc_current->update();
 }
 
+/// Reacts to DeviceManager::deviceModified for a device assigned to this
+/// task: rebuilds the device nav (to pick up name/type changes), and if the
+/// modified device is the currently active one, refreshes the breadcrumb
+/// with its (possibly new) name and device-type colour role. No-op if the
+/// device isn't assigned to this task or can't be resolved.
+/// @param deviceId id of the device that was modified
 void LocalizationTaskWidget::onAssignedDeviceModified(const QString &deviceId)
 {
     if (!m_localizeTask || !m_localizeTask->hasDevice(deviceId))
@@ -716,6 +822,16 @@ void LocalizationTaskWidget::onAssignedDeviceModified(const QString &deviceId)
 // ──────────────────────────────────────────────────────────────────────────────
 //  Helpers
 // ──────────────────────────────────────────────────────────────────────────────
+/// Returns the cached content-stack page for `deviceId`, creating it on
+/// first request: resolves the device from the project and its runner from
+/// TaskRunner::runnerFor() (the widget never creates a worker/thread itself),
+/// builds the page via DeviceWidgetFactory::createDeviceWidget() — falling
+/// back to a plain "no configuration panel available" placeholder label if
+/// the factory returns nullptr — adds it to the content stack, and caches it
+/// in m_devicePages.
+/// @param deviceId id of the device to get/create a config page for
+/// @return the page widget, or nullptr if there is no task/project or the
+/// device id can't be resolved
 QWidget *LocalizationTaskWidget::getOrCreateDeviceConfigPage(const QString &deviceId)
 {
     if (m_devicePages.contains(deviceId))
@@ -751,6 +867,11 @@ QWidget *LocalizationTaskWidget::getOrCreateDeviceConfigPage(const QString &devi
 // ──────────────────────────────────────────────────────────────────────────────
 //  Property browser population
 // ──────────────────────────────────────────────────────────────────────────────
+/// Points the shared property browser at the device page cached for `id`:
+/// swaps in that page's own property-browser widget if it implements
+/// IDeviceWidget, otherwise falls back to the default (empty) browser. No-op
+/// if no page is cached for `id`.
+/// @param id id of the device whose page's property browser should be shown
 void LocalizationTaskWidget::populateBrowser(const QString &id)
 {
     QWidget *w = m_devicePages.value(id, nullptr);
@@ -764,6 +885,9 @@ void LocalizationTaskWidget::populateBrowser(const QString &id)
     }
 }
 
+/// Pushes the widget's current m_config back into the bound task via
+/// TaskLocalization::setTaskLocalizeConfig(). No-op if there is no bound
+/// localization task.
 void LocalizationTaskWidget::saveConfig()
 {
     if (m_localizeTask) m_localizeTask->setTaskLocalizeConfig(m_config);

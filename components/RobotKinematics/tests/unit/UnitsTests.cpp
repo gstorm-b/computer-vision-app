@@ -7,6 +7,8 @@
 #include <cmath>
 
 namespace {
+/// Reference value of pi used to check units::deg()/toDeg() conversions against a known
+/// high-precision constant rather than std::acos(-1) or similar.
 constexpr double kPi = 3.141592653589793238462643383279502884;
 }
 
@@ -36,6 +38,8 @@ void UnitsTests::convertsRadiansToDegrees()
     QVERIFY(std::abs(RobotKinematics::units::toDeg(-kPi / 2.0) + 90.0) < 1e-12);
 }
 
+/// Entry point invoked by TestMain to run the UnitsTests suite under QtTest.
+/// @return the number of failing test functions (0 on success)
 int runUnitsTests(int argc, char** argv)
 {
     UnitsTests tests;

@@ -1,6 +1,7 @@
 #include "basler_cam_select_dialog.h"
 #include "ui_basler_cam_select_dialog.h"
 
+/// Constructs the dialog: sets up ui and calls initForm().
 BaslerCamSelectDialog::BaslerCamSelectDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::BaslerCamSelectDialog) {
@@ -9,6 +10,7 @@ BaslerCamSelectDialog::BaslerCamSelectDialog(QWidget *parent)
     initForm();
 }
 
+/// Terminates get_cam_thread if it is still running, then destroys ui.
 BaslerCamSelectDialog::~BaslerCamSelectDialog() {
     if (get_cam_thread != nullptr) {
         if (get_cam_thread->isRunning()) {
@@ -18,6 +20,9 @@ BaslerCamSelectDialog::~BaslerCamSelectDialog() {
     delete ui;
 }
 
+/// One-time setup: configures the camera table (single-row selection, 7 stretched
+/// columns, non-editable), wires all button/table/dialog signals, and starts
+/// get_cam_thread if it is not already running.
 void BaslerCamSelectDialog::initForm() {
     this->setWindowTitle(tr("Balser camera selection"));
     this->setModal(true);
@@ -61,6 +66,8 @@ void BaslerCamSelectDialog::initForm() {
     }
 }
 
+/// Re-shows the dialog for a fresh selection: restarts get_cam_thread if it is not
+/// running, resets the selection state, disables the confirm button, and calls show().
 void BaslerCamSelectDialog::showCameraSelectForm() {
     if (get_cam_thread == nullptr) {
         return;
@@ -76,20 +83,27 @@ void BaslerCamSelectDialog::showCameraSelectForm() {
     this->show();
 }
 
+/// Slot for btn_refresh: restarts get_cam_thread if it is not already running.
 void BaslerCamSelectDialog::btn_refresh_clicked() {
     if (!get_cam_thread->isRunning()) {
         get_cam_thread->start();
     }
 }
 
+/// Slot for btn_cancel: rejects the dialog.
 void BaslerCamSelectDialog::btn_cancel_clicked() {
     this->reject();
 }
 
+/// Slot for btn_select_confirm: accepts the dialog.
 void BaslerCamSelectDialog::btn_select_confirm_clicked() {
     this->accept();
 }
 
+/// Slot for QDialog::finished(): if accepted with a valid row selected, emits
+/// userSelectionFinished(true, ...) with the chosen camera's info; otherwise emits
+/// userSelectionFinished(false, {}).
+/// @param state the QDialog::DialogCode the dialog finished with
 void BaslerCamSelectDialog::dialogClosing(int state) {
     if (state == QDialog::Accepted) {
         if ((m_is_selected)
@@ -102,6 +116,9 @@ void BaslerCamSelectDialog::dialogClosing(int state) {
     emit userSelectionFinished(false, Pylon::CDeviceInfo());
 }
 
+/// Slot for the table's itemSelectionChanged: recomputes m_current_select_row and
+/// m_is_selected from the table's current row, and enables/disables
+/// btn_select_confirm to match.
 void BaslerCamSelectDialog::tableViewSelectionChanged() {
     m_current_select_row = ui->tablewg_camera_list->currentRow();
     if((m_current_select_row < 0)
@@ -113,11 +130,16 @@ void BaslerCamSelectDialog::tableViewSelectionChanged() {
     ui->btn_select_confirm->setEnabled(m_is_selected);
 }
 
+/// Slot for get_cam_thread's started signal: shows a querying-in-progress status
+/// message and disables btn_refresh until the query completes.
 void BaslerCamSelectDialog::cameraWorkerStart() {
     ui->label_status->setText(tr("Please wait! Devices querying"));
     ui->btn_refresh->setEnabled(false);
 }
 
+/// Slot for get_cam_thread's resultReady signal: updates the status label,
+/// re-enables btn_refresh, copies the discovered devices into cameraDeviceList, and
+/// rebuilds the table.
 void BaslerCamSelectDialog::cameraListCame() {
     ui->label_status->setText(tr("Devices queried"));
     ui->btn_refresh->setEnabled(true);
@@ -130,6 +152,7 @@ void BaslerCamSelectDialog::cameraListCame() {
     }
 }
 
+/// Removes all rows from the camera table widget.
 void BaslerCamSelectDialog::clearCameraTableView() {
     int removeRow = ui->tablewg_camera_list->rowCount();
     for(int removeCounter=0;removeCounter<removeRow;removeCounter++) {
@@ -137,6 +160,10 @@ void BaslerCamSelectDialog::clearCameraTableView() {
     }
 }
 
+/// Appends one row to the camera table populated from `info` (model name,
+/// user-defined ID, serial number, IP/MAC address, subnet mask, and an
+/// accessibility-derived status of "Ok"/"In use").
+/// @param info the Pylon device info to render as a new row
 void BaslerCamSelectDialog::cameraTableViewAddNewRow(Pylon::CDeviceInfo &info) {
     QTableWidgetItem *nameItem = new QTableWidgetItem();
     QTableWidgetItem *userIDItem = new QTableWidgetItem();

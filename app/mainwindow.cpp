@@ -34,10 +34,17 @@
 #include "ui/forms/task/localization_dashboard_widget.h"
 #include "ui/forms/task/localization_patterns_widget.h"
 
+/// Advanced Docking System types (CDockManager, CDockWidget, etc.) used unqualified below.
 using namespace ads;
+/// Shorthand for the project model type managed by this window.
 using Project     = vc::model::Project;
+/// Shorthand for the repository used to load/save Project (.vproj) files.
 using ProjectRepo = vc::model::ProjectRepository;
 
+/// Constructs the main window: builds the generated UI, toolbar actions, and dock layout,
+/// then initializes project state to "no project open" and restores the last-used folder
+/// from AppSettings. Wires the project tree widget's signals to the corresponding slots.
+/// @param parent optional parent widget
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow) {
@@ -71,10 +78,14 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::onDeleteTaskRequested);
 }
 
+/// Destroys the main window and releases the generated UI object.
 MainWindow::~MainWindow() {
     delete ui;
 }
 
+/// Handles the window close request: prompts to save configuration, then accepts/ignores
+/// the event and runs shutdown cleanup depending on the user's choice.
+/// @param event the close event to accept or ignore
 void MainWindow::closeEvent(QCloseEvent *event) {
     QMessageBox::StandardButton resBtn = QMessageBox::question(
         this, windowTitle(),
@@ -100,12 +111,17 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     }
 }
 
+/// Persists the last-used folder to AppSettings and releases the current project (if any)
+/// as part of application shutdown.
 void MainWindow::handleCloseEvent() {
     AppSettings::instance()->setLastFolderAccessDir(m_lastFolderDir);
     if (m_project)
         m_project.reset();
 }
 
+/// Builds the file and task toolbars' actions, wires their triggers (and the equivalent
+/// menu actions) to the corresponding slots, and populates the Theme and Language submenus
+/// under the View menu from ThemeManager and the supported UI languages.
 void MainWindow::createToolBarActions() {
     QToolBar *tbar = ui->toolBar_file;
     tbar->setFloatable(false);
@@ -176,6 +192,7 @@ void MainWindow::createToolBarActions() {
     m_actGrpLanguage = new QActionGroup(this);
     m_actGrpLanguage->setExclusive(true);
 
+    /// One entry in the Language submenu: an internal language id paired with its display name.
     struct LangEntry { QString id; QString display; };
     const QList<LangEntry> languages = {
         { QStringLiteral("en"),    tr("English") },
@@ -197,6 +214,10 @@ void MainWindow::createToolBarActions() {
             this, &MainWindow::onLanguageAction);
 }
 
+/// Configures the Advanced Docking System's global flags, creates the CDockManager hosted
+/// in ui->wg_dock, and adds the always-present system-log dock and central "anchor" dock
+/// (a non-closable, non-floatable placeholder used as the docking target for task/device
+/// widgets).
 void MainWindow::createMainContents() {
     CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
     CDockManager::setAutoHideConfigFlags({CDockManager::DefaultAutoHideConfig});
@@ -231,10 +252,14 @@ void MainWindow::createMainContents() {
     m_dockManager->addDockWidget(ads::CenterDockWidgetArea, m_anchorDock.get());
 }
 
+/// Updates the access-level menu title to reflect the current privilege level.
+/// @param isAdmin true to show "Admin", false to show "Standard"
 void MainWindow::updateAccessLevelLabel(bool isAdmin) {
     ui->menuAccessLevel->setTitle(isAdmin ? tr("Admin") : tr("Standard"));
 }
 
+/// Refreshes the window title from the current project's name and dirty/unsaved state;
+/// falls back to a "No Project opened" title when no project is open or it has no name.
 void MainWindow::updateWindowTitle() {
     if (!m_project) {
         setWindowTitle(tr("NCR-PICKING (No Project opened)"));
@@ -253,10 +278,14 @@ void MainWindow::updateWindowTitle() {
     setWindowTitle(tr("Project: %1").arg(m_currentProjectName) + dirtyMark);
 }
 
+/// Enables or disables the task toolbar depending on whether a project is open.
+/// @param enabled true to enable the task toolbar
 void MainWindow::setProjectEnabled(bool enabled) {
     ui->toolBar_task->setEnabled(enabled);
 }
 
+/// Prompts the user to save (or discard) the current project before closing it.
+/// @return true if the project was closed (saved or discarded), false if the user cancelled
 bool MainWindow::confirmCloseProject() {
     QMessageBox::StandardButton resBtn = QMessageBox::question(
         this, windowTitle(),
@@ -278,10 +307,18 @@ bool MainWindow::confirmCloseProject() {
     }
 }
 
+/// Returns whether a project is currently open (i.e. m_project holds an instance).
 bool MainWindow::isProjectOpen() const {
     return (m_project.get() != nullptr);
 }
 
+/// Saves the current project to `path`, creating a new project file first if it doesn't
+/// exist yet or `saveAs` is set. Validates the target has a ".vproj" extension and an
+/// absolute path before writing; on success updates the project's timestamp, clears the
+/// dirty flag, refreshes the window title, and records the path in the recent-paths list.
+/// @param path destination file path
+/// @param saveAs when true, always creates a new project file at `path` instead of
+///        overwriting an existing one in place
 void MainWindow::saveToFile(const QString &path, bool saveAs) {
     const bool isNew = (!QFile::exists(path) || saveAs);
     const QString timeStr = QDateTime::currentDateTime().toString(Qt::ISODate);
@@ -317,11 +354,15 @@ void MainWindow::saveToFile(const QString &path, bool saveAs) {
     addRecentPath(path);
 }
 
+/// Adds `path` to the front of the recent-paths list if it isn't already present.
 void MainWindow::addRecentPath(const QString &path) {
     if (!m_recentPaths.contains(path))
         m_recentPaths.push_front(path);
 }
 
+/// Prompts to save the current project if it has unsaved changes (or has never been saved).
+/// @return true if it is safe to proceed (saved, discarded, or nothing to save), false if
+///         the user cancelled or the save attempt left the project still dirty
 bool MainWindow::maybeSave() {
     if (!(m_isDirty || (m_projectFilePath.isEmpty() && m_project)))
         return true;
@@ -342,6 +383,10 @@ bool MainWindow::maybeSave() {
     return false;
 }
 
+/// Updates window/project state after a project is created or loaded: records the file
+/// path, clears the dirty flag, refreshes the window title and recent-paths list, and
+/// refreshes the project tree widget with the new project name and contents.
+/// @param path the project's file path (may be empty for a not-yet-saved new project)
 void MainWindow::refreshUIForProject(const QString &path) {
     m_projectFilePath = path;
     m_isDirty         = false;
@@ -351,6 +396,9 @@ void MainWindow::refreshUIForProject(const QString &path) {
     ui->proj_treeview_wg->refreshTree();
 }
 
+/// Connects the current project's signals (modification, device/task creation and
+/// deletion, per-task device-assignment changes) to the slots and tree-refresh handlers
+/// that keep the UI in sync. No-op if no project is open.
 void MainWindow::connectProjectSignals() {
     if (!m_project) return;
 
@@ -382,6 +430,8 @@ void MainWindow::connectProjectSignals() {
     }
 }
 
+/// Creates the project-information dock widget for m_project and docks it at the center
+/// anchor; connects its projectModified signal to onProjectModified.
 void MainWindow::createProjectInfoDock() {
     m_projectInfoWidget = new ProjectInforSetting(m_project);
     m_projectInfoDock.reset(new ads::CDockWidget(tr("Project infromation")));
@@ -398,12 +448,15 @@ void MainWindow::createProjectInfoDock() {
             this, &MainWindow::onProjectModified);
 }
 
+/// Removes and releases the project-information dock widget, if one exists.
 void MainWindow::removeProjectInfoDock() {
     if (!m_projectInfoDock) return;
     m_dockManager->removeDockWidget(m_projectInfoDock.get());
     m_projectInfoDock.reset();
 }
 
+/// Removes and clears all device and task dock widgets (including task child docks) that
+/// were created for the current project, in preparation for closing it.
 void MainWindow::closeAllDockTabs() {
     // remove all devices docks
     QMap<QString, UIDeviceEntry>::const_iterator devIt = m_deviceEntries.cbegin();
@@ -436,6 +489,9 @@ void MainWindow::closeAllDockTabs() {
 
 // ── Slots ─────────────────────────────────────────────────────────────────────
 
+/// Slot: prompts to save/close any open project, then runs the New Project dialog and, if
+/// accepted, creates a new Project with the entered name/description and wires it into the
+/// UI (tree, info dock, signals).
 void MainWindow::onNewProject() {
     if (!maybeSave()) return;
     if (m_project) onCloseProject();
@@ -457,6 +513,9 @@ void MainWindow::onNewProject() {
     connectProjectSignals();
 }
 
+/// Slot: prompts to save/close any open project, then lets the user pick a .vproj file and
+/// loads it via ProjectRepo; on success wires the loaded project into the UI (tree, info
+/// dock, signals), on failure shows an error dialog.
 void MainWindow::onOpenProject() {
     if (!maybeSave()) return;
     if (m_project) onCloseProject();
@@ -486,6 +545,8 @@ void MainWindow::onOpenProject() {
     connectProjectSignals();
 }
 
+/// Slot: saves the current project, delegating to onSaveAsProject() if it has never been
+/// saved to a file yet.
 void MainWindow::onSaveProject() {
     if (!m_project) return;
     if (m_projectFilePath.isEmpty()) {
@@ -495,6 +556,8 @@ void MainWindow::onSaveProject() {
     saveToFile(m_projectFilePath);
 }
 
+/// Slot: prompts for a destination .vproj file and saves the current project there as a
+/// new file.
 void MainWindow::onSaveAsProject() {
     if (!m_project) return;
 
@@ -510,6 +573,8 @@ void MainWindow::onSaveAsProject() {
     saveToFile(path, true);
 }
 
+/// Slot: closes the current project, clearing the tree, info dock, and all task/device
+/// docks, and resets the window title and file-path/dirty state.
 void MainWindow::onCloseProject() {
     if (!m_project) return;
 
@@ -523,12 +588,16 @@ void MainWindow::onCloseProject() {
     m_isDirty         = false;
 }
 
+/// Slot: marks the project dirty and refreshes the window title and tree's project-name
+/// label in response to a projectModificationOccurred signal.
 void MainWindow::onProjectModified() {
     m_isDirty = true;
     updateWindowTitle();
     ui->proj_treeview_wg->changeProjectName(m_project->name());
 }
 
+/// Slot: shows and focuses the System Log dock, (re)adding it to the dock manager first if
+/// it isn't present or has been closed.
 void MainWindow::onSystemLogAction() {
     if (!m_dockManager->findDockWidget("System log")) {
         m_dockManager->addDockWidget(ads::CenterDockWidgetArea, m_systemLogDock.get(),
@@ -544,14 +613,21 @@ void MainWindow::onSystemLogAction() {
     m_systemLogDock->setFocus();
 }
 
+/// Slot: switches the access-level label to "Standard".
 void MainWindow::onPrivilegeStandard() {
     updateAccessLevelLabel(false);
 }
 
+/// Slot: switches the access-level label to "Admin".
 void MainWindow::onPrivilegeAdmin() {
     updateAccessLevelLabel(true);
 }
 
+/// Slot: reflects the active ThemeManager style in the Theme menu's checked action (signals
+/// blocked while updating to avoid re-triggering) and refreshes the project tree so it
+/// repaints with the new theme.
+/// @param styleId id of the newly active theme style
+/// @param isDark unused: whether the new style is a dark theme
 void MainWindow::onThemeChanged(const QString &styleId, bool isDark) {
     Q_UNUSED(isDark)
     for (QAction *act : m_actGrpTheme->actions()) {
@@ -562,6 +638,9 @@ void MainWindow::onThemeChanged(const QString &styleId, bool isDark) {
         ui->proj_treeview_wg->refreshTree();
 }
 
+/// Slot: adds a menu entry for a theme style newly registered with ThemeManager, unless one
+/// already exists for its id.
+/// @param style the newly registered theme style
 void MainWindow::onThemeStyleRegistered(ThemeStyle style) {
     for (QAction *act : m_actGrpTheme->actions()) {
         if (act->data().toString() == style.id) return;
@@ -573,6 +652,9 @@ void MainWindow::onThemeStyleRegistered(ThemeStyle style) {
     m_actGrpTheme->addAction(act);
 }
 
+/// Slot: persists the language chosen from the Language submenu to AppSettings and informs
+/// the user the change takes effect on next application start.
+/// @param act the triggered language action; its data() holds the language id
 void MainWindow::onLanguageAction(QAction *act) {
     AppSettings::instance()->setLanguage(act->data().toString());
     QMessageBox::information(this,
@@ -580,9 +662,14 @@ void MainWindow::onLanguageAction(QAction *act) {
         tr("The language change will take effect the next time the application is started."));
 }
 
+/// Slot: currently unimplemented (empty body); reserved for a future project-info dock
+/// toggle action.
 void MainWindow::onProjectInfoDock() {
 }
 
+/// Slot: shows and focuses the dock widget for the device double-clicked in the project
+/// tree, creating it via onDeviceCreated() first if it doesn't exist yet.
+/// @param id id of the double-clicked device
 void MainWindow::onDeviceDoubleClicked(const QString &id) {
     const auto it = m_deviceEntries.constFind(id);
     const bool found = (it != m_deviceEntries.constEnd());
@@ -609,6 +696,12 @@ void MainWindow::onDeviceDoubleClicked(const QString &id) {
     entry.dockWidget->setFocus();
 }
 
+/// Slot: shows and focuses the dock widget for the task (or one of its child widgets)
+/// double-clicked in the project tree, creating the task's docks via onTaskCreated() first
+/// if they don't exist yet.
+/// @param id id of the double-clicked task
+/// @param widgetName name of the specific child widget to focus; empty selects the task's
+///        own dock widget
 void MainWindow::onTaskDoubleClicked(const QString &id, const QString &widgetName) {
     const auto it = m_taskEntries.constFind(id);
     const bool found = (it != m_taskEntries.constEnd());
@@ -640,6 +733,10 @@ void MainWindow::onTaskDoubleClicked(const QString &id, const QString &widgetNam
     dockWidget->setFocus();
 }
 
+/// Slot: intended to create the dock widget for a newly created device.
+/// @note currently only validates that the project and device exist and logs an error
+///       otherwise; it does not yet create or register a device widget/dock.
+/// @param id id of the newly created device
 void MainWindow::onDeviceCreated(const QString &id) {
     if (!m_project) {
         LOG_DEV_ERR << "Cannot create device widget, m_project is null.";
@@ -653,6 +750,8 @@ void MainWindow::onDeviceCreated(const QString &id) {
     }
 }
 
+/// Slot: removes and erases the dock entry registered for a deleted device, if one exists.
+/// @param id id of the deleted device
 void MainWindow::onDeviceDeleted(const QString &id) {
     const auto it = m_deviceEntries.find(id);
     if (it == m_deviceEntries.end()) return;
@@ -661,6 +760,10 @@ void MainWindow::onDeviceDeleted(const QString &id) {
     m_deviceEntries.erase(it);
 }
 
+/// Slot: builds the dock widget(s) for a newly created task via createTaskEntry(), wires the
+/// task's devicesChanged signal to refresh the project tree, and registers the resulting
+/// entry in m_taskEntries.
+/// @param id id of the newly created task
 void MainWindow::onTaskCreated(const QString &id) {
     if (!m_project) {
         LOG_DEV_ERR << "Cannot create task widget, m_project is null.";
@@ -680,6 +783,9 @@ void MainWindow::onTaskCreated(const QString &id) {
     m_taskEntries.insert(id, entry);
 }
 
+/// Slot: removes and erases the dock entry (and any child docks) registered for a deleted
+/// task, if one exists.
+/// @param id id of the deleted task
 void MainWindow::onTaskDeleted(const QString &id) {
     const auto it = m_taskEntries.find(id);
     if (it == m_taskEntries.end()) return;
@@ -696,6 +802,9 @@ void MainWindow::onTaskDeleted(const QString &id) {
 
 // ── New tree action slots ─────────────────────────────────────────────────────
 
+/// Slot: runs the Add Device wizard for `taskId` and, if accepted, assigns the chosen device
+/// to the task (the resulting devicesChanged signal refreshes the project tree).
+/// @param taskId id of the task to add a device to
 void MainWindow::onAddDeviceToTaskRequested(const QString &taskId) {
     if (!m_project) return;
 
@@ -713,6 +822,10 @@ void MainWindow::onAddDeviceToTaskRequested(const QString &taskId) {
     // emits devicesChanged → refreshTree
 }
 
+/// Slot: prompts the user to pick a destination task (any task other than `taskId`) and, if
+/// one is chosen, moves the device from `taskId` to it.
+/// @param taskId id of the task the device currently belongs to
+/// @param deviceId id of the device to move
 void MainWindow::onMoveDeviceRequested(const QString &taskId,
                                        const QString &deviceId)
 {
@@ -749,6 +862,10 @@ void MainWindow::onMoveDeviceRequested(const QString &taskId,
     }
 }
 
+/// Slot: confirms with the user, then unassigns the device from the task and releases it
+/// from the device manager (which closes its dock via deviceDeleted).
+/// @param taskId id of the task the device is assigned to
+/// @param deviceId id of the device to remove
 void MainWindow::onDeleteDeviceRequested(const QString &taskId,
                                          const QString &deviceId)
 {
@@ -772,6 +889,9 @@ void MainWindow::onDeleteDeviceRequested(const QString &taskId,
     LOG_USER_INFO << QString("Device %1 removed from task %2").arg(deviceId, taskId);
 }
 
+/// Slot: confirms with the user, then unassigns and releases every device owned by the task
+/// before removing the task itself.
+/// @param taskId id of the task to delete
 void MainWindow::onDeleteTaskRequested(const QString &taskId)
 {
     if (!m_project) return;
@@ -799,6 +919,11 @@ void MainWindow::onDeleteTaskRequested(const QString &taskId)
     LOG_USER_INFO << QString("Task %1 deleted").arg(taskId);
 }
 
+/// Sets `widget` as the content of `dock` and marks the dock closable, floatable, movable,
+/// and pinnable (the standard feature set for task/device docks, as opposed to the fixed
+/// anchor dock).
+/// @param dock the dock widget to configure
+/// @param widget the content widget to host in `dock`
 static void configureDockWidget(ads::CDockWidget *dock, QWidget *widget) {
     dock->setWidget(widget);
     dock->setFeature(ads::CDockWidget::DockWidgetClosable,  true);
@@ -807,6 +932,12 @@ static void configureDockWidget(ads::CDockWidget *dock, QWidget *widget) {
     dock->setFeature(ads::CDockWidget::DockWidgetPinnable,  true);
 }
 
+/// Builds a UITaskEntry hosting a new widget of type `T` for `task`, wrapped in a dock
+/// widget named "<task name> - <entryName>" and configured via configureDockWidget().
+/// @tparam T widget type to instantiate; must be constructible from (task, dock)
+/// @param entryName label used in the dock's title and as the entry's name/map key
+/// @param task the task the new widget is bound to
+/// @return the populated UITaskEntry (name, dockWidget, widget)
 template <typename T>
 static UITaskEntry makeTaskEntry(const QString &entryName,
                                  std::shared_ptr<vc::model::ITask> task) {
@@ -820,6 +951,12 @@ static UITaskEntry makeTaskEntry(const QString &entryName,
     return entry;
 }
 
+/// Dispatches to the widget-factory method matching `task`'s type; currently only
+/// LocalizationTask is handled.
+/// @param task the task to build UI for
+/// @param anchorDock dock area used as the docking target for the new widget(s)
+/// @return the created UITaskEntry, or a default-constructed (empty) one if `task` is null
+///         or its type has no matching factory
 UITaskEntry MainWindow::createTaskEntry(std::shared_ptr<vc::model::ITask> task,
                                         ads::CDockWidget *anchorDock) {
     if (!task) return UITaskEntry();
@@ -832,6 +969,15 @@ UITaskEntry MainWindow::createTaskEntry(std::shared_ptr<vc::model::ITask> task,
     return UITaskEntry();
 }
 
+/// Creates the dock widget and LocalizationTaskWidget for a localization task, connects its
+/// addDeviceRequested signal to onAddDeviceToTaskRequested, docks it under `anchorDock`, and
+/// makes it the current tab.
+/// @note the dashboard/patterns/calibration child-widget entries are commented out
+///       (not yet wired up) -- only the main task widget is created.
+/// @param task the localization task to build UI for
+/// @param anchorDock dock area used as the docking target for the new widget
+/// @return the populated UITaskEntry, or a default-constructed one if `task` is null or its
+///         widget fails to create
 UITaskEntry MainWindow::createLocalizationEntry(std::shared_ptr<vc::model::ITask> task,
                                                 ads::CDockWidget *anchorDock) {
     UITaskEntry entry;

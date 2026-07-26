@@ -16,6 +16,14 @@
 
 #include "core/logger/app_logger.h"
 
+/// Application entry point: initializes the Basler Pylon runtime, constructs the QApplication,
+/// loads the saved UI language and installs the matching translator (falling back to the OS
+/// locale for the legacy "system" setting, or to English for "en"/unrecognized values),
+/// initializes AppSettings and ThemeManager (before any widgets are created), then creates and
+/// shows the MainWindow and enters the Qt event loop.
+/// @param argc argument count forwarded to QApplication
+/// @param argv argument vector forwarded to QApplication
+/// @return the Qt event loop's exit code (QApplication::exec() return value)
 int main(int argc, char *argv[]) {
     // pylon runtime initialize
     Pylon::PylonAutoInitTerm autoInitTerm;

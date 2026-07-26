@@ -44,10 +44,15 @@ namespace {
 // ── MatchingType ↔ string ────────────────────────────────────────────────────
 // MatchingType is a plain enum class (no Q_ENUM), so we hand-roll the mapping
 // to keep the JSON stable across future enum re-orderings.
+/// Converts a MatchingType to its stable JSON string ("Edge-Based",
+/// "Correlation") via matchingTypeName().
 QString matchingTypeToString(MatchingType t) {
     return QString::fromLatin1(matchingTypeName(t));
 }
 
+/// Parses the JSON `"matchingType"` string back to a MatchingType.
+/// @return `defaultValue` (EdgeBased unless overridden) if `s` matches
+/// neither known literal.
 MatchingType matchingTypeFromString(const QString &s,
                                     MatchingType defaultValue = MatchingType::EdgeBased) {
     if (s == QLatin1String("Edge-Based"))  return MatchingType::EdgeBased;
@@ -57,6 +62,7 @@ MatchingType matchingTypeFromString(const QString &s,
 
 // ── EdgeMatchConfig ↔ JSON ───────────────────────────────────────────────────
 
+/// Serialises every EdgeMatchConfig field to a flat JSON object.
 QJsonObject edgeConfigToJson(const EdgeMatchConfig &c) {
     QJsonObject o;
     o["threshLower"]           = c.threshLower;
@@ -76,6 +82,8 @@ QJsonObject edgeConfigToJson(const EdgeMatchConfig &c) {
     return o;
 }
 
+/// Reads every EdgeMatchConfig field from `o` back into `c`, leaving each
+/// field at its current value when the corresponding JSON key is missing.
 void edgeConfigFromJson(const QJsonObject &o, EdgeMatchConfig &c) {
     c.threshLower           = o["threshLower"]          .toDouble(c.threshLower);
     c.threshUpper           = o["threshUpper"]          .toDouble(c.threshUpper);
@@ -95,6 +103,9 @@ void edgeConfigFromJson(const QJsonObject &o, EdgeMatchConfig &c) {
 
 // ── MatchPatternConfig ↔ JSON ────────────────────────────────────────────────
 
+/// Serialises identity, matching, and picking-geometry fields of a
+/// MatchPatternConfig to JSON (pickPosition/pickingBoxSize/pickingOffset as
+/// nested x/y[/z] objects).
 QJsonObject patternConfigToJson(const MatchPatternConfig &c) {
     QJsonObject o;
     o["name"]           = QString::fromStdWString(c.m_patternName);
@@ -120,6 +131,8 @@ QJsonObject patternConfigToJson(const MatchPatternConfig &c) {
     return o;
 }
 
+/// Reconstructs a MatchPatternConfig from JSON produced by
+/// patternConfigToJson(); missing numeric fields default to 0/0.0.
 MatchPatternConfig patternConfigFromJson(const QJsonObject &o) {
     MatchPatternConfig c;
     c.m_patternName    = o["name"].toString().toStdWString();
@@ -149,6 +162,9 @@ MatchPatternConfig patternConfigFromJson(const QJsonObject &o) {
 
 // ── MatchGroupConfig ↔ JSON ──────────────────────────────────────────────────
 
+/// Serialises `group`'s identity/sort fields, its matching-type name and
+/// algorithm config (only for Edge-Based groups, via edgeConfig()), and the
+/// JSON-encoded config of every pattern it contains.
 QJsonObject groupToJson(const MatchGroup &group) {
     const MatchGroupConfig &g = group.config();
     QJsonObject o;
@@ -170,6 +186,11 @@ QJsonObject groupToJson(const MatchGroup &group) {
     return o;
 }
 
+/// Reconstructs a MatchGroupConfig (identity, sort fields, matching type and
+/// its type-specific config) from JSON produced by groupToJson().
+/// @note the `"patterns"` array is not consumed here; PatternGroupManager::
+/// fromJson() inserts patterns afterwards via addPattern() so MatchPattern
+/// instances are created (and validated) correctly.
 MatchGroupConfig groupConfigFromJson(const QJsonObject &o) {
     MatchGroupConfig g;
     g.m_groupName  = o["name"].toString().toStdWString();
@@ -190,46 +211,62 @@ MatchGroupConfig groupConfigFromJson(const QJsonObject &o) {
 } // anonymous namespace
 
 
+/// Constructs an empty manager (no groups) with the given optional QObject
+/// parent.
 PatternGroupManager::PatternGroupManager(QObject *parent)
     : QObject{parent} {
 
 }
 
+/// Default destructor; m_groups' shared_ptrs release their MatchGroup
+/// instances as the list is destroyed.
 PatternGroupManager::~PatternGroupManager() {
 
 }
 
 // ── Group queries ─────────────────────────────────────────────────────────────
+/// Returns the current list of groups (a copy of the internal list of
+/// shared_ptrs, so iterating it is safe even if the manager is mutated
+/// concurrently by the caller).
 QList<std::shared_ptr<MatchGroup>> PatternGroupManager::groups() const {
     return m_groups;
 }
 
+/// Linear search for the group whose name matches `name` exactly.
+/// @return the matching group, or nullptr if none exists.
 std::shared_ptr<MatchGroup> PatternGroupManager::findGroupByName(const QString &name) const {
     for (std::shared_ptr<MatchGroup> g : m_groups)
         if (QString::fromStdWString(g->name()) == name) return g;
     return nullptr;
 }
 
+/// Linear search for the group whose number matches `number`.
+/// @return the matching group, or nullptr if none exists.
 std::shared_ptr<MatchGroup> PatternGroupManager::findGroupByNumber(int number) const {
     for (std::shared_ptr<MatchGroup> g : m_groups)
         if (g->number() == number) return g;
     return nullptr;
 }
 
+/// @return true if a group named `name` exists.
 bool PatternGroupManager::containsGroupName(const QString &name) const {
     return findGroupByName(name) != nullptr;
 }
 
+/// @return true if a group numbered `number` exists.
 bool PatternGroupManager::containsGroupNumber(int number) const {
     return findGroupByNumber(number) != nullptr;
 }
 
+/// Returns the number of groups currently held.
 int PatternGroupManager::groupCount() const {
     return m_groups.size();
 }
 
 // ── Group mutations ───────────────────────────────────────────────────────────
 
+/// Validates `config` (see validateGroupConfig()), then constructs a new
+/// MatchGroup, appends it to m_groups, and emits groupAdded().
 ManagerResult PatternGroupManager::addGroup(const MatchGroupConfig &config) {
     if (auto r = validateGroupConfig(config); !r)
         return r;
@@ -242,6 +279,9 @@ ManagerResult PatternGroupManager::addGroup(const MatchGroupConfig &config) {
     return ManagerResult::success();
 }
 
+/// Finds the group named `groupName`, removes it from m_groups, and emits
+/// groupRemoved() with a copy of its config as it was before removal.
+/// @return failure if no group named `groupName` exists.
 ManagerResult PatternGroupManager::removeGroup(const QString &groupName) {
     std::shared_ptr<MatchGroup> group = findGroupByName(groupName);
     if (!group) {
@@ -256,6 +296,8 @@ ManagerResult PatternGroupManager::removeGroup(const QString &groupName) {
     return ManagerResult::success();
 }
 
+/// Resolves `number` to a group name and delegates to removeGroup().
+/// @return failure if no group with `number` exists.
 ManagerResult PatternGroupManager::removeGroupByNumber(int number) {
     std::shared_ptr<MatchGroup> group = findGroupByNumber(number);
     if (!group) {
@@ -265,6 +307,9 @@ ManagerResult PatternGroupManager::removeGroupByNumber(int number) {
     return removeGroup(QString::fromStdWString(group->name()));
 }
 
+/// Finds the group named `currentName`, validates `newConfig` (excluding the
+/// group's own current name from the collision check), then replaces its
+/// config and emits groupChanged(group, "*") on success.
 ManagerResult PatternGroupManager::setGroupConfig(const QString &currentName,
                                                   const MatchGroupConfig &newConfig) {
     std::shared_ptr<MatchGroup> group = findGroupByName(currentName);
@@ -281,6 +326,10 @@ ManagerResult PatternGroupManager::setGroupConfig(const QString &currentName,
     return r;
 }
 
+/// Renames the group `currentName` to `newName`: succeeds as a no-op if the
+/// names are equal, fails if `newName` is blank/whitespace-only or already
+/// used by another group, otherwise renames and emits
+/// groupChanged(group, "name").
 ManagerResult PatternGroupManager::renameGroup(const QString &currentName,
                                                const QString &newName) {
     if (currentName == newName) {
@@ -307,6 +356,9 @@ ManagerResult PatternGroupManager::renameGroup(const QString &currentName,
     return r;
 }
 
+/// Reassigns the number of group `groupName` to `newNumber`: succeeds as a
+/// no-op if unchanged, fails if `newNumber` is already used by another
+/// group, otherwise renumbers and emits groupChanged(group, "number").
 ManagerResult PatternGroupManager::renumberGroup(const QString &groupName,
                                                  int newNumber) {
     std::shared_ptr<MatchGroup> group = findGroupByName(groupName);
@@ -331,6 +383,11 @@ ManagerResult PatternGroupManager::renumberGroup(const QString &groupName,
 
 // ── Pattern mutations (pass-throughs) ─────────────────────────────────────────
 
+/// Delegates to MatchGroup::addPattern() on group `groupName`, then emits
+/// patternAdded() unconditionally (using group->lastPatternAccess(), which
+/// is only meaningful when the add actually succeeded).
+/// @note patternAdded is emitted even when `result` is a failure; callers
+/// must still check the returned ManagerResult.
 ManagerResult PatternGroupManager::addPattern(const QString &groupName,
                                               const MatchPatternConfig &config) {
     std::shared_ptr<MatchGroup> group = findGroupByName(groupName);
@@ -344,6 +401,9 @@ ManagerResult PatternGroupManager::addPattern(const QString &groupName,
     return result;
 }
 
+/// Delegates to MatchGroup::removePattern() on group `groupName`.
+/// @note unlike the other pattern mutators, this does not emit
+/// patternRemoved (see the signal's declaration in pattern_group_manager.h).
 ManagerResult PatternGroupManager::removePattern(const QString &groupName,
                                                  const QString &patternName) {
     std::shared_ptr<MatchGroup> group = findGroupByName(groupName);
@@ -354,6 +414,9 @@ ManagerResult PatternGroupManager::removePattern(const QString &groupName,
     return group->removePattern(patternName.toStdWString());
 }
 
+/// Delegates to MatchGroup::setPatternConfig() on group `groupName`; on
+/// success, resolves the pattern by its (possibly new) name from `newConfig`
+/// and emits patternChanged(group, pattern, "*").
 ManagerResult PatternGroupManager::setPatternConfig(const QString &groupName,
                                                     const QString &currentPatternName,
                                                     const MatchPatternConfig &newConfig) {
@@ -371,6 +434,9 @@ ManagerResult PatternGroupManager::setPatternConfig(const QString &groupName,
     return r;
 }
 
+/// Delegates to MatchGroup::renamePattern() on group `groupName`; on
+/// success, resolves the pattern by its new name and emits
+/// patternChanged(group, pattern, "name").
 ManagerResult PatternGroupManager::renamePattern(const QString &groupName,
                                                  const QString &currentName,
                                                  const QString &newName)
@@ -388,6 +454,9 @@ ManagerResult PatternGroupManager::renamePattern(const QString &groupName,
     return r;
 }
 
+/// Delegates to MatchGroup::renumberPattern() on group `groupName`; on
+/// success, resolves the pattern (name is unchanged by a renumber) and
+/// emits patternChanged(group, pattern, "number").
 ManagerResult PatternGroupManager::renumberPattern(const QString &groupName,
                                                    const QString &patternName,
                                                    int newNumber)
@@ -405,6 +474,9 @@ ManagerResult PatternGroupManager::renumberPattern(const QString &groupName,
     return r;
 }
 
+/// Delegates to MatchGroup::setPatternImage() on group `groupName`; on
+/// success, resolves the pattern by name and emits
+/// patternChanged(group, pattern, "image").
 ManagerResult PatternGroupManager::setPatternImage(const QString &groupName,
                                                    const QString &patternName,
                                                    const cv::Mat &image)
@@ -424,6 +496,8 @@ ManagerResult PatternGroupManager::setPatternImage(const QString &groupName,
 
 // ── Bulk operations ───────────────────────────────────────────────────────────
 
+/// Sorts m_groups in-place by ascending MatchGroup::number() and emits
+/// groupsReordered() with the new order.
 void PatternGroupManager::sortGroupsByNumber()
 {
     std::sort(m_groups.begin(), m_groups.end(),
@@ -433,6 +507,10 @@ void PatternGroupManager::sortGroupsByNumber()
     emit groupsReordered(m_groups);
 }
 
+/// Sorts the patterns of group `groupName` in-place by ascending
+/// MatchPattern::number() (reaching into MatchGroup::m_patterns directly via
+/// friend access) and emits groupChanged(group, "patternsReordered").
+/// @return failure if no group named `groupName` exists.
 ManagerResult PatternGroupManager::sortPatternsByNumber(const QString &groupName)
 {
     std::shared_ptr<MatchGroup> group = findGroupByName(groupName);
@@ -453,6 +531,10 @@ ManagerResult PatternGroupManager::sortPatternsByNumber(const QString &groupName
 
 // ── Private ───────────────────────────────────────────────────────────────────
 
+/// Rejects `cfg` if its name is empty, or if any existing group other than
+/// `excludeName` already has the same name or the same number.
+/// `excludeName` is passed by callers that are reconfiguring/renaming a
+/// group in place, so the group does not collide with its own prior state.
 ManagerResult PatternGroupManager::validateGroupConfig(
     const MatchGroupConfig &cfg, const QString &excludeName) const
 {
@@ -471,6 +553,8 @@ ManagerResult PatternGroupManager::validateGroupConfig(
     return ManagerResult::success();
 }
 
+/// Builds the `{ "groups": [...] }` document for the whole library by
+/// mapping groupToJson() over every group in m_groups.
 QJsonObject PatternGroupManager::toJson() const {
     QJsonArray groupsArr;
     for (const auto &group : m_groups)
@@ -481,6 +565,12 @@ QJsonObject PatternGroupManager::toJson() const {
     return o;
 }
 
+/// Clears every existing group, then rebuilds the library from `obj`
+/// (schema produced by toJson()): decodes and addGroup()s each group, then
+/// addPattern()s each of its patterns. Failures on individual groups/
+/// patterns are logged via LOG_DEV_ERR and skipped rather than aborting the
+/// whole load.
+/// @return true only if every group and pattern loaded without error.
 bool PatternGroupManager::fromJson(const QJsonObject &obj) {
     // Reset to empty state.  No clearAll() exists, so iterate by number;
     // groups() returns a snapshot copy, so removing during iteration is safe.

@@ -11,14 +11,22 @@
 
 #include <set>
 
+/// Robot kinematics core: configuration model, forward/inverse solvers, and JSON preset loading.
 namespace RobotKinematics {
 
+/// Translation-unit-local helpers that convert QJson values into SerialRobotConfig
+/// substructures (Joint, Pose, posture labels, etc.) for PresetJsonLoader.
 namespace {
+/// Builds an InvalidRobotConfig failure Result carrying `message` as the error detail.
 Result<SerialRobotConfig> invalid(const std::string& message)
 {
     return Result<SerialRobotConfig>::failure(KinematicsStatus::InvalidRobotConfig, message);
 }
 
+/// Checks that `object` contains only keys from the fixed set of recognized top-level
+/// preset fields (schema, identity, units, topology, links, joints, frames, tools,
+/// defaultTool, posture, solver, sources, metadata).
+/// @return false if any unrecognized key is present at the top level
 bool hasOnlyKnownTopLevelFields(const QJsonObject& object)
 {
     const std::set<QString> known = {
@@ -33,11 +41,15 @@ bool hasOnlyKnownTopLevelFields(const QJsonObject& object)
     return true;
 }
 
+/// Reads `key` from `object` as a string, returning an empty std::string if absent or
+/// not a string value.
 std::string stringField(const QJsonObject& object, const char* key)
 {
     return object.value(key).toString().toStdString();
 }
 
+/// Builds a Pose from the object's "xyz_m" and "rpy_rad" arrays (each read positionally
+/// as [x, y, z] / [roll, pitch, yaw], in meters/radians).
 Pose poseFromObject(const QJsonObject& object)
 {
     const QJsonArray xyz = object.value("xyz_m").toArray();
@@ -46,6 +58,8 @@ Pose poseFromObject(const QJsonObject& object)
                                   rpy.at(0).toDouble(), rpy.at(1).toDouble(), rpy.at(2).toDouble());
 }
 
+/// Maps a joint "type" string to JointType ("prismatic" / "fixed" / anything else falls
+/// back to Revolute).
 JointType jointTypeFromString(const QString& value)
 {
     if (value == "prismatic") {
@@ -57,6 +71,11 @@ JointType jointTypeFromString(const QString& value)
     return JointType::Revolute;
 }
 
+/// Parses a full Joint (id, type, parent/child link ids, origin pose, axis, optional
+/// limits, home position, and aliases) from a single "joints" array entry.
+/// @note velocity/acceleration limits are left unset (std::nullopt) when absent or null
+/// in the JSON; the "limits" sub-object itself is optional (Joint::limits stays unset
+/// if not present or not an object).
 Joint parseJoint(const QJsonObject& object)
 {
     Joint joint;
@@ -89,6 +108,8 @@ Joint parseJoint(const QJsonObject& object)
     return joint;
 }
 
+/// Fills `config.posture` from the "posture" object: the resolver name plus a
+/// negative/positive label pair per named axis (from "labels").
 void parsePosture(const QJsonObject& object, SerialRobotConfig& config)
 {
     config.posture.resolver = stringField(object, "resolver");
@@ -101,6 +122,10 @@ void parsePosture(const QJsonObject& object, SerialRobotConfig& config)
 }
 }
 
+/// Reads the file at `path` as UTF-8 text and parses it via loadJson.
+/// @param path filesystem path to a preset JSON file
+/// @return an InvalidRequest failure if the file cannot be opened for reading, otherwise
+/// the result of loadJson on its contents
 Result<SerialRobotConfig> PresetJsonLoader::loadFile(const std::string& path)
 {
     QFile file(QString::fromStdString(path));
@@ -111,6 +136,15 @@ Result<SerialRobotConfig> PresetJsonLoader::loadFile(const std::string& path)
     return loadJson(QString::fromUtf8(file.readAll()).toStdString());
 }
 
+/// Parses `json` as a robot-kinematics-preset/v1 document and builds the corresponding
+/// SerialRobotConfig (identity, topology, links, joints, frames, tools, posture, solver
+/// settings, sources, and metadata), then runs it through
+/// RobotModelValidator::validateSerialRobotConfig.
+/// @param json the full preset document as UTF-8 JSON text
+/// @return failure (InvalidRequest/InvalidRobotConfig) if the JSON is malformed, has
+/// unknown top-level fields, uses an unsupported schema/unit system, or fails model
+/// validation (only the first validation issue's message is reported); otherwise success
+/// with the populated config
 Result<SerialRobotConfig> PresetJsonLoader::loadJson(const std::string& json)
 {
     QJsonParseError error;

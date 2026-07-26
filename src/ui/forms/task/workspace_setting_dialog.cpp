@@ -13,16 +13,18 @@
 #include <QMessageBox>
 #include <QVBoxLayout>
 
+/// ROI bounding colours — working = success green, condition = accent orange (see
+/// ui_design_rules §5). ItemRoi is a painted surface; colours are applied in code because
+/// QSS cannot reach a QGraphicsItem.
 namespace {
-// ROI bounding colours — working = success green, condition = accent orange
-// (see ui_design_rules §5). ItemRoi is a painted surface; colours are applied
-// in code because QSS cannot reach a QGraphicsItem.
-const QColor kWorkingNormal(0x40, 0xc8, 0x70);
-const QColor kWorkingSelected(0x8a, 0xf0, 0xb0);
-const QColor kConditionNormal(0xe8, 0x7c, 0x00);
-const QColor kConditionSelected(0xff, 0xc0, 0x70);
+const QColor kWorkingNormal(0x40, 0xc8, 0x70);      ///< Working-ROI border colour, unselected.
+const QColor kWorkingSelected(0x8a, 0xf0, 0xb0);    ///< Working-ROI border colour, selected.
+const QColor kConditionNormal(0xe8, 0x7c, 0x00);    ///< Condition-ROI border colour, unselected.
+const QColor kConditionSelected(0xff, 0xc0, 0x70);  ///< Condition-ROI border colour, selected.
 } // namespace
 
+/// Constructs the dialog: embeds the ImageWidget into the .ui's host stack, builds the
+/// ROI colour legend overlay, and wires all button/ROI signals.
 WorkspaceSettingDialog::WorkspaceSettingDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::WorkspaceSettingDialog)
@@ -99,16 +101,23 @@ WorkspaceSettingDialog::WorkspaceSettingDialog(QWidget *parent)
     updateButtons();
 }
 
+/// Destroys the dialog and deletes the generated UI.
 WorkspaceSettingDialog::~WorkspaceSettingDialog()
 {
     delete ui;
 }
 
+/// Sets the text shown in the dialog's title label.
 void WorkspaceSettingDialog::setTitleText(const QString &title)
 {
     ui->label_title->setText(title);
 }
 
+/// Preloads an existing workspace: loads `image` into the view and draws `workingRoi`/
+/// `conditionRoi` if non-empty.
+/// @param image reference image to display; ignored if null
+/// @param workingRoi initial working ROI in image-pixel coordinates; skipped if empty
+/// @param conditionRoi initial condition ROI in image-pixel coordinates; skipped if empty
 void WorkspaceSettingDialog::setInitial(const QPixmap &image, const QRectF &workingRoi,
                                         const QRectF &conditionRoi)
 {
@@ -132,6 +141,8 @@ void WorkspaceSettingDialog::setInitial(const QPixmap &image, const QRectF &work
     updateButtons();
 }
 
+/// Loads `image` into the view as the reference image, supplied by the owner after a
+/// requestGrab() (or any external image source); resets any existing ROIs.
 void WorkspaceSettingDialog::setMainViewImage(QPixmap image)
 {
     if (image.isNull())
@@ -143,6 +154,7 @@ void WorkspaceSettingDialog::setMainViewImage(QPixmap image)
     updateButtons();
 }
 
+/// Swallows the Escape key so a stray press does not close the dialog while editing an ROI.
 void WorkspaceSettingDialog::keyPressEvent(QKeyEvent *event)
 {
     // Avoid closing the dialog on a stray Escape while editing the ROI.
@@ -153,6 +165,7 @@ void WorkspaceSettingDialog::keyPressEvent(QKeyEvent *event)
     QDialog::keyPressEvent(event);
 }
 
+/// Opens a file dialog and loads the chosen image as the reference image, resetting ROIs.
 void WorkspaceSettingDialog::onChooseImageClicked()
 {
     const QString filePath = QFileDialog::getOpenFileName(
@@ -168,11 +181,13 @@ void WorkspaceSettingDialog::onChooseImageClicked()
     updateButtons();
 }
 
+/// Requests a camera grab by emitting requestGrab().
 void WorkspaceSettingDialog::onGrabClicked()
 {
     emit requestGrab();
 }
 
+/// Drops any existing working ROI and starts drawing a new one.
 void WorkspaceSettingDialog::onSetWorkingRoiClicked()
 {
     if (!m_view->hadImage())
@@ -186,6 +201,7 @@ void WorkspaceSettingDialog::onSetWorkingRoiClicked()
     m_view->startDrawROI(ImageWidget::NormalROI);
 }
 
+/// Removes the current working ROI, if any.
 void WorkspaceSettingDialog::onClearWorkingRoiClicked()
 {
     if (m_workingRoi) {
@@ -195,6 +211,7 @@ void WorkspaceSettingDialog::onClearWorkingRoiClicked()
     updateButtons();
 }
 
+/// Drops any existing condition ROI and starts drawing a new one.
 void WorkspaceSettingDialog::onSetConditionRoiClicked()
 {
     if (!m_view->hadImage())
@@ -207,6 +224,7 @@ void WorkspaceSettingDialog::onSetConditionRoiClicked()
     m_view->startDrawROI(ImageWidget::NormalROI);
 }
 
+/// Removes the current condition ROI, if any.
 void WorkspaceSettingDialog::onClearConditionRoiClicked()
 {
     if (m_conditionRoi) {
@@ -216,6 +234,7 @@ void WorkspaceSettingDialog::onClearConditionRoiClicked()
     updateButtons();
 }
 
+/// Capture a freshly created ROI (drawn or preloaded) into the pending kind.
 void WorkspaceSettingDialog::onRoiCreated(QGraphicsItem *item)
 {
     auto *roi = dynamic_cast<ItemRoi *>(item);
@@ -241,6 +260,7 @@ void WorkspaceSettingDialog::onRoiCreated(QGraphicsItem *item)
     updateButtons();
 }
 
+/// Apply the kind-specific bounding colour (working = green, condition = orange).
 void WorkspaceSettingDialog::styleRoi(ItemRoi *roi, RoiKind kind)
 {
     if (!roi)
@@ -255,6 +275,7 @@ void WorkspaceSettingDialog::styleRoi(ItemRoi *roi, RoiKind kind)
     roi->update();
 }
 
+/// Drop all ROIs and reset tracked pointers (used when the image changes).
 void WorkspaceSettingDialog::resetRois()
 {
     m_view->removeAllRoi();
@@ -263,6 +284,8 @@ void WorkspaceSettingDialog::resetRois()
     m_pendingKind  = RoiKind::None;
 }
 
+/// Validates that at least one ROI was drawn, captures the result (image + ROIs), and
+/// accepts the dialog; shows a warning message box instead if nothing can be saved.
 void WorkspaceSettingDialog::onSaveClicked()
 {
     if (!m_view->hadImage()) {
@@ -290,6 +313,8 @@ void WorkspaceSettingDialog::onSaveClicked()
     accept();
 }
 
+/// Enables/disables the set/clear/save buttons based on whether an image is loaded and
+/// which ROIs currently exist.
 void WorkspaceSettingDialog::updateButtons()
 {
     const bool hasImage = m_view->hadImage();

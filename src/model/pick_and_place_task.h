@@ -1,3 +1,8 @@
+/// @file
+/// Disabled legacy header: the PickPlaceTask class, its header guard, and every declaration
+/// below are commented out in their entirety (dead code, excluded from the build). Kept for
+/// reference only — do not uncomment without reconciling it against the current ITask-derived
+/// task model.
 // #ifndef PICK_AND_PLACE_TASK_H
 // #define PICK_AND_PLACE_TASK_H
 

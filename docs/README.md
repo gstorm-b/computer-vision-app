@@ -13,6 +13,7 @@ task; do not load the whole tree by default.
 | UI/QSS implementation rules | [rules/ui_design_rules.md](rules/ui_design_rules.md) |
 | UI token palette and colour migration | [rules/ui_theme_tokens.md](rules/ui_theme_tokens.md) |
 | qmake/MSVC build and verification | [rules/build_and_verification.md](rules/build_and_verification.md) |
+| Doxygen/Graphviz/PlantUML docs build | [rules/documentation_build.md](rules/documentation_build.md) |
 | Current structural architecture | [../uml/](../uml/) |
 
 ## Current Domain Specs
@@ -63,6 +64,7 @@ docs and code when behavior matters.
 |---|---|
 | [generated/architecture_docs/](generated/architecture_docs/) | Generated or drift-prone class/API reference |
 | [generated/html/](generated/html/) | HTML generated from markdown docs |
+| [generated/doxygen/](generated/doxygen/) | Full Doxygen API reference built from source `///` comments (see [rules/documentation_build.md](rules/documentation_build.md)) |
 | [artifacts/ui/](artifacts/ui/) | UI mockups and previews |
 
 ## Cleanup Policy

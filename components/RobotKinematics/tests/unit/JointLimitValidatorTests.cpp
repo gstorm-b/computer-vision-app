@@ -16,6 +16,8 @@ using namespace RobotKinematics;
 namespace {
 constexpr double kPi = 3.141592653589793238462643383279502884;
 
+/// Builds a minimal 3-DOF serial revolute chain (base-link1-link2-flange), each joint
+/// limited to [-pi, pi] about its local Z axis, for use as a JointLimitValidator fixture.
 SerialRobotConfig threeJointConfig()
 {
     SerialRobotConfig config;
@@ -91,6 +93,9 @@ void JointLimitValidatorTests::rejectsWrongDimension()
     QCOMPARE(check.status, KinematicsStatus::JointDimensionMismatch);
 }
 
+/// Entry point that instantiates JointLimitValidatorTests and runs it under QTest::qExec.
+/// @param argc, argv forwarded to QTest::qExec for command-line test option parsing
+/// @return the QtTest process exit code (0 on all tests passing)
 int runJointLimitValidatorTests(int argc, char** argv)
 {
     JointLimitValidatorTests tests;

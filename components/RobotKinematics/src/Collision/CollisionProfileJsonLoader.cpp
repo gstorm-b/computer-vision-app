@@ -12,11 +12,16 @@
 namespace RobotKinematics {
 
 namespace {
+/// Builds a failure Result<CollisionProfile> carrying `message` with status
+/// KinematicsStatus::InvalidRobotConfig; used as the terminal early-return for every
+/// validation failure in loadJson.
 Result<CollisionProfile> invalid(const std::string& message)
 {
     return Result<CollisionProfile>::failure(KinematicsStatus::InvalidRobotConfig, message);
 }
 
+/// Returns true if every key present in `object` is one of the recognized top-level
+/// collision-profile fields (schema, profile, geometries, disabledPairs, sources, metadata).
 bool hasOnlyKnownTopLevelFields(const QJsonObject& object)
 {
     const std::set<QString> known = {
@@ -30,11 +35,17 @@ bool hasOnlyKnownTopLevelFields(const QJsonObject& object)
     return true;
 }
 
+/// Reads `key` from `object` as a string, returning an empty std::string when the key is
+/// absent or its value is not a string.
 std::string stringField(const QJsonObject& object, const char* key)
 {
     return object.value(key).toString().toStdString();
 }
 
+/// Builds a Pose from `object`'s "xyz_m" and "rpy_rad" fields, each expected to be a
+/// 3-element JSON array (x/y/z in meters, roll/pitch/yaw in radians).
+/// @note does not validate array size or element type; callers must ensure both arrays have
+/// at least 3 numeric entries.
 Pose poseFromObject(const QJsonObject& object)
 {
     const QJsonArray xyz = object.value("xyz_m").toArray();
@@ -44,6 +55,8 @@ Pose poseFromObject(const QJsonObject& object)
 }
 }
 
+/// Loads a collision profile from the JSON file at `path` by reading it fully into memory and
+/// delegating to loadJson.
 Result<CollisionProfile> CollisionProfileJsonLoader::loadFile(const std::string& path)
 {
     QFile file(QString::fromStdString(path));
@@ -54,6 +67,9 @@ Result<CollisionProfile> CollisionProfileJsonLoader::loadFile(const std::string&
     return loadJson(QString::fromUtf8(file.readAll()).toStdString());
 }
 
+/// Parses and validates a collision profile encoded as JSON text against the
+/// "robot-kinematics-collision/v1" schema (m/rad units only), populating id, robotModel,
+/// per-geometry sphere/capsule shapes, disabled pairs, sources, and string-valued metadata.
 Result<CollisionProfile> CollisionProfileJsonLoader::loadJson(const std::string& json)
 {
     QJsonParseError error;

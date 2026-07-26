@@ -11,10 +11,13 @@
 
 namespace {
 
+/// Resolves a theme token by Latin-1 name to its light/dark color value via ThemeManager.
 QString tokenValue(const char *name, bool dark) {
     return ThemeManager::tokenValue(QString::fromLatin1(name), dark);
 }
 
+/// Maps a log severity to its theme-token color: warning/error/critical/debug get their
+/// dedicated state colors, Info (and any unhandled level) falls back to the primary text color.
 QString severityColor(LogLevel level, bool dark) {
     switch (level) {
     case LogLevel::Warning:
@@ -30,6 +33,8 @@ QString severityColor(LogLevel level, bool dark) {
     }
 }
 
+/// Returns the short uppercase label ("DEBUG"/"INFO"/"WARN"/"ERROR"/"CRITICAL") for `level`,
+/// defaulting to "INFO" if the switch falls through.
 QString levelLabel(LogLevel level) {
     switch (level) {
     case LogLevel::Debug:    return QStringLiteral("DEBUG");

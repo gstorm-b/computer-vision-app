@@ -36,6 +36,8 @@
 
 using namespace RobotKinematics;
 
+/// Internal helpers for this widget: robot-config construction, pose <-> RPY conversion, status
+/// text, and the self-collision check used by the FK/IK tester. Not part of the public API.
 namespace {
 
 // The new RobotKinematics component ships a single built-in C++ preset that is
@@ -43,8 +45,10 @@ namespace {
 constexpr char kNachiMz04dPreset[] = "Nachi MZ04D";
 constexpr char kPickingToolId[]    = "picking_tcp";
 
-// Posture branch labels for a preset's axes (axis -> {negative, positive}).
-// Empty when the preset is unknown. Drives the pick-path posture combos.
+/// Posture branch labels for a preset's axes (axis -> {negative, positive} labels).
+/// @param presetName robot preset name; only kNachiMz04dPreset is recognised
+/// @return the preset's posture labels, or an empty map when `presetName` is unknown (drives the
+/// pick-path posture combo boxes)
 std::map<std::string, std::pair<QString, QString>> postureLabels(const QString &presetName) {
     std::map<std::string, std::pair<QString, QString>> out;
     if (presetName != QLatin1String(kNachiMz04dPreset))
@@ -57,14 +61,16 @@ std::map<std::string, std::pair<QString, QString>> postureLabels(const QString &
     return out;
 }
 
-// flange -> TCP transform from the widget's mm/deg offset fields.
+/// Builds the flange -> TCP transform from the widget's mm/deg offset fields.
 Pose flangeToTcpPose(const vc::device::RobotKinematicCheckConfig &cfg) {
     return Pose::fromXYZRPY_mm_deg(cfg.tcpX, cfg.tcpY, cfg.tcpZ,
                                    cfg.tcpRoll, cfg.tcpPitch, cfg.tcpYaw);
 }
 
-// Build the selected robot config with the picking TCP appended as the default
-// tool. Returns false when the preset name is not recognised.
+/// Builds the selected robot config with the picking TCP appended as the default tool.
+/// @param cfg widget config supplying the preset name and TCP offset
+/// @param out output robot config; populated only on success
+/// @return false when `cfg.presetName` is not a recognised preset (leaves `out` untouched)
 bool buildRobotConfig(const vc::device::RobotKinematicCheckConfig &cfg,
                       SerialRobotConfig &out) {
     if (cfg.presetName != QLatin1String(kNachiMz04dPreset))
@@ -80,8 +86,9 @@ bool buildRobotConfig(const vc::device::RobotKinematicCheckConfig &cfg,
     return true;
 }
 
-// Extract roll/pitch/yaw (degrees) from a pose. Inverse of Pose::fromXYZRPY,
-// which composes R = Rz(yaw) * Ry(pitch) * Rx(roll).
+/// Extracts roll/pitch/yaw, in degrees, from a pose. Inverse of Pose::fromXYZRPY, which composes
+/// R = Rz(yaw) * Ry(pitch) * Rx(roll).
+/// @return (roll, pitch, yaw) in degrees
 Eigen::Vector3d rpyDegFromPose(const Pose &pose) {
     const Eigen::Matrix3d r = pose.isometry().rotation();
     const double pitch = std::atan2(-r(2, 0), std::sqrt(r(0, 0) * r(0, 0) + r(1, 0) * r(1, 0)));
@@ -90,6 +97,8 @@ Eigen::Vector3d rpyDegFromPose(const Pose &pose) {
     return Eigen::Vector3d(units::toDeg(roll), units::toDeg(pitch), units::toDeg(yaw));
 }
 
+/// Maps a KinematicsStatus to a short lower-case human-readable string for the tester status
+/// label (e.g. "target unreachable", "singularity").
 QString statusToString(KinematicsStatus s) {
     switch (s) {
     case KinematicsStatus::Ok:                          return QStringLiteral("ok");
@@ -118,8 +127,12 @@ constexpr char kSimplifiedProfileDeployedRel[] =
 constexpr char kSimplifiedProfileSourceRel[] =
     "components/RobotKinematics/presets/Nachi/MZ04/nachi_mz04d_mesh_collision_simplified.json";
 
-// Source-tree fallback resolver (dev runs from source). Walks up from the app /
-// working directory. Deployed runs find the asset next to the binary first.
+/// Source-tree fallback resolver for a deployed asset (dev runs from source): walks up from the
+/// app's current/executable directory looking for `relative`. Deployed runs find the asset next
+/// to the binary before this is called.
+/// @param relative asset path, relative to a deployed install root or a source-tree root
+/// @return the resolved absolute path, or an empty string if `relative` isn't found under any
+/// candidate root
 QString resolveAssetPath(const QString &relative) {
     const QFileInfo direct(relative);
     if (direct.exists()) return direct.absoluteFilePath();
@@ -138,7 +151,10 @@ QString resolveAssetPath(const QString &relative) {
     return {};
 }
 
-// Lazily loaded, shared simplified mesh-collision profile (loaded once, reused).
+/// Lazily loaded, shared simplified mesh-collision profile: tries the deployed asset path first,
+/// then falls back to resolveAssetPath() for source-tree dev runs; loaded once (function-local
+/// static) and reused for every call.
+/// @return pointer to the shared profile, or nullptr if the JSON asset could not be found/parsed
 const MeshCollisionProfile *simplifiedMeshProfile() {
     static const std::optional<MeshCollisionProfile> profile =
         []() -> std::optional<MeshCollisionProfile> {
@@ -160,10 +176,17 @@ const MeshCollisionProfile *simplifiedMeshProfile() {
     return profile ? &(*profile) : nullptr;
 }
 
+/// Outcome of a self-collision check: disabled by config, the mesh profile couldn't be loaded, the
+/// backend check itself failed, or the check ran and found the pose collision-free/colliding.
 enum class CollisionState { Disabled, Unavailable, Error, Free, Colliding };
 
-// Run the simplified-mesh self-collision check for the given joints. Returns
-// Disabled when the operator has not enabled the collision check.
+/// Runs the simplified-mesh self-collision check for the given joints, using the Coal backend.
+/// @param cfg widget config; `collisionCheckEnabled` gates whether the check runs at all
+/// @param robot robot config to check against
+/// @param joints joint pose to test for self-collision
+/// @return Disabled when the operator has not enabled the collision check, Unavailable when the
+/// mesh profile could not be loaded, Error when the backend check failed, otherwise
+/// Free/Colliding per the result
 CollisionState checkSelfCollision(const vc::device::RobotKinematicCheckConfig &cfg,
                                   const SerialRobotConfig &robot,
                                   const JointVector &joints) {
@@ -178,7 +201,8 @@ CollisionState checkSelfCollision(const vc::device::RobotKinematicCheckConfig &c
     return res.hasCollision ? CollisionState::Colliding : CollisionState::Free;
 }
 
-// Status-label suffix for a collision result (empty when the check is disabled).
+/// Builds the status-label suffix describing a collision result (e.g. " | SELF-COLLISION"); empty
+/// when the check is disabled.
 QString collisionSuffix(CollisionState s) {
     switch (s) {
     case CollisionState::Disabled:    return {};
@@ -192,6 +216,9 @@ QString collisionSuffix(CollisionState s) {
 
 } // namespace
 
+/// Constructs the widget: builds the UI from the .ui form, seeds the robot-preset combo with the
+/// single built-in preset (Nachi MZ04D), sets up the pick-path table headers, and wires all
+/// editing controls to notifyConfigChanged() plus the FK/IK tester buttons.
 RobotKinematicCheckWidget::RobotKinematicCheckWidget(QWidget *parent)
     : QWidget(parent), ui(new Ui::RobotKinematicCheckWidget) {
 
@@ -245,10 +272,15 @@ RobotKinematicCheckWidget::RobotKinematicCheckWidget(QWidget *parent)
     ui->grp_kinematic_tester->setVisible(ui->chk_show_tester->isChecked());
 }
 
+/// Destroys the widget, deleting the generated `ui` object.
 RobotKinematicCheckWidget::~RobotKinematicCheckWidget() {
     delete ui;
 }
 
+/// Loads `cfg` into the UI controls: enable flags, preset selection, TCP name/offset, and the
+/// pick-path table (rebuilt from scratch).
+/// @note Sets `m_loading` for the duration of the load so control-changed signals don't re-emit
+/// configChanged() while the form is being populated.
 void RobotKinematicCheckWidget::setConfig(const vc::device::RobotKinematicCheckConfig &cfg) {
     m_loading = true;
 
@@ -274,6 +306,8 @@ void RobotKinematicCheckWidget::setConfig(const vc::device::RobotKinematicCheckC
     m_loading = false;
 }
 
+/// Reads the current UI state back into a RobotKinematicCheckConfig: enable flags, preset, TCP
+/// offset, and every pick-path row's deltas and posture selections.
 vc::device::RobotKinematicCheckConfig RobotKinematicCheckWidget::config() const {
     vc::device::RobotKinematicCheckConfig cfg;
     cfg.enabled               = ui->chk_kinematic_enable->isChecked();
@@ -307,11 +341,15 @@ vc::device::RobotKinematicCheckConfig RobotKinematicCheckWidget::config() const 
     return cfg;
 }
 
+/// Emits configChanged(), unless a setConfig() load is currently in progress (`m_loading`).
 void RobotKinematicCheckWidget::notifyConfigChanged() {
     if (m_loading) return;
     emit configChanged();
 }
 
+/// (Re)populates a posture combo box with "(any)" plus the negative/positive branch labels for
+/// `axis` under the currently selected preset, restoring `current` as the selection if it is
+/// still one of the offered labels (falls back to "(any)" otherwise).
 void RobotKinematicCheckWidget::populatePostureCombo(QComboBox *combo, const QString &axis,
                                                      const QString &current) {
     QSignalBlocker block(combo);
@@ -327,6 +365,9 @@ void RobotKinematicCheckWidget::populatePostureCombo(QComboBox *combo, const QSt
     combo->setCurrentIndex(idx >= 0 ? idx : 0);
 }
 
+/// Appends one pick-path row to the table: a read-only index cell, six delta spin boxes (dX..dYaw,
+/// each wired to notifyConfigChanged()), and three posture combo boxes (shoulder/elbow/wrist,
+/// populated via populatePostureCombo() and wired to notifyConfigChanged()).
 void RobotKinematicCheckWidget::addPathRow(const vc::device::PickPathPoint &point) {
     const int row = ui->tbl_pick_path->rowCount();
     ui->tbl_pick_path->insertRow(row);
@@ -362,6 +403,7 @@ void RobotKinematicCheckWidget::addPathRow(const vc::device::PickPathPoint &poin
     }
 }
 
+/// Renumbers the pick-path table's index column (1-based) to match each row's current position.
 void RobotKinematicCheckWidget::renumberPathRows() {
     for (int row = 0; row < ui->tbl_pick_path->rowCount(); ++row) {
         if (auto *item = ui->tbl_pick_path->item(row, 0))
@@ -369,11 +411,15 @@ void RobotKinematicCheckWidget::renumberPathRows() {
     }
 }
 
+/// Adds a blank pick-path row and notifies listeners of the change.
 void RobotKinematicCheckWidget::onAddPathRow() {
     addPathRow(vc::device::PickPathPoint{});
     notifyConfigChanged();
 }
 
+/// Removes the currently selected pick-path row(s) (highest row index first, so removing one row
+/// doesn't invalidate the indices of the others still pending removal), renumbers the remaining
+/// rows, and notifies listeners of the change.
 void RobotKinematicCheckWidget::onRemovePathRow() {
     const QModelIndexList selected =
         ui->tbl_pick_path->selectionModel()->selectedRows();
@@ -387,6 +433,10 @@ void RobotKinematicCheckWidget::onRemovePathRow() {
     notifyConfigChanged();
 }
 
+/// Handles a robot-preset combo change: if the pick-path table has rows, asks for confirmation
+/// before clearing it (posture labels are preset-specific and would no longer apply), reverting
+/// the combo selection if the user declines; otherwise accepts the new preset and notifies
+/// listeners of the change.
 void RobotKinematicCheckWidget::onPresetChanged(const QString &preset) {
     if (m_loading || preset == m_currentPreset) {
         notifyConfigChanged();
@@ -413,6 +463,11 @@ void RobotKinematicCheckWidget::onPresetChanged(const QString &preset) {
     notifyConfigChanged();
 }
 
+/// Runs forward kinematics for the tester: builds a robot config from the current preset and TCP
+/// offset, computes the TCP pose for the joint angles in the tester's spin boxes, writes the
+/// resulting pose (mm/deg) back to the pose spin boxes, and reports the result -- plus a
+/// self-collision check -- in the tester status label. Requires a recognised, 6-axis preset;
+/// otherwise shows an error in the status label instead of computing.
 void RobotKinematicCheckWidget::onComputeForward() {
     const vc::device::RobotKinematicCheckConfig cfg = config();
     SerialRobotConfig robot;
@@ -444,6 +499,11 @@ void RobotKinematicCheckWidget::onComputeForward() {
     ui->lbl_tester_status->setText(tr("FK: ok") + collisionSuffix(collision));
 }
 
+/// Runs inverse kinematics for the tester: builds a robot config from the current preset and TCP
+/// offset, solves for the target pose in the tester's pose spin boxes, writes the best solution's
+/// joints (degrees) back to the joint spin boxes, and reports the result -- plus a self-collision
+/// check -- in the tester status label. Requires a recognised preset; otherwise shows an error in
+/// the status label instead of solving.
 void RobotKinematicCheckWidget::onComputeInverse() {
     const vc::device::RobotKinematicCheckConfig cfg = config();
     SerialRobotConfig robot;

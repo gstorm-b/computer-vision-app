@@ -17,23 +17,31 @@ namespace calib {
 // =====================================================================
 // CalibrationBoard base methods
 // =====================================================================
+/// Converts a vector of 2D points to a single-column CV_32FC2 cv::Mat (deep copy).
 cv::Mat CalibrationBoard::pointsToMat(const std::vector<cv::Point2f>& pts)
 {
     return cv::Mat(static_cast<int>(pts.size()), 1, CV_32FC2,
                    const_cast<cv::Point2f*>(pts.data())).clone();
 }
 
+/// Converts a vector of 3D points to a single-column CV_32FC3 cv::Mat (deep copy).
 cv::Mat CalibrationBoard::pointsToMat(const std::vector<cv::Point3f>& pts)
 {
     return cv::Mat(static_cast<int>(pts.size()), 1, CV_32FC3,
                    const_cast<cv::Point3f*>(pts.data())).clone();
 }
 
+/// Returns the C++ typeid name of the most-derived object (a mangled/compiler-specific
+/// string); subclasses may override to return a stable, human-readable identifier instead.
 std::string CalibrationBoard::typeName() const
 {
     return typeid(*this).name();
 }
 
+/// Converts `image` to grayscale (if needed) and thresholds it into a binary mask where
+/// dark board dots become foreground (255): auto Otsu thresholding when binarizeThreshold()
+/// is negative, otherwise a fixed manual threshold via THRESH_BINARY_INV.
+/// @param usedThreshold optional; receives the threshold value actually applied
 cv::Mat CalibrationBoard::binarize(const cv::Mat& image, double* usedThreshold) const
 {
     cv::Mat gray;
@@ -58,6 +66,9 @@ cv::Mat CalibrationBoard::binarize(const cv::Mat& image, double* usedThreshold) 
     return binary;
 }
 
+/// Serializes this board to a JSON string: opens an in-memory cv::FileStorage, writes the
+/// "type" key via typeName(), and delegates subclass fields to writeJsonFields().
+/// @return the JSON string, or an empty string if the in-memory FileStorage failed to open
 std::string CalibrationBoard::toJson() const
 {
     cv::FileStorage fs(".json",
@@ -69,6 +80,9 @@ std::string CalibrationBoard::toJson() const
     return fs.releaseAndGetString();
 }
 
+/// Renders this board via generateImage() at the pixel scale implied by `dpi`, then writes
+/// it as a PNG with an embedded pHYs chunk via writePrintablePng().
+/// @return false if `dpi` is not positive, otherwise the result of writePrintablePng()
 bool CalibrationBoard::writePrintableImage(const std::string& path, double dpi) const
 {
     if (dpi <= 0.0) return false;
@@ -82,6 +96,8 @@ bool CalibrationBoard::writePrintableImage(const std::string& path, double dpi) 
 // =====================================================================
 namespace {
 
+/// Computes the standard PNG/zlib CRC-32 checksum of `data`, building the lookup table on
+/// first use (cached in a function-local static).
 uint32_t pngCrc32(const uint8_t* data, size_t len)
 {
     static uint32_t table[256];
@@ -101,6 +117,7 @@ uint32_t pngCrc32(const uint8_t* data, size_t len)
     return c ^ 0xFFFFFFFFu;
 }
 
+/// Appends `v` to `out` as 4 big-endian bytes (PNG chunk length/data fields are big-endian).
 void writeU32BE(std::vector<uint8_t>& out, uint32_t v)
 {
     out.push_back(static_cast<uint8_t>((v >> 24) & 0xFF));
@@ -111,6 +128,11 @@ void writeU32BE(std::vector<uint8_t>& out, uint32_t v)
 
 } // namespace
 
+/// Encodes `img` as PNG, locates the first IDAT chunk, and inserts a pHYs chunk (pixels per
+/// meter, derived from `pxPerMm`) immediately before it so viewers/printers render at the
+/// correct physical scale, then writes the result to `path`.
+/// @return false if `img` is empty, `pxPerMm` is not positive, PNG encoding fails, the
+///         encoded signature/IDAT chunk cannot be located, or the file write fails
 bool writePrintablePng(const std::string& path,
                        const cv::Mat& img,
                        double pxPerMm)

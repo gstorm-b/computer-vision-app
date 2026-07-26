@@ -798,6 +798,55 @@ design surfaces.
 
 ---
 
+## 18. Doxygen Comment Style
+
+### 18.1 Every class, method, and member — including private ones — gets a triple-slash Doxygen comment
+
+**Rule.** Document every `class`/`struct`/`enum`, every method (public, protected, *and*
+private), and every member field with a `///` comment directly above it. A one-line `///` brief
+is the minimum; add `@param`, `@return`, `@note`, etc. tags on their own `///` line beneath the
+brief when the method has parameters, a non-`void` return, or a non-obvious constraint. Trailing
+same-line `///<` is used for short member-field comments instead of a comment block above them.
+
+```cpp
+/// Concrete MC-protocol frame codec for the 3E frame: builds/parses the binary 3E
+/// read/write (bit and word) request and response frames described by Context_Mc3E.
+class Frame3E : public MCFrameAbstract {
+public:
+    /// Builds a 3E request frame for `request` (dispatches by MCRequest::RqType to the
+    /// matching build_* helper).
+    /// @param request the read/write request to encode
+    /// @param ctx the frame context (addressing + timing parameters) for the target frame type
+    /// @param data output buffer; overwritten with the encoded frame on success
+    /// @return RequestFrameOK on success, RequestFrameError/ObjectError on failure
+    FrameReturnCode makeSendFrame(MCRequest *request, McContext *ctx, QByteArray &data) override;
+
+private:
+    /// Reads the 3E end-code at the fixed status offset and records it via m_last_error;
+    /// true when the end code is 0x0000 (success).
+    bool checkErrorStatus(QByteArray &data);
+
+    QString m_last_error;  ///< Description of the most recent build/parse error.
+};
+```
+
+**Why.** The project had no established comment convention before this rule (most existing code
+had none, a few files mixed in Javadoc-style `/** @brief */` blocks) and a Doxygen HTML reference
+is now built from source comments (see
+[documentation_build.md](documentation_build.md)). `EXTRACT_ALL`/`EXTRACT_PRIVATE` are on, so
+private members appear in the generated reference too — an undocumented private method is a
+visible gap in that reference, not just a missing inline note. `///` (not `/** */`) was chosen to
+match modern Qt/C++ style and keep single-line briefs low-friction to add.
+
+**Where applied.** All new and modified classes/methods/members in `src/`, `app/`, and
+`components/RobotKinematics/`, going forward. The existing codebase was retroactively brought up
+to this style in the same pass this rule was introduced (see
+`docs/history/request_prompts/build_docs_reference.md`); flag, don't silently leave, any file you
+touch afterward that still lacks it. See [documentation_build.md](documentation_build.md) for the
+Doxygen/Graphviz/PlantUML build pipeline that consumes these comments.
+
+---
+
 ## Cross-Reference Map
 
 | Rule | Primary file |
@@ -817,5 +866,6 @@ design surfaces.
 | 13.x  TCP / network patterns | [vision_tcpip_device.cpp](../../src/device/output_device/vision_tcpip_device.cpp), [vision_tcpip_device_base.cpp](../../src/device/output_device/vision_tcpip_device_base.cpp) |
 | 14.x  Qt Test subprojects | [tests/vision_output_device_test/](../../tests/vision_output_device_test/) |
 | 15.x  Themed form stylesheets | → [ui_design_rules.md](ui_design_rules.md) §3–§6 |
+| 18.x  Doxygen comment style | [documentation_build.md](documentation_build.md), [mc_fame_3e.h](../../src/device/plc/mc_fame_3e.h) |
 | 16.x  Documentation language | (this document) |
 | 17.x  UML maintenance | [uml/README.md](../../uml/README.md), [uml/](../../uml/) |

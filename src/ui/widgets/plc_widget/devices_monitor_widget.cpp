@@ -13,9 +13,15 @@
 #include <QToolTip>
 #include <QVBoxLayout>
 
+/// DevicesMonitorWidget implementation: builds the header/table UI, applies the
+/// active theme's stylesheet, and maps live PLC polling updates (bit/word values)
+/// and user filter/edit actions onto the table rows painted by DeviceRowDelegate.
 namespace vc::widgets {
 
 
+/// Constructs the widget for the given register kind, builds the header/table
+/// UI, and applies the current theme's stylesheet; re-applies it whenever
+/// ThemeManager reports a theme change.
 DevicesMonitorWidget::DevicesMonitorWidget(Mode mode, QWidget *parent)
     : QWidget(parent), m_mode(mode) {
     setupUi();
@@ -24,8 +30,15 @@ DevicesMonitorWidget::DevicesMonitorWidget(Mode mode, QWidget *parent)
             this, [this](const QString &, bool) { reloadStyleSheet(); });
 }
 
+/// Uses the compiler-generated destructor; Qt parent/child ownership tears
+/// down all child widgets.
 DevicesMonitorWidget::~DevicesMonitorWidget() = default;
 
+/// Builds the header bar (title/subtitle labels, active-count label, and filter
+/// box) and the device table (4 fixed/stretch columns, 44 px rows, no grid,
+/// alternating row colors), installs DeviceRowDelegate as the item delegate, and
+/// relays the delegate's bitWriteRequested/wordWriteRequested signals through to
+/// this widget's own signals of the same name.
 void DevicesMonitorWidget::setupUi() {
     setObjectName(QStringLiteral("DevicesMonitorWidget"));
 
@@ -124,6 +137,9 @@ void DevicesMonitorWidget::setupUi() {
     root->addWidget(m_table, 1);
 }
 
+/// Reloads the light/dark QSS resource matching ThemeManager's current theme,
+/// resolves its design tokens, applies it as this widget's stylesheet, and
+/// forces the table viewport to repaint.
 void DevicesMonitorWidget::reloadStyleSheet() {
     const QString path = ThemeManager::instance()->isDark()
         ? QStringLiteral(":/styles/devices_monitor_widget_dark.qss")
@@ -139,20 +155,27 @@ void DevicesMonitorWidget::reloadStyleSheet() {
     }
 }
 
+/// Sets the header title label text.
 void DevicesMonitorWidget::setTitle(const QString &title) {
     m_titleLabel->setText(title);
 }
 
+/// Sets the header subtitle label text.
 void DevicesMonitorWidget::setSubtitle(const QString &subtitle) {
     m_subtitleLabel->setText(subtitle);
 }
 
+/// Configures the contiguous device range shown and rebuilds all table rows.
+/// @param start_address first device address in the range
+/// @param amount number of consecutive devices in the range
 void DevicesMonitorWidget::setRange(int start_address, int amount) {
     m_start  = start_address;
     m_amount = amount;
     rebuildRows();
 }
 
+/// Empties the table, resets the configured amount to 0, and refreshes the
+/// active-count label.
 void DevicesMonitorWidget::clearRows() {
     m_table->clearContents();
     m_table->setRowCount(0);
@@ -160,21 +183,28 @@ void DevicesMonitorWidget::clearRows() {
     recountActive();
 }
 
+/// Builds the display name for `address`: 'M' prefix in Bit mode or 'D' prefix
+/// in Word mode, followed by the zero-padded 4-digit address.
 QString DevicesMonitorWidget::formatName(int address) const {
     const QChar prefix = m_mode == Mode::Bit ? QLatin1Char('M') : QLatin1Char('D');
     return QString("%1%2").arg(prefix).arg(address, 4, 10, QChar('0'));
 }
 
+/// Converts a device address to its row index (address - m_start), or -1 if
+/// the address falls outside the currently configured range.
 int DevicesMonitorWidget::rowOfAddress(int address) const {
     const int row = address - m_start;
     if (row < 0 || row >= m_amount) return -1;
     return row;
 }
 
+/// Converts a row index back to its device address (m_start + row).
 int DevicesMonitorWidget::addressOfRow(int row) const {
     return m_start + row;
 }
 
+/// Returns the formatted device name for every row in the currently configured
+/// range, in row order.
 QStringList DevicesMonitorWidget::allDeviceNames() const {
     QStringList names;
     names.reserve(m_amount);
@@ -183,6 +213,9 @@ QStringList DevicesMonitorWidget::allDeviceNames() const {
     return names;
 }
 
+/// Clears and rebuilds every row for the currently configured range (m_start /
+/// m_amount), fixing each row's height at 44 px, then refreshes the
+/// active-count label.
 void DevicesMonitorWidget::rebuildRows() {
     m_table->clearContents();
     m_table->setRowCount(m_amount);
@@ -193,6 +226,12 @@ void DevicesMonitorWidget::rebuildRows() {
     recountActive();
 }
 
+/// Creates the four QTableWidgetItems for `row` at `address`: Address (non-
+/// editable, carries AddressRole), Description (editable iff m_commentEditable),
+/// State-or-Value (non-editable/non-selectable, carries BitStateRole in Bit mode
+/// or WordValueRole in Word mode), and Action (editable only in Word mode, where
+/// it also carries the pending-write value via PendingWriteRole). Actual
+/// painting of these columns is done by DeviceRowDelegate.
 void DevicesMonitorWidget::buildRow(int row, int address) {
     using R = DeviceRowDelegate;
 
@@ -230,6 +269,9 @@ void DevicesMonitorWidget::buildRow(int row, int address) {
     m_table->setItem(row, 3, actItem);
 }
 
+/// Updates the ON/OFF chip state for `address` if it maps to a currently
+/// visible row; no-op if the row is missing or the on/off value is unchanged.
+/// Refreshes the active-count label when the state actually changes.
 void DevicesMonitorWidget::setBitState(int address, quint8 value) {
     const int row = rowOfAddress(address);
     if (row < 0) return;
@@ -241,6 +283,8 @@ void DevicesMonitorWidget::setBitState(int address, quint8 value) {
     recountActive();
 }
 
+/// Updates the numeric value shown for `address` if it maps to a currently
+/// visible row; no-op if the address is out of the configured range.
 void DevicesMonitorWidget::setWordValue(int address, qint16 value) {
     const int row = rowOfAddress(address);
     if (row < 0) return;
@@ -249,6 +293,8 @@ void DevicesMonitorWidget::setWordValue(int address, qint16 value) {
     item->setData(DeviceRowDelegate::WordValueRole, static_cast<int>(value));
 }
 
+/// Resets every row's state (Bit mode: OFF) or value (Word mode: 0) and
+/// refreshes the active-count label.
 void DevicesMonitorWidget::clearAllStatuses() {
     using R = DeviceRowDelegate;
     for (int i = 0; i < m_table->rowCount(); ++i) {
@@ -260,6 +306,9 @@ void DevicesMonitorWidget::clearAllStatuses() {
     recountActive();
 }
 
+/// Enables or disables in-place editing of the Description column, applying
+/// the new edit flag to every row currently in the table (later-built rows
+/// pick it up from the stored m_commentEditable in buildRow).
 void DevicesMonitorWidget::setCommentEditable(bool editable) {
     m_commentEditable = editable;
     for (int i = 0; i < m_table->rowCount(); ++i) {
@@ -272,6 +321,8 @@ void DevicesMonitorWidget::setCommentEditable(bool editable) {
     }
 }
 
+/// Returns the Description text for `address`, or an empty string if the
+/// address is out of range or its Description item is missing.
 QString DevicesMonitorWidget::comment(int address) const {
     const int row = rowOfAddress(address);
     if (row < 0) return QString();
@@ -279,6 +330,8 @@ QString DevicesMonitorWidget::comment(int address) const {
     return it ? it->text() : QString();
 }
 
+/// Sets the Description text and matching tooltip for the row at `address`;
+/// no-op if the address is out of range.
 void DevicesMonitorWidget::setComment(int address, const QString &text) {
     const int row = rowOfAddress(address);
     if (row < 0) return;
@@ -288,6 +341,8 @@ void DevicesMonitorWidget::setComment(int address, const QString &text) {
     }
 }
 
+/// Recomputes the header count label: in Bit mode, "active / total ACTIVE"
+/// counted from rows whose BitStateRole is true; in Word mode, "total WORDS".
 void DevicesMonitorWidget::recountActive() {
     if (m_mode == Mode::Bit) {
         int active = 0;
@@ -304,6 +359,9 @@ void DevicesMonitorWidget::recountActive() {
     }
 }
 
+/// Filters visible rows to those whose formatted address name or Description
+/// text contains the trimmed `text` (case-insensitive); shows every row again
+/// once the filter text is empty.
 void DevicesMonitorWidget::onFilterTextChanged(const QString &text) {
     using R = DeviceRowDelegate;
     const QString needle = text.trimmed();

@@ -5,8 +5,13 @@
 #include <QTimer>
 #include <QEventLoop>
 
+/// Model classes for projects, tasks, and task configuration.
 namespace vc::model {
 
+/// Constructs the project: creates its owned DeviceManager and wires up change
+/// propagation so that device changes, device modifications, and task
+/// modifications all surface as a single projectModificationOccurred() signal.
+/// @param parent optional QObject parent
 Project::Project(QObject* parent)
     : QObject(parent) {
 
@@ -25,37 +30,56 @@ Project::Project(QObject* parent)
     });
 }
 
+/// Default-destructs the project; no explicit cleanup required.
 Project::~Project() {
 
 }
 
+/// Sets the project name, emitting nameChanged() if it actually changed.
+/// @param v new name
 void Project::setName(const QString& v) {
     if (m_name == v) return;
     m_name = v; emit nameChanged();
 }
 
+/// Sets the project description. No change check and no change signal.
+/// @param v new description
 void Project::setDescription(const QString &v) {
     m_description = v;
 }
 
+/// Sets the project author, emitting authorChanged() if it actually changed.
+/// @param v new author
 void Project::setAuthor(const QString& v) {
     if (m_author == v) return;
     m_author = v; emit authorChanged();
 }
 
+/// Sets the project version, emitting versionChanged() if it actually changed.
+/// @param v new version string
 void Project::setVersion(const QString& v) {
     if (m_version == v) return;
     m_version = v; emit versionChanged();
 }
 
+/// Sets the creation timestamp, always emitting createdAtChanged() (no
+/// no-op check for an unchanged value).
+/// @param v new created-at timestamp
 void Project::setCreatedAt(const QString& v) {
     m_createdAt = v; emit createdAtChanged();
 }
 
+/// Sets the last-updated timestamp, always emitting updatedAtChanged() (no
+/// no-op check for an unchanged value).
+/// @param v new updated-at timestamp
 void Project::setUpdatedAt(const QString& v) {
     m_updatedAt = v; emit updatedAtChanged();
 }
 
+/// Takes ownership of `task` (wraps it in a shared_ptr), registers it under its
+/// id, links it to this project (setProject()), and connects its configChanged()
+/// signal to re-emit taskModified()/projectModificationOccurred(). Rejects the
+/// task if its name is already occupied.
 bool Project::addTask(ITask* task) {
     if (!task) {
         return false;
@@ -87,6 +111,9 @@ bool Project::addTask(ITask* task) {
     return true;
 }
 
+/// Removes the task with the given id from the project, emitting tasksChanged()
+/// and taskDeleted() on success.
+/// @param id id of the task to remove
 bool Project::removeTask(const QString& id) {
     if (m_tasks.contains(id)) {
         m_tasks.remove(id);
@@ -97,6 +124,10 @@ bool Project::removeTask(const QString& id) {
     return false;
 }
 
+/// Assigns a device to a task: adds the device id to the task's assigned-device
+/// set and records the task id on the device (device::IDevice::setAssignedTaskId()).
+/// @param deviceId id of the device to assign
+/// @param taskId id of the task to assign it to
 bool Project::assignDeviceToTask(const QString &deviceId, const QString &taskId) {
     std::shared_ptr<vc::model::ITask> task = this->taskById(taskId);
     if (!task) return false;
@@ -109,6 +140,10 @@ bool Project::assignDeviceToTask(const QString &deviceId, const QString &taskId)
     return true;
 }
 
+/// Unassigns a device from a task: removes the device id from the task's
+/// assigned-device set and clears the device's recorded assigned task id.
+/// @param deviceId id of the device to unassign
+/// @param taskId id of the task to unassign it from
 bool Project::unassignDeviceFromTask(const QString &deviceId, const QString &taskId) {
     std::shared_ptr<vc::model::ITask> task = this->taskById(taskId);
     if (!task) return false;
@@ -121,6 +156,8 @@ bool Project::unassignDeviceFromTask(const QString &deviceId, const QString &tas
     return true;
 }
 
+/// Looks up a task by id.
+/// @param id task id to look up
 std::shared_ptr<vc::model::ITask> Project::taskById(const QString& id) const {
     if (m_tasks.contains(id)) {
         return m_tasks.value(id, nullptr);
@@ -128,6 +165,15 @@ std::shared_ptr<vc::model::ITask> Project::taskById(const QString& id) const {
     return nullptr;
 }
 
+/// Renames the task with the given id to `name` and emits taskModified(id).
+/// @param id id of the task to rename
+/// @param name new name; rejected if already occupied by another task
+/// @return false if `name` is already occupied or `id` is not a known task;
+///   also returns false unconditionally after a successful rename (the
+///   `return false` below is reached even when the rename succeeded)
+/// @note frees the *old* occupied-name entry using `task->id()` rather than the
+///   task's previous name, so m_occupiedTaskNames is only cleared correctly when
+///   the task's id happens to equal its prior name
 bool Project::changeTaskName(const QString& id, const QString &name) {
     if (m_occupiedTaskNames.contains(name)) {
         return false;
@@ -145,18 +191,25 @@ bool Project::changeTaskName(const QString& id, const QString &name) {
     return false;
 }
 
+/// Returns whether `name` is already in use by a registered task.
 bool Project::isTaskNameOccupied(const QString& name) const {
     return m_occupiedTaskNames.contains(name);
 }
 
+/// Returns the project's owned DeviceManager.
 std::shared_ptr<device::DeviceManager> Project::deviceManager() {
     return m_deviceManager;
 }
 
+/// Looks up a device by id via the project's DeviceManager.
+/// @param id device id to look up
 std::shared_ptr<vc::device::IDevice> Project::deviceById(const QString& id) {
     return m_deviceManager->getCurrentDevices().value(id, nullptr);
 }
 
+/// Serializes the project to JSON: name, version, all devices (via the
+/// DeviceManager's current devices), and all tasks.
+/// @return the serialized project
 QJsonObject Project::toJson() const {
     // get device json data
     QJsonArray deviceArr;
@@ -185,6 +238,12 @@ QJsonObject Project::toJson() const {
                        };
 }
 
+/// Restores the project from JSON previously produced by toJson(): reads name
+/// and version, reconstructs devices via device::DeviceFactory::fromJson() and
+/// reserves them on the DeviceManager, reconstructs tasks via
+/// model::TaskFactory::fromJson() and adds them, then re-links each device to
+/// its assignedTaskId(). Devices with no assigned task are logged and released
+/// (deleted from the DeviceManager) rather than kept orphaned.
 bool Project::fromJson(const QJsonObject &json) {
     if (json.isEmpty()) {
         return false;
@@ -282,6 +341,12 @@ bool Project::fromJson(const QJsonObject &json) {
 //     return true;
 // }
 
+/// Moves ownership of a device from one task to another: unassigns it from
+/// `fromTaskId`, assigns it to `toTaskId`, updates the device's recorded
+/// assigned-task id, and emits projectModificationOccurred().
+/// @param deviceId id of the device to move
+/// @param fromTaskId id of the task currently holding the device
+/// @param toTaskId id of the task to move the device to
 bool Project::moveDeviceToTask(const QString &deviceId,
                                const QString &fromTaskId,
                                const QString &toTaskId)

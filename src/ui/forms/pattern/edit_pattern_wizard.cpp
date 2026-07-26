@@ -15,11 +15,12 @@
 
 namespace {
 
-constexpr int CW = 560;
-constexpr int CH = 380;
-constexpr int DIALOG_W = 920;
-constexpr int DIALOG_H = 620;
+constexpr int CW = 560;        ///< Default/minimum width of the image canvas, in pixels.
+constexpr int CH = 380;        ///< Default/minimum height of the image canvas, in pixels.
+constexpr int DIALOG_W = 920;  ///< Fixed dialog width, in pixels.
+constexpr int DIALOG_H = 620;  ///< Fixed dialog height, in pixels.
 
+/// Creates a small-caps-style uppercase section label (e.g. "PATTERN NAME") used above input fields.
 QLabel *makeFieldLabel(const QString &text) {
     auto *lbl = new QLabel(text);
     lbl->setStyleSheet(QString(
@@ -29,6 +30,7 @@ QLabel *makeFieldLabel(const QString &text) {
     return lbl;
 }
 
+/// Creates a thin 1px-tall horizontal divider line styled with the theme's border color.
 QFrame *makeHSeparator() {
     auto *f = new QFrame; f->setFixedHeight(1);
     f->setStyleSheet(QString("background: %1;").arg(ptn::BD));
@@ -37,6 +39,8 @@ QFrame *makeHSeparator() {
 
 } // namespace
 
+/// Constructs the wizard fixed-size, modal, applies the pattern theme
+/// stylesheet, builds every step page, and jumps to Step 1 (Identity).
 EditPatternWizard::EditPatternWizard(const QString &groupName,
                                      const Pattern &pattern,
                                      const QStringList &usedNames,
@@ -61,6 +65,8 @@ EditPatternWizard::EditPatternWizard(const QString &groupName,
 //  UI construction
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Assembles the dialog's top-level layout (header, step rail, stacked step
+/// pages, footer).
 void EditPatternWizard::buildUi() {
     auto *root = new QVBoxLayout(this);
     root->setContentsMargins(0, 0, 0, 0); root->setSpacing(0);
@@ -80,6 +86,9 @@ void EditPatternWizard::buildUi() {
     root->addWidget(buildFooter());
 }
 
+/// Builds the fixed-height title bar: wizard title, subtitle label (updated
+/// per-step by goToStep()), and a close button wired to onCancel().
+/// @return the constructed header frame, ready to add to the root layout
 QWidget *EditPatternWizard::buildHeader() {
     auto *w = new QFrame;
     w->setFixedHeight(54);
@@ -114,6 +123,10 @@ QWidget *EditPatternWizard::buildHeader() {
     return w;
 }
 
+/// Creates a single round numbered "step bubble" label for the step rail,
+/// initially styled as not-done and current only when `idx` is 0.
+/// @param idx zero-based step index this bubble represents
+/// @return the constructed bubble label, not yet added to a layout
 QLabel *EditPatternWizard::makeStepBubble(int idx) {
     auto *b = new QLabel(QString::number(idx + 1));
     b->setAlignment(Qt::AlignCenter);
@@ -122,6 +135,10 @@ QLabel *EditPatternWizard::makeStepBubble(int idx) {
     return b;
 }
 
+/// Builds the horizontal 4-cell step rail (bubble + title + subline per
+/// step) and populates m_stepBubbles / m_stepLabels for later restyling by
+/// updateStepRail().
+/// @return the constructed step-rail frame, ready to add to the root layout
 QWidget *EditPatternWizard::buildStepRail() {
     auto *w = new QFrame;
     w->setFixedHeight(50);
@@ -163,6 +180,9 @@ QWidget *EditPatternWizard::buildStepRail() {
     return w;
 }
 
+/// Builds the fixed-height footer bar: status label (updated by
+/// updateFooterStatus()) plus Cancel/Back/Next buttons wired to their slots.
+/// @return the constructed footer frame, ready to add to the root layout
 QWidget *EditPatternWizard::buildFooter() {
     auto *w = new QFrame;
     w->setFixedHeight(54);
@@ -199,6 +219,10 @@ QWidget *EditPatternWizard::buildFooter() {
 
 // ── Step 1 — Identity ───────────────────────────────────────────────────────
 
+/// Builds Step 1 ("Identity"): the locked image canvas on the left plus a
+/// right-hand column with the editable name/number fields, their "was: ..."
+/// previous-value labels, and validation-error labels.
+/// @return the constructed step page, ready to add to the step stack
 QWidget *EditPatternWizard::buildStepIdentity() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -262,6 +286,10 @@ QWidget *EditPatternWizard::buildStepIdentity() {
 
 // ── Step 2 — Pick Point ─────────────────────────────────────────────────────
 
+/// Builds Step 2 ("Pick Point"): the locked image canvas in Pick mode plus a
+/// right-hand column with X/Y spin boxes (ranged to the locked image size),
+/// a Center shortcut, and the previous pick-point value.
+/// @return the constructed step page, ready to add to the step stack
 QWidget *EditPatternWizard::buildStepPick() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -335,6 +363,12 @@ QWidget *EditPatternWizard::buildStepPick() {
 
 // ── Step 3 — Box ────────────────────────────────────────────────────────────
 
+/// Builds Step 3 ("Picking Box"): the locked image canvas in Box mode plus a
+/// right-hand column with width/height and distance/angle spin boxes (ranged
+/// to the locked image size), Reset / Rotate +90 shortcut buttons, and the
+/// previous box configuration. Wires the canvas' boxChanged/pickChanged
+/// signals back into the spin boxes and m_new state.
+/// @return the constructed step page, ready to add to the step stack
 QWidget *EditPatternWizard::buildStepBox() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -452,6 +486,10 @@ QWidget *EditPatternWizard::buildStepBox() {
 
 // ── Step 4 — Finish (diff view) ─────────────────────────────────────────────
 
+/// Builds Step 4 ("Finish"): the read-only finish canvas plus a right-hand
+/// column with the "CHANGES" header and the HTML diff summary label
+/// (refreshed by refreshDiff()).
+/// @return the constructed step page, ready to add to the step stack
 QWidget *EditPatternWizard::buildStepFinish() {
     auto *page = new QWidget;
     auto *lay  = new QHBoxLayout(page);
@@ -489,6 +527,13 @@ QWidget *EditPatternWizard::buildStepFinish() {
 //  Step rail / nav
 // ─────────────────────────────────────────────────────────────────────────────
 
+/// Navigates the wizard to `step` (0-3): rejects moves forward past an
+/// invalid step (see currentStepValid()), switches the visible stack page,
+/// pushes the accumulated m_new state (pick point/box config) into the
+/// canvas being entered, refreshes the diff on the Finish step, and updates
+/// the step rail, footer status, subtitle, and Back/Next button state
+/// (rewiring Next to Apply on the final step).
+/// @param step target step index; out-of-range values (not 0-3) are ignored
 void EditPatternWizard::goToStep(int step) {
     if (step < 0 || step > 3) return;
     if (step > m_currentStep && !currentStepValid()) return;
@@ -537,6 +582,8 @@ void EditPatternWizard::goToStep(int step) {
     }
 }
 
+/// Restyles every step bubble/label to reflect the current step: done
+/// (checkmark), current (highlighted), or upcoming (muted).
 void EditPatternWizard::updateStepRail() {
     for (int i = 0; i < m_stepBubbles.size(); ++i) {
         const bool done    = i < m_currentStep;
@@ -549,6 +596,12 @@ void EditPatternWizard::updateStepRail() {
     }
 }
 
+/// Checks whether the current step's inputs are complete enough to advance.
+/// Only step 0 (Identity) is gated: requires a non-empty name that either
+/// matches the original or is unused elsewhere in the group, and a number
+/// >= 1 that either matches the original or is unused elsewhere in the
+/// group. Steps 1-3 have no blocking requirement.
+/// @return true if the wizard may move forward from the current step
 bool EditPatternWizard::currentStepValid() const {
     if (m_currentStep == 0) {
         const bool nameOk = !m_new.name.trimmed().isEmpty()
@@ -562,6 +615,9 @@ bool EditPatternWizard::currentStepValid() const {
     return true;
 }
 
+/// Recomputes the footer status text for the current step: an actionable
+/// hint when Identity is invalid, or a "checkmark ..." summary of the
+/// current pick-point/box/review state for the other steps.
 void EditPatternWizard::updateFooterStatus() {
     if (!m_footerStatus) return;
     QString s;
@@ -587,6 +643,10 @@ void EditPatternWizard::updateFooterStatus() {
     m_footerStatus->setText(s);
 }
 
+/// Rebuilds the Step 4 HTML diff summary (name, number, pick point, box
+/// width/height, and offset distance/angle), rendering each field as a plain
+/// value when unchanged or as a struck-through "old -> new" line when it
+/// differs between m_old and m_new.
 void EditPatternWizard::refreshDiff() {
     if (!m_diffSummary) return;
 
@@ -623,11 +683,20 @@ void EditPatternWizard::refreshDiff() {
 
 // ── Slots ───────────────────────────────────────────────────────────────────
 
+/// Advances the wizard to the next step (Next button; no-op past step 3).
 void EditPatternWizard::onNext()    { goToStep(m_currentStep + 1); }
+/// Moves the wizard back to the previous step (Back button; no-op before step 0).
 void EditPatternWizard::onBack()    { goToStep(m_currentStep - 1); }
+/// Cancels the wizard, closing the dialog with QDialog::Rejected.
 void EditPatternWizard::onCancel()  { reject(); }
+/// Confirms the wizard (Apply Changes on step 3), closing the dialog with QDialog::Accepted.
 void EditPatternWizard::onApply()   { accept(); }
 
+/// Updates the stored pattern name from the name field, shows/clears the
+/// "already exists" error label depending on whether the trimmed name
+/// (when different from the original) collides with m_usedNames, and
+/// refreshes the footer status.
+/// @param v current text of the name input
 void EditPatternWizard::onNameChanged(const QString &v) {
     m_new.name = v;
     if (m_lblNameError) {
@@ -639,6 +708,11 @@ void EditPatternWizard::onNameChanged(const QString &v) {
     updateFooterStatus();
 }
 
+/// Updates the stored pattern number from the number field, shows/clears the
+/// "already exists" error label depending on whether `v` (when different
+/// from the original) collides with m_usedNumbers, and refreshes the footer
+/// status.
+/// @param v current value of the number input
 void EditPatternWizard::onNumberChanged(int v) {
     m_new.number = v;
     if (m_lblNumberError) {
@@ -648,6 +722,10 @@ void EditPatternWizard::onNumberChanged(int v) {
     updateFooterStatus();
 }
 
+/// Updates the stored pick point from `p`, mirrors it into the pick spin
+/// boxes (signal-blocked to avoid feedback) and back into the pick canvas,
+/// then refreshes the footer status.
+/// @param p new pick position, in locked-image pixel coordinates
 void EditPatternWizard::onPickChanged(const QPoint &p) {
     m_new.pickX = p.x(); m_new.pickY = p.y();
     if (m_pickXSpin) {
@@ -658,12 +736,18 @@ void EditPatternWizard::onPickChanged(const QPoint &p) {
     updateFooterStatus();
 }
 
+/// Centers the pick point within the locked image (falling back to the
+/// default CW x CH canvas size if no image is loaded), then applies it via
+/// onPickChanged().
 void EditPatternWizard::onPickCenter() {
     const int iw = m_old.image.empty() ? CW : m_old.image.cols;
     const int ih = m_old.image.empty() ? CH : m_old.image.rows;
     onPickChanged({iw / 2, ih / 2});
 }
 
+/// Pulls the current width/height/distance/angle values out of the Step 3
+/// spin boxes (when present) into m_new, pushes them into the box canvas,
+/// and refreshes the footer status.
 void EditPatternWizard::onBoxChanged() {
     if (m_boxWSpin)     m_new.pickBoxW     = m_boxWSpin->value();
     if (m_boxHSpin)     m_new.pickBoxH     = m_boxHSpin->value();
@@ -675,6 +759,9 @@ void EditPatternWizard::onBoxChanged() {
     updateFooterStatus();
 }
 
+/// Resets the picking box to its default size/offset (120x80, distance 90,
+/// angle 0), writes the values into the Step 3 spin boxes (when present),
+/// and applies them via onBoxChanged().
 void EditPatternWizard::onBoxReset() {
     // Mirror the Add wizard: reset to the default jaw geometry.
     m_new.pickBoxW = 120; m_new.pickBoxH = 80;
@@ -686,6 +773,9 @@ void EditPatternWizard::onBoxReset() {
     onBoxChanged();
 }
 
+/// Rotates the picking box by +90 degrees, wrapping the result back into the
+/// [-180, 180] range, writes it into the angle spin box (when present), and
+/// applies it via onBoxChanged().
 void EditPatternWizard::onBoxRotate90() {
     m_new.pickBoxAngle += 90;
     while (m_new.pickBoxAngle > 180)  m_new.pickBoxAngle -= 360;

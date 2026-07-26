@@ -1,0 +1,27 @@
+var class_group_frame_widget =
+[
+    [ "GroupFrameWidget", "class_group_frame_widget.html#a78ec413df14208df7483b95c5dd46e1f", null ],
+    [ "addWidget", "class_group_frame_widget.html#af7188b7397ef143f16be9c70ec55392c", null ],
+    [ "headerBackground", "class_group_frame_widget.html#adc5f1a4dc0bed352e30fbc8927e9d4cc", null ],
+    [ "headerBackGroundColorChanged", "class_group_frame_widget.html#a206c56a8d349b8dbc38a3f736fa0bae8", null ],
+    [ "headerColor", "class_group_frame_widget.html#ad6dbeb2dac49e3111c0545e41fd712d3", null ],
+    [ "headerColorChanged", "class_group_frame_widget.html#a8d46b23a4e561a8f35282f62dbeda44f", null ],
+    [ "headerFont", "class_group_frame_widget.html#acabaca0c1eb33a6f3e3c47833d4f2d57", null ],
+    [ "headerFontChanged", "class_group_frame_widget.html#aac35ad3708cf93baaf15752dd4bcda10", null ],
+    [ "paintEvent", "class_group_frame_widget.html#a35e4fcea80290901fc12aa0002441590", null ],
+    [ "setHeaderBackground", "class_group_frame_widget.html#a8f20cb6c752ed146f3196bf497c4cd39", null ],
+    [ "setHeaderColor", "class_group_frame_widget.html#ac3bcf638ec99a956a0bbe20875185aae", null ],
+    [ "setHeaderFont", "class_group_frame_widget.html#a65d5f1623b961b43602371a3ba9bfc70", null ],
+    [ "setTitle", "class_group_frame_widget.html#add5b2bc03f12bb0c00772f8498377b75", null ],
+    [ "title", "class_group_frame_widget.html#a6b43d25b13728bff63c7f6db881d25ca", null ],
+    [ "titleChanged", "class_group_frame_widget.html#a5036dbc6ef88001bcbd1ded1d6809c09", null ],
+    [ "m_headerBackground", "class_group_frame_widget.html#a9c5b3aeec1c465a173f2cfcdee93807f", null ],
+    [ "m_headerColor", "class_group_frame_widget.html#aa53bae4626896494a2a7d2a131a8cd6b", null ],
+    [ "m_headerFont", "class_group_frame_widget.html#ac2ee791f6d3c0666bb9e4a105bc43f92", null ],
+    [ "m_layout", "class_group_frame_widget.html#a2646f7478690da280934335233dd072c", null ],
+    [ "m_title", "class_group_frame_widget.html#ab6c0123fd800c094619bfc1af33a8e3e", null ],
+    [ "headerBackground", "class_group_frame_widget.html#a99e30971fc35c2617ac1581fafba7e1d", null ],
+    [ "headerColor", "class_group_frame_widget.html#a5d1fc9760e32d24cfe812488053157aa", null ],
+    [ "headerFont", "class_group_frame_widget.html#a5fdc1e9281cf4f9c1d5ff5cbcc238c8c", null ],
+    [ "title", "class_group_frame_widget.html#a1ea2ab4836cf0706e7b1c19319b6e29b", null ]
+];

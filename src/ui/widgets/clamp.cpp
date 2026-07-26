@@ -1,5 +1,7 @@
 #include "clamp.h"
 
+/// Initializes default state: disabled, 1px outline, green enabled / gray disabled
+/// fill colors, and no fixed max size (auto-sizes to the widget).
 CLamp::CLamp(QWidget *parent)
     : QWidget{parent} {
     m_max_size = 0;

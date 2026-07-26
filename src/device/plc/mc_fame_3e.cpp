@@ -5,14 +5,23 @@
 
 #include "core/logger/app_logger.h"
 
+/// Frame3E implementation: builds and parses the binary Mitsubishi MC 3E-frame requests/responses
+/// (bit and word read/write) described by Context_Mc3E, plus the internal frame-encoding helpers
+/// (command header, device addressing, and send-frame envelope) used to assemble them.
 namespace vc::device {
 
+/// Shorthand for MCFrameAbstract's frame build/parse result codes, used throughout this file.
 using RtCode = MCFrameAbstract::FrameReturnCode;
 
+/// Constructs the frame codec with an empty last-error string.
 Frame3E::Frame3E() {
     m_last_error = "";
 }
 
+/// Builds a 3E request frame for `request` (dispatches by MCRequest::RqType to the
+/// matching build_* helper). For ReadBit requests of more than 8 bits on an X/Y/M device,
+/// transparently switches to a word-aligned read via build_read_word and records the
+/// equivalent word length in m_total_bit_word_len.
 RtCode Frame3E::makeSendFrame(vc::device::MCRequest *request, McContext* ctx, QByteArray &data) {
     if ((request == nullptr) || (ctx == nullptr)) {
         return RtCode::ObjectError;
@@ -58,6 +67,9 @@ RtCode Frame3E::makeSendFrame(vc::device::MCRequest *request, McContext* ctx, QB
     return RtCode::RequestFrameError;
 }
 
+/// Parses a 3E response frame for `request` (dispatches by MCRequest::RqType to the matching
+/// parse_* helper; ReadBit further routes to parse_read_bit_from_word when more than 8 bits of
+/// an X/Y/M device were requested, mirroring the word-aligned build in makeSendFrame).
 RtCode Frame3E::parseReceiveFrame(vc::device::MCRequest *request, McContext* ctx, QByteArray &data) {
     if ((request == nullptr) || (ctx == nullptr)) {
         return RtCode::ObjectError;
@@ -97,11 +109,16 @@ RtCode Frame3E::parseReceiveFrame(vc::device::MCRequest *request, McContext* ctx
     return RtCode::WaitingReceive;
 }
 
+/// Returns the description of the most recent build/parse error recorded in m_last_error.
 QString Frame3E::lastErrorDescription() {
     return m_last_error;
 }
 
 
+/// Appends the little-endian command and sub-command code pair to `data` (4 bytes total).
+/// @param cmd the MC command code (e.g. 0x0401 read, 0x1401 write)
+/// @param sub_cmd the MC sub-command code (bit vs word variant)
+/// @param data output buffer; the 4 encoded bytes are appended to it
 static void make_command_data(quint16 cmd, quint16 sub_cmd, QByteArray &data) {
     // ALL CODE IS LITTLE ENDIAN
 
@@ -114,6 +131,12 @@ static void make_command_data(quint16 cmd, quint16 sub_cmd, QByteArray &data) {
     data.append(static_cast<char>((sub_cmd >> 8) & 0xFF));  // MSB
 }
 
+/// Appends the device address (3 bytes, little-endian) and device code (1 byte) to `data`,
+/// per the 3E frame's binary device-addressing format for IQ-L series CPUs.
+/// @param device_type the device letter (e.g. 'X', 'Y', 'M', 'D'); converted to its binary
+///        device code via Eframe_Binary_Device_Code
+/// @param address the starting device address
+/// @param data output buffer; the 4 encoded bytes are appended to it
 static void make_device_data(char &device_type, int &address, QByteArray &data) {
     // WITH IQ-L CPU - SUBCOMMAND CODE IS 0x0001
     // DEVICE NUM + DEVICE CODE = 3 + 1
@@ -125,6 +148,8 @@ static void make_device_data(char &device_type, int &address, QByteArray &data) 
     appendToByteArray_uint32(data, code, 1, true);
 }
 
+/// Reads the 3E end-code at the fixed status offset and records it via m_last_error;
+/// true when the end code is 0x0000 (success).
 bool Frame3E::checkErrorStatus(QByteArray &data) {
     const int resp_status_index = 9;
     quint16 end_code = convert_uint16_FromBytes(data, resp_status_index, true);
@@ -140,6 +165,9 @@ bool Frame3E::checkErrorStatus(QByteArray &data) {
     return false;
 }
 
+/// Wraps `data` (an already-built request payload) in the full 3E send envelope — sub-header,
+/// network, PC, destination module IO number, station number, request length, and monitoring
+/// time, all read from `ctx` — then replaces `data` with the resulting complete frame.
 void Frame3E::make_send_data(Context_Mc3E* ctx, QByteArray &data) {
     QByteArray send_frame;
     send_frame.clear();
@@ -167,6 +195,8 @@ void Frame3E::make_send_data(Context_Mc3E* ctx, QByteArray &data) {
     data.append(send_frame);
 }
 
+/// Builds a 3E bit-read request frame (command 0x0401/0x0001) for `amount` bits of `device`
+/// starting at `start`.
 RtCode Frame3E::build_read_bit(char &device, int &start, int &amount, Context_Mc3E *ctx, QByteArray &data) {
 
     // temporary test for IQL series
@@ -187,6 +217,9 @@ RtCode Frame3E::build_read_bit(char &device, int &start, int &amount, Context_Mc
     return RtCode::RequestFrameOK;
 }
 
+/// Builds a 3E bit-write request frame (command 0x1401/0x0001) for `request`, packing each
+/// pair of values from request->m_value into a single byte (the first value in bit 4, the
+/// second in bit 0; a trailing odd value gets its own byte with bit 0 unset).
 RtCode Frame3E::build_write_bit(vc::device::MCRequest *request, Context_Mc3E *ctx, QByteArray &data) {
     char &device = request->m_device_type;
     int &start = request->m_start_address;
@@ -222,6 +255,8 @@ RtCode Frame3E::build_write_bit(vc::device::MCRequest *request, Context_Mc3E *ct
     return RtCode::RequestFrameOK;
 }
 
+/// Builds a 3E word-read request frame (command 0x0401/0x0000) for `amount` words of `device`
+/// starting at `start`.
 RtCode Frame3E::build_read_word(char &device, int &start, int &amount, Context_Mc3E *ctx, QByteArray &data) {
     // temporary test for IQL series
     // clear data
@@ -241,6 +276,8 @@ RtCode Frame3E::build_read_word(char &device, int &start, int &amount, Context_M
     return RtCode::RequestFrameOK;
 }
 
+/// Builds a 3E word-write request frame (command 0x1401/0x0000) for `request`, appending each
+/// value in request->m_value as a little-endian 16-bit word.
 RtCode Frame3E::build_write_word(vc::device::MCRequest *request, Context_Mc3E *ctx, QByteArray &data) {
     char &device = request->m_device_type;
     int &start = request->m_start_address;
@@ -270,6 +307,10 @@ RtCode Frame3E::build_write_word(vc::device::MCRequest *request, Context_Mc3E *c
     return RtCode::RequestFrameOK;
 }
 
+/// Parses a 3E bit-read response for reads of 8 or fewer bits per device: after validating the
+/// end code, unpacks each response byte into up to two bit values (the 0x10 nibble bit, then
+/// the 0x01 bit) until request->m_amount values are collected, then — only for device_type
+/// 'M' — stores them into ctx's device map starting at request->m_start_address.
 RtCode Frame3E::parse_read_bit(vc::device::MCRequest *request, Context_Mc3E* ctx, QByteArray &data) {
     if (data.size() < 9) {
         m_last_error = "total receive len under 9 bytes";
@@ -312,6 +353,11 @@ RtCode Frame3E::parse_read_bit(vc::device::MCRequest *request, Context_Mc3E* ctx
     return RtCode::ResponseOk;
 }
 
+/// Parses a 3E bit-read response for reads of more than 8 bits from an X/Y/M device (the
+/// request was sent word-aligned via build_read_word): after validating the end code, unpacks
+/// each response byte into 8 bit values (LSB first), trims the result to request->m_amount,
+/// then — only for device_type 'M' — stores them into ctx's device map starting at
+/// request->m_start_address.
 RtCode Frame3E::parse_read_bit_from_word(vc::device::MCRequest *request, Context_Mc3E* ctx, QByteArray &data) {
     if (data.size() < 9) {
         m_last_error = "total receive len under 9 bytes";
@@ -358,6 +404,9 @@ RtCode Frame3E::parse_read_bit_from_word(vc::device::MCRequest *request, Context
 }
 
 
+/// Parses a 3E word-read response: after validating the end code, decodes each little-endian
+/// 16-bit word from the response payload, trims the result to request->m_amount, then — only
+/// for device_type 'D' — stores them into ctx's device map starting at request->m_start_address.
 RtCode Frame3E::parse_read_word(vc::device::MCRequest *request, Context_Mc3E* ctx, QByteArray &data) {
     if (data.size() < 9) {
         m_last_error = "total receive len under 9 bytes";
@@ -401,6 +450,9 @@ RtCode Frame3E::parse_read_word(vc::device::MCRequest *request, Context_Mc3E* ct
     return RtCode::ResponseOk;
 }
 
+/// Parses a response to any write request (bit or word) — both share the same fixed-length
+/// envelope, so only the end-code check below is needed; `request` and `ctx` are unused,
+/// kept only for a uniform parse_* signature.
 RtCode Frame3E::parse_write(vc::device::MCRequest *request, Context_Mc3E* ctx, QByteArray &data) {
     // A complete 3E write response is 11 bytes: 9-byte header + the 2-byte end
     // code that checkErrorStatus() reads at offset 9. Accepting a 9-10 byte

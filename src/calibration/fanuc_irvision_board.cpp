@@ -16,6 +16,10 @@ namespace calib {
 // =====================================================================
 // Params validation
 // =====================================================================
+/// Checks internal consistency of the parameter set: rows/cols must be odd and
+/// meet their minimums, spacings/sizes must be positive, and the dot-size ordering
+/// normalDotSizeMm < coorDotSizeMm < dotSpacingMm (with innerTargetDotSizeMm < normalDotSizeMm)
+/// must hold, plus binarizeThreshold must be -1 or in 0..255.
 bool FanucIRvisionBoard::Params::isValid(std::string* errorOut) const
 {
     auto fail = [errorOut](const char* msg) {
@@ -43,6 +47,8 @@ bool FanucIRvisionBoard::Params::isValid(std::string* errorOut) const
 // =====================================================================
 // Construction
 // =====================================================================
+/// Constructs the board, validating `params` up front.
+/// @note throws std::invalid_argument (with the Params::isValid() error message) if `params` is invalid.
 FanucIRvisionBoard::FanucIRvisionBoard(const Params& params)
     : m_params(params)
 {
@@ -54,6 +60,8 @@ FanucIRvisionBoard::FanucIRvisionBoard(const Params& params)
 // =====================================================================
 // JSON serialisation
 // =====================================================================
+/// Writes every Params field (rows, cols, spacings, dot sizes, binarizeThreshold) into `fs`.
+/// @param fs the OpenCV FileStorage to append to; invoked by CalibrationBoard::toJson()
 void FanucIRvisionBoard::writeJsonFields(cv::FileStorage& fs) const
 {
     fs << "rows"                 << m_params.rows;
@@ -66,6 +74,10 @@ void FanucIRvisionBoard::writeJsonFields(cv::FileStorage& fs) const
     fs << "binarizeThreshold"    << m_params.binarizeThreshold;
 }
 
+/// Parses Params from a JSON document produced by writeJsonFields()/toJson(). The parsed Params
+/// leaves binarizeThreshold at its default -1 when absent, for backward compatibility with JSON
+/// saved before that field existed.
+/// @note throws std::invalid_argument if the JSON cannot be opened as an OpenCV FileStorage.
 FanucIRvisionBoard::Params FanucIRvisionBoard::paramsFromJson(const std::string& json)
 {
     cv::FileStorage fs(json,
@@ -91,6 +103,7 @@ FanucIRvisionBoard::Params FanucIRvisionBoard::paramsFromJson(const std::string&
 // =====================================================================
 // Cell roles
 // =====================================================================
+/// Returns the 8 target-ring grid cells: the 4 grid corners plus the 4 edge midpoints.
 std::vector<FanucIRvisionBoard::GridCell> FanucIRvisionBoard::targetCells() const
 {
     const int rmid = (m_params.rows - 1) / 2;
@@ -105,11 +118,14 @@ std::vector<FanucIRvisionBoard::GridCell> FanucIRvisionBoard::targetCells() cons
     };
 }
 
+/// Returns the grid cell at the exact centre of the (odd rows x odd cols) grid.
 FanucIRvisionBoard::GridCell FanucIRvisionBoard::centerCell() const
 {
     return { (m_params.rows - 1) / 2, (m_params.cols - 1) / 2 };
 }
 
+/// Returns the 3 coord-dot grid cells, in [xMid, xTip, yTip] order: two cells to the right
+/// of centre (encoding +X) and one cell above centre (encoding +Y).
 std::vector<FanucIRvisionBoard::GridCell> FanucIRvisionBoard::coordCells() const
 {
     const int rmid = (m_params.rows - 1) / 2;
@@ -121,6 +137,7 @@ std::vector<FanucIRvisionBoard::GridCell> FanucIRvisionBoard::coordCells() const
     };
 }
 
+/// Returns the 4 corner grid cells, in [TL, TR, BR, BL] order.
 std::vector<FanucIRvisionBoard::GridCell> FanucIRvisionBoard::cornerCells() const
 {
     const int rmax = m_params.rows - 1;
@@ -128,6 +145,8 @@ std::vector<FanucIRvisionBoard::GridCell> FanucIRvisionBoard::cornerCells() cons
     return { { 0, 0 }, { 0, cmax }, { rmax, cmax }, { rmax, 0 } };
 }
 
+/// Classifies the dot at (row, col) by checking it against the centre, coord, and
+/// target cell sets in that priority order.
 FanucIRvisionBoard::DotRole FanucIRvisionBoard::roleOf(int row, int col) const
 {
     const auto centre = centerCell();
@@ -137,6 +156,7 @@ FanucIRvisionBoard::DotRole FanucIRvisionBoard::roleOf(int row, int col) const
     return DotRole::Normal;
 }
 
+/// Converts targetCells() to flat row-major grid indices (row * cols + col).
 std::vector<int> FanucIRvisionBoard::targetIndices() const
 {
     std::vector<int> v;
@@ -146,12 +166,14 @@ std::vector<int> FanucIRvisionBoard::targetIndices() const
     return v;
 }
 
+/// Converts centerCell() to a flat row-major grid index (row * cols + col).
 std::vector<int> FanucIRvisionBoard::centerIndex() const
 {
     const auto c = centerCell();
     return { c.row * m_params.cols + c.col };
 }
 
+/// Converts coordCells() to flat row-major grid indices (row * cols + col).
 std::vector<int> FanucIRvisionBoard::coordIndices() const
 {
     std::vector<int> v;
@@ -161,6 +183,8 @@ std::vector<int> FanucIRvisionBoard::coordIndices() const
     return v;
 }
 
+/// Returns the 4 orientation-marker indices, in [centre, xMid, xTip, yTip] order
+/// (centerIndex() followed by coordIndices()).
 std::vector<int> FanucIRvisionBoard::markerIndices() const
 {
     std::vector<int> v;
@@ -172,6 +196,8 @@ std::vector<int> FanucIRvisionBoard::markerIndices() const
 // =====================================================================
 // Object points
 // =====================================================================
+/// Returns the 3D (Z=0, in mm) position of every grid dot in row-major order:
+/// x = col * dotSpacingMm, y = row * dotSpacingMm.
 std::vector<cv::Point3f> FanucIRvisionBoard::objectPoints() const
 {
     std::vector<cv::Point3f> pts;
@@ -184,6 +210,8 @@ std::vector<cv::Point3f> FanucIRvisionBoard::objectPoints() const
     return pts;
 }
 
+/// Returns the 2D (XY only, in mm) position of every grid dot in row-major order;
+/// same values as objectPoints() with the Z coordinate dropped.
 std::vector<cv::Point2f> FanucIRvisionBoard::objectPointsXY() const
 {
     std::vector<cv::Point2f> pts;
@@ -195,6 +223,8 @@ std::vector<cv::Point2f> FanucIRvisionBoard::objectPointsXY() const
     return pts;
 }
 
+/// Returns the 2D object-space position (in mm) of the 4 corner dots, in
+/// [TL, TR, BR, BL] order (via cornerCells()).
 std::vector<cv::Point2f> FanucIRvisionBoard::cornerObjectPointsXY() const
 {
     std::vector<cv::Point2f> pts;
@@ -208,6 +238,10 @@ std::vector<cv::Point2f> FanucIRvisionBoard::cornerObjectPointsXY() const
 // =====================================================================
 // Synthesis: draw board image
 // =====================================================================
+/// Rasterizes the board per Params onto a white background: each dot is drawn per its
+/// DotRole (plain solid Normal dots; Target/Center dots get a solid outer circle plus a
+/// white inner ring; Coord dots are solid at the larger coord size). The resulting image is
+/// sized to the full grid plus margin.
 cv::Mat FanucIRvisionBoard::generateImage(double pixelsPerMm) const
 {
     const double widthMm  = (m_params.cols - 1) * m_params.dotSpacingMm + 2.0 * m_params.marginMm;
@@ -258,6 +292,8 @@ cv::Mat FanucIRvisionBoard::generateImage(double pixelsPerMm) const
 // =====================================================================
 namespace {
 
+/// Converts `src` to single-channel grayscale via BGR2GRAY; returns it unchanged
+/// if it is already single-channel.
 cv::Mat ensureGray(const cv::Mat& src)
 {
     if (src.channels() == 1) return src;
@@ -266,18 +302,32 @@ cv::Mat ensureGray(const cv::Mat& src)
     return gray;
 }
 
+/// A detected circular blob candidate from contour analysis: its centroid and
+/// contour area (in pixels), used before the blob is matched to a grid cell.
 struct Blob {
     cv::Point2f center;
     double      area;
 };
 
+/// @return the z-component of the 2D cross product a x b (signed-area term used
+///         to test three points for colinearity).
 double crossZ(const cv::Point2f& a, const cv::Point2f& b)
 {
     return static_cast<double>(a.x) * b.y - static_cast<double>(a.y) * b.x;
 }
 
-// Among the 4 large markers (centre + 3 coord), identify each role purely
-// from geometry: centre + xMid + xTip are colinear; yTip is off-line.
+/// Among the 4 large marker blobs (centre + 3 coord dots), identifies which is which
+/// purely from geometry: the centre/xMid/xTip triple is the one best fitting a straight
+/// line (smallest cross-product residual), leaving yTip as the off-line point; xMid is
+/// then picked out of the triple as the mid-distance point, and centre vs xTip are told
+/// apart by proximity to yTip. A final check rejects the fit if xMid isn't close to the
+/// midpoint of centre/xTip.
+/// @param m the 4 marker blob centres, in arbitrary order
+/// @param centre output; the identified centre-ring marker position
+/// @param xMid output; the identified +X mid coord-dot position
+/// @param xTip output; the identified +X tip coord-dot position
+/// @param yTip output; the identified +Y coord-dot position
+/// @return true if a consistent colinear triple + off-line point was found and passed the midpoint check
 bool identifyOrientationMarkers4(const std::vector<cv::Point2f>& m,
                                   cv::Point2f& centre,
                                   cv::Point2f& xMid,
@@ -342,6 +392,12 @@ bool identifyOrientationMarkers4(const std::vector<cv::Point2f>& m,
 // =====================================================================
 // Detection
 // =====================================================================
+/// Detects the dot grid in `image`: binarizes it (via binarize()), extracts near-circular
+/// blobs from contours (circularity + bounding-box squareness filters, plus a median-area
+/// outlier cap), takes the 4 largest surviving blobs as the orientation markers and
+/// resolves their roles via identifyOrientationMarkers4(), then projects the expected
+/// grid from those markers and greedily assigns each remaining blob to its nearest
+/// expected cell (within maxAcceptDist).
 bool FanucIRvisionBoard::detect(const cv::Mat& image,
                                 std::vector<cv::Point2f>& imagePoints,
                                 std::vector<cv::Point2f>* cornerImagePoints,

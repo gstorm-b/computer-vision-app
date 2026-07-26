@@ -34,30 +34,40 @@ using namespace RobotKinematics;
 
 namespace {
 
+/// Integer grid-cell coordinate used as the std::map key when clustering mesh vertices
+/// into a uniform voxel grid in simplifyMeshVoxelGrid().
 struct VoxelKey {
-    int x = 0;
-    int y = 0;
-    int z = 0;
+    int x = 0;  ///< Grid cell index along X.
+    int y = 0;  ///< Grid cell index along Y.
+    int z = 0;  ///< Grid cell index along Z.
+    /// Lexicographic ordering on (x, y, z), required for use as a std::map key.
     bool operator<(const VoxelKey& other) const
     {
         return std::tie(x, y, z) < std::tie(other.x, other.y, other.z);
     }
 };
 
+/// Triangle-count and error metrics produced by simplifyMeshVoxelGrid() for one mesh.
 struct SimplificationStats {
-    std::size_t originalTriangles = 0;
-    std::size_t simplifiedTriangles = 0;
-    double maxError_m = 0.0;
-    double meanError_m = 0.0;
+    std::size_t originalTriangles = 0;    ///< Triangle count of the input mesh.
+    std::size_t simplifiedTriangles = 0;  ///< Triangle count remaining after decimation.
+    double maxError_m = 0.0;              ///< Largest vertex-to-centroid displacement, in meters.
+    double meanError_m = 0.0;             ///< Mean vertex-to-centroid displacement, in meters.
 };
 
-// Voxel-grid vertex clustering decimation. Bounded, deterministic, and dependency-free.
-// Vertices are clustered into a uniform NxNxN grid spanning the mesh AABB; each grid
-// cell is collapsed to the centroid of its incident vertices. Triangles whose
-// remapped vertices collapse onto fewer than three distinct centroids are dropped.
-//
-// `voxelCount` controls the grid resolution along the longest axis. A higher value
-// preserves more detail at the cost of less reduction.
+/// Voxel-grid vertex clustering decimation. Bounded, deterministic, and dependency-free.
+/// Vertices are clustered into a uniform NxNxN grid spanning the mesh AABB; each grid
+/// cell is collapsed to the centroid of its incident vertices. Triangles whose
+/// remapped vertices collapse onto fewer than three distinct centroids are dropped.
+///
+/// `voxelCount` controls the grid resolution along the longest axis. A higher value
+/// preserves more detail at the cost of less reduction.
+/// @param input source mesh to simplify
+/// @param voxelCount grid resolution along the longest AABB axis; must be >= 1
+/// @param stats output; filled with original/simplified triangle counts and max/mean
+///        vertex-to-centroid displacement error
+/// @return the simplified mesh, or a default-constructed empty TriangleMesh if `input`
+///         has no vertices/faces or `voxelCount` < 1
 TriangleMesh simplifyMeshVoxelGrid(const TriangleMesh& input,
                                    int voxelCount,
                                    SimplificationStats& stats)
@@ -161,6 +171,8 @@ TriangleMesh simplifyMeshVoxelGrid(const TriangleMesh& input,
     return output;
 }
 
+/// Appends `value` to `bytes` as 4 raw little-endian bytes (memcpy of the native
+/// representation; assumes a little-endian host).
 void writeLeUInt32(QByteArray& bytes, std::uint32_t value)
 {
     char raw[4];
@@ -168,6 +180,8 @@ void writeLeUInt32(QByteArray& bytes, std::uint32_t value)
     bytes.append(raw, static_cast<int>(sizeof(value)));
 }
 
+/// Appends `value` to `bytes` as 4 raw little-endian bytes (memcpy of the native
+/// IEEE-754 representation; assumes a little-endian host).
 void writeLeFloat(QByteArray& bytes, float value)
 {
     char raw[4];
@@ -175,6 +189,11 @@ void writeLeFloat(QByteArray& bytes, float value)
     bytes.append(raw, static_cast<int>(sizeof(value)));
 }
 
+/// Serializes `mesh` to `path` as a binary STL file: an 80-byte header (identifying this
+/// tool), the triangle count, then per-triangle facet normal + 3 vertices + 2 padding
+/// bytes, all little-endian, per the standard binary STL layout.
+/// @param error output; set to a human-readable message if writing fails
+/// @return true on success, false if the file could not be opened or the write was short
 bool writeBinaryStl(const TriangleMesh& mesh, const QString& path, QString& error)
 {
     QByteArray bytes(80, '\0');
@@ -224,6 +243,7 @@ bool writeBinaryStl(const TriangleMesh& mesh, const QString& path, QString& erro
     return true;
 }
 
+/// Converts a 3D vector to a `[x, y, z]` JSON array.
 QJsonArray vec3ToJson(const Eigen::Vector3d& value)
 {
     QJsonArray array;
@@ -233,6 +253,8 @@ QJsonArray vec3ToJson(const Eigen::Vector3d& value)
     return array;
 }
 
+/// Converts `pose` to the profile schema's pose object: `xyz_m` translation and
+/// `rpy_rad` (roll, pitch, yaw) extracted from the canonical ZYX Euler decomposition.
 QJsonObject poseToJson(const Pose& pose)
 {
     const Eigen::Isometry3d& iso = pose.isometry();
@@ -250,6 +272,8 @@ QJsonObject poseToJson(const Pose& pose)
     return object;
 }
 
+/// Returns the schema unit string for `units` ("m" or "mm"); falls back to "m" for an
+/// unrecognized enumerator.
 QString meshSourceUnitsToString(MeshSourceUnits units)
 {
     switch (units) {
@@ -261,6 +285,8 @@ QString meshSourceUnitsToString(MeshSourceUnits units)
     return QStringLiteral("m");
 }
 
+/// Returns the schema format string for `format` (currently only "stl"); falls back to
+/// "stl" for an unrecognized enumerator.
 QString meshFormatToString(MeshFileFormat format)
 {
     switch (format) {
@@ -270,6 +296,8 @@ QString meshFormatToString(MeshFileFormat format)
     return QStringLiteral("stl");
 }
 
+/// Converts an ordered list of collision-backend preferences to a JSON array of their
+/// string names (via toString()).
 QJsonArray backendPreferenceToJson(const std::vector<MeshCollisionBackendKind>& backends)
 {
     QJsonArray array;
@@ -279,6 +307,8 @@ QJsonArray backendPreferenceToJson(const std::vector<MeshCollisionBackendKind>& 
     return array;
 }
 
+/// Converts a SourceReference (type, title, reference, and the list of profile aspects
+/// it applies to) to its JSON object representation.
 QJsonObject sourceToJson(const SourceReference& source)
 {
     QJsonObject object;
@@ -293,6 +323,18 @@ QJsonObject sourceToJson(const SourceReference& source)
     return object;
 }
 
+/// Loads the mesh collision profile at `inputProfilePath`, voxel-grid-simplifies every
+/// referenced mesh, writes each simplified mesh as a binary STL under `meshOutputDir`,
+/// pads each mesh's margin to compensate for simplification error, and writes the
+/// resulting profile (with provenance recorded in `sources`/`metadata`) to
+/// `outputProfilePath`.
+/// @param voxelCount grid resolution along the longest AABB axis, forwarded to
+///        simplifyMeshVoxelGrid()
+/// @param safetyFactor pair-level margin scaling factor; per-mesh padding is
+///        `0.5 * safetyFactor * max_error_m`
+/// @return 0 on success; 1 if the input profile fails to load, the output directory
+///         cannot be created, any referenced mesh fails to load, or any output file
+///         fails to write
 int simplifyProfile(const QString& inputProfilePath,
                     const QString& outputProfilePath,
                     const QString& meshOutputDir,
@@ -455,6 +497,10 @@ int simplifyProfile(const QString& inputProfilePath,
 
 } // namespace
 
+/// CLI entry point: parses `--input-profile`, `--output-profile`, `--mesh-output-dir`,
+/// `--voxel-count` (default 40), and `--safety-factor` (default 1.0), validates them,
+/// and dispatches to simplifyProfile().
+/// @return 0 on success; 1 on missing/invalid arguments or if simplifyProfile() fails
 int main(int argc, char* argv[])
 {
     QCoreApplication app(argc, argv);

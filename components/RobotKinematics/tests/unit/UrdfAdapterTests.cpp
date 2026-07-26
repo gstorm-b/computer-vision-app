@@ -11,6 +11,9 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Builds a minimal planar 2-revolute-joint (2R) SerialRobotConfig via DhAdapter::fromStandardDh,
+/// with link lengths 0.5 m and 0.3 m and +-3.14 rad joint limits, used as the shared fixture for
+/// the export/import round-trip tests.
 SerialRobotConfig planarConfig()
 {
     StandardDhParameter j1;
@@ -59,6 +62,8 @@ void UrdfAdapterTests::importExportedSerialChainAndPreserveFk()
     QVERIFY((originalPose.isometry().matrix() - importedPose.isometry().matrix()).norm() <= 1e-9);
 }
 
+/// Entry point invoked by TestMain to run the UrdfAdapterTests suite under QtTest.
+/// @return the number of failing test functions (0 on success)
 int runUrdfAdapterTests(int argc, char** argv)
 {
     UrdfAdapterTests tests;

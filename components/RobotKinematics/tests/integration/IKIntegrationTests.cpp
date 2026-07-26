@@ -14,6 +14,9 @@
 using namespace RobotKinematics;
 
 namespace {
+/// Builds a single movable Joint (Prismatic or Revolute) connecting `parent` to `child`, with
+/// the given `axis`, symmetric position/velocity-unset limits [`lower`, `upper`], and a zero
+/// home position.
 Joint movableJoint(const std::string& id,
                    JointType type,
                    const std::string& parent,
@@ -33,6 +36,10 @@ Joint movableJoint(const std::string& id,
     return joint;
 }
 
+/// Builds a custom 6-DOF Cartesian-then-wrist robot config (3 prismatic + 3 revolute joints) with
+/// a "vision" user frame offset from the base, a shoulder/elbow/wrist posture resolver and
+/// labels, and two tools ("default" identity, "probe" offset), for use as an IK integration
+/// fixture.
 SerialRobotConfig cartesianWristFixture()
 {
     SerialRobotConfig config;
@@ -68,6 +75,8 @@ SerialRobotConfig cartesianWristFixture()
     return config;
 }
 
+/// Angular difference (radians, always non-negative) between the rotational parts of poses `a`
+/// and `b`, computed as the angle of the relative rotation `a * b^-1`.
 double orientationError_rad(const Pose& a, const Pose& b)
 {
     const Eigen::AngleAxisd angleAxis(a.isometry().linear() * b.isometry().linear().transpose());
@@ -172,6 +181,8 @@ void IKIntegrationTests::requirePostureRejectsMismatchedSolution()
     QCOMPARE(result.status, IKStatus::PostureConstraintUnsatisfied);
 }
 
+/// QtTest entry point for IKIntegrationTests: constructs the suite and runs it via QTest::qExec.
+/// @return the number of failing test functions (0 = all passed)
 int runIKIntegrationTests(int argc, char** argv)
 {
     IKIntegrationTests tests;

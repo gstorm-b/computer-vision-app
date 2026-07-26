@@ -17,6 +17,9 @@ using namespace RobotKinematics;
 
 namespace {
 
+/// Builds a single movable (prismatic or revolute) Joint with the given id, parent/child
+/// links, axis, and symmetric-style [lower, upper] position limits (velocity/acceleration
+/// limits left unset via std::nullopt).
 Joint movableJoint(const std::string& id,
                    JointType type,
                    const std::string& parent,
@@ -35,6 +38,10 @@ Joint movableJoint(const std::string& id,
     return joint;
 }
 
+/// Builds a custom 6-DOF "Cartesian wrist" robot preset (3 prismatic axes X/Y/Z followed by
+/// 3 revolute wrist axes) via SerialRobotConfigBuilder, with a default identity tool and the
+/// numerical_adaptive_dls solver.
+/// @return the validated SerialRobotConfig, or a Result carrying a validation-failure message
 Result<SerialRobotConfig> createCartesianWristPreset()
 {
     SerialRobotConfigBuilder builder;
@@ -60,6 +67,9 @@ Result<SerialRobotConfig> createCartesianWristPreset()
     return builder.build();
 }
 
+/// Assembles a 6-element JointVector for the Cartesian wrist preset: the first three
+/// components are passed through in meters, the last three are converted from degrees to
+/// radians via units::deg().
 JointVector mixedJointVector(double x_m,
                              double y_m,
                              double z_m,
@@ -72,6 +82,8 @@ JointVector mixedJointVector(double x_m,
     return JointVector(values);
 }
 
+/// Prints the mixed-unit joint vector to stdout: x/y/z in meters, rx/ry/rz converted back to
+/// degrees via units::toDeg().
 void printMixedJoints(const JointVector& joints)
 {
     std::cout << std::fixed << std::setprecision(6)
@@ -83,6 +95,7 @@ void printMixedJoints(const JointVector& joints)
               << "rz=" << units::toDeg(joints[5]) << " deg\n";
 }
 
+/// Prints the pose's translation to stdout, converted from meters to millimeters.
 void printPose(const Pose& pose)
 {
     const Eigen::Vector3d t = pose.translation_m();
@@ -93,6 +106,10 @@ void printPose(const Pose& pose)
               << units::toMm(t.z()) << " mm\n";
 }
 
+/// End-to-end demo: builds the custom Cartesian-wrist preset, runs forward kinematics on a
+/// sample joint target, then solves inverse kinematics back from that target pose and prints
+/// the resulting joints and position/orientation error.
+/// @return 0 on success, 1 if preset validation or IK solving fails
 int runCustomPresetExample()
 {
     const Result<SerialRobotConfig> built = createCartesianWristPreset();
@@ -136,6 +153,8 @@ int runCustomPresetExample()
 
 } // namespace
 
+/// Entry point for the CustomPresetCli example: creates a minimal QCoreApplication (needed
+/// for Qt types used by the library) and runs runCustomPresetExample().
 int main(int argc, char* argv[])
 {
     QCoreApplication app(argc, argv);

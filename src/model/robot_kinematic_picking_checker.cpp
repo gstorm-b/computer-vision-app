@@ -19,21 +19,27 @@
 
 namespace vc::model {
 
+/// File-local helpers backing RobotKinematicPickingChecker: preset/tool
+/// constants, mesh-collision profile loading, and posture-label resolution.
 namespace {
 
-// The RobotKinematics component ships Nachi MZ04D as its only built-in C++
-// preset; the picking TCP is appended as the default tool from the config.
-constexpr char kNachiMz04dPreset[] = "Nachi MZ04D";
-constexpr char kPickingToolId[]    = "picking_tcp";
+/// The RobotKinematics component ships Nachi MZ04D as its only built-in C++
+/// preset; the picking TCP is appended as the default tool from the config.
+constexpr char kNachiMz04dPreset[] = "Nachi MZ04D";   ///< Only preset name accepted by buildRobotConfig().
+constexpr char kPickingToolId[]    = "picking_tcp";   ///< Tool id assigned to the picking TCP appended to the robot config.
 
-// Simplified (voxel) mesh-collision profile — same asset the device runtime and
-// the widget tester use. Resolved deployed-first, source-tree fallback.
+/// Simplified (voxel) mesh-collision profile — same asset the device runtime and
+/// the widget tester use. Resolved deployed-first, source-tree fallback.
 constexpr char kSimplifiedMeshProfileDeployedRel[] =
-    "robot_assets/Nachi/MZ04/nachi_mz04d_mesh_collision_simplified.json";
+    "robot_assets/Nachi/MZ04/nachi_mz04d_mesh_collision_simplified.json";  ///< Path relative to the deployed app directory.
 constexpr char kSimplifiedMeshProfileSourceRel[] =
-    "components/RobotKinematics/presets/Nachi/MZ04/nachi_mz04d_mesh_collision_simplified.json";
+    "components/RobotKinematics/presets/Nachi/MZ04/nachi_mz04d_mesh_collision_simplified.json";  ///< Path relative to a source-tree root (fallback).
 
-// Source-tree fallback resolver: walk up from the app / working directory.
+/// Source-tree fallback resolver: walks up from the current working directory
+/// and the application directory looking for `relative`.
+/// @param relative path to resolve, relative to one of the candidate roots
+/// @return absolute path to the first existing candidate found, or an empty
+///         string if `relative` does not exist under any candidate root
 QString resolveAssetPath(const QString& relative) {
     const QFileInfo direct(relative);
     if (direct.exists()) return direct.absoluteFilePath();
@@ -52,7 +58,11 @@ QString resolveAssetPath(const QString& relative) {
     return {};
 }
 
-// Lazily loaded, process-wide simplified mesh-collision profile (loaded once).
+/// Lazily loaded, process-wide simplified mesh-collision profile: resolved
+/// deployed-path-first (falling back to the source tree via resolveAssetPath())
+/// and parsed once on first call, then cached for the life of the process.
+/// @return pointer to the cached profile, or nullptr if the asset could not be
+///         located or failed to parse
 const RobotKinematics::MeshCollisionProfile* simplifiedMeshProfile() {
     static const std::optional<RobotKinematics::MeshCollisionProfile> profile =
         []() -> std::optional<RobotKinematics::MeshCollisionProfile> {
@@ -74,7 +84,12 @@ const RobotKinematics::MeshCollisionProfile* simplifiedMeshProfile() {
     return profile ? &(*profile) : nullptr;
 }
 
-// Build the selected robot config with the picking TCP appended as default tool.
+/// Builds the selected preset's robot config (currently only Nachi MZ04D is
+/// recognised) and appends the picking TCP, positioned per `cfg`'s TCP offset,
+/// as its default tool.
+/// @param cfg source config naming the preset and giving the TCP offset to use
+/// @param out output robot config; populated only when the preset is recognised
+/// @return true if `cfg.presetName` matched a known preset and `out` was populated
 bool buildRobotConfig(const vc::device::RobotKinematicCheckConfig& cfg,
                       RobotKinematics::SerialRobotConfig& out) {
     if (cfg.presetName != QLatin1String(kNachiMz04dPreset))
@@ -91,8 +106,12 @@ bool buildRobotConfig(const vc::device::RobotKinematicCheckConfig& cfg,
     return true;
 }
 
-// Map a preset posture label (e.g. "lefty") to a branch sign (-1/+1). An empty
-// or unrecognised label yields 0 ("any branch on this axis").
+/// Maps a preset posture label (e.g. "lefty") to a branch sign (-1/+1). An empty
+/// or unrecognised label yields 0 ("any branch on this axis").
+/// @param robot robot config providing the posture label table for `axis`
+/// @param axis posture axis name (e.g. "shoulder", "elbow", "wrist")
+/// @param label the label to resolve (as configured on a pick-path waypoint)
+/// @return -1 or +1 for a recognised negative/positive label, 0 otherwise
 int labelToSign(const RobotKinematics::SerialRobotConfig& robot,
                 const std::string& axis, const QString& label) {
     if (label.isEmpty())
@@ -106,8 +125,14 @@ int labelToSign(const RobotKinematics::SerialRobotConfig& robot,
     return 0;
 }
 
-// Whether an IK solution's posture is on the required branch for every
-// constrained axis (sign != 0). Axes with sign 0 are unconstrained.
+/// Checks whether an IK solution's posture is on the required branch for every
+/// constrained axis (sign != 0); axes with sign 0 are unconstrained and always
+/// match.
+/// @param p the arm posture reported by the IK solution being checked
+/// @param reqShoulder required shoulder branch sign (-1/+1), or 0 for "any"
+/// @param reqElbow required elbow branch sign (-1/+1), or 0 for "any"
+/// @param reqWrist required wrist branch sign (-1/+1), or 0 for "any"
+/// @return true if `p` satisfies every constrained axis
 bool postureMatches(const RobotKinematics::ArmPosture& p,
                     int reqShoulder, int reqElbow, int reqWrist) {
     if (reqShoulder != 0 && !(p.shoulder.has_value() && *p.shoulder == reqShoulder)) return false;

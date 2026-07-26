@@ -1,0 +1,27 @@
+var class_add_pattern_image_dialog =
+[
+    [ "AddPatternImageDialog", "class_add_pattern_image_dialog.html#ad4b5d0c3e14fed33024c3484837e1147", null ],
+    [ "~AddPatternImageDialog", "class_add_pattern_image_dialog.html#a361f0e4a1bd8dcf7afb990ce5b3fd8e7", null ],
+    [ "btn_back_clicked", "class_add_pattern_image_dialog.html#a55a9b8ad2112f068b9c3f95fede4da8d", null ],
+    [ "btn_cancel_clicked", "class_add_pattern_image_dialog.html#ae8909d18491a2dc974dbd028420ebc43", null ],
+    [ "btn_choose_image_clicked", "class_add_pattern_image_dialog.html#a1d30b929af6bfd0a2afc067cefd4e9f5", null ],
+    [ "btn_crop_clicked", "class_add_pattern_image_dialog.html#ac71d343ec4419818b7119f15e6417215", null ],
+    [ "btn_no_crop_clicked", "class_add_pattern_image_dialog.html#ab38b43ce45090a8db222ac29cb8953ad", null ],
+    [ "btn_set_roi_clicked", "class_add_pattern_image_dialog.html#a22370461767eb3332baba840ea0340ac", null ],
+    [ "btn_trigger_clicked", "class_add_pattern_image_dialog.html#a33d3d998cb6b0d3769c92a035c333089", null ],
+    [ "form_draw_crop_roi_finished", "class_add_pattern_image_dialog.html#a2b13d813f65fbe4d87438adfd31b2dd6", null ],
+    [ "getFinalImage", "class_add_pattern_image_dialog.html#a99a8fd55f13769c8e63f4f4771a26e28", null ],
+    [ "keyPressEvent", "class_add_pattern_image_dialog.html#a43139ccaed725114d7858d85e2dbf944", null ],
+    [ "prepareShowDialog", "class_add_pattern_image_dialog.html#a31b9f106122f530cb2164e8ffd535fe5", null ],
+    [ "requestImage", "class_add_pattern_image_dialog.html#adfd106a86c8d86e91c50a3d783371db9", null ],
+    [ "setMainViewImage", "class_add_pattern_image_dialog.html#a0f660e26508f9a3846ed70cf53ea282b", null ],
+    [ "showAddPatternDialog", "class_add_pattern_image_dialog.html#a66a05e5a781f3c514ed5c080b24b3200", null ],
+    [ "m_cropped", "class_add_pattern_image_dialog.html#a0f5e64547faa88b73b29ebe00159a075", null ],
+    [ "m_final_pixmap", "class_add_pattern_image_dialog.html#acd66dcec1b701906edf0e2b597edfca1", null ],
+    [ "m_image_crop_view", "class_add_pattern_image_dialog.html#a38339a34dbbbad55570be3fe25b1ec29", null ],
+    [ "m_image_main_view", "class_add_pattern_image_dialog.html#ada4e601894e7ea6928b5239d82b29281", null ],
+    [ "m_item_crop_roi", "class_add_pattern_image_dialog.html#a88893383b415ae7dc6ad1e9ff4e6b2b7", null ],
+    [ "m_item_cropped_pixmap", "class_add_pattern_image_dialog.html#ae11cca5dee6f427d79fefce3b9e79970", null ],
+    [ "m_last_selected_path", "class_add_pattern_image_dialog.html#a06b092dd7a453ac6ed91c7a4d481a063", null ],
+    [ "ui", "class_add_pattern_image_dialog.html#a78f5b497ae5a140f897c8ddd9e078d4a", null ]
+];

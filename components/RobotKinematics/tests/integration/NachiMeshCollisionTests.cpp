@@ -27,6 +27,9 @@ using namespace RobotKinematics;
 
 namespace {
 
+/// Builds a list of candidate repository-root directories to search: the current working
+/// directory, the running executable's directory, and up to 8 levels of that directory's
+/// ancestors (deduplicated), to tolerate different test-runner working directories.
 QStringList candidateRoots()
 {
     QStringList roots;
@@ -48,6 +51,9 @@ QStringList candidateRoots()
     return roots;
 }
 
+/// Searches candidateRoots() for the directory containing the Nachi mesh-collision profile
+/// JSON fixture.
+/// @return the absolute path of the first matching root, or an empty string if none contain it
 QString findRepoRoot()
 {
     for (const QString& root : candidateRoots()) {
@@ -59,6 +65,9 @@ QString findRepoRoot()
     return QString();
 }
 
+/// Resolves the absolute path to presets/Nachi/MZ04/nachi_mz04d_mesh_collision.json via
+/// findRepoRoot().
+/// @return the absolute profile path, or an empty string if the repo root could not be located
 QString nachiMeshProfilePath()
 {
     const QString root = findRepoRoot();
@@ -68,12 +77,15 @@ QString nachiMeshProfilePath()
     return QDir(root).absoluteFilePath(QStringLiteral("presets/Nachi/MZ04/nachi_mz04d_mesh_collision.json"));
 }
 
+/// A mesh id paired with the base-frame pose it is expected to occupy at the robot's home
+/// joint state.
 struct ExpectedMeshAtHome {
     std::string id;
     Pose expectedInBase;
 };
 
-// These match Robot3DVizualize::visualHomeCorrectionForPartKey for the corresponding mesh ids.
+/// Returns the 8 Nachi mesh ids with their expected base-frame poses at the home joint state.
+/// These match Robot3DVizualize::visualHomeCorrectionForPartKey for the corresponding mesh ids.
 std::array<ExpectedMeshAtHome, 8> expectedMeshHomePoses()
 {
     return {{
@@ -96,11 +108,14 @@ std::array<ExpectedMeshAtHome, 8> expectedMeshHomePoses()
     }};
 }
 
+/// Returns the all-zero joint vector representing the robot's home configuration.
 JointVector homeJointVector()
 {
     return JointVector::fromDegrees({0.0, 0.0, 0.0, 0.0, 0.0, 0.0});
 }
 
+/// Returns a joint configuration (J2 = -85 deg, J3 = 175 deg) used as a self-collision smoke
+/// pose for the mesh backend.
 JointVector aggressiveFoldedJointDegrees()
 {
     // J2 folds the upper arm back over the shoulder column and J3 curls the forearm
@@ -113,6 +128,9 @@ JointVector aggressiveFoldedJointDegrees()
 
 } // namespace
 
+/// Checks the on-disk Nachi mesh-collision profile loads with the expected id, robot model,
+/// mesh/disabled-pair counts, and Coal-first backend preference, and validates cleanly against
+/// Presets::nachiMZ04D().
 void NachiMeshCollisionTests::profileLoadsAndValidatesAgainstNachiPreset()
 {
     const QString path = nachiMeshProfilePath();
@@ -137,6 +155,9 @@ void NachiMeshCollisionTests::profileLoadsAndValidatesAgainstNachiPreset()
              validation.issues.empty() ? "" : validation.issues.front().message.c_str());
 }
 
+/// Checks every mesh in the profile has an STL file on disk that loads successfully at
+/// millimeter scale (scaleToMeters == 0.001), has at least one triangle, and has a bounding-box
+/// extent under 1 m on each axis.
 void NachiMeshCollisionTests::everyStlMeshLoadsWithMillimeterScale()
 {
     const QString path = nachiMeshProfilePath();
@@ -170,6 +191,9 @@ void NachiMeshCollisionTests::everyStlMeshLoadsWithMillimeterScale()
     }
 }
 
+/// Checks that composing each mesh's link pose (from FK at the home joint state) with its
+/// meshToLink transform reproduces the fixed reference poses in expectedMeshHomePoses() to
+/// within 1e-9.
 void NachiMeshCollisionTests::meshToLinkTransformsReproduceVisualizerHomePlacement()
 {
     const QString path = nachiMeshProfilePath();
@@ -202,6 +226,8 @@ void NachiMeshCollisionTests::meshToLinkTransformsReproduceVisualizerHomePlaceme
     }
 }
 
+/// Skipped unless ROBOTKINEMATICS_HAVE_COAL_MESH_BACKEND is defined. Runs the mesh collision
+/// backend at the home joint state and checks it reports no self-collision.
 void NachiMeshCollisionTests::meshBackendDetectsHomePoseHasNoCollisionWhenCompiled()
 {
 #ifndef ROBOTKINEMATICS_HAVE_COAL_MESH_BACKEND
@@ -227,6 +253,9 @@ void NachiMeshCollisionTests::meshBackendDetectsHomePoseHasNoCollisionWhenCompil
 #endif
 }
 
+/// Skipped unless ROBOTKINEMATICS_HAVE_COAL_MESH_BACKEND is defined. Runs the mesh collision
+/// backend at aggressiveFoldedJointDegrees() (zero safety margin) and checks it reports a
+/// self-collision involving the base mesh and the folded J2 or J3 mesh.
 void NachiMeshCollisionTests::meshBackendDetectsKnownSelfCollisionPoseWhenCompiled()
 {
 #ifndef ROBOTKINEMATICS_HAVE_COAL_MESH_BACKEND
@@ -270,6 +299,9 @@ void NachiMeshCollisionTests::meshBackendDetectsKnownSelfCollisionPoseWhenCompil
 #endif
 }
 
+/// QtTest entry point for NachiMeshCollisionTests: constructs the suite and runs it via
+/// QTest::qExec.
+/// @return the number of failing test functions (0 = all passed)
 int runNachiMeshCollisionTests(int argc, char** argv)
 {
     NachiMeshCollisionTests tests;

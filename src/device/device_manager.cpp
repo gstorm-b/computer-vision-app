@@ -16,8 +16,14 @@
 #define VISION_OUTPUT_NUM_LIMIT  8
 #define ROBOT_NUM_LIMIT          1
 
+/// Device management: owns the live IDevice instances for a Project, allocates and
+/// tracks their string IDs/names, enforces per-type creation limits, and re-emits
+/// per-device signals (created/modified/deleted) for the UI.
 namespace vc::device {
 
+/// Constructs the manager for `proj`, seeding the per-type creation limits
+/// (camera/PLC/vision-output/robot) and sub-device display-name lists from
+/// DeviceRegistry, and populating the device-type string list used by the UI.
 DeviceManager::DeviceManager(vc::model::Project* proj, QObject* parent)
     : QObject(parent), currentMaxId(1), parent_proj(proj) {
 
@@ -57,6 +63,9 @@ DeviceManager::DeviceManager(vc::model::Project* proj, QObject* parent)
     }
 }
 
+/// Terminates every managed device (marshalling the call onto the device's own thread
+/// via a blocking queued invoke when it differs from the calling thread) before
+/// clearing the instance map.
 DeviceManager::~DeviceManager() {
     if (deviceInstances.isEmpty()) return;
 
@@ -72,14 +81,26 @@ DeviceManager::~DeviceManager() {
     deviceInstances.clear();
 }
 
+/// Returns the owning Project, or nullptr if this manager was constructed without one.
 vc::model::Project* DeviceManager::project() {
     return parent_proj;
 }
 
+/// Checks whether the number of currently created devices of `type` has reached the
+/// configured maximum for that type.
 bool DeviceManager::isLimitReached(DeviceType type) const {
     return currentCounts.value(type, 0) >= maxLimits.value(type, 0);
 }
 
+/// Registers an already-constructed `device` under `id`/`name` (used when loading a
+/// project, where the id/name are already known), validating the id format
+/// (numeric, 1-9999) and that both the id and name are not already in use.
+/// @param id numeric device id as a string; must parse to an integer in [1, 9999]
+/// @param name display name; must not already be occupied by another device
+/// @param device the device instance to take ownership of (via shared_ptr)
+/// @return true on success; false if the id is malformed or the id/name is a duplicate
+/// @note advances currentMaxId/freedIds bookkeeping so subsequent generateId() calls
+///       stay consistent with manually-reserved ids, and wires up connectConfigChanged().
 bool DeviceManager::reserveDevice(const QString &id, const QString &name, std::shared_ptr<IDevice> device) {
     bool ok;
     int idNum = id.toInt(&ok);
@@ -129,6 +150,10 @@ bool DeviceManager::reserveDevice(const QString &id, const QString &name, std::s
     return true;
 }
 
+/// Forwards `device`'s configChanged signal to this manager's deviceModified(id).
+/// Called by both creation paths (reserveDevice on project load, commitDevice via the
+/// Add-Device wizard) so config edits mark the project modified consistently.
+/// @note no-op if `device` is null.
 void DeviceManager::connectConfigChanged(const std::shared_ptr<IDevice> &device) {
     if (!device) {
         return;
@@ -142,6 +167,11 @@ void DeviceManager::connectConfigChanged(const std::shared_ptr<IDevice> &device)
     });
 }
 
+/// Removes the device registered under `id`: frees its occupied name, decrements the
+/// per-type count, and returns its numeric id to the freedIds pool for reuse. Emits
+/// devicesChanged() (always, if `id` is occupied) and deviceDeleted(id) (unless `id`
+/// fails to parse as a number).
+/// @note no-op if `id` is not currently occupied, or if the stored device pointer is null.
 void DeviceManager::releaseDevice(const QString &id) {
     // lock mutex before access to set
     QMutexLocker locker(&mutex);
@@ -189,6 +219,10 @@ void DeviceManager::releaseDevice(const QString &id) {
     emit deviceDeleted(id);
 }
 
+/// Cancels a previously-allocated pending id (one reserved via allocatePendingId()
+/// but never committed via commitDevice()): removes the placeholder entry from
+/// deviceInstances and returns its numeric value to the freedIds pool.
+/// @note no-op if `id` is not currently occupied.
 void DeviceManager::releasePendingId(const QString &id) {
     QMutexLocker locker(&mutex);
 
@@ -211,6 +245,11 @@ void DeviceManager::releasePendingId(const QString &id) {
     }
 }
 
+/// Allocates a fresh device id and reserves it immediately with a null device pointer
+/// (a "Pending" placeholder in deviceInstances) so the id cannot be handed out again
+/// before the caller finishes constructing the actual device via commitDevice().
+/// @return the newly generated id, or an empty string if generateId() could not
+///         produce one (id space exhausted).
 QString DeviceManager::allocatePendingId() {
     QMutexLocker locker(&mutex);
 
@@ -223,6 +262,15 @@ QString DeviceManager::allocatePendingId() {
     return newId;
 }
 
+/// Finalizes a previously-allocated pending `id` (see allocatePendingId()) by
+/// attaching the constructed `device` to it under `name`: validates the per-type
+/// limit, that `id` is a pending (null) entry, and that `name` is not already taken,
+/// then stores the device, bumps the per-type count, and wires up connectConfigChanged().
+/// @param id a pending id previously returned by allocatePendingId()
+/// @param name display name; must not already be occupied by another device
+/// @param device the constructed device instance to attach
+/// @return true on success; false if `device` is null, the type limit is reached,
+///         `id` is not a pending entry, or `name` is already taken
 bool DeviceManager::commitDevice(const QString &id, const QString &name, std::shared_ptr<IDevice> device) {
     if (!device) {
         LOG_DEV_ERR << "Commit device failed, input abstract device is null";
@@ -264,6 +312,11 @@ bool DeviceManager::commitDevice(const QString &id, const QString &name, std::sh
     return true;
 }
 
+/// Looks up the name of the device registered under `id`.
+/// @return the device's name
+/// @note as written, the ternary condition looks inverted: when `id` resolves to a
+///       null shared_ptr this dereferences it via dv->name() (undefined behavior),
+///       and when the device is actually found it returns an empty string instead.
 QString DeviceManager::getDeviceName(const QString &id) {
     QMutexLocker locker(&mutex);
     // return deviceMap.value(id, QString());
@@ -271,17 +324,25 @@ QString DeviceManager::getDeviceName(const QString &id) {
     return (!dv) ? dv->name() : "";
 }
 
+/// Checks whether `name` is already occupied by a registered device.
 bool DeviceManager::isNameExists(const QString &name) {
     QMutexLocker locker(&mutex);
     return occupiedNames.contains(name);
 }
 
+/// Checks whether `id` currently has an entry in deviceInstances (either a live
+/// device or a pending/null placeholder).
 bool DeviceManager::isOccupied(const QString &id) {
     QMutexLocker locker(&mutex);
     // return deviceMap.contains(id);
     return deviceInstances.contains(id);
 }
 
+/// Renames the device registered under `id` to `new_name`, updating the
+/// occupiedNames set accordingly and emitting deviceModified(id).
+/// @return true if renamed (or already named `new_name`); false if `id` has no
+///         device or `new_name` is already occupied by another device
+/// @note unlike most other members here, this does not lock `mutex`.
 bool DeviceManager::changeDeviceName(const QString &id, const QString new_name) {
     IDevice *device = deviceInstances[id].get();
     if (!device) {
@@ -303,6 +364,8 @@ bool DeviceManager::changeDeviceName(const QString &id, const QString new_name) 
     return true;
 }
 
+/// Collects all registered PLC-type devices into an id-to-name map.
+/// @return map of device id -> device name for every device with DeviceType::PLC
 QMap<QString, QString> DeviceManager::commDevices() {
     QMap<QString, QString> devices_map;
 
@@ -317,6 +380,8 @@ QMap<QString, QString> DeviceManager::commDevices() {
     return devices_map;
 }
 
+/// Collects all registered vision-output devices into an id-to-name map.
+/// @return map of device id -> device name for every device with DeviceType::VisionOutput
 QMap<QString, QString> DeviceManager::outputDevices() {
     QMap<QString, QString> devices_map;
 
@@ -331,6 +396,8 @@ QMap<QString, QString> DeviceManager::outputDevices() {
     return devices_map;
 }
 
+/// Collects all registered camera devices into an id-to-name map.
+/// @return map of device id -> device name for every device with DeviceType::Camera
 QMap<QString, QString> DeviceManager::cameraDevices() {
     QMap<QString, QString> devices_map;
 
@@ -346,6 +413,10 @@ QMap<QString, QString> DeviceManager::cameraDevices() {
 }
 
 
+/// Lists the display names of all registered PLC-type devices.
+/// @return one entry per PLC device
+/// @note the format string "%1" has only one placeholder, so only the device name is
+///       substituted; the id argument passed to arg() is not actually inserted.
 QStringList DeviceManager::commDevicesNameList() {
     QStringList devices_name;
     QMap<QString, std::shared_ptr<vc::device::IDevice>>::const_iterator it_device = deviceInstances.cbegin();
@@ -358,6 +429,10 @@ QStringList DeviceManager::commDevicesNameList() {
     return devices_name;
 }
 
+/// Lists the display names of all registered vision-output devices.
+/// @return one entry per vision-output device
+/// @note the format string "%1" has only one placeholder, so only the device name is
+///       substituted; the id argument passed to arg() is not actually inserted.
 QStringList DeviceManager::outputDevicesNameList() {
     QStringList devices_name;
     QMap<QString, std::shared_ptr<vc::device::IDevice>>::const_iterator it_device = deviceInstances.cbegin();
@@ -370,6 +445,10 @@ QStringList DeviceManager::outputDevicesNameList() {
     return devices_name;
 }
 
+/// Lists the display names of all registered camera devices.
+/// @return one entry per camera device
+/// @note the format string "%1" has only one placeholder, so only the device name is
+///       substituted; the id argument passed to arg() is not actually inserted.
 QStringList DeviceManager::cameraDevicesNameList() {
     QStringList devices_name;
     QMap<QString, std::shared_ptr<vc::device::IDevice>>::const_iterator it_device = deviceInstances.cbegin();
@@ -382,6 +461,8 @@ QStringList DeviceManager::cameraDevicesNameList() {
     return devices_name;
 }
 
+/// Looks up the device registered under `id`.
+/// @return the device, or nullptr if `id` has no entry (or is a pending placeholder)
 std::shared_ptr<IDevice> DeviceManager::deviceById(const QString &id) {
     return deviceInstances.value(id, nullptr);
     // QMap<QString, std::shared_ptr<vc::device::IDevice>>::const_iterator it_start = deviceInstances.cbegin();
@@ -395,15 +476,22 @@ std::shared_ptr<IDevice> DeviceManager::deviceById(const QString &id) {
     // return std::shared_ptr<vc::device::IDevice>(nullptr);
 }
 
+/// Returns the reference to the list of top-level device type display strings
+/// (one per registered DeviceType), built once in the constructor.
 QStringList& DeviceManager::getDeviceTypeList() {
     return dvTypeStrings;
 }
 
+/// Returns the reference to the sub-device display-name list for `type`, as
+/// populated from DeviceRegistry::displayNamesFor() in the constructor.
 QStringList& DeviceManager::getSubDeviceTypeList(DeviceType type) {
     return subDeviceTypeLists[type];
 }
 
-// helper function
+/// Allocates the next available device id: reuses the smallest freed id if one is
+/// pooled in freedIds, otherwise takes currentMaxId and advances it.
+/// @return a 2+-digit zero-padded numeric id string, or an empty string once the id
+///         space is exhausted (nextIdNum > 9999)
 QString DeviceManager::generateId() {
     // QMutexLocker locker(&mutex);
     int nextIdNum = -1;

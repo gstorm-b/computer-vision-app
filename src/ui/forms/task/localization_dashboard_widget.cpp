@@ -32,6 +32,10 @@ using vc::model::TaskLocalizeConfig;
 
 namespace {
 
+/// Returns the first candidate in `candidates` that is non-null, non-empty, and converts to a
+/// non-null QPixmap (via vision::pixmapFromMat), or nullptr if none qualify.
+/// @param candidates images to try, in priority order
+/// @return pointer to the first renderable image, or nullptr
 const cv::Mat *firstRenderableImage(std::initializer_list<const cv::Mat *> candidates)
 {
     for (const cv::Mat *candidate : candidates) {
@@ -43,16 +47,20 @@ const cv::Mat *firstRenderableImage(std::initializer_list<const cv::Mat *> candi
     return nullptr;
 }
 
-// Schema for the signal monitor — internalName, displayName and type
-// declared inline. Display names live here (per yêu cầu) rather than being
-// resolved through Q_CLASSINFO so a missing/renamed field is a visible diff
-// in code review.
+/// Schema for the signal monitor — internalName, displayName and type
+/// declared inline. Display names live here (per yêu cầu) rather than being
+/// resolved through Q_CLASSINFO so a missing/renamed field is a visible diff
+/// in code review.
 struct SignalRowSpec {
-    const char *internalName;
-    const char *displayName;
-    SignalsMonitorWidget::Type type;
+    const char *internalName;  ///< Signal name as used in TaskLocalization::signalChanged and config properties.
+    const char *displayName;   ///< Human-readable label shown in the signal monitor row.
+    SignalsMonitorWidget::Type type;  ///< Whether the monitor should render/refresh this row as a Bool or Number.
 };
 
+/// Fixed schema of signals shown in the dashboard's signal monitor: number signals
+/// (nActiveCamera, nActivePatternGroup, nDetectedNumber, nFaultCode) followed by bool signals
+/// (bCameraValid, bPatternValid, bTaskReady, bExecuteTrigger, bMatchingFinished, bMatchingBusy,
+/// bMatchingDetected, bMatchingLowArea, bTaskFault).
 constexpr SignalRowSpec kSignalRows[] = {
     // Number signals
     { "nActiveCamera",       "Active camera",       SignalsMonitorWidget::Type::Number },
@@ -71,6 +79,11 @@ constexpr SignalRowSpec kSignalRows[] = {
     { "bTaskFault",        "Task fault",        SignalsMonitorWidget::Type::Bool   },
 };
 
+/// Reads `internalName` as a Q_GADGET property off TaskLocalizeConfig via QMetaObject, converting
+/// the value to its string form (used to populate a signal row's config tag).
+/// @param cfg the config gadget to read the property from
+/// @param internalName the property name to look up
+/// @return the property's string value, or an empty string if no such property exists
 QString readConfigField(const TaskLocalizeConfig &cfg, const QString &internalName) {
     const QMetaObject &meta = TaskLocalizeConfig::staticMetaObject;
     int idx = meta.indexOfProperty(internalName.toUtf8().constData());
@@ -78,6 +91,10 @@ QString readConfigField(const TaskLocalizeConfig &cfg, const QString &internalNa
     return meta.property(idx).readOnGadget(&cfg).toString();
 }
 
+/// Looks up `internalName`'s SignalsMonitorWidget::Type in kSignalRows.
+/// @param internalName the signal's internal name
+/// @return the matching row's type, or Number as a fallback if the name is not in kSignalRows
+///         (an unknown name is logged separately by the monitor widget)
 SignalsMonitorWidget::Type typeOf(const QString &internalName) {
     for (const auto &s : kSignalRows) {
         if (internalName == QLatin1String(s.internalName)) return s.type;
@@ -85,7 +102,10 @@ SignalsMonitorWidget::Type typeOf(const QString &internalName) {
     return SignalsMonitorWidget::Type::Number;   // fallback; unknown name is logged by widget
 }
 
-// Map a runtime log severity string to the operator-log severity level.
+/// Map a runtime log severity string to the operator-log severity level.
+/// @param severity the runtime log entry's severity string (case-insensitive, trimmed)
+/// @return Error for ERROR/FATAL/CRITICAL, Warning for WARN/WARNING, Success for
+///         OK/SUCCESS/DONE, and Info for anything else
 TaskEventLevel severityToLevel(const QString &severity) {
     const QString s = severity.trimmed().toUpper();
     if (s == QLatin1String("ERROR") || s == QLatin1String("FATAL") ||
@@ -99,12 +119,21 @@ TaskEventLevel severityToLevel(const QString &severity) {
     return TaskEventLevel::Info;
 }
 
+/// Formats a fault code as "<code> — <name>" using the name resolved via
+/// vc::model::localizationFaultCodeName.
+/// @param code the fault code to format
+/// @return the "<code> — <name>" display string
 QString faultCodeText(int code) {
     const auto name = vc::model::localizationFaultCodeName(
         static_cast<vc::model::LocalizationFaultCode>(code));
     return QStringLiteral("%1 — %2").arg(code).arg(name);
 }
 
+/// Swaps `newWidget` into `layout` in place of `oldWidget` (via QLayout::replaceWidget), then
+/// hides the old widget and shows the new one. No-op if any argument is null.
+/// @param layout the layout containing `oldWidget`
+/// @param oldWidget the widget to remove from view
+/// @param newWidget the widget to display in its place
 void replaceDashboardWidget(QLayout *layout, QWidget *oldWidget, QWidget *newWidget)
 {
     if (!layout || !oldWidget || !newWidget) return;
@@ -115,6 +144,8 @@ void replaceDashboardWidget(QLayout *layout, QWidget *oldWidget, QWidget *newWid
 
 } // namespace
 
+/// Constructs the generated UI, registers the dark/light dashboard stylesheets for theme
+/// reloading, then delegates the rest of the setup to initWidget().
 LocalizationDashboardWidget::LocalizationDashboardWidget(std::shared_ptr<vc::model::ITask> task,
                                                          ads::CDockWidget *dock, QWidget *parent)
     : ITaskWidget(task, dock, parent),
@@ -126,11 +157,19 @@ LocalizationDashboardWidget::LocalizationDashboardWidget(std::shared_ptr<vc::mod
     initWidget();
 }
 
+/// Deletes the generated UI object.
 LocalizationDashboardWidget::~LocalizationDashboardWidget()
 {
     delete ui;
 }
 
+/// Resolves m_localizeTask from the base-class task pointer (logging an error and returning early
+/// if the task is not a TaskLocalization), then sets up the lamps, connection lamps, vision
+/// viewer, and result table; connects to the task's devicesChanged/taskStateChanged/
+/// cycleResultUpdated/taskLogAppended/signalChanged signals; appends the fixed signal-monitor
+/// schema; and finally calls loadConfigToWidget() to populate the initial state. Dashboard v1 is
+/// read-only, so the signal monitor's requestWriteValue is only logged, and
+/// setDeviceConnected(false) keeps writes disabled in the monitor widget.
 void LocalizationDashboardWidget::initWidget() {
     m_localizeTask = static_cast<TaskLocalization *>(m_task.get());
     if (!m_localizeTask) {
@@ -210,6 +249,7 @@ void LocalizationDashboardWidget::initWidget() {
     loadConfigToWidget();
 }
 
+/// Sets the display names and idle (Off) status/text for the task/camera/pattern/cycle lamps.
 void LocalizationDashboardWidget::setupLamps() {
     ui->lamp_task->setLampName(tr("Task"));
     ui->lamp_camera->setLampName(tr("Camera"));
@@ -222,6 +262,8 @@ void LocalizationDashboardWidget::setupLamps() {
     ui->lamp_cycle->setStatus(StatusLamp::Status::Off, tr("Idle"));
 }
 
+/// Sets the display names and idle (Off) status/text for the three connection lamps, then calls
+/// rebuildConnectionWiring() to wire them to the currently bound devices.
 void LocalizationDashboardWidget::setupConnectionLamps() {
     ui->lamp_connection_plc->setLampName(tr("PLC"));
     ui->lamp_connection_camera->setLampName(tr("Camera"));
@@ -234,6 +276,8 @@ void LocalizationDashboardWidget::setupConnectionLamps() {
     rebuildConnectionWiring();
 }
 
+/// Disconnects all current connection-lamp subscriptions (m_connectionConns) and rewires the PLC,
+/// camera, and vision-output lamps from the current device bindings/active camera.
 void LocalizationDashboardWidget::rebuildConnectionWiring() {
     // Drop any previous runner subscriptions before re-resolving devices.
     for (const auto &conn : std::as_const(m_connectionConns))
@@ -248,6 +292,10 @@ void LocalizationDashboardWidget::rebuildConnectionWiring() {
     wireConnectionLamp(ui->lamp_connection_output, bindings.visionOutputDeviceId());
 }
 
+/// Wires a single connection lamp to `deviceId`'s runner: seeds the lamp from the runner's
+/// current connect status and subscribes to further connectStatusChanged updates, appending the
+/// connection to m_connectionConns. Sets the lamp to "Not set"/"—" when the id is empty or no
+/// runner is registered yet for it.
 void LocalizationDashboardWidget::wireConnectionLamp(StatusLamp *lamp,
                                                      const QString &deviceId) {
     if (!lamp) return;
@@ -281,6 +329,9 @@ void LocalizationDashboardWidget::wireConnectionLamp(StatusLamp *lamp,
         }));
 }
 
+/// Maps a vc::device::ConnectStatus to the lamp's Status/text pair (Connected → Ok/"Connected",
+/// Connecting → Warning/"Connecting", LostConnected/ConnectFailed → Error/"Lost"/"Failed",
+/// Disconnected/NoConnection → Off) and applies it.
 void LocalizationDashboardWidget::applyConnectStatusToLamp(
     StatusLamp *lamp, vc::device::ConnectStatus status) {
     if (!lamp) return;
@@ -309,6 +360,8 @@ void LocalizationDashboardWidget::applyConnectStatusToLamp(
     }
 }
 
+/// Active camera device for the camera lamp: the device mapped to the live nActiveCamera number,
+/// falling back to the first bound camera.
 QString LocalizationDashboardWidget::resolveActiveCameraDeviceId() const {
     const QMap<int, QString> cameras = m_config.d->m_deviceBindings.cameraNumberMap();
     if (cameras.isEmpty()) return QString();
@@ -319,6 +372,8 @@ QString LocalizationDashboardWidget::resolveActiveCameraDeviceId() const {
     return cameras.first();
 }
 
+/// Re-reads the task's TaskLocalizeConfig and refreshes the signal tags, task context labels, and
+/// task-state lamp from it.
 void LocalizationDashboardWidget::loadConfigToWidget() {
     if (!m_localizeTask) return;
     m_config = m_localizeTask->taskLocalizeConfig();
@@ -327,10 +382,14 @@ void LocalizationDashboardWidget::loadConfigToWidget() {
     updateTaskStateLabel();
 }
 
+/// No-op: the dashboard is read-only and never pushes edits back to the task.
 void LocalizationDashboardWidget::loadConfigToTask() {
     // Dashboard is read-only — no config to push back to the task.
 }
 
+/// Refreshes each signal-monitor row's tag from the current config (readConfigField), so the
+/// monitor can show "(not mapped)" for unbound signals; live values themselves still arrive via
+/// TaskLocalization::signalChanged.
 void LocalizationDashboardWidget::pushSignalTagsFromConfig() {
     // Tag string is still sourced from the config — the widget uses it only
     // to decide whether to render "(not mapped)". Live values arrive via
@@ -341,6 +400,9 @@ void LocalizationDashboardWidget::pushSignalTagsFromConfig() {
     }
 }
 
+/// Refreshes the vision-output/PLC device labels (via the local deviceName lambda, which formats
+/// "<name> (<id>)" or "<id> (missing)" when the device manager doesn't know the id) and resets
+/// the camera/pattern-group value labels to "—" from the current device bindings in m_config.
 void LocalizationDashboardWidget::updateTaskContext()
 {
     if (!m_localizeTask) return;
@@ -362,6 +424,9 @@ void LocalizationDashboardWidget::updateTaskContext()
     ui->lbl_val_pattern_group->setText(QStringLiteral("—"));
 }
 
+/// Maps the task's current TaskState to the "Cycle" lamp's status (Faulted → Error,
+/// RunningCycle/Recovering → Warning, Ready → Ok, otherwise Off) and applies it with the state's
+/// display name as the lamp text.
 void LocalizationDashboardWidget::updateTaskStateLabel()
 {
     if (!m_localizeTask) return;
@@ -387,6 +452,13 @@ void LocalizationDashboardWidget::updateTaskStateLabel()
     ui->lamp_cycle->setStatus(status, vc::model::taskStateDisplayName(state));
 }
 
+/// Routes a single live signal value to its dashboard visual: bCameraValid/bPatternValid drive
+/// the camera/pattern lamps; bTaskReady drives the task lamp unless a fault is active;
+/// bMatchingBusy drives the cycle lamp; bTaskFault calls setFaultState(); nFaultCode updates the
+/// fault-code label; nActiveCamera updates the camera value label and, on change, re-resolves the
+/// connection lamp wiring; nActivePatternGroup updates the pattern-group value label. Unrecognized
+/// signal names are ignored here (the signal-monitor-list refresh for all names is handled
+/// separately at the call site).
 void LocalizationDashboardWidget::applySignalToDashboard(const QString &name,
                                                          const QVariant &value)
 {
@@ -427,6 +499,11 @@ void LocalizationDashboardWidget::applySignalToDashboard(const QString &name,
     }
 }
 
+/// Drives the fault panel: records the active/faultCode state, updates the fault flag/code
+/// labels, toggles the QFrame#frame_fault[active] style property (re-polishing the frame so the
+/// stylesheet selector takes effect), and, when a fault becomes active, sets the task lamp to
+/// Error. Clearing a fault does not restore the task lamp itself — that falls back to whatever
+/// the next bTaskReady update reports.
 void LocalizationDashboardWidget::setFaultState(bool active, int faultCode)
 {
     m_taskFaultActive = active;
@@ -448,6 +525,8 @@ void LocalizationDashboardWidget::setFaultState(bool active, int faultCode)
         ui->lamp_task->setStatus(StatusLamp::Status::Error, tr("Fault"));
 }
 
+/// Configures tbl_result's 11 result columns/headers, clears its rows, and wires selection sync
+/// (itemSelectionChanged) and an Escape shortcut to clear the selection.
 void LocalizationDashboardWidget::setupResultTable()
 {
     ui->tbl_result->setColumnCount(11);
@@ -475,6 +554,12 @@ void LocalizationDashboardWidget::setupResultTable()
             this, &LocalizationDashboardWidget::clearResultSelection);
 }
 
+/// Updates the KPI labels (detected/sent counts, matching time, low-area flag), then either feeds
+/// the vision result viewer (image + overlay built from VisionResultAdapter::fromCycleResult, or
+/// clearResult() if no renderable image is available) or, when the viewer hasn't been installed,
+/// falls back to loading result.displayImage directly into the legacy gv_match_view. Finally
+/// clears the current selection and repopulates tbl_result with one row per result object,
+/// stashing each row's overlay index in column 0's Qt::UserRole data.
 void LocalizationDashboardWidget::updateCycleResult(
     const vc::model::LocalizationRuntimeController::CycleResult &result)
 {
@@ -535,6 +620,8 @@ void LocalizationDashboardWidget::updateCycleResult(
     }
 }
 
+/// Converts a runtime task-log entry to a TaskEvent (mapping its severity string via
+/// severityToLevel) and appends it to the operator log view.
 void LocalizationDashboardWidget::appendTaskLog(
     const vc::model::LocalizationRuntimeController::TaskLogEntry &entry)
 {
@@ -546,6 +633,9 @@ void LocalizationDashboardWidget::appendTaskLog(
     ui->log_task_view->appendEvent(ev);
 }
 
+/// Lazily creates the VisionResultViewerWidget (no-op if already installed), swaps it in place of
+/// the legacy gv_match_view in the layout, and connects its resultObjectSelectionChanged signal to
+/// the table sync slot.
 void LocalizationDashboardWidget::installVisionViewer()
 {
     if (m_resultViewer) return;
@@ -555,6 +645,8 @@ void LocalizationDashboardWidget::installVisionViewer()
             this, &LocalizationDashboardWidget::syncResultSelectionFromViewer);
 }
 
+/// Selects the vision-viewer result object matching the currently selected table row (or clears
+/// the viewer selection if no row, or no matching overlay index, is selected).
 void LocalizationDashboardWidget::syncResultSelectionFromTable()
 {
     if (!m_resultViewer) return;
@@ -573,6 +665,9 @@ void LocalizationDashboardWidget::syncResultSelectionFromTable()
     }
 }
 
+/// Selects the table row whose overlay index matches `objectIndex` (or clears the table selection
+/// if `objectIndex` is non-positive or has no matching row); blocks the table's signals while
+/// doing so to avoid re-triggering syncResultSelectionFromTable().
 void LocalizationDashboardWidget::syncResultSelectionFromViewer(int objectIndex)
 {
     QSignalBlocker blocker(ui->tbl_result);
@@ -591,6 +686,8 @@ void LocalizationDashboardWidget::syncResultSelectionFromViewer(int objectIndex)
     ui->tbl_result->clearSelection();
 }
 
+/// Clears both the result table's selection (signal-blocked) and the vision viewer's selected
+/// result object.
 void LocalizationDashboardWidget::clearResultSelection()
 {
     {
@@ -603,6 +700,7 @@ void LocalizationDashboardWidget::clearResultSelection()
     }
 }
 
+/// Looks up the overlay object index stashed in column 0's Qt::UserRole data for `row`.
 int LocalizationDashboardWidget::resultOverlayIndexForRow(int row) const
 {
     if (row < 0 || row >= ui->tbl_result->rowCount()) {

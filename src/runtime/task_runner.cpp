@@ -9,10 +9,14 @@
 
 #include <QEventLoop>
 
+/// TaskRunner implementation: manages one QThread per registered device plus the task's own
+/// runtime coordinator thread, and drives the Idle -> Commission -> Runtime phase transitions.
 namespace vc::runtime {
 
 // ── Construction / destruction ────────────────────────────────────────────────
 
+/// Constructs the runner in the Idle phase; creates (but does not start) the task's runtime
+/// coordinator thread.
 TaskRunner::TaskRunner(QObject *parent)
     : QObject(parent)
 {
@@ -20,6 +24,8 @@ TaskRunner::TaskRunner(QObject *parent)
     m_runtimeThread->setObjectName("TaskRuntimeThread");
 }
 
+/// Tears the task down via enterIdle() (moves devices back to the main thread and stops all
+/// runners), deletes every registered runner, and stops m_runtimeThread if still running.
 TaskRunner::~TaskRunner()
 {
     // enterIdle() moves devices back to main thread and stops all runners
@@ -38,6 +44,10 @@ TaskRunner::~TaskRunner()
 
 // ── Device registration ───────────────────────────────────────────────────────
 
+/// Creates the IDeviceRunner for `deviceId` (via createRunner) and registers it. If the task has
+/// already left Idle (Commission or Runtime), the new runner is immediately started and attached
+/// so it can be used right away. No-op if `deviceId` is already registered, `device` is null, or
+/// `device`'s type has no matching runner (logged as an error in both failure cases).
 void TaskRunner::registerDevice(const QString &deviceId,
                                 std::shared_ptr<vc::device::IDevice> device)
 {
@@ -75,6 +85,8 @@ void TaskRunner::registerDevice(const QString &deviceId,
     }
 }
 
+/// Detaches, stops, and deletes the runner for `deviceId` via deleteLater(). No-op if no runner
+/// is registered for that id.
 void TaskRunner::unregisterDevice(const QString &deviceId)
 {
     if (!m_runners.contains(deviceId)) return;
@@ -88,11 +100,13 @@ void TaskRunner::unregisterDevice(const QString &deviceId)
     LOG_DEV_DEBUG << "TaskRunner: unregistered device" << deviceId;
 }
 
+/// Returns the runner registered for `deviceId`, or nullptr if none exists.
 IDeviceRunner *TaskRunner::runnerFor(const QString &deviceId) const
 {
     return m_runners.value(deviceId, nullptr);
 }
 
+/// Returns whether a runner is currently registered for `deviceId`.
 bool TaskRunner::hasRunner(const QString &deviceId) const
 {
     return m_runners.contains(deviceId);
@@ -100,6 +114,8 @@ bool TaskRunner::hasRunner(const QString &deviceId) const
 
 // ── Phase transitions ─────────────────────────────────────────────────────────
 
+/// Moves from Idle to Commission: starts and attaches every registered device's own
+/// HighPriority QThread. No-op if already in the Commission phase.
 void TaskRunner::enterCommission()
 {
     if (m_phase == Phase::Commission) return;
@@ -115,6 +131,11 @@ void TaskRunner::enterCommission()
     emit phaseChanged(m_phase);
 }
 
+/// Moves to the Runtime phase and starts m_runtimeThread. No-op if already in the Runtime phase.
+/// When `mergeToTaskThread` is true, detaches every device from its per-device thread into
+/// m_runtimeThread (started at HighPriority) and stops the now-empty per-device threads; when
+/// false, per-device threads are kept running (starting any not already running) and
+/// m_runtimeThread starts at NormalPriority merely as the coordinating thread.
 void TaskRunner::enterRuntime(bool mergeToTaskThread)
 {
     if (m_phase == Phase::Runtime) return;
@@ -146,6 +167,9 @@ void TaskRunner::enterRuntime(bool mergeToTaskThread)
     emit phaseChanged(m_phase);
 }
 
+/// Moves back to Idle: for each attached runner, synchronously disconnects the device on its own
+/// thread (disconnectAndWait()) before detaching and stopping it, then stops m_runtimeThread.
+/// No-op if already in the Idle phase.
 void TaskRunner::enterIdle()
 {
     if (m_phase == Phase::Idle) return;
@@ -178,6 +202,10 @@ void TaskRunner::enterIdle()
 
 // ── Runner factory ────────────────────────────────────────────────────────────
 
+/// Constructs the concrete IDeviceRunner matching `device`'s deviceType() (CameraRunner,
+/// PlcRunner, or VisionOutputRunner).
+/// @return the new runner (owned by `this`), or nullptr if `device`'s runtime type does not
+/// match its declared deviceType(), or the type is unsupported
 IDeviceRunner *TaskRunner::createRunner(std::shared_ptr<vc::device::IDevice> device)
 {
     using namespace vc::device;

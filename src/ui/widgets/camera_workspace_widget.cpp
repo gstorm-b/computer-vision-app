@@ -9,6 +9,7 @@
 
 #include <algorithm>
 
+/// Builds an empty row layout (rows are added by setCameras()).
 CameraWorkspaceWidget::CameraWorkspaceWidget(QWidget *parent)
     : QWidget(parent)
 {
@@ -18,6 +19,7 @@ CameraWorkspaceWidget::CameraWorkspaceWidget(QWidget *parent)
     m_rowsLayout->addStretch(1);   // keep rows top-aligned
 }
 
+/// Removes and schedules deletion of all current row widgets, clearing m_rows.
 void CameraWorkspaceWidget::clearRows()
 {
     for (auto it = m_rows.cbegin(); it != m_rows.cend(); ++it) {
@@ -27,6 +29,9 @@ void CameraWorkspaceWidget::clearRows()
     m_rows.clear();
 }
 
+/// Rebuilds one row per camera, ordered by display name (id as tie-breaker).
+/// Discards any existing rows; callers must re-apply each camera's state via
+/// setWorkspaceState() afterward.
 void CameraWorkspaceWidget::setCameras(const QMap<QString, QString> &idToName)
 {
     m_idToName = idToName;
@@ -101,6 +106,10 @@ void CameraWorkspaceWidget::setCameras(const QMap<QString, QString> &idToName)
     }
 }
 
+/// Updates the visible state of one camera's row (no-op if `cameraId` has no
+/// row). Both ROIs are in image-pixel coordinates; an empty roi renders as
+/// "Not set", and the status text notes "(no image)" when `hasImage` is
+/// false. Checkbox states are set without emitting their toggle signals.
 void CameraWorkspaceWidget::setWorkspaceState(const QString &cameraId,
                                               bool useWorkspace, const QRectF &roi,
                                               bool useCondition, const QRectF &conditionRoi,

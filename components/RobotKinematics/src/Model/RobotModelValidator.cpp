@@ -5,20 +5,27 @@
 
 namespace RobotKinematics {
 
+/// Internal helpers used only by RobotModelValidator::validateSerialRobotConfig(); not part
+/// of the public API.
 namespace {
-constexpr double kAxisNormTolerance = 1e-9;
-constexpr double kLimitTolerance = 1e-12;
+constexpr double kAxisNormTolerance = 1e-9;  ///< Tolerance for treating a joint axis as zero-length or as unit length.
+constexpr double kLimitTolerance = 1e-12;  ///< Slack applied when checking a joint's home position against its lower/upper limits.
 
+/// Returns whether `value` is finite (not NaN or +/-infinity); thin wrapper over std::isfinite.
 bool isFinite(double value)
 {
     return std::isfinite(value);
 }
 
+/// Returns true when `id` is non-empty and present in `linkIds`; used to check that a
+/// reference field actually resolves to a declared link.
 bool containsLink(const std::set<std::string>& linkIds, const std::string& id)
 {
     return !id.empty() && linkIds.find(id) != linkIds.end();
 }
 
+/// Counts the joints in `config` whose type is Revolute or Prismatic, i.e. the joints
+/// expected to each consume one configured degree of freedom.
 int movableJointCount(const SerialRobotConfig& config)
 {
     int count = 0;
@@ -30,6 +37,9 @@ int movableJointCount(const SerialRobotConfig& config)
     return count;
 }
 
+/// Appends a new ModelValidationIssue built from `status`/`field`/`message` to `result.issues`.
+/// @param result validation result mutated in place.
+/// @param status status code to record for this issue; defaults to KinematicsStatus::InvalidRobotConfig.
 void addIssue(ModelValidationResult& result,
               const std::string& field,
               const std::string& message,
@@ -39,16 +49,23 @@ void addIssue(ModelValidationResult& result,
 }
 }
 
+/// True when no validation issues were recorded (i.e. `config` passed every check).
 bool ModelValidationResult::ok() const
 {
     return issues.empty();
 }
 
+/// Returns the status of the first recorded issue, or KinematicsStatus::Ok when there are no issues.
 KinematicsStatus ModelValidationResult::status() const
 {
     return ok() ? KinematicsStatus::Ok : issues.front().status;
 }
 
+/// Runs all structural checks against `config` (topology, dof vs. movable joint count,
+/// link/joint/frame/tool id uniqueness and references, chain contiguity, joint axis and
+/// limit validity) and collects every failure found rather than stopping at the first.
+/// @param config the serial robot configuration to validate.
+/// @return a result whose `issues` is empty iff `config` passes all checks.
 ModelValidationResult RobotModelValidator::validateSerialRobotConfig(const SerialRobotConfig& config)
 {
     ModelValidationResult result;

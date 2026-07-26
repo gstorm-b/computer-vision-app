@@ -329,6 +329,11 @@ void McProtocolDevice::polling_query() {
     if (!m_request_queue.empty()) {
         m_current_request = m_request_queue.takeFirst();
         m_mutex.unlock();
+        // Ad-hoc commands (the heartbeat M-bit toggle) are queued exactly once
+        // per completed round, so the round-robin reads must resume right after
+        // this response, in the same tick, instead of waiting for the next
+        // timer tick.
+        m_data_update_state = DataQueryState::QueryContinue;
     } else {
         m_mutex.unlock();
 
@@ -397,7 +402,7 @@ void McProtocolDevice::response_handle() {
         return;
     }
 
-    QByteArray receive_bytes;
+    QByteArray receive_bytes = m_read_buffer; // carry over any partial frame from a prior split read
     McMsgInterface::MsgErrorState recieve_state = m_msg_interface->ReceiveMsg(receive_bytes, 1);
     // OLOG_INFO << "Received frame from PLC:" << receive_bytes.toHex(' ');
 
@@ -423,10 +428,11 @@ void McProtocolDevice::response_handle() {
     } else if  (rt_code == MCFrameAbstract::ResponseInvalid) {
         LOG_USER_ERR << "reponse frame invalid," << m_frame->lastErrorDescription();
     } else if (rt_code == MCFrameAbstract::WaitingReceive) {
-        m_read_buffer.append(receive_bytes);
+        m_read_buffer = receive_bytes; // still incomplete; keep the accumulated bytes for the next read
         return;
     }
 
+    m_read_buffer.clear(); // frame fully consumed (ok/error/invalid) - start clean next time
     m_retry_count = 0;
     // m_retry_by_timeout = false;
     m_wait_for_response = false;
@@ -451,6 +457,7 @@ void McProtocolDevice::retry_request_handle() {
     // }
     LOG_USER_INFO << "MC Device Error, timeout, retry" << m_retry_count;
     m_msg_interface->clearBuffer();
+    m_read_buffer.clear(); // discard any partial frame from the abandoned attempt
     m_wait_for_response = false;
     request_handle();
 }

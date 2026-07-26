@@ -136,7 +136,7 @@ bool Frame3E::checkErrorStatus(QByteArray &data) {
 
     m_last_error = QString("Reponse error, error code: 0x%1, frame: %2")
                        .arg(end_code, 4, 16, QChar('0'))
-                       .arg(data.toHex(' '));
+                       .arg(QString::fromLatin1(data.toHex(' ')));
     return false;
 }
 
@@ -402,8 +402,12 @@ RtCode Frame3E::parse_read_word(vc::device::MCRequest *request, Context_Mc3E* ct
 }
 
 RtCode Frame3E::parse_write(vc::device::MCRequest *request, Context_Mc3E* ctx, QByteArray &data) {
-    if (data.size() < 9) {
-        m_last_error = "total receive len under 9 bytes";
+    // A complete 3E write response is 11 bytes: 9-byte header + the 2-byte end
+    // code that checkErrorStatus() reads at offset 9. Accepting a 9-10 byte
+    // fragment would silently read as end_code 0x0000 (success) past the
+    // available bytes, desyncing the request/response pairing.
+    if (data.size() < 11) {
+        m_last_error = "total receive len under 11 bytes";
         return RtCode::ResponseInvalid;
     }
 

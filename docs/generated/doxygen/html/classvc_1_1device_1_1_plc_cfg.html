@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (<a class="el" href="classvc_1_1device_1_1_mc_protocol_config.html" title="MC-protocol device configuration: holds a cloned McContext (frame type plus its addressing/timing par...">McProtocolConfig</a> for Mitsubishi MC, future OmronFinsConfig, …) inherit and add their protocol-specific Q_PROPERTYs.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="plc__device_8h_source.html">plc_device.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::PlcCfg:</div>
@@ -147,9 +150,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6bc14429b5e72221dd13546860106b99 pub_methods_classvc_1_1device_1_1_i_device_cfg"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default virtual destructor; concrete configs own no extra resources here.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (<a class="el" href="classvc_1_1device_1_1_mc_protocol_config.html">McProtocolConfig</a> for Mitsubishi MC, future OmronFinsConfig, …) inherit and add their protocol-specific Q_PROPERTYs. </p>
+<div class="textblock"><p>Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (<a class="el" href="classvc_1_1device_1_1_mc_protocol_config.html" title="MC-protocol device configuration: holds a cloned McContext (frame type plus its addressing/timing par...">McProtocolConfig</a> for Mitsubishi MC, future OmronFinsConfig, …) inherit and add their protocol-specific Q_PROPERTYs. </p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00045">45</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00055">55</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a0586723e1d7eea7ee28dec044921b10c" name="a0586723e1d7eea7ee28dec044921b10c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0586723e1d7eea7ee28dec044921b10c">&#9670;&#160;</a></span>deviceType()</h2>
@@ -178,9 +181,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ac985e0c41b82834b7c60ca9602d9d2b6">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00050">50</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00060">60</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>.</p>
 
 </div>
 </div>
@@ -206,15 +209,15 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Validates that <span class="tt">obj</span> carries the <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">PlcType</a> key and that it matches this config's own <a class="el" href="#a1b19e509ccef84a27a0bef104b2356fd">plcType()</a>; does not read any other field. </p><dl class="section return"><dt>Returns</dt><dd>false (and logs) if the key is missing or the type mismatches </dd></dl>
+<p>Validates that <span class="tt">obj</span> carries the <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b" title="Family-level sub-type dispatch handle for the PLC family. Concrete vendors register a value here; Dev...">PlcType</a> key and that it matches this config's own <a class="el" href="#a1b19e509ccef84a27a0bef104b2356fd">plcType()</a>; does not read any other field. </p><dl class="section return"><dt>Returns</dt><dd>false (and logs) if the key is missing or the type mismatches </dd></dl>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ab2110eaf63e41619a07dd83f86c32716">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00065">65</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00075">75</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00029">DEVICE_JSK_PLC_TYPE</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="#a1b19e509ccef84a27a0bef104b2356fd">plcType()</a>, and <a class="el" href="plc__device_8h_source.html#l00036">vc::device::PlcTypeFromString()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00035">DEVICE_JSK_PLC_TYPE</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="#a1b19e509ccef84a27a0bef104b2356fd">plcType()</a>, and <a class="el" href="plc__device_8h_source.html#l00043">vc::device::PlcTypeFromString()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00094">vc::device::McProtocolConfig::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00107">vc::device::McProtocolConfig::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -244,7 +247,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Implemented in <a class="el" href="classvc_1_1device_1_1_mc_protocol_config.html#a0aa7b863bd2888b8005736f8f63e12c1">vc::device::McProtocolConfig</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00065">fromJson()</a>, and <a class="el" href="plc__device_8h_source.html#l00056">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00075">fromJson()</a>, and <a class="el" href="plc__device_8h_source.html#l00066">toJson()</a>.</p>
 
 </div>
 </div>
@@ -270,20 +273,20 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>a JSON object with just the family-level <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">PlcType</a> key; concrete subclasses call this and add their own fields. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a JSON object with just the family-level <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b" title="Family-level sub-type dispatch handle for the PLC family. Concrete vendors register a value here; Dev...">PlcType</a> key; concrete subclasses call this and add their own fields. </dd></dl>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#a6287b4b385f2f48b51d6a5fe4940bc33">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00056">56</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00066">66</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00029">DEVICE_JSK_PLC_TYPE</a>, <a class="el" href="#a1b19e509ccef84a27a0bef104b2356fd">plcType()</a>, and <a class="el" href="plc__device_8h_source.html#l00025">vc::device::PlcTypeToString()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00035">DEVICE_JSK_PLC_TYPE</a>, <a class="el" href="#a1b19e509ccef84a27a0bef104b2356fd">plcType()</a>, and <a class="el" href="plc__device_8h_source.html#l00032">vc::device::PlcTypeToString()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00077">vc::device::McProtocolConfig::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00088">vc::device::McProtocolConfig::toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="plc__device_8h_source.html">plc_device.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="plc__device_8h_source.html">plc_device.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

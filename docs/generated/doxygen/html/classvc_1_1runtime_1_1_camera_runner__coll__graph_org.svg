@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Per&#45;camera thread runner (replaces the legacy CameraWorker that previously lived in src/model); media...">
 <polygon fill="#999999" stroke="none" points="340.75,-404 190.75,-404 190.75,0 340.75,0 340.75,-404"/>
 <text xml:space="preserve" text-anchor="start" x="205.38" y="-390.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::runtime::CameraRunner</text>
 <text xml:space="preserve" text-anchor="start" x="196.25" y="-374.25" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;</text>
@@ -119,7 +119,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="classvc_1_1runtime_1_1_i_device_runner.html" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="classvc_1_1runtime_1_1_i_device_runner.html" target="_top" xlink:title="Abstract interface for per&#45;device thread controllers. Concrete implementations (CameraRunner,...">
 <polygon fill="white" stroke="none" points="139.5,-1321 0,-1321 0,-1077 139.5,-1077 139.5,-1321"/>
 <text xml:space="preserve" text-anchor="start" x="9.75" y="-1307.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::runtime::IDeviceRunner</text>
 <text xml:space="preserve" text-anchor="start" x="4.38" y="-1291.25" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
@@ -169,7 +169,7 @@
 <!-- Node17 -->
 <g id="Node000017" class="node">
 <title>Node17</title>
-<g id="a_Node000017"><a xlink:href="classvc_1_1runtime_1_1_device_runner.html" target="_top" xlink:title=" ">
+<g id="a_Node000017"><a xlink:href="classvc_1_1runtime_1_1_device_runner.html" target="_top" xlink:title="CRTP template base for per&#45;device thread runners — eliminates the duplication that used to exist betw...">
 <polygon fill="white" stroke="none" points="178.25,-976 53.25,-976 53.25,-736 178.25,-736 178.25,-976"/>
 <text xml:space="preserve" text-anchor="start" x="57.25" y="-962.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::runtime::DeviceRunner</text>
 <text xml:space="preserve" text-anchor="start" x="88.75" y="-950.25" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; TDevice &gt;</text>
@@ -241,7 +241,7 @@
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="classvc_1_1device_1_1_i_device.html" target="_top" xlink:title=" ">
+<g id="a_Node000006"><a xlink:href="classvc_1_1device_1_1_i_device.html" target="_top" xlink:title="Abstract base for every device family (camera/PLC/vision&#45;output/robot): owns the device&#39;s id/name/tas...">
 <polygon fill="#fff0f0" stroke="none" points="271.75,-1385 157.75,-1385 157.75,-1013 271.75,-1013 271.75,-1385"/>
 <text xml:space="preserve" text-anchor="start" x="172.38" y="-1371.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::IDevice</text>
 <text xml:space="preserve" text-anchor="start" x="161.75" y="-1355.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
@@ -306,7 +306,7 @@
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="classvc_1_1device_1_1_camera_device.html" target="_top" xlink:title=" ">
+<g id="a_Node000005"><a xlink:href="classvc_1_1device_1_1_camera_device.html" target="_top" xlink:title="Abstract base for all camera devices: adds exposure/gain/backlight/IO control and single&#45;shot,...">
 <polygon fill="white" stroke="none" points="336.38,-962 205.12,-962 205.12,-750 336.38,-750 336.38,-962"/>
 <text xml:space="preserve" text-anchor="start" x="212.62" y="-948.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::CameraDevice</text>
 <text xml:space="preserve" text-anchor="start" x="269.25" y="-932.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
@@ -394,7 +394,7 @@
 <!-- Node18 -->
 <g id="Node000018" class="node">
 <title>Node18</title>
-<g id="a_Node000018"><a xlink:href="classvc_1_1runtime_1_1_device_command_queue.html" target="_top" xlink:title=" ">
+<g id="a_Node000018"><a xlink:href="classvc_1_1runtime_1_1_device_command_queue.html" target="_top" xlink:title="FIFO queue of pending DeviceCommand entries for a single device runner, applying a DeviceCommandQueue...">
 <polygon fill="white" stroke="none" points="335,-650 196.5,-650 196.5,-490 335,-490 335,-650"/>
 <text xml:space="preserve" text-anchor="start" x="200.5" y="-636.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::runtime::DeviceCommand</text>
 <text xml:space="preserve" text-anchor="start" x="251.5" y="-624.25" font-family="Helvetica,sans-Serif" font-size="10.00">Queue</text>
@@ -434,7 +434,7 @@
 <!-- Node19 -->
 <g id="Node000019" class="node">
 <title>Node19</title>
-<g id="a_Node000019"><a xlink:href="structvc_1_1runtime_1_1_device_command.html" target="_top" xlink:title=" ">
+<g id="a_Node000019"><a xlink:href="structvc_1_1runtime_1_1_device_command.html" target="_top" xlink:title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">
 <polygon fill="white" stroke="none" points="492,-628 353.5,-628 353.5,-512 492,-512 492,-628"/>
 <text xml:space="preserve" text-anchor="start" x="357.5" y="-614.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::runtime::DeviceCommand</text>
 <text xml:space="preserve" text-anchor="start" x="371.69" y="-598.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>

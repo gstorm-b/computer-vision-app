@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/idevice.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/idevice.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('idevice_8h.htm
   <div class="headertitle"><div class="title">idevice.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Device abstraction layer: the <a class="el" href="class_i_device.html" title="Abstract base for every device family (camera/PLC/vision-output/robot): owns the device&#39;s id/name/tas...">IDevice</a> interface, connection status, and the Qt property/JSON serialization contract shared by all concrete device implementations.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QObject&gt;</code><br />
 <code>#include &lt;QMutex&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
@@ -144,12 +147,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AIDevice" id="r_vc_3A_3Adevice_3A_3AIDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for every device family (camera/PLC/vision-output/robot): owns the device's id/name/task-assignment state, connection status, abstract <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html" title="Abstract configuration contract shared by every device family: JSON (de)serialization,...">IDeviceCfg</a> pointer, and JSON (de)serialization; concrete subclasses implement connect/disconnect/request handling.  <a href="classvc_1_1device_1_1_i_device.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -165,7 +169,11 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a1986db0aa9ddc757a07ebc444b6abe38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connection lifecycle states reported by <a class="el" href="classvc_1_1device_1_1_i_device.html#a7c1fd412dbeb2ef6cfa8818f8970e43d" title="Returns the current connection lifecycle state.">IDevice::connectStatus()</a>/setConnectionStatus().  <a href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">More...</a><br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Device abstraction layer: the <a class="el" href="class_i_device.html" title="Abstract base for every device family (camera/PLC/vision-output/robot): owns the device&#39;s id/name/tas...">IDevice</a> interface, connection status, and the Qt property/JSON serialization contract shared by all concrete device implementations. </p>
+
+<p class="definition">Definition in file <a class="el" href="idevice_8h_source.html">idevice.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

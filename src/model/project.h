@@ -10,12 +10,20 @@
 #include "device/device_manager.h"
 #include <memory>
 
-/// Core domain-model namespace: Project, ITask, and their JSON (de)serialization support.
+/**
+ * @file project.h
+ * @brief Project — aggregate root of a picking-configuration project; core domain-model
+ *        namespace shared with ITask and their JSON (de)serialization support.
+ */
 namespace vc::model {
 
-/// Aggregate root of a picking-configuration project: owns the task map, the shared
-/// DeviceManager, and project metadata (name/author/version/timestamps), and provides
-/// the JSON (de)serialization used by ProjectRepository.
+/**
+ * @class Project
+ * @brief Aggregate root of a picking-configuration project.
+ *
+ * Owns the task map, the shared DeviceManager, and project metadata (name/author/version/
+ * timestamps), and provides the JSON (de)serialization used by ProjectRepository.
+ */
 class Project : public QObject {
     Q_OBJECT
 
@@ -69,13 +77,15 @@ public:
 
 
     // ── Task management ────────────────────────────────
-    /// Takes ownership of `task` (wrapped into a shared_ptr) and adds it to the
-    /// project. Fails if `task` is null or its name is already occupied. On success,
-    /// assigns this project onto the task, registers its name as occupied, connects
-    /// the task's configChanged signal to emit taskModified(id) and
-    /// projectModificationOccurred(), and emits tasksChanged() and taskCreated(id).
-    /// @param task task instance to adopt; ownership transfers to the project on success
-    /// @return true if the task was added, false if `task` is null or its name is taken
+    /**
+     * @brief Takes ownership of `task` (wrapped into a shared_ptr) and adds it to the
+     *        project. Fails if `task` is null or its name is already occupied. On success,
+     *        assigns this project onto the task, registers its name as occupied, connects
+     *        the task's configChanged signal to emit taskModified(id) and
+     *        projectModificationOccurred(), and emits tasksChanged() and taskCreated(id).
+     * @param[in] task task instance to adopt; ownership transfers to the project on success
+     * @return true if the task was added, false if `task` is null or its name is taken
+     */
     bool addTask(ITask* task);
     /// Removes the task with the given id, if present, emitting tasksChanged() and
     /// taskDeleted(id) on success.
@@ -92,9 +102,15 @@ public:
     /// Looks up a task by id.
     /// @return the matching task, or nullptr if no task has this id
     std::shared_ptr<vc::model::ITask> taskById(const QString& id) const;
-    /// Renames the task with the given id to `name`, unless `name` is already occupied.
-    /// @note removes `task->id()` (not the task's previous name) from the occupied-names
-    /// set, and always returns false regardless of whether the rename succeeded.
+    /**
+     * @brief Renames the task with the given id to `name`, unless `name` is already occupied.
+     * @param[in] id   id of the task to rename
+     * @param[in] name desired new name
+     * @return intended to report success/failure; see @note
+     * @note As implemented this always returns false regardless of whether the rename
+     *       succeeded, and removes `task->id()` (not the task's previous name) from the
+     *       occupied-names set.
+     */
     bool changeTaskName(const QString& id, const QString &name);
     /// Checks whether a task name is already in use in this project.
     bool isTaskNameOccupied(const QString& name) const;
@@ -121,18 +137,23 @@ public:
     std::shared_ptr<vc::device::IDevice> deviceById(const QString& id);
 
     // ── Serialize ──────────────────────────────────────
-    /// Serializes the project to JSON: name, version, all registered devices (via
-    /// IDevice::toJson()), and all tasks (via ITask::toJson()).
-    /// @note image blobs associated with tasks are persisted separately by
-    /// ProjectRepository and are not included here.
+    /**
+     * @brief Serializes the project to JSON: name, version, all registered devices (via
+     *        IDevice::toJson()), and all tasks (via ITask::toJson()).
+     * @return the serialized project
+     * @note Image blobs associated with tasks are persisted separately by
+     *       ProjectRepository and are not included here.
+     */
     QJsonObject toJson() const;
-    /// Restores project state from JSON produced by toJson(): sets name/version,
-    /// reconstructs devices via DeviceFactory and reserves them on the DeviceManager,
-    /// reconstructs tasks via TaskFactory and adds them via addTask(), then re-assigns
-    /// each device to its recorded task (releasing any device with no assigned task).
-    /// @param json JSON object as produced by toJson()
-    /// @return false if `json` is empty; true otherwise, including when individual
-    /// malformed device/task entries were skipped
+    /**
+     * @brief Restores project state from JSON produced by toJson(): sets name/version,
+     *        reconstructs devices via DeviceFactory and reserves them on the DeviceManager,
+     *        reconstructs tasks via TaskFactory and adds them via addTask(), then re-assigns
+     *        each device to its recorded task (releasing any device with no assigned task).
+     * @param[in] json JSON object as produced by toJson()
+     * @return false if `json` is empty; true otherwise, including when individual
+     *         malformed device/task entries were skipped
+     */
     bool fromJson(const QJsonObject &json);
     // QMap<QString, QMap<QString, cv::Mat>> toImageMaps() const;
     // bool fromImageMaps(const  QMap<QString, QMap<QString, cv::Mat>> &mapping);
@@ -158,14 +179,20 @@ signals:
     /// task's config, or the DeviceManager's device list/state.
     void projectModificationOccurred();
 
-    /// Emitted after a task has been added to the project.
-    /// @param id id of the newly added task
+    /**
+     * @brief Emitted after a task has been added to the project.
+     * @param[in] id id of the newly added task
+     */
     void taskCreated(QString id);
-    /// Emitted after a task has been removed from the project.
-    /// @param id id of the removed task
+    /**
+     * @brief Emitted after a task has been removed from the project.
+     * @param[in] id id of the removed task
+     */
     void taskDeleted(QString id);
-    /// Emitted when a task's configuration changes.
-    /// @param id id of the modified task
+    /**
+     * @brief Emitted when a task's configuration changes.
+     * @param[in] id id of the modified task
+     */
     void taskModified(QString id);
     /// Emitted whenever the task list changes (add or remove).
     void tasksChanged();

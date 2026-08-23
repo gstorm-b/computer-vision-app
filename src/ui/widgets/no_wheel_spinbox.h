@@ -6,8 +6,16 @@
 #include <QSpinBox>
 #include <QWheelEvent>
 
-/// QSpinBox specialization that always ignores mouse-wheel events, so scrolling a form
-/// does not accidentally change the spin box's value.
+/**
+ * @file no_wheel_spinbox.h
+ * @brief NoWheelSpinBox — QSpinBox specialization that ignores mouse-wheel events.
+ */
+
+/**
+ * @class NoWheelSpinBox
+ * @brief QSpinBox specialization that always ignores mouse-wheel events, so scrolling a form
+ *        does not accidentally change the spin box's value.
+ */
 class NoWheelSpinBox : public QSpinBox {
     Q_OBJECT
 

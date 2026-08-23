@@ -5,10 +5,19 @@
 #include <QJsonObject>
 #include <QMetaType>
 
+/**
+ * @file camera_map_entry.h
+ * @brief CameraMapEntry — Qt-gadget model pairing a PLC signal value with a camera device id.
+ */
+
 namespace vc::model {
 
-/// Model types for camera/signal mapping: CameraMapEntry associates a PLC signal value with a
-/// camera device id, with Qt property (Q_GADGET) and JSON (de)serialization support.
+/**
+ * @class CameraMapEntry
+ * @brief Associates a PLC signal value with a camera device id.
+ *
+ * Q_GADGET with Qt properties (signalValue, cameraDeviceId) and JSON (de)serialization support.
+ */
 class CameraMapEntry {
     Q_GADGET
 
@@ -43,9 +52,11 @@ public:
                            };
     }
 
-    /// Builds a CameraMapEntry from a JSON object produced by toJson().
-    /// @param o JSON object with "signalValue" and "cameraDeviceId" fields
-    /// @return the reconstructed entry; missing fields default to 0 / an empty string
+    /**
+     * @brief Builds a CameraMapEntry from a JSON object produced by toJson().
+     * @param[in] o JSON object with "signalValue" and "cameraDeviceId" fields
+     * @return the reconstructed entry; missing fields default to 0 / an empty string
+     */
     static CameraMapEntry fromJson(const QJsonObject& o) {
         return CameraMapEntry {
             o["signalValue"].toInt(),

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_localiza
 </div><!--header-->
 <div class="contents">
 
+<p>Task-configuration widget for a LocalizationTask: a left-hand nav panel (task header, status lamps, Dashboard/Patterns/Settings buttons, and the assigned-device list) driving a right-hand breadcrumb bar plus content_stack that swaps between the Dashboard, Settings, Patterns, and per-device configuration pages.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for LocalizationTaskWidget:</div>
@@ -135,6 +138,7 @@ Collaboration diagram for LocalizationTaskWidget:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:StatusLamp" id="r_StatusLamp"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_localization_task_widget_1_1_status_lamp.html">StatusLamp</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One status-lamp column (dot + text label) shown in the nav panel's status-lamp row (READY/CAM/PLC/OUT).  <a href="struct_localization_task_widget_1_1_status_lamp.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
@@ -196,7 +200,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ad0a59ad5fcc3e4cc9055b9adf615bdd5" id="r_ad0a59ad5fcc3e4cc9055b9adf615bdd5"><td class="memItemLeft"><a class="el" href="classvc_1_1model_1_1_task_localize_config.html">vc::model::TaskLocalizeConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad0a59ad5fcc3e4cc9055b9adf615bdd5">m_config</a></td></tr>
 <tr class="memdesc:ad0a59ad5fcc3e4cc9055b9adf615bdd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local working copy of the task's config, loaded in <a class="el" href="#ace8f13d4997c14a51f7f456cd3f9be3a">initWidget()</a> and pushed back by <a class="el" href="#a4c2dd41453d0177d63b87d35a0fc531b" title="Pushes m_config back to the model via TaskLocalization::setTaskLocalizeConfig().">saveConfig()</a>.  <br /></td></tr>
 <tr class="memitem:a3e428ad7142ca1c3818026bf2723134a" id="r_a3e428ad7142ca1c3818026bf2723134a"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a3e428ad7142ca1c3818026bf2723134a">m_dashboardPage</a> {nullptr}</td></tr>
-<tr class="memdesc:a3e428ad7142ca1c3818026bf2723134a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lazily-created dashboard page (<a class="el" href="class_localization_dashboard_widget.html">LocalizationDashboardWidget</a>), owned by content_stack.  <br /></td></tr>
+<tr class="memdesc:a3e428ad7142ca1c3818026bf2723134a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lazily-created dashboard page (<a class="el" href="class_localization_dashboard_widget.html" title="Read-only operator dashboard for a TaskLocalization task: status lamps, device connection lamps,...">LocalizationDashboardWidget</a>), owned by content_stack.  <br /></td></tr>
 <tr class="memitem:a832127198edaf6c686c07f1004378345" id="r_a832127198edaf6c686c07f1004378345"><td class="memItemLeft">QMap&lt; QString, QWidget * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a832127198edaf6c686c07f1004378345">m_devicePages</a></td></tr>
 <tr class="memdesc:a832127198edaf6c686c07f1004378345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-device config pages, keyed by device id.  <br /></td></tr>
 <tr class="memitem:a24ae38eb0b8dbdc0eafa10ce474bb26d" id="r_a24ae38eb0b8dbdc0eafa10ce474bb26d"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a24ae38eb0b8dbdc0eafa10ce474bb26d">m_devListWidget</a> {nullptr}</td></tr>
@@ -209,9 +213,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a653c0022c47335f35889001f13b45bac" id="r_a653c0022c47335f35889001f13b45bac"><td class="memItemLeft">QMap&lt; QString, <a class="el" href="class_device_nav_item_widget.html">DeviceNavItemWidget</a> * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a653c0022c47335f35889001f13b45bac">m_navItems</a></td></tr>
 <tr class="memdesc:a653c0022c47335f35889001f13b45bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device-nav item widgets, keyed by device id.  <br /></td></tr>
 <tr class="memitem:aec61f7c5e3ff2b1cd478ac4ca755cf77" id="r_aec61f7c5e3ff2b1cd478ac4ca755cf77"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#aec61f7c5e3ff2b1cd478ac4ca755cf77">m_patternsPage</a> {nullptr}</td></tr>
-<tr class="memdesc:aec61f7c5e3ff2b1cd478ac4ca755cf77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lazily-created patterns page (<a class="el" href="class_localization_patterns_widget.html">LocalizationPatternsWidget</a>), owned by content_stack.  <br /></td></tr>
+<tr class="memdesc:aec61f7c5e3ff2b1cd478ac4ca755cf77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lazily-created patterns page (<a class="el" href="class_localization_patterns_widget.html" title="Task widget for managing localization pattern groups/patterns, editing their match configuration,...">LocalizationPatternsWidget</a>), owned by content_stack.  <br /></td></tr>
 <tr class="memitem:a3298ae75470bfebd98edcd9f3b72477d" id="r_a3298ae75470bfebd98edcd9f3b72477d"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a3298ae75470bfebd98edcd9f3b72477d">m_settingPage</a> {nullptr}</td></tr>
-<tr class="memdesc:a3298ae75470bfebd98edcd9f3b72477d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lazily-created settings page (<a class="el" href="class_localization_setting_widget.html">LocalizationSettingWidget</a>), owned by content_stack.  <br /></td></tr>
+<tr class="memdesc:a3298ae75470bfebd98edcd9f3b72477d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lazily-created settings page (<a class="el" href="class_localization_setting_widget.html" title="Task settings widget for a localization task: binds the vision-output and PLC comm devices,...">LocalizationSettingWidget</a>), owned by content_stack.  <br /></td></tr>
 <tr class="memitem:a91974c955b6d3c95208ebdc57ffa1057" id="r_a91974c955b6d3c95208ebdc57ffa1057"><td class="memItemLeft">QList&lt; <a class="el" href="class_status_lamp.html">StatusLamp</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a91974c955b6d3c95208ebdc57ffa1057">m_statusLamps</a></td></tr>
 <tr class="memdesc:a91974c955b6d3c95208ebdc57ffa1057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lamp columns in order: READY, CAM, PLC, OUT.  <br /></td></tr>
 <tr class="memitem:a61a30997a5e4b586dd1bdd13e51cd52a" id="r_a61a30997a5e4b586dd1bdd13e51cd52a"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a61a30997a5e4b586dd1bdd13e51cd52a">m_WordsAddressList</a></td></tr>
@@ -234,22 +238,26 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a2d3cfd0e4167c2c20e5be77f37577f43 pro_methods_class_i_task_widget" id="r_a2d3cfd0e4167c2c20e5be77f37577f43"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a2d3cfd0e4167c2c20e5be77f37577f43">changePropertyBrowserDefault</a> ()</td></tr>
 <tr class="memitem:a10a14337d5a3fc21d68cbc7d30a07435 pro_methods_class_i_task_widget" id="r_a10a14337d5a3fc21d68cbc7d30a07435"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget</a> (<a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> *wg)</td></tr>
 <tr class="memitem:a23854620a628779514575881f0425c3e pro_methods_class_i_task_widget" id="r_a23854620a628779514575881f0425c3e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a23854620a628779514575881f0425c3e">embedBrowserInWidget</a> (QWidget *container)</td></tr>
+<tr class="memdesc:a23854620a628779514575881f0425c3e pro_methods_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Embeds m_propBrowser into <code class="param">container</code> via a zero-margin QHBoxLayout. No-op if <code class="param">container</code> is null.  <br /></td></tr>
 <tr class="memitem:a5f1b0800b45f464ac947560ec69a6aa0 pro_methods_class_i_task_widget" id="r_a5f1b0800b45f464ac947560ec69a6aa0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a5f1b0800b45f464ac947560ec69a6aa0">initBrowserInWidget</a> (QWidget *container)</td></tr>
 <tr class="memitem:a359284998e5564a7ad6092d9d6999f52 pro_methods_class_i_task_widget" id="r_a359284998e5564a7ad6092d9d6999f52"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a359284998e5564a7ad6092d9d6999f52">initPropertyBrowser</a> (QWidget *container)</td></tr>
+<tr class="memdesc:a359284998e5564a7ad6092d9d6999f52 pro_methods_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> (m_propBrowser) and its manager/ factory/editor pointers, then embeds it into <code class="param">container</code> via <a class="el" href="class_i_task_widget.html#a23854620a628779514575881f0425c3e" title="Embeds m_propBrowser into container via a zero-margin QHBoxLayout. No-op if container is null.">embedBrowserInWidget()</a>. No-op if <code class="param">container</code> is null.  <br /></td></tr>
 <tr class="memitem:a80ba1a32ae7655a1980f215f41d3f051 pro_methods_class_i_task_widget" id="r_a80ba1a32ae7655a1980f215f41d3f051"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a80ba1a32ae7655a1980f215f41d3f051">reloadStyleSheet</a> ()</td></tr>
 <tr class="memitem:a631a2a6279eb7fa88f6b0898fbefec04 pro_methods_class_i_task_widget" id="r_a631a2a6279eb7fa88f6b0898fbefec04"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a631a2a6279eb7fa88f6b0898fbefec04">removePropertyBrowserWidget</a> (<a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> *wg)</td></tr>
 <tr class="memitem:a386d4bb80424ed2c1f3fb252da639611 pro_methods_class_i_task_widget" id="r_a386d4bb80424ed2c1f3fb252da639611"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a386d4bb80424ed2c1f3fb252da639611">setupThemeReload</a> (const QString &amp;darkPath, const QString &amp;lightPath)</td></tr>
+<tr class="memdesc:a386d4bb80424ed2c1f3fb252da639611 pro_methods_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths, triggers an initial load, and subscribes to <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> for subsequent switches.  <br /></td></tr>
 <tr class="inherit_header pro_static_methods_class_i_task_widget"><td colspan="2">Static Protected Member Functions inherited from <a class="el" href="class_i_task_widget.html">ITaskWidget</a></td></tr>
 <tr class="memitem:a698cbb40f38b9ed4964985b8644555cf pro_static_methods_class_i_task_widget" id="r_a698cbb40f38b9ed4964985b8644555cf"><td class="memItemLeft">static QtVariantProperty *&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a698cbb40f38b9ed4964985b8644555cf">addPropertyToBrowser</a> (const QMetaObject &amp;meta, QMetaProperty &amp;prop, QVariant &amp;value, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser)</td></tr>
+<tr class="memdesc:a698cbb40f38b9ed4964985b8644555cf pro_static_methods_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Introspects a QMetaProperty and creates the matching QtVariantProperty: builds an enum property (with translated enum names) for enum-typed properties, otherwise a plain value property; applies display name, numeric min/max, and tooltip from Q_CLASSINFO entries named <span class="tt">&lt;prop&gt;_name</span> / <span class="tt">&lt;prop&gt;_min</span> / <span class="tt">&lt;prop&gt;_max</span> / <span class="tt">&lt;prop&gt;_desc</span>; disables the property when the QMetaProperty isn't writable; adds it to <code class="param">browser</code> if given. The <span class="tt">objectName</span> property is always skipped.  <br /></td></tr>
 <tr class="inherit_header pro_attribs_class_i_task_widget"><td colspan="2">Protected Attributes inherited from <a class="el" href="class_i_task_widget.html">ITaskWidget</a></td></tr>
 <tr class="memitem:a5294cb2db4ce9803dc42065a82dec3ed pro_attribs_class_i_task_widget" id="r_a5294cb2db4ce9803dc42065a82dec3ed"><td class="memItemLeft">QHBoxLayout *&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a5294cb2db4ce9803dc42065a82dec3ed">m_browserBox</a> {nullptr}</td></tr>
 <tr class="memdesc:a5294cb2db4ce9803dc42065a82dec3ed pro_attribs_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero-margin layout created by <a class="el" href="class_i_task_widget.html#a5f1b0800b45f464ac947560ec69a6aa0">initBrowserInWidget()</a> to host m_browserStackWidget.  <br /></td></tr>
 <tr class="memitem:ace48b61af3936f96ddeffbde00784673 pro_attribs_class_i_task_widget" id="r_ace48b61af3936f96ddeffbde00784673"><td class="memItemLeft">QStackedWidget *&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#ace48b61af3936f96ddeffbde00784673">m_browserStackWidget</a> {nullptr}</td></tr>
-<tr class="memdesc:ace48b61af3936f96ddeffbde00784673 pro_attribs_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack switched between multiple <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> instances by <a class="el" href="class_i_task_widget.html#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget()</a>/changePropertyBrowserDefault().  <br /></td></tr>
+<tr class="memdesc:ace48b61af3936f96ddeffbde00784673 pro_attribs_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack switched between multiple <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> instances by <a class="el" href="class_i_task_widget.html#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget()</a>/changePropertyBrowserDefault().  <br /></td></tr>
 <tr class="memitem:a2948b66503f894973c97bcef926bf3ef pro_attribs_class_i_task_widget" id="r_a2948b66503f894973c97bcef926bf3ef"><td class="memItemLeft">ads::CDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a2948b66503f894973c97bcef926bf3ef">m_dock</a> {nullptr}</td></tr>
 <tr class="memdesc:a2948b66503f894973c97bcef926bf3ef pro_attribs_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owning dock widget, if any; not owned by this widget.  <br /></td></tr>
 <tr class="memitem:a323d09ad76e449391413657585911d94 pro_attribs_class_i_task_widget" id="r_a323d09ad76e449391413657585911d94"><td class="memItemLeft"><a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a323d09ad76e449391413657585911d94">m_propBrowser</a> {nullptr}</td></tr>
-<tr class="memdesc:a323d09ad76e449391413657585911d94 pro_attribs_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default property browser (search + tree + description), created by <a class="el" href="class_i_task_widget.html#a359284998e5564a7ad6092d9d6999f52">initPropertyBrowser()</a>.  <br /></td></tr>
+<tr class="memdesc:a323d09ad76e449391413657585911d94 pro_attribs_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default property browser (search + tree + description), created by <a class="el" href="class_i_task_widget.html#a359284998e5564a7ad6092d9d6999f52" title="Creates the PropertyBrowserWidget (m_propBrowser) and its manager/ factory/editor pointers,...">initPropertyBrowser()</a>.  <br /></td></tr>
 <tr class="memitem:a1c38e24752b9876e97d40f6966782610 pro_attribs_class_i_task_widget" id="r_a1c38e24752b9876e97d40f6966782610"><td class="memItemLeft">QList&lt; <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> * &gt;&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#a1c38e24752b9876e97d40f6966782610">m_propertyBrowserWidgets</a></td></tr>
 <tr class="memdesc:a1c38e24752b9876e97d40f6966782610 pro_attribs_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-default property browsers currently tracked in m_browserStackWidget.  <br /></td></tr>
 <tr class="memitem:aff5d6fbf6d49cb923b0c18fb2efd6740 pro_attribs_class_i_task_widget" id="r_aff5d6fbf6d49cb923b0c18fb2efd6740"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_i_task.html">vc::model::ITask</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="class_i_task_widget.html#aff5d6fbf6d49cb923b0c18fb2efd6740">m_task</a></td></tr>
@@ -262,10 +270,19 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a5965ce907c7efa589d15d1809256fb94 pro_attribs_class_i_task_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alias into m_propBrowser's variant manager; do not delete.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Task-configuration widget for a LocalizationTask: a left-hand nav panel (task header, status lamps, Dashboard/Patterns/Settings buttons, and the assigned-device list) driving a right-hand breadcrumb bar plus content_stack that swaps between the Dashboard, Settings, Patterns, and per-device configuration pages.</p>
-<p>Layout: ┌──────────────┬──────────────────────────────────────────┐ │ Nav panel │ Breadcrumb bar (36px) │ │ (188px) ├──────────────────────────────────────────┤ │ task header │ content_stack │ │ status lamps│ [0] Dashboard │ │ [Dashboard] │ [1] Settings │ │ [Devices] │ [2+] Device config │ │ [Settings] │ │ └──────────────┴──────────────────────────────────────────┘ </p>
-
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00034">34</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<div class="textblock"><p>Task-configuration widget for a LocalizationTask: a left-hand nav panel (task header, status lamps, Dashboard/Patterns/Settings buttons, and the assigned-device list) driving a right-hand breadcrumb bar plus content_stack that swaps between the Dashboard, Settings, Patterns, and per-device configuration pages. </p>
+<p>Layout: </p><div class="fragment"><div class="line">┌──────────────┬──────────────────────────────────────────┐</div>
+<div class="line">│  Nav panel   │  Breadcrumb bar (36px)                   │</div>
+<div class="line">│  (188px)     ├──────────────────────────────────────────┤</div>
+<div class="line">│  task header │  content_stack                           │</div>
+<div class="line">│  status lamps│  [0] Dashboard                           │</div>
+<div class="line">│  [Dashboard] │  [1] Settings                            │</div>
+<div class="line">│  [Devices]   │  [2+] <a class="code hl_enumvalue" href="project__tree__widget_8h.html#aa8383ec8251036f278da8fb417ae327bae0ac20adce6ffee48c7151b070aa5737">Device</a> config                      │</div>
+<div class="line">│  [Settings]  │                                          │</div>
+<div class="line">└──────────────┴──────────────────────────────────────────┘</div>
+<div class="ttc" id="aproject__tree__widget_8h_html_aa8383ec8251036f278da8fb417ae327bae0ac20adce6ffee48c7151b070aa5737"><div class="ttname"><a href="project__tree__widget_8h.html#aa8383ec8251036f278da8fb417ae327bae0ac20adce6ffee48c7151b070aa5737">TreeItemKind::Device</a></div><div class="ttdeci">@ Device</div><div class="ttdef"><b>Definition</b> <a href="project__tree__widget_8h_source.html#l00039">project_tree_widget.h:39</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00044">44</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a89e0edc39ebee2eecd91e2323fc4cdec" name="a89e0edc39ebee2eecd91e2323fc4cdec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89e0edc39ebee2eecd91e2323fc4cdec">&#9670;&#160;</a></span>LocalizationTaskWidget()</h2>
@@ -302,7 +319,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00056">56</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00047">ITaskWidget::ITaskWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00056">LocalizationTaskWidget()</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00054">ITaskWidget::ITaskWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00056">LocalizationTaskWidget()</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00056">LocalizationTaskWidget()</a>.</p>
 
@@ -327,7 +344,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00069">69</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>.</p>
 
 </div>
 </div>
@@ -382,8 +399,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the cached config page for <span class="tt">deviceId</span>, creating it via <a class="el" href="class_device_widget_factory.html">DeviceWidgetFactory</a> (looking up the device's runner from TaskRunner) on first request and adding it to content_stack; returns nullptr if the device cannot be resolved.</p>
-<p>Returns the cached content-stack page for <span class="tt">deviceId</span>, creating it on first request: resolves the device from the project and its runner from TaskRunner::runnerFor() (the widget never creates a worker/thread itself), builds the page via <a class="el" href="class_device_widget_factory.html#ad449b28080c20c2e90d641ced36d1571">DeviceWidgetFactory::createDeviceWidget()</a> — falling back to a plain "no configuration panel available" placeholder label if the factory returns nullptr — adds it to the content stack, and caches it in m_devicePages. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Returns the cached config page for <span class="tt">deviceId</span>, creating it via <a class="el" href="class_device_widget_factory.html" title="Factory that maps a device (by its concrete device type/subtype) to the matching device-specific cont...">DeviceWidgetFactory</a> (looking up the device's runner from TaskRunner) on first request and adding it to content_stack; returns nullptr if the device cannot be resolved.</p>
+<p>Returns the cached content-stack page for <span class="tt">deviceId</span>, creating it on first request: resolves the device from the project and its runner from TaskRunner::runnerFor() (the widget never creates a worker/thread itself), builds the page via <a class="el" href="class_device_widget_factory.html#ad449b28080c20c2e90d641ced36d1571" title="Creates and returns the control widget appropriate for device&#39;s runtime type/subtype,...">DeviceWidgetFactory::createDeviceWidget()</a> — falling back to a plain "no configuration panel available" placeholder label if the factory returns nullptr — adds it to the content stack, and caches it in m_devicePages. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deviceId</td><td>id of the device to get/create a config page for </td></tr>
   </table>
@@ -393,7 +410,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00835">835</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__widget__factory_8cpp_source.html#l00018">DeviceWidgetFactory::createDeviceWidget()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00192">m_devicePages</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>.</p>
+<p class="reference">References <a class="el" href="device__widget__factory_8cpp_source.html#l00018">DeviceWidgetFactory::createDeviceWidget()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00205">m_devicePages</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00708">showDeviceConfigPage()</a>.</p>
 
@@ -455,7 +472,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00194">194</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00184">m_devListWidget</a>, <a class="el" href="localization__task__widget_8h_source.html#l00199">m_navBtnGroup</a>, <a class="el" href="task__widget_8h_source.html#l00256">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>, <a class="el" href="windows__helper_8h_source.html#l00179">svgIcon()</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00197">m_devListWidget</a>, <a class="el" href="localization__task__widget_8h_source.html#l00212">m_navBtnGroup</a>, <a class="el" href="task__widget_8h_source.html#l00275">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>.</p>
 
@@ -488,7 +505,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00314">314</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00181">m_statusLamps</a>, <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00360">updateStatusLamps()</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00194">m_statusLamps</a>, <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00360">updateStatusLamps()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>.</p>
 
@@ -517,11 +534,11 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Caches the task/config pointers, wires up theme reload, the property browser stack, device/task-state signal connections and toolbar buttons, starts Commission on the task, and shows the Dashboard page.</p>
-<p>Full widget initialisation: binds the underlying <a class="el" href="class_task_localization.html">TaskLocalization</a> and its config, applies the theme stylesheets, builds the property browser / nav panel / status lamps, wires device-manager and task-state signals, hooks the breadcrumb runtime buttons, and begins the Commission phase for the task before showing the Dashboard page. </p><dl class="section note"><dt>Note</dt><dd>starting Commission here spins up a per-device HighPriority QThread for each currently assigned device. </dd></dl>
+<p>Full widget initialisation: binds the underlying <a class="el" href="class_task_localization.html" title="Localization ITask implementation.">TaskLocalization</a> and its config, applies the theme stylesheets, builds the property browser / nav panel / status lamps, wires device-manager and task-state signals, hooks the breadcrumb runtime buttons, and begins the Commission phase for the task before showing the Dashboard page. </p><dl class="section note"><dt>Note</dt><dd>starting Commission here spins up a per-device HighPriority QThread for each currently assigned device. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00096">96</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classvc_1_1device_1_1_device_manager.html#a982ab3b6f13e61cfbbb5d5880f78fc1e">vc::device::DeviceManager::deviceModified()</a>, <a class="el" href="classvc_1_1device_1_1_device_manager.html#ab14ff3fe588daa738e9eabd90370529f">vc::device::DeviceManager::devicesChanged()</a>, <a class="el" href="classvc_1_1model_1_1_i_task.html#a964fb414cf50415ffcdb55df534ef4f4">vc::model::ITask::devicesChanged()</a>, <a class="el" href="task__widget_8h_source.html#l00123">ITaskWidget::initBrowserInWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00314">initStatusLamps()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00167">m_config</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="task__widget_8h_source.html#l00256">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00801">onAssignedDeviceModified()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00460">onTaskDevicesChanged()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00754">onTbtnEnterRuntime()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00762">onTbtnExitRuntime()</a>, <a class="el" href="task__widget_8h_source.html#l00067">ITaskWidget::setupThemeReload()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="classvc_1_1model_1_1_i_task.html#a96d958fca63b336b48cdd30639337a5a">vc::model::ITask::taskStateChanged()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00360">updateStatusLamps()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00413">updateTaskStateUi()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00572">wireDeviceNavDots()</a>.</p>
+<p class="reference">References <a class="el" href="classvc_1_1device_1_1_device_manager.html#a982ab3b6f13e61cfbbb5d5880f78fc1e">vc::device::DeviceManager::deviceModified()</a>, <a class="el" href="classvc_1_1device_1_1_device_manager.html#ab14ff3fe588daa738e9eabd90370529f">vc::device::DeviceManager::devicesChanged()</a>, <a class="el" href="classvc_1_1model_1_1_i_task.html#a964fb414cf50415ffcdb55df534ef4f4">vc::model::ITask::devicesChanged()</a>, <a class="el" href="task__widget_8h_source.html#l00136">ITaskWidget::initBrowserInWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00314">initStatusLamps()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00177">m_config</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="task__widget_8h_source.html#l00275">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00801">onAssignedDeviceModified()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00460">onTaskDevicesChanged()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00754">onTbtnEnterRuntime()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00762">onTbtnExitRuntime()</a>, <a class="el" href="task__widget_8h_source.html#l00076">ITaskWidget::setupThemeReload()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="classvc_1_1model_1_1_i_task.html#a96d958fca63b336b48cdd30639337a5a">vc::model::ITask::taskStateChanged()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00360">updateStatusLamps()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00413">updateTaskStateUi()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00572">wireDeviceNavDots()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00056">LocalizationTaskWidget()</a>.</p>
 
@@ -620,7 +637,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00801">801</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00195">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00236">DeviceNavItemWidget::roleForDeviceType()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00208">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00236">DeviceNavItemWidget::roleForDeviceType()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>.</p>
 
@@ -686,7 +703,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00460">460</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="class_i_device_widget.html#acb358a892fd103403f120493e666ad75">IDeviceWidget::deviceId()</a>, <a class="el" href="device__widget_8h_source.html#l00026">IDeviceWidget::getPropertyBrowser()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00192">m_devicePages</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="task__widget_8h_source.html#l00158">ITaskWidget::removePropertyBrowserWidget()</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>.</p>
+<p class="reference">References <a class="el" href="class_i_device_widget.html#acb358a892fd103403f120493e666ad75">IDeviceWidget::deviceId()</a>, <a class="el" href="device__widget_8h_source.html#l00035">IDeviceWidget::getPropertyBrowser()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00205">m_devicePages</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="task__widget_8h_source.html#l00171">ITaskWidget::removePropertyBrowserWidget()</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>.</p>
 
@@ -720,7 +737,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00754">754</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__define_8h_source.html#l00033">vc::model::Commission</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>.</p>
+<p class="reference">References <a class="el" href="task__define_8h_source.html#l00046">vc::model::Commission</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>.</p>
 
@@ -754,7 +771,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00762">762</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__define_8h_source.html#l00033">vc::model::Commission</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>.</p>
+<p class="reference">References <a class="el" href="task__define_8h_source.html#l00046">vc::model::Commission</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>.</p>
 
@@ -782,8 +799,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Switches the shared property browser to the device page's own browser (or the default browser if the page isn't an <a class="el" href="class_i_device_widget.html">IDeviceWidget</a>).</p>
-<p>Points the shared property browser at the device page cached for <span class="tt">id</span>: swaps in that page's own property-browser widget if it implements <a class="el" href="class_i_device_widget.html">IDeviceWidget</a>, otherwise falls back to the default (empty) browser. No-op if no page is cached for <span class="tt">id</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Switches the shared property browser to the device page's own browser (or the default browser if the page isn't an <a class="el" href="class_i_device_widget.html" title="Abstract base for device-configuration widgets (one per connected device type, e.g....">IDeviceWidget</a>).</p>
+<p>Points the shared property browser at the device page cached for <span class="tt">id</span>: swaps in that page's own property-browser widget if it implements <a class="el" href="class_i_device_widget.html" title="Abstract base for device-configuration widgets (one per connected device type, e.g....">IDeviceWidget</a>, otherwise falls back to the default (empty) browser. No-op if no page is cached for <span class="tt">id</span>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>id of the device whose page's property browser should be shown </td></tr>
   </table>
@@ -792,7 +809,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00875">875</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00148">ITaskWidget::changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00135">ITaskWidget::changePropertyBrowserWidget()</a>, <a class="el" href="device__widget_8h_source.html#l00026">IDeviceWidget::getPropertyBrowser()</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00192">m_devicePages</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00161">ITaskWidget::changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00148">ITaskWidget::changePropertyBrowserWidget()</a>, <a class="el" href="device__widget_8h_source.html#l00035">IDeviceWidget::getPropertyBrowser()</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00205">m_devicePages</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00708">showDeviceConfigPage()</a>.</p>
 
@@ -821,11 +838,11 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Clears and repopulates the device-nav list from the task's assigned devices, sorted by device type then name; shows an empty-state label when no device is assigned, then refreshes styles/status lamps/nav-dot wiring.</p>
-<p>Clears and rebuilds the device-nav list widget from the task's assigned devices: sorts them by <a class="el" href="localization__setting__widget_8cpp.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a> (Camera → PLC → VisionOutput → Robot) then by name, creates a <a class="el" href="class_device_nav_item_widget.html">DeviceNavItemWidget</a> per device wired to <a class="el" href="#a7cf3f5422cc73b34cba2ef47f74a946b">onDeviceNavClicked()</a>, shows a "No devices assigned" placeholder label when the list is empty, and refreshes nav-item styles, status lamps, and the device-nav connection dots afterward. </p>
+<p>Clears and rebuilds the device-nav list widget from the task's assigned devices: sorts them by <a class="el" href="localization__setting__widget_8cpp.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a> (Camera → PLC → VisionOutput → Robot) then by name, creates a <a class="el" href="class_device_nav_item_widget.html" title="A single clickable device entry (icon + name + short type label + connect-status dot) in a device nav...">DeviceNavItemWidget</a> per device wired to <a class="el" href="#a7cf3f5422cc73b34cba2ef47f74a946b">onDeviceNavClicked()</a>, shows a "No devices assigned" placeholder label when the list is empty, and refreshes nav-item styles, status lamps, and the device-nav connection dots afterward. </p>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00499">499</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="class_device_nav_item_widget.html#ac900db87f025b649e9b2cfd9a2365604">DeviceNavItemWidget::activated()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00184">m_devListWidget</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00185">m_navItems</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00747">onDeviceNavClicked()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00360">updateStatusLamps()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00572">wireDeviceNavDots()</a>.</p>
+<p class="reference">References <a class="el" href="class_device_nav_item_widget.html#ac900db87f025b649e9b2cfd9a2365604">DeviceNavItemWidget::activated()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00197">m_devListWidget</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00198">m_navItems</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00747">onDeviceNavClicked()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00360">updateStatusLamps()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00572">wireDeviceNavDots()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00801">onAssignedDeviceModified()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00460">onTaskDevicesChanged()</a>.</p>
 
@@ -859,7 +876,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00771">771</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00195">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00185">m_navItems</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00162">DeviceNavItemWidget::setSelected()</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00208">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00198">m_navItems</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00162">DeviceNavItemWidget::setSelected()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00708">showDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>.</p>
 
@@ -893,7 +910,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00891">891</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00167">m_config</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00177">m_config</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>.</p>
 
 </div>
 </div>
@@ -945,12 +962,12 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Lazily creates the <a class="el" href="class_localization_dashboard_widget.html">LocalizationDashboardWidget</a> (once) and switches content_stack to it, clearing the active device and updating the breadcrumb/nav-button checked state.</p>
-<p>Switches the content stack to the Dashboard page, lazily constructing a <a class="el" href="class_localization_dashboard_widget.html">LocalizationDashboardWidget</a> (or a bare placeholder QWidget if there is no bound task) on first visit. Clears the active device selection, checks the Dashboard nav button, updates the breadcrumb, and hides the property browser. </p>
+<p>Lazily creates the <a class="el" href="class_localization_dashboard_widget.html" title="Read-only operator dashboard for a TaskLocalization task: status lamps, device connection lamps,...">LocalizationDashboardWidget</a> (once) and switches content_stack to it, clearing the active device and updating the breadcrumb/nav-button checked state.</p>
+<p>Switches the content stack to the Dashboard page, lazily constructing a <a class="el" href="class_localization_dashboard_widget.html" title="Read-only operator dashboard for a TaskLocalization task: status lamps, device connection lamps,...">LocalizationDashboardWidget</a> (or a bare placeholder QWidget if there is no bound task) on first visit. Clears the active device selection, checks the Dashboard nav button, updates the breadcrumb, and hides the property browser. </p>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00614">614</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00157">kDashboardPage</a>, <a class="el" href="localization__task__widget_8h_source.html#l00195">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00191">m_dashboardPage</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="task__widget_8h_source.html#l00256">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00167">kDashboardPage</a>, <a class="el" href="localization__task__widget_8h_source.html#l00208">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00204">m_dashboardPage</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="task__widget_8h_source.html#l00275">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>.</p>
 
@@ -988,7 +1005,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00708">708</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8cpp_source.html#l00835">getOrCreateDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00195">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00875">populateBrowser()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00236">DeviceNavItemWidget::roleForDeviceType()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8cpp_source.html#l00835">getOrCreateDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00208">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00875">populateBrowser()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00236">DeviceNavItemWidget::roleForDeviceType()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00747">onDeviceNavClicked()</a>.</p>
 
@@ -1016,12 +1033,12 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Lazily creates the <a class="el" href="class_localization_patterns_widget.html">LocalizationPatternsWidget</a> (once) and switches content_stack to it, clearing the active device and updating the breadcrumb/nav-button checked state.</p>
-<p>Switches the content stack to the Patterns page (LocalizationTask only), lazily constructing a <a class="el" href="class_localization_patterns_widget.html">LocalizationPatternsWidget</a> (or a bare placeholder QWidget if there is no bound task) on first visit. Clears the active device selection, checks the Patterns nav button, updates the breadcrumb, and hides the property browser. </p>
+<p>Lazily creates the <a class="el" href="class_localization_patterns_widget.html" title="Task widget for managing localization pattern groups/patterns, editing their match configuration,...">LocalizationPatternsWidget</a> (once) and switches content_stack to it, clearing the active device and updating the breadcrumb/nav-button checked state.</p>
+<p>Switches the content stack to the Patterns page (LocalizationTask only), lazily constructing a <a class="el" href="class_localization_patterns_widget.html" title="Task widget for managing localization pattern groups/patterns, editing their match configuration,...">LocalizationPatternsWidget</a> (or a bare placeholder QWidget if there is no bound task) on first visit. Clears the active device selection, checks the Patterns nav button, updates the breadcrumb, and hides the property browser. </p>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00677">677</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00159">kPatternsPage</a>, <a class="el" href="localization__task__widget_8h_source.html#l00195">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00205">m_patternsPage</a>, <a class="el" href="task__widget_8h_source.html#l00256">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00169">kPatternsPage</a>, <a class="el" href="localization__task__widget_8h_source.html#l00208">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00218">m_patternsPage</a>, <a class="el" href="task__widget_8h_source.html#l00275">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>.</p>
 
@@ -1049,12 +1066,12 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Lazily creates the <a class="el" href="class_localization_setting_widget.html">LocalizationSettingWidget</a> (once) and switches content_stack to it, clearing the active device and updating the breadcrumb/nav-button checked state.</p>
-<p>Switches the content stack to the Settings page, lazily constructing a <a class="el" href="class_localization_setting_widget.html">LocalizationSettingWidget</a> (or a bare placeholder QWidget if there is no bound task) on first visit. Clears the active device selection, checks the Settings nav button, updates the breadcrumb, and hides the property browser. </p>
+<p>Lazily creates the <a class="el" href="class_localization_setting_widget.html" title="Task settings widget for a localization task: binds the vision-output and PLC comm devices,...">LocalizationSettingWidget</a> (once) and switches content_stack to it, clearing the active device and updating the breadcrumb/nav-button checked state.</p>
+<p>Switches the content stack to the Settings page, lazily constructing a <a class="el" href="class_localization_setting_widget.html" title="Task settings widget for a localization task: binds the vision-output and PLC comm devices,...">LocalizationSettingWidget</a> (or a bare placeholder QWidget if there is no bound task) on first visit. Clears the active device selection, checks the Settings nav button, updates the breadcrumb, and hides the property browser. </p>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00644">644</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00158">kSettingsPage</a>, <a class="el" href="localization__task__widget_8h_source.html#l00195">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00206">m_settingPage</a>, <a class="el" href="task__widget_8h_source.html#l00256">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00168">kSettingsPage</a>, <a class="el" href="localization__task__widget_8h_source.html#l00208">m_activeDeviceId</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00219">m_settingPage</a>, <a class="el" href="task__widget_8h_source.html#l00275">ITaskWidget::m_task</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>.</p>
 
@@ -1097,7 +1114,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00786">786</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>.</p>
+<p class="reference">References <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00801">onAssignedDeviceModified()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00708">showDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>.</p>
 
@@ -1130,7 +1147,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00360">360</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00181">m_statusLamps</a>, <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00030">readyLampStateForTask()</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00194">m_statusLamps</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00030">readyLampStateForTask()</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00314">initStatusLamps()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>.</p>
 
@@ -1163,7 +1180,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00413">413</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__define_8h_source.html#l00031">vc::model::Idle</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00163">ui</a>.</p>
+<p class="reference">References <a class="el" href="task__define_8h_source.html#l00044">vc::model::Idle</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, and <a class="el" href="localization__task__widget_8h_source.html#l00173">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>.</p>
 
@@ -1195,7 +1212,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__task__widget_8cpp_source.html#l00572">572</a> of file <a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f">vc::runtime::IDeviceRunner::connectStatusChanged()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00166">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00188">m_navDotConns</a>, <a class="el" href="localization__task__widget_8h_source.html#l00185">m_navItems</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00202">DeviceNavItemWidget::setConnectStatus()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00180">DeviceNavItemWidget::setIndicatorState()</a>.</p>
+<p class="reference">References <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f">vc::runtime::IDeviceRunner::connectStatusChanged()</a>, <a class="el" href="localization__task__widget_8h_source.html#l00176">m_localizeTask</a>, <a class="el" href="localization__task__widget_8h_source.html#l00201">m_navDotConns</a>, <a class="el" href="localization__task__widget_8h_source.html#l00198">m_navItems</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00202">DeviceNavItemWidget::setConnectStatus()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00180">DeviceNavItemWidget::setIndicatorState()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>.</p>
 
@@ -1224,7 +1241,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Preferred content_stack slot for the dashboard page. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00157">157</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00167">167</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>.</p>
 
@@ -1252,7 +1269,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Preferred content_stack slot for the patterns page. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00159">159</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00169">169</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>.</p>
 
@@ -1280,7 +1297,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Preferred content_stack slot for the settings page. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00158">158</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00168">168</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>.</p>
 
@@ -1308,7 +1325,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Id of the device whose config page is showing; empty when Dashboard/Settings/Patterns is active. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00195">195</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00208">208</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00801">onAssignedDeviceModified()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00708">showDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>.</p>
 
@@ -1336,7 +1353,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Unused: declared but never assigned or read. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00196">196</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00209">209</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 </div>
 </div>
@@ -1362,7 +1379,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Unused: declared but never populated or read. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00170">170</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00180">180</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 </div>
 </div>
@@ -1388,7 +1405,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Unused: declared but never assigned or read. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00172">172</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00182">182</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 </div>
 </div>
@@ -1414,7 +1431,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Local working copy of the task's config, loaded in <a class="el" href="#ace8f13d4997c14a51f7f456cd3f9be3a">initWidget()</a> and pushed back by <a class="el" href="#a4c2dd41453d0177d63b87d35a0fc531b" title="Pushes m_config back to the model via TaskLocalization::setTaskLocalizeConfig().">saveConfig()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00167">167</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00177">177</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00891">saveConfig()</a>.</p>
 
@@ -1440,9 +1457,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Lazily-created dashboard page (<a class="el" href="class_localization_dashboard_widget.html">LocalizationDashboardWidget</a>), owned by content_stack. </p>
+<p>Lazily-created dashboard page (<a class="el" href="class_localization_dashboard_widget.html" title="Read-only operator dashboard for a TaskLocalization task: status lamps, device connection lamps,...">LocalizationDashboardWidget</a>), owned by content_stack. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00191">191</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00204">204</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>.</p>
 
@@ -1470,7 +1487,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Per-device config pages, keyed by device id. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00192">192</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00205">205</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00835">getOrCreateDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00460">onTaskDevicesChanged()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00875">populateBrowser()</a>.</p>
 
@@ -1498,7 +1515,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Scroll-area content widget holding the device-nav item list. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00184">184</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00197">197</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>.</p>
 
@@ -1526,7 +1543,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Non-owning cast of m_task; null when constructed without a task. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00166">166</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00176">176</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00835">getOrCreateDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00801">onAssignedDeviceModified()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00460">onTaskDevicesChanged()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00754">onTbtnEnterRuntime()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00762">onTbtnExitRuntime()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00891">saveConfig()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00708">showDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00360">updateStatusLamps()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00413">updateTaskStateUi()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00572">wireDeviceNavDots()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00069">~LocalizationTaskWidget()</a>.</p>
 
@@ -1554,7 +1571,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Makes the Dashboard/Patterns/Settings nav buttons mutually exclusive. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00199">199</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00212">212</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>.</p>
 
@@ -1580,7 +1597,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00188">188</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00201">201</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00572">wireDeviceNavDots()</a>.</p>
 
@@ -1608,7 +1625,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Device-nav item widgets, keyed by device id. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00185">185</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00198">198</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00499">rebuildDeviceNav()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00771">refreshNavItemStyles()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00572">wireDeviceNavDots()</a>.</p>
 
@@ -1634,9 +1651,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Lazily-created patterns page (<a class="el" href="class_localization_patterns_widget.html">LocalizationPatternsWidget</a>), owned by content_stack. </p>
+<p>Lazily-created patterns page (<a class="el" href="class_localization_patterns_widget.html" title="Task widget for managing localization pattern groups/patterns, editing their match configuration,...">LocalizationPatternsWidget</a>), owned by content_stack. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00205">205</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00218">218</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>.</p>
 
@@ -1662,9 +1679,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Lazily-created settings page (<a class="el" href="class_localization_setting_widget.html">LocalizationSettingWidget</a>), owned by content_stack. </p>
+<p>Lazily-created settings page (<a class="el" href="class_localization_setting_widget.html" title="Task settings widget for a localization task: binds the vision-output and PLC comm devices,...">LocalizationSettingWidget</a>), owned by content_stack. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00206">206</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00219">219</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>.</p>
 
@@ -1692,7 +1709,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Lamp columns in order: READY, CAM, PLC, OUT. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00181">181</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00194">194</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00314">initStatusLamps()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00360">updateStatusLamps()</a>.</p>
 
@@ -1720,7 +1737,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Unused: declared but never populated or read. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00171">171</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00181">181</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 </div>
 </div>
@@ -1746,15 +1763,15 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Generated .ui form; owned by this widget, deleted in the destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00163">163</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__task__widget_8h_source.html#l00173">173</a> of file <a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00835">getOrCreateDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00194">initNavPanel()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00314">initStatusLamps()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00056">LocalizationTaskWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00460">onTaskDevicesChanged()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00708">showDeviceConfigPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">showPatternsPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00644">showSettingsPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00786">updateBreadcrumb()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00413">updateTaskStateUi()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00069">~LocalizationTaskWidget()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/task/<a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/task/<a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/task/<a class="el" href="localization__task__widget_8h_source.html">localization_task_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/task/<a class="el" href="localization__task__widget_8cpp_source.html">localization_task_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

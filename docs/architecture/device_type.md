@@ -1,3 +1,8 @@
+> **Đã cập nhật 2026-08-23 (Phase 7 / D).** Ba sub-type ảo đã được đăng ký thật. Chi tiết
+> đầy đủ — token, calibration tổng hợp, marker R8 — ở
+> [../domains/virtual_devices/virtual_devices.md](../domains/virtual_devices/virtual_devices.md).
+> File này giữ nguyên vai trò ghi chú cấu trúc.
+
 Cấu trúc device type hiện tại:
     Device type:
         - UserType
@@ -5,10 +10,13 @@ Cấu trúc device type hiện tại:
             - Realsense
             - BaslerGige
             - BaslerUsb
+            - Virtual (done — VirtualCameraDevice, không cần hardware)
         - McDevice
         - PLC
+            - Virtual (done — VirtualPlcDevice)
         - VisionOutput
-        - Robot
+            - Virtual (done — VirtualVisionOutputDevice)
+        - Robot (không có sub-type ảo — chưa có consumer nào)
 
 Cấu trúc device type muốn thay đổi:
     Device type:

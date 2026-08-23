@@ -1,4 +1,5 @@
 #include "pattern_canvas.h"
+#include "ui/widgets/pick_overlay_painter.h"
 #include "pattern_theme.h"
 
 #include <QPainter>
@@ -24,6 +25,9 @@ namespace {
     /// Rotation-handle stand-off distance (image pixels), measured from box A's centre
     /// perpendicular to the connector direction.
     constexpr double kRotateHandleStandoff = 28.0;
+
+    // Picking-orientation gizmo geometry now lives in pick_overlay, shared with the
+    // read-only pattern thumbnail — see pick_overlay_painter.h.
 
     // Zoom limits.
     constexpr double kMinZoom = 0.05;  ///< Minimum allowed zoom factor.
@@ -105,6 +109,12 @@ void AddPatternImageCanvas::setPick(const QPoint &p)    {
     if (!m_crop.isNull() && !m_crop.isEmpty()) {
         m_pick = p + m_crop.topLeft();
     }
+    update();
+}
+
+/// Sets the display-only picking orientation drawn through the pick crosshair, then repaints.
+void AddPatternImageCanvas::setPickAngle(double angleDeg) {
+    m_pickAngle = angleDeg;
     update();
 }
 
@@ -277,6 +287,11 @@ void AddPatternImageCanvas::paintEvent(QPaintEvent *) {
         p.drawLine(QPointF(0, pw.y()),         QPointF(width(),  pw.y()));
         p.drawLine(QPointF(pw.x(), 0),         QPointF(pw.x(), height()));
 
+        // Picking-orientation gizmo, interactive in this mode (drag knob shown). Drawn
+        // BEFORE the ring: both axes run right through the pick point, and the ring is what
+        // covers the crossing so the centre stays a clean marker rather than a knot of lines.
+        drawPickOrientation(p, pw, true);
+
         QColor ringFill(ptn::WARN); ringFill.setAlpha(34);
         p.setBrush(ringFill);
         p.setPen(QPen(warn, 1.5));
@@ -364,6 +379,13 @@ void AddPatternImageCanvas::paintEvent(QPaintEvent *) {
             p.drawEllipse(rotW, kHandleVisSize / 2, kHandleVisSize / 2);
         }
 
+        // Picking orientation, read-only on the review step. Left out of Box mode: the jaw
+        // pair already owns a rotation handle there, and two rotation gizmos around one
+        // pick point would be ambiguous about which angle the user is dragging.
+        // Drawn before the crosshair so the centre marker covers the axis crossing.
+        if (m_mode == Finish)
+            drawPickOrientation(p, pw, /*interactive=*/false);
+
         // Pick crosshair on top
         p.setPen(QPen(QColor("white"), 1));
         p.drawLine(QPointF(pw.x() - 12, pw.y()), QPointF(pw.x() + 12, pw.y()));
@@ -388,6 +410,53 @@ void AddPatternImageCanvas::paintEvent(QPaintEvent *) {
         p.setFont(QFont("Segoe UI", 8, QFont::Bold));
         p.drawText(badge, Qt::AlignCenter, "🔒  LOCKED");
     }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Pick point
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Clamps `imgPt` to the crop (when a non-empty one is set) or otherwise to the image
+/// bounds, and stores the result in m_pick / m_pickCurrentPoint. Does not emit — callers
+/// decide whether the change is worth a signal.
+void AddPatternImageCanvas::setPickClamped(const QPointF &imgPt) {
+    QPointF p = imgPt;
+    if (!m_crop.isNull() && !m_crop.isEmpty()) {
+        p.setX(qBound<double>(m_crop.left(), p.x(), m_crop.right()));
+        p.setY(qBound<double>(m_crop.top(),  p.y(), m_crop.bottom()));
+    } else if (!m_pix.isNull()) {
+        p.setX(qBound<double>(0, p.x(), m_pix.width()  - 1));
+        p.setY(qBound<double>(0, p.y(), m_pix.height() - 1));
+    }
+    m_pick = p.toPoint();
+    m_pickCurrentPoint = (!m_crop.isNull() && !m_crop.isEmpty())
+                         ? (m_pick - m_crop.topLeft()) : m_pick;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Picking-orientation gizmo
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Returns the picking-orientation drag knob's centre in WIDGET pixels. The offset comes
+/// from pick_overlay so the hit target cannot drift away from where the knob is painted.
+QPointF AddPatternImageCanvas::pickRotationHandle() const {
+    return imageToWidget(m_pick) + pick_overlay::knobOffset(m_pickAngle);
+}
+
+/// Returns true when `widgetPos` is within kHandleHitSlack of the drag knob's centre.
+bool AddPatternImageCanvas::hitPickRotationHandle(const QPoint &widgetPos) const {
+    const QPointF d = QPointF(widgetPos) - pickRotationHandle();
+    return std::hypot(d.x(), d.y()) <= pick_overlay::kHandleRadius + kHandleHitSlack;
+}
+
+/// Forwards to pick_overlay::drawOrientationGizmo() with this canvas's current angle and
+/// drag state. The painting itself is shared with the read-only pattern thumbnail so the
+/// two renderings cannot drift apart.
+void AddPatternImageCanvas::drawPickOrientation(QPainter &p, const QPointF &pickWidget,
+                                                bool interactive) const {
+    pick_overlay::drawOrientationGizmo(p, pickWidget, m_pickAngle,
+                                       /*showKnob=*/interactive,
+                                       /*knobHeld=*/m_pickAngleDragging);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -509,10 +578,10 @@ AddPatternImageCanvas::hitBoxHandle(const QPoint &widgetPos) const {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /// Starts an interaction on button press: the middle button begins panning (in any
-/// mode, even locked); the left button begins crop-handle dragging in Crop mode, moves
-/// the pick point (clamped to the crop or image bounds) and emits pickChanged() in Pick
-/// mode, or begins box-handle dragging in Box mode. No-op when no image is loaded, and
-/// (aside from panning) when the canvas is locked.
+/// mode, even locked); the left button begins crop-handle dragging in Crop mode, grabs the
+/// orientation knob or else moves the pick point (clamped to the crop or image bounds) and
+/// emits pickChanged() in Pick mode, or begins box-handle dragging in Box mode. No-op when
+/// no image is loaded, and (aside from panning) when the canvas is locked.
 void AddPatternImageCanvas::mousePressEvent(QMouseEvent *e) {
     if (m_pix.isNull()) return;
 
@@ -535,19 +604,22 @@ void AddPatternImageCanvas::mousePressEvent(QMouseEvent *e) {
             m_cropDragStartRect = m_crop;
         }
     } else if (m_mode == Pick && e->button() == Qt::LeftButton) {
-        // Pick respects the image bounds (and the crop if one is set).
-        QPointF imgPt = widgetToImage(e->pos());
-        if (!m_crop.isNull() && !m_crop.isEmpty()) {
-            imgPt.setX(qBound<double>(m_crop.left(),  imgPt.x(), m_crop.right()));
-            imgPt.setY(qBound<double>(m_crop.top(),   imgPt.y(), m_crop.bottom()));
-        } else if (!m_pix.isNull()) {
-            imgPt.setX(qBound<double>(0, imgPt.x(), m_pix.width()  - 1));
-            imgPt.setY(qBound<double>(0, imgPt.y(), m_pix.height() - 1));
+        // The orientation knob wins over placing the pick point. Without this the click
+        // that grabs the knob would first teleport the pick point under the cursor, which
+        // is the opposite of what grabbing a rotation handle should do.
+        if (hitPickRotationHandle(e->pos())) {
+            m_pickAngleDragging = true;
+            setCursor(Qt::ClosedHandCursor);
+            update();
+            return;
         }
-        m_pick = imgPt.toPoint();
-        if (!m_crop.isNull() && !m_crop.isEmpty()) {
-            m_pickCurrentPoint = m_pick - m_crop.topLeft();
-        }
+
+        // Place the pick immediately, then stay armed so the same gesture can be dragged —
+        // a press-and-drag is how you nudge a point into place, and click-only forced the
+        // user to re-click repeatedly to converge on it.
+        setPickClamped(widgetToImage(e->pos()));
+        m_pickDragging = true;
+        setCursor(Qt::ClosedHandCursor);
         update();
         emit pickChanged(m_pick, m_pickCurrentPoint);
     } else if (m_mode == Box && e->button() == Qt::LeftButton) {
@@ -564,10 +636,11 @@ void AddPatternImageCanvas::mousePressEvent(QMouseEvent *e) {
     }
 }
 
-/// Continues the active drag (pan / crop resize-or-move / box resize-rotate-drag) and
-/// emits cropChanged(), pickChanged(), or boxChanged() as state updates; otherwise just
-/// updates the hover cursor to match the current mode and the handle under the cursor.
-/// No-op when no image is loaded; ignored (except panning) when the canvas is locked.
+/// Continues the active drag (pan / crop resize-or-move / pick-orientation rotate / box
+/// resize-rotate-drag) and emits cropChanged(), pickChanged(), pickAngleChanged(), or
+/// boxChanged() as state updates; otherwise just updates the hover cursor to match the
+/// current mode and the handle under the cursor. No-op when no image is loaded; ignored
+/// (except panning) when the canvas is locked.
 void AddPatternImageCanvas::mouseMoveEvent(QMouseEvent *e) {
     // Middle-button pan — handled in every mode.
     if (m_panning) {
@@ -622,7 +695,38 @@ void AddPatternImageCanvas::mouseMoveEvent(QMouseEvent *e) {
 
     // ── Pick ────────────────────────────────────────────────────────────
     if (m_mode == Pick) {
-        setCursor(Qt::CrossCursor);
+        if (m_pickAngleDragging) {
+            // Track the cursor's bearing from the pick point, then subtract the knob's own
+            // bearing: the knob sits on the X/Y bisector, not on the X axis, so the raw
+            // bearing runs kPickHandleBearing degrees ahead of the angle it represents.
+            // Without this the angle would jump by that amount the instant the knob is
+            // grabbed. Ignore a cursor sitting almost exactly on the pick point, where the
+            // bearing is numerically meaningless.
+            const QPointF imgNow = widgetToImage(e->pos());
+            const double dx = imgNow.x() - m_pick.x();
+            const double dy = imgNow.y() - m_pick.y();
+            if (std::hypot(dx, dy) > 0.5) {
+                double deg = qRadiansToDegrees(std::atan2(dy, dx))
+                             - pick_overlay::kHandleBearing;
+                while (deg >  180.0) deg -= 360.0;
+                while (deg < -180.0) deg += 360.0;
+                m_pickAngle = deg;
+                update();
+                emit pickAngleChanged(m_pickAngle);
+            }
+            return;
+        }
+        if (m_pickDragging) {
+            const QPoint before = m_pick;
+            setPickClamped(widgetToImage(e->pos()));
+            if (m_pick != before) {
+                update();
+                emit pickChanged(m_pick, m_pickCurrentPoint);
+            }
+            return;
+        }
+        setCursor(hitPickRotationHandle(e->pos()) ? Qt::OpenHandCursor
+                                                  : Qt::CrossCursor);
         return;
     }
 
@@ -675,19 +779,8 @@ void AddPatternImageCanvas::mouseMoveEvent(QMouseEvent *e) {
             case BH_Pick: {
                 // Drag the picking centre itself — both jaws follow rigidly
                 // since their centres are derived from (pick + dist·angle).
-                // Clamp to the crop when one is set, otherwise to the image
-                // bounds (mirrors Pick mode).
-                QPointF imgPt = imgNow;
-                if (!m_crop.isNull() && !m_crop.isEmpty()) {
-                    imgPt.setX(qBound<double>(m_crop.left(), imgPt.x(), m_crop.right()));
-                    imgPt.setY(qBound<double>(m_crop.top(),  imgPt.y(), m_crop.bottom()));
-                } else if (!m_pix.isNull()) {
-                    imgPt.setX(qBound<double>(0, imgPt.x(), m_pix.width()  - 1));
-                    imgPt.setY(qBound<double>(0, imgPt.y(), m_pix.height() - 1));
-                }
-                m_pick = imgPt.toPoint();
-                m_pickCurrentPoint = (!m_crop.isNull() && !m_crop.isEmpty())
-                                     ? (m_pick - m_crop.topLeft()) : m_pick;
+                // Same clamping rule as Pick mode, hence the shared helper.
+                setPickClamped(imgNow);
                 break;
             }
             default: break;
@@ -711,8 +804,9 @@ void AddPatternImageCanvas::mouseMoveEvent(QMouseEvent *e) {
     }
 }
 
-/// Ends the active pan, crop-handle drag, or box-handle drag on button release, and
-/// restores the default cursor when the middle button (pan) is released.
+/// Ends the active pan, crop-handle drag, pick-orientation drag, or box-handle drag on
+/// button release, and restores the default cursor when the middle button (pan) or the
+/// orientation knob is released.
 void AddPatternImageCanvas::mouseReleaseEvent(QMouseEvent *e) {
     if (e->button() == Qt::MiddleButton) {
         m_panning = false;
@@ -723,6 +817,15 @@ void AddPatternImageCanvas::mouseReleaseEvent(QMouseEvent *e) {
     m_cropHandle   = CH_None;
     m_boxDragging  = false;
     m_boxHandle    = BH_None;
+    if (m_pickDragging) {
+        m_pickDragging = false;
+        unsetCursor();
+    }
+    if (m_pickAngleDragging) {
+        m_pickAngleDragging = false;
+        unsetCursor();
+        update();   // drop the knob's "held" highlight
+    }
 }
 
 /// Resets the view (zoom + pan, via resetView()) on a middle-button double-click, in

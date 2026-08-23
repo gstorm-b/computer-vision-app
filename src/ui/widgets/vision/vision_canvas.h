@@ -15,24 +15,39 @@ class QGraphicsRectItem;
 class QGraphicsScene;
 class QGraphicsItem;
 
+/**
+ * @file vision_canvas.h
+ * @brief VisionCanvas — interactive QGraphicsView-based canvas showing a vision image
+ *        with editable ROI shapes and read-only result overlays.
+ */
+
 namespace vision_canvas_detail {
-/// Internal (private-implementation) interface for a selectable/editable ROI graphics
-/// item hosted on the canvas scene; concrete shapes live in vision_canvas.cpp.
+/**
+ * @class RoiItemBase
+ * @brief Internal (private-implementation) interface for a selectable/editable ROI graphics
+ *        item hosted on the canvas scene; concrete shapes live in vision_canvas.cpp.
+ */
 class RoiItemBase;
 }
 
-/// Interactive QGraphicsView-based canvas that shows a live/still image (cv::Mat or
-/// QPixmap) together with editable ROI shapes and read-only vision result overlays
-/// (accepted/rejected matches, picking boxes, fault/output markers). Supports pan/zoom,
-/// draw/move/resize of ROIs, ROI undo/redo history, and result-object hover/selection
-/// picking in read-only mode.
+/**
+ * @class VisionCanvas
+ * @brief Interactive QGraphicsView-based canvas that shows a live/still image (cv::Mat or
+ *        QPixmap) together with editable ROI shapes and read-only vision result overlays
+ *        (accepted/rejected matches, picking boxes, fault/output markers). Supports pan/zoom,
+ *        draw/move/resize of ROIs, ROI undo/redo history, and result-object hover/selection
+ *        picking in read-only mode.
+ */
 class VisionCanvas : public QGraphicsView {
     Q_OBJECT
 
 public:
-    /// Constructs the canvas: installs its QGraphicsScene, enables mouse tracking and
-    /// full-viewport repaint, and applies the current theme background color, refreshing
-    /// it (and rebuilding auxiliary/overlay items) whenever ThemeManager::themeChanged fires.
+    /**
+     * @brief Constructs the canvas: installs its QGraphicsScene, enables mouse tracking and
+     *        full-viewport repaint, and applies the current theme background color, refreshing
+     *        it (and rebuilding auxiliary/overlay items) whenever ThemeManager::themeChanged fires.
+     * @param[in] parent Optional owning widget; standard Qt parent/child ownership.
+     */
     explicit VisionCanvas(QWidget *parent = nullptr);
 
     /// Converts `image` to a QPixmap (via vision::pixmapFromMat) and displays it.

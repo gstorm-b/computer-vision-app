@@ -7,15 +7,26 @@ class QAbstractButton;
 class QButtonGroup;
 class QToolButton;
 
-/// Toolbar of mode/action buttons (select, pan, draw rect, draw rotated rect, delete, fit,
-/// undo, redo) for the ROI editor; the four mode buttons are mutually exclusive via a
-/// QButtonGroup and emit toolModeRequested, while the action buttons each emit their own
-/// one-shot signal.
+/**
+ * @file vision_tool_palette.h
+ * @brief VisionToolPalette — toolbar of mode/action buttons for the ROI editor.
+ */
+
+/**
+ * @class VisionToolPalette
+ * @brief Toolbar of mode/action buttons (select, pan, draw rect, draw rotated rect, delete, fit,
+ *        undo, redo) for the ROI editor; the four mode buttons are mutually exclusive via a
+ *        QButtonGroup and emit toolModeRequested, while the action buttons each emit their own
+ *        one-shot signal.
+ */
 class VisionToolPalette : public QWidget {
     Q_OBJECT
 
 public:
-    /// Interaction mode for the ROI canvas, selected by the mutually-exclusive mode buttons.
+    /**
+     * @enum ToolMode
+     * @brief Interaction mode for the ROI canvas, selected by the mutually-exclusive mode buttons.
+     */
     enum class ToolMode {
         SelectMove,          ///< Select and move/resize existing ROIs.
         Pan,                 ///< Pan the image instead of editing ROIs.
@@ -23,6 +34,11 @@ public:
         DrawRotatedRect,     ///< Draw a new rotated rectangular ROI.
     };
 
+    /**
+     * @brief Constructs the palette: builds the select/pan/rect/rotated mode buttons
+     *        (grouped exclusively) plus the delete/fit/undo/redo action buttons.
+     * @param[in] parent Optional owning widget; standard Qt parent/child ownership.
+     */
     explicit VisionToolPalette(QWidget *parent = nullptr);
 
     /// Checks the mode button corresponding to `mode` (does not itself emit toolModeRequested).

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Device manager owned by a <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> via shared pointer; tracks reserved/committed device instances by id, enforces per-DeviceType creation limits, and is always released by the <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a>'s destructor (never outlives it).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="device__manager_8h_source.html">device_manager.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::DeviceManager:</div>
@@ -161,7 +164,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a43f482cfc93133023510779f444d3004" id="r_a43f482cfc93133023510779f444d3004"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a43f482cfc93133023510779f444d3004">getDeviceName</a> (const QString &amp;id)</td></tr>
 <tr class="memitem:a6bce6893b63a8f82ccdce86bbf8af4b9" id="r_a6bce6893b63a8f82ccdce86bbf8af4b9"><td class="memItemLeft">QStringList &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6bce6893b63a8f82ccdce86bbf8af4b9">getDeviceTypeList</a> ()</td></tr>
 <tr class="memitem:a9f1d48a6f769ffcfd30c29d390de0ce5" id="r_a9f1d48a6f769ffcfd30c29d390de0ce5"><td class="memItemLeft">QStringList &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a9f1d48a6f769ffcfd30c29d390de0ce5">getSubDeviceTypeList</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a> type)</td></tr>
-<tr class="memdesc:a9f1d48a6f769ffcfd30c29d390de0ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sub-device display-name list for <span class="tt">type</span>, sourced from <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>.  <br /></td></tr>
+<tr class="memdesc:a9f1d48a6f769ffcfd30c29d390de0ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sub-device display-name list for <span class="tt">type</span>, sourced from <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>.  <br /></td></tr>
 <tr class="memitem:ad5e524fef275a4fc68d278069b06fbfc" id="r_ad5e524fef275a4fc68d278069b06fbfc"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad5e524fef275a4fc68d278069b06fbfc">isLimitReached</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a> type) const</td></tr>
 <tr class="memdesc:ad5e524fef275a4fc68d278069b06fbfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the number of active devices of <span class="tt">type</span> has reached its configured maximum.  <br /></td></tr>
 <tr class="memitem:ade19329263479ed7cbacc55eced320f3" id="r_ade19329263479ed7cbacc55eced320f3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ade19329263479ed7cbacc55eced320f3">isNameExists</a> (const QString &amp;name)</td></tr>
@@ -207,12 +210,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a743a084b8be3cb661a2f1635e02c2b31" id="r_a743a084b8be3cb661a2f1635e02c2b31"><td class="memItemLeft"><a class="el" href="classvc_1_1model_1_1_project.html">vc::model::Project</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a743a084b8be3cb661a2f1635e02c2b31">parent_proj</a> {nullptr}</td></tr>
 <tr class="memdesc:a743a084b8be3cb661a2f1635e02c2b31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owning project (non-owning pointer).  <br /></td></tr>
 <tr class="memitem:aa461118d7d6a040d16417e850abfef9c" id="r_aa461118d7d6a040d16417e850abfef9c"><td class="memItemLeft">QMap&lt; <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a>, QStringList &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa461118d7d6a040d16417e850abfef9c">subDeviceTypeLists</a></td></tr>
-<tr class="memdesc:aa461118d7d6a040d16417e850abfef9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sub-type display names per <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a>, from <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>.  <br /></td></tr>
+<tr class="memdesc:aa461118d7d6a040d16417e850abfef9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sub-type display names per <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a>, from <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Device manager owned by a <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> via shared pointer; tracks reserved/committed device instances by id, enforces per-DeviceType creation limits, and is always released by the <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a>'s destructor (never outlives it). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00024">24</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00031">31</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7bbaefe54259ad7430a572dd67f4f7de" name="a7bbaefe54259ad7430a572dd67f4f7de"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7bbaefe54259ad7430a572dd67f4f7de">&#9670;&#160;</a></span>DeviceManager()</h2>
@@ -240,17 +243,17 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the manager for <span class="tt">proj</span>, seeding the per-DeviceType creation limits (Camera/PLC/VisionOutput/Robot) and populating the device-type and sub-type name lists from <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Constructs the manager for <span class="tt">proj</span>, seeding the per-DeviceType creation limits (Camera/PLC/VisionOutput/Robot) and populating the device-type and sub-type name lists from <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">proj</td><td>owning project (may be nullptr); stored and returned by <a class="el" href="#a967943a4d53c4cbd363fe79dd91ca5c9" title="Returns the owning project passed to the constructor.">project()</a></td></tr>
   </table>
   </dd>
 </dl>
-<p>Constructs the manager for <span class="tt">proj</span>, seeding the per-type creation limits (camera/PLC/vision-output/robot) and sub-device display-name lists from <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>, and populating the device-type string list used by the UI. </p>
+<p>Constructs the manager for <span class="tt">proj</span>, seeding the per-type creation limits (camera/PLC/vision-output/robot) and sub-device display-name lists from <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>, and populating the device-type string list used by the UI. </p>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00027">27</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="device__manager_8cpp_source.html#l00012">CAMERA_NUM_LIMIT</a>, <a class="el" href="device__manager_8h_source.html#l00143">currentCounts</a>, <a class="el" href="device__manager_8h_source.html#l00135">currentMaxId</a>, <a class="el" href="device__registry_8cpp_source.html#l00225">vc::device::DeviceRegistry::displayNamesFor()</a>, <a class="el" href="device__manager_8h_source.html#l00142">maxLimits</a>, <a class="el" href="device__manager_8cpp_source.html#l00014">MC_PTC_NUM_LIMIT</a>, <a class="el" href="device__manager_8h_source.html#l00145">parent_proj</a>, <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00056">vc::device::Robot</a>, <a class="el" href="device__manager_8cpp_source.html#l00017">ROBOT_NUM_LIMIT</a>, <a class="el" href="device__manager_8h_source.html#l00130">subDeviceTypeLists</a>, <a class="el" href="device__manager_8cpp_source.html#l00016">VISION_OUTPUT_NUM_LIMIT</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="device__manager_8cpp_source.html#l00012">CAMERA_NUM_LIMIT</a>, <a class="el" href="device__manager_8h_source.html#l00150">currentCounts</a>, <a class="el" href="device__manager_8h_source.html#l00142">currentMaxId</a>, <a class="el" href="device__registry_8cpp_source.html#l00225">vc::device::DeviceRegistry::displayNamesFor()</a>, <a class="el" href="device__manager_8h_source.html#l00149">maxLimits</a>, <a class="el" href="device__manager_8cpp_source.html#l00014">MC_PTC_NUM_LIMIT</a>, <a class="el" href="device__manager_8h_source.html#l00152">parent_proj</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00063">vc::device::Robot</a>, <a class="el" href="device__manager_8cpp_source.html#l00017">ROBOT_NUM_LIMIT</a>, <a class="el" href="device__manager_8h_source.html#l00137">subDeviceTypeLists</a>, <a class="el" href="device__manager_8cpp_source.html#l00016">VISION_OUTPUT_NUM_LIMIT</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 </div>
 </div>
@@ -273,7 +276,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00069">69</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, and <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, and <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>.</p>
 
 </div>
 </div>
@@ -297,7 +300,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00253">253</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, <a class="el" href="device__manager_8cpp_source.html#l00495">generateId()</a>, and <a class="el" href="device__manager_8h_source.html#l00134">mutex</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, <a class="el" href="device__manager_8cpp_source.html#l00495">generateId()</a>, and <a class="el" href="device__manager_8h_source.html#l00141">mutex</a>.</p>
 
 </div>
 </div>
@@ -321,7 +324,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00401">401</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, and <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, and <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>.</p>
 
 </div>
 </div>
@@ -345,7 +348,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00452">452</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, and <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, and <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>.</p>
 
 </div>
 </div>
@@ -373,7 +376,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00346">346</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, <a class="el" href="#a982ab3b6f13e61cfbbb5d5880f78fc1e">deviceModified()</a>, <a class="el" href="device__manager_8cpp_source.html#l00328">isNameExists()</a>, and <a class="el" href="device__manager_8h_source.html#l00137">occupiedNames</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, <a class="el" href="#a982ab3b6f13e61cfbbb5d5880f78fc1e">deviceModified()</a>, <a class="el" href="device__manager_8cpp_source.html#l00328">isNameExists()</a>, and <a class="el" href="device__manager_8h_source.html#l00144">occupiedNames</a>.</p>
 
 </div>
 </div>
@@ -397,7 +400,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00369">369</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, and <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, and <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>.</p>
 
 </div>
 </div>
@@ -421,7 +424,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00420">420</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, and <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, and <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>.</p>
 
 </div>
 </div>
@@ -461,7 +464,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00274">274</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8cpp_source.html#l00157">connectConfigChanged()</a>, <a class="el" href="device__manager_8h_source.html#l00143">currentCounts</a>, <a class="el" href="#a0e9cad05d37431148b6075455b004b22">deviceCreated()</a>, <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, <a class="el" href="#ab14ff3fe588daa738e9eabd90370529f">devicesChanged()</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::DeviceTypeToString()</a>, <a class="el" href="device__manager_8h_source.html#l00132">lastMsg</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00170">LOG_USER_ERR</a>, <a class="el" href="device__manager_8h_source.html#l00142">maxLimits</a>, <a class="el" href="device__manager_8h_source.html#l00134">mutex</a>, and <a class="el" href="device__manager_8h_source.html#l00137">occupiedNames</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8cpp_source.html#l00157">connectConfigChanged()</a>, <a class="el" href="device__manager_8h_source.html#l00150">currentCounts</a>, <a class="el" href="#a0e9cad05d37431148b6075455b004b22">deviceCreated()</a>, <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, <a class="el" href="#ab14ff3fe588daa738e9eabd90370529f">devicesChanged()</a>, <a class="el" href="idevice__config_8h_source.html#l00068">vc::device::DeviceTypeToString()</a>, <a class="el" href="device__manager_8h_source.html#l00139">lastMsg</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="device__manager_8h_source.html#l00149">maxLimits</a>, <a class="el" href="device__manager_8h_source.html#l00141">mutex</a>, and <a class="el" href="device__manager_8h_source.html#l00144">occupiedNames</a>.</p>
 
 </div>
 </div>
@@ -518,7 +521,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00466">466</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>.</p>
 
 </div>
 </div>
@@ -690,7 +693,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00495">495</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00135">currentMaxId</a>, <a class="el" href="device__manager_8h_source.html#l00136">freedIds</a>, and <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00142">currentMaxId</a>, <a class="el" href="device__manager_8h_source.html#l00143">freedIds</a>, and <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00253">allocatePendingId()</a>.</p>
 
@@ -721,9 +724,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns a const reference to the live id-&gt;device instance map. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00100">100</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00107">107</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>.</p>
 
 </div>
 </div>
@@ -747,7 +750,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00320">320</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, and <a class="el" href="device__manager_8h_source.html#l00134">mutex</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, and <a class="el" href="device__manager_8h_source.html#l00141">mutex</a>.</p>
 
 </div>
 </div>
@@ -770,7 +773,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00481">481</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00129">dvTypeStrings</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00136">dvTypeStrings</a>.</p>
 
 </div>
 </div>
@@ -789,12 +792,12 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the sub-device display-name list for <span class="tt">type</span>, sourced from <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>. </p>
-<p>Returns the reference to the sub-device display-name list for <span class="tt">type</span>, as populated from <a class="el" href="classvc_1_1device_1_1_device_registry.html#a27536bc003f440488e45b217e2200e34">DeviceRegistry::displayNamesFor()</a> in the constructor. </p>
+<p>Returns the sub-device display-name list for <span class="tt">type</span>, sourced from <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>. </p>
+<p>Returns the reference to the sub-device display-name list for <span class="tt">type</span>, as populated from <a class="el" href="classvc_1_1device_1_1_device_registry.html#a27536bc003f440488e45b217e2200e34" title="Lists the subTypeValue tokens of entries registered for deviceType (despite the name,...">DeviceRegistry::displayNamesFor()</a> in the constructor. </p>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00487">487</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00130">subDeviceTypeLists</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00137">subDeviceTypeLists</a>.</p>
 
 </div>
 </div>
@@ -818,7 +821,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00091">91</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00143">currentCounts</a>, and <a class="el" href="device__manager_8h_source.html#l00142">maxLimits</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00150">currentCounts</a>, and <a class="el" href="device__manager_8h_source.html#l00149">maxLimits</a>.</p>
 
 </div>
 </div>
@@ -842,7 +845,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00328">328</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00134">mutex</a>, and <a class="el" href="device__manager_8h_source.html#l00137">occupiedNames</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00141">mutex</a>, and <a class="el" href="device__manager_8h_source.html#l00144">occupiedNames</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00346">changeDeviceName()</a>.</p>
 
@@ -868,7 +871,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00335">335</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, and <a class="el" href="device__manager_8h_source.html#l00134">mutex</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, and <a class="el" href="device__manager_8h_source.html#l00141">mutex</a>.</p>
 
 </div>
 </div>
@@ -892,7 +895,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00385">385</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 </div>
 </div>
@@ -916,7 +919,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00436">436</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 </div>
 </div>
@@ -940,7 +943,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00085">85</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00145">parent_proj</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00152">parent_proj</a>.</p>
 
 </div>
 </div>
@@ -963,7 +966,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00175">175</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00143">currentCounts</a>, <a class="el" href="device__manager_8h_source.html#l00135">currentMaxId</a>, <a class="el" href="#a8b811c32b9b511aec56d58f3c1d7bd31">deviceDeleted()</a>, <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, <a class="el" href="#ab14ff3fe588daa738e9eabd90370529f">devicesChanged()</a>, <a class="el" href="device__manager_8h_source.html#l00136">freedIds</a>, <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="device__manager_8h_source.html#l00134">mutex</a>, and <a class="el" href="device__manager_8h_source.html#l00137">occupiedNames</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00150">currentCounts</a>, <a class="el" href="device__manager_8h_source.html#l00142">currentMaxId</a>, <a class="el" href="#a8b811c32b9b511aec56d58f3c1d7bd31">deviceDeleted()</a>, <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, <a class="el" href="#ab14ff3fe588daa738e9eabd90370529f">devicesChanged()</a>, <a class="el" href="device__manager_8h_source.html#l00143">freedIds</a>, <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="device__manager_8h_source.html#l00141">mutex</a>, and <a class="el" href="device__manager_8h_source.html#l00144">occupiedNames</a>.</p>
 
 </div>
 </div>
@@ -986,7 +989,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00226">226</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00135">currentMaxId</a>, <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, <a class="el" href="device__manager_8h_source.html#l00136">freedIds</a>, <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>, and <a class="el" href="device__manager_8h_source.html#l00134">mutex</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8h_source.html#l00142">currentMaxId</a>, <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, <a class="el" href="device__manager_8h_source.html#l00143">freedIds</a>, <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, and <a class="el" href="device__manager_8h_source.html#l00141">mutex</a>.</p>
 
 </div>
 </div>
@@ -1027,7 +1030,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__manager_8cpp_source.html#l00104">104</a> of file <a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__manager_8cpp_source.html#l00157">connectConfigChanged()</a>, <a class="el" href="device__manager_8h_source.html#l00135">currentMaxId</a>, <a class="el" href="#a0e9cad05d37431148b6075455b004b22">deviceCreated()</a>, <a class="el" href="device__manager_8h_source.html#l00139">deviceInstances</a>, <a class="el" href="#ab14ff3fe588daa738e9eabd90370529f">devicesChanged()</a>, <a class="el" href="device__manager_8h_source.html#l00136">freedIds</a>, <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>, <a class="el" href="device__manager_8h_source.html#l00134">mutex</a>, and <a class="el" href="device__manager_8h_source.html#l00137">occupiedNames</a>.</p>
+<p class="reference">References <a class="el" href="device__manager_8cpp_source.html#l00157">connectConfigChanged()</a>, <a class="el" href="device__manager_8h_source.html#l00142">currentMaxId</a>, <a class="el" href="#a0e9cad05d37431148b6075455b004b22">deviceCreated()</a>, <a class="el" href="device__manager_8h_source.html#l00146">deviceInstances</a>, <a class="el" href="#ab14ff3fe588daa738e9eabd90370529f">devicesChanged()</a>, <a class="el" href="device__manager_8h_source.html#l00143">freedIds</a>, <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, <a class="el" href="device__manager_8h_source.html#l00141">mutex</a>, and <a class="el" href="device__manager_8h_source.html#l00144">occupiedNames</a>.</p>
 
 </div>
 </div>
@@ -1054,7 +1057,7 @@ Private Attributes</h2></td></tr>
 
 <p>Current active device count per <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00143">143</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00150">150</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00274">commitDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00027">DeviceManager()</a>, <a class="el" href="device__manager_8cpp_source.html#l00091">isLimitReached()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00175">releaseDevice()</a>.</p>
 
@@ -1082,7 +1085,7 @@ Private Attributes</h2></td></tr>
 
 <p>Next numeric id to allocate when freedIds is empty. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00135">135</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00142">142</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00027">DeviceManager()</a>, <a class="el" href="device__manager_8cpp_source.html#l00495">generateId()</a>, <a class="el" href="device__manager_8cpp_source.html#l00175">releaseDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00226">releasePendingId()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00104">reserveDevice()</a>.</p>
 
@@ -1110,9 +1113,9 @@ Private Attributes</h2></td></tr>
 
 <p>All tracked devices by id (pending entries map to nullptr). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00139">139</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00146">146</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00253">allocatePendingId()</a>, <a class="el" href="device__manager_8cpp_source.html#l00401">cameraDevices()</a>, <a class="el" href="device__manager_8cpp_source.html#l00452">cameraDevicesNameList()</a>, <a class="el" href="device__manager_8cpp_source.html#l00346">changeDeviceName()</a>, <a class="el" href="device__manager_8cpp_source.html#l00369">commDevices()</a>, <a class="el" href="device__manager_8cpp_source.html#l00420">commDevicesNameList()</a>, <a class="el" href="device__manager_8cpp_source.html#l00274">commitDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00466">deviceById()</a>, <a class="el" href="device__manager_8h_source.html#l00100">getCurrentDevices()</a>, <a class="el" href="device__manager_8cpp_source.html#l00320">getDeviceName()</a>, <a class="el" href="device__manager_8cpp_source.html#l00335">isOccupied()</a>, <a class="el" href="device__manager_8cpp_source.html#l00385">outputDevices()</a>, <a class="el" href="device__manager_8cpp_source.html#l00436">outputDevicesNameList()</a>, <a class="el" href="device__manager_8cpp_source.html#l00175">releaseDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00226">releasePendingId()</a>, <a class="el" href="device__manager_8cpp_source.html#l00104">reserveDevice()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00069">~DeviceManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00253">allocatePendingId()</a>, <a class="el" href="device__manager_8cpp_source.html#l00401">cameraDevices()</a>, <a class="el" href="device__manager_8cpp_source.html#l00452">cameraDevicesNameList()</a>, <a class="el" href="device__manager_8cpp_source.html#l00346">changeDeviceName()</a>, <a class="el" href="device__manager_8cpp_source.html#l00369">commDevices()</a>, <a class="el" href="device__manager_8cpp_source.html#l00420">commDevicesNameList()</a>, <a class="el" href="device__manager_8cpp_source.html#l00274">commitDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00466">deviceById()</a>, <a class="el" href="device__manager_8h_source.html#l00107">getCurrentDevices()</a>, <a class="el" href="device__manager_8cpp_source.html#l00320">getDeviceName()</a>, <a class="el" href="device__manager_8cpp_source.html#l00335">isOccupied()</a>, <a class="el" href="device__manager_8cpp_source.html#l00385">outputDevices()</a>, <a class="el" href="device__manager_8cpp_source.html#l00436">outputDevicesNameList()</a>, <a class="el" href="device__manager_8cpp_source.html#l00175">releaseDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00226">releasePendingId()</a>, <a class="el" href="device__manager_8cpp_source.html#l00104">reserveDevice()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00069">~DeviceManager()</a>.</p>
 
 </div>
 </div>
@@ -1138,7 +1141,7 @@ Private Attributes</h2></td></tr>
 
 <p>Display strings for the top-level <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a> values. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00129">129</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00136">136</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00481">getDeviceTypeList()</a>.</p>
 
@@ -1166,7 +1169,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pool of released/recyclable numeric ids below currentMaxId. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00136">136</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00143">143</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00495">generateId()</a>, <a class="el" href="device__manager_8cpp_source.html#l00175">releaseDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00226">releasePendingId()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00104">reserveDevice()</a>.</p>
 
@@ -1194,7 +1197,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last user-facing status/error message (e.g. <a class="el" href="#a4c60dcca430cb82b059f7ca15808cd9c">commitDevice()</a>'s limit-reached message). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00132">132</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00139">139</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00274">commitDevice()</a>.</p>
 
@@ -1222,7 +1225,7 @@ Private Attributes</h2></td></tr>
 
 <p>Maximum allowed device count per <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00142">142</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00149">149</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00274">commitDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00027">DeviceManager()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00091">isLimitReached()</a>.</p>
 
@@ -1250,7 +1253,7 @@ Private Attributes</h2></td></tr>
 
 <p>Guards deviceInstances/occupiedNames/id bookkeeping across threads. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00134">134</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00141">141</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00253">allocatePendingId()</a>, <a class="el" href="device__manager_8cpp_source.html#l00274">commitDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00320">getDeviceName()</a>, <a class="el" href="device__manager_8cpp_source.html#l00328">isNameExists()</a>, <a class="el" href="device__manager_8cpp_source.html#l00335">isOccupied()</a>, <a class="el" href="device__manager_8cpp_source.html#l00175">releaseDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00226">releasePendingId()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00104">reserveDevice()</a>.</p>
 
@@ -1278,7 +1281,7 @@ Private Attributes</h2></td></tr>
 
 <p>Names currently in use by tracked devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00137">137</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00144">144</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00346">changeDeviceName()</a>, <a class="el" href="device__manager_8cpp_source.html#l00274">commitDevice()</a>, <a class="el" href="device__manager_8cpp_source.html#l00328">isNameExists()</a>, <a class="el" href="device__manager_8cpp_source.html#l00175">releaseDevice()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00104">reserveDevice()</a>.</p>
 
@@ -1306,7 +1309,7 @@ Private Attributes</h2></td></tr>
 
 <p>Owning project (non-owning pointer). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00145">145</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00152">152</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00027">DeviceManager()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00085">project()</a>.</p>
 
@@ -1332,17 +1335,17 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sub-type display names per <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a>, from <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>. </p>
+<p>Sub-type display names per <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a>, from <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00130">130</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__manager_8h_source.html#l00137">137</a> of file <a class="el" href="device__manager_8h_source.html">device_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__manager_8cpp_source.html#l00027">DeviceManager()</a>, and <a class="el" href="device__manager_8cpp_source.html#l00487">getSubDeviceTypeList()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/<a class="el" href="device__manager_8h_source.html">device_manager.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/device/<a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/<a class="el" href="device__manager_8h_source.html">device_manager.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/<a class="el" href="device__manager_8cpp_source.html">device_manager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

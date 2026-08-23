@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/matching/match_object.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/matching/match_object.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('match__object_
   <div class="headertitle"><div class="title">match_object.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>MatchedObject — per-match result geometry and picking/collision state produced by ImageMatcher.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;opencv2/imgproc.hpp&gt;</code><br />
 <code>#include &quot;opencv2/imgcodecs.hpp&quot;</code><br />
 <code>#include &quot;<a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>&quot;</code><br />
@@ -137,15 +140,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:mtc_3A_3AMatchedObject_3A_3AGripperBox" id="r_mtc_3A_3AMatchedObject_3A_3AGripperBox"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_matched_object_1_1_gripper_box.html">mtc::MatchedObject::GripperBox</a></td></tr>
+<tr class="memitem:mtc_3A_3AMatchedObject_3A_3ACollisionGeometry" id="r_mtc_3A_3AMatchedObject_3A_3ACollisionGeometry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_matched_object_1_1_collision_geometry.html">mtc::MatchedObject::CollisionGeometry</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometry of the two gripper jaw boxes computed around a matched object's pick point, used for both drawing and collision testing.  <a href="structmtc_1_1_matched_object_1_1_collision_geometry.html#details">More...</a><br /></td></tr>
 <tr class="memitem:mtc_3A_3AMatchedObject" id="r_mtc_3A_3AMatchedObject"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_matched_object.html">mtc::MatchedObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One matched pattern instance found by <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a>: its geometry (corners, center, angle, score), picking/collision state, and a non-owning link back to the <a class="el" href="classmtc_1_1_match_pattern.html" title="A single learned template.">MatchPattern</a> it was matched against.  <a href="classmtc_1_1_matched_object.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:mtc" id="r_mtc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html">mtc</a></td></tr>
-<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html">utils_block_max.h</a>). <br /></td></tr>
+<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html" title="MatchBlock/BlockMax — block-partitioned max-value search helper used to enumerate multiple local maxi...">utils_block_max.h</a>). <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>MatchedObject — per-match result geometry and picking/collision state produced by ImageMatcher. </p>
+
+<p class="definition">Definition in file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

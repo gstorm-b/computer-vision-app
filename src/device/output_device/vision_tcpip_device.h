@@ -1,6 +1,11 @@
 #ifndef VISION_TCPIP_DEVICE_H
 #define VISION_TCPIP_DEVICE_H
 
+/**
+ * @file vision_tcpip_device.h
+ * @brief TCP/IP server transport of the vision-output family (VisionTcpipDevice).
+ */
+
 #include "device/output_device/vision_tcpip_device_base.h"
 #include "device/output_device/vision_tcpip_config.h"
 
@@ -8,12 +13,15 @@
 
 namespace vc::device {
 
-/// TCP/IP **server** transport of the vision-output family: listens on two ports
-/// (main + heartbeat), accepts at most one client per port (pending duplicates are
-/// rejected), and delegates all protocol handling to VisionTcpipDeviceBase. The
-/// software remains the heartbeat master: it sends "connection_check." and expects
-/// "ack,{count}.". On lost connection the device drops the current client sockets
-/// but keeps the listeners open for the next reconnect.
+/**
+ * @class VisionTcpipDevice
+ * @brief TCP/IP server transport of the vision-output family: listens on two ports
+ *        (main + heartbeat), accepts at most one client per port (pending duplicates are
+ *        rejected), and delegates all protocol handling to VisionTcpipDeviceBase. The
+ *        software remains the heartbeat master: it sends "connection_check." and expects
+ *        "ack,{count}.". On lost connection the device drops the current client sockets
+ *        but keeps the listeners open for the next reconnect.
+ */
 class VisionTcpipDevice : public VisionTcpipDeviceBase {
     Q_OBJECT
 
@@ -33,9 +41,11 @@ public:
     /// unless the device is currently connected, copies it into m_config and installs
     /// it via IDevice::setDeviceConfig(). Logs and returns without effect on mismatch.
     void setDeviceConfig(IDeviceCfg *cfg) override;
-    /// Replaces m_config with `cfg` when the device is not connected.
-    /// @param cfg the new TCP/IP configuration to install
-    /// @return true if the config was applied; false (unchanged) if the device is connected
+    /**
+     * @brief Replaces m_config with `cfg` when the device is not connected.
+     * @param[in] cfg the new TCP/IP configuration to install
+     * @return true if the config was applied; false (unchanged) if the device is connected
+     */
     bool setVisionTcpipConfig(VisionTcpipDeviceCfg& cfg);
     /// Returns a copy of the current TCP/IP configuration.
     VisionTcpipDeviceCfg visionTcpipConfig() const { return m_config; }

@@ -20,6 +20,9 @@
 #include "device/output_device/vision_tcpip_config.h"
 #include "device/output_device/vision_tcpip_client_config.h"
 #include "device/plc/mc_protocol_device.h"
+#include "device/plc/plc_device.h"
+#include "device/virtual/virtual_plc_config.h"
+#include "device/virtual/virtual_vision_output_config.h"
 #include "core/logger/app_logger.h"
 #include "core/utils/theme_manager.h"
 #include "core/utils/windows_helper.h"
@@ -43,12 +46,20 @@ AddDeviceWizard::AddDeviceWizard(std::shared_ptr<vc::device::DeviceManager> mng,
 
     if (m_manager) {
         ui->cbxCameraType->addItems(m_manager->getSubDeviceTypeList(vc::device::Camera));
+        ui->cbxPlcType->addItems(m_manager->getSubDeviceTypeList(vc::device::PLC));
         ui->cbxMcFrameType->addItem(
             vc::device::mc::McFrameTypeToString(vc::device::mc::McFrameType::Frame_3E));
         ui->cbxMcCode->addItem(
             vc::device::mc::McDataCodeToString(vc::device::mc::McDataCode::Binary));
         ui->cbxVisionType->addItems(m_manager->getSubDeviceTypeList(vc::device::VisionOutput));
     }
+
+    // Frame type and data code are Mitsubishi MC's, not the PLC family's. Showing them for a
+    // virtual PLC would offer settings that do nothing, which is how an operator learns to
+    // stop trusting the panel.
+    connect(ui->cbxPlcType, &QComboBox::currentTextChanged, this,
+            &AddDeviceWizard::updatePlcSubTypeFields);
+    updatePlcSubTypeFields();
 
     ui->adwInfoIcon->setPixmap(
         QApplication::style()->standardIcon(QStyle::SP_MessageBoxWarning).pixmap(14, 14));
@@ -266,6 +277,17 @@ void AddDeviceWizard::onAddClicked() {
 /// combo-box selections (camera sub-type; PLC frame type + data code; vision
 /// output sub-type and its TCPIP/TCPIP-client config), ready to be merged
 /// into the device's JSON under DEVICE_JSK_CONFIG.
+/// Shows the Mitsubishi MC frame-type/data-code rows only when an MC PLC is selected.
+void AddDeviceWizard::updatePlcSubTypeFields() {
+    const bool isMc = ui->cbxPlcType->count() == 0
+                      || vc::device::PlcTypeFromString(ui->cbxPlcType->currentText())
+                             == vc::device::PlcType::MitsubishiMc;
+    ui->lblMcFrame->setVisible(isMc);
+    ui->cbxMcFrameType->setVisible(isMc);
+    ui->lblMcCode->setVisible(isMc);
+    ui->cbxMcCode->setVisible(isMc);
+}
+
 QJsonObject AddDeviceWizard::buildDeviceJson(vc::device::DeviceType type) {
     QJsonObject obj;
 
@@ -276,6 +298,21 @@ QJsonObject AddDeviceWizard::buildDeviceJson(vc::device::DeviceType type) {
         break;
 
     case vc::device::DeviceType::PLC: {
+        // The PLC page had no sub-type combo at all until the virtual PLC needed one: it
+        // hard-coded a Mitsubishi MC config, which was correct while MC was the only PLC.
+        // The frame-type and data-code controls below belong to MC specifically and mean
+        // nothing for a virtual PLC, so the sub-type is read first and MC's fields are only
+        // consulted on the MC branch.
+        const auto subType = (ui->cbxPlcType->count() > 0)
+            ? vc::device::PlcTypeFromString(ui->cbxPlcType->currentText())
+            : vc::device::PlcType::MitsubishiMc;
+
+        if (subType == vc::device::PlcType::VirtualPlc) {
+            vc::device::VirtualPlcCfg config;
+            obj[DEVICE_JSK_CONFIG] = config.toJson();
+            break;
+        }
+
         vc::device::McProtocolConfig config;
         auto frameType = (ui->cbxMcFrameType->count() > 0)
             ? vc::device::mc::McFrameTypeFromString(ui->cbxMcFrameType->currentText())
@@ -300,6 +337,11 @@ QJsonObject AddDeviceWizard::buildDeviceJson(vc::device::DeviceType type) {
         }
         case vc::device::VisionOutputType::VisionTcpipClient: {
             vc::device::VisionTcpipClientDeviceCfg config;
+            obj[DEVICE_JSK_CONFIG] = config.toJson();
+            break;
+        }
+        case vc::device::VisionOutputType::VirtualVisionOutput: {
+            vc::device::VirtualVisionOutputCfg config;
             obj[DEVICE_JSK_CONFIG] = config.toJson();
             break;
         }

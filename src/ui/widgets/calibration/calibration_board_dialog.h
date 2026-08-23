@@ -8,15 +8,23 @@ class QComboBox;
 class QLabel;
 class QDialogButtonBox;
 
-/// Small modal dialog that lets the user pick a calibration board from the
-/// presets registered in calib::CalibrationBoardFactory::availablePresets().
-///
-/// Usage:
-///   CalibrationBoardDialog dlg(currentPreset, parent);
-///   if (dlg.exec() == QDialog::Accepted) {
-///       QString preset = dlg.selectedPreset();
-///   }
-///
+/**
+ * @file calibration_board_dialog.h
+ * @brief CalibrationBoardDialog — modal dialog for picking a calibration board preset.
+ */
+
+/**
+ * @class CalibrationBoardDialog
+ * @brief Small modal dialog that lets the user pick a calibration board from the
+ *        presets registered in calib::CalibrationBoardFactory::availablePresets().
+ *
+ * @code
+ *   CalibrationBoardDialog dlg(currentPreset, parent);
+ *   if (dlg.exec() == QDialog::Accepted) {
+ *       QString preset = dlg.selectedPreset();
+ *   }
+ * @endcode
+ */
 class CalibrationBoardDialog : public QDialog
 {
     Q_OBJECT

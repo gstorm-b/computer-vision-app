@@ -9,6 +9,8 @@
 #include "matching/match_group.h"
 #include "matching/match_pattern.h"
 #include "model/robot_kinematic_picking_checker.h"
+#include "RobotKinematics/Core/Pose.h"
+#include "RobotKinematics/Core/Units.h"
 #include "runtime/camera_runner.h"
 #include "runtime/plc_runner.h"
 #include "runtime/vision_output_runner.h"
@@ -52,34 +54,39 @@ QString connectStatusName(vc::device::ConnectStatus status)
 }
 
 /// Formats a "recovering" log/status message reporting the role, target device, current
-/// connection status, retry count vs. the configured maximum, and the retry interval.
+/// connection status, and the retry interval. There is no retry budget to report: the
+/// runtime retries until it is torn down.
 /// @return the formatted message string
 QString buildRecoveryProgressMessage(const LocalizationRecoveryPolicy &policy,
                                      const QString &deviceId,
-                                     int retryCount,
                                      vc::device::ConnectStatus status)
 {
-    return QStringLiteral("Task runtime recovering: role=%1 deviceId=%2 status=%3 retries=%4/%5 intervalMs=%6")
+    return QStringLiteral("Task runtime recovering: role=%1 deviceId=%2 status=%3 retrying every %4 ms until reconnected")
         .arg(policy.roleName,
              deviceId,
              connectStatusName(status),
-             QString::number(retryCount),
-             QString::number(policy.maxRetries),
              QString::number(policy.retryIntervalMs));
 }
 
-/// Formats a "ready again" log/status message announcing that a role recovered after
-/// `retryCount` retries.
+/// Formats a "ready again" message announcing that a role recovered, reporting how many
+/// attempts it took and how long the outage lasted. The elapsed time is the number an
+/// operator actually wants after the fact; the attempt count alone does not give it,
+/// because attempts are no longer capped at a known maximum.
 /// @return the formatted message string
 QString buildRecoveryReadyMessage(const LocalizationRecoveryPolicy &policy,
                                   const QString &deviceId,
-                                  int retryCount)
+                                  int retryCount,
+                                  const QDateTime &outageStartedAt)
 {
-    return QStringLiteral("Task runtime ready: role=%1 deviceId=%2 retries=%3/%4")
+    const qint64 elapsedMs = outageStartedAt.isValid()
+                                 ? outageStartedAt.msecsTo(QDateTime::currentDateTime())
+                                 : 0;
+
+    return QStringLiteral("Task runtime ready: role=%1 deviceId=%2 recovered after %3 attempt(s) in %4 s")
         .arg(policy.roleName,
              deviceId,
              QString::number(retryCount),
-             QString::number(policy.maxRetries));
+             QString::number(elapsedMs / 1000.0, 'f', 1));
 }
 
 } // namespace
@@ -99,6 +106,33 @@ LocalizationRuntimeController::LocalizationRuntimeController(QObject *parent)
     qRegisterMetaType<CameraWorkspace>("vc::model::CameraWorkspace");
     qRegisterMetaType<std::shared_ptr<mtc::IRobotPickingChecker>>(
         "std::shared_ptr<mtc::IRobotPickingChecker>");
+
+    // Fault auto-recovery. The timer is owned by this controller, so a runtime that ends
+    // during the wait takes the pending recovery down with it — the same lifetime
+    // guarantee the reconnect retries rely on.
+    m_faultRecoverTimer.setSingleShot(true);
+    m_faultRecoverTimer.setInterval(kFaultAutoRecoverMs);
+    connect(&m_faultRecoverTimer, &QTimer::timeout, this, [this]() {
+        // Read the code before recovering: recoverFromFault() clears the pending result.
+        const LocalizationFaultCode code = m_pendingCycleResult.faultCode;
+        m_consecutiveAutoRecoveries += 1;
+
+        // A fault that keeps auto-clearing is a real problem, but reporting every
+        // occurrence would bury the very log this path exists to keep readable.
+        if (m_consecutiveAutoRecoveries % kAutoRecoverWarnStride == 0) {
+            LOG_USER_WARN << "Repeating auto-recovered localization fault."
+                          << "count=" << m_consecutiveAutoRecoveries
+                          << "lastFault=" << localizationFaultCodeName(code);
+        } else {
+            LOG_DEV_INFO << "Localization fault auto-cleared."
+                         << "count=" << m_consecutiveAutoRecoveries
+                         << "fault=" << localizationFaultCodeName(code);
+        }
+
+        recoverFromFault(
+            QStringLiteral("Fault auto-cleared after %1 ms (no bErrorReset received).")
+                .arg(kFaultAutoRecoverMs));
+    });
 }
 
 /// Stores the task's localization config and rebuilds the PLC tag / signal-name
@@ -334,11 +368,11 @@ void LocalizationRuntimeController::execute()
 }
 
 /// Slot for the primary PLC's raw tag values: maps each tag to a named signal via
-/// m_signalMapper, emits signalChanged for all of them, and reacts to the three
+/// m_signalMapper, emits signalChanged for all of them, and reacts to the four
 /// recognized control signals — nActiveCamera (switches camera), nActivePatternGroup
-/// (switches pattern group), and bExecuteTrigger (starts a cycle on rising edge, or on
+/// (switches pattern group), bExecuteTrigger (starts a cycle on rising edge, or on
 /// falling edge either clears bMatchingFinished and re-arms/recovers depending on whether
-/// the pending cycle faulted).
+/// the pending cycle faulted), and bErrorReset (acknowledges a fault on rising edge).
 void LocalizationRuntimeController::handlePlcValues(const QMap<QString, QVariant> &values)
 {
     if (values.isEmpty()) {
@@ -380,10 +414,26 @@ void LocalizationRuntimeController::handlePlcValues(const QMap<QString, QVariant
                        m_cycleState == CycleState::WaitingTriggerReset) {
                 publishBoolSignal(QStringLiteral("bMatchingFinished"), false);
                 if (m_pendingCycleResult.faulted) {
+                    // The fault now comes to rest: the trigger is low, so nothing else
+                    // will move the runtime out of this state on its own. This is the
+                    // point the runtime used to stay stuck at until the task was
+                    // restarted, and it is where the way out has to be armed.
                     m_cycleState = CycleState::Recovering;
+                    armFaultAutoRecovery();
                 } else {
                     markRuntimeReady(QStringLiteral("Trigger reset. Runtime ready."));
                 }
+            }
+        } else if (event.name == QStringLiteral("bErrorReset")) {
+            const bool reset = event.value.toBool();
+            const bool risingEdge = reset && !m_lastErrorReset;
+            m_lastErrorReset = reset;
+
+            // Rising edge only. A level-triggered acknowledge would re-clear the fault
+            // on every PLC scan for as long as the operator holds the bit, which would
+            // make a genuinely repeating fault invisible.
+            if (risingEdge) {
+                acknowledgeFault();
             }
         }
     }
@@ -394,6 +444,9 @@ void LocalizationRuntimeController::handlePlcValues(const QMap<QString, QVariant
 /// ahead of a fresh setup().
 void LocalizationRuntimeController::resetRuntimeBindings()
 {
+    cancelFaultAutoRecovery();
+    m_lastRoleError.clear();
+
     disconnect(m_plcValueConnection);
     m_plcValueConnection = QMetaObject::Connection();
     disconnect(m_cameraGrabConnection);
@@ -794,17 +847,39 @@ LocalizationRuntimeController::buildVisionOutputPositions(
             pick_center += matchResult.cropOffsetPoint;
         }
 
-        cv::Point3f worldPoint = calibrator.imageToRobot(pick_center);
-            const double worldR = calibrator.rotateImageToRobot(object.point_angle);
-            // row.world.r = worldR;
-            row.world.r = -worldR;
+        const cv::Point3f pickPoint = calibrator.imageToRobot(pick_center);
+        // Top-down pick rotation about Z, negated to match the robot's Z convention.
+        // This is the axis the pre-Phase-5 4-axis contract called `r`; it is emitted as
+        // `rz` now that the pattern can add its own Z rotation on top.
+        const double worldYaw = -calibrator.rotateImageToRobot(object.point_angle);
 
-        worldPoint = calibrator.translateWithZAxis(
-            worldPoint, object.point_offset, row.world.r, false);
+        // Compose the pattern's 6-axis picking offset in the TOOL frame:
+        //   world = pick * offset
+        // This is the same composition RobotKinematicPickingChecker::isPickable uses,
+        // so the advisory pickability verdict and the pose actually emitted cannot
+        // drift apart. With a zero rotation offset the product reduces exactly to the
+        // previous Rz-only Calibrator::translateWithZAxis() result (Rz rotates x/y and
+        // passes z through), so existing patterns are unaffected.
+        const RobotKinematics::Pose pickPose = RobotKinematics::Pose::fromXYZRPY_mm_deg(
+            pickPoint.x, pickPoint.y, pickPoint.z, 0.0, 0.0, worldYaw);
+        const RobotKinematics::Pose offsetPose = RobotKinematics::Pose::fromXYZRPY_mm_deg(
+            object.point_offset.x, object.point_offset.y, object.point_offset.z,
+            object.point_rotation_offset.x, object.point_rotation_offset.y,
+            object.point_rotation_offset.z);
 
-        row.world.x = worldPoint.x;
-        row.world.y = worldPoint.y;
-        row.world.z = worldPoint.z;
+        const Eigen::Vector3d worldTranslation = (pickPose * offsetPose).translation_m();
+
+        row.world.x = RobotKinematics::units::toMm(worldTranslation.x());
+        row.world.y = RobotKinematics::units::toMm(worldTranslation.y());
+        row.world.z = RobotKinematics::units::toMm(worldTranslation.z());
+
+        // Orientation sent to the robot: the pattern's rotation offset, with the pick
+        // yaw folded into the Z axis because both act about Z. A pattern with no
+        // rotation offset therefore emits exactly the pre-Phase-5 pose (rx = ry = 0,
+        // rz = the old `r`).
+        row.world.rx = object.point_rotation_offset.x;
+        row.world.ry = object.point_rotation_offset.y;
+        row.world.rz = worldYaw + object.point_rotation_offset.z;
 
         // if (object.hasCollision() && object.isOutsideConditionRoi()) {
         //     row.status = QStringLiteral("Skipped: collision, outside");
@@ -909,6 +984,11 @@ void LocalizationRuntimeController::startCycle()
         return;
     }
 
+    // A new cycle supersedes any fault still waiting to auto-clear: the runtime is
+    // demonstrably armed again, and letting the old countdown fire mid-cycle would
+    // publish a "recovered" state on top of a running one.
+    cancelFaultAutoRecovery();
+
     m_cycleState = CycleState::Running;
     ++m_activeCycleId;
     m_pendingCycleResult = CycleResult();
@@ -964,16 +1044,83 @@ void LocalizationRuntimeController::abortCycle(LocalizationFaultCode code,
 
     m_cycleState = m_lastExecuteTrigger ? CycleState::WaitingTriggerReset
                                         : CycleState::Recovering;
+
+    // Arm the way out only once the fault has come to rest. While the PLC still holds
+    // bExecuteTrigger high the runtime is in WaitingTriggerReset and must stay there —
+    // re-arming underneath an asserted trigger would break the rising-edge handshake.
+    // That case is armed later, on the falling edge in handlePlcValues().
+    if (m_cycleState == CycleState::Recovering) {
+        armFaultAutoRecovery();
+    }
+
     emit runtimeRecovering(message);
+}
+
+/// Handles a rising edge of the bErrorReset PLC input. Cancels any pending automatic
+/// recovery first — the operator got there ahead of the timer, and letting both run
+/// would clear the fault twice and log it twice — then performs the shared recovery.
+void LocalizationRuntimeController::acknowledgeFault()
+{
+    cancelFaultAutoRecovery();
+    recoverFromFault(QStringLiteral("Fault acknowledged via bErrorReset."));
+}
+
+/// Shared body of both recovery paths (bErrorReset and the auto-recovery timeout).
+/// Clears the latched fault outputs unconditionally, drops the pending cycle's faulted
+/// flag, then asks markRuntimeReady() to re-arm — which it will refuse to do while a
+/// role is unhealthy or the pattern group / calibration are invalid. Clearing without
+/// re-arming is the correct outcome in that case: the operator (or the timer) has
+/// acknowledged the fault, but nothing has repaired its cause.
+/// @param reason human-readable cause, logged and reused as the runtime-ready message
+void LocalizationRuntimeController::recoverFromFault(const QString &reason)
+{
+    appendTaskLog(QStringLiteral("INFO"), reason);
+
+    publishBoolSignal(QStringLiteral("bTaskFault"), false);
+    publishNumberSignal(QStringLiteral("nFaultCode"),
+                        localizationFaultCodeValue(LocalizationFaultCode::None));
+
+    m_pendingCycleResult.faulted = false;
+    m_pendingCycleResult.faultCode = LocalizationFaultCode::None;
+
+    if (m_cycleState == CycleState::Faulted ||
+        m_cycleState == CycleState::Recovering) {
+        markRuntimeReady(reason);
+    }
+}
+
+/// Starts the fault auto-recovery countdown, unless one is already pending (re-arming
+/// would extend the wait every time the state was touched).
+void LocalizationRuntimeController::armFaultAutoRecovery()
+{
+    if (m_faultRecoverTimer.isActive()) {
+        return;
+    }
+
+    LOG_DEV_INFO << "Fault auto-recovery armed."
+                 << "delayMs=" << kFaultAutoRecoverMs;
+    m_faultRecoverTimer.start();
+}
+
+/// Stops a pending fault auto-recovery countdown, if any.
+void LocalizationRuntimeController::cancelFaultAutoRecovery()
+{
+    if (!m_faultRecoverTimer.isActive()) {
+        return;
+    }
+
+    LOG_DEV_INFO << "Fault auto-recovery cancelled.";
+    m_faultRecoverTimer.stop();
 }
 
 /// Central connection-status handler for all three device roles. On a healthy status,
 /// clears the role's retry bookkeeping and, once every required role is healthy again,
 /// calls markRuntimeReady (using a "recovered" message if this role had been retrying).
 /// On an unhealthy status: if a cycle is running, aborts it with the role-specific fault
-/// code; then consults decideRecoveryAction on the role's policy to either schedule a
-/// reconnect retry (emitting runtimeRecovering) or escalate to raiseRoleFault. Removes
-/// the role's context outright if its runner pointer has gone null.
+/// code; then consults decideRecoveryAction on the role's policy and schedules a reconnect
+/// retry. Retrying is unbounded — an unreachable device is retried until the runtime ends
+/// and never escalates to a task fault. Removes the role's context outright if its runner
+/// pointer has gone null.
 /// @param role which device role reported the status change
 /// @param status the runner's new ConnectStatus
 void LocalizationRuntimeController::handleRoleStatusChanged(RunnerRole role,
@@ -992,23 +1139,34 @@ void LocalizationRuntimeController::handleRoleStatusChanged(RunnerRole role,
 
     if (isHealthyStatus(status)) {
         const int retryHistory = context.retryCount;
+        const QDateTime outageStartedAt = context.outageStartedAt;
         const bool wasRecovering = retryHistory > 0 || context.retryScheduled;
         context.retryCount = 0;
         context.retryScheduled = false;
-        context.faultRaised = false;
+        context.reportedStatus = vc::device::ConnectStatus::Connected;
+        context.outageStartedAt = QDateTime();
         m_recoveryContexts.insert(key, context);
+
+        // Log the reconnect itself, separately from markRuntimeReady() below. The
+        // runtime may not be able to re-arm yet (another role still down, or a cycle in
+        // flight), and "the camera came back" is worth showing the operator either way.
+        if (wasRecovering) {
+            appendTaskLog(QStringLiteral("INFO"),
+                          buildRecoveryReadyMessage(context.policy,
+                                                    context.deviceId,
+                                                    retryHistory,
+                                                    outageStartedAt));
+        }
+
         if (m_cycleState == CycleState::Running ||
             m_cycleState == CycleState::WaitingTriggerReset) {
             return;
         }
         if (allRequiredRolesHealthy()) {
-            const QString readyMessage = wasRecovering
-                                             ? buildRecoveryReadyMessage(
-                context.policy,
-                context.deviceId,
-                retryHistory)
-                                             : QStringLiteral("Runtime ready.");
-            markRuntimeReady(readyMessage);
+            // The reconnect detail was logged above; this line reports the separate
+            // fact that the runtime actually re-armed, which only happens once every
+            // role is healthy and the pattern/calibration still validate.
+            markRuntimeReady(QStringLiteral("Runtime ready."));
         }
         return;
     }
@@ -1033,33 +1191,79 @@ void LocalizationRuntimeController::handleRoleStatusChanged(RunnerRole role,
     const LocalizationRecoveryAction action = decideRecoveryAction(
         context.policy,
         status,
-        context.retryCount,
         context.retryScheduled);
 
-    if (action == LocalizationRecoveryAction::RetryScheduled) {
-        context.retryScheduled = true;
-        context.retryCount += 1;
-        m_recoveryContexts.insert(key, context);
-        emit runtimeRecovering(buildRecoveryProgressMessage(
-            context.policy,
-            context.deviceId,
-            context.retryCount,
-            status));
-        scheduleRoleReconnect(role);
+    if (action != LocalizationRecoveryAction::RetryScheduled) {
         return;
     }
 
-    if (action == LocalizationRecoveryAction::EscalateFault) {
-        context.faultRaised = true;
-        m_recoveryContexts.insert(key, context);
-        raiseRoleFault(role, status);
+    // A new outage: stamp its start so the recovery message can report how long it
+    // lasted, which is what an operator asks after the fact now that attempts are
+    // no longer bounded by a known maximum.
+    if (context.retryCount == 0) {
+        context.outageStartedAt = QDateTime::currentDateTime();
+
+        // Once per outage, on the operator's dashboard, not only in the app log. An
+        // outage that shows up nowhere in the task log is indistinguishable from a
+        // runtime that simply stopped being triggered.
+        appendTaskLog(QStringLiteral("WARN"),
+                      QStringLiteral("Connection lost: role=%1 deviceId=%2 status=%3. "
+                                     "Reconnecting every %4 ms until it returns.")
+                          .arg(context.policy.roleName,
+                               context.deviceId,
+                               connectStatusName(status),
+                               QString::number(context.policy.retryIntervalMs)));
+
+        // Withdraw readiness for the duration of the outage. Losing a role outside a
+        // running cycle previously left CycleState::ReadyForTrigger and bTaskReady=true
+        // standing: the escalation path published bTaskFault a minute later and covered
+        // for it. With escalation removed there is no such backstop, so an unreachable
+        // camera would advertise "ready, send me a trigger" indefinitely. The PLC
+        // contract is that it triggers only while bTaskReady is true, so this is the
+        // signal it needs. markRuntimeReady() restores both on reconnect.
+        if (m_cycleState == CycleState::ReadyForTrigger) {
+            m_cycleState = CycleState::Recovering;
+            publishBoolSignal(QStringLiteral("bTaskReady"), false);
+        }
     }
+
+    // Report only when the outage begins or when its status actually changes. Without
+    // this, an outage lasting minutes emits one identical line every retryIntervalMs
+    // and drowns out everything else the operator needs to see.
+    const bool statusIsNew = context.reportedStatus != status;
+
+    context.retryScheduled = true;
+    context.retryCount += 1;
+    context.reportedStatus = status;
+    m_recoveryContexts.insert(key, context);
+
+    if (statusIsNew) {
+        emit runtimeRecovering(buildRecoveryProgressMessage(
+            context.policy,
+            context.deviceId,
+            status));
+    }
+
+    scheduleRoleReconnect(role);
+}
+
+/// Returns whether this reconnect attempt is one of the ones an operator should see:
+/// the first of an outage, then one in every kQuietRetryLogStride. Everything else is
+/// still written to the developer log by the callers.
+bool LocalizationRuntimeController::shouldReportRetryToUser(const RoleRecoveryContext &context)
+{
+    return context.retryCount <= 1 ||
+           (context.retryCount % kQuietRetryLogStride) == 0;
 }
 
 /// Logs the scheduled retry and, after the role's configured retryIntervalMs elapses,
 /// clears the role's retryScheduled flag and calls requestRoleConnectNow for it (both
 /// re-checked against the current recovery context in case the role was rebound/removed
 /// in the meantime). No-op if the role has no recovery context or a null runner.
+///
+/// The retry itself is unbounded, so its logging is rate-limited instead: the first
+/// attempt and every kQuietRetryLogStride-th attempt reach the user log, the rest go to
+/// the developer log. Nothing is discarded — a flapping link is still fully reconstructable.
 /// @param role which device role to schedule a reconnect attempt for
 void LocalizationRuntimeController::scheduleRoleReconnect(RunnerRole role)
 {
@@ -1073,13 +1277,23 @@ void LocalizationRuntimeController::scheduleRoleReconnect(RunnerRole role)
         return;
     }
 
-    LOG_USER_WARN << "Recovery retry scheduled."
-                  << "role=" << context.policy.roleName
-                  << "deviceId=" << context.deviceId
-                  << "attempt=" << context.retryCount
-                  << "max=" << context.policy.maxRetries
-                  << "intervalMs=" << context.policy.retryIntervalMs;
+    if (shouldReportRetryToUser(context)) {
+        LOG_USER_WARN << "Recovery retry scheduled."
+                      << "role=" << context.policy.roleName
+                      << "deviceId=" << context.deviceId
+                      << "attempt=" << context.retryCount
+                      << "intervalMs=" << context.policy.retryIntervalMs;
+    } else {
+        LOG_DEV_INFO << "Recovery retry scheduled."
+                     << "role=" << context.policy.roleName
+                     << "deviceId=" << context.deviceId
+                     << "attempt=" << context.retryCount;
+    }
 
+    // The `this` context argument is load-bearing, not incidental: retries are unbounded,
+    // so a context-free QTimer::singleShot would keep firing into a controller that
+    // endRuntime() has already destroyed. Binding to `this` makes the pending retry die
+    // with the runtime session.
     QTimer::singleShot(context.policy.retryIntervalMs, this, [this, role]() {
         const int currentKey = roleKey(role);
         if (!m_recoveryContexts.contains(currentKey)) {
@@ -1134,56 +1348,17 @@ void LocalizationRuntimeController::requestRoleConnectNow(RunnerRole role)
     }
     }
 
-    LOG_USER_WARN << "Recovery reconnect requested."
-                  << "role=" << context.policy.roleName
-                  << "deviceId=" << context.deviceId
-                  << "attempt=" << context.retryCount
-                  << "max=" << context.policy.maxRetries;
-}
-
-/// Escalates a role's connection failure to a hard fault (retries exhausted): picks a
-/// role-specific LocalizationFaultCode (CameraConnectFailed/CameraLost for the camera
-/// depending on `status`, PlcLost, or VisionOutputLost), publishes bTaskFault/
-/// nFaultCode, sets CycleState::Faulted, logs the formatted recovery-failure message at
-/// ERROR, and emits runtimeFault. No-op if the role has no recovery context.
-/// @param role which device role exhausted its recovery retries
-/// @param status the role's connection status that triggered the escalation
-void LocalizationRuntimeController::raiseRoleFault(RunnerRole role,
-                                                   vc::device::ConnectStatus status)
-{
-    const int key = roleKey(role);
-    if (!m_recoveryContexts.contains(key)) {
-        return;
+    if (shouldReportRetryToUser(context)) {
+        LOG_USER_WARN << "Recovery reconnect requested."
+                      << "role=" << context.policy.roleName
+                      << "deviceId=" << context.deviceId
+                      << "attempt=" << context.retryCount;
+    } else {
+        LOG_DEV_INFO << "Recovery reconnect requested."
+                     << "role=" << context.policy.roleName
+                     << "deviceId=" << context.deviceId
+                     << "attempt=" << context.retryCount;
     }
-
-    const RoleRecoveryContext context = m_recoveryContexts.value(key);
-    LocalizationFaultCode code = LocalizationFaultCode::InternalError;
-    switch (role) {
-    case RunnerRole::Camera:
-        code = status == vc::device::ConnectStatus::ConnectFailed
-                   ? LocalizationFaultCode::CameraConnectFailed
-                   : LocalizationFaultCode::CameraLost;
-        break;
-    case RunnerRole::PrimaryPlc:
-        code = LocalizationFaultCode::PlcLost;
-        break;
-    case RunnerRole::VisionOutput:
-        code = LocalizationFaultCode::VisionOutputLost;
-        break;
-    }
-
-    publishBoolSignal(QStringLiteral("bTaskFault"), true);
-    publishNumberSignal(QStringLiteral("nFaultCode"), localizationFaultCodeValue(code));
-    m_cycleState = CycleState::Faulted;
-
-    const QString message = buildRecoveryFaultMessage(
-        context.policy,
-        context.deviceId,
-        status,
-        context.retryCount);
-
-    LOG_USER_ERR << message;
-    emit runtimeFault(message);
 }
 
 /// Slot for the active camera's grabFinished signal: disconnects the grab/command
@@ -1320,6 +1495,12 @@ void LocalizationRuntimeController::onVisionOutputResultFinished(bool ok,
         return;
     }
 
+    // A cycle that completes end to end proves the previous faults were transient, so
+    // the repeating-auto-recovery counter starts over. Counting since the last success
+    // (rather than since startup) is what makes the kAutoRecoverWarnStride report mean
+    // "this is failing repeatedly right now".
+    m_consecutiveAutoRecoveries = 0;
+
     publishCycleSuccessOutputs(m_pendingCycleResult);
     emit cycleResultUpdated(m_pendingCycleResult);
     appendTaskLog(QStringLiteral("INFO"),
@@ -1359,28 +1540,54 @@ void LocalizationRuntimeController::onCameraStatusChanged(vc::device::ConnectSta
     handleRoleStatusChanged(RunnerRole::Camera, status);
 }
 
-/// Logs the primary PLC runner's errorOccurred signal as a warning; does not affect
+/// Reports a device runner's errorOccurred signal to both the app log and the task log,
+/// suppressing an immediate repeat of the same message from the same role.
+///
+/// The de-duplication is not cosmetic. A dead PLC fails every queued I/O write, so the
+/// same line arrives many times a second; forwarding each one to the dashboard would
+/// bury exactly the events the operator opened it to read. A different message, or the
+/// same message after a different one, is always reported.
+/// @param role which device role raised the error
+/// @param roleName human-readable role name used in the log lines
+/// @param message the error text reported by the runner
+void LocalizationRuntimeController::reportRoleError(RunnerRole role,
+                                                     const QString &roleName,
+                                                     const QString &message)
+{
+    const int key = roleKey(role);
+    if (m_lastRoleError.value(key) == message) {
+        LOG_DEV_INFO << roleName << "runtime error (repeat):" << message;
+        return;
+    }
+
+    m_lastRoleError.insert(key, message);
+    LOG_USER_WARN << roleName << "runtime error:" << message;
+    appendTaskLog(QStringLiteral("ERROR"),
+                  QStringLiteral("%1 error: %2").arg(roleName, message));
+}
+
+/// Reports the primary PLC runner's errorOccurred signal; does not affect
 /// cycle/connection state (connection loss is handled separately via
 /// onPrimaryPlcStatusChanged).
 void LocalizationRuntimeController::onPrimaryPlcError(const QString &message)
 {
-    LOG_USER_WARN << "primary_plc runtime error:" << message;
+    reportRoleError(RunnerRole::PrimaryPlc, QStringLiteral("primary_plc"), message);
 }
 
-/// Logs the vision-output runner's errorOccurred signal as a warning; does not affect
+/// Reports the vision-output runner's errorOccurred signal; does not affect
 /// cycle/connection state (connection loss is handled separately via
 /// onVisionOutputStatusChanged).
 void LocalizationRuntimeController::onVisionOutputError(const QString &message)
 {
-    LOG_USER_WARN << "vision_output runtime error:" << message;
+    reportRoleError(RunnerRole::VisionOutput, QStringLiteral("vision_output"), message);
 }
 
-/// Logs the active camera runner's errorOccurred signal as a warning; does not affect
+/// Reports the active camera runner's errorOccurred signal; does not affect
 /// cycle/connection state (connection loss is handled separately via
 /// onCameraStatusChanged).
 void LocalizationRuntimeController::onCameraError(const QString &message)
 {
-    LOG_USER_WARN << "camera runtime error:" << message;
+    reportRoleError(RunnerRole::Camera, QStringLiteral("camera"), message);
 }
 
 } // namespace vc::model

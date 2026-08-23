@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Concrete <a class="el" href="classvc_1_1device_1_1_i_request.html" title="Abstract request object pushed to a device via IDevice::pushRequest(); concrete requests carry protoc...">IRequest</a> for the Mitsubishi MC protocol: describes a single bit or word read/write against a PLC device (device-type letter + start address + amount) and can encode the write payload into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mc__request_8h_source.html">mc_request.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::MCRequest:</div>
@@ -180,9 +183,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a105c7a32cb28698280cbec0667470400"><td class="mdescLeft">&#160;</td><td class="mdescRight">True once a constructor has produced a valid request; backs <a class="el" href="#aad7a3f6e6bbf2fb7743edbbb5cf0f11a">isValid()</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Concrete <a class="el" href="classvc_1_1device_1_1_i_request.html">IRequest</a> for the Mitsubishi MC protocol: describes a single bit or word read/write against a PLC device (device-type letter + start address + amount) and can encode the write payload into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span>. </p>
+<div class="textblock"><p>Concrete <a class="el" href="classvc_1_1device_1_1_i_request.html" title="Abstract request object pushed to a device via IDevice::pushRequest(); concrete requests carry protoc...">IRequest</a> for the Mitsubishi MC protocol: describes a single bit or word read/write against a PLC device (device-type letter + start address + amount) and can encode the write payload into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00029">29</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00037">37</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a8e21387896c6b9e72069fb7df7cd17f1" name="a8e21387896c6b9e72069fb7df7cd17f1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e21387896c6b9e72069fb7df7cd17f1">&#9670;&#160;</a></span>RqType</h2>
@@ -204,7 +207,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="a8e21387896c6b9e72069fb7df7cd17f1a34ca2de91c24739713913408fb0e551f" name="a8e21387896c6b9e72069fb7df7cd17f1a34ca2de91c24739713913408fb0e551f"></a>WriteWord&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00032">32</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00043">43</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
 </div>
 </div>
@@ -233,7 +236,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Default-constructs an unconfigured request; <a class="el" href="#aad7a3f6e6bbf2fb7743edbbb5cf0f11a">isValid()</a> is false until one of the parameterized constructors below succeeds. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00041">41</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00052">52</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
 </div>
 </div>
@@ -275,9 +278,9 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00057">57</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00068">68</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00184">is_config</a>, <a class="el" href="mc__request_8h_source.html#l00180">m_amount</a>, <a class="el" href="mc__request_8h_source.html#l00178">m_device_type</a>, <a class="el" href="mc__request_8h_source.html#l00179">m_start_address</a>, and <a class="el" href="mc__request_8h_source.html#l00177">m_type</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00195">is_config</a>, <a class="el" href="mc__request_8h_source.html#l00191">m_amount</a>, <a class="el" href="mc__request_8h_source.html#l00189">m_device_type</a>, <a class="el" href="mc__request_8h_source.html#l00190">m_start_address</a>, and <a class="el" href="mc__request_8h_source.html#l00188">m_type</a>.</p>
 
 </div>
 </div>
@@ -319,9 +322,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Builds a request directly from device-type letter, start address, and amount. Marks the request invalid (<a class="el" href="#aad7a3f6e6bbf2fb7743edbbb5cf0f11a">isValid()</a> == false) when <span class="tt">amount</span> is not in (0, 128]. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00083">83</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00094">94</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00184">is_config</a>, <a class="el" href="mc__request_8h_source.html#l00180">m_amount</a>, <a class="el" href="mc__request_8h_source.html#l00178">m_device_type</a>, <a class="el" href="mc__request_8h_source.html#l00179">m_start_address</a>, and <a class="el" href="mc__request_8h_source.html#l00177">m_type</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00195">is_config</a>, <a class="el" href="mc__request_8h_source.html#l00191">m_amount</a>, <a class="el" href="mc__request_8h_source.html#l00189">m_device_type</a>, <a class="el" href="mc__request_8h_source.html#l00190">m_start_address</a>, and <a class="el" href="mc__request_8h_source.html#l00188">m_type</a>.</p>
 
 </div>
 </div>
@@ -350,9 +353,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encodes a list of bit values into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span>, normalizing every entry to 0x00 (off) or 0x01 (on). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00105">105</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00116">116</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00181">m_value</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00192">m_value</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00545">MitsubishiMcDeviceWidget::onBitWriteRequested()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00216">vc::device::McProtocolDevice::writeDigitalIoByName()</a>.</p>
 
@@ -382,9 +385,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encodes a single bit value into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span> as-is (no 0/1 normalization, unlike the QList overload above). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00114">114</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00125">125</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00181">m_value</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00192">m_value</a>.</p>
 
 </div>
 </div>
@@ -412,9 +415,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encodes a list of doubles into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span> by converting each to its IEEE-754 bit pattern (doubleToReal64) and splitting it into four 16-bit words, least-significant word first. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00159">159</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00170">170</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="memory__utils_8h_source.html#l00082">vc::device::doubleToReal64()</a>, and <a class="el" href="mc__request_8h_source.html#l00181">m_value</a>.</p>
+<p class="reference">References <a class="el" href="memory__utils_8h_source.html#l00098">vc::device::doubleToReal64()</a>, and <a class="el" href="mc__request_8h_source.html#l00192">m_value</a>.</p>
 
 </div>
 </div>
@@ -442,9 +445,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encodes a list of signed 32-bit values into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span>, splitting each into two 16-bit words (low word first, then high word). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00136">136</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00147">147</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00181">m_value</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00192">m_value</a>.</p>
 
 </div>
 </div>
@@ -472,9 +475,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encodes a list of floats into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span> by converting each to its IEEE-754 bit pattern (floatToReal32) and splitting it into two 16-bit words (low word first, then high word). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00147">147</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00158">158</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="memory__utils_8h_source.html#l00066">vc::device::floatToReal32()</a>, and <a class="el" href="mc__request_8h_source.html#l00181">m_value</a>.</p>
+<p class="reference">References <a class="el" href="memory__utils_8h_source.html#l00082">vc::device::floatToReal32()</a>, and <a class="el" href="mc__request_8h_source.html#l00192">m_value</a>.</p>
 
 </div>
 </div>
@@ -503,9 +506,9 @@ Private Attributes</h2></td></tr>
 
 <p>Encodes a single signed 16-bit word into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00129">129</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00140">140</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00181">m_value</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00192">m_value</a>.</p>
 
 </div>
 </div>
@@ -533,9 +536,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Encodes a list of signed 16-bit words into <span class="tt"><a class="el" href="#ab3e7b8250b7f1ac4520084a26b186ff8" title="Encoded write payload (words), built by the buildWriteData_* helpers.">m_value</a></span> (raw bit pattern, reinterpreted as quint16). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00121">121</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00132">132</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00181">m_value</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00192">m_value</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00561">MitsubishiMcDeviceWidget::onWordWriteRequested()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00239">vc::device::McProtocolDevice::writeWordIoByName()</a>.</p>
 
@@ -563,11 +566,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>a deep copy of this request (via the copy constructor), boxed as the abstract <a class="el" href="classvc_1_1device_1_1_i_request.html">IRequest</a> for queueing/dispatch. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a deep copy of this request (via the copy constructor), boxed as the abstract <a class="el" href="classvc_1_1device_1_1_i_request.html" title="Abstract request object pushed to a device via IDevice::pushRequest(); concrete requests carry protoc...">IRequest</a> for queueing/dispatch. </dd></dl>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_request.html#a3d0361486815943bc2ced02ef15510d0">vc::device::IRequest</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00172">172</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00183">183</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
 </div>
 </div>
@@ -595,9 +598,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true once a constructor above has produced a valid request (parsed address, in-range amount); false otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00099">99</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00110">110</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00184">is_config</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00195">is_config</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00216">vc::device::McProtocolDevice::writeDigitalIoByName()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00239">vc::device::McProtocolDevice::writeWordIoByName()</a>.</p>
 
@@ -629,9 +632,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_request.html#a97665786222c2d520595cd3b5db911d3">vc::device::IRequest</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00047">47</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00058">58</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="irequest_8h_source.html#l00011">vc::device::Request_MC</a>.</p>
+<p class="reference">References <a class="el" href="irequest_8h_source.html#l00018">vc::device::Request_MC</a>.</p>
 
 </div>
 </div>
@@ -658,9 +661,9 @@ Private Attributes</h2></td></tr>
 
 <p>True once a constructor has produced a valid request; backs <a class="el" href="#aad7a3f6e6bbf2fb7743edbbb5cf0f11a">isValid()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00184">184</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00195">195</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__request_8h_source.html#l00099">isValid()</a>, <a class="el" href="mc__request_8h_source.html#l00083">MCRequest()</a>, and <a class="el" href="mc__request_8h_source.html#l00057">MCRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__request_8h_source.html#l00110">isValid()</a>, <a class="el" href="mc__request_8h_source.html#l00094">MCRequest()</a>, and <a class="el" href="mc__request_8h_source.html#l00068">MCRequest()</a>.</p>
 
 </div>
 </div>
@@ -678,9 +681,9 @@ Private Attributes</h2></td></tr>
 
 <p>Number of registers/bits covered by the request. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00180">180</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00191">191</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00223">vc::device::Frame3E::build_write_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00281">vc::device::Frame3E::build_write_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>, <a class="el" href="mc__request_8h_source.html#l00083">MCRequest()</a>, <a class="el" href="mc__request_8h_source.html#l00057">MCRequest()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00314">vc::device::Frame3E::parse_read_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00361">vc::device::Frame3E::parse_read_bit_from_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00410">vc::device::Frame3E::parse_read_word()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00073">vc::device::Frame3E::parseReceiveFrame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00223">vc::device::Frame3E::build_write_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00281">vc::device::Frame3E::build_write_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>, <a class="el" href="mc__request_8h_source.html#l00094">MCRequest()</a>, <a class="el" href="mc__request_8h_source.html#l00068">MCRequest()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00314">vc::device::Frame3E::parse_read_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00361">vc::device::Frame3E::parse_read_bit_from_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00410">vc::device::Frame3E::parse_read_word()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00073">vc::device::Frame3E::parseReceiveFrame()</a>.</p>
 
 </div>
 </div>
@@ -698,9 +701,9 @@ Private Attributes</h2></td></tr>
 
 <p>PLC device/register type letter (e.g. 'D', 'M', 'X', 'Y'). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00178">178</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00189">189</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00223">vc::device::Frame3E::build_write_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00281">vc::device::Frame3E::build_write_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>, <a class="el" href="mc__request_8h_source.html#l00083">MCRequest()</a>, <a class="el" href="mc__request_8h_source.html#l00057">MCRequest()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00314">vc::device::Frame3E::parse_read_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00361">vc::device::Frame3E::parse_read_bit_from_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00410">vc::device::Frame3E::parse_read_word()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00073">vc::device::Frame3E::parseReceiveFrame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00223">vc::device::Frame3E::build_write_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00281">vc::device::Frame3E::build_write_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>, <a class="el" href="mc__request_8h_source.html#l00094">MCRequest()</a>, <a class="el" href="mc__request_8h_source.html#l00068">MCRequest()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00314">vc::device::Frame3E::parse_read_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00361">vc::device::Frame3E::parse_read_bit_from_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00410">vc::device::Frame3E::parse_read_word()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00073">vc::device::Frame3E::parseReceiveFrame()</a>.</p>
 
 </div>
 </div>
@@ -718,9 +721,9 @@ Private Attributes</h2></td></tr>
 
 <p>Start address within the device_type's register range. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00179">179</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00190">190</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00223">vc::device::Frame3E::build_write_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00281">vc::device::Frame3E::build_write_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>, <a class="el" href="mc__request_8h_source.html#l00083">MCRequest()</a>, <a class="el" href="mc__request_8h_source.html#l00057">MCRequest()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00314">vc::device::Frame3E::parse_read_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00361">vc::device::Frame3E::parse_read_bit_from_word()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00410">vc::device::Frame3E::parse_read_word()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00223">vc::device::Frame3E::build_write_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00281">vc::device::Frame3E::build_write_word()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>, <a class="el" href="mc__request_8h_source.html#l00094">MCRequest()</a>, <a class="el" href="mc__request_8h_source.html#l00068">MCRequest()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00314">vc::device::Frame3E::parse_read_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00361">vc::device::Frame3E::parse_read_bit_from_word()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00410">vc::device::Frame3E::parse_read_word()</a>.</p>
 
 </div>
 </div>
@@ -738,9 +741,9 @@ Private Attributes</h2></td></tr>
 
 <p>Requested operation kind (read/write, bit/word). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00177">177</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00188">188</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>, <a class="el" href="mc__request_8h_source.html#l00083">MCRequest()</a>, <a class="el" href="mc__request_8h_source.html#l00057">MCRequest()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00073">vc::device::Frame3E::parseReceiveFrame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>, <a class="el" href="mc__request_8h_source.html#l00094">MCRequest()</a>, <a class="el" href="mc__request_8h_source.html#l00068">MCRequest()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00073">vc::device::Frame3E::parseReceiveFrame()</a>.</p>
 
 </div>
 </div>
@@ -758,14 +761,14 @@ Private Attributes</h2></td></tr>
 
 <p>Encoded write payload (words), built by the buildWriteData_* helpers. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00181">181</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__request_8h_source.html#l00192">192</a> of file <a class="el" href="mc__request_8h_source.html">mc_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00223">vc::device::Frame3E::build_write_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00281">vc::device::Frame3E::build_write_word()</a>, <a class="el" href="mc__request_8h_source.html#l00105">buildWriteData_Bit_Device()</a>, <a class="el" href="mc__request_8h_source.html#l00114">buildWriteData_Bit_Device()</a>, <a class="el" href="mc__request_8h_source.html#l00159">buildWriteData_Word_Device_DoubleFloat()</a>, <a class="el" href="mc__request_8h_source.html#l00136">buildWriteData_Word_Device_DoubleWord()</a>, <a class="el" href="mc__request_8h_source.html#l00147">buildWriteData_Word_Device_Float()</a>, <a class="el" href="mc__request_8h_source.html#l00129">buildWriteData_Word_Device_Word()</a>, <a class="el" href="mc__request_8h_source.html#l00121">buildWriteData_Word_Device_Word()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00223">vc::device::Frame3E::build_write_bit()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00281">vc::device::Frame3E::build_write_word()</a>, <a class="el" href="mc__request_8h_source.html#l00116">buildWriteData_Bit_Device()</a>, <a class="el" href="mc__request_8h_source.html#l00125">buildWriteData_Bit_Device()</a>, <a class="el" href="mc__request_8h_source.html#l00170">buildWriteData_Word_Device_DoubleFloat()</a>, <a class="el" href="mc__request_8h_source.html#l00147">buildWriteData_Word_Device_DoubleWord()</a>, <a class="el" href="mc__request_8h_source.html#l00158">buildWriteData_Word_Device_Float()</a>, <a class="el" href="mc__request_8h_source.html#l00140">buildWriteData_Word_Device_Word()</a>, <a class="el" href="mc__request_8h_source.html#l00132">buildWriteData_Word_Device_Word()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00025">vc::device::Frame3E::makeSendFrame()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__request_8h_source.html">mc_request.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__request_8h_source.html">mc_request.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

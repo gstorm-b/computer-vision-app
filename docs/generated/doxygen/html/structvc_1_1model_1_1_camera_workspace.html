@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1mo
 </div><!--header-->
 <div class="contents">
 
+<p>Per-camera workspace (ROI) used to crop the grabbed image before matching.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::model::CameraWorkspace:</div>
@@ -148,11 +151,11 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a71b2b661639af9bc8f1a22e5ed702e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Working workspace — crops the grabbed frame before matching.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Per-camera workspace (ROI) used to crop the grabbed image before matching.</p>
+<div class="textblock"><p>Per-camera workspace (ROI) used to crop the grabbed image before matching. </p>
 <p>Keyed by camera device id (stable across logical camera-number reassignment). The reference image (the last image used to define the ROI) is kept in memory so the workspace dialog can reopen it; it is persisted out-of-band as a BLOB through the project_images table (see <a class="el" href="classvc_1_1model_1_1_camera_workspace_map.html#ae6e097f0073b39deee817cf9b9fa89e4">CameraWorkspaceMap::imageKey</a>). Only the ROI rect + flag are serialized to JSON.</p>
 <p>Default is "workspace off": matching runs on the full grabbed frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00029">29</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00036">36</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="ac48375e3e51fa512dc3d28dbb1c536b3" name="ac48375e3e51fa512dc3d28dbb1c536b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac48375e3e51fa512dc3d28dbb1c536b3">&#9670;&#160;</a></span>hasConditionRoi()</h2>
@@ -179,9 +182,9 @@ Public Attributes</h2></td></tr>
 
 <p>Returns true if the condition ROI has a positive width and height. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00048">48</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00055">55</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00041">conditionRoi</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00048">conditionRoi</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>.</p>
 
@@ -212,9 +215,9 @@ Public Attributes</h2></td></tr>
 
 <p>Returns true if the working ROI has a positive width and height. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00046">46</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00053">53</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00032">roi</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00039">roi</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l02139">LocalizationPatternsWidget::runMatchingTest()</a>.</p>
 
@@ -235,9 +238,9 @@ Public Attributes</h2></td></tr>
 
 <p>image-pixel coordinates </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00041">41</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00048">48</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, <a class="el" href="camera__workspace_8h_source.html#l00109">vc::model::CameraWorkspaceMap::fromJson()</a>, <a class="el" href="camera__workspace_8h_source.html#l00048">hasConditionRoi()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>, <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00085">vc::model::CameraWorkspaceMap::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, <a class="el" href="camera__workspace_8h_source.html#l00121">vc::model::CameraWorkspaceMap::fromJson()</a>, <a class="el" href="camera__workspace_8h_source.html#l00055">hasConditionRoi()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>, <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00095">vc::model::CameraWorkspaceMap::toJson()</a>.</p>
 
 </div>
 </div>
@@ -255,7 +258,7 @@ Public Attributes</h2></td></tr>
 
 <p>in-memory only; not in JSON </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00043">43</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00050">50</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>.</p>
 
@@ -275,9 +278,9 @@ Public Attributes</h2></td></tr>
 
 <p>image-pixel coordinates </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00032">32</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00039">39</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, <a class="el" href="camera__workspace_8h_source.html#l00109">vc::model::CameraWorkspaceMap::fromJson()</a>, <a class="el" href="camera__workspace_8h_source.html#l00046">hasRoi()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l02139">LocalizationPatternsWidget::runMatchingTest()</a>, <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00085">vc::model::CameraWorkspaceMap::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, <a class="el" href="camera__workspace_8h_source.html#l00121">vc::model::CameraWorkspaceMap::fromJson()</a>, <a class="el" href="camera__workspace_8h_source.html#l00053">hasRoi()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l02139">LocalizationPatternsWidget::runMatchingTest()</a>, <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00095">vc::model::CameraWorkspaceMap::toJson()</a>.</p>
 
 </div>
 </div>
@@ -294,11 +297,11 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>enables the condition ROI described above </p>
-<p>Condition workspace — task-dependent region of interest. Unlike the working workspace (which crops the input), the condition workspace is interpreted by the owning task. For a localization task it is the region used to filter which detected objects count as valid. Defined in the same frame's pixel coordinates as the working ROI and shares this camera's reference image. <a class="el" href="classvc_1_1model_1_1_localization_pipeline.html">LocalizationPipeline</a> passes it to ImageMatcher::setMatchingConditionROI() when enabled. </p>
+<p>Condition workspace — task-dependent region of interest. Unlike the working workspace (which crops the input), the condition workspace is interpreted by the owning task. For a localization task it is the region used to filter which detected objects count as valid. Defined in the same frame's pixel coordinates as the working ROI and shares this camera's reference image. <a class="el" href="classvc_1_1model_1_1_localization_pipeline.html" title="Wires a MatchGroup&#39;s learned patterns into an ImageMatcher and runs workspace-aware matching for both...">LocalizationPipeline</a> passes it to ImageMatcher::setMatchingConditionROI() when enabled. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00040">40</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00047">47</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, <a class="el" href="camera__workspace_8h_source.html#l00109">vc::model::CameraWorkspaceMap::fromJson()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00357">LocalizationSettingWidget::onWorkspaceConditionToggled()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>, <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00085">vc::model::CameraWorkspaceMap::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, <a class="el" href="camera__workspace_8h_source.html#l00121">vc::model::CameraWorkspaceMap::fromJson()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00357">LocalizationSettingWidget::onWorkspaceConditionToggled()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>, <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00095">vc::model::CameraWorkspaceMap::toJson()</a>.</p>
 
 </div>
 </div>
@@ -317,14 +320,14 @@ Public Attributes</h2></td></tr>
 <p>Working workspace — crops the grabbed frame before matching. </p>
 <p>false =&gt; match the full frame </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00031">31</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00038">38</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, <a class="el" href="camera__workspace_8h_source.html#l00109">vc::model::CameraWorkspaceMap::fromJson()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01474">LocalizationPatternsWidget::onUseRoiToggled()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00344">LocalizationSettingWidget::onWorkspaceUseToggled()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l02139">LocalizationPatternsWidget::runMatchingTest()</a>, <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00085">vc::model::CameraWorkspaceMap::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01743">LocalizationPatternsWidget::buildWorkspaceOverlayRois()</a>, <a class="el" href="camera__workspace_8h_source.html#l00121">vc::model::CameraWorkspaceMap::fromJson()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01474">LocalizationPatternsWidget::onUseRoiToggled()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00344">LocalizationSettingWidget::onWorkspaceUseToggled()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00321">LocalizationSettingWidget::refreshWorkspaceRow()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l02139">LocalizationPatternsWidget::runMatchingTest()</a>, <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00095">vc::model::CameraWorkspaceMap::toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

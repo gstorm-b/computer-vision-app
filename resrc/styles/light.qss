@@ -513,6 +513,18 @@ PatternTreeWidget QPushButton[patternAction="edit"] {
 PatternTreeWidget QPushButton[patternAction="edit"]:hover   { background-color: @{selection.bg}; color: @{accent.primary}; border-color: @{accent.primary}; }
 PatternTreeWidget QPushButton[patternAction="edit"]:pressed { background-color: @{accent.primary}; color: @{bg.surface}; }
 
+/* Gripper preset editor — inline validation message (no message boxes, so a
+   rejected row is reported without interrupting the edit). */
+GripperRegisterDialog QLabel[messageKind="error"] {
+    color: @{state.error};
+    font: 9pt 'Segoe UI';
+}
+GripperRegisterDialog QLabel[messageKind="note"],
+GripperRegisterDialog QLabel#lbl_hint {
+    color: @{text.muted};
+    font: 9pt 'Segoe UI';
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    StatusLamp — Light theme
    ═══════════════════════════════════════════════════════════════════ */

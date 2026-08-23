@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/runtime Directory Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/runtime Directory Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -128,14 +128,22 @@ Directory dependency graph for runtime:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-files" class="groupheader"><a id="files" name="files"></a>
 Files</h2></td></tr>
 <tr class="memitem:camera_5Frunner_2Eh" id="r_camera_5Frunner_2Eh"><td class="memItemLeft"><a href="camera__runner_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="camera__runner_8h.html">camera_runner.h</a></td></tr>
+<tr class="memdesc:camera__runner_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">CameraRunner — per-camera thread runner mediating GUI-thread requests and the camera device's own worker thread via the DeviceCommand model. <br /></td></tr>
 <tr class="memitem:device_5Fcommand_2Eh" id="r_device_5Fcommand_2Eh"><td class="memItemLeft"><a href="device__command_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="device__command_8h.html">device_command.h</a></td></tr>
+<tr class="memdesc:device__command_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value types for device commands and their results — DeviceCommand, DeviceCommandResult, and the DeviceCommandKind/DeviceCommandResultStatus/DeviceCommandResultCode enums used by the runtime layer's device runners and command queue to dispatch work to, and report outcomes from, per-device worker threads. <br /></td></tr>
 <tr class="memitem:device_5Fcommand_5Fqueue_2Eh" id="r_device_5Fcommand_5Fqueue_2Eh"><td class="memItemLeft"><a href="device__command__queue_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="device__command__queue_8h.html">device_command_queue.h</a></td></tr>
+<tr class="memdesc:device__command__queue_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO queue and enqueue policy for device commands awaiting dispatch to a busy device runner (see DeviceCommandQueue). <br /></td></tr>
 <tr class="memitem:device_5Frunner_2Eh" id="r_device_5Frunner_2Eh"><td class="memItemLeft"><a href="device__runner_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="device__runner_8h.html">device_runner.h</a></td></tr>
+<tr class="memdesc:device__runner_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">CRTP base template (DeviceRunner&lt;TDevice&gt;) providing shared thread-lifecycle (start/stop/attach/detach) boilerplate for per-device IDeviceRunner implementations. <br /></td></tr>
 <tr class="memitem:idevice_5Frunner_2Eh" id="r_idevice_5Frunner_2Eh"><td class="memItemLeft"><a href="idevice__runner_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="idevice__runner_8h.html">idevice_runner.h</a></td></tr>
+<tr class="memdesc:idevice__runner_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract interface (IDeviceRunner) for per-device thread controllers that own and drive a device on its own worker QThread. <br /></td></tr>
 <tr class="memitem:plc_5Frunner_2Eh" id="r_plc_5Frunner_2Eh"><td class="memItemLeft"><a href="plc__runner_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="plc__runner_8h.html">plc_runner.h</a></td></tr>
+<tr class="memdesc:plc__runner_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">PlcRunner — family-level thread runner for PLC devices, mediating GUI-thread commission requests and runtime polling updates across the PLC device's worker thread. <br /></td></tr>
 <tr class="memitem:task_5Frunner_2Ecpp" id="r_task_5Frunner_2Ecpp"><td class="memItemLeft"><a href="task__runner_8cpp_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="task__runner_8cpp.html">task_runner.cpp</a></td></tr>
 <tr class="memitem:task_5Frunner_2Eh" id="r_task_5Frunner_2Eh"><td class="memItemLeft"><a href="task__runner_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="task__runner_8h.html">task_runner.h</a></td></tr>
+<tr class="memdesc:task__runner_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">TaskRunner — owns and drives per-device runner threads through the Idle/Commission/Runtime lifecycle for one task. <br /></td></tr>
 <tr class="memitem:vision_5Foutput_5Frunner_2Eh" id="r_vision_5Foutput_5Frunner_2Eh"><td class="memItemLeft"><a href="vision__output__runner_8h_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="vision__output__runner_8h.html">vision_output_runner.h</a></td></tr>
+<tr class="memdesc:vision__output__runner_8h"><td class="mdescLeft">&#160;</td><td class="mdescRight">VisionOutputRunner — per-device thread runner for the VisionOutput device family: thread lifecycle, signal wiring, and request forwarding to the device's worker thread. <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

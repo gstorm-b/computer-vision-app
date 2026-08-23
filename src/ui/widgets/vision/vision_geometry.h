@@ -11,8 +11,12 @@
 
 #include "ui/widgets/vision/vision_overlay_types.h"
 
-/// Free functions for converting between OpenCV/ROI geometry and Qt geometry types
-/// (pixmap conversion, ROI-to-rect/polygon conversion, normalization and clamping).
+/**
+ * @file vision_geometry.h
+ * @brief Free functions for converting between OpenCV/ROI geometry and Qt geometry types
+ *        (pixmap conversion, ROI-to-rect/polygon conversion, normalization and clamping).
+ */
+
 namespace vision {
 
 /// Converts an 8-bit grayscale, BGR, or BGRA cv::Mat into a QPixmap, copying the pixel

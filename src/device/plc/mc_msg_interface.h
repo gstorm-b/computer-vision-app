@@ -1,6 +1,12 @@
 #ifndef MC_MSG_INTERFACE_H
 #define MC_MSG_INTERFACE_H
 
+/**
+ * @file mc_msg_interface.h
+ * @brief Abstract message-interface (transport) config (McMsgItfConfig) and transport
+ *        interface (McMsgInterface) for the Mitsubishi MC-protocol PLC integration.
+ */
+
 #include <QByteArray>
 #include <QIODevice>
 #include <QJsonObject>
@@ -14,13 +20,15 @@
 
 using namespace vc::device::mc;
 
-/// Device-family classes for the MC (Mitsubishi) protocol PLC integration.
 namespace vc::device {
 
-/// Abstract base for a message-interface (transport) configuration: the common
-/// connect/write/response timeout Q_GADGET properties shared by every McMsgInterface
-/// transport, plus the JSON (de)serialization and meta-object hooks each transport-specific
-/// subclass (e.g. McMsgEthernetTcpCfg) must implement.
+/**
+ * @class McMsgItfConfig
+ * @brief Abstract base for a message-interface (transport) configuration: the common
+ *        connect/write/response timeout Q_GADGET properties shared by every McMsgInterface
+ *        transport, plus the JSON (de)serialization and meta-object hooks each transport-specific
+ *        subclass (e.g. McMsgEthernetTcpCfg) must implement.
+ */
 class McMsgItfConfig {
     Q_GADGET
 
@@ -96,12 +104,18 @@ public:
 };
 
 
-/// Abstract transport (message interface) to a PLC: connect/disconnect the port and
-/// send/receive raw byte buffers over it. Concrete subclasses (e.g. McEthernetTcpPort)
-/// implement the actual I/O for a specific McMsgItfType.
+/**
+ * @class McMsgInterface
+ * @brief Abstract transport (message interface) to a PLC: connect/disconnect the port and
+ *        send/receive raw byte buffers over it. Concrete subclasses (e.g. McEthernetTcpPort)
+ *        implement the actual I/O for a specific McMsgItfType.
+ */
 class McMsgInterface {
 public:
-    /// Connection lifecycle state of the underlying port.
+    /**
+     * @enum MsgIfState
+     * @brief Connection lifecycle state of the underlying port.
+     */
     enum MsgIfState {
         NotInit = 0,   ///< Port not yet initialized/connected.
         NoConnection,  ///< Port initialized but currently disconnected.
@@ -110,7 +124,10 @@ public:
         Error          ///< Port is in an unrecoverable error state.
     };
 
-    /// Outcome of the most recent SendMsg()/ReceiveMsg() call.
+    /**
+     * @enum MsgErrorState
+     * @brief Outcome of the most recent SendMsg()/ReceiveMsg() call.
+     */
     enum MsgErrorState {
         NoError = 0,      ///< The last send/receive completed without error.
         WriteTimeout,     ///< SendMsg() timed out waiting for the bytes to be written.
@@ -141,8 +158,12 @@ public:
     /// @return NoError on success, BufferEmpty/WriteTimeout/ErrorOcurred on failure
     virtual const MsgErrorState SendMsg(QByteArray &buffer) = 0;
 
-    /// Reads any available bytes into `buffer`, waiting up to `wait_buffer` ms for data to arrive.
-    /// @return NoError if bytes were appended, BufferEmpty/ResponseTimeout otherwise
+    /**
+     * @brief Reads any available bytes into `buffer`, waiting up to `wait_buffer` ms for data.
+     * @param[out] buffer buffer to append received bytes to
+     * @param[in]  wait_buffer maximum wait time in milliseconds
+     * @return NoError if bytes were appended, BufferEmpty/ResponseTimeout otherwise
+     */
     virtual const MsgErrorState ReceiveMsg(QByteArray &buffer, int wait_buffer = 5) = 0;
 
     /// Discards any buffered/unread incoming bytes on the port.

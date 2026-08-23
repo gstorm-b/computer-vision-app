@@ -16,8 +16,15 @@
 #   - Qt runtime       : Qt DLLs + plugins via windeployqt (--release/--debug).
 #
 # Intentionally NOT handled here:
-#   - RobotKinematics / Coal / Assimp / Boost — already deployed by
-#     components/RobotKinematics/robotkinematics.pri (would double-copy).
+#   - RobotKinematics / Coal / Assimp / Boost / robot_assets — deployed by
+#     components/RobotKinematics/robotkinematics.pri (listing them here too would
+#     double-copy). That component is reusable outside this repository and ships
+#     its own examples, so it owns the names of its own runtime files; copying
+#     them from here would duplicate that knowledge and break its other consumers
+#     the first time a version changed. Both mechanisms resolve their destination
+#     from DESTDIR, so the split costs nothing at the output: one folder either
+#     way. See qmake/app_common.pri for where DESTDIR is set and why the order
+#     matters.
 #   - Full Basler deployment (GenTL producers + GENICAM_GENTL64_PATH) — that is
 #     installer territory, tracked in docs/backlog/later_todo_list.md #27.
 #
@@ -47,6 +54,9 @@ win32:contains(CONFIG, deploy_deps) {
 
     # --- OpenCV world (from OPENCV_BIN; names resolved by opencv_dependency.pri) ---
     DEPLOY_OPENCV_BIN = $$(OPENCV_BIN)
+    # Same precedence as the include/lib paths: environment first, then the untracked
+    # qmake/local_paths.pri that local_dependencies.pri has already read.
+    isEmpty(DEPLOY_OPENCV_BIN): DEPLOY_OPENCV_BIN = $$OPENCV_BIN
     isEmpty(DEPLOY_OPENCV_BIN) {
         warning("deploy_deps: OPENCV_BIN not set - OpenCV world DLL will not be deployed")
     } else {
@@ -56,6 +66,7 @@ win32:contains(CONFIG, deploy_deps) {
 
     # --- Basler Pylon runtime (every top-level DLL in PYLON_RUNTIME_DIR) ---
     DEPLOY_PYLON_DIR = $$(PYLON_RUNTIME_DIR)
+    isEmpty(DEPLOY_PYLON_DIR): DEPLOY_PYLON_DIR = $$PYLON_RUNTIME_DIR
     isEmpty(DEPLOY_PYLON_DIR) {
         warning("deploy_deps: PYLON_RUNTIME_DIR not set - Pylon runtime DLLs will not be deployed")
     } else {

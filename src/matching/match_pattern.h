@@ -7,28 +7,39 @@
 #include "match_pattern_layer.h"
 #include "manager_result.h"
 
-/// Vision/matching module: MatchPattern, a single learned template plus its per-pattern
-/// configuration and learned pyramid/edge data.
+/**
+ * @file match_pattern.h
+ * @brief MatchPattern — a single learned template plus its per-pattern configuration and
+ *        learned pyramid/edge data.
+ */
+
 namespace mtc {
 
 class MatchGroup;
 class EdgeMatchConfig;
 
-/// A single learned template.
-///
-/// Carries a MatchPatternConfig (identity + per-pattern search params) plus the
-/// data computed by learnPattern(): image pyramids, edge point arrays, contour
-/// masks, etc.  The algorithm (Edge-Based) config is shared at the group level
-/// (MatchGroupConfig::typeConfig) and fetched via the parent group.
-///
-/// To change per-pattern settings after construction, retrieve a copy of the
-/// config, modify the relevant fields, then call setConfig().
+/**
+ * @class MatchPattern
+ * @brief A single learned template.
+ *
+ * Carries a MatchPatternConfig (identity + per-pattern search params) plus the data computed
+ * by learnPattern(): image pyramids, edge point arrays, contour masks, etc. The algorithm
+ * (Edge-Based) config is shared at the group level (MatchGroupConfig::typeConfig) and fetched
+ * via the parent group.
+ *
+ * To change per-pattern settings after construction, retrieve a copy of the config, modify the
+ * relevant fields, then call setConfig().
+ */
 class MatchPattern {
 public:
     /// Default-constructs with an empty config and no parent group.
     MatchPattern();
-    /// Constructs with a copy of `config` and a back-pointer to the owning `parent` group
-    /// (used to fetch the shared Edge-Based algorithm config).
+    /**
+     * @brief Constructs with a copy of `config` and a back-pointer to the owning `parent` group
+     *        (used to fetch the shared Edge-Based algorithm config).
+     * @param[in] config per-pattern identity, search params, and raw training image
+     * @param[in] parent owning group; used to fetch the shared Edge-Based config
+     */
     MatchPattern(const MatchPatternConfig& config, MatchGroup* parent);
 
     std::wstring name()   const { return m_config.m_patternName; }  ///< Returns the pattern's display name.

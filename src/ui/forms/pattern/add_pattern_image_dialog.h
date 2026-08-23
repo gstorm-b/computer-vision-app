@@ -10,9 +10,18 @@ namespace Ui {
 class AddPatternImageDialog;
 }
 
-/// Modal dialog for building a single pattern image: the user either triggers a camera
-/// capture (requestImage()/setMainViewImage()) or picks a file from disk, then optionally
-/// draws an ROI and crops it; the resulting image is retrieved via getFinalImage().
+/**
+ * @file add_pattern_image_dialog.h
+ * @brief AddPatternImageDialog — modal dialog for building a single pattern image.
+ */
+
+/**
+ * @class AddPatternImageDialog
+ * @brief Modal dialog for building a single pattern image: the user either triggers a camera
+ *        capture (requestImage()/setMainViewImage()) or picks a file from disk, then
+ *        optionally draws an ROI and crops it; the resulting image is retrieved via
+ *        getFinalImage().
+ */
 class AddPatternImageDialog : public QDialog {
     Q_OBJECT
 
@@ -68,13 +77,17 @@ private:
     /// stack back to the main view, clears the cropped flag, and resets the crop button label
     /// to "Crop".
     void btn_back_clicked();
-    /// Toggles between previewing and finalizing a crop. If already in the cropped state,
-    /// accepts the dialog with the previously cropped pixmap as the final image. Does nothing
-    /// further if the main view has no image; otherwise (re-)derives the cropped pixmap from
-    /// the current ROI, loads it into the crop view, switches the stack to it, marks the
-    /// dialog as cropped, and updates button states/label to "Apply".
-    /// @note when already cropped, execution falls through past accept() into the
-    ///       re-crop/preview logic below rather than returning immediately.
+    /**
+     * @brief Toggles between previewing and finalizing a crop. If already in the cropped
+     *        state, accepts the dialog with the previously cropped pixmap as the final image.
+     *        Does nothing further if the main view has no image; otherwise (re-)derives the
+     *        cropped pixmap from the current ROI, loads it into the crop view, switches the
+     *        stack to it, marks the dialog as cropped, and updates button states/label to
+     *        "Apply".
+     *
+     * @note When already cropped, execution falls through past accept() into the
+     *       re-crop/preview logic below rather than returning immediately.
+     */
     void btn_crop_clicked();
 
     /// Slot for the main view's signal_draw_roi_finished(): ignores a null `roi`, otherwise

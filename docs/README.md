@@ -21,8 +21,12 @@ task; do not load the whole tree by default.
 | Domain | Read |
 |---|---|
 | Task Localization | [domains/task_localization/README.md](domains/task_localization/README.md) |
+| Operator runtime shell (`ncr_runtime.exe`) | [domains/runtime_app/runtime_shell.md](domains/runtime_app/runtime_shell.md) |
+| Virtual (hardware-free) devices | [domains/virtual_devices/virtual_devices.md](domains/virtual_devices/virtual_devices.md) |
+| Pick geometry &amp; vision output contract | [domains/task_localization/pick_geometry_and_output_contract.md](domains/task_localization/pick_geometry_and_output_contract.md) |
 | Signal map widgets | [domains/signal_map/](domains/signal_map/) |
 | Calibration | [domains/calibration/calibration_module.md](domains/calibration/calibration_module.md) |
+| Calibration points table UI | [domains/calibration/calibration_tables_point.md](domains/calibration/calibration_tables_point.md) |
 | RobotKinematics integration | [architecture/robot_kinematics_module.md](architecture/robot_kinematics_module.md) |
 | Device type notes | [architecture/device_type.md](architecture/device_type.md) |
 
@@ -38,10 +42,14 @@ task; do not load the whole tree by default.
 
 ## Product And Packaging
 
+**Phase 4 is on hold as of 2026-07-28.** Both documents below are recorded plans,
+not active work — read them for the release shape decision, not as a task list.
+
 | Purpose | Read |
 |---|---|
-| Product/release shape | [product/phase4_product_release_plan.md](product/phase4_product_release_plan.md) |
-| Customer installer risk and checklist | [product/customer_installer_packaging.md](product/customer_installer_packaging.md) |
+| Install image manifest (`dist/`) | [product/install_image.md](product/install_image.md) |
+| Product/release shape (on hold) | [product/phase4_product_release_plan.md](product/phase4_product_release_plan.md) |
+| Customer installer risk and checklist (on hold) | [product/customer_installer_packaging.md](product/customer_installer_packaging.md) |
 
 ## Traceability Only
 
@@ -51,9 +59,8 @@ These files are valuable history, but they are not current source of truth.
 |---|---|
 | [history/restructure/](history/restructure/) | Phase verification notes and closeout records |
 | [history/handoffs/](history/handoffs/) | Completed agent handoff/rework requests |
-| [history/onboarding/](history/onboarding/) | Superseded onboarding docs |
 | [history/old_session/](history/old_session/) | Legacy session notes |
-| [history/request_prompts/](history/request_prompts/) | Original user/request prompts and sample assets |
+| [history/request/](history/request/) | Original user/request prompts and sample assets |
 
 ## Generated And Artifacts
 

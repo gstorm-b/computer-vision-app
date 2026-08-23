@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_m
 </div><!--header-->
 <div class="contents">
 
+<p>Result data for a single match candidate produced during pattern search: its location/score/angle, the search ROI and rotated/bounding geometry, and the sub-pixel refinement fields filled in by the fine-search stage.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="match__params_8h_source.html">match_params.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::MatchParams:</div>
@@ -131,6 +134,7 @@ Collaboration diagram for mtc::MatchParams:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a57ae97265c60ae187b5e321ee6c396" id="r_a8a57ae97265c60ae187b5e321ee6c396"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8a57ae97265c60ae187b5e321ee6c396">MatchParams</a> ()</td></tr>
 <tr class="memitem:ad873b28a36aab9901261f17e21eed338" id="r_ad873b28a36aab9901261f17e21eed338"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad873b28a36aab9901261f17e21eed338">MatchParams</a> (cv::Point2f ptMinMax, double score, double angle)</td></tr>
+<tr class="memdesc:ad873b28a36aab9901261f17e21eed338"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a match result at <span class="tt">ptMinMax</span> with the given <span class="tt">score</span> and <span class="tt">angle</span>; initializes _delete, _newAngle, and _posOnBorder to their defaults (other fields are left uninitialized).  <br /></td></tr>
 <tr class="memitem:abd11c1f8fa1a7486f3cd1eb100ea83ab" id="r_abd11c1f8fa1a7486f3cd1eb100ea83ab"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#abd11c1f8fa1a7486f3cd1eb100ea83ab">~MatchParams</a> ()</td></tr>
 <tr class="memdesc:abd11c1f8fa1a7486f3cd1eb100ea83ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -168,7 +172,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Result data for a single match candidate produced during pattern search: its location/score/angle, the search ROI and rotated/bounding geometry, and the sub-pixel refinement fields filled in by the fine-search stage. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00013">13</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00019">19</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8a57ae97265c60ae187b5e321ee6c396" name="a8a57ae97265c60ae187b5e321ee6c396"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a57ae97265c60ae187b5e321ee6c396">&#9670;&#160;</a></span>MatchParams() <span class="overload">[1/2]</span></h2>
@@ -188,7 +192,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__params_8cpp_source.html#l00007">7</a> of file <a class="el" href="match__params_8cpp_source.html">match_params.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__params_8h_source.html#l00028">_matchAngle</a>, and <a class="el" href="match__params_8h_source.html#l00027">_matchScore</a>.</p>
+<p class="reference">References <a class="el" href="match__params_8h_source.html#l00039">_matchAngle</a>, and <a class="el" href="match__params_8h_source.html#l00038">_matchScore</a>.</p>
 
 </div>
 </div>
@@ -215,11 +219,21 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructs a match result at <span class="tt">ptMinMax</span> with the given <span class="tt">score</span> and <span class="tt">angle</span>; initializes _delete, _newAngle, and _posOnBorder to their defaults (other fields are left uninitialized). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ptMinMax</td><td>initial match location in image coordinates </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">score</td><td>match score for this candidate </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">angle</td><td>rotation angle (degrees) at which this candidate was found</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Constructs a match result at <span class="tt">ptMinMax</span> with the given <span class="tt">score</span> and <span class="tt">angle</span>; initializes _delete, _newAngle, and _posOnBorder to their defaults (other fields are left uninitialized). </p>
 
 <p class="definition">Definition at line <a class="el" href="match__params_8cpp_source.html#l00015">15</a> of file <a class="el" href="match__params_8cpp_source.html">match_params.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__params_8h_source.html#l00036">_delete</a>, <a class="el" href="match__params_8h_source.html#l00028">_matchAngle</a>, <a class="el" href="match__params_8h_source.html#l00027">_matchScore</a>, <a class="el" href="match__params_8h_source.html#l00043">_newAngle</a>, <a class="el" href="match__params_8h_source.html#l00026">_point</a>, and <a class="el" href="match__params_8h_source.html#l00041">_posOnBorder</a>.</p>
+<p class="reference">References <a class="el" href="match__params_8h_source.html#l00047">_delete</a>, <a class="el" href="match__params_8h_source.html#l00039">_matchAngle</a>, <a class="el" href="match__params_8h_source.html#l00038">_matchScore</a>, <a class="el" href="match__params_8h_source.html#l00054">_newAngle</a>, <a class="el" href="match__params_8h_source.html#l00037">_point</a>, and <a class="el" href="match__params_8h_source.html#l00052">_posOnBorder</a>.</p>
 
 </div>
 </div>
@@ -259,7 +273,7 @@ Public Attributes</h2></td></tr>
 
 <p>End of the angle range searched for this candidate. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00033">33</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00044">44</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 </div>
 </div>
@@ -277,7 +291,7 @@ Public Attributes</h2></td></tr>
 
 <p>Start of the angle range searched for this candidate. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00032">32</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00043">43</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 </div>
 </div>
@@ -295,7 +309,7 @@ Public Attributes</h2></td></tr>
 
 <p>True when this candidate is marked for removal (e.g. during overlap/non-max filtering). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00036">36</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00047">47</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__params_8cpp_source.html#l00015">MatchParams()</a>.</p>
 
@@ -315,7 +329,7 @@ Public Attributes</h2></td></tr>
 
 <p>Rotation angle (degrees) at which this candidate was found. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00028">28</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00039">39</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__params_8cpp_source.html#l00007">MatchParams()</a>, and <a class="el" href="match__params_8cpp_source.html#l00015">MatchParams()</a>.</p>
 
@@ -335,7 +349,7 @@ Public Attributes</h2></td></tr>
 
 <p>Match score for this candidate. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00027">27</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00038">38</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00072">mtc::compareScoreBig2Small()</a>, <a class="el" href="match__params_8cpp_source.html#l00007">MatchParams()</a>, and <a class="el" href="match__params_8cpp_source.html#l00015">MatchParams()</a>.</p>
 
@@ -355,7 +369,7 @@ Public Attributes</h2></td></tr>
 
 <p>Index of the highest-scoring entry considered for this candidate. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00040">40</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00051">51</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 </div>
 </div>
@@ -373,7 +387,7 @@ Public Attributes</h2></td></tr>
 
 <p>Refined match angle after sub-pixel correction. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00043">43</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00054">54</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__params_8cpp_source.html#l00015">MatchParams()</a>.</p>
 
@@ -393,7 +407,7 @@ Public Attributes</h2></td></tr>
 
 <p>Match location in image coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00026">26</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00037">37</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__params_8cpp_source.html#l00015">MatchParams()</a>.</p>
 
@@ -413,7 +427,7 @@ Public Attributes</h2></td></tr>
 
 <p>Sub-pixel-refined match location. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00042">42</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00053">53</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 </div>
 </div>
@@ -431,7 +445,7 @@ Public Attributes</h2></td></tr>
 
 <p>True when the match position lies on the search border (sub-pixel refinement skipped). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00041">41</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00052">52</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__params_8cpp_source.html#l00015">MatchParams()</a>.</p>
 
@@ -451,7 +465,7 @@ Public Attributes</h2></td></tr>
 
 <p>Axis-aligned bounding rectangle enclosing _rectR. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00035">35</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00046">46</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 </div>
 </div>
@@ -469,7 +483,7 @@ Public Attributes</h2></td></tr>
 
 <p>Rotated rectangle of the match footprint at _matchAngle. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00034">34</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00045">45</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 </div>
 </div>
@@ -487,7 +501,7 @@ Public Attributes</h2></td></tr>
 
 <p>Search region of interest used to locate this candidate. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00031">31</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00042">42</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 </div>
 </div>
@@ -505,13 +519,13 @@ Public Attributes</h2></td></tr>
 
 <p>3x3 neighborhood of scores around the peak, used for sub-pixel interpolation. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00039">39</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__params_8h_source.html#l00050">50</a> of file <a class="el" href="match__params_8h_source.html">match_params.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__params_8h_source.html">match_params.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__params_8cpp_source.html">match_params.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__params_8h_source.html">match_params.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__params_8cpp_source.html">match_params.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

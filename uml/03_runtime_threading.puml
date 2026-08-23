@@ -301,6 +301,26 @@ note right of CameraRunner
   CameraSingleShot -> FIFO queue.
   CameraApplyParams -> replace pending same-kind request.
   Active command timeout emits Failed(TimedOut).
+
+  Grab retry lives HERE, not in the caller: a failed
+  single-shot is re-issued up to kMaxGrabAttempts (6),
+  each attempt getting its own watchdog window. The
+  caller sees exactly one outcome per command --
+  grabFinished is not re-emitted for an intermediate
+  failure -- so fault code 102 means EVERY attempt
+  failed. The budget resets when a command starts,
+  not when one succeeds.
+
+  kSingleShotTimeoutMs (8000) must stay above the
+  camera's own blocking grab timeout (5000). When it
+  did not, the runner gave up while the camera was
+  still waiting and the real result arrived with no
+  command left to resolve.
+
+  The watchdog ends the COMMAND, never the device call:
+  it cannot unblock a device thread inside a driver.
+  The device must report every grab through
+  grabFinished and publish LostConnected on removal.
 end note
 
 note right of LocalizationRuntimeController

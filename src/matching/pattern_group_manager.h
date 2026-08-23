@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QList>
-#include <QMessageBox>
+// #include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
@@ -12,18 +12,33 @@
 #include "match_group.h"
 #include "manager_result.h"
 
-/// Machine-vision pattern-matching model: match groups/patterns
-/// (MatchGroup, MatchPattern) and their owning manager (PatternGroupManager).
+/**
+ * @file pattern_group_manager.h
+ * @brief PatternGroupManager — owns the full library of MatchGroup/MatchPattern instances for a
+ *        task, validates mutations, emits change signals, and (de)serialises to/from JSON.
+ */
+
 namespace mtc {
 
-/// Owns the full library of MatchGroup instances (and, transitively, their
-/// MatchPattern children) for a task: validates group/pattern mutations,
-/// emits Qt change signals for every successful mutation (see
-/// design_rules.md 4.1), and (de)serialises the whole library to/from JSON.
+/**
+ * @class PatternGroupManager
+ * @brief Owns the full library of MatchGroup instances (and, transitively, their MatchPattern
+ *        children) for a task: validates group/pattern mutations, emits Qt change signals for
+ *        every successful mutation, and (de)serialises the whole library to/from JSON.
+ */
 class PatternGroupManager : public QObject {
     Q_OBJECT
 
 public:
+    /// Persistence schema version for the pattern library. Bump when the on-disk shape
+    /// changes in a way older readers cannot parse, and extend the compatibility read in
+    /// pattern_group_manager.cpp. A document with no "version" key is the pre-versioning
+    /// legacy baseline (version 0), whose gripper geometry lived in three flat keys.
+    /// v2 moved the jaw angle back out of the nested "gripperBoxes" object; the bump
+    /// matters because a v1-era build reading a v2 document would find no nested angle,
+    /// silently load 0, and ignore the flat key that actually holds it.
+    static constexpr int kSchemaVersion = 2;
+
     /// Constructs an empty manager with no groups.
     explicit PatternGroupManager(QObject *parent = nullptr);
     /// Destroys the manager; each held MatchGroup is released when its
@@ -112,11 +127,14 @@ public:
     /// groupToJson() in pattern_group_manager.cpp. Training images are not
     /// included; they travel separately through the project_images BLOB table.
     QJsonObject toJson() const;
-    /// Replaces the entire library with the groups/patterns decoded from
-    /// `obj` (schema as produced by toJson()). Existing groups are removed
-    /// first via removeGroupByNumber().
-    /// @return true if every group and pattern loaded without error; on
-    /// partial failure the load continues and errors are logged via LOG_DEV_ERR.
+    /**
+     * @brief Replaces the entire library with the groups/patterns decoded from `obj`
+     *        (schema as produced by toJson()). Existing groups are removed first via
+     *        removeGroupByNumber().
+     * @param[in] obj JSON object previously produced by toJson()
+     * @return true if every group and pattern loaded without error; on partial failure the
+     *         load continues and errors are logged via LOG_DEV_ERR
+     */
     bool fromJson(const QJsonObject &obj);
 
 signals:
@@ -144,10 +162,14 @@ signals:
     void patternChanged (MatchGroup *group, MatchPattern *pattern, const QString &field);
 
 private:
-    /// Validates `cfg` before it is used to add or replace a group: rejects
-    /// an empty name and rejects a name/number collision with any existing
-    /// group other than `excludeName` (used when renaming/reconfiguring in
-    /// place).
+    /**
+     * @brief Validates `cfg` before it is used to add or replace a group: rejects an empty
+     *        name and rejects a name/number collision with any existing group other than
+     *        `excludeName` (used when renaming/reconfiguring in place).
+     * @param[in] cfg         candidate group config to validate
+     * @param[in] excludeName group name to skip during the collision check
+     * @return success, or a failure describing the first violated constraint
+     */
     ManagerResult validateGroupConfig(const MatchGroupConfig &cfg,
                                       const QString &excludeName = {}) const;
 

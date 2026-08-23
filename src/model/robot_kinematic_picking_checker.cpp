@@ -152,12 +152,16 @@ RobotKinematicPickingChecker::RobotKinematicPickingChecker(
     // signs against the preset). An empty config path degrades to a single
     // zero-offset, unconstrained waypoint (the bare pick pose).
     if (m_config.pickPath.isEmpty()) {
-        m_waypoints.push_back(Waypoint{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0, 0, 0});
+        m_waypoints.push_back(Waypoint{0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                                       false, false, false, false, false, false,
+                                       0, 0, 0});
     } else {
         for (const vc::device::PickPathPoint& p : m_config.pickPath) {
             Waypoint wp;
             wp.dx = p.dx; wp.dy = p.dy; wp.dz = p.dz;
             wp.dRoll = p.dRoll; wp.dPitch = p.dPitch; wp.dYaw = p.dYaw;
+            wp.absX = p.absX; wp.absY = p.absY; wp.absZ = p.absZ;
+            wp.absRoll = p.absRoll; wp.absPitch = p.absPitch; wp.absYaw = p.absYaw;
             wp.shoulder = labelToSign(m_robot, "shoulder", p.shoulder);
             wp.elbow    = labelToSign(m_robot, "elbow",    p.elbow);
             wp.wrist    = labelToSign(m_robot, "wrist",    p.wrist);
@@ -177,8 +181,8 @@ bool RobotKinematicPickingChecker::imageToWorld(double imgX, double imgY,
     out.x_mm  = robot.x;
     out.y_mm  = robot.y;
     out.z_mm  = robot.z;
-    // out.r_deg = m_calibrator.rotateImageToRobot(imgAngleDeg, false);
-    out.r_deg = -m_calibrator.rotateImageToRobot(imgAngleDeg, false);
+    // out.r_deg = m_calibrator.rotateImageToRobot(imgAngleDeg);
+    out.r_deg = -m_calibrator.rotateImageToRobot(imgAngleDeg);
     return true;
 }
 
@@ -192,9 +196,18 @@ bool RobotKinematicPickingChecker::isPickable(const mtc::WorldPickPose& pose,
         return false;
 
     // Base pick pose in the robot/world frame. Path offsets compose in the TOOL
-    // frame: waypoint = pickPose * offset.
+    // frame: waypoint = basePose * offset.
     const RobotKinematics::Pose pickPose = RobotKinematics::Pose::fromXYZRPY_mm_deg(
         pose.x_mm, pose.y_mm, pose.z_mm, 0.0, 0.0, pose.r_deg);
+
+    // The pattern's own picking offset composes first, in the TOOL frame. This is the
+    // same product LocalizationRuntimeController::buildVisionOutputPositions applies to
+    // the pose it emits, so the advisory verdict is about the pose the robot is really
+    // commanded to. An all-zero offset leaves basePose == pickPose (pre-Phase-5 behaviour).
+    const RobotKinematics::Pose patternOffset = RobotKinematics::Pose::fromXYZRPY_mm_deg(
+        pose.offsetX_mm, pose.offsetY_mm, pose.offsetZ_mm,
+        pose.offsetRx_deg, pose.offsetRy_deg, pose.offsetRz_deg);
+    const RobotKinematics::Pose basePose = pickPose * patternOffset;
 
     // Collision profile is loaded only when requested. When unavailable the
     // collision check degrades to advisory (it does not reject a solution).
@@ -209,11 +222,40 @@ bool RobotKinematicPickingChecker::isPickable(const mtc::WorldPickPose& pose,
             wp.dx, wp.dy, wp.dz, wp.dRoll, wp.dPitch, wp.dYaw);
 
         RobotKinematics::IKRequest req;
-        req.targetPose = pickPose * offset;
+        req.targetPose = basePose * offset;
+
+        // Per-axis absolute overrides. A waypoint that mixes absolute and relative axes
+        // cannot be written as a single transform product, so decompose the composed
+        // pose into base-frame XYZ + fixed-axis RPY, overwrite only the flagged axes
+        // with their absolute values, and rebuild. Waypoints with no absolute axis skip
+        // this entirely and keep exactly the pose the product produced.
+        if (!wp.allRelative()) {
+            const Eigen::Vector3d t = req.targetPose.translation_m();
+            // canonicalEulerAngles(2,1,0) is intrinsic ZYX, i.e. [yaw, pitch, roll].
+            const Eigen::Vector3d zyx =
+                req.targetPose.isometry().linear().canonicalEulerAngles(2, 1, 0);
+
+            double x     = RobotKinematics::units::toMm(t.x());
+            double y     = RobotKinematics::units::toMm(t.y());
+            double z     = RobotKinematics::units::toMm(t.z());
+            double roll  = RobotKinematics::units::toDeg(zyx[2]);
+            double pitch = RobotKinematics::units::toDeg(zyx[1]);
+            double yaw   = RobotKinematics::units::toDeg(zyx[0]);
+
+            if (wp.absX)     x     = wp.dx;
+            if (wp.absY)     y     = wp.dy;
+            if (wp.absZ)     z     = wp.dz;
+            if (wp.absRoll)  roll  = wp.dRoll;
+            if (wp.absPitch) pitch = wp.dPitch;
+            if (wp.absYaw)   yaw   = wp.dYaw;
+
+            req.targetPose =
+                RobotKinematics::Pose::fromXYZRPY_mm_deg(x, y, z, roll, pitch, yaw);
+        }
+
         req.tool = RobotKinematics::ToolId{kPickingToolId};
 
-        const Eigen::Vector3d eulerZyx = req.targetPose.isometry().linear().canonicalEulerAngles(2, 1, 0);
-
+        // const Eigen::Vector3d eulerZyx = req.targetPose.isometry().linear().canonicalEulerAngles(2, 1, 0);
         // qDebug() << "Check Pose"
         //          << RobotKinematics::units::toMm(req.targetPose.translation_m().x())
         //          << RobotKinematics::units::toMm(req.targetPose.translation_m().y())
@@ -228,6 +270,15 @@ bool RobotKinematicPickingChecker::isPickable(const mtc::WorldPickPose& pose,
 
         bool waypointOk = false;
         for (const RobotKinematics::IKSolution& sol : ik.solutions) {
+            // qDebug() << "\t -IK possibility"
+            //          << RobotKinematics::units::toDeg(sol.joints[0])
+            //          << RobotKinematics::units::toDeg(sol.joints[1])
+            //          << RobotKinematics::units::toDeg(sol.joints[2])
+            //          << RobotKinematics::units::toDeg(sol.joints[3])
+            //          << RobotKinematics::units::toDeg(sol.joints[4])
+            //          << RobotKinematics::units::toDeg(sol.joints[5])
+            //          << RobotKinematics::units::toDeg(sol.joints[6]);
+
             if (!postureMatches(sol.posture, wp.shoulder, wp.elbow, wp.wrist))
                 continue;
             if (profile) {

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_item_pic
 </div><!--header-->
 <div class="contents">
 
+<p>Selectable/movable QGraphicsItem marking a picking position: draws an X/Y axis cross with arrowheads at the item's center plus, optionally, a move handle (center dot) and a rotate handle (offset at 45°) that let the user drag-move and drag-rotate the item interactively.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ItemPickingCenter:</div>
@@ -149,6 +152,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a881fa50ee375b6343b3c7352d33c509a" id="r_a881fa50ee375b6343b3c7352d33c509a"><td class="memItemLeft">const bool&#160;</td><td class="memItemRight"><a class="el" href="#a881fa50ee375b6343b3c7352d33c509a">isMovable</a> ()</td></tr>
 <tr class="memdesc:a881fa50ee375b6343b3c7352d33c509a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the item currently allows drag-move/drag-rotate interaction.  <br /></td></tr>
 <tr class="memitem:a3f5c47313de7482647589786a31429d9" id="r_a3f5c47313de7482647589786a31429d9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3f5c47313de7482647589786a31429d9">ItemPickingCenter</a> (QGraphicsItem *parent=nullptr)</td></tr>
+<tr class="memdesc:a3f5c47313de7482647589786a31429d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the item at the local origin, selectable and reporting scene position changes, and accepting hover events; handles are drawn and the item is movable by default.  <br /></td></tr>
 <tr class="memitem:adab3c330f5a3e4b2ad4b7c48e1b809e2" id="r_adab3c330f5a3e4b2ad4b7c48e1b809e2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adab3c330f5a3e4b2ad4b7c48e1b809e2">paint</a> (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override</td></tr>
 <tr class="memitem:a1da8886c18e181c56ea73c945896dbaa" id="r_a1da8886c18e181c56ea73c945896dbaa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1da8886c18e181c56ea73c945896dbaa">setAngleInParent</a> (qreal angle)</td></tr>
 <tr class="memdesc:a1da8886c18e181c56ea73c945896dbaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the item's rotation (normalized to [-180, 180]) and repaints.  <br /></td></tr>
@@ -213,7 +217,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Selectable/movable QGraphicsItem marking a picking position: draws an X/Y axis cross with arrowheads at the item's center plus, optionally, a move handle (center dot) and a rotate handle (offset at 45°) that let the user drag-move and drag-rotate the item interactively. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00013">13</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00022">22</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3f5c47313de7482647589786a31429d9" name="a3f5c47313de7482647589786a31429d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f5c47313de7482647589786a31429d9">&#9670;&#160;</a></span>ItemPickingCenter()</h2>
@@ -229,11 +233,19 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructs the item at the local origin, selectable and reporting scene position changes, and accepting hover events; handles are drawn and the item is movable by default. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Optional owning QGraphicsItem; standard Qt item parent/child ownership (deleted when <span class="tt">parent</span> is deleted).</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Constructs the item at local center (0,0), movable and with handles drawn by default; selectable and reports scene-position changes, with hover events enabled. </p>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00007">7</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00082">m_center</a>, <a class="el" href="item__picking__pos_8h_source.html#l00080">m_drawHandle</a>, and <a class="el" href="item__picking__pos_8h_source.html#l00081">m_movable</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00098">m_center</a>, <a class="el" href="item__picking__pos_8h_source.html#l00096">m_drawHandle</a>, and <a class="el" href="item__picking__pos_8h_source.html#l00097">m_movable</a>.</p>
 
 </div>
 </div>
@@ -294,7 +306,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00019">19</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00095">m_arrowSize</a>, and <a class="el" href="item__picking__pos_8h_source.html#l00094">m_axisLength</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00111">m_arrowSize</a>, and <a class="el" href="item__picking__pos_8h_source.html#l00110">m_axisLength</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00145">moveHandleRect()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00036">paint()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00157">rotateHandleRect()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00214">setPositionInParent()</a>.</p>
 
@@ -340,7 +352,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00222">222</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00082">m_center</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00098">m_center</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00130">mouseReleaseEvent()</a>.</p>
 
@@ -365,7 +377,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00196">196</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00081">m_movable</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00097">m_movable</a>.</p>
 
 </div>
 </div>
@@ -396,7 +408,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00109">109</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00085">m_draggingMove</a>, <a class="el" href="item__picking__pos_8h_source.html#l00086">m_draggingRotate</a>, <a class="el" href="item__picking__pos_8h_source.html#l00089">m_original_rotation</a>, <a class="el" href="item__picking__pos_8h_source.html#l00092">m_press_angle</a>, <a class="el" href="item__picking__pos_8h_source.html#l00091">m_rotation_origin</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00174">normalizeRotation()</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00101">m_draggingMove</a>, <a class="el" href="item__picking__pos_8h_source.html#l00102">m_draggingRotate</a>, <a class="el" href="item__picking__pos_8h_source.html#l00105">m_original_rotation</a>, <a class="el" href="item__picking__pos_8h_source.html#l00108">m_press_angle</a>, <a class="el" href="item__picking__pos_8h_source.html#l00107">m_rotation_origin</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00174">normalizeRotation()</a>.</p>
 
 </div>
 </div>
@@ -427,7 +439,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00074">74</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8cpp_source.html#l00019">boundingRect()</a>, <a class="el" href="item__picking__pos_8h_source.html#l00085">m_draggingMove</a>, <a class="el" href="item__picking__pos_8h_source.html#l00086">m_draggingRotate</a>, <a class="el" href="item__picking__pos_8h_source.html#l00080">m_drawHandle</a>, <a class="el" href="item__picking__pos_8h_source.html#l00081">m_movable</a>, <a class="el" href="item__picking__pos_8h_source.html#l00089">m_original_rotation</a>, <a class="el" href="item__picking__pos_8h_source.html#l00092">m_press_angle</a>, <a class="el" href="item__picking__pos_8h_source.html#l00091">m_rotation_origin</a>, <a class="el" href="item__picking__pos_8h_source.html#l00090">m_valid_rotation</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00145">moveHandleRect()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00157">rotateHandleRect()</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8cpp_source.html#l00019">boundingRect()</a>, <a class="el" href="item__picking__pos_8h_source.html#l00101">m_draggingMove</a>, <a class="el" href="item__picking__pos_8h_source.html#l00102">m_draggingRotate</a>, <a class="el" href="item__picking__pos_8h_source.html#l00096">m_drawHandle</a>, <a class="el" href="item__picking__pos_8h_source.html#l00097">m_movable</a>, <a class="el" href="item__picking__pos_8h_source.html#l00105">m_original_rotation</a>, <a class="el" href="item__picking__pos_8h_source.html#l00108">m_press_angle</a>, <a class="el" href="item__picking__pos_8h_source.html#l00107">m_rotation_origin</a>, <a class="el" href="item__picking__pos_8h_source.html#l00106">m_valid_rotation</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00145">moveHandleRect()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00157">rotateHandleRect()</a>.</p>
 
 </div>
 </div>
@@ -458,7 +470,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00130">130</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a551cd241d6caf041d050036aa92754e9">angleChanged()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00222">getPositionInParent()</a>, <a class="el" href="item__picking__pos_8h_source.html#l00085">m_draggingMove</a>, <a class="el" href="item__picking__pos_8h_source.html#l00086">m_draggingRotate</a>, <a class="el" href="item__picking__pos_8h_source.html#l00088">m_rotationAngle</a>, and <a class="el" href="#a38ccc5f924a69435ba7c1f9c8bd70ea6">positionChanged()</a>.</p>
+<p class="reference">References <a class="el" href="#a551cd241d6caf041d050036aa92754e9">angleChanged()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00222">getPositionInParent()</a>, <a class="el" href="item__picking__pos_8h_source.html#l00101">m_draggingMove</a>, <a class="el" href="item__picking__pos_8h_source.html#l00102">m_draggingRotate</a>, <a class="el" href="item__picking__pos_8h_source.html#l00104">m_rotationAngle</a>, and <a class="el" href="#a38ccc5f924a69435ba7c1f9c8bd70ea6">positionChanged()</a>.</p>
 
 </div>
 </div>
@@ -562,7 +574,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00036">36</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8cpp_source.html#l00019">boundingRect()</a>, <a class="el" href="item__picking__pos_8h_source.html#l00095">m_arrowSize</a>, <a class="el" href="item__picking__pos_8h_source.html#l00094">m_axisLength</a>, <a class="el" href="item__picking__pos_8h_source.html#l00096">m_centerSize</a>, <a class="el" href="item__picking__pos_8h_source.html#l00080">m_drawHandle</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00157">rotateHandleRect()</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8cpp_source.html#l00019">boundingRect()</a>, <a class="el" href="item__picking__pos_8h_source.html#l00111">m_arrowSize</a>, <a class="el" href="item__picking__pos_8h_source.html#l00110">m_axisLength</a>, <a class="el" href="item__picking__pos_8h_source.html#l00112">m_centerSize</a>, <a class="el" href="item__picking__pos_8h_source.html#l00096">m_drawHandle</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00157">rotateHandleRect()</a>.</p>
 
 </div>
 </div>
@@ -621,7 +633,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00157">157</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8cpp_source.html#l00019">boundingRect()</a>, and <a class="el" href="item__picking__pos_8h_source.html#l00094">m_axisLength</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8cpp_source.html#l00019">boundingRect()</a>, and <a class="el" href="item__picking__pos_8h_source.html#l00110">m_axisLength</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00036">paint()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00026">shape()</a>.</p>
 
@@ -669,7 +681,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00207">207</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00095">m_arrowSize</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00111">m_arrowSize</a>.</p>
 
 </div>
 </div>
@@ -692,7 +704,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00201">201</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00094">m_axisLength</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00110">m_axisLength</a>.</p>
 
 </div>
 </div>
@@ -715,7 +727,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00186">186</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00080">m_drawHandle</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00096">m_drawHandle</a>.</p>
 
 </div>
 </div>
@@ -760,7 +772,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__picking__pos_8cpp_source.html#l00191">191</a> of file <a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00081">m_movable</a>.</p>
+<p class="reference">References <a class="el" href="item__picking__pos_8h_source.html#l00097">m_movable</a>.</p>
 
 </div>
 </div>
@@ -818,7 +830,7 @@ Private Attributes</h2></td></tr>
 
 <p>Size of the axis arrowheads. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00095">95</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00111">111</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00019">boundingRect()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00036">paint()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00207">setArrowSize()</a>.</p>
 
@@ -846,7 +858,7 @@ Private Attributes</h2></td></tr>
 
 <p>Half-length of the drawn X/Y axis lines. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00094">94</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00110">110</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00019">boundingRect()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00036">paint()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00157">rotateHandleRect()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00201">setAxisLength()</a>.</p>
 
@@ -874,7 +886,7 @@ Private Attributes</h2></td></tr>
 
 <p>Local-coordinate center point mapped to parent by <a class="el" href="#aecbc4340d6092c9f84d619a61acb1627" title="Returns m_center mapped to parent coordinates.">getPositionInParent()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00082">82</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00098">98</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00222">getPositionInParent()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00007">ItemPickingCenter()</a>.</p>
 
@@ -902,7 +914,7 @@ Private Attributes</h2></td></tr>
 
 <p>Radius of the drawn center dot. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00096">96</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00112">112</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00036">paint()</a>.</p>
 
@@ -930,7 +942,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while a move drag is in progress. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00085">85</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00101">101</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00109">mouseMoveEvent()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00130">mouseReleaseEvent()</a>.</p>
 
@@ -958,7 +970,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while a rotate drag is in progress. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00086">86</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00102">102</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00109">mouseMoveEvent()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00130">mouseReleaseEvent()</a>.</p>
 
@@ -986,7 +998,7 @@ Private Attributes</h2></td></tr>
 
 <p>Whether the move/rotate handles are drawn and interactive. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00080">80</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00096">96</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00007">ItemPickingCenter()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00036">paint()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00186">setDrawHandle()</a>.</p>
 
@@ -1014,7 +1026,7 @@ Private Attributes</h2></td></tr>
 
 <p>Whether drag-move/drag-rotate via the handles is allowed. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00081">81</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00097">97</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00196">isMovable()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00007">ItemPickingCenter()</a>, <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00191">setPosMovable()</a>.</p>
 
@@ -1042,7 +1054,7 @@ Private Attributes</h2></td></tr>
 
 <p>Reserved for a cached move-handle rect (currently unused; see <a class="el" href="#aca7299a60fb51442ac23c72d8949319a" title="Returns the square move-handle rect (fixed 20x20 size) centered on the item.">moveHandleRect()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00083">83</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00099">99</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 </div>
 </div>
@@ -1068,7 +1080,7 @@ Private Attributes</h2></td></tr>
 
 <p>Item rotation captured at the start of a rotate drag. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00089">89</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00105">105</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00109">mouseMoveEvent()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>.</p>
 
@@ -1096,7 +1108,7 @@ Private Attributes</h2></td></tr>
 
 <p>Angle from m_rotation_origin to the mouse position at the start of a rotate drag. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00092">92</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00108">108</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00109">mouseMoveEvent()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>.</p>
 
@@ -1124,7 +1136,7 @@ Private Attributes</h2></td></tr>
 
 <p>Reserved for a cached rotate-handle rect (currently unused; see <a class="el" href="#a5aaf2cf31c67b57dd4eeb681e2019e07">rotateHandleRect()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00084">84</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00100">100</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 </div>
 </div>
@@ -1150,7 +1162,7 @@ Private Attributes</h2></td></tr>
 
 <p>Scene-coordinate rotation pivot captured at the start of a rotate drag. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00091">91</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00107">107</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00109">mouseMoveEvent()</a>, and <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>.</p>
 
@@ -1178,7 +1190,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last rotation angle reported via <a class="el" href="#a551cd241d6caf041d050036aa92754e9" title="Emitted on mouse release after a rotate drag, with the new rotation angle in degrees.">angleChanged()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00088">88</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00104">104</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00130">mouseReleaseEvent()</a>.</p>
 
@@ -1206,15 +1218,15 @@ Private Attributes</h2></td></tr>
 
 <p>Last-known-valid rotation during a rotate drag (initialized from m_original_rotation). </p>
 
-<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00090">90</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__picking__pos_8h_source.html#l00106">106</a> of file <a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__picking__pos_8cpp_source.html#l00074">mousePressEvent()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="item__picking__pos_8h_source.html">item_picking_pos.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="item__picking__pos_8cpp_source.html">item_picking_pos.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

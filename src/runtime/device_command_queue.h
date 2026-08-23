@@ -1,6 +1,12 @@
 #ifndef DEVICE_COMMAND_QUEUE_H
 #define DEVICE_COMMAND_QUEUE_H
 
+/**
+ * @file device_command_queue.h
+ * @brief FIFO queue and enqueue policy for device commands awaiting dispatch to a busy device
+ *        runner (see DeviceCommandQueue).
+ */
+
 #include <QList>
 #include <QQueue>
 
@@ -8,16 +14,22 @@
 
 namespace vc::runtime {
 
-/// Behavior applied by DeviceCommandQueue::enqueue() when a new command arrives while the
-/// runner is busy.
+/**
+ * @enum DeviceCommandQueuePolicy
+ * @brief Behavior applied by DeviceCommandQueue::enqueue() when a new command arrives while the
+ *        runner is busy.
+ */
 enum class DeviceCommandQueuePolicy {
     RejectWhenBusy,         ///< Reject the new command outright (DeviceCommandResultCode::Busy).
     QueueWhenBusy,          ///< Append the new command to the pending queue (FIFO), if room allows.
     ReplacePendingSameKind, ///< Drop the first pending command of the same kind, then enqueue the new one.
 };
 
-/// Result of a single DeviceCommandQueue::enqueue() call: whether the command was accepted,
-/// whether it should run immediately, and any rejection detail.
+/**
+ * @struct DeviceCommandEnqueueDecision
+ * @brief Result of a single DeviceCommandQueue::enqueue() call: whether the command was
+ *        accepted, whether it should run immediately, and any rejection detail.
+ */
 struct DeviceCommandEnqueueDecision {
     bool accepted{false};        ///< True if the command was accepted (either to run now or queued).
     bool shouldRunNow{false};    ///< True if the caller should execute the command immediately (runner was not busy).
@@ -26,8 +38,11 @@ struct DeviceCommandEnqueueDecision {
     DeviceCommandResult rejection; ///< Populated with a Rejected result when accepted is false.
 };
 
-/// FIFO queue of pending DeviceCommand entries for a single device runner, applying a
-/// DeviceCommandQueuePolicy to decide whether/how to accept a new command while busy.
+/**
+ * @class DeviceCommandQueue
+ * @brief FIFO queue of pending DeviceCommand entries for a single device runner, applying a
+ *        DeviceCommandQueuePolicy to decide whether/how to accept a new command while busy.
+ */
 class DeviceCommandQueue {
 public:
     /// Constructs an empty queue capped at `maxPending` pending commands.
@@ -36,14 +51,16 @@ public:
     {
     }
 
-    /// Decides how to handle `command` given whether the runner is currently `busy`, per
-    /// `policy`. When not busy, the command is accepted to run immediately (nothing is queued).
-    /// When busy, applies RejectWhenBusy/QueueWhenBusy/ReplacePendingSameKind, rejecting with
-    /// DeviceCommandResultCode::Busy or QueueFull as appropriate.
-    /// @param command command being submitted
-    /// @param policy how to handle the command if the runner is busy
-    /// @param busy whether the runner is currently executing another command
-    /// @return the enqueue outcome; check `accepted`/`shouldRunNow`, or `rejection` on failure
+    /**
+     * @brief Decides how to handle `command` given whether the runner is currently `busy`, per
+     *        `policy`. When not busy, the command is accepted to run immediately (nothing is
+     *        queued). When busy, applies RejectWhenBusy/QueueWhenBusy/ReplacePendingSameKind,
+     *        rejecting with DeviceCommandResultCode::Busy or QueueFull as appropriate.
+     * @param[in] command command being submitted
+     * @param[in] policy how to handle the command if the runner is busy
+     * @param[in] busy whether the runner is currently executing another command
+     * @return the enqueue outcome; check `accepted`/`shouldRunNow`, or `rejection` on failure
+     */
     DeviceCommandEnqueueDecision enqueue(const DeviceCommand &command,
                                          DeviceCommandQueuePolicy policy,
                                          bool busy)
@@ -101,8 +118,11 @@ public:
         return !m_pending.isEmpty();
     }
 
-    /// Dequeues and returns the oldest pending command (FIFO order).
-    /// @note Caller must check hasPending() first; dequeuing an empty QQueue is undefined.
+    /**
+     * @brief Dequeues and returns the oldest pending command (FIFO order).
+     * @return the oldest pending command.
+     * @note Caller must check hasPending() first; dequeuing an empty QQueue is undefined.
+     */
     DeviceCommand takeNext()
     {
         return m_pending.dequeue();

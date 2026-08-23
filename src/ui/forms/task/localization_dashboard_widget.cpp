@@ -607,7 +607,7 @@ void LocalizationDashboardWidget::updateCycleResult(
             QString::number(r.world.x, 'f', 3),
             QString::number(r.world.y, 'f', 3),
             QString::number(r.world.z, 'f', 3),
-            QString::number(r.world.r, 'f', 3),
+            QString::number(r.world.rz, 'f', 3),
             r.status,
         };
         for (int col = 0; col < values.size(); ++col) {

@@ -1,6 +1,11 @@
 #ifndef NACHI_ROBOT_CONFIG_H
 #define NACHI_ROBOT_CONFIG_H
 
+/**
+ * @file nachi_robot_config.h
+ * @brief Nachi robot configuration stub (NachiRobotCfg).
+ */
+
 #include "device/robot/robot_device.h"
 #include "core/qgadget_macro.h"
 
@@ -8,8 +13,11 @@
 
 namespace vc::device {
 
-/// Minimum config skeleton for a Nachi robot — mirror of KawasakiRobotCfg.
-/// Vendor-specific fields will be added once integration starts.
+/**
+ * @class NachiRobotCfg
+ * @brief Minimum config skeleton for a Nachi robot — mirror of KawasakiRobotCfg.
+ *        Vendor-specific fields will be added once integration starts.
+ */
 class NachiRobotCfg : public RobotCfg {
     Q_GADGET
 
@@ -35,10 +43,12 @@ public:
         return RobotCfg::toJson();
     }
 
-    /// Restores this config; currently just delegates to RobotCfg::fromJson(), which
-    /// validates the robot-type key matches Nachi.
-    /// @param obj JSON object previously produced by toJson()
-    /// @return true if the robot-type key is present and matches; false otherwise
+    /**
+     * @brief Restores this config by delegating to RobotCfg::fromJson(), which validates the
+     *        robot-type key matches Nachi.
+     * @param[in] obj JSON object previously produced by toJson()
+     * @return true if the robot-type key is present and matches; false otherwise
+     */
     bool fromJson(const QJsonObject &obj) override {
         return RobotCfg::fromJson(obj);
     }

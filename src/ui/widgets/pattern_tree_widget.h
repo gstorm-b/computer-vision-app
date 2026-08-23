@@ -14,8 +14,18 @@
 // #include "MatchGroupConfig.h"
 // #include "MatchPatternConfig.h"
 
-/// A single match pattern's editable data: display name, identifying number,
-/// match threshold score, and an optional preview thumbnail.
+/**
+ * @file pattern_tree_widget.h
+ * @brief PatternTreeWidget — tree view of match pattern groups/patterns, plus its
+ *        editable-config structs (MatchPatternConfig, MatchGroupConfig) and row widgets
+ *        (PatternGroupItemWidget, PatternItemWidget, FooterItemWidget).
+ */
+
+/**
+ * @struct MatchPatternConfig
+ * @brief A single match pattern's editable data: display name, identifying number,
+ *        match threshold score, and an optional preview thumbnail.
+ */
 struct MatchPatternConfig {
     QString name        = QStringLiteral("Pattern");   ///< Display name shown in the tree.
     int number      = 0;   ///< Pattern number/identifier used to map tree rows back to config entries.
@@ -23,8 +33,11 @@ struct MatchPatternConfig {
     QPixmap thumbnail;          ///< Optional; empty = "No Image" placeholder
 };
 
-/// A named group of MatchPatternConfig entries, displayed as a top-level tree item
-/// with its patterns nested underneath.
+/**
+ * @struct MatchGroupConfig
+ * @brief A named group of MatchPatternConfig entries, displayed as a top-level tree item
+ *        with its patterns nested underneath.
+ */
 struct MatchGroupConfig {
     QString                    name    = QStringLiteral("Group");   ///< Display name shown in the tree.
     int                        number  = 0;   ///< Group number/identifier used to map tree rows back to config entries.
@@ -37,8 +50,11 @@ struct MatchGroupConfig {
 //  Contents: [accent-bar] [name label] [group# label] <stretch>
 //            [+ Pattern btn] [✕ Delete btn]
 // ============================================================================
-/// Row widget for a top-level (group) tree item: accent bar, name label, group
-/// number badge, an "Add Pattern" button, and a delete button.
+/**
+ * @class PatternGroupItemWidget
+ * @brief Row widget for a top-level (group) tree item: accent bar, name label, group
+ *        number badge, an "Add Pattern" button, and a delete button.
+ */
 class PatternGroupItemWidget : public QWidget
 {
     Q_OBJECT
@@ -86,8 +102,11 @@ private:
 //  Contents: [thumbnail 64×64] [VBox: name / number / thresh] <stretch>
 //            [✕ Delete btn]
 // ============================================================================
-/// Row widget for a child (pattern) tree item: thumbnail, name/number/threshold
-/// labels, an edit button, and a delete button.
+/**
+ * @class PatternItemWidget
+ * @brief Row widget for a child (pattern) tree item: thumbnail, name/number/threshold
+ *        labels, an edit button, and a delete button.
+ */
 class PatternItemWidget : public QWidget
 {
     Q_OBJECT
@@ -136,8 +155,11 @@ private:
 //  Always pinned at the bottom of the tree.
 //  Contents: [＋ Add Group btn] [⇅ Auto Sort btn]
 // ============================================================================
-/// Row widget pinned as the tree's last (non-selectable) item: an "Add Group"
-/// button and an "Auto Sort" button.
+/**
+ * @class FooterItemWidget
+ * @brief Row widget pinned as the tree's last (non-selectable) item: an "Add Group"
+ *        button and an "Auto Sort" button.
+ */
 class FooterItemWidget : public QWidget
 {
     Q_OBJECT
@@ -151,12 +173,15 @@ signals:
     void addGroupRequested();
     /// Fired when the "Auto Sort" button is clicked.
     void autoSortRequested();
+    /// Fired when the "Gripper" button is clicked; the host opens the gripper-preset editor.
+    void gripperRequested();
 
 private:
-    /// Builds the row layout (two buttons) and wires their click signals.
+    /// Builds the row layout (three buttons) and wires their click signals.
     void setupUi();
     QPushButton *m_addGroupBtn = nullptr;   ///< Emits addGroupRequested() when clicked.
     QPushButton *m_autoSortBtn = nullptr;   ///< Emits autoSortRequested() when clicked.
+    QPushButton *m_gripperBtn  = nullptr;   ///< Emits gripperRequested() when clicked.
 };
 
 
@@ -175,6 +200,18 @@ private:
 //  All signals that need a response from the host application are listed in
 //  the "Host → Widget" and "Widget → Host" sections below.
 // ============================================================================
+/**
+ * @class PatternTreeWidget
+ * @brief Main widget: a QTreeWidget of pattern groups/patterns (each rendered by a
+ *        custom item widget) plus a pinned footer row, kept in sync with an
+ *        internal MatchGroupConfig list.
+ *
+ * Inherits QTreeWidget directly — simpler than QTreeView + model because every
+ * item has a distinct custom delegate widget (PatternGroupItemWidget,
+ * PatternItemWidget, FooterItemWidget).
+ *
+ * @see PatternGroupItemWidget, PatternItemWidget, FooterItemWidget
+ */
 class PatternTreeWidget : public QTreeWidget
 {
     Q_OBJECT
@@ -194,31 +231,46 @@ public:
     /// Appends `group` as a new top-level tree item (before the footer) and
     /// emits groupsChanged().
     void addGroup(const MatchGroupConfig &group);
-    /// Removes the group at `groupIndex` (mapped via mapGroupNumber()) and
-    /// defers the tree rebuild to the next event loop iteration so it is safe
-    /// to call from a signal handler still on the call stack.
-    /// @param groupIndex group number to remove (not a raw list index)
+    /**
+     * @brief Removes the group at `groupIndex` (mapped via mapGroupNumber()) and
+     *        defers the tree rebuild to the next event loop iteration so it is safe
+     *        to call from a signal handler still on the call stack.
+     * @param[in] groupIndex group number to remove (not a raw list index)
+     */
     void removeGroup(int groupIndex);
-    /// Replaces the config for the group at `groupIndex` (mapped via
-    /// mapGroupNumber()), updates its row widget in place, and emits
-    /// groupChanged()/groupsChanged().
-    /// @param groupIndex group number to update (not a raw list index)
+    /**
+     * @brief Replaces the config for the group at `groupIndex` (mapped via
+     *        mapGroupNumber()), updates its row widget in place, and emits
+     *        groupChanged()/groupsChanged().
+     * @param[in] groupIndex group number to update (not a raw list index)
+     * @param[in] group new configuration to store for the group
+     */
     void updateGroup(int groupIndex, const MatchGroupConfig &group);
 
-    /// Appends `pattern` to the group at `groupIndex` (mapped via
-    /// mapGroupNumber()), inserts its row widget, expands the group, and emits
-    /// groupChanged()/groupsChanged().
-    /// @param groupIndex group number to append to (not a raw list index)
+    /**
+     * @brief Appends `pattern` to the group at `groupIndex` (mapped via
+     *        mapGroupNumber()), inserts its row widget, expands the group, and emits
+     *        groupChanged()/groupsChanged().
+     * @param[in] groupIndex group number to append to (not a raw list index)
+     * @param[in] pattern new pattern configuration to append
+     */
     void addPattern(int groupIndex, const MatchPatternConfig &pattern);
-    /// Removes the pattern at `patternIndex` from the group at `groupIndex`
-    /// (mapped via mapGroupNumber()) and defers the tree rebuild to the next
-    /// event loop iteration.
-    /// @param groupIndex group number containing the pattern (not a raw list index)
+    /**
+     * @brief Removes the pattern at `patternIndex` from the group at `groupIndex`
+     *        (mapped via mapGroupNumber()) and defers the tree rebuild to the next
+     *        event loop iteration.
+     * @param[in] groupIndex group number containing the pattern (not a raw list index)
+     * @param[in] patternIndex pattern number to remove within the group (not a raw list index)
+     */
     void removePattern(int groupIndex, int patternIndex);
-    /// Replaces the pattern at `patternIndex` within the group at `groupIndex`
-    /// (mapped via mapGroupNumber()), updates its row widget in place, and
-    /// emits patternChanged()/groupsChanged().
-    /// @param groupIndex group number containing the pattern (not a raw list index)
+    /**
+     * @brief Replaces the pattern at `patternIndex` within the group at `groupIndex`
+     *        (mapped via mapGroupNumber()), updates its row widget in place, and
+     *        emits patternChanged()/groupsChanged().
+     * @param[in] groupIndex group number containing the pattern (not a raw list index)
+     * @param[in] patternIndex pattern number to update within the group (not a raw list index)
+     * @param[in] pattern new pattern configuration to store
+     */
     void updatePattern(int groupIndex, int patternIndex, const MatchPatternConfig &pattern);
 
     /// Sort all groups ascending by MatchGroupConfig::number and rebuild.
@@ -235,6 +287,9 @@ signals:
     // ── User intent (host should respond by calling add/remove methods) ────────
     /// Emitted when the footer's "Add Group" button is clicked.
     void addGroupRequested();
+    /// Emitted when the footer's "Gripper" button is clicked; the host opens the
+    /// gripper-preset editor.
+    void gripperRequested();
     /// Emitted when a group's "+ Pattern" button is clicked.
     void addPatternRequested(int groupIndex);
     /// Emitted when a pattern's edit button is clicked.

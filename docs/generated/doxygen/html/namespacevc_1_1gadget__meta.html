@@ -126,9 +126,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a6e0a29e01a41f4e3e9cc69c97f5b20bb" id="r_a6e0a29e01a41f4e3e9cc69c97f5b20bb"><td class="memItemLeft">QVariant&#160;</td><td class="memItemRight"><a class="el" href="#a6e0a29e01a41f4e3e9cc69c97f5b20bb">readProperty</a> (const QMetaObject &amp;meta, const void *gadget, const QString &amp;propName)</td></tr>
 <tr class="memitem:a31ba1eb93a2b677457d9411385aff806" id="r_a31ba1eb93a2b677457d9411385aff806"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a31ba1eb93a2b677457d9411385aff806">writeProperty</a> (const QMetaObject &amp;meta, void *gadget, const QString &amp;propName, const QVariant &amp;value)</td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Shared gadget meta-property helpers. Property-browser widgets dispatch edits through the Q_PROPERTY system of a Q_GADGET config; these helpers centralize the "indexOfProperty → read/write OnGadget" pattern and the "&lt;prop&gt;_name" Q_CLASSINFO display-name lookup emitted by the macros above, so each widget no longer re-implements it. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a92fe1dc297b6aa05cca6c67bb8ec9992" name="a92fe1dc297b6aa05cca6c67bb8ec9992"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a92fe1dc297b6aa05cca6c67bb8ec9992">&#9670;&#160;</a></span>displayName()</h2>
 
@@ -157,7 +155,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Resolves the display name registered via Q_CLASSINFO("&lt;prop&gt;_name", "…"). </p><dl class="section return"><dt>Returns</dt><dd>the registered display name, or <span class="tt">propName</span> itself if no class-info entry exists. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00082">82</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00089">89</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__setting__widget_8cpp_source.html#l00066">anonymous_namespace{localization_setting_widget.cpp}::displayNameOf()</a>.</p>
 
@@ -196,7 +194,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Reads the gadget's property <span class="tt">propName</span>. </p><dl class="section return"><dt>Returns</dt><dd>the property's current value, or an invalid QVariant if unknown. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00103">103</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00110">110</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__setting__widget_8cpp_source.html#l00087">anonymous_namespace{localization_setting_widget.cpp}::readConfigField()</a>.</p>
 
@@ -240,7 +238,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Writes <span class="tt">value</span> into the gadget's property <span class="tt">propName</span>. </p><dl class="section return"><dt>Returns</dt><dd>false if the property is unknown or the meta-write fails. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00094">94</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00101">101</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00294">VisionTcpipDeviceWidget::onPropertyValueChanged()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00075">anonymous_namespace{localization_setting_widget.cpp}::writeConfigField()</a>.</p>
 

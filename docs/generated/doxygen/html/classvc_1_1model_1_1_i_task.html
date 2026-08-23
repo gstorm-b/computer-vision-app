@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1mod
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract base for a configurable, stateful vision task.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="itask_8h_source.html">itask.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::model::ITask:</div>
@@ -135,21 +138,21 @@ Collaboration diagram for vc::model::ITask:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:abf099c0fa5c31efdc7b62d197bf65461" id="r_abf099c0fa5c31efdc7b62d197bf65461"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abf099c0fa5c31efdc7b62d197bf65461">cameraSourceTypeChanged</a> ()</td></tr>
-<tr class="memdesc:abf099c0fa5c31efdc7b62d197bf65461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after <a class="el" href="#ad6b8f9de7e7f38bdb6fd3a9bceca2990">setCameraSourceType()</a> is called.  <br /></td></tr>
+<tr class="memdesc:abf099c0fa5c31efdc7b62d197bf65461"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after <a class="el" href="#ad6b8f9de7e7f38bdb6fd3a9bceca2990" title="Sets the camera source type, always emitting cameraSourceTypeChanged() (unlike setName(),...">setCameraSourceType()</a> is called.  <br /></td></tr>
 <tr class="memitem:a30178e579a572aec971057ff3eecf811" id="r_a30178e579a572aec971057ff3eecf811"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a30178e579a572aec971057ff3eecf811">commissionStarted</a> ()</td></tr>
 <tr class="memdesc:a30178e579a572aec971057ff3eecf811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted at the end of <a class="el" href="#abd6304f4eb3447a99857251d623f8c91">beginCommission()</a> once resources are ready.  <br /></td></tr>
 <tr class="memitem:a187828faac58e122853248d68b84032c" id="r_a187828faac58e122853248d68b84032c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a187828faac58e122853248d68b84032c">commissionStopped</a> ()</td></tr>
 <tr class="memdesc:a187828faac58e122853248d68b84032c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted at the end of <a class="el" href="#a294d59ca19128afe8213fb750f271728" title="End commission, stop per-device threads (→ Idle).">endCommission()</a>.  <br /></td></tr>
 <tr class="memitem:a1c326dd6527ebb8f677f770eeb74fb35" id="r_a1c326dd6527ebb8f677f770eeb74fb35"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1c326dd6527ebb8f677f770eeb74fb35">configChanged</a> ()</td></tr>
-<tr class="memdesc:a1c326dd6527ebb8f677f770eeb74fb35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after <a class="el" href="#a134f6c7888aad1b451a7ae3f2b0e6fb2">setTaskConfig()</a> replaces the configuration.  <br /></td></tr>
+<tr class="memdesc:a1c326dd6527ebb8f677f770eeb74fb35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after <a class="el" href="#a134f6c7888aad1b451a7ae3f2b0e6fb2" title="Replaces the task&#39;s abstract configuration object and emits configChanged().">setTaskConfig()</a> replaces the configuration.  <br /></td></tr>
 <tr class="memitem:a964fb414cf50415ffcdb55df534ef4f4" id="r_a964fb414cf50415ffcdb55df534ef4f4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4">devicesChanged</a> ()</td></tr>
 <tr class="memdesc:a964fb414cf50415ffcdb55df534ef4f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after a device is assigned or unassigned.  <br /></td></tr>
 <tr class="memitem:a132beb9bd13a349a695c7bb86c3be871" id="r_a132beb9bd13a349a695c7bb86c3be871"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a132beb9bd13a349a695c7bb86c3be871">nameChanged</a> ()</td></tr>
-<tr class="memdesc:a132beb9bd13a349a695c7bb86c3be871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after <a class="el" href="#a375808f4e8c9166c5545620b5ea35df3">setName()</a> actually changes the name.  <br /></td></tr>
+<tr class="memdesc:a132beb9bd13a349a695c7bb86c3be871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after <a class="el" href="#a375808f4e8c9166c5545620b5ea35df3" title="Sets the task&#39;s display name, emitting nameChanged() if it actually changed.">setName()</a> actually changes the name.  <br /></td></tr>
 <tr class="memitem:ac5a77d0c8d27c66d0c16ea40aa5e68fc" id="r_ac5a77d0c8d27c66d0c16ea40aa5e68fc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac5a77d0c8d27c66d0c16ea40aa5e68fc">patternsChanged</a> ()</td></tr>
 <tr class="memdesc:ac5a77d0c8d27c66d0c16ea40aa5e68fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when subclass-specific patterns change.  <br /></td></tr>
 <tr class="memitem:aee0367f03831d2fbd485b051c71a96cd" id="r_aee0367f03831d2fbd485b051c71a96cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aee0367f03831d2fbd485b051c71a96cd">runtimeStarted</a> ()</td></tr>
-<tr class="memdesc:aee0367f03831d2fbd485b051c71a96cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted at the end of <a class="el" href="#a7ef9abdd2e9374c80b80df399148ad4f">beginRuntime()</a> once resources are ready.  <br /></td></tr>
+<tr class="memdesc:aee0367f03831d2fbd485b051c71a96cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted at the end of <a class="el" href="#a7ef9abdd2e9374c80b80df399148ad4f" title="Runtime phase: start production execution.">beginRuntime()</a> once resources are ready.  <br /></td></tr>
 <tr class="memitem:a622d32ef49db21c840b63623680ad158" id="r_a622d32ef49db21c840b63623680ad158"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a622d32ef49db21c840b63623680ad158">runtimeStopped</a> ()</td></tr>
 <tr class="memdesc:a622d32ef49db21c840b63623680ad158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted at the end of <a class="el" href="#a8fcd538adf1f9f03a60a9fac6e24148f" title="End runtime, stop all threads (→ Idle).">endRuntime()</a>.  <br /></td></tr>
 <tr class="memitem:a943cbc506d084433a89e7a9a100c9bcd" id="r_a943cbc506d084433a89e7a9a100c9bcd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a943cbc506d084433a89e7a9a100c9bcd">signalChanged</a> (QString name, QVariant value)</td></tr>
@@ -160,11 +163,14 @@ Signals</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a25da3fe7eb75d1ae31c95866f96d339c" id="r_a25da3fe7eb75d1ae31c95866f96d339c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a25da3fe7eb75d1ae31c95866f96d339c">assignDevice</a> (const QString &amp;deviceId)</td></tr>
+<tr class="memdesc:a25da3fe7eb75d1ae31c95866f96d339c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds <span class="tt">deviceId</span> to the set of devices assigned to this task; no-op (and no signal) if already assigned. Emits <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4" title="Emitted after a device is assigned or unassigned.">devicesChanged()</a> on success.  <br /></td></tr>
 <tr class="memitem:a31cd3bea5f309dc72bee102c3eea4056" id="r_a31cd3bea5f309dc72bee102c3eea4056"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a31cd3bea5f309dc72bee102c3eea4056">assignedDeviceIds</a> () const</td></tr>
 <tr class="memdesc:a31cd3bea5f309dc72bee102c3eea4056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ids of all devices currently assigned to this task.  <br /></td></tr>
 <tr class="memitem:ae1fcbb8e58cf000fc2fee675de32488a" id="r_ae1fcbb8e58cf000fc2fee675de32488a"><td class="memItemLeft">QList&lt; std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae1fcbb8e58cf000fc2fee675de32488a">assignedDevicesOfType</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">vc::device::DeviceType</a> t) const</td></tr>
+<tr class="memdesc:ae1fcbb8e58cf000fc2fee675de32488a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves m_assignedDeviceIds against the project's DeviceManager and returns only the devices matching <span class="tt">t</span>. Skips ids whose device isn't currently registered. Returns an empty list if the task has no project set yet.  <br /></td></tr>
 <tr class="memitem:abd6304f4eb3447a99857251d623f8c91" id="r_abd6304f4eb3447a99857251d623f8c91"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#abd6304f4eb3447a99857251d623f8c91">beginCommission</a> ()</td></tr>
 <tr class="memitem:a7ef9abdd2e9374c80b80df399148ad4f" id="r_a7ef9abdd2e9374c80b80df399148ad4f"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a7ef9abdd2e9374c80b80df399148ad4f">beginRuntime</a> (bool mergeToTaskThread=false)</td></tr>
+<tr class="memdesc:a7ef9abdd2e9374c80b80df399148ad4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runtime phase: start production execution.  <br /></td></tr>
 <tr class="memitem:a1bdf1a33018acb0a5886e22fb99736df" id="r_a1bdf1a33018acb0a5886e22fb99736df"><td class="memItemLeft"><a class="el" href="namespacevc_1_1model.html#a24978790570d3558f3da60a7989ad6cc">CameraSourceType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1bdf1a33018acb0a5886e22fb99736df">cameraSourceType</a> () const</td></tr>
 <tr class="memdesc:a1bdf1a33018acb0a5886e22fb99736df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this task uses its own owned camera or a shared one.  <br /></td></tr>
 <tr class="memitem:a294d59ca19128afe8213fb750f271728" id="r_a294d59ca19128afe8213fb750f271728"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a294d59ca19128afe8213fb750f271728">endCommission</a> ()</td></tr>
@@ -172,8 +178,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8fcd538adf1f9f03a60a9fac6e24148f" id="r_a8fcd538adf1f9f03a60a9fac6e24148f"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a8fcd538adf1f9f03a60a9fac6e24148f">endRuntime</a> ()</td></tr>
 <tr class="memdesc:a8fcd538adf1f9f03a60a9fac6e24148f"><td class="mdescLeft">&#160;</td><td class="mdescRight">End runtime, stop all threads (→ Idle).  <br /></td></tr>
 <tr class="memitem:a38e53761bc561c52707a8696b8ee9827" id="r_a38e53761bc561c52707a8696b8ee9827"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a38e53761bc561c52707a8696b8ee9827">fromJson</a> (const QJsonObject &amp;obj)</td></tr>
+<tr class="memdesc:a38e53761bc561c52707a8696b8ee9827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores id, name, assignedDeviceIds, and (if a config object is already set) the taskConfig from a JSON object previously produced by <a class="el" href="#a0870d86c987735869492588c652049d9">toJson()</a>.  <br /></td></tr>
 <tr class="memitem:a8084ab69025fc27ce5f4ddd34074e393" id="r_a8084ab69025fc27ce5f4ddd34074e393"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8084ab69025fc27ce5f4ddd34074e393">getTaskDevice</a> (const QString &amp;deviceId) const</td></tr>
-<tr class="memdesc:a8084ab69025fc27ce5f4ddd34074e393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up a single assigned device by id via the project's DeviceManager.  <br /></td></tr>
+<tr class="memdesc:a8084ab69025fc27ce5f4ddd34074e393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up <span class="tt">deviceId</span> via the owning <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a>'s DeviceManager.  <br /></td></tr>
 <tr class="memitem:a3ead9d5b479a949363f57fcbee9518ad" id="r_a3ead9d5b479a949363f57fcbee9518ad"><td class="memItemLeft">virtual QMap&lt; QString, cv::Mat &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a3ead9d5b479a949363f57fcbee9518ad">getTaskImageMap</a> ()</td></tr>
 <tr class="memitem:a3afe8e8275a93648fbe8db43ce4f66fc" id="r_a3afe8e8275a93648fbe8db43ce4f66fc"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3afe8e8275a93648fbe8db43ce4f66fc">hasDevice</a> (const QString &amp;deviceId) const</td></tr>
 <tr class="memdesc:a3afe8e8275a93648fbe8db43ce4f66fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether <span class="tt">deviceId</span> is currently assigned to this task.  <br /></td></tr>
@@ -187,19 +194,26 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9c3b9d10b55e3a8d5625d3767362bc70" id="r_a9c3b9d10b55e3a8d5625d3767362bc70"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a9c3b9d10b55e3a8d5625d3767362bc70">isValid</a> () const =0</td></tr>
 <tr class="memdesc:a9c3b9d10b55e3a8d5625d3767362bc70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the task's current configuration/state is valid enough to run.  <br /></td></tr>
 <tr class="memitem:a0bc4f5d8fc59a33c41fd0bfdf9b5fa51" id="r_a0bc4f5d8fc59a33c41fd0bfdf9b5fa51"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0bc4f5d8fc59a33c41fd0bfdf9b5fa51">ITask</a> (QString init_id=&quot;&quot;, QObject *parent=nullptr)</td></tr>
+<tr class="memdesc:a0bc4f5d8fc59a33c41fd0bfdf9b5fa51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the task, assigning it a fixed id.  <br /></td></tr>
 <tr class="memitem:ada17621a2a9e762f2cec1e91bc6a5fc0" id="r_ada17621a2a9e762f2cec1e91bc6a5fc0"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#ada17621a2a9e762f2cec1e91bc6a5fc0">loadTaskImageMap</a> (QMap&lt; QString, cv::Mat &gt; &amp;mapping)</td></tr>
+<tr class="memdesc:ada17621a2a9e762f2cec1e91bc6a5fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base implementation is a no-op that always fails; subclasses that support restoring cached images from a mapping override this.  <br /></td></tr>
 <tr class="memitem:af7f94e5088d7d8c4d32bb9a8f1c4c0b9" id="r_af7f94e5088d7d8c4d32bb9a8f1c4c0b9"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af7f94e5088d7d8c4d32bb9a8f1c4c0b9">name</a> () const</td></tr>
 <tr class="memdesc:af7f94e5088d7d8c4d32bb9a8f1c4c0b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the task's display name.  <br /></td></tr>
 <tr class="memitem:afaf485cec1703db2ecfa875d0b1fbd40" id="r_afaf485cec1703db2ecfa875d0b1fbd40"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#afaf485cec1703db2ecfa875d0b1fbd40">ownedCameraId</a> () const</td></tr>
 <tr class="memdesc:afaf485cec1703db2ecfa875d0b1fbd40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the camera this task owns (only meaningful when <a class="el" href="#aefb9d6e9aa324d625883f65823d824f2" title="Returns true if this task&#39;s camera source is Source_Owned.">isOwned()</a>).  <br /></td></tr>
 <tr class="memitem:afd3731604cb5207b869847fc33934093" id="r_afd3731604cb5207b869847fc33934093"><td class="memItemLeft">virtual <a class="el" href="classvc_1_1model_1_1_project.html">Project</a> *&#160;</td><td class="memItemRight"><a class="el" href="#afd3731604cb5207b869847fc33934093">project</a> ()</td></tr>
-<tr class="memdesc:afd3731604cb5207b869847fc33934093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the owning <a class="el" href="classvc_1_1model_1_1_project.html">Project</a>, or nullptr if none has been set yet.  <br /></td></tr>
+<tr class="memdesc:afd3731604cb5207b869847fc33934093"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the owning <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a>, or nullptr if none has been set yet.  <br /></td></tr>
 <tr class="memitem:ad9753dd1bcc188e7aa2dd5fd16793bc6" id="r_ad9753dd1bcc188e7aa2dd5fd16793bc6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad9753dd1bcc188e7aa2dd5fd16793bc6">resyncDevices</a> ()</td></tr>
 <tr class="memitem:ad6b8f9de7e7f38bdb6fd3a9bceca2990" id="r_ad6b8f9de7e7f38bdb6fd3a9bceca2990"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad6b8f9de7e7f38bdb6fd3a9bceca2990">setCameraSourceType</a> (<a class="el" href="namespacevc_1_1model.html#a24978790570d3558f3da60a7989ad6cc">CameraSourceType</a> v)</td></tr>
+<tr class="memdesc:ad6b8f9de7e7f38bdb6fd3a9bceca2990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the camera source type, always emitting <a class="el" href="#abf099c0fa5c31efdc7b62d197bf65461" title="Emitted after setCameraSourceType() is called.">cameraSourceTypeChanged()</a> (unlike <a class="el" href="#a375808f4e8c9166c5545620b5ea35df3" title="Sets the task&#39;s display name, emitting nameChanged() if it actually changed.">setName()</a>, there is no no-op check for an unchanged value).  <br /></td></tr>
 <tr class="memitem:a375808f4e8c9166c5545620b5ea35df3" id="r_a375808f4e8c9166c5545620b5ea35df3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a375808f4e8c9166c5545620b5ea35df3">setName</a> (const QString &amp;v)</td></tr>
+<tr class="memdesc:a375808f4e8c9166c5545620b5ea35df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the task's display name, emitting <a class="el" href="#a132beb9bd13a349a695c7bb86c3be871" title="Emitted after setName() actually changes the name.">nameChanged()</a> if it actually changed.  <br /></td></tr>
 <tr class="memitem:a5a02564b348a99a215894e247c0de6bb" id="r_a5a02564b348a99a215894e247c0de6bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5a02564b348a99a215894e247c0de6bb">setOwnedCameraId</a> (const QString &amp;v)</td></tr>
+<tr class="memdesc:a5a02564b348a99a215894e247c0de6bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the owned camera id. Does not check for a no-op value and does not emit any change signal.  <br /></td></tr>
 <tr class="memitem:aaa90c645b6881de9ddfab58b2a29e6bf" id="r_aaa90c645b6881de9ddfab58b2a29e6bf"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#aaa90c645b6881de9ddfab58b2a29e6bf">setProject</a> (<a class="el" href="classvc_1_1model_1_1_project.html">Project</a> *proj)</td></tr>
+<tr class="memdesc:aaa90c645b6881de9ddfab58b2a29e6bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the owning <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a> back-pointer (non-owning).  <br /></td></tr>
 <tr class="memitem:a134f6c7888aad1b451a7ae3f2b0e6fb2" id="r_a134f6c7888aad1b451a7ae3f2b0e6fb2"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a134f6c7888aad1b451a7ae3f2b0e6fb2">setTaskConfig</a> (<a class="el" href="classvc_1_1model_1_1_i_task_config.html">ITaskConfig</a> *cfg)</td></tr>
+<tr class="memdesc:a134f6c7888aad1b451a7ae3f2b0e6fb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the task's abstract configuration object and emits <a class="el" href="#a1c326dd6527ebb8f677f770eeb74fb35" title="Emitted after setTaskConfig() replaces the configuration.">configChanged()</a>.  <br /></td></tr>
 <tr class="memitem:ab843224ebc5051612843a6a1ce0b5a5e" id="r_ab843224ebc5051612843a6a1ce0b5a5e"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#ab843224ebc5051612843a6a1ce0b5a5e">stopAll</a> ()</td></tr>
 <tr class="memdesc:ab843224ebc5051612843a6a1ce0b5a5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience: stop everything regardless of current phase.  <br /></td></tr>
 <tr class="memitem:ae3bc53add80a54bf7c74482b500b6abf" id="r_ae3bc53add80a54bf7c74482b500b6abf"><td class="memItemLeft">virtual <a class="el" href="classvc_1_1model_1_1_i_task_config.html">ITaskConfig</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae3bc53add80a54bf7c74482b500b6abf">taskConfig</a> ()</td></tr>
@@ -212,6 +226,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aed904be374dda9643ff50d3443f1d8f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the concrete task type this instance implements.  <br /></td></tr>
 <tr class="memitem:a0870d86c987735869492588c652049d9" id="r_a0870d86c987735869492588c652049d9"><td class="memItemLeft">virtual QJsonObject&#160;</td><td class="memItemRight"><a class="el" href="#a0870d86c987735869492588c652049d9">toJson</a> () const</td></tr>
 <tr class="memitem:a23358c85d24b378c9dde00a7d42e8dca" id="r_a23358c85d24b378c9dde00a7d42e8dca"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a23358c85d24b378c9dde00a7d42e8dca">unassignDevice</a> (const QString &amp;deviceId)</td></tr>
+<tr class="memdesc:a23358c85d24b378c9dde00a7d42e8dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes <span class="tt">deviceId</span> from the assigned-device set. Emits <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4" title="Emitted after a device is assigned or unassigned.">devicesChanged()</a> only if the id was actually present and removed.  <br /></td></tr>
 <tr class="memitem:a930f201a914302bcd24d72bda45162ec" id="r_a930f201a914302bcd24d72bda45162ec"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#a930f201a914302bcd24d72bda45162ec">~ITask</a> ()=default</td></tr>
 <tr class="memdesc:a930f201a914302bcd24d72bda45162ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-destructs the task; no explicit cleanup beyond QObject's.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -219,11 +234,12 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7fb57f8c8407549d1eb12fc91179ae32" id="r_a7fb57f8c8407549d1eb12fc91179ae32"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7fb57f8c8407549d1eb12fc91179ae32">syncRunnersWithDevices</a> ()</td></tr>
 <tr class="memitem:a637f60ff7c65d3c3b9ebe6b80db03199" id="r_a637f60ff7c65d3c3b9ebe6b80db03199"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a637f60ff7c65d3c3b9ebe6b80db03199">transitionTaskState</a> (<a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> targetState, const QString &amp;reason=QString())</td></tr>
+<tr class="memdesc:a637f60ff7c65d3c3b9ebe6b80db03199"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to move the task's lifecycle state to <span class="tt">targetState</span>, validating the transition, logging the outcome, and emitting <a class="el" href="#a96d958fca63b336b48cdd30639337a5a" title="Emitted after a successful state transition.">taskStateChanged()</a> on success.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a8a4fc203f8532ed257b8359b6f12e8a4" id="r_a8a4fc203f8532ed257b8359b6f12e8a4"><td class="memItemLeft"><a class="el" href="classvc_1_1model_1_1_project.html">Project</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8a4fc203f8532ed257b8359b6f12e8a4">m_proj</a> {nullptr}</td></tr>
-<tr class="memdesc:a8a4fc203f8532ed257b8359b6f12e8a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-owning back-pointer to the owning <a class="el" href="classvc_1_1model_1_1_project.html">Project</a>, if any.  <br /></td></tr>
+<tr class="memdesc:a8a4fc203f8532ed257b8359b6f12e8a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-owning back-pointer to the owning <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a>, if any.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
@@ -249,9 +265,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ab933953ebea89723a9b1bfe1774275d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current commission/runtime lifecycle state.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract base for a configurable, stateful vision task: owns a set of assigned device ids, a per-task TaskRunner for commission/runtime thread management, and JSON (de)serialization of its identity and <a class="el" href="classvc_1_1model_1_1_i_task_config.html">ITaskConfig</a>. Concrete subclasses supply <a class="el" href="#aed904be374dda9643ff50d3443f1d8f9" title="Returns the concrete task type this instance implements.">taskType()</a>, <a class="el" href="#a9c3b9d10b55e3a8d5625d3767362bc70" title="Returns whether the task&#39;s current configuration/state is valid enough to run.">isValid()</a>, and device-limit checks. </p>
+<div class="textblock"><p>Abstract base for a configurable, stateful vision task. </p>
+<p>Owns a set of assigned device ids, a per-task TaskRunner for commission/runtime thread management, and JSON (de)serialization of its identity and <a class="el" href="classvc_1_1model_1_1_i_task_config.html" title="Abstract per-task-type configuration.">ITaskConfig</a>. Concrete subclasses supply <a class="el" href="#aed904be374dda9643ff50d3443f1d8f9" title="Returns the concrete task type this instance implements.">taskType()</a>, <a class="el" href="#a9c3b9d10b55e3a8d5625d3767362bc70" title="Returns whether the task&#39;s current configuration/state is valid enough to run.">isValid()</a>, and device-limit checks. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00032">32</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00040">40</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0bc4f5d8fc59a33c41fd0bfdf9b5fa51" name="a0bc4f5d8fc59a33c41fd0bfdf9b5fa51"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0bc4f5d8fc59a33c41fd0bfdf9b5fa51">&#9670;&#160;</a></span>ITask()</h2>
@@ -279,19 +296,21 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the task, assigning it a fixed id. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Constructs the task, assigning it a fixed id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">init_id</td><td>id to reuse (e.g. when reloading from JSON); if empty, a new random UUID is generated instead. The id cannot be changed after construction. </td></tr>
-    <tr><td class="paramname">parent</td><td>optional QObject parent </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">init_id</td><td>id to reuse (e.g. when reloading from JSON); if empty, a new random UUID is generated instead. The id cannot be changed after construction. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>optional QObject parent </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00043">43</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00053">53</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00043">ITask()</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00053">ITask()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00043">ITask()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00052">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00053">ITask()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00047">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
 
 </div>
 </div>
@@ -345,16 +364,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Adds <span class="tt">deviceId</span> to the set of devices assigned to this task; no-op (and no signal) if already assigned. Emits <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4" title="Emitted after a device is assigned or unassigned.">devicesChanged()</a> on success. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Adds <span class="tt">deviceId</span> to the set of devices assigned to this task; no-op (and no signal) if already assigned. Emits <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4" title="Emitted after a device is assigned or unassigned.">devicesChanged()</a> on success. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">deviceId</td><td>id of the device to assign </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deviceId</td><td>id of the device to assign </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00125">125</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00143">143</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4">devicesChanged()</a>, and <a class="el" href="itask_8h_source.html#l00334">m_assignedDeviceIds</a>.</p>
+<p class="reference">References <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4">devicesChanged()</a>, and <a class="el" href="itask_8h_source.html#l00374">m_assignedDeviceIds</a>.</p>
 
 </div>
 </div>
@@ -383,11 +404,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the ids of all devices currently assigned to this task. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00145">145</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00165">165</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00334">m_assignedDeviceIds</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00374">m_assignedDeviceIds</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="task__localization_8cpp_source.html#l00111">vc::model::TaskLocalization::isReachLimitOfDeviceType()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00385">vc::model::TaskLocalization::setCameraNumber()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="task__localization_8cpp_source.html#l00108">vc::model::TaskLocalization::isReachLimitOfDeviceType()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00382">vc::model::TaskLocalization::setCameraNumber()</a>.</p>
 
 </div>
 </div>
@@ -405,9 +426,11 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Resolves m_assignedDeviceIds against the project's DeviceManager and returns only the devices matching <span class="tt">t</span>. Skips ids whose device isn't currently registered. Returns an empty list if the task has no project set yet. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Resolves m_assignedDeviceIds against the project's DeviceManager and returns only the devices matching <span class="tt">t</span>. Skips ids whose device isn't currently registered. Returns an empty list if the task has no project set yet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">t</td><td>device type to filter by </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td>device type to filter by </td></tr>
   </table>
   </dd>
 </dl>
@@ -416,7 +439,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00052">52</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00334">m_assignedDeviceIds</a>, and <a class="el" href="itask_8h_source.html#l00327">m_proj</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00374">m_assignedDeviceIds</a>, and <a class="el" href="itask_8h_source.html#l00367">m_proj</a>.</p>
 
 </div>
 </div>
@@ -447,7 +470,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00073">73</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__define_8h_source.html#l00033">vc::model::Commission</a>, <a class="el" href="#a30178e579a572aec971057ff3eecf811">commissionStarted()</a>, <a class="el" href="task__define_8h_source.html#l00032">vc::model::CommissionStarting</a>, <a class="el" href="itask_8h_source.html#l00338">m_taskRunner</a>, <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
+<p class="reference">References <a class="el" href="task__define_8h_source.html#l00046">vc::model::Commission</a>, <a class="el" href="#a30178e579a572aec971057ff3eecf811">commissionStarted()</a>, <a class="el" href="task__define_8h_source.html#l00045">vc::model::CommissionStarting</a>, <a class="el" href="itask_8h_source.html#l00378">m_taskRunner</a>, <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
 
 </div>
 </div>
@@ -473,9 +496,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Runtime phase: start production execution. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Runtime phase: start production execution. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mergeToTaskThread</td><td>false (default): keep per-device threads, runtime thread acts as coordinator; true: move all devices to the single runtime thread.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mergeToTaskThread</td><td>false (default): keep per-device threads, runtime thread acts as coordinator; true: move all devices to the single runtime thread.</td></tr>
   </table>
   </dd>
 </dl>
@@ -485,7 +510,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00107">107</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00338">m_taskRunner</a>, <a class="el" href="task__define_8h_source.html#l00035">vc::model::Ready</a>, <a class="el" href="#aee0367f03831d2fbd485b051c71a96cd">runtimeStarted()</a>, <a class="el" href="task__define_8h_source.html#l00034">vc::model::RuntimeStarting</a>, <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00378">m_taskRunner</a>, <a class="el" href="task__define_8h_source.html#l00048">vc::model::Ready</a>, <a class="el" href="#aee0367f03831d2fbd485b051c71a96cd">runtimeStarted()</a>, <a class="el" href="task__define_8h_source.html#l00047">vc::model::RuntimeStarting</a>, <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
 
 </div>
 </div>
@@ -514,9 +539,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns whether this task uses its own owned camera or a shared one. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00087">87</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00099">99</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00332">m_cameraSourceType</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00372">m_cameraSourceType</a>.</p>
 
 </div>
 </div>
@@ -543,9 +568,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted after <a class="el" href="#ad6b8f9de7e7f38bdb6fd3a9bceca2990">setCameraSourceType()</a> is called. </p>
+<p>Emitted after <a class="el" href="#ad6b8f9de7e7f38bdb6fd3a9bceca2990" title="Sets the camera source type, always emitting cameraSourceTypeChanged() (unlike setName(),...">setCameraSourceType()</a> is called. </p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00094">setCameraSourceType()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00108">setCameraSourceType()</a>.</p>
 
 </div>
 </div>
@@ -630,9 +655,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted after <a class="el" href="#a134f6c7888aad1b451a7ae3f2b0e6fb2">setTaskConfig()</a> replaces the configuration. </p>
+<p>Emitted after <a class="el" href="#a134f6c7888aad1b451a7ae3f2b0e6fb2" title="Replaces the task&#39;s abstract configuration object and emits configChanged().">setTaskConfig()</a> replaces the configuration. </p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">vc::model::Project::addTask()</a>, and <a class="el" href="itask_8h_source.html#l00170">setTaskConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">vc::model::Project::addTask()</a>, and <a class="el" href="itask_8h_source.html#l00196">setTaskConfig()</a>.</p>
 
 </div>
 </div>
@@ -661,7 +686,7 @@ Private Attributes</h2></td></tr>
 
 <p>Emitted after a device is assigned or unassigned. </p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00125">assignDevice()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00402">MainWindow::connectProjectSignals()</a>, <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00173">LocalizationDashboardWidget::initWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00179">LocalizationSettingWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00767">MainWindow::onTaskCreated()</a>, <a class="el" href="itask_8h_source.html#l00134">unassignDevice()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00452">LocalizationPatternsWidget::wireToolbar()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00143">assignDevice()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00402">MainWindow::connectProjectSignals()</a>, <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00173">LocalizationDashboardWidget::initWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00179">LocalizationSettingWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00767">MainWindow::onTaskCreated()</a>, <a class="el" href="itask_8h_source.html#l00154">unassignDevice()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00452">LocalizationPatternsWidget::wireToolbar()</a>.</p>
 
 </div>
 </div>
@@ -693,7 +718,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00090">90</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a187828faac58e122853248d68b84032c">commissionStopped()</a>, <a class="el" href="task__define_8h_source.html#l00031">vc::model::Idle</a>, <a class="el" href="itask_8h_source.html#l00338">m_taskRunner</a>, <a class="el" href="task__define_8h_source.html#l00039">vc::model::Stopping</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
+<p class="reference">References <a class="el" href="#a187828faac58e122853248d68b84032c">commissionStopped()</a>, <a class="el" href="task__define_8h_source.html#l00044">vc::model::Idle</a>, <a class="el" href="itask_8h_source.html#l00378">m_taskRunner</a>, <a class="el" href="task__define_8h_source.html#l00052">vc::model::Stopping</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
 
 </div>
 </div>
@@ -727,9 +752,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00124">124</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__define_8h_source.html#l00031">vc::model::Idle</a>, <a class="el" href="itask_8h_source.html#l00338">m_taskRunner</a>, <a class="el" href="#a622d32ef49db21c840b63623680ad158">runtimeStopped()</a>, <a class="el" href="task__define_8h_source.html#l00039">vc::model::Stopping</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
+<p class="reference">References <a class="el" href="task__define_8h_source.html#l00044">vc::model::Idle</a>, <a class="el" href="itask_8h_source.html#l00378">m_taskRunner</a>, <a class="el" href="#a622d32ef49db21c840b63623680ad158">runtimeStopped()</a>, <a class="el" href="task__define_8h_source.html#l00052">vc::model::Stopping</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00174">vc::model::TaskLocalization::endRuntime()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00171">vc::model::TaskLocalization::endRuntime()</a>.</p>
 
 </div>
 </div>
@@ -755,9 +780,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Restores id, name, assignedDeviceIds, and (if a config object is already set) the taskConfig from a JSON object previously produced by <a class="el" href="#a0870d86c987735869492588c652049d9">toJson()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Restores id, name, assignedDeviceIds, and (if a config object is already set) the taskConfig from a JSON object previously produced by <a class="el" href="#a0870d86c987735869492588c652049d9">toJson()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>serialized task; must contain "id", "name", "taskType", and "taskConfig" with a "taskType" matching this instance's <a class="el" href="#aed904be374dda9643ff50d3443f1d8f9" title="Returns the concrete task type this instance implements.">taskType()</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>serialized task; must contain "id", "name", "taskType", and "taskConfig" with a "taskType" matching this instance's <a class="el" href="#aed904be374dda9643ff50d3443f1d8f9" title="Returns the concrete task type this instance implements.">taskType()</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -765,11 +792,11 @@ Private Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_task_localization.html#a8b26a87fd244016ff09d0a52fed19630">TaskLocalization</a>, and <a class="el" href="classvc_1_1model_1_1_task_localization.html#a8b26a87fd244016ff09d0a52fed19630">vc::model::TaskLocalization</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00210">210</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00238">238</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="itask_8h_source.html#l00335">m_abstract_cfg</a>, <a class="el" href="itask_8h_source.html#l00334">m_assignedDeviceIds</a>, <a class="el" href="itask_8h_source.html#l00330">m_id</a>, <a class="el" href="itask_8h_source.html#l00331">m_name</a>, <a class="el" href="meta__utils_8h_source.html#l00025">stringToQEnum()</a>, <a class="el" href="#aed904be374dda9643ff50d3443f1d8f9">taskType()</a>, and <a class="el" href="task__define_8h_source.html#l00021">vc::model::UndefineTask</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="itask_8h_source.html#l00375">m_abstract_cfg</a>, <a class="el" href="itask_8h_source.html#l00374">m_assignedDeviceIds</a>, <a class="el" href="itask_8h_source.html#l00370">m_id</a>, <a class="el" href="itask_8h_source.html#l00371">m_name</a>, <a class="el" href="meta__utils_8h_source.html#l00035">stringToQEnum()</a>, <a class="el" href="#aed904be374dda9643ff50d3443f1d8f9">taskType()</a>, and <a class="el" href="task__define_8h_source.html#l00031">vc::model::UndefineTask</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00243">vc::model::TaskLocalization::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00240">vc::model::TaskLocalization::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -788,10 +815,11 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Looks up a single assigned device by id via the project's DeviceManager. </p>
-<p>Looks up <span class="tt">deviceId</span> via the owning <a class="el" href="classvc_1_1model_1_1_project.html">Project</a>'s DeviceManager. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Looks up <span class="tt">deviceId</span> via the owning <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a>'s DeviceManager. </p>
+<p>Looks up a single assigned device by id via the project's DeviceManager.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">deviceId</td><td>id of the device to resolve </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deviceId</td><td>id of the device to resolve </td></tr>
   </table>
   </dd>
 </dl>
@@ -799,9 +827,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00036">36</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00327">m_proj</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00367">m_proj</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00636">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00385">vc::model::TaskLocalization::setCameraNumber()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00382">vc::model::TaskLocalization::setCameraNumber()</a>.</p>
 
 </div>
 </div>
@@ -831,7 +859,7 @@ Private Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_task_localization.html#aede1343f66786b84789e54daf93ab36f">TaskLocalization</a>, and <a class="el" href="classvc_1_1model_1_1_task_localization.html#aede1343f66786b84789e54daf93ab36f">vc::model::TaskLocalization</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00245">245</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00273">273</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
 </div>
 </div>
@@ -860,9 +888,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns whether <span class="tt">deviceId</span> is currently assigned to this task. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00140">140</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00160">160</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00334">m_assignedDeviceIds</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00374">m_assignedDeviceIds</a>.</p>
 
 </div>
 </div>
@@ -891,11 +919,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the task's fixed id (set once at construction; never changes). </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00067">67</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00077">77</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00330">m_id</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00370">m_id</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="project_8cpp_source.html#l00247">vc::model::Project::fromJson()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00052">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="project_8cpp_source.html#l00236">vc::model::Project::fromJson()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00047">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
 
 </div>
 </div>
@@ -924,9 +952,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns true if this task's camera source is Source_Owned. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00100">100</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00114">114</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00332">m_cameraSourceType</a>, and <a class="el" href="task__define_8h_source.html#l00014">vc::model::Source_Owned</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00372">m_cameraSourceType</a>, and <a class="el" href="task__define_8h_source.html#l00021">vc::model::Source_Owned</a>.</p>
 
 </div>
 </div>
@@ -983,9 +1011,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns true if this task's camera source is Source_Shared. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00105">105</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00119">119</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00332">m_cameraSourceType</a>, and <a class="el" href="task__define_8h_source.html#l00015">vc::model::Source_Shared</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00372">m_cameraSourceType</a>, and <a class="el" href="task__define_8h_source.html#l00022">vc::model::Source_Shared</a>.</p>
 
 </div>
 </div>
@@ -1040,9 +1068,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Base implementation is a no-op that always fails; subclasses that support restoring cached images from a mapping override this. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Base implementation is a no-op that always fails; subclasses that support restoring cached images from a mapping override this. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mapping</td><td>candidate images keyed by identifier </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mapping</td><td>candidate images keyed by identifier </td></tr>
   </table>
   </dd>
 </dl>
@@ -1050,7 +1080,7 @@ Private Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_task_localization.html#a5a17d485f928bae2d684815fe6e06f78">TaskLocalization</a>, and <a class="el" href="classvc_1_1model_1_1_task_localization.html#a5a17d485f928bae2d684815fe6e06f78">vc::model::TaskLocalization</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00253">253</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00283">283</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
 </div>
 </div>
@@ -1079,9 +1109,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the task's display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00072">72</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00082">82</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00331">m_name</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00371">m_name</a>.</p>
 
 </div>
 </div>
@@ -1108,9 +1138,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted after <a class="el" href="#a375808f4e8c9166c5545620b5ea35df3">setName()</a> actually changes the name. </p>
+<p>Emitted after <a class="el" href="#a375808f4e8c9166c5545620b5ea35df3" title="Sets the task&#39;s display name, emitting nameChanged() if it actually changed.">setName()</a> actually changes the name. </p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00078">setName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00090">setName()</a>.</p>
 
 </div>
 </div>
@@ -1139,9 +1169,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the id of the camera this task owns (only meaningful when <a class="el" href="#aefb9d6e9aa324d625883f65823d824f2" title="Returns true if this task&#39;s camera source is Source_Owned.">isOwned()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00110">110</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00124">124</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00333">m_ownedCameraId</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00373">m_ownedCameraId</a>.</p>
 
 </div>
 </div>
@@ -1195,11 +1225,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the owning <a class="el" href="classvc_1_1model_1_1_project.html">Project</a>, or nullptr if none has been set yet. </p>
+<p>Returns the owning <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a>, or nullptr if none has been set yet. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00264">264</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00296">296</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00327">m_proj</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00367">m_proj</a>.</p>
 
 </div>
 </div>
@@ -1227,7 +1257,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Re-evaluate runners against m_assignedDeviceIds. Call after the user adds or removes a device while the task is running — TaskRunner will auto-start any new runner when in Commission/Runtime phase. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00294">294</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00328">328</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
 <p class="reference">References <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>.</p>
 
@@ -1256,9 +1286,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted at the end of <a class="el" href="#a7ef9abdd2e9374c80b80df399148ad4f">beginRuntime()</a> once resources are ready. </p>
+<p>Emitted at the end of <a class="el" href="#a7ef9abdd2e9374c80b80df399148ad4f" title="Runtime phase: start production execution.">beginRuntime()</a> once resources are ready. </p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00107">beginRuntime()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00141">vc::model::TaskLocalization::beginRuntime()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00107">beginRuntime()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00138">vc::model::TaskLocalization::beginRuntime()</a>.</p>
 
 </div>
 </div>
@@ -1313,16 +1343,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets the camera source type, always emitting <a class="el" href="#abf099c0fa5c31efdc7b62d197bf65461" title="Emitted after setCameraSourceType() is called.">cameraSourceTypeChanged()</a> (unlike <a class="el" href="#a375808f4e8c9166c5545620b5ea35df3">setName()</a>, there is no no-op check for an unchanged value). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Sets the camera source type, always emitting <a class="el" href="#abf099c0fa5c31efdc7b62d197bf65461" title="Emitted after setCameraSourceType() is called.">cameraSourceTypeChanged()</a> (unlike <a class="el" href="#a375808f4e8c9166c5545620b5ea35df3" title="Sets the task&#39;s display name, emitting nameChanged() if it actually changed.">setName()</a>, there is no no-op check for an unchanged value). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>new camera source type </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>new camera source type </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00094">94</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00108">108</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#abf099c0fa5c31efdc7b62d197bf65461">cameraSourceTypeChanged()</a>, and <a class="el" href="itask_8h_source.html#l00332">m_cameraSourceType</a>.</p>
+<p class="reference">References <a class="el" href="#abf099c0fa5c31efdc7b62d197bf65461">cameraSourceTypeChanged()</a>, and <a class="el" href="itask_8h_source.html#l00372">m_cameraSourceType</a>.</p>
 
 </div>
 </div>
@@ -1348,18 +1380,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets the task's display name, emitting <a class="el" href="#a132beb9bd13a349a695c7bb86c3be871" title="Emitted after setName() actually changes the name.">nameChanged()</a> if it actually changed. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Sets the task's display name, emitting <a class="el" href="#a132beb9bd13a349a695c7bb86c3be871" title="Emitted after setName() actually changes the name.">nameChanged()</a> if it actually changed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>new name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>new name </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00078">78</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00090">90</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00331">m_name</a>, and <a class="el" href="#a132beb9bd13a349a695c7bb86c3be871">nameChanged()</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00371">m_name</a>, and <a class="el" href="#a132beb9bd13a349a695c7bb86c3be871">nameChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00052">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00047">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
 
 </div>
 </div>
@@ -1385,16 +1419,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets the owned camera id. Does not check for a no-op value and does not emit any change signal. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Sets the owned camera id. Does not check for a no-op value and does not emit any change signal. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>new owned camera id </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>new owned camera id </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00117">117</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00133">133</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00333">m_ownedCameraId</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00373">m_ownedCameraId</a>.</p>
 
 </div>
 </div>
@@ -1420,16 +1456,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets the owning <a class="el" href="classvc_1_1model_1_1_project.html">Project</a> back-pointer (non-owning). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Sets the owning <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a> back-pointer (non-owning). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proj</td><td>owning project, or nullptr </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">proj</td><td>owning project, or nullptr </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00259">259</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00291">291</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00327">m_proj</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00367">m_proj</a>.</p>
 
 </div>
 </div>
@@ -1455,18 +1493,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Replaces the task's abstract configuration object and emits <a class="el" href="#a1c326dd6527ebb8f677f770eeb74fb35" title="Emitted after setTaskConfig() replaces the configuration.">configChanged()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Replaces the task's abstract configuration object and emits <a class="el" href="#a1c326dd6527ebb8f677f770eeb74fb35" title="Emitted after setTaskConfig() replaces the configuration.">configChanged()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cfg</td><td>new configuration; ownership/lifetime is managed by the caller </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>new configuration; ownership/lifetime is managed by the caller </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00170">170</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00196">196</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a1c326dd6527ebb8f677f770eeb74fb35">configChanged()</a>, and <a class="el" href="itask_8h_source.html#l00335">m_abstract_cfg</a>.</p>
+<p class="reference">References <a class="el" href="#a1c326dd6527ebb8f677f770eeb74fb35">configChanged()</a>, and <a class="el" href="itask_8h_source.html#l00375">m_abstract_cfg</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00099">vc::model::TaskLocalization::setTaskLocalizeConfig()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00052">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00096">vc::model::TaskLocalization::setTaskLocalizeConfig()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00047">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
 
 </div>
 </div>
@@ -1499,9 +1539,9 @@ Private Attributes</h2></td></tr>
 
 <p>Generic named-value change notification. </p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00035">name</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00043">name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00173">LocalizationDashboardWidget::initWidget()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00542">vc::model::TaskLocalization::wireRuntimeControllerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00173">LocalizationDashboardWidget::initWidget()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00539">vc::model::TaskLocalization::wireRuntimeControllerSignals()</a>.</p>
 
 </div>
 </div>
@@ -1535,9 +1575,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00140">140</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__define_8h_source.html#l00031">vc::model::Idle</a>, <a class="el" href="itask_8h_source.html#l00338">m_taskRunner</a>, <a class="el" href="itask_8h_source.html#l00339">m_taskState</a>, <a class="el" href="task__define_8h_source.html#l00039">vc::model::Stopping</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
+<p class="reference">References <a class="el" href="task__define_8h_source.html#l00044">vc::model::Idle</a>, <a class="el" href="itask_8h_source.html#l00378">m_taskRunner</a>, <a class="el" href="itask_8h_source.html#l00379">m_taskState</a>, <a class="el" href="task__define_8h_source.html#l00052">vc::model::Stopping</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00183">vc::model::TaskLocalization::stopAll()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00180">vc::model::TaskLocalization::stopAll()</a>.</p>
 
 </div>
 </div>
@@ -1568,9 +1608,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00159">159</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00334">m_assignedDeviceIds</a>, <a class="el" href="itask_8h_source.html#l00327">m_proj</a>, and <a class="el" href="itask_8h_source.html#l00338">m_taskRunner</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00374">m_assignedDeviceIds</a>, <a class="el" href="itask_8h_source.html#l00367">m_proj</a>, and <a class="el" href="itask_8h_source.html#l00378">m_taskRunner</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00073">beginCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00107">beginRuntime()</a>, <a class="el" href="task__localization_8cpp_source.html#l00141">vc::model::TaskLocalization::beginRuntime()</a>, and <a class="el" href="itask_8h_source.html#l00294">resyncDevices()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00073">beginCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00107">beginRuntime()</a>, <a class="el" href="task__localization_8cpp_source.html#l00138">vc::model::TaskLocalization::beginRuntime()</a>, and <a class="el" href="itask_8h_source.html#l00328">resyncDevices()</a>.</p>
 
 </div>
 </div>
@@ -1598,9 +1638,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a fresh copy of the task's current configuration. </p><dl class="section return"><dt>Returns</dt><dd>a newly allocated <a class="el" href="classvc_1_1model_1_1_i_task_config.html#accb0472e0759ff53fb00217ca4475483">ITaskConfig::copy()</a> of m_abstract_cfg; caller owns it </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00177">177</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00203">203</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00335">m_abstract_cfg</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00375">m_abstract_cfg</a>.</p>
 
 </div>
 </div>
@@ -1628,11 +1668,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the task's owned TaskRunner, which manages per-device threads across commission/runtime phases. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00271">271</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00303">303</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00338">m_taskRunner</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00378">m_taskRunner</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00141">vc::model::TaskLocalization::beginRuntime()</a>, <a class="el" href="task__localization_8cpp_source.html#l00636">vc::model::TaskLocalization::buildRuntimeContext()</a>, <a class="el" href="task__localization_8cpp_source.html#l00195">vc::model::TaskLocalization::cameraRunner()</a>, <a class="el" href="task__localization_8cpp_source.html#l00205">vc::model::TaskLocalization::plcRunner()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00385">vc::model::TaskLocalization::setCameraNumber()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00138">vc::model::TaskLocalization::beginRuntime()</a>, <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, <a class="el" href="task__localization_8cpp_source.html#l00192">vc::model::TaskLocalization::cameraRunner()</a>, <a class="el" href="task__localization_8cpp_source.html#l00202">vc::model::TaskLocalization::plcRunner()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00382">vc::model::TaskLocalization::setCameraNumber()</a>.</p>
 
 </div>
 </div>
@@ -1661,11 +1701,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the current commission/runtime lifecycle state of the task. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00062">62</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00072">72</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00339">m_taskState</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00379">m_taskState</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00357">vc::model::TaskLocalization::executeLocalization()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00478">vc::model::TaskLocalization::onRuntimeReady()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00354">vc::model::TaskLocalization::executeLocalization()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00475">vc::model::TaskLocalization::onRuntimeReady()</a>.</p>
 
 </div>
 </div>
@@ -1723,9 +1763,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the human-readable display name for the current <a class="el" href="#a25d34b201503dc387b48ad66ec90beb1" title="Returns the current commission/runtime lifecycle state of the task.">taskState()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00064">64</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00074">74</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00339">m_taskState</a>, and <a class="el" href="task__define_8h_source.html#l00096">vc::model::taskStateDisplayName()</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00379">m_taskState</a>, and <a class="el" href="task__define_8h_source.html#l00118">vc::model::taskStateDisplayName()</a>.</p>
 
 </div>
 </div>
@@ -1756,7 +1796,7 @@ Private Attributes</h2></td></tr>
 
 <p>Implemented in <a class="el" href="class_task_localization.html#ae7d7fd13a809586a3d4b5d97c6065936">TaskLocalization</a>, and <a class="el" href="classvc_1_1model_1_1_task_localization.html#ae7d7fd13a809586a3d4b5d97c6065936">vc::model::TaskLocalization</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="itask_8h_source.html#l00210">fromJson()</a>, and <a class="el" href="itask_8h_source.html#l00184">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="itask_8h_source.html#l00238">fromJson()</a>, and <a class="el" href="itask_8h_source.html#l00210">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1786,11 +1826,11 @@ Private Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_task_localization.html#aacd085bb5fb0a59f31d670a734e50af0">TaskLocalization</a>, and <a class="el" href="classvc_1_1model_1_1_task_localization.html#aacd085bb5fb0a59f31d670a734e50af0">vc::model::TaskLocalization</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00184">184</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00210">210</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00335">m_abstract_cfg</a>, <a class="el" href="itask_8h_source.html#l00334">m_assignedDeviceIds</a>, <a class="el" href="itask_8h_source.html#l00332">m_cameraSourceType</a>, <a class="el" href="itask_8h_source.html#l00330">m_id</a>, <a class="el" href="itask_8h_source.html#l00331">m_name</a>, <a class="el" href="itask_8h_source.html#l00333">m_ownedCameraId</a>, <a class="el" href="meta__utils_8h_source.html#l00014">qenumToString()</a>, and <a class="el" href="#aed904be374dda9643ff50d3443f1d8f9">taskType()</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00375">m_abstract_cfg</a>, <a class="el" href="itask_8h_source.html#l00374">m_assignedDeviceIds</a>, <a class="el" href="itask_8h_source.html#l00372">m_cameraSourceType</a>, <a class="el" href="itask_8h_source.html#l00370">m_id</a>, <a class="el" href="itask_8h_source.html#l00371">m_name</a>, <a class="el" href="itask_8h_source.html#l00373">m_ownedCameraId</a>, <a class="el" href="meta__utils_8h_source.html#l00022">qenumToString()</a>, and <a class="el" href="#aed904be374dda9643ff50d3443f1d8f9">taskType()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00227">vc::model::TaskLocalization::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00224">vc::model::TaskLocalization::toJson()</a>.</p>
 
 </div>
 </div>
@@ -1820,21 +1860,25 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Attempts to move the task's lifecycle state to <span class="tt">targetState</span>, validating the transition, logging the outcome, and emitting <a class="el" href="#a96d958fca63b336b48cdd30639337a5a" title="Emitted after a successful state transition.">taskStateChanged()</a> on success. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Attempts to move the task's lifecycle state to <span class="tt">targetState</span>, validating the transition, logging the outcome, and emitting <a class="el" href="#a96d958fca63b336b48cdd30639337a5a" title="Emitted after a successful state transition.">taskStateChanged()</a> on success. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">targetState</td><td>desired new state </td></tr>
-    <tr><td class="paramname">reason</td><td>free-text context for the transition, used in log messages </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">targetState</td><td>desired new state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">reason</td><td>free-text context for the transition, used in log messages </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the transition was valid and applied (or was already a no-op)</dd></dl>
-<p>Attempts to move the task from its current state to <span class="tt">targetState</span>, validating the move via <a class="el" href="namespacevc_1_1model.html#ae3e7c50d5cdaebecaf06c4ba6a6ce703">canTransitionTaskState()</a> and logging the outcome; on success updates m_taskState and emits <a class="el" href="#a96d958fca63b336b48cdd30639337a5a" title="Emitted after a successful state transition.">taskStateChanged()</a>. Returns false (leaving the state unchanged, after logging a warning) if <a class="el" href="namespacevc_1_1model.html#ae3e7c50d5cdaebecaf06c4ba6a6ce703">canTransitionTaskState()</a> rejects the transition. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the transition was valid and applied (or was already a no-op) </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><span class="tt">targetState</span> must be reachable from the current <a class="el" href="#a25d34b201503dc387b48ad66ec90beb1" title="Returns the current commission/runtime lifecycle state of the task.">taskState()</a> per <a class="el" href="namespacevc_1_1model.html#ae3e7c50d5cdaebecaf06c4ba6a6ce703" title="Checks whether a task is allowed to move from state from to state to according to the task lifecycle ...">canTransitionTaskState()</a>, unless it equals the current state. </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>On a true return, <a class="el" href="#a25d34b201503dc387b48ad66ec90beb1" title="Returns the current commission/runtime lifecycle state of the task.">taskState()</a> equals <span class="tt">targetState</span> and taskStateChanged(targetState) has been emitted (unless the transition was a same-state no-op).</dd></dl>
+<p>Attempts to move the task from its current state to <span class="tt">targetState</span>, validating the move via <a class="el" href="namespacevc_1_1model.html#ae3e7c50d5cdaebecaf06c4ba6a6ce703" title="Checks whether a task is allowed to move from state from to state to according to the task lifecycle ...">canTransitionTaskState()</a> and logging the outcome; on success updates m_taskState and emits <a class="el" href="#a96d958fca63b336b48cdd30639337a5a" title="Emitted after a successful state transition.">taskStateChanged()</a>. Returns false (leaving the state unchanged, after logging a warning) if <a class="el" href="namespacevc_1_1model.html#ae3e7c50d5cdaebecaf06c4ba6a6ce703" title="Checks whether a task is allowed to move from state from to state to according to the task lifecycle ...">canTransitionTaskState()</a> rejects the transition. </p>
 
 <p class="definition">Definition at line <a class="el" href="itask_8cpp_source.html#l00013">13</a> of file <a class="el" href="itask_8cpp_source.html">itask.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__state__machine_8h_source.html#l00100">vc::model::buildInvalidTaskStateTransitionMessage()</a>, <a class="el" href="task__state__machine_8h_source.html#l00082">vc::model::buildTaskStateTransitionMessage()</a>, <a class="el" href="task__state__machine_8h_source.html#l00019">vc::model::canTransitionTaskState()</a>, <a class="el" href="app__logger_8h_source.html#l00166">LOG_USER_INFO</a>, <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="itask_8h_source.html#l00339">m_taskState</a>, and <a class="el" href="#a96d958fca63b336b48cdd30639337a5a">taskStateChanged()</a>.</p>
+<p class="reference">References <a class="el" href="task__state__machine_8h_source.html#l00110">vc::model::buildInvalidTaskStateTransitionMessage()</a>, <a class="el" href="task__state__machine_8h_source.html#l00089">vc::model::buildTaskStateTransitionMessage()</a>, <a class="el" href="task__state__machine_8h_source.html#l00024">vc::model::canTransitionTaskState()</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="itask_8h_source.html#l00379">m_taskState</a>, and <a class="el" href="#a96d958fca63b336b48cdd30639337a5a">taskStateChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00073">beginCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00107">beginRuntime()</a>, <a class="el" href="task__localization_8cpp_source.html#l00141">vc::model::TaskLocalization::beginRuntime()</a>, <a class="el" href="itask_8cpp_source.html#l00090">endCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00124">endRuntime()</a>, <a class="el" href="task__localization_8cpp_source.html#l00461">vc::model::TaskLocalization::onRuntimeCycleStarted()</a>, <a class="el" href="task__localization_8cpp_source.html#l00492">vc::model::TaskLocalization::onRuntimeFault()</a>, <a class="el" href="task__localization_8cpp_source.html#l00478">vc::model::TaskLocalization::onRuntimeReady()</a>, <a class="el" href="task__localization_8cpp_source.html#l00469">vc::model::TaskLocalization::onRuntimeRecovering()</a>, and <a class="el" href="itask_8cpp_source.html#l00140">stopAll()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00073">beginCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00107">beginRuntime()</a>, <a class="el" href="task__localization_8cpp_source.html#l00138">vc::model::TaskLocalization::beginRuntime()</a>, <a class="el" href="itask_8cpp_source.html#l00090">endCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00124">endRuntime()</a>, <a class="el" href="task__localization_8cpp_source.html#l00458">vc::model::TaskLocalization::onRuntimeCycleStarted()</a>, <a class="el" href="task__localization_8cpp_source.html#l00489">vc::model::TaskLocalization::onRuntimeFault()</a>, <a class="el" href="task__localization_8cpp_source.html#l00475">vc::model::TaskLocalization::onRuntimeReady()</a>, <a class="el" href="task__localization_8cpp_source.html#l00466">vc::model::TaskLocalization::onRuntimeRecovering()</a>, and <a class="el" href="itask_8cpp_source.html#l00140">stopAll()</a>.</p>
 
 </div>
 </div>
@@ -1860,16 +1904,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Removes <span class="tt">deviceId</span> from the assigned-device set. Emits <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4" title="Emitted after a device is assigned or unassigned.">devicesChanged()</a> only if the id was actually present and removed. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Removes <span class="tt">deviceId</span> from the assigned-device set. Emits <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4" title="Emitted after a device is assigned or unassigned.">devicesChanged()</a> only if the id was actually present and removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">deviceId</td><td>id of the device to unassign </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deviceId</td><td>id of the device to unassign </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00134">134</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00154">154</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4">devicesChanged()</a>, and <a class="el" href="itask_8h_source.html#l00334">m_assignedDeviceIds</a>.</p>
+<p class="reference">References <a class="el" href="#a964fb414cf50415ffcdb55df534ef4f4">devicesChanged()</a>, and <a class="el" href="itask_8h_source.html#l00374">m_assignedDeviceIds</a>.</p>
 
 </div>
 </div>
@@ -1896,9 +1942,9 @@ Private Attributes</h2></td></tr>
 
 <p>Current task configuration; not owned/deleted here. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00335">335</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00375">375</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00210">fromJson()</a>, <a class="el" href="itask_8h_source.html#l00170">setTaskConfig()</a>, <a class="el" href="itask_8h_source.html#l00177">taskConfig()</a>, and <a class="el" href="itask_8h_source.html#l00184">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00238">fromJson()</a>, <a class="el" href="itask_8h_source.html#l00196">setTaskConfig()</a>, <a class="el" href="itask_8h_source.html#l00203">taskConfig()</a>, and <a class="el" href="itask_8h_source.html#l00210">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1924,9 +1970,9 @@ Private Attributes</h2></td></tr>
 
 <p>Ids of all devices currently assigned to this task. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00334">334</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00374">374</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00125">assignDevice()</a>, <a class="el" href="itask_8h_source.html#l00145">assignedDeviceIds()</a>, <a class="el" href="itask_8cpp_source.html#l00052">assignedDevicesOfType()</a>, <a class="el" href="itask_8h_source.html#l00210">fromJson()</a>, <a class="el" href="itask_8h_source.html#l00140">hasDevice()</a>, <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>, <a class="el" href="itask_8h_source.html#l00184">toJson()</a>, and <a class="el" href="itask_8h_source.html#l00134">unassignDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00143">assignDevice()</a>, <a class="el" href="itask_8h_source.html#l00165">assignedDeviceIds()</a>, <a class="el" href="itask_8cpp_source.html#l00052">assignedDevicesOfType()</a>, <a class="el" href="itask_8h_source.html#l00238">fromJson()</a>, <a class="el" href="itask_8h_source.html#l00160">hasDevice()</a>, <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>, <a class="el" href="itask_8h_source.html#l00210">toJson()</a>, and <a class="el" href="itask_8h_source.html#l00154">unassignDevice()</a>.</p>
 
 </div>
 </div>
@@ -1952,9 +1998,9 @@ Private Attributes</h2></td></tr>
 
 <p>Owned vs. shared camera source. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00332">332</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00372">372</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00087">cameraSourceType()</a>, <a class="el" href="itask_8h_source.html#l00100">isOwned()</a>, <a class="el" href="itask_8h_source.html#l00105">isShared()</a>, <a class="el" href="itask_8h_source.html#l00094">setCameraSourceType()</a>, and <a class="el" href="itask_8h_source.html#l00184">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00099">cameraSourceType()</a>, <a class="el" href="itask_8h_source.html#l00114">isOwned()</a>, <a class="el" href="itask_8h_source.html#l00119">isShared()</a>, <a class="el" href="itask_8h_source.html#l00108">setCameraSourceType()</a>, and <a class="el" href="itask_8h_source.html#l00210">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1980,9 +2026,9 @@ Private Attributes</h2></td></tr>
 
 <p>Fixed task id, generated or supplied at construction; immutable afterward. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00330">330</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00370">370</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00210">fromJson()</a>, <a class="el" href="itask_8h_source.html#l00067">id()</a>, and <a class="el" href="itask_8h_source.html#l00184">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00238">fromJson()</a>, <a class="el" href="itask_8h_source.html#l00077">id()</a>, and <a class="el" href="itask_8h_source.html#l00210">toJson()</a>.</p>
 
 </div>
 </div>
@@ -2008,9 +2054,9 @@ Private Attributes</h2></td></tr>
 
 <p>Display name shown to the user. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00331">331</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00371">371</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00210">fromJson()</a>, <a class="el" href="itask_8h_source.html#l00072">name()</a>, <a class="el" href="itask_8h_source.html#l00078">setName()</a>, and <a class="el" href="itask_8h_source.html#l00184">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00238">fromJson()</a>, <a class="el" href="itask_8h_source.html#l00082">name()</a>, <a class="el" href="itask_8h_source.html#l00090">setName()</a>, and <a class="el" href="itask_8h_source.html#l00210">toJson()</a>.</p>
 
 </div>
 </div>
@@ -2036,9 +2082,9 @@ Private Attributes</h2></td></tr>
 
 <p>Id of the owned camera, when <a class="el" href="#a1bdf1a33018acb0a5886e22fb99736df" title="Returns whether this task uses its own owned camera or a shared one.">cameraSourceType()</a> is Source_Owned. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00333">333</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00373">373</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00110">ownedCameraId()</a>, <a class="el" href="itask_8h_source.html#l00117">setOwnedCameraId()</a>, and <a class="el" href="itask_8h_source.html#l00184">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8h_source.html#l00124">ownedCameraId()</a>, <a class="el" href="itask_8h_source.html#l00133">setOwnedCameraId()</a>, and <a class="el" href="itask_8h_source.html#l00210">toJson()</a>.</p>
 
 </div>
 </div>
@@ -2062,11 +2108,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Non-owning back-pointer to the owning <a class="el" href="classvc_1_1model_1_1_project.html">Project</a>, if any. </p>
+<p>Non-owning back-pointer to the owning <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a>, if any. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00327">327</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00367">367</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00052">assignedDevicesOfType()</a>, <a class="el" href="itask_8cpp_source.html#l00036">getTaskDevice()</a>, <a class="el" href="task__localization_8cpp_source.html#l00111">vc::model::TaskLocalization::isReachLimitOfDeviceType()</a>, <a class="el" href="itask_8h_source.html#l00264">project()</a>, <a class="el" href="itask_8h_source.html#l00259">setProject()</a>, and <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00052">assignedDevicesOfType()</a>, <a class="el" href="itask_8cpp_source.html#l00036">getTaskDevice()</a>, <a class="el" href="task__localization_8cpp_source.html#l00108">vc::model::TaskLocalization::isReachLimitOfDeviceType()</a>, <a class="el" href="itask_8h_source.html#l00296">project()</a>, <a class="el" href="itask_8h_source.html#l00291">setProject()</a>, and <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>.</p>
 
 </div>
 </div>
@@ -2092,9 +2138,9 @@ Private Attributes</h2></td></tr>
 
 <p>Owned per-task thread/runner manager (QObject-parented to <span class="tt">this</span>). </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00338">338</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00378">378</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00073">beginCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00107">beginRuntime()</a>, <a class="el" href="itask_8cpp_source.html#l00090">endCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00124">endRuntime()</a>, <a class="el" href="itask_8cpp_source.html#l00140">stopAll()</a>, <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>, and <a class="el" href="itask_8h_source.html#l00271">taskRunner()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00073">beginCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00107">beginRuntime()</a>, <a class="el" href="itask_8cpp_source.html#l00090">endCommission()</a>, <a class="el" href="itask_8cpp_source.html#l00124">endRuntime()</a>, <a class="el" href="itask_8cpp_source.html#l00140">stopAll()</a>, <a class="el" href="itask_8cpp_source.html#l00159">syncRunnersWithDevices()</a>, and <a class="el" href="itask_8h_source.html#l00303">taskRunner()</a>.</p>
 
 </div>
 </div>
@@ -2120,9 +2166,9 @@ Private Attributes</h2></td></tr>
 
 <p>Current commission/runtime lifecycle state. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00339">339</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00379">379</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00140">stopAll()</a>, <a class="el" href="itask_8h_source.html#l00062">taskState()</a>, <a class="el" href="itask_8h_source.html#l00064">taskStateName()</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="itask_8cpp_source.html#l00140">stopAll()</a>, <a class="el" href="itask_8h_source.html#l00072">taskState()</a>, <a class="el" href="itask_8h_source.html#l00074">taskStateName()</a>, and <a class="el" href="itask_8cpp_source.html#l00013">transitionTaskState()</a>.</p>
 
 </div>
 </div>
@@ -2147,15 +2193,15 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00035">35</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask_8h_source.html#l00043">43</a> of file <a class="el" href="itask_8h_source.html">itask.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">vc::model::Project::addTask()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="classvc_1_1model_1_1_task_localization.html#a4d29e5dd5ad3f9f7f5eb7a76e67aae04">vc::model::TaskLocalization::cameraChanged()</a>, <a class="el" href="project_8cpp_source.html#l00247">vc::model::Project::fromJson()</a>, <a class="el" href="task__localization_8cpp_source.html#l00430">vc::model::TaskLocalization::onSignalChangeCameraNumber()</a>, <a class="el" href="task__localization_8cpp_source.html#l00446">vc::model::TaskLocalization::onSignalChangePatternNumber()</a>, <a class="el" href="classvc_1_1model_1_1_task_localization.html#a5cfef9ab0b92021374729be0106a2c7d">vc::model::TaskLocalization::patternChanged()</a>, <a class="el" href="#a943cbc506d084433a89e7a9a100c9bcd">signalChanged()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00052">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">vc::model::Project::addTask()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="classvc_1_1model_1_1_task_localization.html#a4d29e5dd5ad3f9f7f5eb7a76e67aae04">vc::model::TaskLocalization::cameraChanged()</a>, <a class="el" href="project_8cpp_source.html#l00236">vc::model::Project::fromJson()</a>, <a class="el" href="task__localization_8cpp_source.html#l00427">vc::model::TaskLocalization::onSignalChangeCameraNumber()</a>, <a class="el" href="task__localization_8cpp_source.html#l00443">vc::model::TaskLocalization::onSignalChangePatternNumber()</a>, <a class="el" href="classvc_1_1model_1_1_task_localization.html#a5cfef9ab0b92021374729be0106a2c7d">vc::model::TaskLocalization::patternChanged()</a>, <a class="el" href="#a943cbc506d084433a89e7a9a100c9bcd">signalChanged()</a>, and <a class="el" href="task__localization_8cpp_source.html#l00047">vc::model::TaskLocalization::TaskLocalization()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="itask_8h_source.html">itask.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="itask_8cpp_source.html">itask.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="itask_8h_source.html">itask.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="itask_8cpp_source.html">itask.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

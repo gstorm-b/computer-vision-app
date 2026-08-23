@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['0_0',['Module: core (level 0)',['../md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2core_2_a_g_e_n_t_s.html',1,'']]],
+  ['0_0',['Module: core (level 0)',['../md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2core_2_a_g_e_n_t_s.html',1,'']]],
   ['01_20project_20overview_1',['01. Project Overview',['../architecture_diagrams.html#diag_01',1,'']]],
   ['02_20device_20families_2',['02. Device Families',['../architecture_diagrams.html#diag_02',1,'']]],
   ['03_20runtime_20threading_3',['03. Runtime Threading',['../architecture_diagrams.html#diag_03',1,'']]],

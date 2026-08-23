@@ -4,22 +4,34 @@
 #include <vector>
 #include <opencv2/core.hpp>
 
-/// Vision/matching module: PatternPoint and PatternLayer, the learned
-/// per-point edge data and template layer produced when training a pattern.
+/**
+ * @file match_pattern_layer.h
+ * @brief PatternPoint/PatternLayer — learned per-point edge data and template layer produced
+ *        when training a pattern.
+ */
+
 namespace mtc {
 
-/// Per-edge-point sample extracted from a pattern's edges: pixel coordinate,
-/// gradient direction (Derivative) and gradient magnitude.
+/**
+ * @struct PatternPoint
+ * @brief Per-edge-point sample extracted from a pattern's edges: pixel coordinate,
+ *        gradient direction (Derivative) and gradient magnitude.
+ */
 struct PatternPoint {
     cv::Point Coordinates;      ///< Pixel coordinate of the edge point, in the pattern image.
     cv::Point2f Derivative;     ///< Gradient direction (unit-ish vector) at this point.
     float Magnitude;            ///< Gradient magnitude at this point.
 };
 
-/// Learned template data for one trained pattern image: the extracted edge
-/// points/contours plus the raw SIMD-aligned gradient buffers (pGx/pGy/pMag)
-/// used by the Edge-Based matching algorithm. Owns those raw buffers, so
-/// custom copy/move members are provided to manage them explicitly.
+/**
+ * @class PatternLayer
+ * @brief Learned template data for one trained pattern image: the extracted edge
+ *        points/contours plus the raw SIMD-aligned gradient buffers (pGx/pGy/pMag)
+ *        used by the Edge-Based matching algorithm.
+ *
+ * Owns those raw buffers, so custom copy/move members are provided to manage them
+ * explicitly.
+ */
 class PatternLayer {
 public:
     /// Default-constructs an empty layer with no allocated gradient buffers.
@@ -35,9 +47,11 @@ public:
         this->freeMemory();
     }
 
-    /// Frees any existing gradient buffers, then allocates 32-byte-aligned
-    /// storage for `num` points in pGx/pGy/pMag.
-    /// @param num number of points to allocate storage for
+    /**
+     * @brief Frees any existing gradient buffers, then allocates 32-byte-aligned
+     *        storage for `num` points in pGx/pGy/pMag.
+     * @param[in] num number of points to allocate storage for
+     */
     void allocateMemory(size_t num) {
         freeMemory();
         pGx = (float*)_mm_malloc(num * sizeof(float), 32);

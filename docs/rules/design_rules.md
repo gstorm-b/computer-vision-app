@@ -597,9 +597,11 @@ silent" — only a valid reply proves the client is still alive.
 ### 13.4 Stream payloads are framed by a delimiter; parse with buffer + scan
 
 **Rule.** Stream-based protocols (TCP) **always** use a delimiter for
-framing (e.g. `;` for result `"N,x,y,z,r,...;"`, `.` for heartbeat
+framing (e.g. `;` for result `"N,x,y,z,rx,ry,rz,...;"`, `.` for heartbeat
 `"ack,N."`). Within a result frame each axis is emitted fixed-width as
-`%08.2f` (zero-padded, 2 decimals, e.g. `1.0` -> `00001.00`) — see
+`%08.2f` (zero-padded, 2 decimals, e.g. `1.0` -> `00001.00`), six axes per
+position since Phase 5 — it was four (`x,y,z,r`) before, and the old `r` is now
+emitted as `rz` — see
 [vision_output_request.h](../../src/device/output_device/vision_output_request.h).
 The receiver maintains a `QByteArray` buffer, appends
 every `readAll()` chunk, scans for the delimiter, and cuts out one
@@ -841,7 +843,7 @@ match modern Qt/C++ style and keep single-line briefs low-friction to add.
 **Where applied.** All new and modified classes/methods/members in `src/`, `app/`, and
 `components/RobotKinematics/`, going forward. The existing codebase was retroactively brought up
 to this style in the same pass this rule was introduced (see
-`docs/history/request_prompts/build_docs_reference.md`); flag, don't silently leave, any file you
+`docs/history/request/build_docs_reference.md`); flag, don't silently leave, any file you
 touch afterward that still lacks it. See [documentation_build.md](documentation_build.md) for the
 Doxygen/Graphviz/PlantUML build pipeline that consumes these comments.
 

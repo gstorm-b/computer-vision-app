@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1run
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract interface for per-device thread controllers. Concrete implementations (<a class="el" href="classvc_1_1runtime_1_1_camera_runner.html" title="Per-camera thread runner (replaces the legacy CameraWorker that previously lived in src/model); media...">CameraRunner</a>, <a class="el" href="classvc_1_1runtime_1_1_plc_runner.html" title="Family-level runner for the PLC device family; holds a PlcDevice* (the abstract base) so the runner s...">PlcRunner</a>, <a class="el" href="classvc_1_1runtime_1_1_vision_output_runner.html" title="Per-device thread controller for vc::device::VisionOutputDevice: exposes thread-safe request*() entry...">VisionOutputRunner</a>) inherit from the <a class="el" href="classvc_1_1runtime_1_1_device_runner.html" title="CRTP template base for per-device thread runners — eliminates the duplication that used to exist betw...">DeviceRunner&lt;T&gt;</a> template base which provides the boilerplate.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::runtime::IDeviceRunner:</div>
@@ -135,23 +138,29 @@ Collaboration diagram for vc::runtime::IDeviceRunner:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a4768a76460ee55e4ad605ef850fbf0b0" id="r_a4768a76460ee55e4ad605ef850fbf0b0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4768a76460ee55e4ad605ef850fbf0b0">commandFinished</a> (<a class="el" href="structvc_1_1runtime_1_1_device_command_result.html">vc::runtime::DeviceCommandResult</a> result)</td></tr>
-<tr class="memdesc:a4768a76460ee55e4ad605ef850fbf0b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted with the outcome of a <a class="el" href="#a364d4cae549dca12e47387b04084fb39">submitCommand()</a> call.  <br /></td></tr>
+<tr class="memdesc:a4768a76460ee55e4ad605ef850fbf0b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted with the outcome of a <a class="el" href="#a364d4cae549dca12e47387b04084fb39" title="Default command handler: rejects any command as unsupported. Concrete runners that support DeviceComm...">submitCommand()</a> call.  <br /></td></tr>
 <tr class="memitem:a9b6c63c4c8daad2bbd0fc5c7add2833f" id="r_a9b6c63c4c8daad2bbd0fc5c7add2833f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9b6c63c4c8daad2bbd0fc5c7add2833f">connectStatusChanged</a> (<a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
+<tr class="memdesc:a9b6c63c4c8daad2bbd0fc5c7add2833f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forwarded from the device via Qt::QueuedConnection: notifies of a connection state change.  <br /></td></tr>
 <tr class="memitem:ad14e5007f560c061bc1e8eb3126f9645" id="r_ad14e5007f560c061bc1e8eb3126f9645"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad14e5007f560c061bc1e8eb3126f9645">errorOccurred</a> (const QString &amp;msg)</td></tr>
+<tr class="memdesc:ad14e5007f560c061bc1e8eb3126f9645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forwarded from the device via Qt::QueuedConnection: reports an error message.  <br /></td></tr>
 <tr class="memitem:a2f194920d5692b93f717e6bfff008510" id="r_a2f194920d5692b93f717e6bfff008510"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2f194920d5692b93f717e6bfff008510">requestDetach</a> (QThread *dest)</td></tr>
+<tr class="memdesc:a2f194920d5692b93f717e6bfff008510"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal request (used by <a class="el" href="#ac20d0239c85ee927dae97190964d13fe" title="Requests the device detach on its own worker thread and blocks the calling thread (via a local QEvent...">detachFromOutsideThread()</a>) asking the device to detach on its own thread and move to <span class="tt">dest</span>.  <br /></td></tr>
 <tr class="memitem:a743626e41c5537ed385b51befdbb531c" id="r_a743626e41c5537ed385b51befdbb531c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a743626e41c5537ed385b51befdbb531c">requestDeviceDisconnect</a> ()</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a656b07ad902025489b1024a36c1ba19b" id="r_a656b07ad902025489b1024a36c1ba19b"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach</a> ()=0</td></tr>
 <tr class="memitem:a710f2cdf9de86c4fce0ab762d7abfcf5" id="r_a710f2cdf9de86c4fce0ab762d7abfcf5"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5">detach</a> (QThread *dest=nullptr)=0</td></tr>
+<tr class="memdesc:a710f2cdf9de86c4fce0ab762d7abfcf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unwires the device's signals and moves it off the worker thread onto <span class="tt">dest</span> (or the caller's thread if null).  <br /></td></tr>
 <tr class="memitem:ac20d0239c85ee927dae97190964d13fe" id="r_ac20d0239c85ee927dae97190964d13fe"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac20d0239c85ee927dae97190964d13fe">detachFromOutsideThread</a> (QThread *dest=nullptr)</td></tr>
+<tr class="memdesc:ac20d0239c85ee927dae97190964d13fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the device detach on its own worker thread and blocks the calling thread (via a local QEventLoop) until the device confirms it via deviceThreadDetached().  <br /></td></tr>
 <tr class="memitem:a267ea8752c80d65e7e10d3d7b9400b52" id="r_a267ea8752c80d65e7e10d3d7b9400b52"><td class="memItemLeft">virtual <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a267ea8752c80d65e7e10d3d7b9400b52">device</a> () const =0</td></tr>
 <tr class="memdesc:a267ea8752c80d65e7e10d3d7b9400b52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the concrete device instance owned/managed by this runner.  <br /></td></tr>
 <tr class="memitem:a68afe1233cf5d0baa488c032d1e41b3f" id="r_a68afe1233cf5d0baa488c032d1e41b3f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a68afe1233cf5d0baa488c032d1e41b3f">disconnectAndWait</a> (int timeoutMs=3000)</td></tr>
+<tr class="memdesc:a68afe1233cf5d0baa488c032d1e41b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synchronously closes the device connection on its own worker thread.  <br /></td></tr>
 <tr class="memitem:a0ac2b148372ae6b0c0274cbd94c476d2" id="r_a0ac2b148372ae6b0c0274cbd94c476d2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0ac2b148372ae6b0c0274cbd94c476d2">IDeviceRunner</a> (QObject *parent=nullptr)</td></tr>
 <tr class="memitem:a60aa4bb546eaa09d2c41c8107453c7f0" id="r_a60aa4bb546eaa09d2c41c8107453c7f0"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a60aa4bb546eaa09d2c41c8107453c7f0">isAttached</a> () const</td></tr>
-<tr class="memdesc:a60aa4bb546eaa09d2c41c8107453c7f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether <a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> has run and <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5">detach()</a> has not yet undone it.  <br /></td></tr>
+<tr class="memdesc:a60aa4bb546eaa09d2c41c8107453c7f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether <a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> has run and <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5" title="Unwires the device&#39;s signals and moves it off the worker thread onto dest (or the caller&#39;s thread if ...">detach()</a> has not yet undone it.  <br /></td></tr>
 <tr class="memitem:a447a588a4ee13b758258b95620abca33" id="r_a447a588a4ee13b758258b95620abca33"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a447a588a4ee13b758258b95620abca33">isRunning</a> () const</td></tr>
 <tr class="memdesc:a447a588a4ee13b758258b95620abca33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the worker thread exists and is currently running.  <br /></td></tr>
 <tr class="memitem:a6869f97d787a1f50a3c849cf2da13ffa" id="r_a6869f97d787a1f50a3c849cf2da13ffa"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a6869f97d787a1f50a3c849cf2da13ffa">start</a> ()=0</td></tr>
@@ -159,6 +168,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a058ed42767487a15f8826649f0f3e0ba" id="r_a058ed42767487a15f8826649f0f3e0ba"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a058ed42767487a15f8826649f0f3e0ba">stop</a> ()=0</td></tr>
 <tr class="memdesc:a058ed42767487a15f8826649f0f3e0ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quits the worker thread and waits (up to 3 s) for it to finish.  <br /></td></tr>
 <tr class="memitem:a364d4cae549dca12e47387b04084fb39" id="r_a364d4cae549dca12e47387b04084fb39"><td class="memItemLeft">virtual <a class="el" href="structvc_1_1runtime_1_1_device_command_result.html">DeviceCommandResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a364d4cae549dca12e47387b04084fb39">submitCommand</a> (const <a class="el" href="structvc_1_1runtime_1_1_device_command.html">DeviceCommand</a> &amp;command)</td></tr>
+<tr class="memdesc:a364d4cae549dca12e47387b04084fb39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default command handler: rejects any command as unsupported. Concrete runners that support <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a> dispatch override this.  <br /></td></tr>
 <tr class="memitem:a2b5e3bbbc54fbe95d2181a7d6ace36f9" id="r_a2b5e3bbbc54fbe95d2181a7d6ace36f9"><td class="memItemLeft">virtual QThread *&#160;</td><td class="memItemRight"><a class="el" href="#a2b5e3bbbc54fbe95d2181a7d6ace36f9">workerThread</a> () const =0</td></tr>
 <tr class="memdesc:a2b5e3bbbc54fbe95d2181a7d6ace36f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the internal worker QThread the device runs on.  <br /></td></tr>
 <tr class="memitem:a56dde0882589498fc6190a2abd078c75" id="r_a56dde0882589498fc6190a2abd078c75"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a56dde0882589498fc6190a2abd078c75">~IDeviceRunner</a> () override=default</td></tr>
@@ -166,19 +176,19 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:acda04094ea0fb36089891f2865867aa7" id="r_acda04094ea0fb36089891f2865867aa7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acda04094ea0fb36089891f2865867aa7">m_attached</a> {false}</td></tr>
-<tr class="memdesc:acda04094ea0fb36089891f2865867aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">True once <a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> has run and <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5">detach()</a> has not yet undone it.  <br /></td></tr>
+<tr class="memdesc:acda04094ea0fb36089891f2865867aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">True once <a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> has run and <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5" title="Unwires the device&#39;s signals and moves it off the worker thread onto dest (or the caller&#39;s thread if ...">detach()</a> has not yet undone it.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract interface for per-device thread controllers. Concrete implementations (<a class="el" href="classvc_1_1runtime_1_1_camera_runner.html">CameraRunner</a>, <a class="el" href="classvc_1_1runtime_1_1_plc_runner.html">PlcRunner</a>, <a class="el" href="classvc_1_1runtime_1_1_vision_output_runner.html">VisionOutputRunner</a>) inherit from the <a class="el" href="classvc_1_1runtime_1_1_device_runner.html">DeviceRunner&lt;T&gt;</a> template base which provides the boilerplate.</p>
+<div class="textblock"><p>Abstract interface for per-device thread controllers. Concrete implementations (<a class="el" href="classvc_1_1runtime_1_1_camera_runner.html" title="Per-camera thread runner (replaces the legacy CameraWorker that previously lived in src/model); media...">CameraRunner</a>, <a class="el" href="classvc_1_1runtime_1_1_plc_runner.html" title="Family-level runner for the PLC device family; holds a PlcDevice* (the abstract base) so the runner s...">PlcRunner</a>, <a class="el" href="classvc_1_1runtime_1_1_vision_output_runner.html" title="Per-device thread controller for vc::device::VisionOutputDevice: exposes thread-safe request*() entry...">VisionOutputRunner</a>) inherit from the <a class="el" href="classvc_1_1runtime_1_1_device_runner.html" title="CRTP template base for per-device thread runners — eliminates the duplication that used to exist betw...">DeviceRunner&lt;T&gt;</a> template base which provides the boilerplate. </p>
 <p>Lifecycle:</p><ul>
 <li><a class="el" href="#a6869f97d787a1f50a3c849cf2da13ffa" title="Starts the internal worker QThread that will host the device.">start()</a> starts the internal QThread</li>
 <li><a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> moves the device onto the worker thread and wires its signals</li>
-<li><a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5">detach()</a> unwires the device's signals and moves it to the destination thread</li>
+<li><a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5" title="Unwires the device&#39;s signals and moves it off the worker thread onto dest (or the caller&#39;s thread if ...">detach()</a> unwires the device's signals and moves it to the destination thread</li>
 <li><a class="el" href="#a058ed42767487a15f8826649f0f3e0ba" title="Quits the worker thread and waits (up to 3 s) for it to finish.">stop()</a> quits the worker thread and waits (up to 3 s) for it to finish</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>All signals forwarded from the device are emitted as Qt::QueuedConnection and can be safely received on the GUI thread. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00027">27</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00034">34</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0ac2b148372ae6b0c0274cbd94c476d2" name="a0ac2b148372ae6b0c0274cbd94c476d2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ac2b148372ae6b0c0274cbd94c476d2">&#9670;&#160;</a></span>IDeviceRunner()</h2>
@@ -204,9 +214,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructs the runner; the worker thread and device are created by the concrete subclass, not here. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00033">33</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00040">40</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__runner_8h_source.html#l00026">vc::runtime::DeviceRunner&lt; TDevice &gt;::DeviceRunner()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__runner_8h_source.html#l00040">vc::runtime::DeviceRunner&lt; TDevice &gt;::DeviceRunner()</a>.</p>
 
 </div>
 </div>
@@ -290,9 +300,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted with the outcome of a <a class="el" href="#a364d4cae549dca12e47387b04084fb39">submitCommand()</a> call. </p>
+<p>Emitted with the outcome of a <a class="el" href="#a364d4cae549dca12e47387b04084fb39" title="Default command handler: rejects any command as unsupported. Concrete runners that support DeviceComm...">submitCommand()</a> call. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">result</td><td>the command's accepted/rejected/succeeded/failed outcome. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a364d4cae549dca12e47387b04084fb39" title="Default command handler: rejects any command as unsupported. Concrete runners that support DeviceComm...">submitCommand()</a> </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00425">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00410">vc::runtime::CameraRunner::finishRejectedCommand()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00885">vc::model::LocalizationRuntimeController::startCycle()</a>, and <a class="el" href="idevice__runner_8h_source.html#l00061">submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00446">vc::runtime::CameraRunner::finishRejectedCommand()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00885">vc::model::LocalizationRuntimeController::startCycle()</a>, and <a class="el" href="idevice__runner_8h_source.html#l00073">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -318,9 +335,17 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Forwarded from the device via Qt::QueuedConnection: notifies of a connection state change; safe to receive on the GUI thread. </p>
 
-<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="idevice__runner_8h_source.html#l00103">disconnectAndWait()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">BaslerCameraWidget::initCameraWiget()</a>, <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00333">MitsubishiMcDeviceWidget::initWidget()</a>, <a class="el" href="vision__tcpip__client__device__widget_8cpp_source.html#l00223">VisionTcpipClientDeviceWidget::initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">VisionTcpipDeviceWidget::initWidget()</a>, <a class="el" href="camera__runner_8h_source.html#l00200">vc::runtime::CameraRunner::onConnectStatusChanged()</a>, <a class="el" href="plc__runner_8h_source.html#l00115">vc::runtime::PlcRunner::onConnectStatusChanged()</a>, <a class="el" href="vision__output__runner_8h_source.html#l00093">vc::runtime::VisionOutputRunner::onConnectStatusChanged()</a>, <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00299">LocalizationDashboardWidget::wireConnectionLamp()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00572">LocalizationTaskWidget::wireDeviceNavDots()</a>.</p>
+<p>Forwarded from the device via Qt::QueuedConnection: notifies of a connection state change. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">status</td><td>the device's new connection status. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Safe to receive on the GUI thread. </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="idevice__runner_8h_source.html#l00120">disconnectAndWait()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">BaslerCameraWidget::initCameraWiget()</a>, <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00333">MitsubishiMcDeviceWidget::initWidget()</a>, <a class="el" href="vision__tcpip__client__device__widget_8cpp_source.html#l00223">VisionTcpipClientDeviceWidget::initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">VisionTcpipDeviceWidget::initWidget()</a>, <a class="el" href="camera__runner_8h_source.html#l00232">vc::runtime::CameraRunner::onConnectStatusChanged()</a>, <a class="el" href="plc__runner_8h_source.html#l00134">vc::runtime::PlcRunner::onConnectStatusChanged()</a>, <a class="el" href="vision__output__runner_8h_source.html#l00104">vc::runtime::VisionOutputRunner::onConnectStatusChanged()</a>, <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00299">LocalizationDashboardWidget::wireConnectionLamp()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00572">LocalizationTaskWidget::wireDeviceNavDots()</a>.</p>
 
 </div>
 </div>
@@ -346,9 +371,11 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Unwires the device's signals and moves it off the worker thread onto <span class="tt">dest</span> (or the caller's thread if null). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Unwires the device's signals and moves it off the worker thread onto <span class="tt">dest</span> (or the caller's thread if null). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>destination thread to move the device to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dest</td><td>destination thread to move the device to </td></tr>
   </table>
   </dd>
 </dl>
@@ -381,18 +408,20 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Requests the device detach on its own worker thread and blocks the calling thread (via a local QEventLoop) until the device confirms it via deviceThreadDetached(). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Requests the device detach on its own worker thread and blocks the calling thread (via a local QEventLoop) until the device confirms it via deviceThreadDetached(). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dest</td><td>destination thread to move the device to once detached </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dest</td><td>destination thread to move the device to once detached </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00080">80</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00094">94</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a267ea8752c80d65e7e10d3d7b9400b52">device()</a>, <a class="el" href="idevice_8h_source.html#l00217">vc::device::IDevice::deviceDetachThread()</a>, <a class="el" href="classvc_1_1device_1_1_i_device.html#aab8e23308dfddaa1613ac0a7f88ee9f1">vc::device::IDevice::deviceThreadDetached()</a>, and <a class="el" href="#a2f194920d5692b93f717e6bfff008510">requestDetach()</a>.</p>
+<p class="reference">References <a class="el" href="#a267ea8752c80d65e7e10d3d7b9400b52">device()</a>, <a class="el" href="idevice_8h_source.html#l00233">vc::device::IDevice::deviceDetachThread()</a>, <a class="el" href="classvc_1_1device_1_1_i_device.html#aab8e23308dfddaa1613ac0a7f88ee9f1">vc::device::IDevice::deviceThreadDetached()</a>, and <a class="el" href="#a2f194920d5692b93f717e6bfff008510">requestDetach()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__runner_8h_source.html#l00070">vc::runtime::DeviceRunner&lt; TDevice &gt;::detach()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__runner_8h_source.html#l00084">vc::runtime::DeviceRunner&lt; TDevice &gt;::detach()</a>.</p>
 
 </div>
 </div>
@@ -423,7 +452,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implemented in <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a4d9d2fe45333bc5a134d63673ea6c683">vc::runtime::DeviceRunner&lt; TDevice &gt;</a>, <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a4d9d2fe45333bc5a134d63673ea6c683">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;</a>, <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a4d9d2fe45333bc5a134d63673ea6c683">vc::runtime::DeviceRunner&lt; vc::device::PlcDevice &gt;</a>, and <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a4d9d2fe45333bc5a134d63673ea6c683">vc::runtime::DeviceRunner&lt; vc::device::VisionOutputDevice &gt;</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="idevice__runner_8h_source.html#l00080">detachFromOutsideThread()</a>, and <a class="el" href="idevice__runner_8h_source.html#l00103">disconnectAndWait()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="idevice__runner_8h_source.html#l00094">detachFromOutsideThread()</a>, and <a class="el" href="idevice__runner_8h_source.html#l00120">disconnectAndWait()</a>.</p>
 
 </div>
 </div>
@@ -449,18 +478,21 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Synchronously closes the device connection on its own worker thread.</p>
-<p>Must be called BEFORE <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5">detach()</a>/stop() during a phase teardown: the device owns thread-affined transport objects (e.g. a QTcpSocket created on the worker thread). Moving the device across threads or stopping the worker while the link is still open leaks the connection and can crash on re-entry. Triggering deviceDisconnect() here lets the device close its transport on the correct thread.</p>
-<p>No-op when the device is not connected. Bounded by timeoutMs so a misbehaving device cannot stall teardown. Requires the runner to still be attached with its worker thread running (the normal pre-detach state). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Synchronously closes the device connection on its own worker thread. </p>
+<p>Must be called BEFORE <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5" title="Unwires the device&#39;s signals and moves it off the worker thread onto dest (or the caller&#39;s thread if ...">detach()</a>/stop() during a phase teardown: the device owns thread-affined transport objects (e.g. a QTcpSocket created on the worker thread). Moving the device across threads or stopping the worker while the link is still open leaks the connection and can crash on re-entry. Triggering deviceDisconnect() here lets the device close its transport on the correct thread.</p>
+<p>No-op when the device is not connected. Bounded by timeoutMs so a misbehaving device cannot stall teardown.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">timeoutMs</td><td>maximum time to wait for the device to report disconnected </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">timeoutMs</td><td>maximum time to wait for the device to report disconnected </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section pre"><dt>Precondition</dt><dd>The runner must still be attached with its worker thread running (the normal pre-detach state). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00103">103</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00120">120</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00026">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00029">vc::device::Connecting</a>, <a class="el" href="idevice_8h_source.html#l00105">vc::device::IDevice::connectStatus()</a>, <a class="el" href="#a9b6c63c4c8daad2bbd0fc5c7add2833f">connectStatusChanged()</a>, <a class="el" href="#a267ea8752c80d65e7e10d3d7b9400b52">device()</a>, <a class="el" href="classvc_1_1device_1_1_i_device.html#a39586f7714b7748a201b5a1b109b0cbc">vc::device::IDevice::deviceDisconnect()</a>, <a class="el" href="idevice_8h_source.html#l00025">vc::device::Disconnected</a>, <a class="el" href="idevice_8h_source.html#l00027">vc::device::LostConnected</a>, <a class="el" href="idevice_8h_source.html#l00024">vc::device::NoConnection</a>, and <a class="el" href="#a743626e41c5537ed385b51befdbb531c">requestDeviceDisconnect()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00036">vc::device::Connecting</a>, <a class="el" href="idevice_8h_source.html#l00115">vc::device::IDevice::connectStatus()</a>, <a class="el" href="#a9b6c63c4c8daad2bbd0fc5c7add2833f">connectStatusChanged()</a>, <a class="el" href="#a267ea8752c80d65e7e10d3d7b9400b52">device()</a>, <a class="el" href="classvc_1_1device_1_1_i_device.html#a39586f7714b7748a201b5a1b109b0cbc">vc::device::IDevice::deviceDisconnect()</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>, and <a class="el" href="#a743626e41c5537ed385b51befdbb531c">requestDeviceDisconnect()</a>.</p>
 
 </div>
 </div>
@@ -486,9 +518,17 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Forwarded from the device via Qt::QueuedConnection: reports an error message; safe to receive on the GUI thread. </p>
 
-<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="camera__runner_8h_source.html#l00233">vc::runtime::CameraRunner::onConnectionFailed()</a>, <a class="el" href="plc__runner_8h_source.html#l00121">vc::runtime::PlcRunner::onConnectionFailed()</a>, <a class="el" href="vision__output__runner_8h_source.html#l00100">vc::runtime::VisionOutputRunner::onConnectionFailed()</a>, and <a class="el" href="plc__runner_8h_source.html#l00070">vc::runtime::PlcRunner::wireSignals()</a>.</p>
+<p>Forwarded from the device via Qt::QueuedConnection: reports an error message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">msg</td><td>human-readable error description. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Safe to receive on the GUI thread. </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="camera__runner_8h_source.html#l00265">vc::runtime::CameraRunner::onConnectionFailed()</a>, <a class="el" href="plc__runner_8h_source.html#l00140">vc::runtime::PlcRunner::onConnectionFailed()</a>, <a class="el" href="vision__output__runner_8h_source.html#l00111">vc::runtime::VisionOutputRunner::onConnectionFailed()</a>, and <a class="el" href="plc__runner_8h_source.html#l00089">vc::runtime::PlcRunner::wireSignals()</a>.</p>
 
 </div>
 </div>
@@ -515,11 +555,11 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether <a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> has run and <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5">detach()</a> has not yet undone it. </p>
+<p>Returns whether <a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> has run and <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5" title="Unwires the device&#39;s signals and moves it off the worker thread onto dest (or the caller&#39;s thread if ...">detach()</a> has not yet undone it. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00072">72</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00084">84</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__runner_8h_source.html#l00155">m_attached</a>.</p>
+<p class="reference">References <a class="el" href="idevice__runner_8h_source.html#l00186">m_attached</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__runner_8cpp_source.html#l00090">vc::runtime::TaskRunner::unregisterDevice()</a>.</p>
 
@@ -550,7 +590,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns whether the worker thread exists and is currently running. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00074">74</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00086">86</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
 
 <p class="reference">References <a class="el" href="#a2b5e3bbbc54fbe95d2181a7d6ace36f9">workerThread()</a>.</p>
 
@@ -580,9 +620,16 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Internal request (used by <a class="el" href="#ac20d0239c85ee927dae97190964d13fe">detachFromOutsideThread()</a>) asking the device to detach on its own thread and move to <span class="tt">dest</span>. </p>
 
-<p class="reference">Referenced by <a class="el" href="idevice__runner_8h_source.html#l00080">detachFromOutsideThread()</a>.</p>
+<p>Internal request (used by <a class="el" href="#ac20d0239c85ee927dae97190964d13fe" title="Requests the device detach on its own worker thread and blocks the calling thread (via a local QEvent...">detachFromOutsideThread()</a>) asking the device to detach on its own thread and move to <span class="tt">dest</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">dest</td><td>destination thread to move the device to once detached. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="reference">Referenced by <a class="el" href="idevice__runner_8h_source.html#l00094">detachFromOutsideThread()</a>.</p>
 
 </div>
 </div>
@@ -608,9 +655,9 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Internal request (used by <a class="el" href="#a68afe1233cf5d0baa488c032d1e41b3f">disconnectAndWait()</a>) asking the device to close its connection on its own worker thread. </p>
+<p>Internal request (used by <a class="el" href="#a68afe1233cf5d0baa488c032d1e41b3f" title="Synchronously closes the device connection on its own worker thread.">disconnectAndWait()</a>) asking the device to close its connection on its own worker thread. </p>
 
-<p class="reference">Referenced by <a class="el" href="idevice__runner_8h_source.html#l00103">disconnectAndWait()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="idevice__runner_8h_source.html#l00120">disconnectAndWait()</a>.</p>
 
 </div>
 </div>
@@ -698,19 +745,22 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Default command handler: rejects any command as unsupported. Concrete runners that support <a class="el" href="structvc_1_1runtime_1_1_device_command.html">DeviceCommand</a> dispatch override this. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Default command handler: rejects any command as unsupported. Concrete runners that support <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a> dispatch override this. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">command</td><td>the command that was submitted </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">command</td><td>the command that was submitted </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an UnsupportedCommand rejection result; also emitted via <a class="el" href="#a4768a76460ee55e4ad605ef850fbf0b0" title="Emitted with the outcome of a submitCommand() call.">commandFinished()</a> </dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd><a class="el" href="#a4768a76460ee55e4ad605ef850fbf0b0" title="Emitted with the outcome of a submitCommand() call.">commandFinished()</a> is emitted with the returned result before this call returns. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classvc_1_1runtime_1_1_camera_runner.html#acdcfbb5fe5d8351fa93b4485a1e9a5ff">vc::runtime::CameraRunner</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00061">61</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00073">73</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a4768a76460ee55e4ad605ef850fbf0b0">commandFinished()</a>, <a class="el" href="device__command_8h_source.html#l00168">vc::runtime::DeviceCommandResult::rejected()</a>, and <a class="el" href="device__command_8h_source.html#l00036">vc::runtime::UnsupportedCommand</a>.</p>
+<p class="reference">References <a class="el" href="#a4768a76460ee55e4ad605ef850fbf0b0">commandFinished()</a>, <a class="el" href="device__command_8h_source.html#l00191">vc::runtime::DeviceCommandResult::rejected()</a>, and <a class="el" href="device__command_8h_source.html#l00051">vc::runtime::UnsupportedCommand</a>.</p>
 
 </div>
 </div>
@@ -741,7 +791,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implemented in <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a65b5d951682d74698dec7351f2466b2b">vc::runtime::DeviceRunner&lt; TDevice &gt;</a>, <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a65b5d951682d74698dec7351f2466b2b">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;</a>, <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a65b5d951682d74698dec7351f2466b2b">vc::runtime::DeviceRunner&lt; vc::device::PlcDevice &gt;</a>, and <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a65b5d951682d74698dec7351f2466b2b">vc::runtime::DeviceRunner&lt; vc::device::VisionOutputDevice &gt;</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="idevice__runner_8h_source.html#l00074">isRunning()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="idevice__runner_8h_source.html#l00086">isRunning()</a>.</p>
 
 </div>
 </div>
@@ -766,16 +816,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>True once <a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> has run and <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5">detach()</a> has not yet undone it. </p>
+<p>True once <a class="el" href="#a656b07ad902025489b1024a36c1ba19b">attach()</a> has run and <a class="el" href="#a710f2cdf9de86c4fce0ab762d7abfcf5" title="Unwires the device&#39;s signals and moves it off the worker thread onto dest (or the caller&#39;s thread if ...">detach()</a> has not yet undone it. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00155">155</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__runner_8h_source.html#l00186">186</a> of file <a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__runner_8h_source.html#l00061">vc::runtime::DeviceRunner&lt; TDevice &gt;::attach()</a>, <a class="el" href="device__runner_8h_source.html#l00070">vc::runtime::DeviceRunner&lt; TDevice &gt;::detach()</a>, and <a class="el" href="idevice__runner_8h_source.html#l00072">isAttached()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__runner_8h_source.html#l00075">vc::runtime::DeviceRunner&lt; TDevice &gt;::attach()</a>, <a class="el" href="device__runner_8h_source.html#l00084">vc::runtime::DeviceRunner&lt; TDevice &gt;::detach()</a>, and <a class="el" href="idevice__runner_8h_source.html#l00084">isAttached()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/runtime/<a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/runtime/<a class="el" href="idevice__runner_8h_source.html">idevice_runner.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

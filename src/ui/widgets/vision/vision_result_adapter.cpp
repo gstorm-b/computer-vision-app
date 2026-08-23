@@ -55,9 +55,9 @@ VisionResultObject makeResultObject(const mtc::MatchedObject &object,
         resultObject.pickingBoxPolygons.append(polygon);
     };
 
-    const mtc::MatchedObject::GripperBox &gripperBox = object.gripperBox();
-    appendPickingPolygon(gripperBox.box_left_pts);
-    appendPickingPolygon(gripperBox.box_right_pts);
+    const mtc::MatchedObject::CollisionGeometry &collisionGeometry = object.collisionGeometry();
+    appendPickingPolygon(collisionGeometry.box_left_pts);
+    appendPickingPolygon(collisionGeometry.box_right_pts);
 
     if (resultObject.pickingBoxPolygons.isEmpty()
         && object.pickingBox.size.width > 0.0f

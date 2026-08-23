@@ -1,6 +1,12 @@
 #ifndef CAMERA_DEVICE_H
 #define CAMERA_DEVICE_H
 
+/**
+ * @file camera_device.h
+ * @brief Camera device abstractions: camera hardware-family identification, the shared
+ *        CameraCfg configuration contract, grab results, and the CameraDevice base class.
+ */
+
 #include "device/idevice.h"
 #include "device/device_capabilities.h"
 #include "calibration/calibrator.h"
@@ -11,17 +17,27 @@
 #define CAM_TYPE_REALSENSE       "Realsense"
 #define CAM_TYPE_BASLER_GIGE     "Basler_GigE"
 #define CAM_TYPE_BASLER_USB      "Basler_USB"
+/// Hardware-free camera. This token is written into customer project files and can never be
+/// changed once one has been saved.
+#define CAM_TYPE_VIRTUAL         "Virtual"
 
-/// Camera device abstractions: camera hardware-family identification, the shared
-/// CameraCfg configuration contract, grab results, and the CameraDevice base class.
 namespace vc::device {
 
-/// Identifies the concrete camera implementation/hardware family behind a CameraDevice.
+/**
+ * @enum CameraType
+ * @brief Identifies the concrete camera implementation/hardware family behind a CameraDevice.
+ */
 enum CameraType {
     CamType,
     Realsense,
     BaslerGigE,
     BaslerUSB,
+    /// No hardware: frames come from a still image or a generated pattern. Named
+    /// `VirtualCamera`, not `Virtual`, because these enums are UNSCOPED — every enumerator
+    /// lands in `vc::device`, so the PLC and vision-output families cannot each have a
+    /// `Virtual` of their own. Same reason `BaslerGigE` and `MitsubishiMc` are spelled the
+    /// way they are.
+    VirtualCamera,
 };
 
 /// Converts a CameraType to its JSON/config string token.
@@ -34,6 +50,8 @@ enum CameraType {
         return CAM_TYPE_BASLER_GIGE;
     case vc::device::CameraType::BaslerUSB:
         return CAM_TYPE_BASLER_USB;
+    case vc::device::CameraType::VirtualCamera:
+        return CAM_TYPE_VIRTUAL;
     case CamType:
         return "";
     }
@@ -49,21 +67,28 @@ enum CameraType {
         return CameraType::BaslerGigE;
     } else if (t == CAM_TYPE_BASLER_USB) {
         return CameraType::BaslerUSB;
+    } else if (t == CAM_TYPE_VIRTUAL) {
+        return CameraType::VirtualCamera;
     }
     return CameraType::CamType;
 }
 
-/// Base configuration contract for a camera device: exposure/gain/frame-rate parameters,
-/// backlight control, calibration data and JSON (de)serialization. Concrete cameras (e.g.
-/// BaslerGigeCfg) subclass this and add their own hardware-specific properties.
+/**
+ * @class CameraCfg
+ * @brief Base configuration contract for a camera device: exposure/gain/frame-rate parameters,
+ *        backlight control, calibration data and JSON (de)serialization. Concrete cameras (e.g.
+ *        BaslerGigeCfg) subclass this and add their own hardware-specific properties.
+ */
 class CameraCfg : public IDeviceCfg {
 public:
     /// Enables or disables the camera's auto-backlight control feature.
     virtual void enableBlackLightControl(bool ena) = 0;
 
-    /// Returns the allowed exposure-time range via the output parameters.
-    /// @param min output; minimum exposure time
-    /// @param max output; maximum exposure time
+    /**
+     * @brief Returns the allowed exposure-time range via the output parameters.
+     * @param[out] min minimum exposure time
+     * @param[out] max maximum exposure time
+     */
     virtual void exposureTimeLimit(double &min, double &max) = 0;
 
     /// Sets the allowed exposure-time range.
@@ -76,9 +101,11 @@ public:
     /// configured min/max range).
     virtual void setExposureTime(double value) = 0;
 
-    /// Returns the allowed gain range via the output parameters.
-    /// @param min output; minimum gain
-    /// @param max output; maximum gain
+    /**
+     * @brief Returns the allowed gain range via the output parameters.
+     * @param[out] min minimum gain
+     * @param[out] max maximum gain
+     */
     virtual void gainLimit(int &min, int &max) = 0;
 
     /// Sets the allowed gain range.
@@ -91,9 +118,11 @@ public:
     /// min/max range).
     virtual void setGain(int value) = 0;
 
-    /// Returns whether acquisition frame-rate limiting is enabled and its current value.
-    /// @param enable output; true if frame-rate limiting is enabled
-    /// @param rate output; the configured frame rate
+    /**
+     * @brief Returns whether acquisition frame-rate limiting is enabled and its current value.
+     * @param[out] enable true if frame-rate limiting is enabled
+     * @param[out] rate   the configured frame rate
+     */
     virtual void acquisitionFrameRate(bool &enable, double &rate) = 0;
 
     /// Enables/disables acquisition frame-rate limiting and sets its value.
@@ -183,16 +212,22 @@ protected:
     int m_calibThreshold{-1};
 };
 
-/// Result of a single camera grab: the captured frame plus success/error status.
+/**
+ * @struct GrabResult
+ * @brief Result of a single camera grab: the captured frame plus success/error status.
+ */
 struct GrabResult {
     cv::Mat frame;        ///< Captured image (BGR8 for color cameras, Mono8 for mono); empty on failure.
     bool isGrabSuccess;   ///< True if the grab completed and `frame` holds valid image data.
     QString msg;          ///< Human-readable status/error message for the grab attempt.
 };
 
-/// Abstract base for all camera devices: adds exposure/gain/backlight/IO control and
-/// single-shot, software-triggered and continuous grab operations on top of IDevice, and
-/// marks the device as an IImageSourceDevice.
+/**
+ * @class CameraDevice
+ * @brief Abstract base for all camera devices: adds exposure/gain/backlight/IO control and
+ *        single-shot, software-triggered and continuous grab operations on top of IDevice, and
+ *        marks the device as an IImageSourceDevice.
+ */
 class CameraDevice : public IDevice, public IImageSourceDevice {
     Q_OBJECT
 

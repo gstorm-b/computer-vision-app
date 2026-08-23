@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Tracks the individual device addresses subscribed for one MC device type (X/Y/M/D) and can coalesce them into contiguous <a class="el" href="structvc_1_1device_1_1_mc_device_range_1_1_device_range.html" title="A contiguous, inclusive span of subscribed addresses.">DeviceRange</a> spans so a poll cycle can read multiple devices with a single MC-protocol command.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::device::McDeviceRange:</div>
@@ -135,11 +138,13 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:addd5c045a14b0c65745a319505d795c1" id="r_addd5c045a14b0c65745a319505d795c1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#addd5c045a14b0c65745a319505d795c1">clearRanges</a> ()</td></tr>
+<tr class="memdesc:addd5c045a14b0c65745a319505d795c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears subscribed_devices and the computed ranges.  <br /></td></tr>
 <tr class="memitem:a6275439b166b745e26f496d4b25f69cd" id="r_a6275439b166b745e26f496d4b25f69cd"><td class="memItemLeft">const bool&#160;</td><td class="memItemRight"><a class="el" href="#a6275439b166b745e26f496d4b25f69cd">IsOptimzed</a> ()</td></tr>
 <tr class="memitem:aeed2162504a5a034ebd554b79c7e7476" id="r_aeed2162504a5a034ebd554b79c7e7476"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aeed2162504a5a034ebd554b79c7e7476">McDeviceRange</a> ()</td></tr>
 <tr class="memdesc:aeed2162504a5a034ebd554b79c7e7476"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty, unoptimized range set.  <br /></td></tr>
 <tr class="memitem:a933027a87f8074784804bb0ca9d4f444" id="r_a933027a87f8074784804bb0ca9d4f444"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a933027a87f8074784804bb0ca9d4f444">OptimizeRange</a> ()</td></tr>
 <tr class="memitem:a6ecc053dd157fec842b31700839bf8a0" id="r_a6ecc053dd157fec842b31700839bf8a0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6ecc053dd157fec842b31700839bf8a0">SubscribeDevice</a> (int address, int amount, bool optimizal=false)</td></tr>
+<tr class="memdesc:a6ecc053dd157fec842b31700839bf8a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends <span class="tt">amount</span> consecutive addresses starting at <span class="tt">address</span> to subscribed_devices and marks the set as unoptimized.  <br /></td></tr>
 <tr class="memitem:aa68ae1a89d1964051d1a51b7d8857a7b" id="r_aa68ae1a89d1964051d1a51b7d8857a7b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa68ae1a89d1964051d1a51b7d8857a7b">~McDeviceRange</a> ()</td></tr>
 <tr class="memdesc:aa68ae1a89d1964051d1a51b7d8857a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor; no owned resources to release.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -158,7 +163,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Tracks the individual device addresses subscribed for one MC device type (X/Y/M/D) and can coalesce them into contiguous <a class="el" href="structvc_1_1device_1_1_mc_device_range_1_1_device_range.html" title="A contiguous, inclusive span of subscribed addresses.">DeviceRange</a> spans so a poll cycle can read multiple devices with a single MC-protocol command. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00019">19</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00026">26</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aeed2162504a5a034ebd554b79c7e7476" name="aeed2162504a5a034ebd554b79c7e7476"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeed2162504a5a034ebd554b79c7e7476">&#9670;&#160;</a></span>McDeviceRange()</h2>
@@ -180,7 +185,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__device__map_8cpp_source.html#l00009">9</a> of file <a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00065">has_optimized</a>.</p>
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00076">has_optimized</a>.</p>
 
 </div>
 </div>
@@ -229,11 +234,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Clears subscribed_devices and the computed ranges. </p><dl class="section note"><dt>Note</dt><dd>does not reset has_optimized. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00056">56</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p>Clears subscribed_devices and the computed ranges. </p>
+<dl class="section note"><dt>Note</dt><dd>Does not reset has_optimized. </dd></dl>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00062">ranges</a>, and <a class="el" href="mc__device__map_8h_source.html#l00061">subscribed_devices</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00067">67</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00073">ranges</a>, and <a class="el" href="mc__device__map_8h_source.html#l00072">subscribed_devices</a>.</p>
 
 </div>
 </div>
@@ -259,11 +266,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>true once <a class="el" href="#a933027a87f8074784804bb0ca9d4f444">OptimizeRange()</a> has run since the last modification that reset the flag (<a class="el" href="#a6ecc053dd157fec842b31700839bf8a0">SubscribeDevice()</a> clears it again). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true once <a class="el" href="#a933027a87f8074784804bb0ca9d4f444">OptimizeRange()</a> has run since the last modification that reset the flag (<a class="el" href="#a6ecc053dd157fec842b31700839bf8a0" title="Appends amount consecutive addresses starting at address to subscribed_devices and marks the set as u...">SubscribeDevice()</a> clears it again). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00050">50</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00059">59</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00065">has_optimized</a>.</p>
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00076">has_optimized</a>.</p>
 
 </div>
 </div>
@@ -286,7 +293,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__device__map_8cpp_source.html#l00043">43</a> of file <a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00025">vc::device::McDeviceRange::DeviceRange::amount</a>, <a class="el" href="mc__device__map_8h_source.html#l00024">vc::device::McDeviceRange::DeviceRange::end</a>, <a class="el" href="mc__device__map_8h_source.html#l00065">has_optimized</a>, <a class="el" href="mc__device__map_8h_source.html#l00062">ranges</a>, <a class="el" href="mc__device__map_8h_source.html#l00023">vc::device::McDeviceRange::DeviceRange::start</a>, and <a class="el" href="mc__device__map_8h_source.html#l00061">subscribed_devices</a>.</p>
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00032">vc::device::McDeviceRange::DeviceRange::amount</a>, <a class="el" href="mc__device__map_8h_source.html#l00031">vc::device::McDeviceRange::DeviceRange::end</a>, <a class="el" href="mc__device__map_8h_source.html#l00076">has_optimized</a>, <a class="el" href="mc__device__map_8h_source.html#l00073">ranges</a>, <a class="el" href="mc__device__map_8h_source.html#l00030">vc::device::McDeviceRange::DeviceRange::start</a>, and <a class="el" href="mc__device__map_8h_source.html#l00072">subscribed_devices</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mc__device__map_8cpp_source.html#l00024">SubscribeDevice()</a>.</p>
 
@@ -315,20 +322,22 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Appends <span class="tt">amount</span> consecutive addresses starting at <span class="tt">address</span> to subscribed_devices and marks the set as unoptimized. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Appends <span class="tt">amount</span> consecutive addresses starting at <span class="tt">address</span> to subscribed_devices and marks the set as unoptimized. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">address</td><td>start address </td></tr>
-    <tr><td class="paramname">amount</td><td>amount of devices </td></tr>
-    <tr><td class="paramname">optimizal</td><td>if true, calls <a class="el" href="#a933027a87f8074784804bb0ca9d4f444">OptimizeRange()</a> immediately after adding </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">address</td><td>start address </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">amount</td><td>amount of devices </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">optimizal</td><td>if true, calls <a class="el" href="#a933027a87f8074784804bb0ca9d4f444">OptimizeRange()</a> immediately after adding </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>the amount guard (<span class="tt">amount &lt; 1 &amp;&amp; amount &gt; <a class="el" href="mc__device__map_8h.html#a791c84b6f5e7796c25e6d30b303a73cb" title="Upper bound accepted for a single SubscribeDevice()/Subscribe_deivce() amount.">MC_MAXIMUM_DEVICE_AMOUNT</a></span>) can never be true for a single value, so out-of-range amounts are not actually rejected here.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The amount guard (<span class="tt">amount &lt; 1 &amp;&amp; amount &gt; <a class="el" href="mc__device__map_8h.html#a791c84b6f5e7796c25e6d30b303a73cb" title="Upper bound accepted for a single SubscribeDevice()/Subscribe_deivce() amount.">MC_MAXIMUM_DEVICE_AMOUNT</a></span>) can never be true for a single value, so out-of-range amounts are not actually rejected here.</dd></dl>
 <p>Appends <span class="tt">amount</span> consecutive addresses starting at <span class="tt">address</span> to subscribed_devices, marks the set as unoptimized, then optimizes immediately if <span class="tt">optimizal</span> is true. </p><dl class="section note"><dt>Note</dt><dd>the guard below can never reject any single <span class="tt">amount</span> value (it requires amount &lt; 1 AND amount &gt; MC_MAXIMUM_DEVICE_AMOUNT simultaneously), so out-of-range amounts are not actually filtered out here. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="mc__device__map_8cpp_source.html#l00024">24</a> of file <a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00065">has_optimized</a>, <a class="el" href="mc__device__map_8h_source.html#l00011">MC_MAXIMUM_DEVICE_AMOUNT</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00043">OptimizeRange()</a>, and <a class="el" href="mc__device__map_8h_source.html#l00061">subscribed_devices</a>.</p>
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00076">has_optimized</a>, <a class="el" href="mc__device__map_8h_source.html#l00016">MC_MAXIMUM_DEVICE_AMOUNT</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00043">OptimizeRange()</a>, and <a class="el" href="mc__device__map_8h_source.html#l00072">subscribed_devices</a>.</p>
 
 </div>
 </div>
@@ -355,9 +364,9 @@ Private Attributes</h2></td></tr>
 
 <p>True once <span class="tt"><a class="el" href="#a19f42eae1116325e8cb70aa812f9f075" title="Contiguous spans computed by OptimizeRange().">ranges</a></span> reflects the current subscribed_devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00065">65</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00076">76</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00050">IsOptimzed()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00009">McDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00043">OptimizeRange()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00024">SubscribeDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00059">IsOptimzed()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00009">McDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00043">OptimizeRange()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00024">SubscribeDevice()</a>.</p>
 
 </div>
 </div>
@@ -375,9 +384,9 @@ Private Attributes</h2></td></tr>
 
 <p>Contiguous spans computed by <a class="el" href="#a933027a87f8074784804bb0ca9d4f444">OptimizeRange()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00062">62</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00073">73</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00056">clearRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00043">OptimizeRange()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00067">clearRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00043">OptimizeRange()</a>.</p>
 
 </div>
 </div>
@@ -395,15 +404,15 @@ Private Attributes</h2></td></tr>
 
 <p>Raw (possibly unsorted/duplicated) subscribed addresses. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00061">61</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00072">72</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00056">clearRanges()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00043">OptimizeRange()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00024">SubscribeDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00067">clearRanges()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00043">OptimizeRange()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00024">SubscribeDevice()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

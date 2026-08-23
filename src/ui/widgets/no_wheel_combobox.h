@@ -6,9 +6,17 @@
 #include <QComboBox>
 #include <QWheelEvent>
 
-/// QComboBox specialization that always ignores mouse-wheel events (to avoid accidental value
-/// changes while scrolling a form) and can additionally be switched into a fully non-interactive
-/// state where mouse and keyboard events are swallowed instead of forwarded to QComboBox.
+/**
+ * @file no_wheel_combobox.h
+ * @brief NoWheelComboBox — QComboBox specialization that ignores mouse-wheel events.
+ */
+
+/**
+ * @class NoWheelComboBox
+ * @brief QComboBox specialization that always ignores mouse-wheel events (to avoid accidental value
+ *        changes while scrolling a form) and can additionally be switched into a fully non-interactive
+ *        state where mouse and keyboard events are swallowed instead of forwarded to QComboBox.
+ */
 class NoWheelComboBox : public QComboBox {
     Q_OBJECT
 
@@ -17,13 +25,17 @@ class NoWheelComboBox : public QComboBox {
         /// are always ignored regardless of this setting.
         explicit NoWheelComboBox(QWidget *parent = nullptr);
 
-        /// Enables or disables mouse/keyboard interaction (press, release, key press/release);
-        /// wheel events remain ignored either way.
-        /// @param enable true to allow interaction, false to swallow it
+        /**
+         * @brief Enables or disables mouse/keyboard interaction (press, release, key press/release);
+         *        wheel events remain ignored either way.
+         * @param[in] enable true to allow interaction, false to swallow it
+         */
         void setAllowSelection(bool enable);
 
-        /// Applies `color` to the widget's background palette role.
-        /// @param color the color to apply; the call is a no-op if it is invalid
+        /**
+         * @brief Applies `color` to the widget's background palette role.
+         * @param[in] color the color to apply; the call is a no-op if it is invalid
+         */
         void setBackGroundColor(QColor color);
 
     protected:

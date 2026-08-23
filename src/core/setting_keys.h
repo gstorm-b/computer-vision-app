@@ -1,6 +1,13 @@
 #ifndef SETTING_KEYS_H
 #define SETTING_KEYS_H
 
+/**
+ * @file setting_keys.h
+ * @brief Compile-time string constants for QSettings/JSON keys, plus jsu::
+ *        JSON ↔ OpenCV geometry conversion helpers (cv::Point/Point2f/Size2f
+ *        to/from QJsonObject) used when persisting calibration/ROI geometry.
+ */
+
 // application stored file name
 #define SETTING_FILE_NAME                       "softstart.ini"
 #define SETTING_LAST_OPEN_PATH                  "LastOpenPath"
@@ -123,8 +130,6 @@
 #include "QJsonObject"
 #include "opencv2/opencv.hpp"
 
-/// JSON <-> OpenCV geometry conversion helpers (cv::Point/Point2f/Size2f to/from
-/// QJsonObject), used when persisting calibration/ROI geometry to settings/JSON files.
 namespace jsu {
 
 /// @return `point` encoded as a QJsonObject with "X"/"Y" fields.

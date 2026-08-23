@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/plc/mc_device_map.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/plc/mc_device_map.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('mc__device__ma
   <div class="headertitle"><div class="title">mc_device_map.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>MC-protocol device subscription ranges and polled register value map.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;QByteArray&gt;</code><br />
 <code>#include &lt;QSet&gt;</code><br />
@@ -142,20 +145,26 @@ Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AMcDeviceRange_3A_3ADeviceRange" id="r_vc_3A_3Adevice_3A_3AMcDeviceRange_3A_3ADeviceRange"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1device_1_1_mc_device_range_1_1_device_range.html">vc::device::McDeviceRange::DeviceRange</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A contiguous, inclusive span of subscribed addresses.  <a href="structvc_1_1device_1_1_mc_device_range_1_1_device_range.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AMcDeviceMap" id="r_vc_3A_3Adevice_3A_3AMcDeviceMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_mc_device_map.html">vc::device::McDeviceMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">MC-protocol <a class="el" href="classvc_1_1device_1_1_plc_value_map.html" title="Abstract, vendor-agnostic holder for a PLC&#39;s polled register values. Concrete vendors provide a concr...">PlcValueMap</a>: holds the X/Y/M/D device subscription ranges used to plan poll requests, plus the resulting M (bit) and D (word) value maps populated by <a class="el" href="classvc_1_1device_1_1_frame3_e.html" title="Concrete MC-protocol frame codec for the 3E frame: builds/parses the binary 3E read/write (bit and wo...">Frame3E</a>'s response parsers.  <a href="classvc_1_1device_1_1_mc_device_map.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AMcDeviceRange" id="r_vc_3A_3Adevice_3A_3AMcDeviceRange"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_mc_device_range.html">vc::device::McDeviceRange</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks the individual device addresses subscribed for one MC device type (X/Y/M/D) and can coalesce them into contiguous <a class="el" href="structvc_1_1device_1_1_mc_device_range_1_1_device_range.html" title="A contiguous, inclusive span of subscribed addresses.">DeviceRange</a> spans so a poll cycle can read multiple devices with a single MC-protocol command.  <a href="classvc_1_1device_1_1_mc_device_range.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a791c84b6f5e7796c25e6d30b303a73cb" id="r_a791c84b6f5e7796c25e6d30b303a73cb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a791c84b6f5e7796c25e6d30b303a73cb">MC_MAXIMUM_DEVICE_AMOUNT</a>&#160;&#160;&#160;256</td></tr>
 <tr class="memdesc:a791c84b6f5e7796c25e6d30b303a73cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper bound accepted for a single SubscribeDevice()/Subscribe_deivce() amount.  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>MC-protocol device subscription ranges and polled register value map. </p>
+
+<p class="definition">Definition in file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a791c84b6f5e7796c25e6d30b303a73cb" name="a791c84b6f5e7796c25e6d30b303a73cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a791c84b6f5e7796c25e6d30b303a73cb">&#9670;&#160;</a></span>MC_MAXIMUM_DEVICE_AMOUNT</h2>
 
@@ -170,7 +179,7 @@ Macros</h2></td></tr>
 
 <p>Upper bound accepted for a single SubscribeDevice()/Subscribe_deivce() amount. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00011">11</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00016">16</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mc__device__map_8cpp_source.html#l00024">vc::device::McDeviceRange::SubscribeDevice()</a>.</p>
 

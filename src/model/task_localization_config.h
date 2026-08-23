@@ -11,12 +11,18 @@
 #include "core/qgadget_macro.h"
 #include "core/logger/app_logger.h"
 
-/// Task model layer: per-task configuration types (e.g. TaskLocalizeConfig), state
-/// machines, and device/camera bindings for the picking application.
+/**
+ * @file task_localization_config.h
+ * @brief Task model layer: per-task configuration types (e.g. TaskLocalizeConfig), state
+ *        machines, and device/camera bindings for the picking application.
+ */
 namespace vc::model {
 
-/// Implicitly-shared private data (QSharedData) backing TaskLocalizeConfig: holds the
-/// PLC signal-name bindings and per-camera workspace ROIs for a localization task.
+/**
+ * @class TaskLocalizeConfigPrivate
+ * @brief Implicitly-shared private data (QSharedData) backing TaskLocalizeConfig: holds the
+ *        PLC signal-name bindings and per-camera workspace ROIs for a localization task.
+ */
 class TaskLocalizeConfigPrivate : public QSharedData {
 public:
     /// Default-constructs with all signal-name strings empty and no device bindings/workspaces.
@@ -42,14 +48,19 @@ public:
     QString m_bMatchingDetected;    ///< PLC signal name bound to the "matching detected" flag.
     QString m_bMatchingLowArea;     ///< PLC signal name bound to the "matching low area" flag.
     QString m_bTaskFault;           ///< PLC signal name bound to the "task fault" flag.
+    QString m_bErrorReset;          ///< PLC signal name bound to the fault-acknowledge input.
 
     TaskDeviceBindings m_deviceBindings;    ///< Device (PLC) bindings configured for this task.
     CameraWorkspaceMap m_cameraWorkspaces;  ///< Per-camera workspace (ROI) definitions.
 };
 
-/// Localization-task configuration: PLC signal-name bindings for camera/pattern selection
-/// and matching status flags, plus per-camera workspace (ROI) definitions. Exposed as a
-/// Q_GADGET so its bound signal names can be edited via the property-browser UI.
+/**
+ * @class TaskLocalizeConfig
+ * @brief Localization-task configuration: PLC signal-name bindings for camera/pattern selection
+ *        and matching status flags, plus per-camera workspace (ROI) definitions.
+ *
+ * Exposed as a Q_GADGET so its bound signal names can be edited via the property-browser UI.
+ */
 class TaskLocalizeConfig : public ITaskConfig {
     Q_GADGET
 
@@ -81,6 +92,11 @@ class TaskLocalizeConfig : public ITaskConfig {
     P_PROPERTY_STRING_READWRITE(QString, bMatchingLowArea, "Low Area")
     /// PLC signal name bound to the "task fault" flag ("Task fault").
     P_PROPERTY_STRING_READWRITE(QString, bTaskFault, "Task fault")
+    /// PLC signal name bound to the fault-acknowledge input ("Error reset"). Rising edge
+    /// clears bTaskFault/nFaultCode and re-arms the runtime; leaving it unbound is valid,
+    /// because a latched cycle fault also clears itself after
+    /// LocalizationRuntimeController::kFaultAutoRecoverMs.
+    P_PROPERTY_STRING_READWRITE(QString, bErrorReset, "Error reset")
 
 public:
     /// Constructs a config with all signal-name bindings empty and default (empty) device
@@ -91,7 +107,15 @@ public:
     /// Persistence schema version. Bump when the on-disk shape changes in a way
     /// older readers cannot parse; add migration logic in fromJson(). A document
     /// with no "version" key is the pre-versioning legacy baseline (version 0).
-    static constexpr int kSchemaVersion = 1;
+    ///
+    /// History:
+    ///   0 — pre-versioning baseline (no "version" key).
+    ///   1 — versioned; 13 signal bindings.
+    ///   2 — adds "bErrorReset". A v1 document loads unchanged (the key is absent,
+    ///       so the acknowledge input is simply unbound). The bump exists so a v1-era
+    ///       build refuses a v2 document outright instead of loading it with the
+    ///       acknowledge silently dropped.
+    static constexpr int kSchemaVersion = 2;
 
     /// Identifies this config as belonging to a localization task.
     /// @return TaskType::LocalizationTask
@@ -126,6 +150,7 @@ public:
         obj["bMatchingDetected"] = d->m_bMatchingDetected;
         obj["bMatchingLowArea"]  = d->m_bMatchingLowArea;
         obj["bTaskFault"]        = d->m_bTaskFault;
+        obj["bErrorReset"]       = d->m_bErrorReset;
 
         obj["deviceBindings"]   = d->m_deviceBindings.toJson();
         obj["cameraWorkspaces"] = d->m_cameraWorkspaces.toJson();
@@ -134,13 +159,15 @@ public:
     }
 
 
-    /// Loads all signal-name bindings, device bindings, and camera workspaces from `obj`.
-    /// Rejects documents whose "version" is newer than kSchemaVersion; a missing "version"
-    /// key is treated as the legacy pre-versioning baseline. Camera workspaces are optional
-    /// and tolerate a parse failure (treated as "no workspaces").
-    /// @param obj the JSON object to load (as produced by toJson())
-    /// @return false if `obj` is empty, the version is unsupported, or device bindings fail
-    ///         to parse; true otherwise
+    /**
+     * @brief Loads all signal-name bindings, device bindings, and camera workspaces from `obj`.
+     *        Rejects documents whose "version" is newer than kSchemaVersion; a missing
+     *        "version" key is treated as the legacy pre-versioning baseline. Camera workspaces
+     *        are optional and tolerate a parse failure (treated as "no workspaces").
+     * @param[in] obj the JSON object to load (as produced by toJson())
+     * @return false if `obj` is empty, the version is unsupported, or device bindings fail
+     *         to parse; true otherwise
+     */
     bool fromJson(const QJsonObject& obj) override {
         if (obj.empty()) {
             return false;
@@ -174,6 +201,9 @@ public:
         d->m_bMatchingDetected  = obj["bMatchingDetected"].toString("");
         d->m_bMatchingLowArea   = obj["bMatchingLowArea"].toString("");
         d->m_bTaskFault         = obj["bTaskFault"].toString("");
+        // Absent in v0/v1 documents; an empty tag simply means the acknowledge input
+        // is unbound, which is a supported configuration (see kSchemaVersion).
+        d->m_bErrorReset        = obj["bErrorReset"].toString("");
 
         if (!d->m_deviceBindings.fromJson(obj["deviceBindings"])) {
             return false;
@@ -207,16 +237,20 @@ public:
     // ── Camera workspace (ROI) accessors ──────────────────────────────────
     /// Returns all configured per-camera workspace (ROI) definitions.
     CameraWorkspaceMap cameraWorkspaces() const { return d->m_cameraWorkspaces; }
-    /// Returns the workspace (ROI) configured for the given camera.
-    /// @param cameraId identifier of the camera whose workspace to look up
-    /// @return the camera's workspace, or a default-constructed (workspace-off) CameraWorkspace
-    ///         if `cameraId` has none configured
+    /**
+     * @brief Returns the workspace (ROI) configured for the given camera.
+     * @param[in] cameraId identifier of the camera whose workspace to look up
+     * @return the camera's workspace, or a default-constructed (workspace-off) CameraWorkspace
+     *         if `cameraId` has none configured
+     */
     CameraWorkspace cameraWorkspace(const QString &cameraId) const {
         return d->m_cameraWorkspaces.workspace(cameraId);
     }
-    /// Sets (or replaces) the workspace (ROI) for the given camera.
-    /// @param cameraId identifier of the camera to configure
-    /// @param ws the workspace to store
+    /**
+     * @brief Sets (or replaces) the workspace (ROI) for the given camera.
+     * @param[in] cameraId identifier of the camera to configure
+     * @param[in] ws       the workspace to store
+     */
     void setCameraWorkspace(const QString &cameraId, const CameraWorkspace &ws) {
         d->m_cameraWorkspaces.setWorkspace(cameraId, ws);
     }

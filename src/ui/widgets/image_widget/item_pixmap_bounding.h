@@ -4,8 +4,17 @@
 #include <QGraphicsPixmapItem>
 #include <QPainter>
 
-/// QGraphicsPixmapItem that draws itself with a colored border rectangle
-/// around the pixmap's bounding rect, in addition to the normal pixmap paint.
+/**
+ * @file item_pixmap_bounding.h
+ * @brief PixmapBoundingLine — QGraphicsPixmapItem that draws itself with a colored
+ *        bounding-rect border.
+ */
+
+/**
+ * @class PixmapBoundingLine
+ * @brief QGraphicsPixmapItem that draws itself with a colored border rectangle
+ *        around the pixmap's bounding rect, in addition to the normal pixmap paint.
+ */
 class PixmapBoundingLine : public QGraphicsPixmapItem {
 public:
   /// Constructs the item for `pixmap` with a default green, 2px-wide border.

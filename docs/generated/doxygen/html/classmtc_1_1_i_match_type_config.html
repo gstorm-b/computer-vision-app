@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_i
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract base for per-algorithm runtime/learn parameters.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="imatch__type__config_8h_source.html">imatch_type_config.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for mtc::IMatchTypeConfig:</div>
@@ -142,12 +145,13 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a23cfdfcc126e738916da8c3ec98a7859" id="r_a23cfdfcc126e738916da8c3ec98a7859"><td class="memItemLeft">static std::unique_ptr&lt; <a class="el" href="classmtc_1_1_i_match_type_config.html">IMatchTypeConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a23cfdfcc126e738916da8c3ec98a7859">createDefault</a> (<a class="el" href="namespacemtc.html#a7e9a49f348493d4696153cfc0d145516">MatchingType</a> t)</td></tr>
+<tr class="memdesc:a23cfdfcc126e738916da8c3ec98a7859"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory: constructs a default-initialised config for a given type.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract base for per-algorithm runtime/learn parameters.</p>
-<p>Each algorithm family (EdgeBased, Correlation, …) provides exactly one concrete subclass. The interface is kept Qt-free so the core matching library has no UI dependency. Property-browser integration lives entirely in <a class="el" href="classmtc_1_1_match_config_property_adapter.html">MatchConfigPropertyAdapter</a>. </p>
+<div class="textblock"><p>Abstract base for per-algorithm runtime/learn parameters. </p>
+<p>Each algorithm family (EdgeBased, Correlation, …) provides exactly one concrete subclass. The interface is kept Qt-free so the core matching library has no UI dependency. Property-browser integration lives entirely in <a class="el" href="classmtc_1_1_match_config_property_adapter.html" title="Bridges a group&#39;s algorithm config (MatchGroupConfig::typeConfig) to a QtVariantPropertyManager/Brows...">MatchConfigPropertyAdapter</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="imatch__type__config_8h_source.html#l00017">17</a> of file <a class="el" href="imatch__type__config_8h_source.html">imatch_type_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imatch__type__config_8h_source.html#l00023">23</a> of file <a class="el" href="imatch__type__config_8h_source.html">imatch_type_config.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3bb8b9bde372a0ca583c4efe7bab4d15" name="a3bb8b9bde372a0ca583c4efe7bab4d15"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3bb8b9bde372a0ca583c4efe7bab4d15">&#9670;&#160;</a></span>~IMatchTypeConfig()</h2>
@@ -197,7 +201,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Deep-copy factory — used when <a class="el" href="structmtc_1_1_match_pattern_config.html">MatchPatternConfig</a> is copied by value. </p><dl class="section return"><dt>Returns</dt><dd>a new heap-allocated copy of this config </dd></dl>
+<p>Deep-copy factory — used when <a class="el" href="structmtc_1_1_match_pattern_config.html" title="Per-pattern configuration carried by MatchPattern: identity, type-agnostic search parameters,...">MatchPatternConfig</a> is copied by value. </p><dl class="section return"><dt>Returns</dt><dd>a new heap-allocated copy of this config </dd></dl>
 
 <p>Implemented in <a class="el" href="classmtc_1_1_edge_match_config.html#a5a1e82bba48ba3e1168f74c2efa0010a">mtc::EdgeMatchConfig</a>.</p>
 
@@ -229,14 +233,22 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Factory: constructs a default-initialised config for a given type. </p><dl class="section return"><dt>Returns</dt><dd>the default config for <span class="tt">t</span>, or nullptr for types not yet implemented</dd></dl>
+
+<p>Factory: constructs a default-initialised config for a given type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td>algorithm family to instantiate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the default config for <span class="tt">t</span>, or nullptr for types not yet implemented</dd></dl>
 <p>Constructs a default-initialised config for <span class="tt">t</span>; currently only EdgeBased is implemented, Correlation and any unhandled type return nullptr. </p>
 
 <p class="definition">Definition at line <a class="el" href="imatch__type__config_8cpp_source.html#l00008">8</a> of file <a class="el" href="imatch__type__config_8cpp_source.html">imatch_type_config.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00022">mtc::Correlation</a>, and <a class="el" href="matching__types_8h_source.html#l00021">mtc::EdgeBased</a>.</p>
+<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00025">mtc::Correlation</a>, and <a class="el" href="matching__types_8h_source.html#l00024">mtc::EdgeBased</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#a104a759093820ee55a32f6caa46de231">clone()</a>, and <a class="el" href="match__group_8h_source.html#l00062">mtc::MatchGroupConfig::setMatchingType()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#a104a759093820ee55a32f6caa46de231">clone()</a>, and <a class="el" href="match__group_8h_source.html#l00063">mtc::MatchGroupConfig::setMatchingType()</a>.</p>
 
 </div>
 </div>
@@ -270,8 +282,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="imatch__type__config_8h_source.html">imatch_type_config.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="imatch__type__config_8cpp_source.html">imatch_type_config.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="imatch__type__config_8h_source.html">imatch_type_config.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="imatch__type__config_8cpp_source.html">imatch_type_config.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

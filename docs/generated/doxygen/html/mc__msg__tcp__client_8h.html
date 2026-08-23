@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/plc/mc_msg_tcp_client.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/plc/mc_msg_tcp_client.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('mc__msg__tcp__
   <div class="headertitle"><div class="title">mc_msg_tcp_client.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Ethernet TCP/IP config (McMsgEthernetTcpCfg) and synchronous TCP transport (McEthernetTcpPort) for the Mitsubishi MC-protocol PLC integration.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="mc__msg__interface_8h_source.html">device/plc/mc_msg_interface.h</a>&quot;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;QObject&gt;</code><br />
@@ -142,15 +145,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AMcEthernetTcpPort" id="r_vc_3A_3Adevice_3A_3AMcEthernetTcpPort"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_mc_ethernet_tcp_port.html">vc::device::McEthernetTcpPort</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html" title="Abstract transport (message interface) to a PLC: connect/disconnect the port and send/receive raw byt...">McMsgInterface</a> transport that talks to the PLC over a plain TCP/IP socket (QTcpSocket), driven synchronously via waitFor*() calls.  <a href="classvc_1_1device_1_1_mc_ethernet_tcp_port.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AMcMsgEthernetTcpCfg" id="r_vc_3A_3Adevice_3A_3AMcMsgEthernetTcpCfg"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_mc_msg_ethernet_tcp_cfg.html">vc::device::McMsgEthernetTcpCfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvc_1_1device_1_1_mc_msg_itf_config.html" title="Abstract base for a message-interface (transport) configuration: the common connect/write/response ti...">McMsgItfConfig</a> for the Ethernet TCP/IP transport: adds the target IP address and port, on top of the base connect/write/response timeouts.  <a href="classvc_1_1device_1_1_mc_msg_ethernet_tcp_cfg.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Ethernet TCP/IP config (McMsgEthernetTcpCfg) and synchronous TCP transport (McEthernetTcpPort) for the Mitsubishi MC-protocol PLC integration. </p>
+
+<p class="definition">Definition in file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

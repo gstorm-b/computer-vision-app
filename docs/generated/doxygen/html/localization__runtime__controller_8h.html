@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/localization_runtime_controller.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/localization_runtime_controller.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('localization__
   <div class="headertitle"><div class="title">localization_runtime_controller.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>LocalizationRuntimeController — runs one localization task at runtime: per-cycle state machine, device-role binding, and connection recovery.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QObject&gt;</code><br />
 <code>#include &lt;QHash&gt;</code><br />
 <code>#include &lt;QDateTime&gt;</code><br />
@@ -157,11 +160,17 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ACycleResult" id="r_vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ACycleResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_localization_runtime_controller_1_1_cycle_result.html">vc::model::LocalizationRuntimeController::CycleResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outcome of one localization cycle (grab + match + send), published via <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a1e44048c749cd0befc04c197d783184b" title="Emitted with the final result of each cycle, whether it succeeded or faulted.">cycleResultUpdated()</a> for UI display and task logging.  <a href="structvc_1_1model_1_1_localization_runtime_controller_1_1_cycle_result.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationRuntimeController" id="r_vc_3A_3Amodel_3A_3ALocalizationRuntimeController"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html">vc::model::LocalizationRuntimeController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs one localization task at runtime.  <a href="classvc_1_1model_1_1_localization_runtime_controller.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3AResultRow" id="r_vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3AResultRow"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_localization_runtime_controller_1_1_result_row.html">vc::model::LocalizationRuntimeController::ResultRow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One matched object's localization result, as reported to the UI/log: image-space and world-space (robot) position, plus the disposition status assigned by <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a61d8eb90208de0f731bb696143f50a0e" title="Converts a match result&#39;s objects into world-space positions and per-object result rows,...">buildVisionOutputPositions()</a>.  <a href="structvc_1_1model_1_1_localization_runtime_controller_1_1_result_row.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ARoleRecoveryContext" id="r_vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ARoleRecoveryContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_localization_runtime_controller_1_1_role_recovery_context.html">vc::model::LocalizationRuntimeController::RoleRecoveryContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-role bookkeeping for the connection-recovery state machine: the runner/device bound to a role, its recovery policy, and the current retry/fault progress against that policy.  <a href="structvc_1_1model_1_1_localization_runtime_controller_1_1_role_recovery_context.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ARuntimeContext" id="r_vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ARuntimeContext"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_localization_runtime_controller_1_1_runtime_context.html">vc::model::LocalizationRuntimeController::RuntimeContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Snapshot of a task's device/pattern/calibration bindings, supplied to <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a19ebcd411126a763ad78372d948bb159" title="Binds context&#39;s role runners/cameras/patterns/calibration, validates them, and, if valid,...">setup()</a> and rebuilt by the owner whenever roles or the active camera/pattern-group selection change.  <a href="structvc_1_1model_1_1_localization_runtime_controller_1_1_runtime_context.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ASetupResult" id="r_vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ASetupResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html">vc::model::LocalizationRuntimeController::SetupResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outcome of <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a19ebcd411126a763ad78372d948bb159" title="Binds context&#39;s role runners/cameras/patterns/calibration, validates them, and, if valid,...">setup()</a>: whether the supplied <a class="el" href="structvc_1_1model_1_1_localization_runtime_controller_1_1_runtime_context.html" title="Snapshot of a task&#39;s device/pattern/calibration bindings, supplied to setup() and rebuilt by the owne...">RuntimeContext</a> was valid to run, plus the resolved role device ids and any validation errors.  <a href="structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ATaskLogEntry" id="r_vc_3A_3Amodel_3A_3ALocalizationRuntimeController_3A_3ATaskLogEntry"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_localization_runtime_controller_1_1_task_log_entry.html">vc::model::LocalizationRuntimeController::TaskLogEntry</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One timestamped task-log line surfaced to the UI via <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#ab5036485866964e1929a5cc1a7b96bb5" title="Emitted for every task log line appended via appendTaskLog().">taskLogAppended()</a>.  <a href="structvc_1_1model_1_1_localization_runtime_controller_1_1_task_log_entry.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -169,10 +178,14 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 <tr class="memitem:vc_3A_3Aruntime" id="r_vc_3A_3Aruntime"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1runtime.html">vc::runtime</a></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>LocalizationRuntimeController — runs one localization task at runtime: per-cycle state machine, device-role binding, and connection recovery. </p>
+
+<p class="definition">Definition in file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

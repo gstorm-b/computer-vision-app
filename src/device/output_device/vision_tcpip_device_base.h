@@ -1,6 +1,11 @@
 #ifndef VISION_TCPIP_DEVICE_BASE_H
 #define VISION_TCPIP_DEVICE_BASE_H
 
+/**
+ * @file vision_tcpip_device_base.h
+ * @brief Shared protocol core for the vision-output TCP/IP transports (server + client).
+ */
+
 #include "device/output_device/vision_output_device.h"
 #include "device/output_device/vision_output_request.h"
 #include "device/output_device/vision_tcpip_protocol.h"
@@ -13,29 +18,27 @@
 
 #include <utility>
 
-/// Device-layer classes implementing the two-channel (main + heartbeat) vision-output
-/// TCP/IP protocol shared by the server and client transports.
 namespace vc::device {
 
-/// VisionTcpipDeviceBase — shared protocol core for the TCP/IP
-/// vision-output transports (server + client).
-///
-/// Owns the pair of active sockets (main + heartbeat), the RX framing
-/// buffers, the heartbeat timer/state, runtime state and diagnostics.
-/// It implements everything that is identical between server and client:
-///
-///   - main-channel framing (';' delimiter) + result write (pushRequest)
-///   - heartbeat probe / ack parsing / timeout (the software is always
-///     the heartbeat master, regardless of connection direction)
-///   - lost-connection handling, runtime-state / diagnostics bookkeeping
-///
-/// Concrete transports differ only in HOW a socket is obtained:
-///   - VisionTcpipDevice (server): QTcpServer::listen + accept
-///   - VisionTcpipClientDevice    : QTcpSocket::connectToHost + reconnect
-///
-/// A subclass opens/closes its transport in startTransport()/stopTransport()
-/// and, whenever a link comes up, hands the connected socket to
-/// attachMainSocket() / attachHeartbeatSocket(). The base wires the rest.
+/**
+ * @class VisionTcpipDeviceBase
+ * @brief Shared protocol core for the TCP/IP vision-output transports (server + client).
+ *
+ *        Owns the pair of active sockets (main + heartbeat), the RX framing buffers,
+ *        the heartbeat timer/state, runtime state and diagnostics. Implements everything
+ *        that is identical between server and client:
+ *          - main-channel framing (';' delimiter) + result write (pushRequest)
+ *          - heartbeat probe / ack parsing / timeout (software is always the heartbeat master)
+ *          - lost-connection handling, runtime-state / diagnostics bookkeeping
+ *
+ *        Concrete transports differ only in HOW a socket is obtained:
+ *          - VisionTcpipDevice (server): QTcpServer::listen + accept
+ *          - VisionTcpipClientDevice:    QTcpSocket::connectToHost + reconnect
+ *
+ *        A subclass opens/closes its transport in startTransport()/stopTransport() and,
+ *        whenever a link comes up, hands the connected socket to attachMainSocket() /
+ *        attachHeartbeatSocket(). The base wires the rest.
+ */
 class VisionTcpipDeviceBase : public VisionOutputDevice {
     Q_OBJECT
 

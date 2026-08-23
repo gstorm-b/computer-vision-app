@@ -12,11 +12,12 @@ MatchPatternConfig::MatchPatternConfig(const MatchPatternConfig& other) {
     m_angle              = other.m_angle;
     m_toleranceAngle     = other.m_toleranceAngle;
     m_maxOverlap         = other.m_maxOverlap;
-    m_pickPosition       = other.m_pickPosition;
-    m_pickingBoxSize     = other.m_pickingBoxSize;
-    m_pickingBoxDistance = other.m_pickingBoxDistance;
-    m_pickingBoxAngle    = other.m_pickingBoxAngle;
-    m_pickingOffset      = other.m_pickingOffset;
+    m_pickPosition          = other.m_pickPosition;
+    m_gripperBoxes          = other.m_gripperBoxes;
+    m_pickingBoxAngle       = other.m_pickingBoxAngle;
+    m_usePickingBox         = other.m_usePickingBox;
+    m_pickingOffset         = other.m_pickingOffset;
+    m_pickingRotationOffset = other.m_pickingRotationOffset;
 }
 
 /// Copy-assigns, deep-copying the training image (m_rawImage.clone()) so this config
@@ -31,11 +32,12 @@ MatchPatternConfig& MatchPatternConfig::operator=(const MatchPatternConfig& othe
         m_angle              = other.m_angle;
         m_toleranceAngle     = other.m_toleranceAngle;
         m_maxOverlap         = other.m_maxOverlap;
-        m_pickPosition       = other.m_pickPosition;
-        m_pickingBoxSize     = other.m_pickingBoxSize;
-        m_pickingBoxDistance = other.m_pickingBoxDistance;
-        m_pickingBoxAngle    = other.m_pickingBoxAngle;
-        m_pickingOffset      = other.m_pickingOffset;
+        m_pickPosition          = other.m_pickPosition;
+        m_gripperBoxes          = other.m_gripperBoxes;
+        m_pickingBoxAngle       = other.m_pickingBoxAngle;
+        m_usePickingBox         = other.m_usePickingBox;
+        m_pickingOffset         = other.m_pickingOffset;
+        m_pickingRotationOffset = other.m_pickingRotationOffset;
     }
     return *this;
 }

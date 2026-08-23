@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Request sent to <a class="el" href="classvc_1_1device_1_1_vision_output_device.html" title="Abstract base for the vision-output device family. Concrete vendors (VisionTcpipDevice,...">VisionOutputDevice</a>. Comes in 2 kinds:  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::VisionOutputRequest:</div>
@@ -170,13 +173,14 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a898e5876a1a873c1951e8df92038af69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opaque bytes to send (<a class="el" href="#a72167c5b966711e6bd74e76f807b2285ab9d83aee84c28a6a563b929e54c7cb95" title="Opaque raw bytes to send as-is (see rawPayload()).">Kind::Raw</a>).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Request sent to <a class="el" href="classvc_1_1device_1_1_vision_output_device.html">VisionOutputDevice</a>. Comes in 2 kinds:</p><ul>
+<div class="textblock"><p>Request sent to <a class="el" href="classvc_1_1device_1_1_vision_output_device.html" title="Abstract base for the vision-output device family. Concrete vendors (VisionTcpipDevice,...">VisionOutputDevice</a>. Comes in 2 kinds: </p>
+<ul>
 <li>Result: the server pushes matching results down to the client on port 1.</li>
 <li>Raw: raw bytes are sent straight down port 1 (used for test / extension).</li>
 </ul>
-<p>Result format: "{detected number},{Position 1},{Position 2},...;" where each position is "x,y,z,r". </p>
+<p>Result format: "{detected number},{Position 1},{Position 2},...;" where each position is "x,y,z,r,rx,ry,rz" (7 fields since Phase 5; it was 4 before). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00040">40</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00064">64</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a72167c5b966711e6bd74e76f807b2285" name="a72167c5b966711e6bd74e76f807b2285"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a72167c5b966711e6bd74e76f807b2285">&#9670;&#160;</a></span>Kind</h2>
@@ -198,7 +202,7 @@ Private Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00043">43</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00067">67</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
 </div>
 </div>
@@ -253,9 +257,9 @@ Private Attributes</h2></td></tr>
 
 <p>Builds a Result-kind request carrying the given matching positions. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00051">51</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00075">75</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00101">m_kind</a>, <a class="el" href="vision__output__request_8h_source.html#l00102">m_positions</a>, <a class="el" href="vision__output__request_8h_source.html#l00073">positions()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00044">Result</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00125">m_kind</a>, <a class="el" href="vision__output__request_8h_source.html#l00126">m_positions</a>, <a class="el" href="vision__output__request_8h_source.html#l00097">positions()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00068">Result</a>.</p>
 
 </div>
 </div>
@@ -284,9 +288,9 @@ Private Attributes</h2></td></tr>
 
 <p>Builds a Raw-kind request carrying the given opaque payload. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00055">55</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00079">79</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00101">m_kind</a>, <a class="el" href="vision__output__request_8h_source.html#l00103">m_rawPayload</a>, <a class="el" href="vision__output__request_8h_source.html#l00045">Raw</a>, and <a class="el" href="vision__output__request_8h_source.html#l00078">rawPayload()</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00125">m_kind</a>, <a class="el" href="vision__output__request_8h_source.html#l00127">m_rawPayload</a>, <a class="el" href="vision__output__request_8h_source.html#l00069">Raw</a>, and <a class="el" href="vision__output__request_8h_source.html#l00102">rawPayload()</a>.</p>
 
 </div>
 </div>
@@ -315,9 +319,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Builds the wire payload per spec. For <a class="el" href="#a72167c5b966711e6bd74e76f807b2285ab9d83aee84c28a6a563b929e54c7cb95" title="Opaque raw bytes to send as-is (see rawPayload()).">Kind::Raw</a>, returns <a class="el" href="#a67253b50dc4f1a56de6a250843afad22" title="Returns the raw byte payload to send; only meaningful when kind() == Raw.">rawPayload()</a> unchanged; for <a class="el" href="#a72167c5b966711e6bd74e76f807b2285a8a647d4305fa52be8590c06b51c42530" title="Structured matching-result positions (see positions()).">Kind::Result</a>, returns "{count},{x,y,z,r},{x,y,z,r},...;" with each axis using "%08.2f" (e.g. "2,00010.00,00020.00,00000.00,00090.00,00015.00,00025.00,00000.00,00000.00;"). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00086">86</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00110">110</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00101">m_kind</a>, <a class="el" href="vision__output__request_8h_source.html#l00102">m_positions</a>, <a class="el" href="vision__output__request_8h_source.html#l00103">m_rawPayload</a>, and <a class="el" href="vision__output__request_8h_source.html#l00045">Raw</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00125">m_kind</a>, <a class="el" href="vision__output__request_8h_source.html#l00126">m_positions</a>, <a class="el" href="vision__output__request_8h_source.html#l00127">m_rawPayload</a>, and <a class="el" href="vision__output__request_8h_source.html#l00069">Raw</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">vc::device::VisionTcpipDeviceBase::pushRequest()</a>.</p>
 
@@ -350,7 +354,7 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_request.html#a3d0361486815943bc2ced02ef15510d0">vc::device::IRequest</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00064">64</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00088">88</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
 </div>
 </div>
@@ -378,9 +382,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns whether this request carries structured positions (Result) or an opaque byte payload (Raw). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00070">70</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00094">94</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00101">m_kind</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00125">m_kind</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">vc::device::VisionTcpipDeviceBase::pushRequest()</a>.</p>
 
@@ -411,11 +415,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the matching positions to send; only meaningful when <a class="el" href="#a28d075d5ae41e9e1b15aa5ad559099af">kind()</a> == Result. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00073">73</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00097">97</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00102">m_positions</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00126">m_positions</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">vc::device::VisionTcpipDeviceBase::pushRequest()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00051">VisionOutputRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">vc::device::VisionTcpipDeviceBase::pushRequest()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00075">VisionOutputRequest()</a>.</p>
 
 </div>
 </div>
@@ -444,11 +448,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the raw byte payload to send; only meaningful when <a class="el" href="#a28d075d5ae41e9e1b15aa5ad559099af">kind()</a> == Raw. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00078">78</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00102">102</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00103">m_rawPayload</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00127">m_rawPayload</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__request_8h_source.html#l00055">VisionOutputRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__request_8h_source.html#l00079">VisionOutputRequest()</a>.</p>
 
 </div>
 </div>
@@ -479,9 +483,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_request.html#a97665786222c2d520595cd3b5db911d3">vc::device::IRequest</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00059">59</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00083">83</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">References <a class="el" href="irequest_8h_source.html#l00013">vc::device::Request_VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="irequest_8h_source.html#l00020">vc::device::Request_VisionOutput</a>.</p>
 
 </div>
 </div>
@@ -508,9 +512,9 @@ Private Attributes</h2></td></tr>
 
 <p>Which payload kind this request carries. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00101">101</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00125">125</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__request_8h_source.html#l00086">buildPayload()</a>, <a class="el" href="vision__output__request_8h_source.html#l00070">kind()</a>, <a class="el" href="vision__output__request_8h_source.html#l00055">VisionOutputRequest()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00051">VisionOutputRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__request_8h_source.html#l00110">buildPayload()</a>, <a class="el" href="vision__output__request_8h_source.html#l00094">kind()</a>, <a class="el" href="vision__output__request_8h_source.html#l00079">VisionOutputRequest()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00075">VisionOutputRequest()</a>.</p>
 
 </div>
 </div>
@@ -536,9 +540,9 @@ Private Attributes</h2></td></tr>
 
 <p>Matching positions (<a class="el" href="#a72167c5b966711e6bd74e76f807b2285a8a647d4305fa52be8590c06b51c42530" title="Structured matching-result positions (see positions()).">Kind::Result</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00102">102</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00126">126</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__request_8h_source.html#l00086">buildPayload()</a>, <a class="el" href="vision__output__request_8h_source.html#l00073">positions()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00051">VisionOutputRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__request_8h_source.html#l00110">buildPayload()</a>, <a class="el" href="vision__output__request_8h_source.html#l00097">positions()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00075">VisionOutputRequest()</a>.</p>
 
 </div>
 </div>
@@ -564,14 +568,14 @@ Private Attributes</h2></td></tr>
 
 <p>Opaque bytes to send (<a class="el" href="#a72167c5b966711e6bd74e76f807b2285ab9d83aee84c28a6a563b929e54c7cb95" title="Opaque raw bytes to send as-is (see rawPayload()).">Kind::Raw</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00103">103</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__request_8h_source.html#l00127">127</a> of file <a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__request_8h_source.html#l00086">buildPayload()</a>, <a class="el" href="vision__output__request_8h_source.html#l00078">rawPayload()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00055">VisionOutputRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__request_8h_source.html#l00110">buildPayload()</a>, <a class="el" href="vision__output__request_8h_source.html#l00102">rawPayload()</a>, and <a class="el" href="vision__output__request_8h_source.html#l00079">VisionOutputRequest()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/output_device/<a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/output_device/<a class="el" href="vision__output__request_8h_source.html">vision_output_request.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

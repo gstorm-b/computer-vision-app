@@ -8,7 +8,7 @@ rem   2. Runs Doxygen over src/, app/, and components/RobotKinematics.
 rem
 rem All tool locations are environment variables so this works across
 rem machines (see docs/rules/documentation_build.md). Defaults below match
-rem the copies found under C:\build_packages on this machine; override any
+rem the copies found under C:\BAO on this machine; override any
 rem of them before calling this script if your machine differs.
 rem ---------------------------------------------------------------------
 
@@ -16,11 +16,11 @@ if not defined NCR_PICKING_ROOT (
     for %%I in ("%~dp0..\..") do set "NCR_PICKING_ROOT=%%~fI"
 )
 
-if not defined DOXYGEN_EXE set "DOXYGEN_EXE=C:\build_packages\doxygen-1.17.0-win64\doxygen.exe"
-if not defined GRAPHVIZ_DOT_DIR set "GRAPHVIZ_DOT_DIR=C:\build_packages\Graphviz-15.1.0-win64\bin"
+if not defined DOXYGEN_EXE set "DOXYGEN_EXE=C:\BAO\doxygen-1.17.0-win64\doxygen.exe"
+if not defined GRAPHVIZ_DOT_DIR set "GRAPHVIZ_DOT_DIR=C:\BAO\Graphviz-15.1.0-win64\bin"
 rem plantuml-1.2026.6.jar in the same folder needs Java 11+; this repo's
 rem local machine only has Java 8, so default to the Java-8-compatible jar.
-if not defined PLANTUML_JAR set "PLANTUML_JAR=C:\build_packages\plantuml\plantuml-java8-SNAPSHOT.jar"
+if not defined PLANTUML_JAR set "PLANTUML_JAR=C:\BAO\plantuml\plantuml-java8-SNAPSHOT.jar"
 if not defined JAVA_EXE set "JAVA_EXE=java"
 
 if not exist "%DOXYGEN_EXE%" (
@@ -49,6 +49,13 @@ set "GRAPHVIZ_DOT=%GRAPHVIZ_DOT_DIR%\dot.exe"
 "%JAVA_EXE%" -jar "%PLANTUML_JAR%" -tsvg -o "%UML_SVG_DIR%" "%UML_SRC_DIR%\*.puml"
 if errorlevel 1 (
     echo [build_docs] PlantUML render failed.
+    exit /b 1
+)
+
+echo [build_docs] Patching UML SVGs to use Doxygen's interactive-SVG pan/zoom (svg.min.js)...
+powershell -NoProfile -ExecutionPolicy Bypass -File "%DOXY_DIR%\scripts\patch_uml_svg.ps1" -SvgDir "%UML_SVG_DIR%"
+if errorlevel 1 (
+    echo [build_docs] Patching UML SVGs failed.
     exit /b 1
 )
 

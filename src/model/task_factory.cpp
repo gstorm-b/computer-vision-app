@@ -9,8 +9,6 @@
 
 namespace vc::model {
 
-/// Builds an ITask from a JSON object, validating that the required top-level keys
-/// (id, name, taskType, taskConfig) are present before dispatching to create().
 ITask* TaskFactory::fromJson(const QJsonObject& obj,
                              QObject* parent) {
 

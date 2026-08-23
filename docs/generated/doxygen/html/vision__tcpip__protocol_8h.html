@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/output_device/vision_tcpip_protocol.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/output_device/vision_tcpip_protocol.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('vision__tcpip_
   <div class="headertitle"><div class="title">vision_tcpip_protocol.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Shared wire-format constants and Q_GADGET state/diagnostics structs for the vision-output TCP/IP protocol (server + client transports).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QtGlobal&gt;</code><br />
 <code>#include &lt;QMetaType&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
@@ -138,14 +141,15 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AVisionTcpipDiagnostics" id="r_vc_3A_3Adevice_3A_3AVisionTcpipDiagnostics"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1device_1_1_vision_tcpip_diagnostics.html">vc::device::VisionTcpipDiagnostics</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structvc_1_1device_1_1_vision_tcpip_diagnostics.html" title="VisionTcpipDiagnostics — cumulative counters + last error, read-only.">VisionTcpipDiagnostics</a> — cumulative counters + last error, read-only.  <a href="structvc_1_1device_1_1_vision_tcpip_diagnostics.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cumulative diagnostic counters and last error string exposed to the UI (read-only).  <a href="structvc_1_1device_1_1_vision_tcpip_diagnostics.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AVisionTcpipRuntimeState" id="r_vc_3A_3Adevice_3A_3AVisionTcpipRuntimeState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1device_1_1_vision_tcpip_runtime_state.html">vc::device::VisionTcpipRuntimeState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Live link/heartbeat state snapshot exposed to the UI (read-only). Field names are transport-neutral: "mainClientConnected" / "heartbeatClientConnected" mean "the main / heartbeat link is up", whether this device accepted the link (server) or dialled it (client).  <a href="structvc_1_1device_1_1_vision_tcpip_runtime_state.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -154,6 +158,7 @@ Macros</h2></td></tr>
 <tr class="memitem:a53490265129d02d2335cfa54106d04a9" id="r_a53490265129d02d2335cfa54106d04a9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a53490265129d02d2335cfa54106d04a9">VISION_OUTPUT_HB_DISCONNECT</a>&#160;&#160;&#160;&quot;disconnect.&quot;</td></tr>
 <tr class="memdesc:a53490265129d02d2335cfa54106d04a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">One-shot notice written to the heartbeat channel just before an intentional disconnect.  <br /></td></tr>
 <tr class="memitem:aa9daa17c4870e028afc4a19816ea06dc" id="r_aa9daa17c4870e028afc4a19816ea06dc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa9daa17c4870e028afc4a19816ea06dc">VISION_OUTPUT_HB_MESSAGE</a>&#160;&#160;&#160;&quot;connection_check.&quot;</td></tr>
+<tr class="memdesc:aa9daa17c4870e028afc4a19816ea06dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Heartbeat probe message sent by the software (always the heartbeat master).  <br /></td></tr>
 <tr class="memitem:a76c80734f70d3f68f2e3e2511cb1bc2b" id="r_a76c80734f70d3f68f2e3e2511cb1bc2b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a76c80734f70d3f68f2e3e2511cb1bc2b">VISION_OUTPUT_HB_TERMINATOR</a>&#160;&#160;&#160;'.'</td></tr>
 <tr class="memdesc:a76c80734f70d3f68f2e3e2511cb1bc2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delimiter terminating each heartbeat-channel message.  <br /></td></tr>
 <tr class="memitem:a621ae971dfeb8956c3817f2394fe1a75" id="r_a621ae971dfeb8956c3817f2394fe1a75"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a621ae971dfeb8956c3817f2394fe1a75">VISION_OUTPUT_MAIN_TERMINATOR</a>&#160;&#160;&#160;';'</td></tr>
@@ -161,7 +166,16 @@ Macros</h2></td></tr>
 <tr class="memitem:acd265c815e25b45809b1969deceec727" id="r_acd265c815e25b45809b1969deceec727"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acd265c815e25b45809b1969deceec727">VISION_OUTPUT_MSG_COUNT_LIMIT</a>&#160;&#160;&#160;(1 &lt;&lt; 16)</td></tr>
 <tr class="memdesc:acd265c815e25b45809b1969deceec727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exclusive upper bound the heartbeat msg_count wraps at.  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Shared wire-format constants and Q_GADGET state/diagnostics structs for the vision-output TCP/IP protocol (server + client transports). </p>
+<p>Both transports speak the same two-channel protocol:</p><ul>
+<li>Main channel: "{detected},{x,y,z,r},...;" (delimiter ';'; each axis "%08.2f")</li>
+<li>Heartbeat: probe "connection_check.", reply "ack,{count}." (delimiter '.')</li>
+</ul>
+<p>The software is always the heartbeat master. On intentional disconnect a one-shot "disconnect." notice is written on the heartbeat channel before teardown. </p>
+
+<p class="definition">Definition in file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a9ceaa4669ee0991ab98ddd192fcf110c" name="a9ceaa4669ee0991ab98ddd192fcf110c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9ceaa4669ee0991ab98ddd192fcf110c">&#9670;&#160;</a></span>VISION_OUTPUT_HB_ACK_PREFIX</h2>
 
@@ -176,7 +190,7 @@ Macros</h2></td></tr>
 
 <p>Prefix of a valid heartbeat ack reply, of the form "ack,{count}.". </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00031">31</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00026">26</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">vc::device::VisionTcpipDeviceBase::handleHeartbeatPayload()</a>.</p>
 
@@ -196,7 +210,7 @@ Macros</h2></td></tr>
 
 <p>One-shot notice written to the heartbeat channel just before an intentional disconnect. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00033">33</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00028">28</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00502">vc::device::VisionTcpipDeviceBase::sendDisconnectNotice()</a>.</p>
 
@@ -213,16 +227,10 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Vision TCP/IP protocol constants (shared by server + client transports).</p>
-<p>Both transports speak the same two-channel protocol:</p><ul>
-<li>Main channel : "{detected},{x,y,z,r},...;" (delimiter ';'; each axis is fixed-width "%08.2f", e.g. 1.0 -&gt; "00001.00")</li>
-<li>Heartbeat : probe "connection_check.", reply "ack,{count}." (delimiter '.', count wraps at 2^16)</li>
-</ul>
-<p>The software is always the heartbeat master: it sends the probe and expects the ack, regardless of which side opened the TCP connection.</p>
-<p>Graceful shutdown: on an intentional deviceDisconnect() the software sends a one-shot "disconnect." notice on the heartbeat channel just before tearing the link down, so the peer can distinguish a planned close from a fault (timeout / bad format). It is NOT sent on the lost-connection path.</p>
+
 <p>Heartbeat probe message sent by the software (always the heartbeat master). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00029">29</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00024">24</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">vc::device::VisionTcpipDeviceBase::sendHeartbeatProbe()</a>.</p>
 
@@ -242,7 +250,7 @@ Macros</h2></td></tr>
 
 <p>Delimiter terminating each heartbeat-channel message. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00035">35</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00030">30</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00411">vc::device::VisionTcpipDeviceBase::onHeartbeatSocketReadyRead()</a>.</p>
 
@@ -262,7 +270,7 @@ Macros</h2></td></tr>
 
 <p>Delimiter terminating each main-channel message. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00037">37</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00032">32</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00372">vc::device::VisionTcpipDeviceBase::onMainSocketReadyRead()</a>.</p>
 
@@ -282,7 +290,7 @@ Macros</h2></td></tr>
 
 <p>Exclusive upper bound the heartbeat msg_count wraps at. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00039">39</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00034">34</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">vc::device::VisionTcpipDeviceBase::handleHeartbeatPayload()</a>.</p>
 

@@ -1451,8 +1451,7 @@ HTML_EXTRA_STYLESHEET  =
 # files will be copied as-is; there are no commands or markers available.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_FILES       = $(NCR_PICKING_ROOT)/docs/doxygen/assets/uml_pan_zoom.css \
-                         $(NCR_PICKING_ROOT)/docs/doxygen/assets/uml_pan_zoom.js
+HTML_EXTRA_FILES       = $(NCR_PICKING_ROOT)/docs/doxygen/assets/svg.min.js
 
 # The HTML_COLORSTYLE tag can be used to specify if the generated HTML output
 # should be rendered with a dark or light theme.

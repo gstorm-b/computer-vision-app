@@ -502,7 +502,7 @@ void VisionTcpipClientDeviceWidget::onSendResult() {
         if (sx) pos.x = sx->value();
         if (sy) pos.y = sy->value();
         if (sz) pos.z = sz->value();
-        if (sr) pos.r = sr->value();
+        if (sr) pos.rz = sr->value();
         positions.append(pos);
     }
     m_runner->requestSendResult(positions);

@@ -204,4 +204,4 @@ A customer install still needs to ship `robot_assets/` next to the binary
 - UML: [uml/09_robot_kinematics.puml](../../uml/09_robot_kinematics.puml).
 - Component docs: [components/RobotKinematics/README.md](../../components/RobotKinematics/README.md),
   `components/RobotKinematics/docs/robot_kinematics_spec.md`.
-- Request: [request-prompt-description/robot_kinematic_module_request.md](../history/request_prompts/robot_kinematic_module_request.md).
+- Request: [history/request/robot_kinematic_module_request.md](../history/request/robot_kinematic_module_request.md).

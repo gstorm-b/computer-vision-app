@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_pixmap_b
 </div><!--header-->
 <div class="contents">
 
+<p>QGraphicsPixmapItem that draws itself with a colored border rectangle around the pixmap's bounding rect, in addition to the normal pixmap paint.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PixmapBoundingLine:</div>
@@ -152,7 +155,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>QGraphicsPixmapItem that draws itself with a colored border rectangle around the pixmap's bounding rect, in addition to the normal pixmap paint. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00009">9</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00018">18</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aee0d6573f7b7f224b6fc950c0cd38232" name="aee0d6573f7b7f224b6fc950c0cd38232"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee0d6573f7b7f224b6fc950c0cd38232">&#9670;&#160;</a></span>PixmapBoundingLine()</h2>
@@ -179,9 +182,9 @@ Private Attributes</h2></td></tr>
 
 <p>Constructs the item for <span class="tt">pixmap</span> with a default green, 2px-wide border. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00012">12</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00021">21</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="item__pixmap__bounding_8h_source.html#l00051">m_border_width</a>, and <a class="el" href="item__pixmap__bounding_8h_source.html#l00052">m_bouding_color</a>.</p>
+<p class="reference">References <a class="el" href="item__pixmap__bounding_8h_source.html#l00060">m_border_width</a>, and <a class="el" href="item__pixmap__bounding_8h_source.html#l00061">m_bouding_color</a>.</p>
 
 </div>
 </div>
@@ -219,9 +222,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Draws the base pixmap via the base class, then an outline rectangle around the bounding rect (expanded by border width + 1) in the configured color and width. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00022">22</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00031">31</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="item__pixmap__bounding_8h_source.html#l00051">m_border_width</a>, and <a class="el" href="item__pixmap__bounding_8h_source.html#l00052">m_bouding_color</a>.</p>
+<p class="reference">References <a class="el" href="item__pixmap__bounding_8h_source.html#l00060">m_border_width</a>, and <a class="el" href="item__pixmap__bounding_8h_source.html#l00061">m_bouding_color</a>.</p>
 
 </div>
 </div>
@@ -250,9 +253,9 @@ Private Attributes</h2></td></tr>
 
 <p>Sets the border color, ignoring the call if <span class="tt">color</span> is invalid. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00039">39</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00048">48</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="item__pixmap__bounding_8h_source.html#l00052">m_bouding_color</a>.</p>
+<p class="reference">References <a class="el" href="item__pixmap__bounding_8h_source.html#l00061">m_bouding_color</a>.</p>
 
 </div>
 </div>
@@ -281,9 +284,9 @@ Private Attributes</h2></td></tr>
 
 <p>Sets the border line width in pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00046">46</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00055">55</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="item__pixmap__bounding_8h_source.html#l00051">m_border_width</a>.</p>
+<p class="reference">References <a class="el" href="item__pixmap__bounding_8h_source.html#l00060">m_border_width</a>.</p>
 
 </div>
 </div>
@@ -310,9 +313,9 @@ Private Attributes</h2></td></tr>
 
 <p>Width, in pixels, of the drawn border rectangle. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00051">51</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00060">60</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="item__pixmap__bounding_8h_source.html#l00022">paint()</a>, <a class="el" href="item__pixmap__bounding_8h_source.html#l00012">PixmapBoundingLine()</a>, and <a class="el" href="item__pixmap__bounding_8h_source.html#l00046">setBorderLineWidth()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="item__pixmap__bounding_8h_source.html#l00031">paint()</a>, <a class="el" href="item__pixmap__bounding_8h_source.html#l00021">PixmapBoundingLine()</a>, and <a class="el" href="item__pixmap__bounding_8h_source.html#l00055">setBorderLineWidth()</a>.</p>
 
 </div>
 </div>
@@ -338,14 +341,14 @@ Private Attributes</h2></td></tr>
 
 <p>Color of the drawn border rectangle. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00052">52</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__pixmap__bounding_8h_source.html#l00061">61</a> of file <a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="item__pixmap__bounding_8h_source.html#l00022">paint()</a>, <a class="el" href="item__pixmap__bounding_8h_source.html#l00012">PixmapBoundingLine()</a>, and <a class="el" href="item__pixmap__bounding_8h_source.html#l00039">setBorderColor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="item__pixmap__bounding_8h_source.html#l00031">paint()</a>, <a class="el" href="item__pixmap__bounding_8h_source.html#l00021">PixmapBoundingLine()</a>, and <a class="el" href="item__pixmap__bounding_8h_source.html#l00048">setBorderColor()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="item__pixmap__bounding_8h_source.html">item_pixmap_bounding.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

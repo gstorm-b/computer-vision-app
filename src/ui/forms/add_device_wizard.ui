@@ -459,24 +459,37 @@
           <property name="bottomMargin">
            <number>0</number>
           </property>
+          <!-- PLC sub-type. Added when the virtual PLC arrived: until then this page
+               hard-coded Mitsubishi MC, which was correct while MC was the only PLC. The two
+               rows below are MC-specific and are hidden for any other sub-type. -->
           <item row="0" column="0">
+           <widget class="QLabel" name="lblPlcType">
+            <property name="text">
+             <string>PLC Type</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="CompactComboBox" name="cbxPlcType"/>
+          </item>
+          <item row="1" column="0">
            <widget class="QLabel" name="lblMcFrame">
             <property name="text">
              <string>Frame Type</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
+          <item row="1" column="1">
            <widget class="CompactComboBox" name="cbxMcFrameType"/>
           </item>
-          <item row="1" column="0">
+          <item row="2" column="0">
            <widget class="QLabel" name="lblMcCode">
             <property name="text">
              <string>Data Code</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item row="2" column="1">
            <widget class="CompactComboBox" name="cbxMcCode"/>
           </item>
          </layout>

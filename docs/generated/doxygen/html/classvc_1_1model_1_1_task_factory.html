@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1mod
 </div><!--header-->
 <div class="contents">
 
+<p>Static, non-instantiable factory that builds concrete <a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">ITask</a> instances (currently LocalizationTask) from JSON, dispatching by <a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b" title="Identifies the kind of work a task performs.">TaskType</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="task__factory_8h_source.html">task_factory.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::model::TaskFactory:</div>
@@ -139,12 +142,14 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac6c8866bffb87a48b300784a175286db" id="r_ac6c8866bffb87a48b300784a175286db"><td class="memItemLeft">static <a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac6c8866bffb87a48b300784a175286db">create</a> (const <a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b">TaskType</a> &amp;type, const QJsonObject &amp;obj, QObject *parent=nullptr)</td></tr>
 <tr class="memdesc:ac6c8866bffb87a48b300784a175286db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dispatches task creation to the type-specific create* helper matching <span class="tt">type</span>.  <br /></td></tr>
 <tr class="memitem:a1dbd3c7e86086e2a2c833b6bccb5e97a" id="r_a1dbd3c7e86086e2a2c833b6bccb5e97a"><td class="memItemLeft">static <a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a1dbd3c7e86086e2a2c833b6bccb5e97a">createTaskLocalization</a> (const QJsonObject &amp;obj, QObject *parent=nullptr)</td></tr>
+<tr class="memdesc:a1dbd3c7e86086e2a2c833b6bccb5e97a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">TaskLocalization</a> from <span class="tt">obj</span>: reads its id/name, then restores the rest (config, device ids, pattern library) via <a class="el" href="classvc_1_1model_1_1_task_localization.html#a8b26a87fd244016ff09d0a52fed19630">TaskLocalization::fromJson()</a>. The task is still returned (for the user to see/repair in the UI) even if that restore fails.  <br /></td></tr>
 <tr class="memitem:aa606c6f7a4b12310e1610f4311d3553d" id="r_aa606c6f7a4b12310e1610f4311d3553d"><td class="memItemLeft">static <a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa606c6f7a4b12310e1610f4311d3553d">fromJson</a> (const QJsonObject &amp;o, QObject *parent=nullptr)</td></tr>
+<tr class="memdesc:aa606c6f7a4b12310e1610f4311d3553d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds an <a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">ITask</a> from a JSON object, validating that the required top-level keys (id, name, taskType, taskConfig) are present before dispatching to <a class="el" href="#ac6c8866bffb87a48b300784a175286db" title="Dispatches task creation to the type-specific create* helper matching type.">create()</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Static, non-instantiable factory that builds concrete <a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a> instances (currently LocalizationTask) from JSON, dispatching by <a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b" title="Identifies the kind of work a task performs.">TaskType</a>. </p>
+<div class="textblock"><p>Static, non-instantiable factory that builds concrete <a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">ITask</a> instances (currently LocalizationTask) from JSON, dispatching by <a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b" title="Identifies the kind of work a task performs.">TaskType</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__factory_8h_source.html#l00010">10</a> of file <a class="el" href="task__factory_8h_source.html">task_factory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__factory_8h_source.html#l00018">18</a> of file <a class="el" href="task__factory_8h_source.html">task_factory.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a45c938ffbdac2951cf47355de112055c" name="a45c938ffbdac2951cf47355de112055c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a45c938ffbdac2951cf47355de112055c">&#9670;&#160;</a></span>TaskFactory() <span class="overload">[1/2]</span></h2>
@@ -259,21 +264,21 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Dispatches task creation to the type-specific create* helper matching <span class="tt">type</span>. </p>
-<p>Dispatches task creation to the type-specific create* helper matching <span class="tt">type</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>task family to create </td></tr>
-    <tr><td class="paramname">obj</td><td>JSON object describing the task </td></tr>
-    <tr><td class="paramname">parent</td><td>QObject parent passed through to the created task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>task family to create </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>JSON object describing the task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>QObject parent passed through to the created task </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the created <a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a>, or nullptr for any type other than LocalizationTask </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the created <a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">ITask</a>, or nullptr for any type other than LocalizationTask </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__factory_8cpp_source.html#l00032">32</a> of file <a class="el" href="task__factory_8cpp_source.html">task_factory.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__factory_8cpp_source.html#l00030">30</a> of file <a class="el" href="task__factory_8cpp_source.html">task_factory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__factory_8cpp_source.html#l00046">createTaskLocalization()</a>, and <a class="el" href="task__define_8h_source.html#l00022">vc::model::LocalizationTask</a>.</p>
+<p class="reference">References <a class="el" href="task__factory_8cpp_source.html#l00044">createTaskLocalization()</a>, and <a class="el" href="task__define_8h_source.html#l00032">vc::model::LocalizationTask</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__factory_8cpp_source.html#l00014">fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__factory_8cpp_source.html#l00012">fromJson()</a>.</p>
 
 </div>
 </div>
@@ -303,21 +308,23 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates a <a class="el" href="classvc_1_1model_1_1_task_localization.html">TaskLocalization</a> from <span class="tt">obj</span>: reads its id/name, then restores the rest (config, device ids, pattern library) via <a class="el" href="classvc_1_1model_1_1_task_localization.html#a8b26a87fd244016ff09d0a52fed19630">TaskLocalization::fromJson()</a>. The task is still returned (for the user to see/repair in the UI) even if that restore fails. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Creates a <a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">TaskLocalization</a> from <span class="tt">obj</span>: reads its id/name, then restores the rest (config, device ids, pattern library) via <a class="el" href="classvc_1_1model_1_1_task_localization.html#a8b26a87fd244016ff09d0a52fed19630">TaskLocalization::fromJson()</a>. The task is still returned (for the user to see/repair in the UI) even if that restore fails. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>JSON object describing the task </td></tr>
-    <tr><td class="paramname">parent</td><td>QObject parent passed through to the created task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>JSON object describing the task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>QObject parent passed through to the created task </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the created <a class="el" href="classvc_1_1model_1_1_task_localization.html">TaskLocalization</a>, or nullptr if <span class="tt">obj["id"]</span> is empty</dd></dl>
-<p>Creates a <a class="el" href="classvc_1_1model_1_1_task_localization.html">TaskLocalization</a> from <span class="tt">obj</span>: reads its id/name, then restores the rest (config, device ids, pattern library) via <a class="el" href="classvc_1_1model_1_1_task_localization.html#a8b26a87fd244016ff09d0a52fed19630">TaskLocalization::fromJson()</a>. The task is still returned (for the user to see/repair in the UI) even if that restore fails. </p>
+<dl class="section return"><dt>Returns</dt><dd>the created <a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">TaskLocalization</a>, or nullptr if <span class="tt">obj["id"]</span> is empty</dd></dl>
+<p>Creates a <a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">TaskLocalization</a> from <span class="tt">obj</span>: reads its id/name, then restores the rest (config, device ids, pattern library) via <a class="el" href="classvc_1_1model_1_1_task_localization.html#a8b26a87fd244016ff09d0a52fed19630">TaskLocalization::fromJson()</a>. The task is still returned (for the user to see/repair in the UI) even if that restore fails. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__factory_8cpp_source.html#l00046">46</a> of file <a class="el" href="task__factory_8cpp_source.html">task_factory.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__factory_8cpp_source.html#l00044">44</a> of file <a class="el" href="task__factory_8cpp_source.html">task_factory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__localization_8cpp_source.html#l00243">vc::model::TaskLocalization::fromJson()</a>, and <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>.</p>
+<p class="reference">References <a class="el" href="task__localization_8cpp_source.html#l00240">vc::model::TaskLocalization::fromJson()</a>, and <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__factory_8cpp_source.html#l00032">create()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__factory_8cpp_source.html#l00030">create()</a>.</p>
 
 </div>
 </div>
@@ -333,7 +340,7 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a> * vc::model::TaskFactory::fromJson </td>
           <td>(</td>
-          <td class="paramtype">const QJsonObject &amp;</td>          <td class="paramname"><span class="paramname"><em>obj</em></span>, </td>
+          <td class="paramtype">const QJsonObject &amp;</td>          <td class="paramname"><span class="paramname"><em>o</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -347,21 +354,22 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds an <a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a> from a JSON object, validating that the required top-level keys (id, name, taskType, taskConfig) are present before dispatching to <a class="el" href="#ac6c8866bffb87a48b300784a175286db" title="Dispatches task creation to the type-specific create* helper matching type.">create()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Builds an <a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">ITask</a> from a JSON object, validating that the required top-level keys (id, name, taskType, taskConfig) are present before dispatching to <a class="el" href="#ac6c8866bffb87a48b300784a175286db" title="Dispatches task creation to the type-specific create* helper matching type.">create()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">o</td><td>JSON object describing the task </td></tr>
-    <tr><td class="paramname">parent</td><td>QObject parent passed through to the created task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">o</td><td>JSON object describing the task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>QObject parent passed through to the created task </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the created <a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a>, or nullptr if the JSON is missing required keys or no matching task could be created</dd></dl>
-<p>Builds an <a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a> from a JSON object, validating that the required top-level keys (id, name, taskType, taskConfig) are present before dispatching to <a class="el" href="#ac6c8866bffb87a48b300784a175286db" title="Dispatches task creation to the type-specific create* helper matching type.">create()</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>the created <a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">ITask</a>, or nullptr if the JSON is missing required keys or no matching task could be created </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__factory_8cpp_source.html#l00014">14</a> of file <a class="el" href="task__factory_8cpp_source.html">task_factory.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__factory_8cpp_source.html#l00012">12</a> of file <a class="el" href="task__factory_8cpp_source.html">task_factory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__factory_8cpp_source.html#l00032">create()</a>, <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, and <a class="el" href="task__define_8h_source.html#l00079">vc::model::taskTypeFromString()</a>.</p>
+<p class="reference">References <a class="el" href="task__factory_8cpp_source.html#l00030">create()</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, and <a class="el" href="task__define_8h_source.html#l00097">vc::model::taskTypeFromString()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00247">vc::model::Project::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00236">vc::model::Project::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -393,8 +401,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="task__factory_8h_source.html">task_factory.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="task__factory_8cpp_source.html">task_factory.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="task__factory_8h_source.html">task_factory.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="task__factory_8cpp_source.html">task_factory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

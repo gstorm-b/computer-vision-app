@@ -1,6 +1,11 @@
 #ifndef MC_PROTOCOL_DEVICE_H
 #define MC_PROTOCOL_DEVICE_H
 
+/**
+ * @file mc_protocol_device.h
+ * @brief Mitsubishi MC-protocol PLC device (McProtocolDevice).
+ */
+
 #include "device/plc/plc_device.h"
 #include "device/plc/mc_protocol_config.h"
 #include "device/plc/mc_fame_3e.h"
@@ -11,12 +16,14 @@
 
 #define MC_PROTOCOL_DEVICE_STR      "MC protocol device"  ///< Human-readable display label for this device type.
 
-/// PLC device family (config, protocol devices, and MC-protocol support types).
 namespace vc::device {
 
-/// Mitsubishi MC-protocol PLC device: owns the transport (McMsgInterface) and frame codec
-/// (MCFrameAbstract), round-robins polling reads over the configured M/D device ranges, and
-/// serves ad-hoc digital/word writes via IPlcTagProvider/IPlcIoWriter.
+/**
+ * @class McProtocolDevice
+ * @brief Mitsubishi MC-protocol PLC device: owns the transport (McMsgInterface) and frame codec
+ *        (MCFrameAbstract), round-robins polling reads over the configured M/D device ranges, and
+ *        serves ad-hoc digital/word writes via IPlcTagProvider/IPlcIoWriter.
+ */
 class McProtocolDevice : public PlcDevice, public IPlcTagProvider, public IPlcIoWriter {
     Q_OBJECT
 
@@ -166,15 +173,19 @@ private:
 signals:
     /// Emitted when a queued MC request completes, carrying its result.
     void requestFinished(vc::device::McResult result);
-    /// Emitted when a polled M-device bit's value changes.
-    /// @param number M-device address
-    /// @param last_state previous bit value
-    /// @param new_state new bit value
+    /**
+     * @brief Emitted when a polled M-device bit's value changes.
+     * @param[out] number M-device address
+     * @param[out] last_state previous bit value
+     * @param[out] new_state new bit value
+     */
     void deviceMChanged(int number, quint8 last_state, quint8 new_state);
-    /// Emitted when a polled D-device word's value changes.
-    /// @param number D-device address
-    /// @param last_val previous word value
-    /// @param new_val new word value
+    /**
+     * @brief Emitted when a polled D-device word's value changes.
+     * @param[out] number D-device address
+     * @param[out] last_val previous word value
+     * @param[out] new_val new word value
+     */
     void deviceDChanged(int number, qint16 last_val, qint16 new_val);
 
 private:

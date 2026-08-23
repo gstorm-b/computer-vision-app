@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_add_patt
 </div><!--header-->
 <div class="contents">
 
+<p>Modal dialog for creating/editing a pattern's name and activation index (1-4), validating both fields before accepting.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AddPatternDialog:</div>
@@ -135,6 +138,7 @@ Collaboration diagram for AddPatternDialog:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae785fad8b6ed4757378124783e52a9a9" id="r_ae785fad8b6ed4757378124783e52a9a9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae785fad8b6ed4757378124783e52a9a9">AddPatternDialog</a> (QString &amp;dialog_title, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:ae785fad8b6ed4757378124783e52a9a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to <a class="el" href="#a479abfff1cbe477664efe8224d55fc51">validateAndAccept()</a>.  <br /></td></tr>
 <tr class="memitem:aa961266a3530a5651cab149697d7d66d" id="r_aa961266a3530a5651cab149697d7d66d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa961266a3530a5651cab149697d7d66d">getPatternIndex</a> () const</td></tr>
 <tr class="memdesc:aa961266a3530a5651cab149697d7d66d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pattern-index field's text parsed as an integer.  <br /></td></tr>
 <tr class="memitem:a46b64b6d3a08102b9c9d9e23a622ac1b" id="r_a46b64b6d3a08102b9c9d9e23a622ac1b"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a46b64b6d3a08102b9c9d9e23a622ac1b">getPatternName</a> () const</td></tr>
@@ -157,7 +161,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Modal dialog for creating/editing a pattern's name and activation index (1-4), validating both fields before accepting. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00111">111</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00126">126</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae785fad8b6ed4757378124783e52a9a9" name="ae785fad8b6ed4757378124783e52a9a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae785fad8b6ed4757378124783e52a9a9">&#9670;&#160;</a></span>AddPatternDialog()</h2>
@@ -185,16 +189,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to <a class="el" href="#a479abfff1cbe477664efe8224d55fc51">validateAndAccept()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to <a class="el" href="#a479abfff1cbe477664efe8224d55fc51">validateAndAccept()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dialog_title</td><td>window title shown on the dialog </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dialog_title</td><td>window title shown on the dialog </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>parent widget </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00117">117</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00135">135</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00188">patternIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00187">patternNameEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00025">PT_PATTERN_INDEX_MAX</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00023">PT_PATTERN_INDEX_MIN</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00165">validateAndAccept()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00206">patternIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00205">patternNameEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00025">PT_PATTERN_INDEX_MAX</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00023">PT_PATTERN_INDEX_MIN</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00183">validateAndAccept()</a>.</p>
 
 </div>
 </div>
@@ -224,9 +231,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the pattern-index field's text parsed as an integer. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00157">157</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00175">175</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00188">patternIndexEdit</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00206">patternIndexEdit</a>.</p>
 
 </div>
 </div>
@@ -255,9 +262,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the current text of the pattern-name field. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00143">143</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00161">161</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00187">patternNameEdit</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00205">patternNameEdit</a>.</p>
 
 </div>
 </div>
@@ -285,9 +292,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the pattern-index field to <span class="tt">index</span> (formatted as a number); no-op if the range check below fails. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00149">149</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00167">167</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00188">patternIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00025">PT_PATTERN_INDEX_MAX</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00023">PT_PATTERN_INDEX_MIN</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00206">patternIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00025">PT_PATTERN_INDEX_MAX</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00023">PT_PATTERN_INDEX_MIN</a>.</p>
 
 </div>
 </div>
@@ -316,9 +323,9 @@ Private Attributes</h2></td></tr>
 
 <p>Sets the text of the pattern-name field. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00138">138</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00156">156</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00187">patternNameEdit</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00205">patternNameEdit</a>.</p>
 
 </div>
 </div>
@@ -346,11 +353,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Validates that the name is non-empty and the index is a non-empty value within [PT_PATTERN_INDEX_MIN, PT_PATTERN_INDEX_MAX], showing a warning message box and returning early on failure; calls accept() once both checks pass. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00165">165</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00183">183</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00188">patternIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00187">patternNameEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00025">PT_PATTERN_INDEX_MAX</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00023">PT_PATTERN_INDEX_MIN</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00206">patternIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00205">patternNameEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00025">PT_PATTERN_INDEX_MAX</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00023">PT_PATTERN_INDEX_MIN</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00117">AddPatternDialog()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00135">AddPatternDialog()</a>.</p>
 
 </div>
 </div>
@@ -377,9 +384,9 @@ Private Attributes</h2></td></tr>
 
 <p>Input field (int-validated) for the pattern's activation index. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00188">188</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00206">206</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00117">AddPatternDialog()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00157">getPatternIndex()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00149">setPatternIndex()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00165">validateAndAccept()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00135">AddPatternDialog()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00175">getPatternIndex()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00167">setPatternIndex()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00183">validateAndAccept()</a>.</p>
 
 </div>
 </div>
@@ -405,14 +412,14 @@ Private Attributes</h2></td></tr>
 
 <p>Input field for the pattern's display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00187">187</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00205">205</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00117">AddPatternDialog()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00143">getPatternName()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00138">setPatternName()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00165">validateAndAccept()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00135">AddPatternDialog()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00161">getPatternName()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00156">setPatternName()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00183">validateAndAccept()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

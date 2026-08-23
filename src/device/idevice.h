@@ -1,6 +1,12 @@
 #ifndef IDEVICE_H
 #define IDEVICE_H
 
+/**
+ * @file idevice.h
+ * @brief Device abstraction layer: the IDevice interface, connection status, and the Qt
+ *        property/JSON serialization contract shared by all concrete device implementations.
+ */
+
 #include <QObject>
 #include <QMutex>
 #include <QString>
@@ -13,13 +19,14 @@
 #include "core/logger/app_logger.h"
 #include "idevice_config.h"
 
-/// Device abstraction layer: the IDevice interface, connection status, and the Qt
-/// property/JSON serialization contract shared by all concrete device implementations.
 namespace vc::device {
 
 class DeviceManager;
 
-/// Connection lifecycle states reported by IDevice::connectStatus()/setConnectionStatus().
+/**
+ * @enum ConnectStatus
+ * @brief Connection lifecycle states reported by IDevice::connectStatus()/setConnectionStatus().
+ */
 enum ConnectStatus {
     NoConnection,
     Disconnected,
@@ -29,10 +36,13 @@ enum ConnectStatus {
     Connecting   ///< transport active but the link(s) are not (all) up yet
 };
 
-/// Abstract base for every device family (camera/PLC/vision-output/robot): owns the
-/// device's id/name/task-assignment state, connection status, abstract IDeviceCfg pointer,
-/// and JSON (de)serialization; concrete subclasses implement connect/disconnect/request
-/// handling.
+/**
+ * @class IDevice
+ * @brief Abstract base for every device family (camera/PLC/vision-output/robot): owns the
+ *        device's id/name/task-assignment state, connection status, abstract IDeviceCfg pointer,
+ *        and JSON (de)serialization; concrete subclasses implement connect/disconnect/request
+ *        handling.
+ */
 class IDevice : public QObject {
     Q_OBJECT
 
@@ -120,17 +130,21 @@ public:
         // }
     }
 
-    /// Attaches `cfg` as this device's abstract configuration and emits configChanged().
-    /// @note stores a non-owning pointer — subclasses pass the address of their own owned
-    /// config member; IDevice never deletes it
+    /**
+     * @brief Attaches `cfg` as this device's abstract configuration and emits configChanged().
+     * @note stores a non-owning pointer — subclasses pass the address of their own owned
+     *       config member; IDevice never deletes it
+     */
     virtual void setDeviceConfig(IDeviceCfg *cfg) {
         m_abstract_cfg = cfg;
         emit configChanged();
     }
 
-    /// Returns a heap-allocated clone of the current device configuration (caller owns it).
-    /// @note dereferences m_abstract_cfg without a null check; will crash if no config has
-    /// been attached via setDeviceConfig()
+    /**
+     * @brief Returns a heap-allocated clone of the current device configuration (caller owns it).
+     * @note dereferences m_abstract_cfg without a null check; will crash if no config has
+     *       been attached via setDeviceConfig()
+     */
     virtual IDeviceCfg* deviceConfig() {
         return m_abstract_cfg->clone();
     }
@@ -166,13 +180,15 @@ public:
         return obj;
     }
 
-    /// Restores id/name/assigned-task-id from `obj` (the first step of loading a device),
-    /// validating that the required keys are present and that the JSON device type matches
-    /// this instance's deviceType(); forwards the nested DeviceConfig object to
-    /// m_abstract_cfg->fromJson() if a config is attached.
-    /// @param obj device JSON produced by toJson()
-    /// @return true on success; false (with a logged error) if required keys are missing or
-    /// the device type doesn't match
+    /**
+     * @brief Restores id/name/assigned-task-id from `obj` (the first step of loading a device),
+     *        validating that the required keys are present and that the JSON device type matches
+     *        this instance's deviceType(); forwards the nested DeviceConfig object to
+     *        m_abstract_cfg->fromJson() if a config is attached.
+     * @param[in] obj device JSON produced by toJson()
+     * @return true on success; false (with a logged error) if required keys are missing or
+     *         the device type doesn't match
+     */
     virtual bool fromJson(const QJsonObject &obj) {
         if (!obj.contains(DEVICE_JSK_ID) ||
             !obj.contains(DEVICE_JSK_NAME) ||

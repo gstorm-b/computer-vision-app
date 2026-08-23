@@ -151,8 +151,10 @@ private slots:
     }
 
     void test_request_payload_format() {
-        VisionOutputRequest req(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 4.0}});
-        QCOMPARE(req.buildPayload(), QByteArray("1,00001.00,00002.00,00003.00,00004.00;"));
+        // x, y, z, rx, ry, rz — the pre-Phase-5 `r` is now the trailing rz axis.
+        VisionOutputRequest req(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 0.0, 0.0, 4.0}});
+        QCOMPARE(req.buildPayload(),
+                 QByteArray("1,00001.00,00002.00,00003.00,00000.00,00000.00,00004.00;"));
     }
 
     // deviceConnect immediately reports Connecting (dialing), not Connected.
@@ -214,10 +216,11 @@ private slots:
         QVERIFY(waitFor([&]() { return peer.probeCount() >= 1
                                     && device.expectedAckCount() >= 1; }));
 
-        VisionOutputRequest req(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 4.0}});
+        VisionOutputRequest req(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 0.0, 0.0, 4.0}});
         QVERIFY(device.pushRequest(&req));
         QVERIFY(waitFor([&]() { return peer.mainRx().contains(';'); }));
-        QCOMPARE(peer.mainRx(), QByteArray("1,00001.00,00002.00,00003.00,00004.00;"));
+        QCOMPARE(peer.mainRx(),
+                 QByteArray("1,00001.00,00002.00,00003.00,00000.00,00000.00,00004.00;"));
 
         QVERIFY(device.deviceDisconnect());
         QCOMPARE(device.connectStatus(), ConnectStatus::Disconnected);

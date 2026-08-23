@@ -12,20 +12,30 @@ namespace Ui {
 class LocalizationSettingWidget;
 }
 
-/// Task settings widget for a localization task: binds the vision-output and
-/// PLC comm devices, the camera-number map, per-camera ROI workspaces, and the
-/// PLC signal-tag map to the underlying TaskLocalization's TaskLocalizeConfig,
-/// keeping the UI and the task's config in sync in both directions.
+/**
+ * @file localization_setting_widget.h
+ * @brief LocalizationSettingWidget — task settings widget for a localization task.
+ */
+
+/**
+ * @class LocalizationSettingWidget
+ * @brief Task settings widget for a localization task: binds the vision-output and PLC comm
+ *        devices, the camera-number map, per-camera ROI workspaces, and the PLC signal-tag
+ *        map to the underlying TaskLocalization's TaskLocalizeConfig, keeping the UI and the
+ *        task's config in sync in both directions.
+ */
 class LocalizationSettingWidget : public ITaskWidget {
     Q_OBJECT
 
 public:
-    /// Builds the widget for `task`, sets up the generated UI, and wires up
-    /// all internal signal/slot connections via initWidget().
-    /// @param task the owning task (expected to be a TaskLocalization; a
-    ///        dynamic_cast failure is logged and leaves the widget inert)
-    /// @param dock optional dock widget host
-    /// @param parent optional parent widget
+    /**
+     * @brief Builds the widget for @p task, sets up the generated UI, and wires up all
+     *        internal signal/slot connections via initWidget().
+     * @param[in] task the owning task (expected to be a TaskLocalization; a
+     *        dynamic_cast failure is logged and leaves the widget inert)
+     * @param[in] dock optional dock widget host
+     * @param[in] parent optional parent widget
+     */
     explicit LocalizationSettingWidget(std::shared_ptr<vc::model::ITask> task,
                                        ads::CDockWidget *dock = nullptr,
                                        QWidget *parent = nullptr);

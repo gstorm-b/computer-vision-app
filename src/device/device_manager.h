@@ -1,6 +1,12 @@
 #ifndef DEVICE_MANAGER_H
 #define DEVICE_MANAGER_H
 
+/**
+ * @file device_manager.h
+ * @brief Device abstraction layer: device interfaces/configs/requests and the manager that owns
+ *        and creates device instances.
+ */
+
 #include <QObject>
 #include <QJsonObject>
 #include <QString>
@@ -14,13 +20,14 @@ namespace vc::model {
     class Project;
 }
 
-/// Device abstraction layer: device interfaces/configs/requests and the manager that owns
-/// and creates device instances.
 namespace vc::device {
 
-/// Device manager owned by a Project via shared pointer; tracks reserved/committed device
-/// instances by id, enforces per-DeviceType creation limits, and is always released by the
-/// Project's destructor (never outlives it).
+/**
+ * @class DeviceManager
+ * @brief Device manager owned by a Project via shared pointer; tracks reserved/committed device
+ *        instances by id, enforces per-DeviceType creation limits, and is always released by the
+ *        Project's destructor (never outlives it).
+ */
 class DeviceManager : public QObject {
     Q_OBJECT
 public:

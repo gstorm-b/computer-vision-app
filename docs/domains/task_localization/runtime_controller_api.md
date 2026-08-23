@@ -101,9 +101,17 @@ names:
 - `nActiveCamera`
 - `nActivePatternGroup`
 - `bExecuteTrigger`
+- `bErrorReset`
 
 `bExecuteTrigger` is edge-triggered. Only a rising edge from false to true can
 start a cycle, and only while the controller is ready.
+
+`bErrorReset` is also edge-triggered: a rising edge acknowledges a latched fault
+via `acknowledgeFault()`, which cancels any pending auto-recovery and then runs
+the shared `recoverFromFault()` body. The tag is optional — a latched cycle
+fault clears itself after `kFaultAutoRecoverMs` (2000 ms) through the same body.
+See [plc_signal_contract.md](plc_signal_contract.md) →
+"Fault Acknowledge And Auto-Recovery".
 
 `setActiveCameraNumber()` rejects changes while a cycle is running. Accepted
 changes are handled by disconnecting the previous active camera runner,
@@ -201,7 +209,7 @@ Role recovery is policy based. Default policies retry recoverable statuses:
 
 Default retry settings are:
 
-- 10 retries
+- unlimited retries — until the device reconnects or the runtime ends
 - 5000 ms interval
 
 Recovering roles:
@@ -209,6 +217,13 @@ Recovering roles:
 - camera
 - primary PLC
 - vision output
+
+Losing a role outside a running cycle publishes `bTaskReady = false` and enters
+`Recovering`. It does **not** set `bTaskFault` and never escalates to `Faulted`;
+`runtimeFault` is now raised only by an invalid setup. `runtimeRecovering` is
+emitted when the outage starts and when its status changes, not per retry.
+Full contract: [plc_signal_contract.md](plc_signal_contract.md) →
+"Recovery Behavior".
 
 ## Signals To Task/UI
 
@@ -247,4 +262,45 @@ cycle state.
 Camera command failures only abort immediately on command timeout. Non-timeout
 grab failures are mapped by `onCameraGrabFinished()` to
 `CameraGrabTimeout` when the frame is missing or invalid.
+
+## Camera Grab Retry
+
+**The retry lives in `CameraRunner`, not in this controller.** A failed single-shot is
+re-issued up to `CameraRunner::kMaxGrabAttempts` (6 attempts: one grab plus five retries)
+before the command is failed, so one dropped frame does not interrupt an automatic cycle.
+
+The controller is deliberately blind to the retries:
+
+- `grabFinished` is **not** re-emitted for an intermediate failure, so
+  `onCameraGrabFinished()` sees exactly one outcome per cycle and cannot mistake a retry
+  for a finished cycle;
+- consequently **fault code 102 `CameraGrabTimeout` now means every attempt failed**, not
+  that one did. A repeating 102 is a real hardware problem, not a flaky frame — which is
+  why the fault auto-recovery path reports a repeating fault at
+  `kAutoRecoverWarnStride` (see "Fault Acknowledge And Auto-Recovery" in the signal
+  contract).
+
+Two rules make the budget mean what it says:
+
+- it resets when a `CameraSingleShot` command **starts**, not when one succeeds, so
+  failures during commissioning cannot consume the next runtime cycle's budget;
+- each attempt gets its own watchdog window. `CameraRunner::kSingleShotTimeoutMs` (8000 ms)
+  must stay above the camera's own blocking-grab timeout
+  (`BaslerGigECamera::kDefaultGrabTimeoutMs`, 5000 ms, overridable via `setGrabTimeout()`).
+  When it did not, the runner gave up while the camera was still legitimately waiting and
+  the real result arrived with no command left to resolve.
+  `test_camera_runner_watchdog_outlasts_device_grab_timeout` locks that ordering.
+
+### What the runner cannot do
+
+The watchdog ends the *command*; it cannot unblock a device thread sitting inside a driver
+call. The device is responsible for:
+
+- reporting **every** grab through `grabFinished()`, on success and on failure alike — a
+  silent return leaves the command hanging until the watchdog fires;
+- publishing `LostConnected` when it detects removal, so recovery can start.
+
+`BaslerGigECamera` does this from `grabSingleShot()` and
+`publishRemovalIfDetected()`. That camera has no removal callback or heartbeat, so a
+cable pulled while the runtime is **idle** is not noticed until the next grab.
 

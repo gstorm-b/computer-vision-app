@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Shared protocol core for the TCP/IP vision&#45;output transports (server + client).">
 <polygon fill="#999999" stroke="none" points="406,-644 238,-644 238,0 406,0 406,-644"/>
 <text xml:space="preserve" text-anchor="start" x="244.75" y="-630.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::VisionTcpipDeviceBase</text>
 <text xml:space="preserve" text-anchor="start" x="242.38" y="-614.25" font-family="Helvetica,sans-Serif" font-size="10.00">#</text>
@@ -101,7 +101,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classvc_1_1device_1_1_vision_output_device.html" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="classvc_1_1device_1_1_vision_output_device.html" target="_top" xlink:title="Abstract base for the vision&#45;output device family. Concrete vendors (VisionTcpipDevice,...">
 <polygon fill="white" stroke="none" points="230.62,-820 115.38,-820 115.38,-708 230.62,-708 230.62,-820"/>
 <text xml:space="preserve" text-anchor="start" x="119.38" y="-806.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::VisionOutput</text>
 <text xml:space="preserve" text-anchor="start" x="157.62" y="-794.25" font-family="Helvetica,sans-Serif" font-size="10.00">Device</text>
@@ -132,7 +132,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="classvc_1_1device_1_1_i_device.html" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="classvc_1_1device_1_1_i_device.html" target="_top" xlink:title="Abstract base for every device family (camera/PLC/vision&#45;output/robot): owns the device&#39;s id/name/tas...">
 <polygon fill="white" stroke="none" points="162,-1239 48,-1239 48,-867 162,-867 162,-1239"/>
 <text xml:space="preserve" text-anchor="start" x="62.62" y="-1225.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::IDevice</text>
 <text xml:space="preserve" text-anchor="start" x="52" y="-1209.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>
@@ -220,7 +220,7 @@
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="classvc_1_1device_1_1_device_manager.html" target="_top" xlink:title=" ">
+<g id="a_Node000006"><a xlink:href="classvc_1_1device_1_1_device_manager.html" target="_top" xlink:title="Device manager owned by a Project via shared pointer; tracks reserved/committed device instances by i...">
 <polygon fill="#fff0f0" stroke="none" points="172.12,-1681 37.88,-1681 37.88,-1293 172.12,-1293 172.12,-1681"/>
 <text xml:space="preserve" text-anchor="start" x="45.38" y="-1667.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::DeviceManager</text>
 <text xml:space="preserve" text-anchor="start" x="43.38" y="-1651.25" font-family="Helvetica,sans-Serif" font-size="10.00">&#45;</text>
@@ -287,7 +287,7 @@
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="classvc_1_1device_1_1_i_device_cfg.html" target="_top" xlink:title=" ">
+<g id="a_Node000005"><a xlink:href="classvc_1_1device_1_1_i_device_cfg.html" target="_top" xlink:title="Abstract configuration contract shared by every device family: JSON (de)serialization,...">
 <polygon fill="white" stroke="none" points="298.25,-1553 189.75,-1553 189.75,-1421 298.25,-1421 298.25,-1553"/>
 <text xml:space="preserve" text-anchor="start" x="193.75" y="-1539.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::IDeviceCfg</text>
 <text xml:space="preserve" text-anchor="start" x="242.5" y="-1523.25" font-family="Helvetica,sans-Serif" font-size="10.00"> </text>
@@ -357,7 +357,7 @@
 <!-- Node15 -->
 <g id="Node000015" class="node">
 <title>Node15</title>
-<g id="a_Node000015"><a xlink:href="structvc_1_1device_1_1_vision_tcpip_runtime_state.html" target="_top" xlink:title=" ">
+<g id="a_Node000015"><a xlink:href="structvc_1_1device_1_1_vision_tcpip_runtime_state.html" target="_top" xlink:title="Live link/heartbeat state snapshot exposed to the UI (read&#45;only). Field names are transport&#45;neutral: ...">
 <polygon fill="white" stroke="none" points="395,-828 249,-828 249,-700 395,-700 395,-828"/>
 <text xml:space="preserve" text-anchor="start" x="253" y="-814.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::VisionTcpipRuntime</text>
 <text xml:space="preserve" text-anchor="start" x="310.38" y="-802.25" font-family="Helvetica,sans-Serif" font-size="10.00">State</text>
@@ -392,7 +392,7 @@
 <!-- Node16 -->
 <g id="Node000016" class="node">
 <title>Node16</title>
-<g id="a_Node000016"><a xlink:href="structvc_1_1device_1_1_vision_tcpip_diagnostics.html" target="_top" xlink:title="VisionTcpipDiagnostics — cumulative counters + last error, read&#45;only.">
+<g id="a_Node000016"><a xlink:href="structvc_1_1device_1_1_vision_tcpip_diagnostics.html" target="_top" xlink:title="Cumulative diagnostic counters and last error string exposed to the UI (read&#45;only).">
 <polygon fill="white" stroke="none" points="574.5,-830 413.5,-830 413.5,-698 574.5,-698 574.5,-830"/>
 <text xml:space="preserve" text-anchor="start" x="417.5" y="-816.25" font-family="Helvetica,sans-Serif" font-size="10.00">vc::device::VisionTcpipDiagnostics</text>
 <text xml:space="preserve" text-anchor="start" x="424.94" y="-800.25" font-family="Helvetica,sans-Serif" font-size="10.00">+</text>

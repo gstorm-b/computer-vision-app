@@ -4,16 +4,22 @@
 #include "matching_types.h"
 #include <memory>
 
-/// Vision/matching module: IMatchTypeConfig, the abstract base for per-algorithm
-/// runtime/learn parameter configs.
+/**
+ * @file imatch_type_config.h
+ * @brief IMatchTypeConfig — abstract base for per-algorithm runtime/learn parameter configs.
+ */
+
 namespace mtc {
 
-/// Abstract base for per-algorithm runtime/learn parameters.
-///
-/// Each algorithm family (EdgeBased, Correlation, …) provides exactly one
-/// concrete subclass.  The interface is kept Qt-free so the core matching
-/// library has no UI dependency.  Property-browser integration lives entirely
-/// in MatchConfigPropertyAdapter.
+/**
+ * @class IMatchTypeConfig
+ * @brief Abstract base for per-algorithm runtime/learn parameters.
+ *
+ * Each algorithm family (EdgeBased, Correlation, …) provides exactly one
+ * concrete subclass. The interface is kept Qt-free so the core matching
+ * library has no UI dependency. Property-browser integration lives entirely
+ * in MatchConfigPropertyAdapter.
+ */
 class IMatchTypeConfig {
 public:
     virtual ~IMatchTypeConfig() = default;
@@ -25,8 +31,11 @@ public:
     /// @return a new heap-allocated copy of this config
     virtual std::unique_ptr<IMatchTypeConfig> clone() const = 0;
 
-    /// Factory: constructs a default-initialised config for a given type.
-    /// @return the default config for `t`, or nullptr for types not yet implemented
+    /**
+     * @brief Factory: constructs a default-initialised config for a given type.
+     * @param[in] t algorithm family to instantiate
+     * @return the default config for `t`, or nullptr for types not yet implemented
+     */
     static std::unique_ptr<IMatchTypeConfig> createDefault(MatchingType t);
 };
 

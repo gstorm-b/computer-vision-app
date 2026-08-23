@@ -14,6 +14,13 @@ isEmpty(OPENCV_LIB_DIR):     OPENCV_LIB_DIR     = $$(OPENCV_LIB_DIR)
 isEmpty(OPENCV_WORLD_RELEASE): OPENCV_WORLD_RELEASE = $$(OPENCV_WORLD_RELEASE)
 isEmpty(OPENCV_WORLD_DEBUG):   OPENCV_WORLD_DEBUG   = $$(OPENCV_WORLD_DEBUG)
 
+# Machine-local fallback, read by qmake itself so a build from Qt Creator and a build from
+# a terminal resolve the same install without either side exporting anything. Untracked;
+# create it from qmake/local_paths.pri.example. Included HERE, after the environment reads
+# above and before the checks below, so it fills gaps and never overrides a command-line
+# or environment value.
+exists($$PWD/local_paths.pri): include($$PWD/local_paths.pri)
+
 isEmpty(OPENCV_INCLUDE_DIR) {
     error("OPENCV_INCLUDE_DIR must point to the OpenCV include directory")
 }

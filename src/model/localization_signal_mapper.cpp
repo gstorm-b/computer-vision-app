@@ -26,6 +26,7 @@ constexpr const char *kSignalFields[] = {
     "bMatchingDetected",
     "bMatchingLowArea",
     "bTaskFault",
+    "bErrorReset",
 };
 
 /// Reads the trimmed-nothing string value of gadget property `fieldName` from `config` via

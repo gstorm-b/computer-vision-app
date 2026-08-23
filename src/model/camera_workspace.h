@@ -11,21 +11,28 @@
 
 #include <opencv2/core.hpp>
 
-/// Per-camera workspace ROI model types: CameraWorkspace (working + condition crop regions) and
-/// CameraWorkspaceMap, its camera-id-keyed container with JSON (de)serialization and
-/// reference-image BLOB helpers.
+/**
+ * @file camera_workspace.h
+ * @brief Per-camera workspace ROI model types: CameraWorkspace (working + condition crop
+ *        regions) and CameraWorkspaceMap, its camera-id-keyed container with JSON
+ *        (de)serialization and reference-image BLOB helpers.
+ */
+
 namespace vc::model {
 
-/// Per-camera workspace (ROI) used to crop the grabbed image before matching.
-///
-/// Keyed by camera device id (stable across logical camera-number
-/// reassignment). The reference image (the last image used to define the ROI)
-/// is kept in memory so the workspace dialog can reopen it; it is persisted
-/// out-of-band as a BLOB through the project_images table (see
-/// CameraWorkspaceMap::imageKey). Only the ROI rect + flag are serialized to
-/// JSON.
-///
-/// Default is "workspace off": matching runs on the full grabbed frame.
+/**
+ * @struct CameraWorkspace
+ * @brief Per-camera workspace (ROI) used to crop the grabbed image before matching.
+ *
+ * Keyed by camera device id (stable across logical camera-number
+ * reassignment). The reference image (the last image used to define the ROI)
+ * is kept in memory so the workspace dialog can reopen it; it is persisted
+ * out-of-band as a BLOB through the project_images table (see
+ * CameraWorkspaceMap::imageKey). Only the ROI rect + flag are serialized to
+ * JSON.
+ *
+ * Default is "workspace off": matching runs on the full grabbed frame.
+ */
 struct CameraWorkspace {
     /// Working workspace — crops the grabbed frame before matching.
     bool       useWorkspace = false;          ///< false => match the full frame
@@ -51,7 +58,10 @@ struct CameraWorkspace {
     }
 };
 
-/// Container of per-camera workspaces, keyed by camera device id.
+/**
+ * @class CameraWorkspaceMap
+ * @brief Container of per-camera workspaces, keyed by camera device id.
+ */
 class CameraWorkspaceMap {
 public:
     /// Returns true if no camera has a workspace entry.
@@ -101,11 +111,13 @@ public:
         return arr;
     }
 
-    /// Rebuilds all workspaces (ROI + flags only) from a JSON array produced by toJson();
-    /// clears any existing entries first. Reference images are not restored by this call.
-    /// @param value expected to be a JSON array, or null/undefined for "no workspaces"
-    /// @return true on success; false if `value` is neither null/undefined nor an array. Array
-    ///         entries with an empty "cameraId" are silently skipped.
+    /**
+     * @brief Rebuilds all workspaces (ROI + flags only) from a JSON array produced by toJson();
+     *        clears any existing entries first. Reference images are not restored by this call.
+     * @param[in] value expected to be a JSON array, or null/undefined for "no workspaces"
+     * @return true on success; false if `value` is neither null/undefined nor an array. Array
+     *         entries with an empty "cameraId" are silently skipped.
+     */
     bool fromJson(const QJsonValue &value)
     {
         m_workspaces.clear();
@@ -146,10 +158,12 @@ public:
         return QStringLiteral("ws_") + cameraId;
     }
 
-    /// Parses a BLOB key produced by imageKey() back into its camera id.
-    /// @param key candidate BLOB key
-    /// @param cameraId set to the extracted camera id on success
-    /// @return true if `key` starts with the "ws_" prefix and the remainder is non-empty
+    /**
+     * @brief Parses a BLOB key produced by imageKey() back into its camera id.
+     * @param[in]  key       candidate BLOB key
+     * @param[out] cameraId  set to the extracted camera id on success
+     * @return true if `key` starts with the "ws_" prefix and the remainder is non-empty
+     */
     static bool parseImageKey(const QString &key, QString &cameraId)
     {
         if (!key.startsWith(QStringLiteral("ws_")))

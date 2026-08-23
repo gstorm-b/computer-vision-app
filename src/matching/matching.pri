@@ -14,6 +14,7 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/edge_match_config.h \
+    $$PWD/gripper_boxes.h \
     $$PWD/image_matcher.h \
     $$PWD/imatch_type_config.h \
     $$PWD/manager_result.h \

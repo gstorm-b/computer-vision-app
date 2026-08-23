@@ -7,10 +7,19 @@
 #include "core/utils/theme_manager.h"
 #include "ui/widgets/property_browser/property_browser_widget.h"
 
-/// Abstract base for device-configuration widgets (one per connected device type,
-/// e.g. camera, robot). Owns the shared PropertyBrowserWidget plumbing and the
-/// optional per-form QSS reload wiring; concrete subclasses supply the actual
-/// device id/config load behaviour.
+/**
+ * @file device_widget.h
+ * @brief IDeviceWidget — abstract base for device-configuration widgets.
+ */
+
+/**
+ * @class IDeviceWidget
+ * @brief Abstract base for device-configuration widgets (one per connected device type,
+ *        e.g. camera, robot).
+ *
+ * Owns the shared PropertyBrowserWidget plumbing and the optional per-form QSS reload
+ * wiring; concrete subclasses supply the actual device id/config load behaviour.
+ */
 class IDeviceWidget : public QWidget {
     Q_OBJECT
     Q_DISABLE_COPY_MOVE(IDeviceWidget)
@@ -36,11 +45,13 @@ public:
 
 protected:
     // ── Theme reload ──────────────────────────────────────────────────────
-    /// Call once from the subclass constructor when the widget has a per-form
-    /// QSS pair. Stores the paths, triggers an initial load, and subscribes
-    /// to ThemeManager::themeChanged for subsequent switches.
-    /// @param darkPath per-form QSS file used when the dark theme is active
-    /// @param lightPath per-form QSS file used when the light theme is active
+    /**
+     * @brief Call once from the subclass constructor when the widget has a per-form
+     *        QSS pair. Stores the paths, triggers an initial load, and subscribes
+     *        to ThemeManager::themeChanged for subsequent switches.
+     * @param[in] darkPath per-form QSS file used when the dark theme is active
+     * @param[in] lightPath per-form QSS file used when the light theme is active
+     */
     void setupThemeReload(const QString &darkPath, const QString &lightPath) {
         m_darkQssPath  = darkPath;
         m_lightQssPath = lightPath;

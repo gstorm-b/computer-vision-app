@@ -7,6 +7,7 @@
 #include <QThread>
 
 #include "device/output_device/vision_output_config.h"
+#include "device/virtual/virtual_device.h"
 #include "matching/match_group.h"
 #include "matching/match_pattern.h"
 #include "model/project.h"
@@ -44,16 +45,13 @@ inline bool parseImageKey(const QString &key, int &groupNumber, int &patternNumb
 
 
 
-/// Constructs the task: sets its name and (silently, via a temporary signal block) its
-/// TaskLocalizeConfig, initializes the per-device-type assignment limits, creates the
-/// pattern manager, registers the Qt meta-types used by queued cross-thread signals, and
-/// starts the dedicated matching-worker thread and the runtime controller.
-/// @param parent optional QObject parent
 TaskLocalization::TaskLocalization(QString name, QString id, QObject* parent)
     : ITask(id, parent), m_config()
 {
     this->setName(name);
 
+    // Block signals while seeding the initial config so no listener observes a
+    // transient, not-yet-fully-constructed task.
     this->blockSignals(true);
     this->setTaskConfig(&m_config);
     this->blockSignals(false);
@@ -138,6 +136,38 @@ bool TaskLocalization::isReachLimitOfDeviceType(vc::device::DeviceType t) const 
 /// enters the runtime task-runner phase, (re)creates and moves the runtime controller
 /// onto the runtime thread, then calls setupTask(). Transitions to Faulted (without
 /// emitting runtimeStarted()) if setup leaves the controller missing or invalid.
+/// Writes one user-log warning per virtual device this task is about to run against.
+///
+/// The third of the three risk-R8 markers, and the only one that survives nobody looking at
+/// the screen. A station can be commissioned, handed over and run for weeks on a simulated
+/// camera without anyone noticing: everything passes and nothing moves. When someone finally
+/// asks why, the log is the first place they look, and this line is what answers them.
+///
+/// Warning level, not info: a virtual device in a runtime cycle is either a deliberate demo
+/// or a mistake, and the log cannot tell which — so it says so and lets the reader decide.
+void TaskLocalization::logVirtualDevicesInUse()
+{
+    Project *proj = project();
+    if (proj == nullptr) {
+        return;
+    }
+    auto dm = proj->deviceManager();
+    if (!dm) {
+        return;
+    }
+
+    for (const QString &id : assignedDeviceIds()) {
+        auto device = dm->deviceById(id);
+        if (device && vc::device::isVirtualDevice(device.get())) {
+            LOG_USER_WARN << "Task is entering runtime against a VIRTUAL device — results "
+                             "prove the software path, not the hardware."
+                          << "task=" << name()
+                          << "device=" << device->name()
+                          << "id=" << id;
+        }
+    }
+}
+
 void TaskLocalization::beginRuntime(bool mergeToTaskThread)
 {
     if (mergeToTaskThread) {
@@ -150,6 +180,7 @@ void TaskLocalization::beginRuntime(bool mergeToTaskThread)
     }
 
     syncRunnersWithDevices();
+    logVirtualDevicesInUse();
     taskRunner()->enterRuntime(false);
     createRuntimeController();
     if (auto *thread = taskRunner()->runtimeThread()) {
@@ -233,6 +264,10 @@ QJsonObject TaskLocalization::toJson() const {
     if (m_patternManager)
         obj["patternManager"] = m_patternManager->toJson();
 
+    // Gripper presets travel with the project so they survive a move to another
+    // machine; they are authoring aids only and are copied into a pattern on apply.
+    obj["gripperPresets"] = m_gripperPresets.toJson();
+
     return obj;
 }
 
@@ -250,6 +285,11 @@ bool TaskLocalization::fromJson(const QJsonObject& obj) {
         if (!m_patternManager->fromJson(obj["patternManager"].toObject()))
             isOk = false;
     }
+
+    // Absent in projects authored before Phase 5; an empty store is the correct
+    // degraded state (no presets offered, patterns keep their own geometry).
+    m_gripperPresets.fromJson(obj["gripperPresets"].toArray());
+
     return isOk;
 }
 
@@ -472,13 +512,17 @@ void TaskLocalization::onRuntimeRecovering(const QString &message)
 }
 
 /// Slot: transitions the task to Ready in response to the runtime controller's
-/// runtimeReady signal, unless the task has already moved to Faulted, Stopping, or Idle
-/// (in which case a stale "ready" notification is ignored).
+/// runtimeReady signal, unless the task has already moved to Stopping or Idle (in which
+/// case a stale "ready" notification is ignored). A Faulted task IS allowed through, so
+/// an acknowledged or auto-cleared fault can return the task to service.
 /// @param message context string passed through as the transition reason
 void TaskLocalization::onRuntimeReady(const QString &message)
 {
-    if (taskState() == TaskState::Faulted ||
-        taskState() == TaskState::Stopping ||
+    // Faulted is deliberately NOT in this guard: a fault acknowledged over bErrorReset,
+    // or auto-cleared by the runtime controller, reaches the task as a ready event and
+    // must be able to leave the Faulted state. Stopping and Idle stay guarded — a ready
+    // event must never resurrect a task that is being torn down.
+    if (taskState() == TaskState::Stopping ||
         taskState() == TaskState::Idle) {
         return;
     }

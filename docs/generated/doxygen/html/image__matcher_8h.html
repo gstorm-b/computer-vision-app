@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/matching/image_matcher.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('image__matcher
   <div class="headertitle"><div class="title">image_matcher.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>ImageMatcher — gradient-direction edge template-matching engine and its MatchResult output type.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="match__params_8h_source.html">match_params.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="match__object_8h_source.html">match_object.h</a>&quot;</code><br />
@@ -141,19 +144,26 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:mtc_3A_3AImageMatcher" id="r_mtc_3A_3AImageMatcher"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_image_matcher.html">mtc::ImageMatcher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape/edge match for every registered pattern against a source image, then filters, sorts, and annotates the results.  <a href="classmtc_1_1_image_matcher.html#details">More...</a><br /></td></tr>
 <tr class="memitem:mtc_3A_3AMatchResult" id="r_mtc_3A_3AMatchResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_match_result.html">mtc::MatchResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Snapshot of one <a class="el" href="classmtc_1_1_image_matcher.html#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">ImageMatcher::matching()</a> run: the matched objects, the annotated output image, timing, and picking-availability stats.  <a href="structmtc_1_1_match_result.html#details">More...</a><br /></td></tr>
 <tr class="memitem:mtc_3A_3AImageMatcher_3A_3APossibleObject" id="r_mtc_3A_3AImageMatcher_3A_3APossibleObject"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_image_matcher_1_1_possible_object.html">mtc::ImageMatcher::PossibleObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One image contour that survived the coarse area filter and is a candidate to be edge-matched against one or more patterns.  <a href="structmtc_1_1_image_matcher_1_1_possible_object.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:mtc" id="r_mtc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html">mtc</a></td></tr>
-<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html">utils_block_max.h</a>). <br /></td></tr>
+<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html" title="MatchBlock/BlockMax — block-partitioned max-value search helper used to enumerate multiple local maxi...">utils_block_max.h</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:abc363749e9dcb5beabb30d100cd427bc" id="r_abc363749e9dcb5beabb30d100cd427bc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#abc363749e9dcb5beabb30d100cd427bc">SOURCE_THERSHOLD_TOLERANCE</a>&#160;&#160;&#160;(double)0.3</td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>ImageMatcher — gradient-direction edge template-matching engine and its MatchResult output type. </p>
+
+<p class="definition">Definition in file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="abc363749e9dcb5beabb30d100cd427bc" name="abc363749e9dcb5beabb30d100cd427bc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc363749e9dcb5beabb30d100cd427bc">&#9670;&#160;</a></span>SOURCE_THERSHOLD_TOLERANCE</h2>
 

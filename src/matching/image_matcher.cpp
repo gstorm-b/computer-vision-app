@@ -354,18 +354,26 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
             // matched object's parent pattern config, not the shared group config.
             const MatchPatternConfig* pcfg = obj.parent()->patternConfigPtr();
             obj.pickingBox = cv::RotatedRect(obj.point_Center,
-                                              pcfg->m_pickingBoxSize,
+                                              pcfg->m_gripperBoxes.size,
                                               obj.point_angle);
             obj.pattern_name  = pcfg->m_patternName;
             obj.pattern_index = pcfg->m_patternIndex;
-            obj.computeGripperBox(pcfg->m_pickingBoxSize,
-                                  pcfg->m_pickingBoxDistance,
-                                  pcfg->m_pickingBoxAngle);
-            obj.checkCollisionObject2(collisionContourMask);
+            // The geometry is computed either way so the result overlay can still draw
+            // the jaws; only the collision verdict is opt-out. With the check skipped
+            // the object keeps its default Outside/no-collision state and is never
+            // rejected for collision.
+            obj.computeCollisionGeometry(pcfg->m_gripperBoxes.size,
+                                         pcfg->m_gripperBoxes.distance,
+                                         pcfg->m_pickingBoxAngle + obj.matched_Angle);
+            if (pcfg->m_usePickingBox) {
+                obj.checkCollisionObject2(collisionContourMask);
+            }
             if (usingConditionRoi) {
                 obj.outSideConditionRoiCheck(cropConditionRoiTl, cropConditionRoiBr);
             }
-            obj.setPossibleToPick(robotPossiblePickingCheck(obj));
+            obj.setPossibleToPick(robotPossiblePickingCheck(obj,
+                                                            pcfg->m_pickingOffset,
+                                                            pcfg->m_pickingRotationOffset));
             match_result.Objects.push_back(obj);
             if ((!obj.hasCollision()) && (!obj.isOutsideConditionRoi()) && ((obj.isPossibleToPick())))
                 match_result.totalPossiblePicking++;
@@ -408,11 +416,11 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
                           false, 20, 0.4, DEFAULT_COLOR_BLUE, DEFAULT_COLOR_RED);
 
         if (obj.hasCollision()) {
-            obj.drawGripperBoxToImage(match_result.Image, DEFAULT_COLOR_RED);
+            obj.drawCollisionGeometryToImage(match_result.Image, DEFAULT_COLOR_RED);
         } else if (!obj.isPossibleToPick() || obj.isOutsideConditionRoi()){
-            obj.drawGripperBoxToImage(match_result.Image, DEFAULT_COLOR_YELLOW);
+            obj.drawCollisionGeometryToImage(match_result.Image, DEFAULT_COLOR_YELLOW);
         } else {
-            obj.drawGripperBoxToImage(match_result.Image, DEFAULT_COLOR_GREEN);
+            obj.drawCollisionGeometryToImage(match_result.Image, DEFAULT_COLOR_GREEN);
         }
         obj.setParent(nullptr);
     }
@@ -756,7 +764,8 @@ bool ImageMatcher::MatchEdge(cv::Mat& img_edge, MatchPattern* edgePattern,
         mo.point_Center = Point2f(
             mo.point_LT.x + (tspt.x * cos(dRA) + tspt.y * sin(dRA)),
             mo.point_LT.y + (tspt.y * cos(dRA) - tspt.x * sin(dRA)));
-        mo.point_offset = cfg->m_pickingOffset;
+        mo.point_offset          = cfg->m_pickingOffset;
+        mo.point_rotation_offset = cfg->m_pickingRotationOffset;
 
         mo.matched_Score = vecAllResult[idx]._matchScore;
         mo.computeMatchAngle(vecAllResult[idx]._matchAngle);
@@ -1246,15 +1255,10 @@ bool ImageMatcher::pointInBox(const cv::Point2f& tl, const cv::Point2f& br, cons
     return (pt.x >= left && pt.x <= right && pt.y >= top && pt.y <= bottom);
 }
 
-/// Checks whether the injected robot-pickability checker (m_pickingChecker)
-/// considers `obj` reachable and (if configured) collision-free: converts the
-/// object's image position/angle plus the current match_result's crop offset
-/// to a world pick pose, then asks the checker if that pose is reachable
-/// (and, if enabled, collision-checked).
-/// @param obj matched object whose image position/angle is evaluated
-/// @return true if no checker is injected (advisory-only, does not gate
-///         matching), or the checker's own reachability/collision verdict
-bool ImageMatcher::robotPossiblePickingCheck(const MatchedObject& obj) const {
+/// See the declaration in image_matcher.h for the full contract.
+bool ImageMatcher::robotPossiblePickingCheck(const MatchedObject& obj,
+                                             const cv::Point3f& pickingOffset,
+                                             const cv::Point3f& pickingRotationOffset) const {
     // No robot checker configured: the check is advisory, do not gate matching.
     if (!m_pickingChecker) {
         return true;
@@ -1269,7 +1273,16 @@ bool ImageMatcher::robotPossiblePickingCheck(const MatchedObject& obj) const {
     if (!m_pickingChecker->imageToWorld(imgX, imgY, obj.point_angle, pose))
         return false;
 
-    // Step 2 (+3) — reachability via solveAll IK; the adapter additionally runs
+    // Step 2 — attach the pattern's picking offset. The checker composes it in the
+    // TOOL frame, so what gets tested is the pose the robot is actually commanded to.
+    pose.offsetX_mm   = pickingOffset.x;
+    pose.offsetY_mm   = pickingOffset.y;
+    pose.offsetZ_mm   = pickingOffset.z;
+    pose.offsetRx_deg = pickingRotationOffset.x;
+    pose.offsetRy_deg = pickingRotationOffset.y;
+    pose.offsetRz_deg = pickingRotationOffset.z;
+
+    // Step 3 (+4) — reachability via solveAll IK; the adapter additionally runs
     // the simplified-mesh self-collision check when the robot config enabled it.
     return m_pickingChecker->isPickable(pose, m_pickingChecker->collisionCheckEnabled());
 }

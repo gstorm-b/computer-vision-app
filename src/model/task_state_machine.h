@@ -5,17 +5,23 @@
 
 #include "model/task_define.h"
 
-/// Task model layer: per-task configuration types, state machines, and device/camera
-/// bindings for the picking application.
+/**
+ * @file task_state_machine.h
+ * @brief Task model layer: per-task configuration types, state machines, and device/camera
+ *        bindings for the picking application.
+ */
 namespace vc::model {
 
-/// Checks whether a task is allowed to move from state `from` to state `to` according to
-/// the task lifecycle graph (Idle -> Commission* -> Runtime* -> Ready/RunningCycle/
-/// Recovering -> Stopping -> Idle, with Faulted reachable from most states and only able
-/// to proceed to Stopping). Staying in the same state is always allowed.
-/// @param from current task state
-/// @param to candidate next task state
-/// @return true if the transition is permitted by the state machine
+/**
+ * @brief Checks whether a task is allowed to move from state `from` to state `to` according to
+ *        the task lifecycle graph (Idle -> Commission* -> Runtime* -> Ready/RunningCycle/
+ *        Recovering -> Stopping -> Idle, with Faulted reachable from most states and able to
+ *        proceed to Ready (fault acknowledged or auto-cleared) or Stopping). Staying in the
+ *        same state is always allowed.
+ * @param[in] from current task state
+ * @param[in] to   candidate next task state
+ * @return true if the transition is permitted by the state machine
+ */
 inline bool canTransitionTaskState(TaskState from, TaskState to)
 {
     if (from == to) {
@@ -63,7 +69,13 @@ inline bool canTransitionTaskState(TaskState from, TaskState to)
                to == TaskState::Faulted;
 
     case TaskState::Faulted:
-        return to == TaskState::Stopping;
+        // Ready is reachable because a fault can be acknowledged (bErrorReset) or clear
+        // itself after LocalizationRuntimeController::kFaultAutoRecoverMs. Without this
+        // edge the PLC flags would clear while the task stayed Faulted, which reads as
+        // "acknowledged" to the robot and "still broken" to the operator. RunningCycle
+        // stays unreachable: recovery re-arms the runtime, it does not start a cycle.
+        return to == TaskState::Ready ||
+               to == TaskState::Stopping;
 
     case TaskState::Stopping:
         return to == TaskState::Idle ||
@@ -73,12 +85,14 @@ inline bool canTransitionTaskState(TaskState from, TaskState to)
     return false;
 }
 
-/// Builds a human-readable log message describing an accepted task state transition, in
-/// the form "Task state transition: <from> -> <to>", optionally suffixed with "(reason)".
-/// @param from previous task state
-/// @param to new task state
-/// @param reason optional free-text reason appended in parentheses; ignored if blank
-/// @return the formatted message
+/**
+ * @brief Builds a human-readable log message describing an accepted task state transition, in
+ *        the form "Task state transition: <from> -> <to>", optionally suffixed with "(reason)".
+ * @param[in] from   previous task state
+ * @param[in] to     new task state
+ * @param[in] reason optional free-text reason appended in parentheses; ignored if blank
+ * @return the formatted message
+ */
 inline QString buildTaskStateTransitionMessage(TaskState from,
                                                TaskState to,
                                                const QString &reason = QString())
@@ -91,12 +105,15 @@ inline QString buildTaskStateTransitionMessage(TaskState from,
     return message;
 }
 
-/// Builds a human-readable log message describing a rejected task state transition, in the
-/// form "Rejected task state transition: <from> -> <to>", optionally suffixed with "(reason)".
-/// @param from current task state (transition was not applied)
-/// @param to the disallowed candidate state
-/// @param reason optional free-text reason appended in parentheses; ignored if blank
-/// @return the formatted message
+/**
+ * @brief Builds a human-readable log message describing a rejected task state transition, in
+ *        the form "Rejected task state transition: <from> -> <to>", optionally suffixed with
+ *        "(reason)".
+ * @param[in] from   current task state (transition was not applied)
+ * @param[in] to     the disallowed candidate state
+ * @param[in] reason optional free-text reason appended in parentheses; ignored if blank
+ * @return the formatted message
+ */
 inline QString buildInvalidTaskStateTransitionMessage(TaskState from,
                                                       TaskState to,
                                                       const QString &reason = QString())

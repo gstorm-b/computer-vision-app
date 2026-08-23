@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/widgets/camera_mapping_widget.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/widgets/camera_mapping_widget.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('camera__mappin
   <div class="headertitle"><div class="title">camera_mapping_widget.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Camera-to-number mapping editor: <a class="el" href="class_camera_mapping_widget.html" title="Main manager widget (&quot;Component 5&quot;): a FlatListWidget of camera-to-number mapping rows plus a trailin...">CameraMappingWidget</a> and its row/support widgets (<a class="el" href="class_editable_combo_widget.html" title="Label that becomes an editable QComboBox when clicked (&quot;Component 1&quot;).">EditableComboWidget</a>, <a class="el" href="class_camera_row_widget.html" title="A single mapping row: camera-name combo, number combo, and a delete button (&quot;Component 2&quot; — a normal ...">CameraRowWidget</a>, <a class="el" href="class_add_row_widget.html" title="Trailing &quot;Add&quot; row (&quot;Component 3&quot;): shows a &quot;+ Add New Row&quot; button that flips to a camera-selection c...">AddRowWidget</a>, <a class="el" href="class_sortable_camera_item.html" title="List item (&quot;Component 4&quot;) that sorts numerically by its Qt::UserRole data instead of alphabetically b...">SortableCameraItem</a>).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="flat__list__widget_8h_source.html">ui/widgets/controls/flat_list_widget.h</a>&quot;</code><br />
 <code>#include &lt;QListWidget&gt;</code><br />
 <code>#include &lt;QStackedWidget&gt;</code><br />
@@ -137,7 +140,7 @@ Include dependency graph for camera_mapping_widget.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="camera__mapping__widget_8h__dep__incl.svg" width="400" height="192"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="camera__mapping__widget_8h__dep__incl.svg" width="395" height="192"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="camera__mapping__widget_8h_source.html">Go to the source code of this file.</a></p>
@@ -145,12 +148,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:AddRowWidget" id="r_AddRowWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_add_row_widget.html">AddRowWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trailing "Add" row ("Component 3"): shows a "+ Add New Row" button that flips to a camera-selection combo + Cancel button when clicked.  <a href="class_add_row_widget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CameraMappingWidget" id="r_CameraMappingWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_camera_mapping_widget.html">CameraMappingWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main manager widget ("Component 5"): a <a class="el" href="class_flat_list_widget.html" title="Thin QListWidget subclass giving flat (borderless, no hover/selection highlight) row-based lists a di...">FlatListWidget</a> of camera-to-number mapping rows plus a trailing Add row, keeping ids unique, numbers within <a class="el" href="class_camera_mapping_widget.html#ac3fa56b131e3d351cdb852d527f53e5a" title="Sets the highest assignable slot number (falls back to 8 when limit is &lt;= 0).">setNumberLimit()</a>, and the list sorted/re-themed automatically.  <a href="class_camera_mapping_widget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CameraRowWidget" id="r_CameraRowWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_camera_row_widget.html">CameraRowWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single mapping row: camera-name combo, number combo, and a delete button ("Component 2" — a normal row, as opposed to the trailing Add row).  <a href="class_camera_row_widget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EditableComboWidget" id="r_EditableComboWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_editable_combo_widget.html">EditableComboWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Label that becomes an editable QComboBox when clicked ("Component 1").  <a href="class_editable_combo_widget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SortableCameraItem" id="r_SortableCameraItem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_sortable_camera_item.html">SortableCameraItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">List item ("Component 4") that sorts numerically by its Qt::UserRole data instead of alphabetically by text, so mapping rows sort by assigned slot number.  <a href="class_sortable_camera_item.html#details">More...</a><br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Camera-to-number mapping editor: <a class="el" href="class_camera_mapping_widget.html" title="Main manager widget (&quot;Component 5&quot;): a FlatListWidget of camera-to-number mapping rows plus a trailin...">CameraMappingWidget</a> and its row/support widgets (<a class="el" href="class_editable_combo_widget.html" title="Label that becomes an editable QComboBox when clicked (&quot;Component 1&quot;).">EditableComboWidget</a>, <a class="el" href="class_camera_row_widget.html" title="A single mapping row: camera-name combo, number combo, and a delete button (&quot;Component 2&quot; — a normal ...">CameraRowWidget</a>, <a class="el" href="class_add_row_widget.html" title="Trailing &quot;Add&quot; row (&quot;Component 3&quot;): shows a &quot;+ Add New Row&quot; button that flips to a camera-selection c...">AddRowWidget</a>, <a class="el" href="class_sortable_camera_item.html" title="List item (&quot;Component 4&quot;) that sorts numerically by its Qt::UserRole data instead of alphabetically b...">SortableCameraItem</a>). </p>
+
+<p class="definition">Definition in file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

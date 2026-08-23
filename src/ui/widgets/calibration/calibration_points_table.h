@@ -5,18 +5,27 @@
 #include <opencv2/core.hpp>
 #include <vector>
 
-/// 6-column table used by camera calibration UI:
-///   #  |  Img X (px)  |  Img Y (px)  |  World X (mm)  |  World Y (mm)  |  World Z (mm)
-///
-/// Each row holds one 2D image -> 3D world correspondence pair.
-/// Image columns are populated by the board detector and are read-only.
-/// World columns are user-editable (or filled programmatically from a robot
-/// teach pendant via setWorldPointsFromRobot()).
-///
-/// Emits pointsEdited() when any user edit lands in a world column. Programmatic
-/// fills (setImagePoints / setWorldPoints*) are guarded by a signal blocker and
-/// do not emit.
-///
+/**
+ * @file calibration_points_table.h
+ * @brief CalibrationPointsTable — image/world point correspondence table for camera calibration.
+ */
+
+/**
+ * @class CalibrationPointsTable
+ * @brief 6-column table used by camera calibration UI:
+ * @code
+ *   #  |  Img X (px)  |  Img Y (px)  |  World X (mm)  |  World Y (mm)  |  World Z (mm)
+ * @endcode
+ *
+ * Each row holds one 2D image -> 3D world correspondence pair.
+ * Image columns are populated by the board detector and are read-only.
+ * World columns are user-editable (or filled programmatically from a robot
+ * teach pendant via setWorldPointsFromRobot()).
+ *
+ * Emits pointsEdited() when any user edit lands in a world column. Programmatic
+ * fills (setImagePoints / setWorldPoints*) are guarded by a signal blocker and
+ * do not emit.
+ */
 class CalibrationPointsTable : public QTableWidget
 {
     Q_OBJECT
@@ -30,9 +39,11 @@ public:
     /// the index column of any kept rows.
     void setRowCount(int n);
 
-    /// Fills the image (X, Y) columns from `pts`, one row per point.
-    /// @note Rows past `pts.size()` (up to rowCount()) have their image cells cleared instead,
-    /// so stale data from a previous fill isn't left showing.
+    /**
+     * @brief Fills the image (X, Y) columns from `pts`, one row per point.
+     * @note Rows past `pts.size()` (up to rowCount()) have their image cells cleared instead,
+     *       so stale data from a previous fill isn't left showing.
+     */
     void setImagePoints(const std::vector<cv::Point2f> &pts);
     /// Reads back the image (X, Y) columns; a row with an unparsable/missing value is
     /// returned as (0, 0).

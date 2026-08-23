@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_app_logg
 </div><!--header-->
 <div class="contents">
 
+<p>Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating daily log file and emits newLogAdded for live UI display.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="app__logger_8h_source.html">app_logger.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AppLogger:</div>
@@ -135,15 +138,17 @@ Collaboration diagram for AppLogger:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:LogStream" id="r_LogStream"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_app_logger_1_1_log_stream.html">LogStream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporary stream object returned by <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a>'s <a class="el" href="#aa69def16a957c28d166b852d87534110" title="Starts a buffered user-facing log entry at Info level.">info()</a>/warning()/error()/... helpers: buffers <span class="tt">operator&lt;&lt;</span> chained values and, on destruction, flushes the accumulated text to the owning <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> as one log message (dev-tagged when constructed with a non-empty context, user-facing otherwise).  <a href="class_app_logger_1_1_log_stream.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a133157d23100440952c0843bf5296ab5" id="r_a133157d23100440952c0843bf5296ab5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a133157d23100440952c0843bf5296ab5">newLogAdded</a> (const <a class="el" href="struct_log_message.html">LogMessage</a> &amp;logMsg)</td></tr>
+<tr class="memdesc:a133157d23100440952c0843bf5296ab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted whenever a message has been logged (user or developer), after it has been written to the log file.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a797d28321fc7aba08c685756c44964c2" id="r_a797d28321fc7aba08c685756c44964c2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a797d28321fc7aba08c685756c44964c2">AppLogger</a> (const <a class="el" href="class_app_logger.html">AppLogger</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a797d28321fc7aba08c685756c44964c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted: <a class="el" href="class_app_logger.html">AppLogger</a> is a non-copyable singleton.  <br /></td></tr>
+<tr class="memdesc:a797d28321fc7aba08c685756c44964c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted: <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> is a non-copyable singleton.  <br /></td></tr>
 <tr class="memitem:a0db5641e36a44fffc69c67852c4eaef6" id="r_a0db5641e36a44fffc69c67852c4eaef6"><td class="memItemLeft"><a class="el" href="class_app_logger_1_1_log_stream.html">LogStream</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0db5641e36a44fffc69c67852c4eaef6">critical</a> ()</td></tr>
 <tr class="memdesc:a0db5641e36a44fffc69c67852c4eaef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a buffered user-facing log entry at Critical level.  <br /></td></tr>
 <tr class="memitem:ac65691682ff7cbc71c293f7b479c46c5" id="r_ac65691682ff7cbc71c293f7b479c46c5"><td class="memItemLeft"><a class="el" href="class_app_logger_1_1_log_stream.html">LogStream</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac65691682ff7cbc71c293f7b479c46c5">dev_debug</a> (QString ctx)</td></tr>
@@ -160,7 +165,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:adad096bdd75b7401e1e1aca86d3aa7e2" id="r_adad096bdd75b7401e1e1aca86d3aa7e2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adad096bdd75b7401e1e1aca86d3aa7e2">logUser</a> (<a class="el" href="app__logger_8h.html#aca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> level, const QString &amp;msg)</td></tr>
 <tr class="memdesc:adad096bdd75b7401e1e1aca86d3aa7e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Records a user-facing message: writes it to the log file and emits newLogAdded.  <br /></td></tr>
 <tr class="memitem:a2e7703d867d1a2e3f0a595186f882329" id="r_a2e7703d867d1a2e3f0a595186f882329"><td class="memItemLeft"><a class="el" href="class_app_logger.html">AppLogger</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a2e7703d867d1a2e3f0a595186f882329">operator=</a> (const <a class="el" href="class_app_logger.html">AppLogger</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a2e7703d867d1a2e3f0a595186f882329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted: <a class="el" href="class_app_logger.html">AppLogger</a> is a non-copyable singleton.  <br /></td></tr>
+<tr class="memdesc:a2e7703d867d1a2e3f0a595186f882329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted: <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> is a non-copyable singleton.  <br /></td></tr>
 <tr class="memitem:a84582ecd59d03b8bd650ac4c6e5f66af" id="r_a84582ecd59d03b8bd650ac4c6e5f66af"><td class="memItemLeft"><a class="el" href="class_app_logger_1_1_log_stream.html">LogStream</a>&#160;</td><td class="memItemRight"><a class="el" href="#a84582ecd59d03b8bd650ac4c6e5f66af">warning</a> ()</td></tr>
 <tr class="memdesc:a84582ecd59d03b8bd650ac4c6e5f66af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a buffered user-facing log entry at Warning level.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -189,9 +194,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a4365ae7de1dd5f77f42b0b0f836bed85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guards access to the log file during writeLog/rotateLogFileIfNeeded.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Registers <a class="el" href="struct_log_message.html" title="A single recorded log entry, as emitted by AppLogger::newLogAdded.">LogMessage</a> with Qt's meta-type system so it can be carried across queued signal/slot connections (e.g. to a UI log view on another thread). Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating daily log file and emits newLogAdded for live UI display. </p>
+<div class="textblock"><p>Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating daily log file and emits newLogAdded for live UI display. </p>
+<p>Registers <a class="el" href="struct_log_message.html" title="A single recorded log entry, as emitted by AppLogger::newLogAdded.">LogMessage</a> with Qt's meta-type system so it can be carried across queued signal/slot connections (e.g. to a UI log view on another thread). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00042">42</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00062">62</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a797d28321fc7aba08c685756c44964c2" name="a797d28321fc7aba08c685756c44964c2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a797d28321fc7aba08c685756c44964c2">&#9670;&#160;</a></span>AppLogger() <span class="overload">[1/2]</span></h2>
@@ -216,11 +222,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deleted: <a class="el" href="class_app_logger.html">AppLogger</a> is a non-copyable singleton. </p>
+<p>Deleted: <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> is a non-copyable singleton. </p>
 
 <p class="reference">References <a class="el" href="#a797d28321fc7aba08c685756c44964c2">AppLogger()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="#a797d28321fc7aba08c685756c44964c2">AppLogger()</a>, <a class="el" href="app__logger_8cpp_source.html#l00011">instance()</a>, <a class="el" href="app__logger_8h_source.html#l00054">AppLogger::LogStream::LogStream()</a>, <a class="el" href="#a133157d23100440952c0843bf5296ab5">newLogAdded()</a>, and <a class="el" href="#a2e7703d867d1a2e3f0a595186f882329">operator=()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="#a797d28321fc7aba08c685756c44964c2">AppLogger()</a>, <a class="el" href="app__logger_8cpp_source.html#l00011">instance()</a>, <a class="el" href="app__logger_8h_source.html#l00079">AppLogger::LogStream::LogStream()</a>, <a class="el" href="#a133157d23100440952c0843bf5296ab5">newLogAdded()</a>, and <a class="el" href="#a2e7703d867d1a2e3f0a595186f882329">operator=()</a>.</p>
 
 </div>
 </div>
@@ -252,7 +258,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="app__logger_8cpp_source.html#l00020">20</a> of file <a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00138">m_logDirectory</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00166">m_logDirectory</a>.</p>
 
 </div>
 </div>
@@ -282,9 +288,9 @@ Private Attributes</h2></td></tr>
 
 <p>Starts a buffered user-facing log entry at Critical level. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00103">103</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00128">128</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00024">Critical</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00038">Critical</a>.</p>
 
 </div>
 </div>
@@ -313,9 +319,9 @@ Private Attributes</h2></td></tr>
 
 <p>Starts a buffered developer-facing log entry at Debug level tagged with <span class="tt">ctx</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00108">108</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00133">133</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00020">Debug</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00034">Debug</a>.</p>
 
 </div>
 </div>
@@ -344,9 +350,9 @@ Private Attributes</h2></td></tr>
 
 <p>Starts a buffered developer-facing log entry at Error level tagged with <span class="tt">ctx</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00110">110</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00135">135</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00023">Error</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00037">Error</a>.</p>
 
 </div>
 </div>
@@ -375,9 +381,9 @@ Private Attributes</h2></td></tr>
 
 <p>Starts a buffered developer-facing log entry at Info level tagged with <span class="tt">ctx</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00106">106</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00131">131</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00021">Info</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00035">Info</a>.</p>
 
 </div>
 </div>
@@ -406,9 +412,9 @@ Private Attributes</h2></td></tr>
 
 <p>Starts a buffered user-facing log entry at Error level. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00101">101</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00126">126</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00023">Error</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00037">Error</a>.</p>
 
 </div>
 </div>
@@ -437,9 +443,9 @@ Private Attributes</h2></td></tr>
 
 <p>Starts a buffered user-facing log entry at Info level. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00097">97</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00122">122</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00021">Info</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00035">Info</a>.</p>
 
 </div>
 </div>
@@ -465,8 +471,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the process-wide <a class="el" href="class_app_logger.html">AppLogger</a> singleton, lazily constructing it (parented to qApp) on first call.</p>
-<p>Returns the process-wide <a class="el" href="class_app_logger.html">AppLogger</a> singleton, constructing it on first call (function-local static, so construction is thread-safe under C++11+ semantics). </p><dl class="section return"><dt>Returns</dt><dd>reference to the single <a class="el" href="class_app_logger.html">AppLogger</a> instance </dd></dl>
+<p>Returns the process-wide <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> singleton, lazily constructing it (parented to qApp) on first call.</p>
+<p>Returns the process-wide <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> singleton, constructing it on first call (function-local static, so construction is thread-safe under C++11+ semantics). </p><dl class="section return"><dt>Returns</dt><dd>reference to the single <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> instance </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="app__logger_8cpp_source.html#l00011">11</a> of file <a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a>.</p>
 
@@ -504,7 +510,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="app__logger_8cpp_source.html#l00079">79</a> of file <a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00015">Developer</a>, and <a class="el" href="app__logger_8cpp_source.html#l00087">writeLog()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00026">Developer</a>, and <a class="el" href="app__logger_8cpp_source.html#l00087">writeLog()</a>.</p>
 
 </div>
 </div>
@@ -532,7 +538,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="app__logger_8cpp_source.html#l00073">73</a> of file <a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00014">User</a>, and <a class="el" href="app__logger_8cpp_source.html#l00087">writeLog()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00025">User</a>, and <a class="el" href="app__logger_8cpp_source.html#l00087">writeLog()</a>.</p>
 
 </div>
 </div>
@@ -558,7 +564,14 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
 <p>Emitted whenever a message has been logged (user or developer), after it has been written to the log file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">logMsg</td><td>the complete log entry that was just recorded </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="reference">References <a class="el" href="#a797d28321fc7aba08c685756c44964c2">AppLogger()</a>.</p>
 
@@ -589,7 +602,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deleted: <a class="el" href="class_app_logger.html">AppLogger</a> is a non-copyable singleton. </p>
+<p>Deleted: <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> is a non-copyable singleton. </p>
 
 <p class="reference">References <a class="el" href="#a797d28321fc7aba08c685756c44964c2">AppLogger()</a>.</p>
 
@@ -622,7 +635,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="app__logger_8cpp_source.html#l00045">45</a> of file <a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00137">m_currentLogDate</a>, <a class="el" href="app__logger_8h_source.html#l00138">m_logDirectory</a>, and <a class="el" href="app__logger_8h_source.html#l00136">m_logFile</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00165">m_currentLogDate</a>, <a class="el" href="app__logger_8h_source.html#l00166">m_logDirectory</a>, and <a class="el" href="app__logger_8h_source.html#l00164">m_logFile</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__logger_8cpp_source.html#l00087">writeLog()</a>.</p>
 
@@ -653,9 +666,9 @@ Private Attributes</h2></td></tr>
 
 <p>Starts a buffered user-facing log entry at Warning level. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00099">99</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00124">124</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00022">Warning</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00036">Warning</a>.</p>
 
 </div>
 </div>
@@ -700,7 +713,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="app__logger_8cpp_source.html#l00087">87</a> of file <a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00030">LogMessage::category</a>, <a class="el" href="app__logger_8h_source.html#l00033">LogMessage::context</a>, <a class="el" href="app__logger_8h_source.html#l00024">Critical</a>, <a class="el" href="app__logger_8h_source.html#l00020">Debug</a>, <a class="el" href="app__logger_8h_source.html#l00023">Error</a>, <a class="el" href="app__logger_8h_source.html#l00021">Info</a>, <a class="el" href="app__logger_8h_source.html#l00031">LogMessage::level</a>, <a class="el" href="app__logger_8h_source.html#l00136">m_logFile</a>, <a class="el" href="app__logger_8h_source.html#l00134">m_mutex</a>, <a class="el" href="app__logger_8h_source.html#l00032">LogMessage::message</a>, <a class="el" href="#a133157d23100440952c0843bf5296ab5">newLogAdded()</a>, <a class="el" href="app__logger_8cpp_source.html#l00045">rotateLogFileIfNeeded()</a>, <a class="el" href="app__logger_8h_source.html#l00029">LogMessage::timestamp</a>, <a class="el" href="app__logger_8h_source.html#l00014">User</a>, and <a class="el" href="app__logger_8h_source.html#l00022">Warning</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00047">LogMessage::category</a>, <a class="el" href="app__logger_8h_source.html#l00050">LogMessage::context</a>, <a class="el" href="app__logger_8h_source.html#l00038">Critical</a>, <a class="el" href="app__logger_8h_source.html#l00034">Debug</a>, <a class="el" href="app__logger_8h_source.html#l00037">Error</a>, <a class="el" href="app__logger_8h_source.html#l00035">Info</a>, <a class="el" href="app__logger_8h_source.html#l00048">LogMessage::level</a>, <a class="el" href="app__logger_8h_source.html#l00164">m_logFile</a>, <a class="el" href="app__logger_8h_source.html#l00162">m_mutex</a>, <a class="el" href="app__logger_8h_source.html#l00049">LogMessage::message</a>, <a class="el" href="#a133157d23100440952c0843bf5296ab5">newLogAdded()</a>, <a class="el" href="app__logger_8cpp_source.html#l00045">rotateLogFileIfNeeded()</a>, <a class="el" href="app__logger_8h_source.html#l00046">LogMessage::timestamp</a>, <a class="el" href="app__logger_8h_source.html#l00025">User</a>, and <a class="el" href="app__logger_8h_source.html#l00036">Warning</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__logger_8cpp_source.html#l00079">logDev()</a>, and <a class="el" href="app__logger_8cpp_source.html#l00073">logUser()</a>.</p>
 
@@ -734,7 +747,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="app__logger_8cpp_source.html#l00035">35</a> of file <a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00136">m_logFile</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00164">m_logFile</a>.</p>
 
 </div>
 </div>
@@ -761,7 +774,7 @@ Private Attributes</h2></td></tr>
 
 <p>Date the currently open m_logFile was created for. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00137">137</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00165">165</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__logger_8cpp_source.html#l00045">rotateLogFileIfNeeded()</a>.</p>
 
@@ -789,7 +802,7 @@ Private Attributes</h2></td></tr>
 
 <p>Directory log files are written into. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00138">138</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00166">166</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__logger_8cpp_source.html#l00020">AppLogger()</a>, and <a class="el" href="app__logger_8cpp_source.html#l00045">rotateLogFileIfNeeded()</a>.</p>
 
@@ -817,7 +830,7 @@ Private Attributes</h2></td></tr>
 
 <p>Currently open log file for the active log date. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00136">136</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00164">164</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__logger_8cpp_source.html#l00045">rotateLogFileIfNeeded()</a>, <a class="el" href="app__logger_8cpp_source.html#l00087">writeLog()</a>, and <a class="el" href="app__logger_8cpp_source.html#l00035">~AppLogger()</a>.</p>
 
@@ -845,15 +858,15 @@ Private Attributes</h2></td></tr>
 
 <p>Guards access to the log file during writeLog/rotateLogFileIfNeeded. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00134">134</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00162">162</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__logger_8cpp_source.html#l00087">writeLog()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/core/logger/<a class="el" href="app__logger_8h_source.html">app_logger.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/core/logger/<a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/core/logger/<a class="el" href="app__logger_8h_source.html">app_logger.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/core/logger/<a class="el" href="app__logger_8cpp_source.html">app_logger.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,14 +1,22 @@
 #ifndef MEMORY_UTILS_H
 #define MEMORY_UTILS_H
 
+/**
+ * @file memory_utils.h
+ * @brief Byte-array and IEEE-754 bit-pattern conversion helpers shared by the MC
+ *        protocol codec (framing/parsing register values on the wire).
+ */
+
 #include <QByteArray>
 
-/// Byte-array and IEEE-754 bit-pattern conversion helpers shared by the MC
-/// protocol codec (framing/parsing register values on the wire).
 namespace vc::device {
 
-/// Appends the two bytes of `value` to `array` in the requested byte order.
-/// @param littleEndian true appends LSB then MSB; false appends MSB then LSB
+/**
+ * @brief Appends the two bytes of `value` to `array` in the requested byte order.
+ * @param[in,out] array the byte array to append to
+ * @param[in] value the 16-bit value to append
+ * @param[in] littleEndian true appends LSB then MSB; false appends MSB then LSB
+ */
 inline void appendToByteArray_uint16(QByteArray &array, quint16 value, bool littleEndian = true) {
     if (littleEndian) {
         array.append(static_cast<char>(value & 0xFF));         // LSB
@@ -19,10 +27,14 @@ inline void appendToByteArray_uint16(QByteArray &array, quint16 value, bool litt
     }
 }
 
-/// Appends the low `byteCount` bytes of `value` to `array` in the requested
-/// byte order. No-op if `byteCount` is outside [1, 4].
-/// @param byteCount number of bytes of `value` to emit (1-4)
-/// @param littleEndian true emits least-significant byte first; false emits most-significant byte first
+/**
+ * @brief Appends the low `byteCount` bytes of `value` to `array` in the requested byte order.
+ *        No-op if `byteCount` is outside [1, 4].
+ * @param[in,out] array the byte array to append to
+ * @param[in] value the 32-bit value to emit
+ * @param[in] byteCount number of bytes of `value` to emit (1-4)
+ * @param[in] littleEndian true emits least-significant byte first; false emits MSB first
+ */
 inline void appendToByteArray_uint32(QByteArray &array, quint32 value, int byteCount, bool littleEndian = true) {
     if (byteCount < 1 || byteCount > 4) {
         return;
@@ -35,9 +47,13 @@ inline void appendToByteArray_uint32(QByteArray &array, quint32 value, int byteC
     }
 }
 
-/// Reads two bytes at `data[index]`/`data[index+1]` and combines them into a
-/// quint16 using the requested byte order.
-/// @return 0 if `index` is negative or `index + 1` is out of bounds
+/**
+ * @brief Reads two bytes at `data[index]`/`data[index+1]` and combines them into a quint16.
+ * @param[in] data source byte array
+ * @param[in] index byte offset to read from
+ * @param[in] littleEndian true treats data[index] as LSB; false treats it as MSB
+ * @return the assembled 16-bit value, or 0 if `index` is out of bounds
+ */
 inline quint16 convert_uint16_FromBytes(const QByteArray& data, int index, bool littleEndian = true) {
     if (index < 0 || index + 1 >= data.size()) {
         return 0;

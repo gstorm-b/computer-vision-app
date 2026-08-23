@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Shared protocol core for the TCP/IP vision-output transports (server + client).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::VisionTcpipDeviceBase:</div>
@@ -154,7 +157,7 @@ Signals</h2></td></tr>
 <tr class="memdesc:a85b16c4947ca02b6a0d2934f37e12675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after a result payload is written to the main link.  <br /></td></tr>
 <tr class="inherit_header signals_classvc_1_1device_1_1_i_device"><td colspan="2">Signals inherited from <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a></td></tr>
 <tr class="memitem:ac5a49e05fc9d47c7cec216e4242e4c33 signals_classvc_1_1device_1_1_i_device" id="r_ac5a49e05fc9d47c7cec216e4242e4c33"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#ac5a49e05fc9d47c7cec216e4242e4c33">configChanged</a> ()</td></tr>
-<tr class="memdesc:ac5a49e05fc9d47c7cec216e4242e4c33 signals_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when the device's configuration is (re)attached via <a class="el" href="classvc_1_1device_1_1_i_device.html#a5ffcf0ff2dcaa799aa7f04acaa9eca9e">setDeviceConfig()</a>.  <br /></td></tr>
+<tr class="memdesc:ac5a49e05fc9d47c7cec216e4242e4c33 signals_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when the device's configuration is (re)attached via <a class="el" href="classvc_1_1device_1_1_i_device.html#a5ffcf0ff2dcaa799aa7f04acaa9eca9e" title="Attaches cfg as this device&#39;s abstract configuration and emits configChanged().">setDeviceConfig()</a>.  <br /></td></tr>
 <tr class="memitem:a0f2fa802db680a45b9e65ec42b1b8cca signals_classvc_1_1device_1_1_i_device" id="r_a0f2fa802db680a45b9e65ec42b1b8cca"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a0f2fa802db680a45b9e65ec42b1b8cca">connectionFailed</a> (QString msg)</td></tr>
 <tr class="memdesc:a0f2fa802db680a45b9e65ec42b1b8cca signals_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when setConnectionStatus(ConnectFailed, msg) records a failed connection attempt.  <br /></td></tr>
 <tr class="memitem:a6cddc6f4d765e0396f15cde7a79ffca3 signals_classvc_1_1device_1_1_i_device" id="r_a6cddc6f4d765e0396f15cde7a79ffca3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a6cddc6f4d765e0396f15cde7a79ffca3">connectStatusChanged</a> (<a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">ConnectStatus</a> status)</td></tr>
@@ -200,9 +203,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7c1fd412dbeb2ef6cfa8818f8970e43d pub_methods_classvc_1_1device_1_1_i_device" id="r_a7c1fd412dbeb2ef6cfa8818f8970e43d"><td class="memItemLeft"><a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">ConnectStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a7c1fd412dbeb2ef6cfa8818f8970e43d">connectStatus</a> () const</td></tr>
 <tr class="memdesc:a7c1fd412dbeb2ef6cfa8818f8970e43d pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current connection lifecycle state.  <br /></td></tr>
 <tr class="memitem:a63d5ba765351e654805d9d473431adcc pub_methods_classvc_1_1device_1_1_i_device" id="r_a63d5ba765351e654805d9d473431adcc"><td class="memItemLeft">virtual <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html">IDeviceCfg</a> *&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a63d5ba765351e654805d9d473431adcc">deviceConfig</a> ()</td></tr>
+<tr class="memdesc:a63d5ba765351e654805d9d473431adcc pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a heap-allocated clone of the current device configuration (caller owns it).  <br /></td></tr>
 <tr class="memitem:a0071463c2974f0e2bedf4828ecd71e77 pub_methods_classvc_1_1device_1_1_i_device" id="r_a0071463c2974f0e2bedf4828ecd71e77"><td class="memItemLeft">virtual <a class="el" href="classvc_1_1device_1_1_device_manager.html">DeviceManager</a> *&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a0071463c2974f0e2bedf4828ecd71e77">deviceManager</a> ()</td></tr>
-<tr class="memdesc:a0071463c2974f0e2bedf4828ecd71e77 pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="classvc_1_1device_1_1_device_manager.html">DeviceManager</a> that owns/tracks this device instance (nullptr if unset).  <br /></td></tr>
+<tr class="memdesc:a0071463c2974f0e2bedf4828ecd71e77 pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <a class="el" href="classvc_1_1device_1_1_device_manager.html" title="Device manager owned by a Project via shared pointer; tracks reserved/committed device instances by i...">DeviceManager</a> that owns/tracks this device instance (nullptr if unset).  <br /></td></tr>
 <tr class="memitem:af76bf05d5362022bf4ced7bcea24f7ba pub_methods_classvc_1_1device_1_1_i_device" id="r_af76bf05d5362022bf4ced7bcea24f7ba"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#af76bf05d5362022bf4ced7bcea24f7ba">fromJson</a> (const QJsonObject &amp;obj)</td></tr>
+<tr class="memdesc:af76bf05d5362022bf4ced7bcea24f7ba pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores id/name/assigned-task-id from <span class="tt">obj</span> (the first step of loading a device), validating that the required keys are present and that the JSON device type matches this instance's <a class="el" href="classvc_1_1device_1_1_i_device.html#aba9d7b47e93488cf3f5d0426c56cdd6d" title="Returns the concrete DeviceType (Camera/PLC/VisionOutput/Robot) of this device.">deviceType()</a>; forwards the nested DeviceConfig object to m_abstract_cfg-&gt;<a class="el" href="classvc_1_1device_1_1_i_device.html#af76bf05d5362022bf4ced7bcea24f7ba" title="Restores id/name/assigned-task-id from obj (the first step of loading a device), validating that the ...">fromJson()</a> if a config is attached.  <br /></td></tr>
 <tr class="memitem:aefd54b8986057309726961ba94f53588 pub_methods_classvc_1_1device_1_1_i_device" id="r_aefd54b8986057309726961ba94f53588"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#aefd54b8986057309726961ba94f53588">id</a> () const</td></tr>
 <tr class="memdesc:aefd54b8986057309726961ba94f53588 pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the device's unique id.  <br /></td></tr>
 <tr class="memitem:a16c0c3673654ed53a7c543e7c0278bf4 pub_methods_classvc_1_1device_1_1_i_device" id="r_a16c0c3673654ed53a7c543e7c0278bf4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a16c0c3673654ed53a7c543e7c0278bf4">IDevice</a> (QString id, QString name, QObject *parent=nullptr)</td></tr>
@@ -213,8 +218,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a97387c4b1c21ef3d6bdd6c7fddaf37e8 pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Records the id of the task this device is assigned to.  <br /></td></tr>
 <tr class="memitem:aa56430ffb2e08fcf13ef6548b32e91e8 pub_methods_classvc_1_1device_1_1_i_device" id="r_aa56430ffb2e08fcf13ef6548b32e91e8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#aa56430ffb2e08fcf13ef6548b32e91e8">setConnectionStatus</a> (<a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">ConnectStatus</a> status, QString msg=&quot;&quot;)</td></tr>
 <tr class="memitem:a5ffcf0ff2dcaa799aa7f04acaa9eca9e pub_methods_classvc_1_1device_1_1_i_device" id="r_a5ffcf0ff2dcaa799aa7f04acaa9eca9e"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a5ffcf0ff2dcaa799aa7f04acaa9eca9e">setDeviceConfig</a> (<a class="el" href="classvc_1_1device_1_1_i_device_cfg.html">IDeviceCfg</a> *cfg)</td></tr>
+<tr class="memdesc:a5ffcf0ff2dcaa799aa7f04acaa9eca9e pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches <span class="tt">cfg</span> as this device's abstract configuration and emits <a class="el" href="classvc_1_1device_1_1_i_device.html#ac5a49e05fc9d47c7cec216e4242e4c33" title="Emitted when the device&#39;s configuration is (re)attached via setDeviceConfig().">configChanged()</a>.  <br /></td></tr>
 <tr class="memitem:a2536aaefe6c4985b5f3fadd49bfa310d pub_methods_classvc_1_1device_1_1_i_device" id="r_a2536aaefe6c4985b5f3fadd49bfa310d"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a2536aaefe6c4985b5f3fadd49bfa310d">setManager</a> (<a class="el" href="classvc_1_1device_1_1_device_manager.html">DeviceManager</a> *manager)</td></tr>
-<tr class="memdesc:a2536aaefe6c4985b5f3fadd49bfa310d pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="classvc_1_1device_1_1_device_manager.html">DeviceManager</a> that owns/tracks this device instance.  <br /></td></tr>
+<tr class="memdesc:a2536aaefe6c4985b5f3fadd49bfa310d pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="classvc_1_1device_1_1_device_manager.html" title="Device manager owned by a Project via shared pointer; tracks reserved/committed device instances by i...">DeviceManager</a> that owns/tracks this device instance.  <br /></td></tr>
 <tr class="memitem:a964c4a6c92462dc5eba753ecab367cf1 pub_methods_classvc_1_1device_1_1_i_device" id="r_a964c4a6c92462dc5eba753ecab367cf1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a964c4a6c92462dc5eba753ecab367cf1">setName</a> (const QString &amp;v)</td></tr>
 <tr class="memdesc:a964c4a6c92462dc5eba753ecab367cf1 pub_methods_classvc_1_1device_1_1_i_device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the display name and emits <a class="el" href="classvc_1_1device_1_1_i_device.html#a844f01670bf766e7cce7a92b1480ddfa" title="Emitted when the device&#39;s display name changes.">nameChanged()</a>; no-op if <span class="tt">v</span> equals the current name.  <br /></td></tr>
 <tr class="memitem:a4c8a773bc2a67b4f0d16a00eb8089f0d pub_methods_classvc_1_1device_1_1_i_device" id="r_a4c8a773bc2a67b4f0d16a00eb8089f0d"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a4c8a773bc2a67b4f0d16a00eb8089f0d">~IDevice</a> ()=default</td></tr>
@@ -301,20 +307,23 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a4aab39a808e1f1ddf2b5de55c559b930 properties_classvc_1_1device_1_1_i_device" id="r_a4aab39a808e1f1ddf2b5de55c559b930"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device.html#a4aab39a808e1f1ddf2b5de55c559b930">name</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_base.html">VisionTcpipDeviceBase</a> — shared protocol core for the TCP/IP vision-output transports (server + client).</p>
-<p>Owns the pair of active sockets (main + heartbeat), the RX framing buffers, the heartbeat timer/state, runtime state and diagnostics. It implements everything that is identical between server and client:</p>
-<ul>
-<li>main-channel framing (';' delimiter) + result write (pushRequest)</li>
-<li>heartbeat probe / ack parsing / timeout (the software is always the heartbeat master, regardless of connection direction)</li>
-<li>lost-connection handling, runtime-state / diagnostics bookkeeping</li>
-</ul>
-<p>Concrete transports differ only in HOW a socket is obtained:</p><ul>
-<li><a class="el" href="classvc_1_1device_1_1_vision_tcpip_device.html">VisionTcpipDevice</a> (server): QTcpServer::listen + accept</li>
-<li><a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device.html">VisionTcpipClientDevice</a> : QTcpSocket::connectToHost + reconnect</li>
-</ul>
-<p>A subclass opens/closes its transport in <a class="el" href="#aa91ee3d71f90c8895404df9861184383">startTransport()</a>/stopTransport() and, whenever a link comes up, hands the connected socket to <a class="el" href="#a99e082f49accb46a5f314cea5938ceec">attachMainSocket()</a> / <a class="el" href="#aaf223469ca037ec70088c3b30f0a6151">attachHeartbeatSocket()</a>. The base wires the rest. </p>
+<div class="textblock"><p>Shared protocol core for the TCP/IP vision-output transports (server + client). </p>
+<pre class="fragment">   Owns the pair of active sockets (main + heartbeat), the RX framing buffers,
+   the heartbeat timer/state, runtime state and diagnostics. Implements everything
+   that is identical between server and client:
+     - main-channel framing (';' delimiter) + result write (pushRequest)
+     - heartbeat probe / ack parsing / timeout (software is always the heartbeat master)
+     - lost-connection handling, runtime-state / diagnostics bookkeeping
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00039">39</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+   Concrete transports differ only in HOW a socket is obtained:
+     - VisionTcpipDevice (server): QTcpServer::listen + accept
+     - VisionTcpipClientDevice:    QTcpSocket::connectToHost + reconnect
+
+   A subclass opens/closes its transport in startTransport()/stopTransport() and,
+   whenever a link comes up, hands the connected socket to attachMainSocket() /
+   attachHeartbeatSocket(). The base wires the rest.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00042">42</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ade019388c75366f686daa65cb608f5bd" name="ade019388c75366f686daa65cb608f5bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade019388c75366f686daa65cb608f5bd">&#9670;&#160;</a></span>VisionTcpipDeviceBase()</h2>
@@ -349,9 +358,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructs the base with the given device id/name; sockets and timers are created lazily as the transport comes up. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00045">45</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00048">48</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00042">vc::device::IDevice::id</a>, <a class="el" href="idevice_8h_source.html#l00039">vc::device::IDevice::name</a>, and <a class="el" href="vision__output__device_8h_source.html#l00036">vc::device::VisionOutputDevice::VisionOutputDevice()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, and <a class="el" href="vision__output__device_8h_source.html#l00034">vc::device::VisionOutputDevice::VisionOutputDevice()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00010">vc::device::VisionTcpipClientDevice::VisionTcpipClientDevice()</a>, and <a class="el" href="vision__tcpip__device_8cpp_source.html#l00013">vc::device::VisionTcpipDevice::VisionTcpipDevice()</a>.</p>
 
@@ -417,7 +426,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">315</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00411">onHeartbeatSocketReadyRead()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00544">startHeartbeatTimer()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">m_hbRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00411">onHeartbeatSocketReadyRead()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00544">startHeartbeatTimer()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00183">vc::device::VisionTcpipClientDevice::onHeartbeatConnected()</a>, and <a class="el" href="vision__tcpip__device_8cpp_source.html#l00160">vc::device::VisionTcpipDevice::onHeartbeatNewConnection()</a>.</p>
 
@@ -455,7 +464,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00294">294</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_mainSocket</a>, <a class="el" href="#ad2522c1ce28868c82e101dcf7e6f8c22">mainClientStateChanged()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">onMainSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00372">onMainSocketReadyRead()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00211">m_mainRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainSocket</a>, <a class="el" href="#ad2522c1ce28868c82e101dcf7e6f8c22">mainClientStateChanged()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">onMainSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00372">onMainSocketReadyRead()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00170">vc::device::VisionTcpipClientDevice::onMainConnected()</a>, and <a class="el" href="vision__tcpip__device_8cpp_source.html#l00143">vc::device::VisionTcpipDevice::onMainNewConnection()</a>.</p>
 
@@ -611,7 +620,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">570</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">detachMainSocket()</a>, <a class="el" href="#a82bec4a40ae7f1c7e125c49ff60b057b">heartbeatLost()</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="idevice_8h_source.html#l00027">vc::device::LostConnected</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00220">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00203">m_diagnostics</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00112">onLinkLost()</a>, and <a class="el" href="idevice_8h_source.html#l00111">vc::device::IDevice::setConnectionStatus()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">detachMainSocket()</a>, <a class="el" href="#a82bec4a40ae7f1c7e125c49ff60b057b">heartbeatLost()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00223">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_diagnostics</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00115">onLinkLost()</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>.</p>
 
@@ -644,7 +653,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">353</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00556">stopHeartbeatTimer()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">m_hbRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00556">stopHeartbeatTimer()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00094">vc::device::VisionTcpipClientDevice::stopTransport()</a>, and <a class="el" href="vision__tcpip__device_8cpp_source.html#l00121">vc::device::VisionTcpipDevice::stopTransport()</a>.</p>
 
@@ -677,7 +686,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">339</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_mainSocket</a>, <a class="el" href="#ad2522c1ce28868c82e101dcf7e6f8c22">mainClientStateChanged()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00211">m_mainRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainSocket</a>, <a class="el" href="#ad2522c1ce28868c82e101dcf7e6f8c22">mainClientStateChanged()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">onMainSocketDisconnected()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00094">vc::device::VisionTcpipClientDevice::stopTransport()</a>, and <a class="el" href="vision__tcpip__device_8cpp_source.html#l00121">vc::device::VisionTcpipDevice::stopTransport()</a>.</p>
 
@@ -712,7 +721,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00033">33</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00028">vc::device::ConnectFailed</a>, <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00220">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00203">m_diagnostics</a>, <a class="el" href="idevice_8h_source.html#l00242">vc::device::IDevice::m_last_msg</a>, <a class="el" href="idevice_8h_source.html#l00241">vc::device::IDevice::m_mutex</a>, <a class="el" href="idevice_8h_source.html#l00039">vc::device::IDevice::name</a>, <a class="el" href="idevice_8h_source.html#l00111">vc::device::IDevice::setConnectionStatus()</a>, <a class="el" href="#aa91ee3d71f90c8895404df9861184383">startTransport()</a>, <a class="el" href="#a7306c118bececd76258dc8e0e50f60c5">stopTransport()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00223">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_diagnostics</a>, <a class="el" href="idevice_8h_source.html#l00258">vc::device::IDevice::m_last_msg</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>, <a class="el" href="#aa91ee3d71f90c8895404df9861184383">startTransport()</a>, <a class="el" href="#a7306c118bececd76258dc8e0e50f60c5">stopTransport()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 </div>
 </div>
@@ -745,7 +754,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00060">60</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00025">vc::device::Disconnected</a>, <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00220">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00203">m_diagnostics</a>, <a class="el" href="idevice_8h_source.html#l00241">vc::device::IDevice::m_mutex</a>, <a class="el" href="idevice_8h_source.html#l00039">vc::device::IDevice::name</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00502">sendDisconnectNotice()</a>, <a class="el" href="idevice_8h_source.html#l00111">vc::device::IDevice::setConnectionStatus()</a>, and <a class="el" href="#a7306c118bececd76258dc8e0e50f60c5">stopTransport()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00223">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_diagnostics</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00502">sendDisconnectNotice()</a>, <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>, and <a class="el" href="#a7306c118bececd76258dc8e0e50f60c5">stopTransport()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00074">deviceTerminate()</a>.</p>
 
@@ -778,7 +787,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00074">74</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00060">deviceDisconnect()</a>, <a class="el" href="idevice_8h_source.html#l00042">vc::device::IDevice::id</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00059">isDeviceConnected()</a>, <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00220">m_active</a>, and <a class="el" href="idevice_8h_source.html#l00039">vc::device::IDevice::name</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00060">deviceDisconnect()</a>, <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00062">isDeviceConnected()</a>, <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00223">m_active</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
 
 </div>
 </div>
@@ -807,9 +816,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns the cumulative diagnostics counters and last error (read-only, for UI/tests). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00074">74</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00077">77</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00203">m_diagnostics</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_diagnostics</a>.</p>
 
 </div>
 </div>
@@ -838,9 +847,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns the msg_count expected in the next heartbeat ack. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00083">83</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00086">86</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00214">m_expectedAckCount</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00217">m_expectedAckCount</a>.</p>
 
 </div>
 </div>
@@ -876,7 +885,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">444</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00214">m_expectedAckCount</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00216">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">m_hbLastReplyTimer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">m_lastAckCount</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>, <a class="el" href="vision__tcpip__protocol_8h_source.html#l00031">VISION_OUTPUT_HB_ACK_PREFIX</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00039">VISION_OUTPUT_MSG_COUNT_LIMIT</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00217">m_expectedAckCount</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00219">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">m_hbLastReplyTimer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00218">m_lastAckCount</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>, <a class="el" href="vision__tcpip__protocol_8h_source.html#l00026">VISION_OUTPUT_HB_ACK_PREFIX</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00034">VISION_OUTPUT_MSG_COUNT_LIMIT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00411">onHeartbeatSocketReadyRead()</a>.</p>
 
@@ -910,7 +919,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00398">398</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00203">m_diagnostics</a>, and <a class="el" href="#a7c181c2d1ec03bdefe4a82e7ddba202f">mainRequestReceived()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_diagnostics</a>, and <a class="el" href="#a7c181c2d1ec03bdefe4a82e7ddba202f">mainRequestReceived()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00372">onMainSocketReadyRead()</a>.</p>
 
@@ -969,9 +978,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>True between <a class="el" href="#afa0980c6f61bc1455bfbc774474c6c63">deviceConnect()</a> and <a class="el" href="#a0fbeb5e2f2d0c6726c95b7325ee828ef">deviceDisconnect()</a>; lets the client transport know whether a dropped link should trigger a reconnect. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00163">163</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00166">166</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00220">m_active</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00223">m_active</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00135">vc::device::VisionTcpipClientDevice::attemptConnect()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00250">vc::device::VisionTcpipClientDevice::evaluateConnected()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00215">vc::device::VisionTcpipClientDevice::onHeartbeatConnectError()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00197">vc::device::VisionTcpipClientDevice::onMainConnectError()</a>, and <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00232">vc::device::VisionTcpipClientDevice::scheduleReconnect()</a>.</p>
 
@@ -1004,9 +1013,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device.html#a5e2f63afbab53010b5c61d475a1ca0b8">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00059">59</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00062">62</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00026">vc::device::Connected</a>, and <a class="el" href="idevice_8h_source.html#l00105">vc::device::IDevice::connectStatus()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, and <a class="el" href="idevice_8h_source.html#l00115">vc::device::IDevice::connectStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00074">deviceTerminate()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00028">vc::device::VisionTcpipClientDevice::setDeviceConfig()</a>, <a class="el" href="vision__tcpip__device_8cpp_source.html#l00029">vc::device::VisionTcpipDevice::setDeviceConfig()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00055">vc::device::VisionTcpipClientDevice::setVisionTcpipClientConfig()</a>, and <a class="el" href="vision__tcpip__device_8cpp_source.html#l00057">vc::device::VisionTcpipDevice::setVisionTcpipConfig()</a>.</p>
 
@@ -1037,9 +1046,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>True when the heartbeat-channel socket is currently attached. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00079">79</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00082">82</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>.</p>
 
 </div>
 </div>
@@ -1068,9 +1077,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>True when the main-channel socket is currently attached. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00077">77</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00080">80</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_mainSocket</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainSocket</a>.</p>
 
 </div>
 </div>
@@ -1162,9 +1171,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns the msg_count of the last accepted heartbeat ack. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00081">81</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00084">84</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">m_lastAckCount</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00218">m_lastAckCount</a>.</p>
 
 </div>
 </div>
@@ -1253,7 +1262,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">427</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>, <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00220">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>, <a class="el" href="idevice_8h_source.html#l00039">vc::device::IDevice::name</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00112">onLinkLost()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00223">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00115">onLinkLost()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>.</p>
 
@@ -1286,7 +1295,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00411">411</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00035">VISION_OUTPUT_HB_TERMINATOR</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">m_hbRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00030">VISION_OUTPUT_HB_TERMINATOR</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>.</p>
 
@@ -1319,7 +1328,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">481</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a42700752b23941b326136134762eb777">cfgHeartbeatTimeoutMs()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00203">m_diagnostics</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00216">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">m_hbLastReplyTimer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>.</p>
+<p class="reference">References <a class="el" href="#a42700752b23941b326136134762eb777">cfgHeartbeatTimeoutMs()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_diagnostics</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00219">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">m_hbLastReplyTimer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00544">startHeartbeatTimer()</a>.</p>
 
@@ -1351,7 +1360,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device.html#af41c6773658d7b9345ecf021b40541c7">vc::device::VisionTcpipClientDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00112">112</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00115">115</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">onMainSocketDisconnected()</a>.</p>
 
@@ -1385,7 +1394,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">387</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">detachMainSocket()</a>, <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00220">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_mainSocket</a>, <a class="el" href="idevice_8h_source.html#l00039">vc::device::IDevice::name</a>, and <a class="el" href="vision__tcpip__device__base_8h_source.html#l00112">onLinkLost()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">detachMainSocket()</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00223">m_active</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainSocket</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, and <a class="el" href="vision__tcpip__device__base_8h_source.html#l00115">onLinkLost()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00294">attachMainSocket()</a>.</p>
 
@@ -1418,7 +1427,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00372">372</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00398">handleMainPayload()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_mainSocket</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00037">VISION_OUTPUT_MAIN_TERMINATOR</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00398">handleMainPayload()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00211">m_mainRxBuffer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainSocket</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00032">VISION_OUTPUT_MAIN_TERMINATOR</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00294">attachMainSocket()</a>.</p>
 
@@ -1447,9 +1456,9 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Push one matching-result request out on the main channel: drops requests that aren't Request_VisionOutput, runs the optional robot-kinematics reachability check on Result-kind requests, then writes the built payload and emits <a class="el" href="#a85b16c4947ca02b6a0d2934f37e12675" title="Emitted after a result payload is written to the main link.">resultSent()</a>. </p><dl class="section return"><dt>Returns</dt><dd>false if no main link is up, the request is foreign, or the write is short.</dd></dl>
-<p>Writes a <a class="el" href="classvc_1_1device_1_1_vision_output_request.html">VisionOutputRequest</a>'s payload to the main channel socket. Rejects requests that are not Request_VisionOutput or when no main link is connected. When the request is a Result, first runs the advisory robot-kinematics reachability check (<a class="el" href="#a24588a01126fb20b5c079327d159b563">runKinematicCheck()</a>) before building/sending the payload. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Writes a <a class="el" href="classvc_1_1device_1_1_vision_output_request.html" title="Request sent to VisionOutputDevice. Comes in 2 kinds:">VisionOutputRequest</a>'s payload to the main channel socket. Rejects requests that are not Request_VisionOutput or when no main link is connected. When the request is a Result, first runs the advisory robot-kinematics reachability check (<a class="el" href="#a24588a01126fb20b5c079327d159b563">runKinematicCheck()</a>) before building/sending the payload. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">request</td><td>the request to send; must be a <a class="el" href="classvc_1_1device_1_1_vision_output_request.html">VisionOutputRequest</a> </td></tr>
+    <tr><td class="paramname">request</td><td>the request to send; must be a <a class="el" href="classvc_1_1device_1_1_vision_output_request.html" title="Request sent to VisionOutputDevice. Comes in 2 kinds:">VisionOutputRequest</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -1459,7 +1468,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">88</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00086">vc::device::VisionOutputRequest::buildPayload()</a>, <a class="el" href="vision__output__request_8h_source.html#l00070">vc::device::VisionOutputRequest::kind()</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00203">m_diagnostics</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_mainSocket</a>, <a class="el" href="vision__output__request_8h_source.html#l00073">vc::device::VisionOutputRequest::positions()</a>, <a class="el" href="irequest_8h_source.html#l00013">vc::device::Request_VisionOutput</a>, <a class="el" href="vision__output__request_8h_source.html#l00044">vc::device::VisionOutputRequest::Result</a>, <a class="el" href="#a85b16c4947ca02b6a0d2934f37e12675">resultSent()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00230">runKinematicCheck()</a>, and <a class="el" href="classvc_1_1device_1_1_i_request.html#a97665786222c2d520595cd3b5db911d3">vc::device::IRequest::type()</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__request_8h_source.html#l00110">vc::device::VisionOutputRequest::buildPayload()</a>, <a class="el" href="vision__output__request_8h_source.html#l00094">vc::device::VisionOutputRequest::kind()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_diagnostics</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainSocket</a>, <a class="el" href="vision__output__request_8h_source.html#l00097">vc::device::VisionOutputRequest::positions()</a>, <a class="el" href="irequest_8h_source.html#l00020">vc::device::Request_VisionOutput</a>, <a class="el" href="vision__output__request_8h_source.html#l00068">vc::device::VisionOutputRequest::Result</a>, <a class="el" href="#a85b16c4947ca02b6a0d2934f37e12675">resultSent()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00230">runKinematicCheck()</a>, and <a class="el" href="classvc_1_1device_1_1_i_request.html#a97665786222c2d520595cd3b5db911d3">vc::device::IRequest::type()</a>.</p>
 
 </div>
 </div>
@@ -1491,7 +1500,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">588</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00214">m_expectedAckCount</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00216">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">m_hbLastReplyTimer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">m_lastAckCount</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00217">m_expectedAckCount</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00219">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">m_hbLastReplyTimer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00218">m_lastAckCount</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>.</p>
 
@@ -1558,7 +1567,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00230">230</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_inverse_kinematics_8h_source.html#l00070">RobotKinematics::IKResult::best()</a>, <a class="el" href="_collision_backend_8cpp_source.html#l00128">RobotKinematics::CollisionBackends::checkMesh()</a>, <a class="el" href="vision__output__config_8h_source.html#l00096">vc::device::RobotKinematicCheckConfig::collisionCheckEnabled</a>, <a class="el" href="vision__output__config_8h_source.html#l00095">vc::device::RobotKinematicCheckConfig::enabled</a>, <a class="el" href="_pose_8cpp_source.html#l00047">RobotKinematics::Pose::fromXYZRPY_mm_deg()</a>, <a class="el" href="_collision_checker_8h_source.html#l00035">RobotKinematics::CollisionCheckResult::hasCollision</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00052">RobotKinematics::IKSolution::joints</a>, <a class="el" href="_collision_backend_8h_source.html#l00034">RobotKinematics::MeshCollisionCheckRequest::joints</a>, <a class="el" href="#ab1ced4c6c63b9c47b32d1a09a21b0372">kinematicCheckConfig()</a>, <a class="el" href="#acc6acffa366b838bd9bf20460c96db8c">kinematicCheckResult()</a>, <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="_collision_checker_8h_source.html#l00037">RobotKinematics::CollisionCheckResult::message</a>, <a class="el" href="_collision_checker_8h_source.html#l00040">RobotKinematics::CollisionCheckResult::ok()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00066">RobotKinematics::IKResult::ok()</a>, <a class="el" href="vision__output__config_8h_source.html#l00097">vc::device::RobotKinematicCheckConfig::presetName</a>, <a class="el" href="_serial_robot_kinematics_8cpp_source.html#l00068">RobotKinematics::SerialRobotKinematics::solve()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00032">RobotKinematics::IKRequest::targetPose</a>, and <a class="el" href="_inverse_kinematics_8h_source.html#l00037">RobotKinematics::IKRequest::tool</a>.</p>
+<p class="reference">References <a class="el" href="_inverse_kinematics_8h_source.html#l00070">RobotKinematics::IKResult::best()</a>, <a class="el" href="_collision_backend_8cpp_source.html#l00128">RobotKinematics::CollisionBackends::checkMesh()</a>, <a class="el" href="vision__output__config_8h_source.html#l00109">vc::device::RobotKinematicCheckConfig::collisionCheckEnabled</a>, <a class="el" href="vision__output__config_8h_source.html#l00108">vc::device::RobotKinematicCheckConfig::enabled</a>, <a class="el" href="_pose_8cpp_source.html#l00047">RobotKinematics::Pose::fromXYZRPY_mm_deg()</a>, <a class="el" href="_collision_checker_8h_source.html#l00035">RobotKinematics::CollisionCheckResult::hasCollision</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00052">RobotKinematics::IKSolution::joints</a>, <a class="el" href="_collision_backend_8h_source.html#l00034">RobotKinematics::MeshCollisionCheckRequest::joints</a>, <a class="el" href="#ab1ced4c6c63b9c47b32d1a09a21b0372">kinematicCheckConfig()</a>, <a class="el" href="#acc6acffa366b838bd9bf20460c96db8c">kinematicCheckResult()</a>, <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="_collision_checker_8h_source.html#l00037">RobotKinematics::CollisionCheckResult::message</a>, <a class="el" href="_collision_checker_8h_source.html#l00040">RobotKinematics::CollisionCheckResult::ok()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00066">RobotKinematics::IKResult::ok()</a>, <a class="el" href="vision__output__config_8h_source.html#l00110">vc::device::RobotKinematicCheckConfig::presetName</a>, <a class="el" href="_serial_robot_kinematics_8cpp_source.html#l00068">RobotKinematics::SerialRobotKinematics::solve()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00032">RobotKinematics::IKRequest::targetPose</a>, and <a class="el" href="_inverse_kinematics_8h_source.html#l00037">RobotKinematics::IKRequest::tool</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">pushRequest()</a>.</p>
 
@@ -1589,9 +1598,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns the live link/heartbeat runtime-state snapshot (read-only, for UI/tests). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00072">72</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00075">75</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00202">m_runtimeState</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_runtimeState</a>.</p>
 
 </div>
 </div>
@@ -1622,7 +1631,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00502">502</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00159">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>, <a class="el" href="idevice_8h_source.html#l00039">vc::device::IDevice::name</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00033">VISION_OUTPUT_HB_DISCONNECT</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00028">VISION_OUTPUT_HB_DISCONNECT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00060">deviceDisconnect()</a>.</p>
 
@@ -1655,7 +1664,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">525</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00216">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">m_hbLastReplyTimer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00029">VISION_OUTPUT_HB_MESSAGE</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00219">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">m_hbLastReplyTimer</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>, and <a class="el" href="vision__tcpip__protocol_8h_source.html#l00024">VISION_OUTPUT_HB_MESSAGE</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>.</p>
 
@@ -1688,7 +1697,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00544">544</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#aac145a47dbc984d7b6cee180176cbec2">cfgHeartbeatIntervalMs()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00211">m_hbTimer</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>.</p>
+<p class="reference">References <a class="el" href="#aac145a47dbc984d7b6cee180176cbec2">cfgHeartbeatIntervalMs()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00214">m_hbTimer</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>.</p>
 
@@ -1752,7 +1761,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00556">556</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00211">m_hbTimer</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00214">m_hbTimer</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>.</p>
 
@@ -1816,7 +1825,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">598</a> of file <a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00214">m_expectedAckCount</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00216">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">m_hbSocket</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">m_lastAckCount</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_mainSocket</a>, and <a class="el" href="vision__tcpip__device__base_8h_source.html#l00202">m_runtimeState</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__base_8h_source.html#l00217">m_expectedAckCount</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00219">m_hbAwaitingReply</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">m_hbSocket</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00218">m_lastAckCount</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">m_mainSocket</a>, and <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">m_runtimeState</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00294">attachMainSocket()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">detachMainSocket()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00033">deviceConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00010">vc::device::VisionTcpipClientDevice::VisionTcpipClientDevice()</a>, and <a class="el" href="vision__tcpip__device_8cpp_source.html#l00013">vc::device::VisionTcpipDevice::VisionTcpipDevice()</a>.</p>
 
@@ -1844,9 +1853,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>True between <a class="el" href="#afa0980c6f61bc1455bfbc774474c6c63">deviceConnect()</a> and <a class="el" href="#a0fbeb5e2f2d0c6726c95b7325ee828ef">deviceDisconnect()</a>. Lets the client transport know whether a dropped link should trigger a reconnect. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00220">220</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00223">223</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00033">deviceConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00060">deviceDisconnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00074">deviceTerminate()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00163">isActive()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">onMainSocketDisconnected()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00033">deviceConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00060">deviceDisconnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00074">deviceTerminate()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00166">isActive()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">onMainSocketDisconnected()</a>.</p>
 
 </div>
 </div>
@@ -1872,9 +1881,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Cumulative counters and last error exposed to UI/tests. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00203">203</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">206</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00033">deviceConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00060">deviceDisconnect()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00074">diagnostics()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00398">handleMainPayload()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00215">vc::device::VisionTcpipClientDevice::onHeartbeatConnectError()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00197">vc::device::VisionTcpipClientDevice::onMainConnectError()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">pushRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00570">declareLostConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00033">deviceConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00060">deviceDisconnect()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00077">diagnostics()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00398">handleMainPayload()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00215">vc::device::VisionTcpipClientDevice::onHeartbeatConnectError()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00197">vc::device::VisionTcpipClientDevice::onMainConnectError()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">pushRequest()</a>.</p>
 
 </div>
 </div>
@@ -1900,9 +1909,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>msg_count expected in the next heartbeat ack. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00214">214</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00217">217</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8h_source.html#l00083">expectedAckCount()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8h_source.html#l00086">expectedAckCount()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 </div>
 </div>
@@ -1928,7 +1937,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>True while a heartbeat probe has been sent but not yet acked. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00216">216</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00219">219</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
@@ -1956,7 +1965,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Time since the last valid heartbeat reply (or first probe). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">212</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">215</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>.</p>
 
@@ -1984,7 +1993,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Accumulates heartbeat-channel bytes until a '.' terminator is seen. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">209</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00212">212</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00411">onHeartbeatSocketReadyRead()</a>.</p>
 
@@ -2012,9 +2021,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Attached heartbeat-channel socket, or null when no link is up. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00206">206</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00209">209</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00135">vc::device::VisionTcpipClientDevice::attemptConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00250">vc::device::VisionTcpipClientDevice::evaluateConnected()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00079">isHeartbeatClientConnected()</a>, <a class="el" href="vision__tcpip__device_8cpp_source.html#l00160">vc::device::VisionTcpipDevice::onHeartbeatNewConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00411">onHeartbeatSocketReadyRead()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00502">sendDisconnectNotice()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00315">attachHeartbeatSocket()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00135">vc::device::VisionTcpipClientDevice::attemptConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00353">detachHeartbeatSocket()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00250">vc::device::VisionTcpipClientDevice::evaluateConnected()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00082">isHeartbeatClientConnected()</a>, <a class="el" href="vision__tcpip__device_8cpp_source.html#l00160">vc::device::VisionTcpipDevice::onHeartbeatNewConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00427">onHeartbeatSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00411">onHeartbeatSocketReadyRead()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00481">onHeartbeatTick()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00502">sendDisconnectNotice()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00525">sendHeartbeatProbe()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 </div>
 </div>
@@ -2040,7 +2049,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Drives periodic heartbeat probes at <a class="el" href="#aac145a47dbc984d7b6cee180176cbec2" title="Interval between heartbeat probes, in milliseconds.">cfgHeartbeatIntervalMs()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00211">211</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00214">214</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00544">startHeartbeatTimer()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00556">stopHeartbeatTimer()</a>.</p>
 
@@ -2068,9 +2077,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>msg_count of the last accepted heartbeat ack. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00215">215</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00218">218</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00081">lastAckCount()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00444">handleHeartbeatPayload()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00084">lastAckCount()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00588">resetHeartbeatState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 </div>
 </div>
@@ -2096,7 +2105,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Accumulates main-channel bytes until a ';' terminator is seen. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">208</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00211">211</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00294">attachMainSocket()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">detachMainSocket()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00372">onMainSocketReadyRead()</a>.</p>
 
@@ -2124,9 +2133,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Attached main-channel socket, or null when no link is up. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">205</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00208">208</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00294">attachMainSocket()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00135">vc::device::VisionTcpipClientDevice::attemptConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">detachMainSocket()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00250">vc::device::VisionTcpipClientDevice::evaluateConnected()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00077">isMainClientConnected()</a>, <a class="el" href="vision__tcpip__device_8cpp_source.html#l00143">vc::device::VisionTcpipDevice::onMainNewConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">onMainSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00372">onMainSocketReadyRead()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">pushRequest()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00294">attachMainSocket()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00135">vc::device::VisionTcpipClientDevice::attemptConnect()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00339">detachMainSocket()</a>, <a class="el" href="vision__tcpip__client__device_8cpp_source.html#l00250">vc::device::VisionTcpipClientDevice::evaluateConnected()</a>, <a class="el" href="vision__tcpip__device__base_8h_source.html#l00080">isMainClientConnected()</a>, <a class="el" href="vision__tcpip__device_8cpp_source.html#l00143">vc::device::VisionTcpipDevice::onMainNewConnection()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00387">onMainSocketDisconnected()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00372">onMainSocketReadyRead()</a>, <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00088">pushRequest()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 </div>
 </div>
@@ -2152,15 +2161,15 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Live link/heartbeat state snapshot exposed to UI/tests. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00202">202</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__base_8h_source.html#l00205">205</a> of file <a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8h_source.html#l00072">runtimeState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__device__base_8h_source.html#l00075">runtimeState()</a>, and <a class="el" href="vision__tcpip__device__base_8cpp_source.html#l00598">syncRuntimeState()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/output_device/<a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/device/output_device/<a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/output_device/<a class="el" href="vision__tcpip__device__base_8h_source.html">vision_tcpip_device_base.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/output_device/<a class="el" href="vision__tcpip__device__base_8cpp_source.html">vision_tcpip_device_base.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_basler_c
 </div><!--header-->
 <div class="contents">
 
+<p>Device widget for a Basler GigE camera: exposes device/camera parameters through a QtPropertyBrowser, drives connect/trigger/save actions via CameraRunner, and hosts the board-calibration workflow (board setup, threshold tuning, corner detection, and calibration apply) for this camera.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for BaslerCameraWidget:</div>
@@ -135,6 +138,7 @@ Collaboration diagram for BaslerCameraWidget:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5c67343b1c6dd58e6e0a4cb8cd4f979f" id="r_a5c67343b1c6dd58e6e0a4cb8cd4f979f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5c67343b1c6dd58e6e0a4cb8cd4f979f">BaslerCameraWidget</a> (std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a> &gt; dv, <a class="el" href="classvc_1_1runtime_1_1_camera_runner.html">vc::runtime::CameraRunner</a> *runner, ads::CDockWidget *dock=nullptr, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a5c67343b1c6dd58e6e0a4cb8cd4f979f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the widget for <code class="param">dv</code>, wiring it to <code class="param">runner</code> for thread-routed camera access and to <code class="param">dock</code> for title-sync.  <br /></td></tr>
 <tr class="memitem:a84f13c39300823caae1295c9b6992675" id="r_a84f13c39300823caae1295c9b6992675"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a84f13c39300823caae1295c9b6992675">deviceId</a> () override</td></tr>
 <tr class="memdesc:a84f13c39300823caae1295c9b6992675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the underlying device.  <br /></td></tr>
 <tr class="memitem:a7396cb150bd94a9f810f6fba95dbb507" id="r_a7396cb150bd94a9f810f6fba95dbb507"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7396cb150bd94a9f810f6fba95dbb507">loadConfigToDevice</a> () override</td></tr>
@@ -197,7 +201,6 @@ Private Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a1fb1b715baf3fb3e53c1775fba21b17e" id="r_a1fb1b715baf3fb3e53c1775fba21b17e"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="classcalib_1_1_calibration_board.html">calib::CalibrationBoard</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1fb1b715baf3fb3e53c1775fba21b17e">m_board</a></td></tr>
-<tr class="memdesc:a1fb1b715baf3fb3e53c1775fba21b17e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibration board the user picked; rebuilt on preset change.  <br /></td></tr>
 <tr class="memitem:ab132be42f39504c31b182b4fe215310c" id="r_ab132be42f39504c31b182b4fe215310c"><td class="memItemLeft">QList&lt; <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html">vc::device::BaslerGigeCfg</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab132be42f39504c31b182b4fe215310c">m_cam_list</a></td></tr>
 <tr class="memdesc:ab132be42f39504c31b182b4fe215310c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved for a multi-camera-config list; currently unused.  <br /></td></tr>
 <tr class="memitem:a280df73effc1b5f840cb429a1b480b0b" id="r_a280df73effc1b5f840cb429a1b480b0b"><td class="memItemLeft"><a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html">vc::device::BaslerGigECamera</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a280df73effc1b5f840cb429a1b480b0b">m_camera</a> {nullptr}</td></tr>
@@ -227,6 +230,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a2a92161560cf346cea51bdda35c35d19 pro_methods_class_i_device_widget" id="r_a2a92161560cf346cea51bdda35c35d19"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_device_widget.html#a2a92161560cf346cea51bdda35c35d19">initPropertyBrowser</a> ()</td></tr>
 <tr class="memitem:accc3b82afe2f5c1a70a7ca0ffbf73f6a pro_methods_class_i_device_widget" id="r_accc3b82afe2f5c1a70a7ca0ffbf73f6a"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="class_i_device_widget.html#accc3b82afe2f5c1a70a7ca0ffbf73f6a">reloadStyleSheet</a> ()</td></tr>
 <tr class="memitem:aa6946b3c9964d210b58aeb58aa5f5381 pro_methods_class_i_device_widget" id="r_aa6946b3c9964d210b58aeb58aa5f5381"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_device_widget.html#aa6946b3c9964d210b58aeb58aa5f5381">setupThemeReload</a> (const QString &amp;darkPath, const QString &amp;lightPath)</td></tr>
+<tr class="memdesc:aa6946b3c9964d210b58aeb58aa5f5381 pro_methods_class_i_device_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths, triggers an initial load, and subscribes to <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> for subsequent switches.  <br /></td></tr>
 <tr class="inherit_header pro_attribs_class_i_device_widget"><td colspan="2">Protected Attributes inherited from <a class="el" href="class_i_device_widget.html">IDeviceWidget</a></td></tr>
 <tr class="memitem:a286c37d9ee3c0436972a7961e04cf8a9 pro_attribs_class_i_device_widget" id="r_a286c37d9ee3c0436972a7961e04cf8a9"><td class="memItemLeft"><a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="class_i_device_widget.html#a286c37d9ee3c0436972a7961e04cf8a9">m_propBrowser</a> {nullptr}</td></tr>
 <tr class="memdesc:a286c37d9ee3c0436972a7961e04cf8a9 pro_attribs_class_i_device_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Property-browser wrapper; owns the objects below.  <br /></td></tr>
@@ -240,7 +244,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Device widget for a Basler GigE camera: exposes device/camera parameters through a QtPropertyBrowser, drives connect/trigger/save actions via CameraRunner, and hosts the board-calibration workflow (board setup, threshold tuning, corner detection, and calibration apply) for this camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00034">34</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00042">42</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5c67343b1c6dd58e6e0a4cb8cd4f979f" name="a5c67343b1c6dd58e6e0a4cb8cd4f979f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c67343b1c6dd58e6e0a4cb8cd4f979f">&#9670;&#160;</a></span>BaslerCameraWidget()</h2>
@@ -278,18 +282,22 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Runner is owned by TaskRunner (not by this widget). It must outlive this widget — TaskRunner guarantees this as long as the device stays assigned to the task. Pass nullptr only if the caller explicitly disables thread-routed access (rare; status lamp will stay disabled). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Constructs the widget for <code class="param">dv</code>, wiring it to <code class="param">runner</code> for thread-routed camera access and to <code class="param">dock</code> for title-sync. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dv</td><td>the Basler camera device this widget will control (expected to be castable to <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html">vc::device::BaslerGigECamera</a>) </td></tr>
-    <tr><td class="paramname">runner</td><td>thread-routed access point to the camera; nullptr disables control </td></tr>
-    <tr><td class="paramname">dock</td><td>optional dock widget whose title is kept in sync with the device name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dv</td><td>the Basler camera device this widget will control (expected to be castable to <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html" title="Basler GigE Vision camera device, implemented on top of the Pylon SDK (Pylon::CInstantCamera)....">vc::device::BaslerGigECamera</a>) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">runner</td><td>thread-routed access point to the camera; nullptr disables control </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dock</td><td>optional dock widget whose title is kept in sync with the device name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>parent widget</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd><code class="param">runner</code> is owned by TaskRunner (not by this widget). It must outlive this widget — TaskRunner guarantees this as long as the device stays assigned to the task. Pass nullptr only if the caller explicitly disables thread-routed access (rare; status lamp will stay disabled). </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">187</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">BaslerCameraWidget()</a>, <a class="el" href="device__widget_8h_source.html#l00020">IDeviceWidget::IDeviceWidget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00152">m_device</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00154">m_dock</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00162">m_runner</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">BaslerCameraWidget()</a>, <a class="el" href="device__widget_8h_source.html#l00029">IDeviceWidget::IDeviceWidget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_device</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00169">m_dock</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00176">m_runner</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">BaslerCameraWidget()</a>.</p>
 
@@ -314,7 +322,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00200">200</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 </div>
 </div>
@@ -345,7 +353,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00676">676</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00180">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -377,7 +385,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00661">661</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00170">m_pendingCalibDetect</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00162">m_runner</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00180">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00183">m_pendingCalibDetect</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00176">m_runner</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -405,11 +413,11 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Opens the threshold-tuning dialog (<a class="el" href="class_calibration_threshold_dialog.html">CalibrationThresholdDialog</a>), triggers an initial grab (and further grabs on Re-grab), and on accept stores the chosen binarization threshold into m_params/m_board. </p>
+<p>Opens the threshold-tuning dialog (<a class="el" href="class_calibration_threshold_dialog.html" title="Modal dialog that tunes the calibration-board binarization threshold on a live camera frame....">CalibrationThresholdDialog</a>), triggers an initial grab (and further grabs on Re-grab), and on accept stores the chosen binarization threshold into m_params/m_board. </p>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">613</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00175">m_pendingThresholdGrab</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00162">m_runner</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00174">m_thresholdDlg</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, and <a class="el" href="class_calibration_threshold_dialog.html#abb644f4f0c31bca79de8761d3309bd87">CalibrationThresholdDialog::regrabRequested()</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00180">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00188">m_pendingThresholdGrab</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00176">m_runner</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00187">m_thresholdDlg</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, and <a class="el" href="class_calibration_threshold_dialog.html#abb644f4f0c31bca79de8761d3309bd87">CalibrationThresholdDialog::regrabRequested()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -442,7 +450,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00399">399</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00159">m_camera_select_dialog</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00174">m_camera_select_dialog</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -474,7 +482,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00403">403</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00162">m_runner</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00176">m_runner</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -537,7 +545,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">587</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00552">refreshBoardInfoLabel()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, <a class="el" href="calibration__board__dialog_8cpp_source.html#l00056">CalibrationBoardDialog::selectedPreset()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00180">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00552">refreshBoardInfoLabel()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, <a class="el" href="calibration__board__dialog_8cpp_source.html#l00056">CalibrationBoardDialog::selectedPreset()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -570,7 +578,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00425">425</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00162">m_runner</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00176">m_runner</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -606,7 +614,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00386">386</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00215">loadConfigToWidget()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00215">loadConfigToWidget()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -641,7 +649,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00204">204</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00152">m_device</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_device</a>.</p>
 
 </div>
 </div>
@@ -672,7 +680,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00521">521</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00531">setCalibBoardPreset()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00531">setCalibBoardPreset()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -704,7 +712,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">223</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00676">btn_calib_apply_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00661">btn_calib_detect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00399">btn_choose_camera_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00403">btn_connect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00433">btn_save_image_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">btn_setup_board_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00425">btn_trigger_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00386">cameraSelectionFinished()</a>, <a class="el" href="idevice_8h_source.html#l00026">vc::device::Connected</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f">vc::runtime::IDeviceRunner::connectStatusChanged()</a>, <a class="el" href="idevice_8h_source.html#l00025">vc::device::Disconnected</a>, <a class="el" href="classvc_1_1runtime_1_1_camera_runner.html#aea2e5075cb660e1d6e780c562a39e5e5">vc::runtime::CameraRunner::grabFinished()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00521">initCalibrationUi()</a>, <a class="el" href="device__widget_8h_source.html#l00068">IDeviceWidget::initPropertyBrowser()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00215">loadConfigToWidget()</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00159">m_camera_select_dialog</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00152">m_device</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00162">m_runner</a>, <a class="el" href="device__widget_8h_source.html#l00081">IDeviceWidget::m_variantManager</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00720">onCalibPointsEdited()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00356">onCameraConnectStatusChanged()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00459">onCameraGrabFinished()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00313">onPropertyValueChanged()</a>, <a class="el" href="class_calibration_points_table.html#abb1051a117b0f84b1780e2ecda69e0ac">CalibrationPointsTable::pointsEdited()</a>, <a class="el" href="windows__helper_8h_source.html#l00179">svgIcon()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>, and <a class="el" href="class_basler_cam_select_dialog.html#a3d8fce2134946abe7a81dd0c549e970f">BaslerCamSelectDialog::userSelectionFinished()</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00676">btn_calib_apply_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00661">btn_calib_detect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00399">btn_choose_camera_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00403">btn_connect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00433">btn_save_image_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">btn_setup_board_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00425">btn_trigger_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00386">cameraSelectionFinished()</a>, <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f">vc::runtime::IDeviceRunner::connectStatusChanged()</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="classvc_1_1runtime_1_1_camera_runner.html#aea2e5075cb660e1d6e780c562a39e5e5">vc::runtime::CameraRunner::grabFinished()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00521">initCalibrationUi()</a>, <a class="el" href="device__widget_8h_source.html#l00079">IDeviceWidget::initPropertyBrowser()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00215">loadConfigToWidget()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00174">m_camera_select_dialog</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_device</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00176">m_runner</a>, <a class="el" href="device__widget_8h_source.html#l00092">IDeviceWidget::m_variantManager</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00720">onCalibPointsEdited()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00356">onCameraConnectStatusChanged()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00459">onCameraGrabFinished()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00313">onPropertyValueChanged()</a>, <a class="el" href="class_calibration_points_table.html#abb1051a117b0f84b1780e2ecda69e0ac">CalibrationPointsTable::pointsEdited()</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>, and <a class="el" href="class_basler_cam_select_dialog.html#a3d8fce2134946abe7a81dd0c549e970f">BaslerCamSelectDialog::userSelectionFinished()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">BaslerCameraWidget()</a>.</p>
 
@@ -739,7 +747,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00208">208</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>.</p>
 
 </div>
 </div>
@@ -805,7 +813,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00720">720</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -837,7 +845,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00437">437</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00215">loadConfigToWidget()</a>, <a class="el" href="app__logger_8h_source.html#l00161">LOG_DEV_DEBUG</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="windows__helper_8h_source.html#l00179">svgIcon()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00215">loadConfigToWidget()</a>, <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00356">onCameraConnectStatusChanged()</a>.</p>
 
@@ -869,7 +877,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00356">356</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00026">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00028">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00029">vc::device::Connecting</a>, <a class="el" href="idevice_8h_source.html#l00025">vc::device::Disconnected</a>, <a class="el" href="idevice_8h_source.html#l00027">vc::device::LostConnected</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="idevice_8h_source.html#l00024">vc::device::NoConnection</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00437">onCameraConnected()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00450">onCameraDisconnected()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00036">vc::device::Connecting</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00437">onCameraConnected()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00450">onCameraDisconnected()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -902,7 +910,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00450">450</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00179">svgIcon()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00356">onCameraConnectStatusChanged()</a>.</p>
 
@@ -934,7 +942,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00459">459</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00017">cvMatToQPixmap()</a>, <a class="el" href="camera__device_8h_source.html#l00188">vc::device::GrabResult::frame</a>, <a class="el" href="camera__device_8h_source.html#l00189">vc::device::GrabResult::isGrabSuccess</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00170">m_pendingCalibDetect</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00175">m_pendingThresholdGrab</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00174">m_thresholdDlg</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00017">cvMatToQPixmap()</a>, <a class="el" href="camera__device_8h_source.html#l00207">vc::device::GrabResult::frame</a>, <a class="el" href="camera__device_8h_source.html#l00208">vc::device::GrabResult::isGrabSuccess</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00180">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00183">m_pendingCalibDetect</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00188">m_pendingThresholdGrab</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00187">m_thresholdDlg</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -970,7 +978,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00313">313</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00153">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00152">m_device</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00164">m_populating_browser</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00162">m_runner</a>, and <a class="el" href="device__widget_8h_source.html#l00081">IDeviceWidget::m_variantManager</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00168">m_camera</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_device</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00178">m_populating_browser</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00176">m_runner</a>, and <a class="el" href="device__widget_8h_source.html#l00092">IDeviceWidget::m_variantManager</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -1002,7 +1010,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00505">505</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00152">m_device</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00164">m_populating_browser</a>, <a class="el" href="device__widget_8h_source.html#l00083">IDeviceWidget::m_variantEditor</a>, <a class="el" href="device__widget_8h_source.html#l00081">IDeviceWidget::m_variantManager</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">populateBrowser_BaslerConfig()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00135">populateBrowser_Device()</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_device</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00178">m_populating_browser</a>, <a class="el" href="device__widget_8h_source.html#l00094">IDeviceWidget::m_variantEditor</a>, <a class="el" href="device__widget_8h_source.html#l00092">IDeviceWidget::m_variantManager</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">populateBrowser_BaslerConfig()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00135">populateBrowser_Device()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00215">loadConfigToWidget()</a>.</p>
 
@@ -1043,7 +1051,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">153</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00061">addPropertyToBrowser()</a>, <a class="el" href="basler__define_8h_source.html#l00092">vc::device::basler::BaslerIOLine::can_be_output</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00050">vc::device::BaslerGigeCfg::getMetaObject()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00180">vc::device::BaslerGigeCfg::m_ioCapabilities</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00164">vc::device::BaslerGigeCfg::m_paramsExposureMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00163">vc::device::BaslerGigeCfg::m_paramsExposureMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00169">vc::device::BaslerGigeCfg::m_paramsGainMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00168">vc::device::BaslerGigeCfg::m_paramsGainMin</a>, and <a class="el" href="basler__define_8h_source.html#l00094">vc::device::basler::BaslerIOLine::name</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8cpp_source.html#l00061">addPropertyToBrowser()</a>, <a class="el" href="basler__define_8h_source.html#l00113">vc::device::basler::BaslerIOLine::can_be_output</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00057">vc::device::BaslerGigeCfg::getMetaObject()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00187">vc::device::BaslerGigeCfg::m_ioCapabilities</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00171">vc::device::BaslerGigeCfg::m_paramsExposureMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00170">vc::device::BaslerGigeCfg::m_paramsExposureMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00176">vc::device::BaslerGigeCfg::m_paramsGainMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00175">vc::device::BaslerGigeCfg::m_paramsGainMin</a>, and <a class="el" href="basler__define_8h_source.html#l00115">vc::device::basler::BaslerIOLine::name</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00505">populateBrowser()</a>.</p>
 
@@ -1080,7 +1088,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Adds a "Device Information" group to browser populated from gadget's Q_PROPERTYs (via the <a class="el" href="class_i_device.html">IDevice</a> meta-object), skipping objectName. </p>
+<p>Adds a "Device Information" group to browser populated from gadget's Q_PROPERTYs (via the <a class="el" href="class_i_device.html" title="Abstract base for every device family (camera/PLC/vision-output/robot): owns the device&#39;s id/name/tas...">IDevice</a> meta-object), skipping objectName. </p>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00135">135</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
@@ -1117,7 +1125,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00552">552</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00180">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">btn_setup_board_clicked()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00531">setCalibBoardPreset()</a>.</p>
 
@@ -1149,7 +1157,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">563</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibrator_8h_source.html#l00056">calib::Calibrator::isCalibrated()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="calibrator_8h_source.html#l00112">calib::Calibrator::reprojectionErrorMm()</a>, <a class="el" href="calibrator_8h_source.html#l00111">calib::Calibrator::reprojectionErrorPx()</a>, <a class="el" href="calibrator_8cpp_source.html#l00287">calib::Calibrator::rotateImageToRobot()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="calibrator_8h_source.html#l00063">calib::Calibrator::isCalibrated()</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="calibrator_8h_source.html#l00126">calib::Calibrator::reprojectionErrorMm()</a>, <a class="el" href="calibrator_8h_source.html#l00125">calib::Calibrator::reprojectionErrorPx()</a>, <a class="el" href="calibrator_8cpp_source.html#l00287">calib::Calibrator::rotateImageToRobot()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00676">btn_calib_apply_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">btn_setup_board_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00521">initCalibrationUi()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00720">onCalibPointsEdited()</a>.</p>
 
@@ -1181,7 +1189,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00531">531</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00156">m_params</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00552">refreshBoardInfoLabel()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00151">ui</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00180">m_board</a>, <a class="el" href="basler__camera__widget_8h_source.html#l00171">m_params</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00552">refreshBoardInfoLabel()</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00166">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00521">initCalibrationUi()</a>.</p>
 
@@ -1206,7 +1214,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00219">219</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00154">m_dock</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00169">m_dock</a>.</p>
 
 </div>
 </div>
@@ -1313,7 +1321,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__camera__widget_8cpp_source.html#l00306">306</a> of file <a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00152">m_device</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00154">m_dock</a>.</p>
+<p class="reference">References <a class="el" href="basler__camera__widget_8h_source.html#l00167">m_device</a>, and <a class="el" href="basler__camera__widget_8h_source.html#l00169">m_dock</a>.</p>
 
 </div>
 </div>
@@ -1337,10 +1345,9 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
 <p>Calibration board the user picked; rebuilt on preset change. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00167">167</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00180">180</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00676">btn_calib_apply_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00661">btn_calib_detect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">btn_setup_board_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00459">onCameraGrabFinished()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00552">refreshBoardInfoLabel()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00531">setCalibBoardPreset()</a>.</p>
 
@@ -1368,7 +1375,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reserved for a multi-camera-config list; currently unused. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00157">157</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00172">172</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 </div>
 </div>
@@ -1394,7 +1401,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>m_device qobject_cast to the concrete camera type; not owned. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00153">153</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00168">168</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00676">btn_calib_apply_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00661">btn_calib_detect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00403">btn_connect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">btn_setup_board_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00425">btn_trigger_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00386">cameraSelectionFinished()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00208">loadConfigToDevice()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00437">onCameraConnected()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00356">onCameraConnectStatusChanged()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00313">onPropertyValueChanged()</a>.</p>
 
@@ -1422,7 +1429,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Dialog for picking a Basler device on the network; owned by this widget (child of <span class="tt">this</span>). </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00159">159</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00174">174</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00399">btn_choose_camera_clicked()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>.</p>
 
@@ -1450,7 +1457,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>The device this widget was constructed with. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00152">152</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00167">167</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">BaslerCameraWidget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00204">deviceId()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00313">onPropertyValueChanged()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00505">populateBrowser()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00306">updateDockTitle()</a>.</p>
 
@@ -1478,7 +1485,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Dock hosting this widget, kept in title-sync by <a class="el" href="#a7258c802e21808445bcd9df2ed162ef1" title="Sets the dock widget&#39;s window title to the device&#39;s current name; no-op when m_dock is null.">updateDockTitle()</a>; not owned. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00154">154</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00169">169</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">BaslerCameraWidget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00219">setDockWidget()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00306">updateDockTitle()</a>.</p>
 
@@ -1506,7 +1513,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Working copy of the camera's configuration edited via the property browser. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00156">156</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00171">171</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00676">btn_calib_apply_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00403">btn_connect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">btn_setup_board_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00386">cameraSelectionFinished()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00521">initCalibrationUi()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00208">loadConfigToDevice()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00437">onCameraConnected()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00313">onPropertyValueChanged()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00505">populateBrowser()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00552">refreshBoardInfoLabel()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00531">setCalibBoardPreset()</a>.</p>
 
@@ -1533,7 +1540,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>True for the single grabFinished that follows <a class="el" href="#a303374ff5ffb193a277a8ade236871b0">btn_calib_detect_clicked()</a>; tells <a class="el" href="#abacecd3200a6c912b99cb4e51e157936">onCameraGrabFinished()</a> to run board detection on that frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00170">170</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00183">183</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00661">btn_calib_detect_clicked()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00459">onCameraGrabFinished()</a>.</p>
 
@@ -1561,7 +1568,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>True while a grab is pending for delivery to m_thresholdDlg. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00175">175</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00188">188</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00459">onCameraGrabFinished()</a>.</p>
 
@@ -1589,7 +1596,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Guards <a class="el" href="#a77a6a4c77475cdcd22917e98584acb4d">onPropertyValueChanged()</a> against reacting to programmatic updates from <a class="el" href="#a674ba908ca66f8f4aadb452667ef3e1c">populateBrowser()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00164">164</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00178">178</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00313">onPropertyValueChanged()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00505">populateBrowser()</a>.</p>
 
@@ -1617,7 +1624,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Not owned — provided by TaskRunner. Widget never creates a thread. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00162">162</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00176">176</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">BaslerCameraWidget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00661">btn_calib_detect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00403">btn_connect_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00425">btn_trigger_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00313">onPropertyValueChanged()</a>.</p>
 
@@ -1644,7 +1651,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Threshold-tuning dialog (modal, open only while tuning). Frames grabbed while m_pendingThresholdGrab is set are routed into this dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00174">174</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00187">187</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00613">btn_calib_threshold_clicked()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00459">onCameraGrabFinished()</a>.</p>
 
@@ -1672,15 +1679,15 @@ Additional Inherited Members</h2></td></tr>
 
 <p>uic-generated form (owns the child widgets/layout). </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00151">151</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__camera__widget_8h_source.html#l00166">166</a> of file <a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00187">BaslerCameraWidget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00676">btn_calib_apply_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">btn_setup_board_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00521">initCalibrationUi()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">initCameraWiget()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00720">onCalibPointsEdited()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00437">onCameraConnected()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00450">onCameraDisconnected()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00459">onCameraGrabFinished()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00552">refreshBoardInfoLabel()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00563">refreshCalibrationStatusLabels()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00531">setCalibBoardPreset()</a>, and <a class="el" href="basler__camera__widget_8cpp_source.html#l00200">~BaslerCameraWidget()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/camera/<a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/camera/<a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/camera/<a class="el" href="basler__camera__widget_8h_source.html">basler_camera_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/camera/<a class="el" href="basler__camera__widget_8cpp_source.html">basler_camera_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

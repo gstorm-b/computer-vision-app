@@ -4,19 +4,29 @@
 
 #include "core/utils/meta_utils.h"
 
-/// Namespace for the picking application's project domain model: task type/state enums and
-/// their Qt meta-object (Q_ENUM_NS) reflection helpers.
+/**
+ * @file task_define.h
+ * @brief Task type/state enums and their Qt meta-object (Q_ENUM_NS) reflection helpers, for
+ *        the picking application's project domain model.
+ */
 namespace vc::model {
 Q_NAMESPACE
 
-/// Indicates whether a task's camera is exclusively owned by that task or shared with other tasks.
+/**
+ * @enum CameraSourceType
+ * @brief Indicates whether a task's camera is exclusively owned by that task or shared with
+ *        other tasks.
+ */
 enum class CameraSourceType {
     Source_Owned,
     Source_Shared
 };
 Q_ENUM_NS(CameraSourceType)
 
-/// Identifies the kind of work a task performs.
+/**
+ * @enum TaskType
+ * @brief Identifies the kind of work a task performs.
+ */
 enum class TaskType{
     UndefineTask,
     LocalizationTask,
@@ -25,8 +35,11 @@ enum class TaskType{
 };
 Q_ENUM_NS(TaskType)
 
-/// Lifecycle/runtime state of a task's state machine, from idle through commissioning,
-/// running a cycle, recovery, and fault handling.
+/**
+ * @enum TaskState
+ * @brief Lifecycle/runtime state of a task's state machine, from idle through commissioning,
+ *        running a cycle, recovery, and fault handling.
+ */
 enum class TaskState {
     Idle,
     CommissionStarting,
@@ -65,34 +78,43 @@ static inline const char* enum_keys_task_defines[] = {
     QT_TR_NOOP("Stopping"),
 };
 
-/// Converts a TaskType value to its Q_ENUM key name (e.g. "LocalizationTask") via qenumToString.
-/// @param t task type to convert
-/// @return the enum's key name, or its numeric value as a string if it doesn't match a
-///         declared enumerator
+/**
+ * @brief Converts a TaskType value to its Q_ENUM key name (e.g. "LocalizationTask") via
+ *        qenumToString.
+ * @param[in] t task type to convert
+ * @return the enum's key name, or its numeric value as a string if it doesn't match a
+ *         declared enumerator
+ */
 [[maybe_unused]] static QString taskTypeToString(TaskType t) {
     return qenumToString(t);
 };
 
-/// Parses a TaskType Q_ENUM key name back into its enum value via stringToQEnum.
-/// @param t key name to look up (e.g. "LocalizationTask")
-/// @return the matching TaskType, or TaskType::UndefineTask if `t` doesn't match a declared key
+/**
+ * @brief Parses a TaskType Q_ENUM key name back into its enum value via stringToQEnum.
+ * @param[in] t key name to look up (e.g. "LocalizationTask")
+ * @return the matching TaskType, or TaskType::UndefineTask if `t` doesn't match a declared key
+ */
 [[maybe_unused]] static TaskType taskTypeFromString(QString t) {
     return stringToQEnum(t, TaskType::UndefineTask);
 };
 
-/// Converts a TaskState value to its Q_ENUM key name via qenumToString.
-/// @param s task state to convert
-/// @return the enum's key name, or its numeric value as a string if it doesn't match a
-///         declared enumerator
+/**
+ * @brief Converts a TaskState value to its Q_ENUM key name via qenumToString.
+ * @param[in] s task state to convert
+ * @return the enum's key name, or its numeric value as a string if it doesn't match a
+ *         declared enumerator
+ */
 [[maybe_unused]] static QString taskStateToString(TaskState s) {
     return qenumToString(s);
 };
 
-/// Maps a TaskState to a human-readable display label for UI use (e.g. CommissionStarting ->
-/// "Commission starting"), independent of the Q_ENUM key name.
-/// @param s task state to map
-/// @return the display string for `s`, or "Unknown" if `s` doesn't match any case (unreachable
-///         for a valid TaskState value)
+/**
+ * @brief Maps a TaskState to a human-readable display label for UI use (e.g. CommissionStarting
+ *        -> "Commission starting"), independent of the Q_ENUM key name.
+ * @param[in] s task state to map
+ * @return the display string for `s`, or "Unknown" if `s` doesn't match any case (unreachable
+ *         for a valid TaskState value)
+ */
 [[maybe_unused]] static QString taskStateDisplayName(TaskState s) {
     switch (s) {
     case TaskState::Idle:

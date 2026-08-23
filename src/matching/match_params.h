@@ -3,21 +3,32 @@
 
 #include <opencv2/core.hpp>
 
-/// Vision/matching module: MatchParams, the per-candidate result data produced during
-/// pattern search.
+/**
+ * @file match_params.h
+ * @brief MatchParams — per-candidate result data produced during pattern search.
+ */
+
 namespace mtc {
 
-/// Result data for a single match candidate produced during pattern search: its
-/// location/score/angle, the search ROI and rotated/bounding geometry, and the
-/// sub-pixel refinement fields filled in by the fine-search stage.
+/**
+ * @class MatchParams
+ * @brief Result data for a single match candidate produced during pattern search: its
+ *        location/score/angle, the search ROI and rotated/bounding geometry, and the
+ *        sub-pixel refinement fields filled in by the fine-search stage.
+ */
 class MatchParams {
 public:
     /// Default-constructs with a zero match score and angle; the remaining fields are
     /// left uninitialized until populated by the matcher.
     MatchParams();
-    /// Constructs a match result at `ptMinMax` with the given `score` and `angle`;
-    /// initializes _delete, _newAngle, and _posOnBorder to their defaults (other fields
-    /// are left uninitialized).
+    /**
+     * @brief Constructs a match result at `ptMinMax` with the given `score` and `angle`;
+     *        initializes _delete, _newAngle, and _posOnBorder to their defaults (other fields
+     *        are left uninitialized).
+     * @param[in] ptMinMax initial match location in image coordinates
+     * @param[in] score    match score for this candidate
+     * @param[in] angle    rotation angle (degrees) at which this candidate was found
+     */
     MatchParams(cv::Point2f ptMinMax, double score, double angle);
     /// Default destructor.
     ~MatchParams();

@@ -1,23 +1,37 @@
 #ifndef PLC_DEVICE_H
 #define PLC_DEVICE_H
 
+/**
+ * @file plc_device.h
+ * @brief Abstract PLC device family: sub-type dispatch, the family-level config and
+ *        device base classes, and the shared value-map interface.
+ */
+
 #include <memory>
 #include <QMap>
 #include "device/idevice.h"
 
 /// JSON-persisted PlcType key for the Mitsubishi MC vendor sub-type.
 #define PLC_TYPE_MITSUBISHI_MC   "MitsubishiMc"
+/// Hardware-free PLC. Tokens are family-local — the camera family has its own `"Virtual"`
+/// under a different JSON key — so there is no collision. This token is written into
+/// customer project files and can never be changed once one has been saved.
+#define PLC_TYPE_VIRTUAL         "Virtual"
 
-/// Abstract PLC device family: sub-type dispatch, the family-level config and
-/// device base classes, and the shared value-map interface.
 namespace vc::device {
 
-/// Family-level sub-type dispatch handle for the PLC family. Concrete
-/// vendors register a value here; DeviceFactory::createPlcDevice() switches
-/// on this enum to pick the concrete subclass.
+/**
+ * @enum PlcType
+ * @brief Family-level sub-type dispatch handle for the PLC family. Concrete
+ *        vendors register a value here; DeviceFactory::createPlcDevice() switches
+ *        on this enum to pick the concrete subclass.
+ */
 enum PlcType {
     PlcTypeNone,
     MitsubishiMc,
+    /// No hardware: writes are recorded rather than sent. Named `VirtualPlc` because these
+    /// enums are unscoped and every enumerator lands in `vc::device`.
+    VirtualPlc,
 };
 
 /// @return the JSON-persisted string key for `t` (empty string for PlcTypeNone
@@ -25,6 +39,7 @@ enum PlcType {
 [[maybe_unused]] static QString PlcTypeToString(PlcType t) {
     switch (t) {
     case PlcType::MitsubishiMc:  return PLC_TYPE_MITSUBISHI_MC;
+    case PlcType::VirtualPlc:    return PLC_TYPE_VIRTUAL;
     case PlcType::PlcTypeNone:
         return "";
     }
@@ -35,13 +50,17 @@ enum PlcType {
 /// PlcTypeNone if it does not match any known vendor key.
 [[maybe_unused]] static PlcType PlcTypeFromString(QString t) {
     if (t == PLC_TYPE_MITSUBISHI_MC) return PlcType::MitsubishiMc;
+    if (t == PLC_TYPE_VIRTUAL)       return PlcType::VirtualPlc;
     return PlcType::PlcTypeNone;
 }
 
-/// Abstract config for the PLC family. Carries only the family-level
-/// dispatch field; concrete configs (McProtocolConfig for Mitsubishi MC,
-/// future OmronFinsConfig, …) inherit and add their protocol-specific
-/// Q_PROPERTYs.
+/**
+ * @class PlcCfg
+ * @brief Abstract config for the PLC family. Carries only the family-level
+ *        dispatch field; concrete configs (McProtocolConfig for Mitsubishi MC,
+ *        future OmronFinsConfig, …) inherit and add their protocol-specific
+ *        Q_PROPERTYs.
+ */
 class PlcCfg : public IDeviceCfg {
 public:
     /// @return the concrete vendor sub-type this config belongs to.
@@ -76,9 +95,12 @@ public:
     }
 };
 
-/// Abstract, vendor-agnostic holder for a PLC's polled register values.
-/// Concrete vendors provide a concrete value map (e.g. holding device-map
-/// tables) and expose it via clone() for snapshotting.
+/**
+ * @class PlcValueMap
+ * @brief Abstract, vendor-agnostic holder for a PLC's polled register values.
+ *        Concrete vendors provide a concrete value map (e.g. holding device-map
+ *        tables) and expose it via clone() for snapshotting.
+ */
 class PlcValueMap {
 public:
     virtual ~PlcValueMap() = default;
@@ -86,11 +108,14 @@ public:
     virtual std::shared_ptr<PlcValueMap> clone() const = 0;
 };
 
-/// Abstract base for the PLC family. Concrete vendors (McProtocolDevice for
-/// Mitsubishi MC, future OmronFinsDevice, SiemensS7Device, …) inherit from
-/// this base. The base only carries the family-level dispatch (plcType())
-/// and the family JSON header; vendor-specific surface lives entirely on the
-/// concrete subclass.
+/**
+ * @class PlcDevice
+ * @brief Abstract base for the PLC family. Concrete vendors (McProtocolDevice for
+ *        Mitsubishi MC, future OmronFinsDevice, SiemensS7Device, …) inherit from
+ *        this base. The base only carries the family-level dispatch (plcType())
+ *        and the family JSON header; vendor-specific surface lives entirely on the
+ *        concrete subclass.
+ */
 class PlcDevice : public IDevice {
     Q_OBJECT
 

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/idevice_config.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/idevice_config.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,11 +119,14 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('idevice__confi
   <div class="headertitle"><div class="title">idevice_config.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Device abstraction layer: device-family/type identification and the IDeviceCfg contract shared by every device's configuration object.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QJsonObject&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for idevice_config.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="idevice__config_8h__incl.svg" width="183" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="idevice__config_8h__incl.svg" width="147" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -136,12 +139,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AIDeviceCfg" id="r_vc_3A_3Adevice_3A_3AIDeviceCfg"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_device_cfg.html">vc::device::IDeviceCfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract configuration contract shared by every device family: JSON (de)serialization, its owning <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a>, Qt meta-object access (for property-browser reflection), and cloning.  <a href="classvc_1_1device_1_1_i_device_cfg.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -195,7 +199,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a1387dd453a273a01b7221d39441922d0" id="r_a1387dd453a273a01b7221d39441922d0"><td class="memItemLeft">static <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a1387dd453a273a01b7221d39441922d0">vc::device::DeviceTypeFromString</a> (QString t)</td></tr>
 <tr class="memitem:a280e3d5a44d2fd2213b79cd93653656f" id="r_a280e3d5a44d2fd2213b79cd93653656f"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a280e3d5a44d2fd2213b79cd93653656f">vc::device::DeviceTypeToString</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a> t)</td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Device abstraction layer: device-family/type identification and the IDeviceCfg contract shared by every device's configuration object. </p>
+
+<p class="definition">Definition in file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a147bdc9cb85348254b6954f96c610a1d" name="a147bdc9cb85348254b6954f96c610a1d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a147bdc9cb85348254b6954f96c610a1d">&#9670;&#160;</a></span>DEVICE_JSK_CALIB_BOARD_PRESET</h2>
 
@@ -208,9 +216,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00022">22</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00028">28</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00120">vc::device::CameraCfg::fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00107">vc::device::CameraCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00136">vc::device::CameraCfg::fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">vc::device::CameraCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -226,9 +234,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00023">23</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00029">29</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00120">vc::device::CameraCfg::fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00107">vc::device::CameraCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00136">vc::device::CameraCfg::fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">vc::device::CameraCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -244,9 +252,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00021">21</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00027">27</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00120">vc::device::CameraCfg::fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00107">vc::device::CameraCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00136">vc::device::CameraCfg::fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">vc::device::CameraCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -262,9 +270,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00020">20</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00026">26</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>, <a class="el" href="camera__device_8h_source.html#l00120">vc::device::CameraCfg::fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00107">vc::device::CameraCfg::toJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00257">vc::device::CameraDevice::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>, <a class="el" href="camera__device_8h_source.html#l00136">vc::device::CameraCfg::fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00123">vc::device::CameraCfg::toJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00279">vc::device::CameraDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -280,9 +288,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00019">19</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00025">25</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>, <a class="el" href="device__registry_8cpp_source.html#l00023">vc::device::anonymous_namespace{device_registry.cpp}::createBaslerGige()</a>, <a class="el" href="device__registry_8cpp_source.html#l00099">vc::device::anonymous_namespace{device_registry.cpp}::createKawasaki()</a>, <a class="el" href="device__registry_8cpp_source.html#l00042">vc::device::anonymous_namespace{device_registry.cpp}::createMitsubishiMc()</a>, <a class="el" href="device__registry_8cpp_source.html#l00118">vc::device::anonymous_namespace{device_registry.cpp}::createNachi()</a>, <a class="el" href="device__registry_8cpp_source.html#l00061">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpip()</a>, <a class="el" href="device__registry_8cpp_source.html#l00080">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpipClient()</a>, <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00176">vc::device::IDevice::fromJson()</a>, <a class="el" href="device__registry_8cpp_source.html#l00178">vc::device::anonymous_namespace{device_registry.cpp}::subTypeValueFrom()</a>, and <a class="el" href="idevice_8h_source.html#l00155">vc::device::IDevice::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>, <a class="el" href="device__registry_8cpp_source.html#l00023">vc::device::anonymous_namespace{device_registry.cpp}::createBaslerGige()</a>, <a class="el" href="device__registry_8cpp_source.html#l00099">vc::device::anonymous_namespace{device_registry.cpp}::createKawasaki()</a>, <a class="el" href="device__registry_8cpp_source.html#l00042">vc::device::anonymous_namespace{device_registry.cpp}::createMitsubishiMc()</a>, <a class="el" href="device__registry_8cpp_source.html#l00118">vc::device::anonymous_namespace{device_registry.cpp}::createNachi()</a>, <a class="el" href="device__registry_8cpp_source.html#l00061">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpip()</a>, <a class="el" href="device__registry_8cpp_source.html#l00080">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpipClient()</a>, <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00192">vc::device::IDevice::fromJson()</a>, <a class="el" href="device__registry_8cpp_source.html#l00178">vc::device::anonymous_namespace{device_registry.cpp}::subTypeValueFrom()</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -300,9 +308,9 @@ Functions</h2></td></tr>
 
 <p>JSON keys used by <a class="el" href="class_i_device.html#a85f6299b65727195fb760f96ad1e99ff">IDevice::toJson()</a>/fromJson() and camera/calibrator configs. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00015">15</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00021">21</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00023">vc::device::anonymous_namespace{device_registry.cpp}::createBaslerGige()</a>, <a class="el" href="device__registry_8cpp_source.html#l00099">vc::device::anonymous_namespace{device_registry.cpp}::createKawasaki()</a>, <a class="el" href="device__registry_8cpp_source.html#l00042">vc::device::anonymous_namespace{device_registry.cpp}::createMitsubishiMc()</a>, <a class="el" href="device__registry_8cpp_source.html#l00118">vc::device::anonymous_namespace{device_registry.cpp}::createNachi()</a>, <a class="el" href="device__registry_8cpp_source.html#l00061">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpip()</a>, <a class="el" href="device__registry_8cpp_source.html#l00080">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpipClient()</a>, <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00176">vc::device::IDevice::fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00247">vc::model::Project::fromJson()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">AddDeviceWizard::onAddClicked()</a>, and <a class="el" href="idevice_8h_source.html#l00155">vc::device::IDevice::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00023">vc::device::anonymous_namespace{device_registry.cpp}::createBaslerGige()</a>, <a class="el" href="device__registry_8cpp_source.html#l00099">vc::device::anonymous_namespace{device_registry.cpp}::createKawasaki()</a>, <a class="el" href="device__registry_8cpp_source.html#l00042">vc::device::anonymous_namespace{device_registry.cpp}::createMitsubishiMc()</a>, <a class="el" href="device__registry_8cpp_source.html#l00118">vc::device::anonymous_namespace{device_registry.cpp}::createNachi()</a>, <a class="el" href="device__registry_8cpp_source.html#l00061">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpip()</a>, <a class="el" href="device__registry_8cpp_source.html#l00080">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpipClient()</a>, <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00192">vc::device::IDevice::fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00236">vc::model::Project::fromJson()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">AddDeviceWizard::onAddClicked()</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -318,9 +326,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00031">31</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00037">37</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00094">vc::device::McProtocolConfig::fromJson()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00077">vc::device::McProtocolConfig::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00107">vc::device::McProtocolConfig::fromJson()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00088">vc::device::McProtocolConfig::toJson()</a>.</p>
 
 </div>
 </div>
@@ -336,9 +344,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00030">30</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00036">36</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00094">vc::device::McProtocolConfig::fromJson()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00077">vc::device::McProtocolConfig::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00107">vc::device::McProtocolConfig::fromJson()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00088">vc::device::McProtocolConfig::toJson()</a>.</p>
 
 </div>
 </div>
@@ -354,9 +362,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00016">16</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00022">22</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00023">vc::device::anonymous_namespace{device_registry.cpp}::createBaslerGige()</a>, <a class="el" href="device__registry_8cpp_source.html#l00099">vc::device::anonymous_namespace{device_registry.cpp}::createKawasaki()</a>, <a class="el" href="device__registry_8cpp_source.html#l00042">vc::device::anonymous_namespace{device_registry.cpp}::createMitsubishiMc()</a>, <a class="el" href="device__registry_8cpp_source.html#l00118">vc::device::anonymous_namespace{device_registry.cpp}::createNachi()</a>, <a class="el" href="device__registry_8cpp_source.html#l00061">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpip()</a>, <a class="el" href="device__registry_8cpp_source.html#l00080">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpipClient()</a>, <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00176">vc::device::IDevice::fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00247">vc::model::Project::fromJson()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">AddDeviceWizard::onAddClicked()</a>, and <a class="el" href="idevice_8h_source.html#l00155">vc::device::IDevice::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00023">vc::device::anonymous_namespace{device_registry.cpp}::createBaslerGige()</a>, <a class="el" href="device__registry_8cpp_source.html#l00099">vc::device::anonymous_namespace{device_registry.cpp}::createKawasaki()</a>, <a class="el" href="device__registry_8cpp_source.html#l00042">vc::device::anonymous_namespace{device_registry.cpp}::createMitsubishiMc()</a>, <a class="el" href="device__registry_8cpp_source.html#l00118">vc::device::anonymous_namespace{device_registry.cpp}::createNachi()</a>, <a class="el" href="device__registry_8cpp_source.html#l00061">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpip()</a>, <a class="el" href="device__registry_8cpp_source.html#l00080">vc::device::anonymous_namespace{device_registry.cpp}::createVisionTcpipClient()</a>, <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00192">vc::device::IDevice::fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00236">vc::model::Project::fromJson()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">AddDeviceWizard::onAddClicked()</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -374,9 +382,9 @@ Functions</h2></td></tr>
 
 <p>JSON keys for the Mitsubishi MC-protocol PLC device's sub-type/frame/context config. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00029">29</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00035">35</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00065">vc::device::PlcCfg::fromJson()</a>, <a class="el" href="plc__device_8h_source.html#l00056">vc::device::PlcCfg::toJson()</a>, and <a class="el" href="plc__device_8h_source.html#l00112">vc::device::PlcDevice::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00075">vc::device::PlcCfg::fromJson()</a>, <a class="el" href="plc__device_8h_source.html#l00066">vc::device::PlcCfg::toJson()</a>, and <a class="el" href="plc__device_8h_source.html#l00128">vc::device::PlcDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -394,9 +402,9 @@ Functions</h2></td></tr>
 
 <p>JSON key identifying the robot sub-type (e.g. Kawasaki/Nachi) inside a robot device's config. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00026">26</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00032">32</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__device_8h_source.html#l00082">vc::device::RobotCfg::fromJson()</a>, <a class="el" href="robot__device_8h_source.html#l00070">vc::device::RobotCfg::toJson()</a>, and <a class="el" href="robot__device_8h_source.html#l00123">vc::device::RobotDevice::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__device_8h_source.html#l00093">vc::device::RobotCfg::fromJson()</a>, <a class="el" href="robot__device_8h_source.html#l00080">vc::device::RobotCfg::toJson()</a>, and <a class="el" href="robot__device_8h_source.html#l00131">vc::device::RobotDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -412,9 +420,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00017">17</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00023">23</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="idevice_8h_source.html#l00176">vc::device::IDevice::fromJson()</a>, and <a class="el" href="idevice_8h_source.html#l00155">vc::device::IDevice::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="idevice_8h_source.html#l00192">vc::device::IDevice::fromJson()</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -430,9 +438,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00018">18</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00024">24</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00176">vc::device::IDevice::fromJson()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">AddDeviceWizard::onAddClicked()</a>, and <a class="el" href="idevice_8h_source.html#l00155">vc::device::IDevice::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00192">vc::device::IDevice::fromJson()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">AddDeviceWizard::onAddClicked()</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -448,9 +456,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00039">39</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00045">45</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00077">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00064">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00078">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00065">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -466,9 +474,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00038">38</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00044">44</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00077">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00064">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00078">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00065">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -484,9 +492,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00040">40</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00046">46</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00077">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00064">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00078">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00065">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -502,9 +510,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00042">42</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00048">48</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00172">vc::device::VisionOutputDeviceCfg::fromJson()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00160">vc::device::VisionOutputDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00188">vc::device::VisionOutputDeviceCfg::fromJson()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00176">vc::device::VisionOutputDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -520,9 +528,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00035">35</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00041">41</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__config_8h_source.html#l00077">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00064">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__config_8h_source.html#l00078">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00065">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -538,9 +546,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00037">37</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00043">43</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00077">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00064">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00078">vc::device::VisionTcpipDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00065">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -556,9 +564,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00041">41</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00047">47</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -574,9 +582,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00036">36</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00042">42</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -594,9 +602,9 @@ Functions</h2></td></tr>
 
 <p>JSON keys for the vision-output device family's connection/timing config. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00034">34</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00040">40</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00172">vc::device::VisionOutputDeviceCfg::fromJson()</a>, <a class="el" href="vision__output__device_8h_source.html#l00050">vc::device::VisionOutputDevice::toJson()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00160">vc::device::VisionOutputDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00188">vc::device::VisionOutputDeviceCfg::fromJson()</a>, <a class="el" href="vision__output__device_8h_source.html#l00048">vc::device::VisionOutputDevice::toJson()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00176">vc::device::VisionOutputDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -613,9 +621,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Human-readable <a class="el" href="localization__setting__widget_8cpp.html#a5e4b92126958c1282be32aade9950cb6" title="Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.">DeviceType</a> names, used by DeviceTypeToString()/DeviceTypeFromString() for the DEVICE_JSK_TYPE field. </p>
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00008">8</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00014">14</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="idevice__config_8h_source.html#l00081">vc::device::DeviceTypeFromString()</a>, and <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::DeviceTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="idevice__config_8h_source.html#l00088">vc::device::DeviceTypeFromString()</a>, and <a class="el" href="idevice__config_8h_source.html#l00068">vc::device::DeviceTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -631,9 +639,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00009">9</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00015">15</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="idevice__config_8h_source.html#l00081">vc::device::DeviceTypeFromString()</a>, and <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::DeviceTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="idevice__config_8h_source.html#l00088">vc::device::DeviceTypeFromString()</a>, and <a class="el" href="idevice__config_8h_source.html#l00068">vc::device::DeviceTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -649,9 +657,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00012">12</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00018">18</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="idevice__config_8h_source.html#l00081">vc::device::DeviceTypeFromString()</a>, and <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::DeviceTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="idevice__config_8h_source.html#l00088">vc::device::DeviceTypeFromString()</a>, and <a class="el" href="idevice__config_8h_source.html#l00068">vc::device::DeviceTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -667,7 +675,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00010">10</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00016">16</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
 </div>
 </div>
@@ -683,9 +691,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00011">11</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="idevice__config_8h_source.html#l00017">17</a> of file <a class="el" href="idevice__config_8h_source.html">idevice_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="idevice__config_8h_source.html#l00081">vc::device::DeviceTypeFromString()</a>, and <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::DeviceTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="idevice__config_8h_source.html#l00088">vc::device::DeviceTypeFromString()</a>, and <a class="el" href="idevice__config_8h_source.html#l00068">vc::device::DeviceTypeToString()</a>.</p>
 
 </div>
 </div>

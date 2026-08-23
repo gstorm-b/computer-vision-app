@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_i
 </div><!--header-->
 <div class="contents">
 
+<p>Port (dependency-inversion boundary) that lets the pure-vision <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a> ask "can the robot actually pick this object?" without depending on the robot kinematics / calibration / device layers.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for mtc::IRobotPickingChecker:</div>
@@ -136,14 +139,17 @@ Collaboration diagram for mtc::IRobotPickingChecker:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0895296b8145d87670f44f3ca967da6f" id="r_a0895296b8145d87670f44f3ca967da6f"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a0895296b8145d87670f44f3ca967da6f">collisionCheckEnabled</a> () const =0</td></tr>
 <tr class="memitem:a63fb8ac058cb548bdfbbe56712658a2b" id="r_a63fb8ac058cb548bdfbbe56712658a2b"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a63fb8ac058cb548bdfbbe56712658a2b">imageToWorld</a> (double imgX, double imgY, double imgAngleDeg, <a class="el" href="structmtc_1_1_world_pick_pose.html">WorldPickPose</a> &amp;out) const =0</td></tr>
+<tr class="memdesc:a63fb8ac058cb548bdfbbe56712658a2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step 1 — converts an image pixel position + angle (in the matcher's image frame) to a world/robot pick pose.  <br /></td></tr>
 <tr class="memitem:a9d21bda5b6fc815f05c3fafad760ba0b" id="r_a9d21bda5b6fc815f05c3fafad760ba0b"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a9d21bda5b6fc815f05c3fafad760ba0b">isPickable</a> (const <a class="el" href="structmtc_1_1_world_pick_pose.html">WorldPickPose</a> &amp;pose, bool withCollision) const =0</td></tr>
+<tr class="memdesc:a9d21bda5b6fc815f05c3fafad760ba0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Step 2 (+3) — checks reachability via solveAll IK at the pick pose; when <span class="tt">withCollision</span> is set, the same IK solution is additionally run through the simplified-mesh self-collision check.  <br /></td></tr>
 <tr class="memitem:ace242f1812153bc3f2bb72885b096b20" id="r_ace242f1812153bc3f2bb72885b096b20"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#ace242f1812153bc3f2bb72885b096b20">~IRobotPickingChecker</a> ()=default</td></tr>
 <tr class="memdesc:ace242f1812153bc3f2bb72885b096b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default virtual destructor.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Port (dependency-inversion boundary) that lets the pure-vision <a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a> ask "can the robot actually pick this object?" without depending on the robot kinematics / calibration / device layers. The concrete adapter (<a class="el" href="classvc_1_1model_1_1_robot_kinematic_picking_checker.html">vc::model::RobotKinematicPickingChecker</a>) lives in a higher layer. </p>
+<div class="textblock"><p>Port (dependency-inversion boundary) that lets the pure-vision <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a> ask "can the robot actually pick this object?" without depending on the robot kinematics / calibration / device layers. </p>
+<p>The concrete adapter (<a class="el" href="classvc_1_1model_1_1_robot_kinematic_picking_checker.html" title="Concrete mtc::IRobotPickingChecker: the single bridge that pulls together the three families the pure...">vc::model::RobotKinematicPickingChecker</a>) lives in a higher layer. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00022">22</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00032">32</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ace242f1812153bc3f2bb72885b096b20" name="ace242f1812153bc3f2bb72885b096b20"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace242f1812153bc3f2bb72885b096b20">&#9670;&#160;</a></span>~IRobotPickingChecker()</h2>
@@ -195,7 +201,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Whether the operator enabled the (simplified-mesh) self-collision check. <a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a> passes this as the withCollision flag to <a class="el" href="#a9d21bda5b6fc815f05c3fafad760ba0b">isPickable()</a>. </p>
+<p>Whether the operator enabled the (simplified-mesh) self-collision check. <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a> passes this as the withCollision flag to <a class="el" href="#a9d21bda5b6fc815f05c3fafad760ba0b" title="Step 2 (+3) — checks reachability via solveAll IK at the pick pose; when withCollision is set,...">isPickable()</a>. </p>
 
 <p>Implemented in <a class="el" href="classvc_1_1model_1_1_robot_kinematic_picking_checker.html#a3759a5136077d975c36452b6421608d9">vc::model::RobotKinematicPickingChecker</a>.</p>
 
@@ -237,12 +243,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Step 1 — converts an image pixel position + angle (in the matcher's image frame) to a world/robot pick pose. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Step 1 — converts an image pixel position + angle (in the matcher's image frame) to a world/robot pick pose. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">imgX</td><td>pixel X coordinate in the matcher's image frame </td></tr>
-    <tr><td class="paramname">imgY</td><td>pixel Y coordinate in the matcher's image frame </td></tr>
-    <tr><td class="paramname">imgAngleDeg</td><td>pick angle, in degrees, in the matcher's image frame </td></tr>
-    <tr><td class="paramname">out</td><td>output world pick pose, populated only on success </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">imgX</td><td>pixel X coordinate in the matcher's image frame </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">imgY</td><td>pixel Y coordinate in the matcher's image frame </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">imgAngleDeg</td><td>pick angle, in degrees, in the matcher's image frame </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>world pick pose, populated only on success </td></tr>
   </table>
   </dd>
 </dl>
@@ -278,10 +286,12 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Step 2 (+3) — checks reachability via solveAll IK at the pick pose; when <span class="tt">withCollision</span> is set, the same IK solution is additionally run through the simplified-mesh self-collision check. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Step 2 (+3) — checks reachability via solveAll IK at the pick pose; when <span class="tt">withCollision</span> is set, the same IK solution is additionally run through the simplified-mesh self-collision check. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pose</td><td>the world/robot pick pose to test </td></tr>
-    <tr><td class="paramname">withCollision</td><td>when true, also require the pose to be collision-free </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pose</td><td>the world/robot pick pose to test </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">withCollision</td><td>when true, also require the pose to be collision-free </td></tr>
   </table>
   </dd>
 </dl>
@@ -292,7 +302,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

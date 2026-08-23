@@ -3,11 +3,22 @@
 
 #include <QString>
 
+/**
+ * @file localization_fault_code.h
+ * @brief LocalizationFaultCode — fault codes reported by the localization task's
+ *        runtime/recovery logic, and their name/value conversion helpers.
+ */
+
 namespace vc::model {
 
-/// Fault codes reported by the localization task's runtime/recovery logic (see
-/// LocalizationRuntimeController), grouped by subsystem: 100s camera, 200s vision output,
-/// 300s PLC, 400s pattern/calibration, 500s internal.
+/**
+ * @enum LocalizationFaultCode
+ * @brief Fault codes reported by the localization task's runtime/recovery logic (see
+ *        LocalizationRuntimeController).
+ *
+ * Grouped by subsystem: 100s camera, 200s vision output, 300s PLC, 400s pattern/calibration,
+ * 500s internal.
+ */
 enum class LocalizationFaultCode : int {
     None = 0,                     ///< No fault.
     CameraLost = 100,             ///< Camera connection was lost after being connected.
@@ -21,10 +32,12 @@ enum class LocalizationFaultCode : int {
     InternalError = 500,          ///< Unexpected internal error not covered by another code.
 };
 
-/// Returns the stable, human-readable identifier for `code` (e.g. "CameraLost"), used for
-/// logging/diagnostics; falls back to "Unknown" for any value not in the switch.
-/// @param code fault code to name
-/// @return the identifier string for `code`
+/**
+ * @brief Returns the stable, human-readable identifier for `code` (e.g. "CameraLost"), used for
+ *        logging/diagnostics; falls back to "Unknown" for any value not in the switch.
+ * @param[in] code fault code to name
+ * @return the identifier string for `code`
+ */
 inline QString localizationFaultCodeName(LocalizationFaultCode code)
 {
     switch (code) {
@@ -53,9 +66,11 @@ inline QString localizationFaultCodeName(LocalizationFaultCode code)
     return QStringLiteral("Unknown");
 }
 
-/// Returns the numeric fault-code value (e.g. for publishing over "nFaultCode").
-/// @param code fault code to convert
-/// @return the underlying int value of `code`
+/**
+ * @brief Returns the numeric fault-code value (e.g. for publishing over "nFaultCode").
+ * @param[in] code fault code to convert
+ * @return the underlying int value of `code`
+ */
 inline int localizationFaultCodeValue(LocalizationFaultCode code)
 {
     return static_cast<int>(code);

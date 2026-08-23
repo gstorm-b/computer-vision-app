@@ -14,49 +14,61 @@
 
 #include "custom_property_managers.h"
 
-/// ============================================================================
-///  PropertyBrowserWidget
-///
-///  A self-contained property inspector composed of three zones:
-///
-///    ┌─────────────────────────────────────────────────────┐
-///    │ [🔍 Filter properties...                          ✕]│  ← searchBar
-///    ├─────────────────────────────────────────────────────┤
-///    │                                                     │
-///    │  QtTreePropertyBrowser                              │
-///    │                                                     │
-///    ├─────────────────────────────────────────────────────┤
-///    │  Description: `<tooltip of selected property>`      │  ← descFrame
-///    └─────────────────────────────────────────────────────┘
-///
-///  All layout widgets are named (see objectName) for full QSS theming:
-///    #searchBar         — the top filter frame
-///    #searchEdit        — the QLineEdit inside the search bar
-///    #descFrame         — the bottom description frame
-///    #descLabel         — the QLabel showing the description
-///
-///  Built-in managers (pre-wired, ready to use):
-///    variantManager()  — QtVariantPropertyManager (int/double/bool/string …)
-///    positionManager() — PositionPropertyManager  (XY / XYZ / XYZRPY)
-///    sizeManager()     — SizePropertyManager      (WH / WHD)
-///    pointManager()    — PointPropertyManager     (int XY / XYZ — QPoint, cv::Point, cv::Point3i)
-///    pointFManager()   — PointFPropertyManager    (double XY / XYZ — QPointF, cv::Point2f/d, cv::Point3f/d)
-///
-///  String properties with completer:
-///    auto *p = variantManager()->addProperty(QMetaType::QString, "File path");
-///    variantManager()->setAttribute(p, "completer", QStringList{"/path/a", "/path/b"});
-///
-///  Usage pattern:
-///    auto *w = new PropertyBrowserWidget(parentWidget);
-///    w->setSearchVisible(false);       // hide search if panel is tiny
-///    auto *grp = w->variantManager()->addProperty(
-///                    QtVariantPropertyManager::groupTypeId(), "Settings");
-///    auto *p = w->variantManager()->addProperty(QMetaType::Double, "Speed");
-///    grp->addSubProperty(p);
-///    w->addProperty(grp);
-///
-/// ============================================================================
+/**
+ * @file property_browser_widget.h
+ * @brief PropertyBrowserWidget — self-contained property inspector combining a search/filter
+ *        bar, a QtTreePropertyBrowser, and a description panel, with pre-wired variant/
+ *        position/size/point property managers.
+ */
 
+/**
+ * @class PropertyBrowserWidget
+ * @brief A self-contained property inspector composed of three zones: a search/filter bar,
+ *        the QtTreePropertyBrowser, and a description panel showing the selected property's
+ *        tooltip.
+ *
+ * @code
+ *   ┌─────────────────────────────────────────────────────┐
+ *   │ [🔍 Filter properties...                          ✕]│  ← searchBar
+ *   ├─────────────────────────────────────────────────────┤
+ *   │                                                     │
+ *   │  QtTreePropertyBrowser                              │
+ *   │                                                     │
+ *   ├─────────────────────────────────────────────────────┤
+ *   │  Description: `<tooltip of selected property>`      │  ← descFrame
+ *   └─────────────────────────────────────────────────────┘
+ * @endcode
+ *
+ * All layout widgets are named (see objectName) for full QSS theming:
+ *   - #searchBar  — the top filter frame
+ *   - #searchEdit — the QLineEdit inside the search bar
+ *   - #descFrame  — the bottom description frame
+ *   - #descLabel  — the QLabel showing the description
+ *
+ * Built-in managers (pre-wired, ready to use):
+ *   - variantManager()  — QtVariantPropertyManager (int/double/bool/string …)
+ *   - positionManager() — PositionPropertyManager  (XY / XYZ / XYZRPY)
+ *   - sizeManager()     — SizePropertyManager      (WH / WHD)
+ *   - pointManager()    — PointPropertyManager     (int XY / XYZ — QPoint, cv::Point, cv::Point3i)
+ *   - pointFManager()   — PointFPropertyManager    (double XY / XYZ — QPointF, cv::Point2f/d, cv::Point3f/d)
+ *
+ * String properties with completer:
+ * @code
+ *   auto *p = variantManager()->addProperty(QMetaType::QString, "File path");
+ *   variantManager()->setAttribute(p, "completer", QStringList{"/path/a", "/path/b"});
+ * @endcode
+ *
+ * Usage pattern:
+ * @code
+ *   auto *w = new PropertyBrowserWidget(parentWidget);
+ *   w->setSearchVisible(false);       // hide search if panel is tiny
+ *   auto *grp = w->variantManager()->addProperty(
+ *                   QtVariantPropertyManager::groupTypeId(), "Settings");
+ *   auto *p = w->variantManager()->addProperty(QMetaType::Double, "Speed");
+ *   grp->addSubProperty(p);
+ *   w->addProperty(grp);
+ * @endcode
+ */
 class PropertyBrowserWidget : public QWidget {
     Q_OBJECT
 
@@ -68,9 +80,12 @@ class PropertyBrowserWidget : public QWidget {
                WRITE setDescriptionVisible)
 
 public:
-    /// Constructs the widget and builds the search bar, tree browser, and
-    /// description panel, then wires up the built-in variant/position/size/
-    /// point property managers with their editor factories.
+    /**
+     * @brief Constructs the widget and builds the search bar, tree browser, and
+     *        description panel, then wires up the built-in variant/position/size/
+     *        point property managers with their editor factories.
+     * @param[in] parent Owning widget; standard Qt parent/child ownership.
+     */
     explicit PropertyBrowserWidget(QWidget *parent = nullptr);
     /// Default destructor; child widgets/managers are destroyed via Qt's
     /// parent-child ownership.

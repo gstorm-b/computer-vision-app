@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_pattern_
 </div><!--header-->
 <div class="contents">
 
+<p>Main widget: a QTreeWidget of pattern groups/patterns (each rendered by a custom item widget) plus a pinned footer row, kept in sync with an internal <a class="el" href="struct_match_group_config.html" title="A named group of MatchPatternConfig entries, displayed as a top-level tree item with its patterns nes...">MatchGroupConfig</a> list.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PatternTreeWidget:</div>
@@ -159,22 +162,27 @@ Signals</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a147d4f8403c248dd49f0b438e8b43bea" id="r_a147d4f8403c248dd49f0b438e8b43bea"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a147d4f8403c248dd49f0b438e8b43bea">addGroup</a> (const <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &amp;group)</td></tr>
 <tr class="memitem:a93eb256aff4fed42eca0b5a31e02f91f" id="r_a93eb256aff4fed42eca0b5a31e02f91f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a93eb256aff4fed42eca0b5a31e02f91f">addPattern</a> (int groupIndex, const <a class="el" href="struct_match_pattern_config.html">MatchPatternConfig</a> &amp;pattern)</td></tr>
+<tr class="memdesc:a93eb256aff4fed42eca0b5a31e02f91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends <span class="tt">pattern</span> to the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), inserts its row widget, expands the group, and emits <a class="el" href="#af6b5692698597a346aec383b33efb6ca" title="Emitted after a single group&#39;s data changes.">groupChanged()</a>/groupsChanged().  <br /></td></tr>
 <tr class="memitem:a9832fbe3e17318440069f5c9c71a0635" id="r_a9832fbe3e17318440069f5c9c71a0635"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9832fbe3e17318440069f5c9c71a0635">autoSort</a> ()</td></tr>
 <tr class="memdesc:a9832fbe3e17318440069f5c9c71a0635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort all groups ascending by <a class="el" href="struct_match_group_config.html#a70899a7aeb22c8559c62aabb16e4a716" title="Group number/identifier used to map tree rows back to config entries.">MatchGroupConfig::number</a> and rebuild.  <br /></td></tr>
 <tr class="memitem:a5f86a1836fa132c45e7ef66987073ec2" id="r_a5f86a1836fa132c45e7ef66987073ec2"><td class="memItemLeft">QList&lt; <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5f86a1836fa132c45e7ef66987073ec2">groups</a> () const</td></tr>
 <tr class="memdesc:a5f86a1836fa132c45e7ef66987073ec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current groups (and their nested patterns) in display order.  <br /></td></tr>
 <tr class="memitem:a979db2a5849c8504b1c1a550c5bd79a0" id="r_a979db2a5849c8504b1c1a550c5bd79a0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a979db2a5849c8504b1c1a550c5bd79a0">PatternTreeWidget</a> (QWidget *parent=nullptr)</td></tr>
 <tr class="memitem:a97a071aad5ed64d5934fae66574558c1" id="r_a97a071aad5ed64d5934fae66574558c1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a97a071aad5ed64d5934fae66574558c1">removeGroup</a> (int groupIndex)</td></tr>
+<tr class="memdesc:a97a071aad5ed64d5934fae66574558c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>) and defers the tree rebuild to the next event loop iteration so it is safe to call from a signal handler still on the call stack.  <br /></td></tr>
 <tr class="memitem:afb3a172143d655cbad70d508cf440b21" id="r_afb3a172143d655cbad70d508cf440b21"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afb3a172143d655cbad70d508cf440b21">removePattern</a> (int groupIndex, int patternIndex)</td></tr>
+<tr class="memdesc:afb3a172143d655cbad70d508cf440b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the pattern at <span class="tt">patternIndex</span> from the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>) and defers the tree rebuild to the next event loop iteration.  <br /></td></tr>
 <tr class="memitem:adb1ba9797dfa5c1021ddd90586b6bc09" id="r_adb1ba9797dfa5c1021ddd90586b6bc09"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adb1ba9797dfa5c1021ddd90586b6bc09">setGroups</a> (const QList&lt; <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &gt; &amp;groups)</td></tr>
 <tr class="memdesc:adb1ba9797dfa5c1021ddd90586b6bc09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces all groups with <span class="tt"><a class="el" href="#a5f86a1836fa132c45e7ef66987073ec2" title="Returns the current groups (and their nested patterns) in display order.">groups</a></span>, rebuilds the tree, and expands every group.  <br /></td></tr>
 <tr class="memitem:a58f200add37d9a69f13f7a15579464a0" id="r_a58f200add37d9a69f13f7a15579464a0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a58f200add37d9a69f13f7a15579464a0">updateGroup</a> (int groupIndex, const <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &amp;group)</td></tr>
+<tr class="memdesc:a58f200add37d9a69f13f7a15579464a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the config for the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), updates its row widget in place, and emits <a class="el" href="#af6b5692698597a346aec383b33efb6ca" title="Emitted after a single group&#39;s data changes.">groupChanged()</a>/groupsChanged().  <br /></td></tr>
 <tr class="memitem:abe782cbf9ccd4050f014574f2a4de277" id="r_abe782cbf9ccd4050f014574f2a4de277"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abe782cbf9ccd4050f014574f2a4de277">updatePattern</a> (int groupIndex, int patternIndex, const <a class="el" href="struct_match_pattern_config.html">MatchPatternConfig</a> &amp;pattern)</td></tr>
+<tr class="memdesc:abe782cbf9ccd4050f014574f2a4de277"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the pattern at <span class="tt">patternIndex</span> within the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), updates its row widget in place, and emits <a class="el" href="#a71a54bad14cc8f485772359850483bb2" title="Emitted after a single pattern&#39;s data changes.">patternChanged()</a>/groupsChanged().  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a80039e5aa5e4f865afa5f554b94823b6" id="r_a80039e5aa5e4f865afa5f554b94823b6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80039e5aa5e4f865afa5f554b94823b6">appendFooterItem</a> ()</td></tr>
-<tr class="memdesc:a80039e5aa5e4f865afa5f554b94823b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Re)creates the pinned footer row (<a class="el" href="class_footer_item_widget.html">FooterItemWidget</a>) as the tree's last item.  <br /></td></tr>
+<tr class="memdesc:a80039e5aa5e4f865afa5f554b94823b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">(Re)creates the pinned footer row (<a class="el" href="class_footer_item_widget.html" title="Row widget pinned as the tree&#39;s last (non-selectable) item: an &quot;Add Group&quot; button and an &quot;Auto Sort&quot; ...">FooterItemWidget</a>) as the tree's last item.  <br /></td></tr>
 <tr class="memitem:ac4f99eb2b40bae33a27e2390a5edb902" id="r_ac4f99eb2b40bae33a27e2390a5edb902"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac4f99eb2b40bae33a27e2390a5edb902">appendGroupItem</a> (const <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &amp;group, int groupIndex)</td></tr>
 <tr class="memitem:ade768ea1bd770fd4beab5d0e8533c430" id="r_ade768ea1bd770fd4beab5d0e8533c430"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ade768ea1bd770fd4beab5d0e8533c430">appendPatternItem</a> (QTreeWidgetItem *parentItem, const <a class="el" href="struct_match_pattern_config.html">MatchPatternConfig</a> &amp;pattern, int groupIndex, int patternIndex)</td></tr>
 <tr class="memitem:aa26b8dcc07c6e4cbfe8256ca09b286af" id="r_aa26b8dcc07c6e4cbfe8256ca09b286af"><td class="memItemLeft">QSet&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa26b8dcc07c6e4cbfe8256ca09b286af">expandedGroupIndices</a> () const</td></tr>
@@ -193,8 +201,11 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a161b8cae4e84bffd833507da9a5dccca" id="r_a161b8cae4e84bffd833507da9a5dccca"><td class="memItemLeft">QList&lt; <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a161b8cae4e84bffd833507da9a5dccca">m_groups</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8h_source.html#l00178">178</a> of file <a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a>.</p>
+<div class="textblock"><p>Main widget: a QTreeWidget of pattern groups/patterns (each rendered by a custom item widget) plus a pinned footer row, kept in sync with an internal <a class="el" href="struct_match_group_config.html" title="A named group of MatchPatternConfig entries, displayed as a top-level tree item with its patterns nes...">MatchGroupConfig</a> list. </p>
+<p>Inherits QTreeWidget directly — simpler than QTreeView + model because every item has a distinct custom delegate widget (<a class="el" href="class_pattern_group_item_widget.html" title="Row widget for a top-level (group) tree item: accent bar, name label, group number badge,...">PatternGroupItemWidget</a>, <a class="el" href="class_pattern_item_widget.html" title="Row widget for a child (pattern) tree item: thumbnail, name/number/threshold labels,...">PatternItemWidget</a>, <a class="el" href="class_footer_item_widget.html" title="Row widget pinned as the tree&#39;s last (non-selectable) item: an &quot;Add Group&quot; button and an &quot;Auto Sort&quot; ...">FooterItemWidget</a>).</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_pattern_group_item_widget.html" title="Row widget for a top-level (group) tree item: accent bar, name label, group number badge,...">PatternGroupItemWidget</a>, <a class="el" href="class_pattern_item_widget.html" title="Row widget for a child (pattern) tree item: thumbnail, name/number/threshold labels,...">PatternItemWidget</a>, <a class="el" href="class_footer_item_widget.html" title="Row widget pinned as the tree&#39;s last (non-selectable) item: an &quot;Add Group&quot; button and an &quot;Auto Sort&quot; ...">FooterItemWidget</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8h_source.html#l00212">212</a> of file <a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a979db2a5849c8504b1c1a550c5bd79a0" name="a979db2a5849c8504b1c1a550c5bd79a0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a979db2a5849c8504b1c1a550c5bd79a0">&#9670;&#160;</a></span>PatternTreeWidget()</h2>
@@ -245,7 +256,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00290">290</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__tree__widget_8cpp_source.html#l00537">appendFooterItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00466">appendGroupItem()</a>, <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00289">m_footerItem</a>, and <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="pattern__tree__widget_8cpp_source.html#l00537">appendFooterItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00466">appendGroupItem()</a>, <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00338">m_footerItem</a>, and <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>.</p>
 
 </div>
 </div>
@@ -296,6 +307,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Appends <span class="tt">pattern</span> to the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), inserts its row widget, expands the group, and emits <a class="el" href="#af6b5692698597a346aec383b33efb6ca" title="Emitted after a single group&#39;s data changes.">groupChanged()</a>/groupsChanged(). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">groupIndex</td><td>group number to append to (not a raw list index) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pattern</td><td>new pattern configuration to append</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Appends <span class="tt">pattern</span> to the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), inserts its row widget, expands the group, and emits <a class="el" href="#af6b5692698597a346aec383b33efb6ca" title="Emitted after a single group&#39;s data changes.">groupChanged()</a>/groupsChanged(). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">groupIndex</td><td>group number to append to (not a raw list index) </td></tr>
@@ -305,7 +325,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00349">349</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__tree__widget_8cpp_source.html#l00505">appendPatternItem()</a>, <a class="el" href="#af6b5692698597a346aec383b33efb6ca">groupChanged()</a>, <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__tree__widget_8cpp_source.html#l00505">appendPatternItem()</a>, <a class="el" href="#af6b5692698597a346aec383b33efb6ca">groupChanged()</a>, <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>.</p>
 
 </div>
 </div>
@@ -361,11 +381,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>(Re)creates the pinned footer row (<a class="el" href="class_footer_item_widget.html">FooterItemWidget</a>) as the tree's last item. </p>
+<p>(Re)creates the pinned footer row (<a class="el" href="class_footer_item_widget.html" title="Row widget pinned as the tree&#39;s last (non-selectable) item: an &quot;Add Group&quot; button and an &quot;Auto Sort&quot; ...">FooterItemWidget</a>) as the tree's last item. </p>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00537">537</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="class_footer_item_widget.html#ac3aa8a4b06d120f71950eb6453ab007f">FooterItemWidget::addGroupRequested()</a>, <a class="el" href="#aa7b327d2ff8a8ad7f7dd015cdc9fa2ab">addGroupRequested()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00416">autoSort()</a>, <a class="el" href="class_footer_item_widget.html#ae6973f2fd2eb82c6b056cdea7859fb00">FooterItemWidget::autoSortRequested()</a>, and <a class="el" href="pattern__tree__widget_8h_source.html#l00289">m_footerItem</a>.</p>
+<p class="reference">References <a class="el" href="class_footer_item_widget.html#ac3aa8a4b06d120f71950eb6453ab007f">FooterItemWidget::addGroupRequested()</a>, <a class="el" href="#aa7b327d2ff8a8ad7f7dd015cdc9fa2ab">addGroupRequested()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00416">autoSort()</a>, <a class="el" href="class_footer_item_widget.html#ae6973f2fd2eb82c6b056cdea7859fb00">FooterItemWidget::autoSortRequested()</a>, and <a class="el" href="pattern__tree__widget_8h_source.html#l00338">m_footerItem</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00290">addGroup()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00265">PatternTreeWidget()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
 
@@ -397,11 +417,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates the top-level tree item and <a class="el" href="class_pattern_group_item_widget.html">PatternGroupItemWidget</a> for <span class="tt">group</span>, inserts it before the footer, wires its signals, and appends its patterns. </p>
+<p>Creates the top-level tree item and <a class="el" href="class_pattern_group_item_widget.html" title="Row widget for a top-level (group) tree item: accent bar, name label, group number badge,...">PatternGroupItemWidget</a> for <span class="tt">group</span>, inserts it before the footer, wires its signals, and appends its patterns. </p>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00466">466</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="class_pattern_group_item_widget.html#a434adb5cf50bba56f79b3f0c87327d22">PatternGroupItemWidget::addPatternRequested()</a>, <a class="el" href="#aadb2ed354e870aad27e46ef38e8dd02d">addPatternRequested()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00505">appendPatternItem()</a>, <a class="el" href="class_pattern_group_item_widget.html#abbe29cf0cfbfc735cfbe90a592b84e12">PatternGroupItemWidget::clicked()</a>, <a class="el" href="#a171c59de5a73b9043704030d34631409">deleteGroupRequested()</a>, <a class="el" href="class_pattern_group_item_widget.html#a21fb720d6741a92586c51d64a1cb8d2f">PatternGroupItemWidget::deleteRequested()</a>, <a class="el" href="#afd16e0e7991149bd3cde8ffac253a43d">groupClicked()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00289">m_footerItem</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00030">MatchGroupConfig::number</a>, and <a class="el" href="pattern__tree__widget_8h_source.html#l00031">MatchGroupConfig::patterns</a>.</p>
+<p class="reference">References <a class="el" href="class_pattern_group_item_widget.html#a434adb5cf50bba56f79b3f0c87327d22">PatternGroupItemWidget::addPatternRequested()</a>, <a class="el" href="#aadb2ed354e870aad27e46ef38e8dd02d">addPatternRequested()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00505">appendPatternItem()</a>, <a class="el" href="class_pattern_group_item_widget.html#abbe29cf0cfbfc735cfbe90a592b84e12">PatternGroupItemWidget::clicked()</a>, <a class="el" href="#a171c59de5a73b9043704030d34631409">deleteGroupRequested()</a>, <a class="el" href="class_pattern_group_item_widget.html#a21fb720d6741a92586c51d64a1cb8d2f">PatternGroupItemWidget::deleteRequested()</a>, <a class="el" href="#afd16e0e7991149bd3cde8ffac253a43d">groupClicked()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00338">m_footerItem</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00043">MatchGroupConfig::number</a>, and <a class="el" href="pattern__tree__widget_8h_source.html#l00044">MatchGroupConfig::patterns</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00290">addGroup()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
 
@@ -443,11 +463,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates a child tree item and <a class="el" href="class_pattern_item_widget.html">PatternItemWidget</a> for <span class="tt">pattern</span> under <span class="tt">parentItem</span> and wires its signals. </p>
+<p>Creates a child tree item and <a class="el" href="class_pattern_item_widget.html" title="Row widget for a child (pattern) tree item: thumbnail, name/number/threshold labels,...">PatternItemWidget</a> for <span class="tt">pattern</span> under <span class="tt">parentItem</span> and wires its signals. </p>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00505">505</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="class_pattern_item_widget.html#a1bcd78563dba59ba0a888ea7d258b0cc">PatternItemWidget::clicked()</a>, <a class="el" href="#a34c141740e6bc086e72f0669cc916006">deletePatternRequested()</a>, <a class="el" href="class_pattern_item_widget.html#a52d7075332c83eb8febbb5ab5e2de022">PatternItemWidget::deleteRequested()</a>, <a class="el" href="#acf488b9afb22eda325f754f405cb1e71">editPatternRequested()</a>, <a class="el" href="class_pattern_item_widget.html#a88557bc97f24f4d75c0384344ccf689d">PatternItemWidget::editRequested()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, and <a class="el" href="#a3cb76cce2f55436896994258ca934874">patternClicked()</a>.</p>
+<p class="reference">References <a class="el" href="class_pattern_item_widget.html#a1bcd78563dba59ba0a888ea7d258b0cc">PatternItemWidget::clicked()</a>, <a class="el" href="#a34c141740e6bc086e72f0669cc916006">deletePatternRequested()</a>, <a class="el" href="class_pattern_item_widget.html#a52d7075332c83eb8febbb5ab5e2de022">PatternItemWidget::deleteRequested()</a>, <a class="el" href="#acf488b9afb22eda325f754f405cb1e71">editPatternRequested()</a>, <a class="el" href="class_pattern_item_widget.html#a88557bc97f24f4d75c0384344ccf689d">PatternItemWidget::editRequested()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, and <a class="el" href="#a3cb76cce2f55436896994258ca934874">patternClicked()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00349">addPattern()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00466">appendGroupItem()</a>.</p>
 
@@ -472,7 +492,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00416">416</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
+<p class="reference">References <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00537">appendFooterItem()</a>.</p>
 
@@ -600,7 +620,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00586">586</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__tree__widget_8h_source.html#l00289">m_footerItem</a>.</p>
+<p class="reference">References <a class="el" href="pattern__tree__widget_8h_source.html#l00338">m_footerItem</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
 
@@ -691,7 +711,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00283">283</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00275">setGroups()</a>.</p>
 
@@ -754,7 +774,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">561</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00349">addPattern()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00311">removeGroup()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00371">removePattern()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00328">updateGroup()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00392">updatePattern()</a>.</p>
 
@@ -894,7 +914,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">445</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__tree__widget_8cpp_source.html#l00537">appendFooterItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00466">appendGroupItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00586">expandedGroupIndices()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00289">m_footerItem</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00598">restoreExpanded()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__tree__widget_8cpp_source.html#l00537">appendFooterItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00466">appendGroupItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00586">expandedGroupIndices()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00338">m_footerItem</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00598">restoreExpanded()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00416">autoSort()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00311">removeGroup()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00371">removePattern()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00275">setGroups()</a>.</p>
 
@@ -914,6 +934,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Removes the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>) and defers the tree rebuild to the next event loop iteration so it is safe to call from a signal handler still on the call stack. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">groupIndex</td><td>group number to remove (not a raw list index)</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Removes the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>) and defers the tree rebuild to the next event loop iteration so it is safe to call from a signal handler still on the call stack. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">groupIndex</td><td>group number to remove (not a raw list index) </td></tr>
@@ -923,7 +951,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00311">311</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
+<p class="reference">References <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
 
 </div>
 </div>
@@ -945,6 +973,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Removes the pattern at <span class="tt">patternIndex</span> from the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>) and defers the tree rebuild to the next event loop iteration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">groupIndex</td><td>group number containing the pattern (not a raw list index) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">patternIndex</td><td>pattern number to remove within the group (not a raw list index)</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Removes the pattern at <span class="tt">patternIndex</span> from the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>) and defers the tree rebuild to the next event loop iteration. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">groupIndex</td><td>group number containing the pattern (not a raw list index) </td></tr>
@@ -954,7 +991,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00371">371</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#af6b5692698597a346aec383b33efb6ca">groupChanged()</a>, <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
+<p class="reference">References <a class="el" href="#af6b5692698597a346aec383b33efb6ca">groupChanged()</a>, <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
 
 </div>
 </div>
@@ -985,7 +1022,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00598">598</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__tree__widget_8h_source.html#l00289">m_footerItem</a>.</p>
+<p class="reference">References <a class="el" href="pattern__tree__widget_8h_source.html#l00338">m_footerItem</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
 
@@ -1010,7 +1047,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00275">275</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__tree__widget_8cpp_source.html#l00283">groups()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__tree__widget_8cpp_source.html#l00283">groups()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>.</p>
 
 </div>
 </div>
@@ -1062,6 +1099,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Replaces the config for the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), updates its row widget in place, and emits <a class="el" href="#af6b5692698597a346aec383b33efb6ca" title="Emitted after a single group&#39;s data changes.">groupChanged()</a>/groupsChanged(). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">groupIndex</td><td>group number to update (not a raw list index) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">group</td><td>new configuration to store for the group</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Replaces the config for the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), updates its row widget in place, and emits <a class="el" href="#af6b5692698597a346aec383b33efb6ca" title="Emitted after a single group&#39;s data changes.">groupChanged()</a>/groupsChanged(). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">groupIndex</td><td>group number to update (not a raw list index) </td></tr>
@@ -1071,7 +1117,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00328">328</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#af6b5692698597a346aec383b33efb6ca">groupChanged()</a>, <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, and <a class="el" href="pattern__tree__widget_8h_source.html#l00030">MatchGroupConfig::number</a>.</p>
+<p class="reference">References <a class="el" href="#af6b5692698597a346aec383b33efb6ca">groupChanged()</a>, <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, and <a class="el" href="pattern__tree__widget_8h_source.html#l00043">MatchGroupConfig::number</a>.</p>
 
 </div>
 </div>
@@ -1098,6 +1144,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Replaces the pattern at <span class="tt">patternIndex</span> within the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), updates its row widget in place, and emits <a class="el" href="#a71a54bad14cc8f485772359850483bb2" title="Emitted after a single pattern&#39;s data changes.">patternChanged()</a>/groupsChanged(). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">groupIndex</td><td>group number containing the pattern (not a raw list index) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">patternIndex</td><td>pattern number to update within the group (not a raw list index) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pattern</td><td>new pattern configuration to store</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Replaces the pattern at <span class="tt">patternIndex</span> within the group at <span class="tt">groupIndex</span> (mapped via <a class="el" href="#a0c53e6ac02ab2122ef17b7c66da0d98b">mapGroupNumber()</a>), updates its row widget in place, and emits <a class="el" href="#a71a54bad14cc8f485772359850483bb2" title="Emitted after a single pattern&#39;s data changes.">patternChanged()</a>/groupsChanged(). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">groupIndex</td><td>group number containing the pattern (not a raw list index) </td></tr>
@@ -1107,7 +1163,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8cpp_source.html#l00392">392</a> of file <a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00288">m_groups</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00021">MatchPatternConfig::number</a>, and <a class="el" href="#a71a54bad14cc8f485772359850483bb2">patternChanged()</a>.</p>
+<p class="reference">References <a class="el" href="#a1d083d2e1043df479472070239fdb251">groupsChanged()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00337">m_groups</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, <a class="el" href="pattern__tree__widget_8h_source.html#l00031">MatchPatternConfig::number</a>, and <a class="el" href="#a71a54bad14cc8f485772359850483bb2">patternChanged()</a>.</p>
 
 </div>
 </div>
@@ -1134,7 +1190,7 @@ Private Attributes</h2></td></tr>
 
 <p>The pinned, non-selectable footer tree item. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8h_source.html#l00289">289</a> of file <a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8h_source.html#l00338">338</a> of file <a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00290">addGroup()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00537">appendFooterItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00466">appendGroupItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00586">expandedGroupIndices()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00598">restoreExpanded()</a>.</p>
 
@@ -1160,15 +1216,15 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8h_source.html#l00288">288</a> of file <a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__tree__widget_8h_source.html#l00337">337</a> of file <a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__tree__widget_8cpp_source.html#l00290">addGroup()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00349">addPattern()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00505">appendPatternItem()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00416">autoSort()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00283">groups()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00561">mapGroupNumber()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00445">rebuildTree()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00311">removeGroup()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00371">removePattern()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00275">setGroups()</a>, <a class="el" href="pattern__tree__widget_8cpp_source.html#l00328">updateGroup()</a>, and <a class="el" href="pattern__tree__widget_8cpp_source.html#l00392">updatePattern()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="pattern__tree__widget_8cpp_source.html">pattern_tree_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

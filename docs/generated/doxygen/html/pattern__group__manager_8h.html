@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/matching/pattern_group_manager.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/matching/pattern_group_manager.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('pattern__group
   <div class="headertitle"><div class="title">pattern_group_manager.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>PatternGroupManager — owns the full library of MatchGroup/MatchPattern instances for a task, validates mutations, emits change signals, and (de)serialises to/from JSON.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QObject&gt;</code><br />
 <code>#include &lt;QList&gt;</code><br />
 <code>#include &lt;QMessageBox&gt;</code><br />
@@ -144,13 +147,18 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:mtc_3A_3APatternGroupManager" id="r_mtc_3A_3APatternGroupManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_pattern_group_manager.html">mtc::PatternGroupManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns the full library of <a class="el" href="classmtc_1_1_match_group.html" title="Owns one named/numbered group of patterns plus their shared MatchGroupConfig: pattern CRUD (add/remov...">MatchGroup</a> instances (and, transitively, their <a class="el" href="classmtc_1_1_match_pattern.html" title="A single learned template.">MatchPattern</a> children) for a task: validates group/pattern mutations, emits Qt change signals for every successful mutation, and (de)serialises the whole library to/from JSON.  <a href="classmtc_1_1_pattern_group_manager.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:mtc" id="r_mtc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html">mtc</a></td></tr>
-<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html">utils_block_max.h</a>). <br /></td></tr>
+<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html" title="MatchBlock/BlockMax — block-partitioned max-value search helper used to enumerate multiple local maxi...">utils_block_max.h</a>). <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>PatternGroupManager — owns the full library of MatchGroup/MatchPattern instances for a task, validates mutations, emits change signals, and (de)serialises to/from JSON. </p>
+
+<p class="definition">Definition in file <a class="el" href="pattern__group__manager_8h_source.html">pattern_group_manager.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

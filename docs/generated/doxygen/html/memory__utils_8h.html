@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/plc/memory_utils.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/plc/memory_utils.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,11 +119,14 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('memory__utils_
   <div class="headertitle"><div class="title">memory_utils.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Byte-array and IEEE-754 bit-pattern conversion helpers shared by the MC protocol codec (framing/parsing register values on the wire).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QByteArray&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for memory_utils.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="memory__utils_8h__incl.svg" width="183" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="memory__utils_8h__incl.svg" width="147" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -137,19 +140,26 @@ This graph shows which files directly or indirectly include this file:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a67c9fa92aa6a458249be79b4938b845b" id="r_a67c9fa92aa6a458249be79b4938b845b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a67c9fa92aa6a458249be79b4938b845b">vc::device::appendToByteArray_uint16</a> (QByteArray &amp;array, quint16 value, bool littleEndian=true)</td></tr>
+<tr class="memdesc:a67c9fa92aa6a458249be79b4938b845b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the two bytes of <span class="tt">value</span> to <span class="tt">array</span> in the requested byte order.  <br /></td></tr>
 <tr class="memitem:a598dd4adaf7fa6fc314c126927b0e9b3" id="r_a598dd4adaf7fa6fc314c126927b0e9b3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a598dd4adaf7fa6fc314c126927b0e9b3">vc::device::appendToByteArray_uint32</a> (QByteArray &amp;array, quint32 value, int byteCount, bool littleEndian=true)</td></tr>
+<tr class="memdesc:a598dd4adaf7fa6fc314c126927b0e9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the low <span class="tt">byteCount</span> bytes of <span class="tt">value</span> to <span class="tt">array</span> in the requested byte order. No-op if <span class="tt">byteCount</span> is outside [1, 4].  <br /></td></tr>
 <tr class="memitem:a825bae250d63282abeae1c40dee79ecb" id="r_a825bae250d63282abeae1c40dee79ecb"><td class="memItemLeft">quint16&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a825bae250d63282abeae1c40dee79ecb">vc::device::convert_uint16_FromBytes</a> (const QByteArray &amp;data, int index, bool littleEndian=true)</td></tr>
+<tr class="memdesc:a825bae250d63282abeae1c40dee79ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads two bytes at <span class="tt">data[index]</span>/<span class="tt">data[index+1]</span> and combines them into a quint16.  <br /></td></tr>
 <tr class="memitem:aa257ab0754c9af82b11243ec22ef067f" id="r_aa257ab0754c9af82b11243ec22ef067f"><td class="memItemLeft">quint64&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#aa257ab0754c9af82b11243ec22ef067f">vc::device::doubleToReal64</a> (double value)</td></tr>
 <tr class="memitem:a2be035f969a81c1dfed1c4e6704b5126" id="r_a2be035f969a81c1dfed1c4e6704b5126"><td class="memItemLeft">quint32&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a2be035f969a81c1dfed1c4e6704b5126">vc::device::floatToReal32</a> (float value)</td></tr>
 <tr class="memitem:af19a38284e9a1b74cac3d1cc761bc9ae" id="r_af19a38284e9a1b74cac3d1cc761bc9ae"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#af19a38284e9a1b74cac3d1cc761bc9ae">vc::device::real32ToFloat</a> (quint32 dword)</td></tr>
 <tr class="memitem:a0cbfd3516904b5b4338f64d365a2e923" id="r_a0cbfd3516904b5b4338f64d365a2e923"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a0cbfd3516904b5b4338f64d365a2e923">vc::device::real64ToDouble</a> (quint64 dword)</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Byte-array and IEEE-754 bit-pattern conversion helpers shared by the MC protocol codec (framing/parsing register values on the wire). </p>
+
+<p class="definition">Definition in file <a class="el" href="memory__utils_8h_source.html">memory_utils.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

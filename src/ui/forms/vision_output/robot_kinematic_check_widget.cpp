@@ -1,6 +1,7 @@
 #include "robot_kinematic_check_widget.h"
 #include "ui_robot_kinematic_check_widget.h"
 
+#include <QCheckBox>
 #include <QComboBox>
 #include <QCoreApplication>
 #include <QDir>
@@ -39,6 +40,13 @@ using namespace RobotKinematics;
 /// Internal helpers for this widget: robot-config construction, pose <-> RPY conversion, status
 /// text, and the self-collision check used by the FK/IK tester. Not part of the public API.
 namespace {
+
+/// Pick-path table layout. Column 0 is the read-only row index; each of the six axes then
+/// occupies a value/"absolute" pair, and the three posture combos follow.
+///   0  | 1..12                                   | 13..15
+///   #  | dX absX dY absY dZ absZ dR absR dP absP dY absY | shoulder elbow wrist
+constexpr int kPathFirstAxisCol    = 1;
+constexpr int kPathFirstPostureCol = 13;
 
 // The new RobotKinematics component ships a single built-in C++ preset that is
 // relevant here. Custom-preset authoring is out of scope for this widget.
@@ -230,9 +238,16 @@ RobotKinematicCheckWidget::RobotKinematicCheckWidget(QWidget *parent)
     m_currentPreset = ui->cbb_robot_preset->currentText();
 
     // Pick-path table columns.
+    // Each axis is followed by its "absolute" toggle: unchecked = offset from the pick
+    // pose (tool frame), checked = absolute value in the robot base frame.
     const QStringList pathHeaders = {
-        tr("#"), tr("dX (mm)"), tr("dY (mm)"), tr("dZ (mm)"),
-        tr("dRoll (deg)"), tr("dPitch (deg)"), tr("dYaw (deg)"),
+        tr("#"),
+        tr("dX (mm)"),     tr("Abs X"),
+        tr("dY (mm)"),     tr("Abs Y"),
+        tr("dZ (mm)"),     tr("Abs Z"),
+        tr("dRoll (deg)"),  tr("Abs Roll"),
+        tr("dPitch (deg)"), tr("Abs Pitch"),
+        tr("dYaw (deg)"),   tr("Abs Yaw"),
         tr("Shoulder"), tr("Elbow"), tr("Wrist") };
     ui->tbl_pick_path->setColumnCount(pathHeaders.size());
     ui->tbl_pick_path->setHorizontalHeaderLabels(pathHeaders);
@@ -329,13 +344,27 @@ vc::device::RobotKinematicCheckConfig RobotKinematicCheckWidget::config() const 
         auto *c = qobject_cast<QComboBox *>(ui->tbl_pick_path->cellWidget(row, col));
         return c ? c->currentData().toString() : QString();
     };
+    const auto absFlag = [this](int row, int col) {
+        auto *b = qobject_cast<QCheckBox *>(ui->tbl_pick_path->cellWidget(row, col));
+        return b ? b->isChecked() : false;
+    };
     for (int row = 0; row < ui->tbl_pick_path->rowCount(); ++row) {
         vc::device::PickPathPoint p;
-        p.dx = spinValue(row, 1); p.dy = spinValue(row, 2); p.dz = spinValue(row, 3);
-        p.dRoll = spinValue(row, 4); p.dPitch = spinValue(row, 5); p.dYaw = spinValue(row, 6);
-        p.shoulder = comboLabel(row, 7);
-        p.elbow    = comboLabel(row, 8);
-        p.wrist    = comboLabel(row, 9);
+        p.dx     = spinValue(row, kPathFirstAxisCol + 0);
+        p.absX   = absFlag  (row, kPathFirstAxisCol + 1);
+        p.dy     = spinValue(row, kPathFirstAxisCol + 2);
+        p.absY   = absFlag  (row, kPathFirstAxisCol + 3);
+        p.dz     = spinValue(row, kPathFirstAxisCol + 4);
+        p.absZ   = absFlag  (row, kPathFirstAxisCol + 5);
+        p.dRoll  = spinValue(row, kPathFirstAxisCol + 6);
+        p.absRoll= absFlag  (row, kPathFirstAxisCol + 7);
+        p.dPitch = spinValue(row, kPathFirstAxisCol + 8);
+        p.absPitch=absFlag  (row, kPathFirstAxisCol + 9);
+        p.dYaw   = spinValue(row, kPathFirstAxisCol + 10);
+        p.absYaw = absFlag  (row, kPathFirstAxisCol + 11);
+        p.shoulder = comboLabel(row, kPathFirstPostureCol + 0);
+        p.elbow    = comboLabel(row, kPathFirstPostureCol + 1);
+        p.wrist    = comboLabel(row, kPathFirstPostureCol + 2);
         cfg.pickPath.append(p);
     }
     return cfg;
@@ -379,6 +408,8 @@ void RobotKinematicCheckWidget::addPathRow(const vc::device::PickPathPoint &poin
 
     const double values[6] = { point.dx, point.dy, point.dz,
                                point.dRoll, point.dPitch, point.dYaw };
+    const bool   absolute[6] = { point.absX, point.absY, point.absZ,
+                                 point.absRoll, point.absPitch, point.absYaw };
     const double minimums[6] = { -100000.0, -100000.0, -100000.0, -360.0, -360.0, -360.0 };
     const double maximums[6] = {  100000.0,  100000.0,  100000.0,  360.0,  360.0,  360.0 };
     for (int c = 0; c < 6; ++c) {
@@ -389,7 +420,15 @@ void RobotKinematicCheckWidget::addPathRow(const vc::device::PickPathPoint &poin
         spin->setValue(values[c]);
         connect(spin, qOverload<double>(&QDoubleSpinBox::valueChanged),
                 this, &RobotKinematicCheckWidget::notifyConfigChanged);
-        ui->tbl_pick_path->setCellWidget(row, 1 + c, spin);
+        ui->tbl_pick_path->setCellWidget(row, kPathFirstAxisCol + c * 2, spin);
+
+        auto *absBox = new QCheckBox;
+        absBox->setChecked(absolute[c]);
+        absBox->setToolTip(tr("Treat this axis as an absolute value in the robot base "
+                              "frame instead of an offset from the pick pose."));
+        connect(absBox, &QCheckBox::toggled,
+                this, &RobotKinematicCheckWidget::notifyConfigChanged);
+        ui->tbl_pick_path->setCellWidget(row, kPathFirstAxisCol + c * 2 + 1, absBox);
     }
 
     const QString labels[3] = { point.shoulder, point.elbow, point.wrist };
@@ -399,7 +438,7 @@ void RobotKinematicCheckWidget::addPathRow(const vc::device::PickPathPoint &poin
         populatePostureCombo(combo, QString::fromLatin1(axes[a]), labels[a]);
         connect(combo, qOverload<int>(&QComboBox::currentIndexChanged),
                 this, &RobotKinematicCheckWidget::notifyConfigChanged);
-        ui->tbl_pick_path->setCellWidget(row, 7 + a, combo);
+        ui->tbl_pick_path->setCellWidget(row, kPathFirstPostureCol + a, combo);
     }
 }
 

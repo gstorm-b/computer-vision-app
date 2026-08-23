@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_add_row_
 </div><!--header-->
 <div class="contents">
 
+<p>Trailing "Add" row ("Component 3"): shows a "+ Add New Row" button that flips to a camera-selection combo + Cancel button when clicked.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AddRowWidget:</div>
@@ -142,6 +145,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5694a598369251c04d420eecc0429bf3" id="r_a5694a598369251c04d420eecc0429bf3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5694a598369251c04d420eecc0429bf3">AddRowWidget</a> (QWidget *parent=nullptr)</td></tr>
 <tr class="memdesc:a5694a598369251c04d420eecc0429bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds both stacked pages (add button, select-camera) and starts on the add-button page.  <br /></td></tr>
 <tr class="memitem:ad01360dbedc6ab8dd0f7ea134b1ac4f3" id="r_ad01360dbedc6ab8dd0f7ea134b1ac4f3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad01360dbedc6ab8dd0f7ea134b1ac4f3">setAvailableCameras</a> (const QStringList &amp;displayNames, const QStringList &amp;ids)</td></tr>
+<tr class="memdesc:ad01360dbedc6ab8dd0f7ea134b1ac4f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Repopulates the camera-selection combo from parallel <span class="tt">displayNames</span>/<span class="tt">ids</span> arrays and disables the add button (with an explanatory tooltip) when <span class="tt">ids</span> is empty.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -160,7 +164,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Trailing "Add" row ("Component 3"): shows a "+ Add New Row" button that flips to a camera-selection combo + Cancel button when clicked. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00081">81</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00099">99</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5694a598369251c04d420eecc0429bf3" name="a5694a598369251c04d420eecc0429bf3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5694a598369251c04d420eecc0429bf3">&#9670;&#160;</a></span>AddRowWidget()</h2>
@@ -251,7 +255,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8cpp_source.html#l00178">178</a> of file <a class="el" href="camera__mapping__widget_8cpp_source.html">camera_mapping_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__mapping__widget_8h_source.html#l00107">btnAddRow</a>.</p>
+<p class="reference">References <a class="el" href="camera__mapping__widget_8h_source.html#l00129">btnAddRow</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__mapping__widget_8cpp_source.html#l00168">AddRowWidget()</a>.</p>
 
@@ -284,7 +288,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8cpp_source.html#l00197">197</a> of file <a class="el" href="camera__mapping__widget_8cpp_source.html">camera_mapping_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a83cf953fdd41201e45ae4abc3a5f3f45">addRequested()</a>, <a class="el" href="camera__mapping__widget_8h_source.html#l00109">btnCancel</a>, and <a class="el" href="camera__mapping__widget_8h_source.html#l00108">cbCameraSelect</a>.</p>
+<p class="reference">References <a class="el" href="#a83cf953fdd41201e45ae4abc3a5f3f45">addRequested()</a>, <a class="el" href="camera__mapping__widget_8h_source.html#l00131">btnCancel</a>, and <a class="el" href="camera__mapping__widget_8h_source.html#l00130">cbCameraSelect</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__mapping__widget_8cpp_source.html#l00168">AddRowWidget()</a>.</p>
 
@@ -308,10 +312,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Repopulates the camera-selection combo from parallel <span class="tt">displayNames</span>/<span class="tt">ids</span> arrays and disables the add button (with an explanatory tooltip) when <span class="tt">ids</span> is empty. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Repopulates the camera-selection combo from parallel <span class="tt">displayNames</span>/<span class="tt">ids</span> arrays and disables the add button (with an explanatory tooltip) when <span class="tt">ids</span> is empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">displayNames</td><td>labels shown in the selection combo </td></tr>
-    <tr><td class="paramname">ids</td><td>the id emitted by <a class="el" href="#a83cf953fdd41201e45ae4abc3a5f3f45" title="Emitted with the chosen camera&#39;s id when the user picks one from the selection combo.">addRequested()</a> for each corresponding entry</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">displayNames</td><td>labels shown in the selection combo </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ids</td><td>the id emitted by <a class="el" href="#a83cf953fdd41201e45ae4abc3a5f3f45" title="Emitted with the chosen camera&#39;s id when the user picks one from the selection combo.">addRequested()</a> for each corresponding entry</td></tr>
   </table>
   </dd>
 </dl>
@@ -319,7 +325,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8cpp_source.html#l00230">230</a> of file <a class="el" href="camera__mapping__widget_8cpp_source.html">camera_mapping_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__mapping__widget_8h_source.html#l00107">btnAddRow</a>, and <a class="el" href="camera__mapping__widget_8h_source.html#l00108">cbCameraSelect</a>.</p>
+<p class="reference">References <a class="el" href="camera__mapping__widget_8h_source.html#l00129">btnAddRow</a>, and <a class="el" href="camera__mapping__widget_8h_source.html#l00130">cbCameraSelect</a>.</p>
 
 </div>
 </div>
@@ -346,7 +352,7 @@ Private Attributes</h2></td></tr>
 
 <p>"+ Add New Row" button on the first stacked page. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00107">107</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00129">129</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__mapping__widget_8cpp_source.html#l00178">createAddButtonPage()</a>, and <a class="el" href="camera__mapping__widget_8cpp_source.html#l00230">setAvailableCameras()</a>.</p>
 
@@ -374,7 +380,7 @@ Private Attributes</h2></td></tr>
 
 <p>Returns to the add-button page without emitting <a class="el" href="#a83cf953fdd41201e45ae4abc3a5f3f45" title="Emitted with the chosen camera&#39;s id when the user picks one from the selection combo.">addRequested()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00109">109</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00131">131</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__mapping__widget_8cpp_source.html#l00197">createSelectCameraPage()</a>.</p>
 
@@ -402,15 +408,15 @@ Private Attributes</h2></td></tr>
 
 <p>Camera-selection combo on the second stacked page; item data holds the camera id. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00108">108</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00130">130</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__mapping__widget_8cpp_source.html#l00197">createSelectCameraPage()</a>, and <a class="el" href="camera__mapping__widget_8cpp_source.html#l00230">setAvailableCameras()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="camera__mapping__widget_8cpp_source.html">camera_mapping_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="camera__mapping__widget_8cpp_source.html">camera_mapping_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

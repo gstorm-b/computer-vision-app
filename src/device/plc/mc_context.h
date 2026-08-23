@@ -1,6 +1,13 @@
 #ifndef MC_CONTEXT_H
 #define MC_CONTEXT_H
 
+/**
+ * @file mc_context.h
+ * @brief Abstract MC-protocol PLC connection context: frame-independent addressing/refresh
+ *        settings, message-interface config, and device-map reference (see Context_Mc3E for
+ *        the 3E-frame specialization).
+ */
+
 #include <QByteArray>
 #include <QJsonObject>
 #include <QObject>
@@ -13,15 +20,15 @@
 
 using namespace vc::device::mc;
 
-/// PLC (Mitsubishi MC-protocol family) device classes: frame contexts, message
-/// interfaces, device maps, and the MC protocol/frame constants they share.
 namespace vc::device {
 
-/// Abstract base context for an MC-protocol PLC connection: holds the
-/// frame-independent addressing/refresh settings (M/D device ranges, poll
-/// interval) exposed to the UI via Q_PROPERTY, plus the message-interface
-/// config and device map shared by every concrete frame type (see
-/// Context_Mc3E for the 3E-frame specialization).
+/**
+ * @class McContext
+ * @brief Abstract base context for an MC-protocol PLC connection: holds the
+ *        frame-independent addressing/refresh settings (M/D device ranges, poll interval)
+ *        exposed to the UI via Q_PROPERTY, plus the message-interface config and device map
+ *        shared by every concrete frame type (see Context_Mc3E for the 3E-frame specialization).
+ */
 class McContext {
     Q_GADGET
 

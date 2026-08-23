@@ -7,8 +7,16 @@
 #include <QColor>
 #include <QRectF>
 
-/// Circular status lamp widget: paints a filled, outlined circle centered in the
-/// widget, switching between an "enabled" and "disabled" fill color.
+/**
+ * @file clamp.h
+ * @brief CLamp — circular status lamp widget.
+ */
+
+/**
+ * @class CLamp
+ * @brief Circular status lamp widget: paints a filled, outlined circle centered in the
+ *        widget, switching between an "enabled" and "disabled" fill color.
+ */
 class CLamp : public QWidget {
         Q_OBJECT
     public:
@@ -17,9 +25,11 @@ class CLamp : public QWidget {
         /// setLampMaxSize() is called.
         explicit CLamp(QWidget *parent = nullptr);
 
-        /// Sets a fixed lamp diameter (in pixels, before subtracting the outline
-        /// width) used instead of auto-sizing to the widget's bounds.
-        /// @param max_size ignored (no-op) if less than 5
+        /**
+         * @brief Sets a fixed lamp diameter (in pixels, before subtracting the outline
+         *        width) used instead of auto-sizing to the widget's bounds.
+         * @param[in] max_size ignored (no-op) if less than 5
+         */
         void setLampMaxSize(int max_size);
 
         /// Sets whether the lamp is drawn in its enabled or disabled color;
@@ -34,8 +44,10 @@ class CLamp : public QWidget {
         /// is not a valid QColor.
         void setColorDisable(QColor color);
 
-        /// Sets the outline (pen) width used when drawing the lamp circle.
-        /// @param outer_width ignored (no-op) if negative
+        /**
+         * @brief Sets the outline (pen) width used when drawing the lamp circle.
+         * @param[in] outer_width ignored (no-op) if negative
+         */
         void setOuterWidth(int outer_width);
 
     protected:

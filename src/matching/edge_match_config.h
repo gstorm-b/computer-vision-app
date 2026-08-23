@@ -3,21 +3,27 @@
 
 #include "imatch_type_config.h"
 
-/// Vision/matching module: EdgeMatchConfig, the tunable parameters for gradient-direction
-/// edge template matching used by ImageMatcher.
+/**
+ * @file edge_match_config.h
+ * @brief EdgeMatchConfig — tunable parameters for gradient-direction edge template matching.
+ */
+
 namespace mtc {
 
-/// All tunable parameters for gradient-direction edge template matching (the
-/// SIMD-accelerated algorithm in ImageMatcher).
-///
-/// Covers both the template-learning phase (Canny / pyramid) and the
-/// runtime search phase (greediness, sub-pixel, layer control).
-///
-/// Adding a new EdgeBased setting:
-///   1. Add a field here with a sensible default value.
-///   2. Add one entry to kEdgeSpecs[] in match_config_property_adapter.cpp.
-///   3. Access the field in match_pattern.cpp or image_matcher.cpp.
-///   No other files need to change.
+/**
+ * @class EdgeMatchConfig
+ * @brief All tunable parameters for gradient-direction edge template matching (the
+ *        SIMD-accelerated algorithm in ImageMatcher).
+ *
+ * Covers both the template-learning phase (Canny / pyramid) and the runtime search
+ * phase (greediness, sub-pixel, layer control).
+ *
+ * Adding a new EdgeBased setting:
+ *   1. Add a field here with a sensible default value.
+ *   2. Add one entry to kEdgeSpecs[] in match_config_property_adapter.cpp.
+ *   3. Access the field in match_pattern.cpp or image_matcher.cpp.
+ *   No other files need to change.
+ */
 class EdgeMatchConfig final : public IMatchTypeConfig {
 public:
     /// Default-constructs the config with the default parameter values declared below.

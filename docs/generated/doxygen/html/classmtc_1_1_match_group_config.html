@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_m
 </div><!--header-->
 <div class="contents">
 
+<p>Per-group configuration: holds group identity and the algorithm-specific config (<span class="tt"><a class="el" href="#abdf2264acdaddc98f085a17d903dff0c">typeConfig</a></span>, default <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>) that is SHARED by every pattern in the group.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="match__group_8h_source.html">match_group.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::MatchGroupConfig:</div>
@@ -140,7 +143,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0973eef2a28c1a4aa52a416b701a8dcc" id="r_a0973eef2a28c1a4aa52a416b701a8dcc"><td class="memItemLeft"><a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0973eef2a28c1a4aa52a416b701a8dcc">edgeConfig</a> () noexcept</td></tr>
 <tr class="memdesc:a0973eef2a28c1a4aa52a416b701a8dcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience cast — returns nullptr if current type != EdgeBased.  <br /></td></tr>
 <tr class="memitem:acac8548c223f2203d42303f353ca30c8" id="r_acac8548c223f2203d42303f353ca30c8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#acac8548c223f2203d42303f353ca30c8">MatchGroupConfig</a> ()</td></tr>
-<tr class="memdesc:acac8548c223f2203d42303f353ca30c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs group identity fields and a default <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a> typeConfig.  <br /></td></tr>
+<tr class="memdesc:acac8548c223f2203d42303f353ca30c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs group identity fields and a default <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a> typeConfig.  <br /></td></tr>
 <tr class="memitem:a9712d467a65b7ce789ef339a1ac80f18" id="r_a9712d467a65b7ce789ef339a1ac80f18"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9712d467a65b7ce789ef339a1ac80f18">MatchGroupConfig</a> (const <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &amp;other)</td></tr>
 <tr class="memdesc:a9712d467a65b7ce789ef339a1ac80f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deep-copies <span class="tt">other</span>, cloning <span class="tt"><a class="el" href="#abdf2264acdaddc98f085a17d903dff0c">typeConfig</a></span> so this instance owns an independent algorithm config.  <br /></td></tr>
 <tr class="memitem:a1e9ae23db15a6ecec40254ce8ae75bfe" id="r_a1e9ae23db15a6ecec40254ce8ae75bfe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1e9ae23db15a6ecec40254ce8ae75bfe">MatchGroupConfig</a> (<a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &amp;&amp;)=default</td></tr>
@@ -165,12 +168,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:abdf2264acdaddc98f085a17d903dff0c" id="r_abdf2264acdaddc98f085a17d903dff0c"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classmtc_1_1_i_match_type_config.html">IMatchTypeConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abdf2264acdaddc98f085a17d903dff0c">typeConfig</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classmtc_1_1_match_group_config.html">MatchGroupConfig</a> — per-group configuration.</p>
-<p>Holds group identity and the algorithm-specific config (<span class="tt"><a class="el" href="#abdf2264acdaddc98f085a17d903dff0c">typeConfig</a></span>, default <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a>) that is SHARED by every pattern in the group. Typed access helpers (edgeConfig / configAs&lt;T&gt;) return nullptr when the current matching type does not match.</p>
-<p>Picking / collision-box geometry is per-pattern — it lives on <a class="el" href="structmtc_1_1_match_pattern_config.html">MatchPatternConfig</a>, not here (collision is an Edge-Based, per-pattern concern).</p>
+<div class="textblock"><p>Per-group configuration: holds group identity and the algorithm-specific config (<span class="tt"><a class="el" href="#abdf2264acdaddc98f085a17d903dff0c">typeConfig</a></span>, default <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>) that is SHARED by every pattern in the group. </p>
+<p>Typed access helpers (edgeConfig / configAs&lt;T&gt;) return nullptr when the current matching type does not match. Picking / collision-box geometry is per-pattern (<a class="el" href="structmtc_1_1_match_pattern_config.html" title="Per-pattern configuration carried by MatchPattern: identity, type-agnostic search parameters,...">MatchPatternConfig</a>), not here.</p>
 <p>Copy semantics: deep-copies <span class="tt"><a class="el" href="#abdf2264acdaddc98f085a17d903dff0c">typeConfig</a></span> via clone() so each group owns an independent copy of its algorithm config. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00029">29</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00030">30</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="acac8548c223f2203d42303f353ca30c8" name="acac8548c223f2203d42303f353ca30c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acac8548c223f2203d42303f353ca30c8">&#9670;&#160;</a></span>MatchGroupConfig() <span class="overload">[1/3]</span></h2>
@@ -187,11 +189,11 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Default-constructs group identity fields and a default <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a> typeConfig. </p>
+<p>Default-constructs group identity fields and a default <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a> typeConfig. </p>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00019">19</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00022">MatchGroupConfig()</a>, <a class="el" href="#a1e9ae23db15a6ecec40254ce8ae75bfe">MatchGroupConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00030">operator=()</a>, and <a class="el" href="#a69b7b344d247a88423bc5bfa34016aa1">operator=()</a>.</p>
 
@@ -216,7 +218,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00022">22</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00041">m_groupIndex</a>, <a class="el" href="match__group_8h_source.html#l00040">m_groupName</a>, <a class="el" href="match__group_8h_source.html#l00052">m_patterns</a>, <a class="el" href="match__group_8h_source.html#l00042">m_sortByAngle</a>, <a class="el" href="match__group_8h_source.html#l00043">m_sortConditionAngle</a>, <a class="el" href="match__group_8cpp_source.html#l00019">MatchGroupConfig()</a>, and <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00042">m_groupIndex</a>, <a class="el" href="match__group_8h_source.html#l00041">m_groupName</a>, <a class="el" href="match__group_8h_source.html#l00053">m_patterns</a>, <a class="el" href="match__group_8h_source.html#l00043">m_sortByAngle</a>, <a class="el" href="match__group_8h_source.html#l00044">m_sortConditionAngle</a>, <a class="el" href="match__group_8cpp_source.html#l00019">MatchGroupConfig()</a>, and <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 </div>
 </div>
@@ -275,9 +277,9 @@ template&lt;typename T&gt; </div>
 
 <p>Generic typed cast for future algorithm types; returns nullptr if typeConfig is not (or not currently) a T. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00075">75</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00076">76</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 </div>
 </div>
@@ -308,9 +310,9 @@ template&lt;typename T&gt; </div>
 
 <p>Generic typed cast for future algorithm types; returns nullptr if typeConfig is not (or not currently) a T. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00073">73</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00074">74</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 </div>
 </div>
@@ -339,9 +341,9 @@ template&lt;typename T&gt; </div>
 
 <p>Convenience cast — returns nullptr if current type != EdgeBased. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00070">70</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00071">71</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 </div>
 </div>
@@ -370,9 +372,9 @@ template&lt;typename T&gt; </div>
 
 <p>Convenience cast — returns nullptr if current type != EdgeBased. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00068">68</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00069">69</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00194">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupConfigFromJson()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>.</p>
 
@@ -403,9 +405,9 @@ template&lt;typename T&gt; </div>
 
 <p>Returns the current algorithm type, or EdgeBased if typeConfig is null. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00056">56</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00057">57</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00021">mtc::EdgeBased</a>, and <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00024">mtc::EdgeBased</a>, and <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>.</p>
 
@@ -430,7 +432,7 @@ template&lt;typename T&gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00030">30</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00041">m_groupIndex</a>, <a class="el" href="match__group_8h_source.html#l00040">m_groupName</a>, <a class="el" href="match__group_8h_source.html#l00052">m_patterns</a>, <a class="el" href="match__group_8h_source.html#l00042">m_sortByAngle</a>, <a class="el" href="match__group_8h_source.html#l00043">m_sortConditionAngle</a>, <a class="el" href="match__group_8cpp_source.html#l00019">MatchGroupConfig()</a>, and <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00042">m_groupIndex</a>, <a class="el" href="match__group_8h_source.html#l00041">m_groupName</a>, <a class="el" href="match__group_8h_source.html#l00053">m_patterns</a>, <a class="el" href="match__group_8h_source.html#l00043">m_sortByAngle</a>, <a class="el" href="match__group_8h_source.html#l00044">m_sortConditionAngle</a>, <a class="el" href="match__group_8cpp_source.html#l00019">MatchGroupConfig()</a>, and <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 </div>
 </div>
@@ -485,9 +487,9 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 <p>Switches to a different algorithm type; resets typeConfig to a fresh default instance for <span class="tt">t</span> (no-op if already of that type). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00062">62</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00063">63</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="imatch__type__config_8cpp_source.html#l00008">mtc::IMatchTypeConfig::createDefault()</a>, and <a class="el" href="match__group_8h_source.html#l00047">typeConfig</a>.</p>
+<p class="reference">References <a class="el" href="imatch__type__config_8cpp_source.html#l00008">mtc::IMatchTypeConfig::createDefault()</a>, and <a class="el" href="match__group_8h_source.html#l00048">typeConfig</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00194">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupConfigFromJson()</a>.</p>
 
@@ -508,7 +510,7 @@ template&lt;typename T&gt; </div>
 
 <p>Numeric identifier of the group. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00041">41</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00042">42</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00194">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>, <a class="el" href="match__group_8cpp_source.html#l00022">MatchGroupConfig()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01036">LocalizationPatternsWidget::onTreeAddGroupRequested()</a>, <a class="el" href="match__group_8cpp_source.html#l00030">operator=()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00538">mtc::PatternGroupManager::validateGroupConfig()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
@@ -528,7 +530,7 @@ template&lt;typename T&gt; </div>
 
 <p>Display name of the group. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00040">40</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00041">41</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00574">mtc::PatternGroupManager::fromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00194">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>, <a class="el" href="match__group_8cpp_source.html#l00022">MatchGroupConfig()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01036">LocalizationPatternsWidget::onTreeAddGroupRequested()</a>, <a class="el" href="match__group_8cpp_source.html#l00030">operator=()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00538">mtc::PatternGroupManager::validateGroupConfig()</a>.</p>
 
@@ -545,9 +547,9 @@ template&lt;typename T&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Serializable pattern-config list carried on the group config (copied verbatim by the copy ctor/assignment). <a class="el" href="classmtc_1_1_match_group.html">MatchGroup</a>'s live patterns are stored separately as shared_ptr&lt;MatchPattern&gt;; see <a class="el" href="classmtc_1_1_match_group.html#a082f1b7a72882d5bd1a8cc4a5ded3267" title="Returns the live pattern list (shared ownership; a copy of the internal vector of shared_ptr).">MatchGroup::patterns()</a>. </p>
+<p>Serializable pattern-config list carried on the group config (copied verbatim by the copy ctor/assignment). <a class="el" href="classmtc_1_1_match_group.html" title="Owns one named/numbered group of patterns plus their shared MatchGroupConfig: pattern CRUD (add/remov...">MatchGroup</a>'s live patterns are stored separately as shared_ptr&lt;MatchPattern&gt;; see <a class="el" href="classmtc_1_1_match_group.html#a082f1b7a72882d5bd1a8cc4a5ded3267" title="Returns the live pattern list (shared ownership; a copy of the internal vector of shared_ptr).">MatchGroup::patterns()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00052">52</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00053">53</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00022">MatchGroupConfig()</a>, and <a class="el" href="match__group_8cpp_source.html#l00030">operator=()</a>.</p>
 
@@ -567,7 +569,7 @@ template&lt;typename T&gt; </div>
 
 <p>When true, <a class="el" href="classmtc_1_1_image_matcher.html#a1817b68dcf4600b559ca078bb1e86afd">ImageMatcher::sortMatchedObjects</a> orders matches within a pick-priority bucket by smallest angular error to m_sortConditionAngle instead of by score. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00042">42</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00043">43</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00194">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>, <a class="el" href="match__group_8cpp_source.html#l00022">MatchGroupConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00030">operator=()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00455">mtc::ImageMatcher::sortMatchedObjects()</a>.</p>
 
@@ -587,7 +589,7 @@ template&lt;typename T&gt; </div>
 
 <p>Target angle (degrees) used for the angle-based sort when m_sortByAngle is set. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00043">43</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00044">44</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00194">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>, <a class="el" href="match__group_8cpp_source.html#l00022">MatchGroupConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00030">operator=()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00455">mtc::ImageMatcher::sortMatchedObjects()</a>.</p>
 
@@ -604,17 +606,17 @@ template&lt;typename T&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Algorithm-specific config, shared by all patterns in the group. Default-constructed as <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a>. Replace via <a class="el" href="#a67f2f72a620e558a8aba9bfec7fe57aa">setMatchingType()</a>. </p>
+<p>Algorithm-specific config, shared by all patterns in the group. Default-constructed as <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>. Replace via <a class="el" href="#a67f2f72a620e558a8aba9bfec7fe57aa">setMatchingType()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00047">47</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00048">48</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__group_8h_source.html#l00075">configAs()</a>, <a class="el" href="match__group_8h_source.html#l00073">configAs()</a>, <a class="el" href="match__group_8h_source.html#l00070">edgeConfig()</a>, <a class="el" href="match__group_8h_source.html#l00068">edgeConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00019">MatchGroupConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00022">MatchGroupConfig()</a>, <a class="el" href="match__group_8h_source.html#l00056">matchingType()</a>, <a class="el" href="match__group_8cpp_source.html#l00030">operator=()</a>, and <a class="el" href="match__group_8h_source.html#l00062">setMatchingType()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__group_8h_source.html#l00076">configAs()</a>, <a class="el" href="match__group_8h_source.html#l00074">configAs()</a>, <a class="el" href="match__group_8h_source.html#l00071">edgeConfig()</a>, <a class="el" href="match__group_8h_source.html#l00069">edgeConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00019">MatchGroupConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00022">MatchGroupConfig()</a>, <a class="el" href="match__group_8h_source.html#l00057">matchingType()</a>, <a class="el" href="match__group_8cpp_source.html#l00030">operator=()</a>, and <a class="el" href="match__group_8h_source.html#l00063">setMatchingType()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__group_8h_source.html">match_group.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__group_8cpp_source.html">match_group.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__group_8h_source.html">match_group.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__group_8cpp_source.html">match_group.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

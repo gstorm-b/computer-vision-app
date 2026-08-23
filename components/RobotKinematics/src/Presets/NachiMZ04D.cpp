@@ -73,15 +73,17 @@ SerialRobotConfig nachiMZ04D()
     // Canonical link transforms derived from the reverse-engineered standard-DH table
     // (theta=0 for every joint; lengths in meters). See NachiMZ04D.h for the DH table.
     // Joint position limits are from the teach pendant (docs/preset_references/nachi-mz04d.md).
+    // 31/7/2026 Change Nachi robot MZ04D Joing 3 limit, acutual limit range is (-70.0, 190.0),
+    // to avoid posibility to stop while auto driving, decrease limit to (-70.0, 186.0)
     config.joints = {
         revolute("J1", "base_link", "link_1", Pose::fromXYZRPY_m_rad(0.0, 0.0, 0.340, 0.0, 0.0, 0.0),
                  JointLimits{deg(-170.0), deg(170.0), std::nullopt, std::nullopt}),
         revolute("J2", "link_1", "link_2", Pose::fromXYZRPY_m_rad(0.0, 0.0, 0.0, kHalfPi, 0.0, 0.0),
                  JointLimits{deg(-55.0), deg(180.0), std::nullopt, std::nullopt}),
         revolute("J3", "link_2", "link_3", Pose::fromXYZRPY_m_rad(0.260, 0.0, 0.0, 0.0, 0.0, 0.0),
-                 JointLimits{deg(-70.0), deg(190.0), std::nullopt, std::nullopt}),
+                 JointLimits{deg(-70.0), deg(186.0), std::nullopt, std::nullopt}),
         revolute("J4", "link_3", "link_4", Pose::fromXYZRPY_m_rad(0.025, -0.280, 0.0, kHalfPi, 0.0, 0.0),
-                 JointLimits{deg(-190.0), deg(190.0), std::nullopt, std::nullopt}),
+                 JointLimits{deg(-186.0), deg(186.0), std::nullopt, std::nullopt}),
         revolute("J5", "link_4", "link_5", Pose::fromXYZRPY_m_rad(0.0, 0.0, 0.0, -kHalfPi, 0.0, 0.0),
                  JointLimits{deg(-120.0), deg(120.0), std::nullopt, std::nullopt}),
         revolute("J6", "link_5", "flange", Pose::fromXYZRPY_m_rad(0.0, -0.072, 0.0, kHalfPi, 0.0, 0.0),

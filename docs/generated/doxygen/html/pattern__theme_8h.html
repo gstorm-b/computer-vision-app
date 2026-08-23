@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/pattern_theme.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/forms/pattern/pattern_theme.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,12 +119,15 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('pattern__theme
   <div class="headertitle"><div class="title">pattern_theme.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Pattern UI theme tokens (Hybrid Graphite Vision + Orange palette): hex color constants and reusable QSS-fragment builders for C++ painted / inline-styled surfaces in the pattern manager and device wizards that cannot be styled via the QSS files under resrc/styles/*.qss.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QString&gt;</code><br />
 <code>#include &lt;QColor&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for pattern_theme.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="pattern__theme_8h__incl.svg" width="183" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="pattern__theme_8h__incl.svg" width="175" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -141,12 +144,19 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7ada4ce6de3855091836e482efd98e52" id="r_a7ada4ce6de3855091836e482efd98e52"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespaceptn.html#a7ada4ce6de3855091836e482efd98e52">ptn::baseStyleSheet</a> ()</td></tr>
+<tr class="memdesc:a7ada4ce6de3855091836e482efd98e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply to top-level pattern widget / wizard to set base background + text.  <br /></td></tr>
 <tr class="memitem:a27f3b9940b0e60a3e87d36644ebf242c" id="r_a27f3b9940b0e60a3e87d36644ebf242c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespaceptn.html#a27f3b9940b0e60a3e87d36644ebf242c">ptn::ghostButtonStyle</a> ()</td></tr>
+<tr class="memdesc:a27f3b9940b0e60a3e87d36644ebf242c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ghost button (secondary).  <br /></td></tr>
 <tr class="memitem:ac02e261f7b83968a8261f5aecaf30581" id="r_ac02e261f7b83968a8261f5aecaf30581"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespaceptn.html#ac02e261f7b83968a8261f5aecaf30581">ptn::inputStyle</a> ()</td></tr>
+<tr class="memdesc:ac02e261f7b83968a8261f5aecaf30581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input field style (line edits, spinboxes).  <br /></td></tr>
 <tr class="memitem:a04dd0fd2b8837b81cc56684aadd4515f" id="r_a04dd0fd2b8837b81cc56684aadd4515f"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespaceptn.html#a04dd0fd2b8837b81cc56684aadd4515f">ptn::primaryButtonStyle</a> ()</td></tr>
+<tr class="memdesc:a04dd0fd2b8837b81cc56684aadd4515f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary button (accent fill).  <br /></td></tr>
 <tr class="memitem:acbdccf0b76b8c4cc631dcc149bd7fadc" id="r_acbdccf0b76b8c4cc631dcc149bd7fadc"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespaceptn.html#acbdccf0b76b8c4cc631dcc149bd7fadc">ptn::sectionHeaderStyle</a> ()</td></tr>
+<tr class="memdesc:acbdccf0b76b8c4cc631dcc149bd7fadc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Section header label (uppercase, bold, muted).  <br /></td></tr>
 <tr class="memitem:a666b74534da0504b819c2304125ad463" id="r_a666b74534da0504b819c2304125ad463"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespaceptn.html#a666b74534da0504b819c2304125ad463">ptn::stepBubbleStyle</a> (bool done, bool current)</td></tr>
+<tr class="memdesc:a666b74534da0504b819c2304125ad463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active step pill (in wizard step rail): picks background/foreground/border colors based on whether the step is completed, the current step, or upcoming.  <br /></td></tr>
 <tr class="memitem:a4e8f66a28ee445e4bf57a8c61e4bace1" id="r_a4e8f66a28ee445e4bf57a8c61e4bace1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespaceptn.html#a4e8f66a28ee445e4bf57a8c61e4bace1">ptn::toolbarStyle</a> ()</td></tr>
+<tr class="memdesc:a4e8f66a28ee445e4bf57a8c61e4bace1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toolbar frame style.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -189,7 +199,12 @@ Variables</h2></td></tr>
 <tr class="memitem:aecc57bcedb8cc8a6677c1353569214bb" id="r_aecc57bcedb8cc8a6677c1353569214bb"><td class="memItemLeft">constexpr const char *&#160;</td><td class="memItemRight"><a class="el" href="namespaceptn.html#aecc57bcedb8cc8a6677c1353569214bb">ptn::WARN</a> = &quot;#ffb020&quot;</td></tr>
 <tr class="memdesc:aecc57bcedb8cc8a6677c1353569214bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">state.warning.  <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Pattern UI theme tokens (Hybrid Graphite Vision + Orange palette): hex color constants and reusable QSS-fragment builders for C++ painted / inline-styled surfaces in the pattern manager and device wizards that cannot be styled via the QSS files under resrc/styles/*.qss. </p>
+<p>Single source of truth for C++ painted / inline-styled surfaces in the pattern manager and device wizards. Aligned with docs/rules/ui_theme_tokens.md. QSS-driven widgets use resrc/styles/*.qss directly; this header covers only surfaces that cannot be styled via QSS (custom-painted or runtime-built). </p>
+
+<p class="definition">Definition in file <a class="el" href="pattern__theme_8h_source.html">pattern_theme.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1032</width>
-    <height>603</height>
+    <width>1127</width>
+    <height>801</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -122,6 +122,30 @@
        </widget>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_active_group">
+          <property name="text">
+           <string>Active group</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="NoWheelComboBox" name="comboBox_pattern_group">
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <spacer name="hsp_toolbar">
         <property name="orientation">
          <enum>Qt::Orientation::Horizontal</enum>
@@ -138,7 +162,7 @@
        <widget class="QLabel" name="label_state_pill">
         <property name="minimumSize">
          <size>
-          <width>110</width>
+          <width>40</width>
           <height>26</height>
          </size>
         </property>
@@ -673,30 +697,6 @@
             <widget class="QWidget" name="verticalLayoutWidget">
              <layout class="QVBoxLayout" name="vl_library">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <widget class="QLabel" name="label_active_group">
-                  <property name="text">
-                   <string>Active group</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="NoWheelComboBox" name="comboBox_pattern_group">
-                  <property name="minimumSize">
-                   <size>
-                    <width>180</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
                <widget class="QLabel" name="label_library_title">
                 <property name="minimumSize">
                  <size>
@@ -751,7 +751,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QGraphicsView" name="imageView_PatternThumb">
+               <widget class="PatternThumbnailView" name="imageView_PatternThumb">
                 <property name="styleSheet">
                  <string notr="true"/>
                 </property>
@@ -920,6 +920,12 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>FrameBox</class>
+   <extends>QFrame</extends>
+   <header location="global">ui/widgets/controls/frame_box.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>ImageViewOnly</class>
    <extends>QGraphicsView</extends>
    <header location="global">ui/widgets/image_widget/image_view_only.h</header>
@@ -930,15 +936,14 @@
    <header location="global">ui/widgets/no_wheel_combobox.h</header>
   </customwidget>
   <customwidget>
+   <class>PatternThumbnailView</class>
+   <extends>QGraphicsView</extends>
+   <header location="global">ui/widgets/pattern_thumbnail_view.h</header>
+  </customwidget>
+  <customwidget>
    <class>PatternTreeWidget</class>
    <extends>QTreeWidget</extends>
    <header location="global">ui/widgets/pattern_tree_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>FrameBox</class>
-   <extends>QFrame</extends>
-   <header location="global">ui/widgets/controls/frame_box.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

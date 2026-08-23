@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/camera/camera_basler_gige.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/camera/camera_basler_gige.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('camera__basler
   <div class="headertitle"><div class="title">camera_basler_gige.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Basler GigE camera config (BaslerGigeCfg) and CameraDevice implementation (BaslerGigECamera) built on the Pylon SDK for GigE Vision cameras.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="idevice_8h_source.html">device/idevice.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="camera__device_8h_source.html">device/camera/camera_device.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="basler__define_8h_source.html">device/camera/basler_define.h</a>&quot;</code><br />
@@ -131,7 +134,7 @@ Include dependency graph for camera_basler_gige.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="camera__basler__gige_8h__dep__incl.svg" width="100%" height="512"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="camera__basler__gige_8h__dep__incl.svg" width="643" height="331"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="camera__basler__gige_8h_source.html">Go to the source code of this file.</a></p>
@@ -139,15 +142,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3ABaslerGigECamera" id="r_vc_3A_3Adevice_3A_3ABaslerGigECamera"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html">vc::device::BaslerGigECamera</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basler GigE Vision camera device, implemented on top of the Pylon SDK (Pylon::CInstantCamera). Handles connect/disconnect, exposure/gain/backlight parameter application, digital I/O lines, and single/continuous/software-triggered grabs, converting captured Pylon images to cv::Mat.  <a href="classvc_1_1device_1_1_basler_gig_e_camera.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3ABaslerGigeCfg" id="r_vc_3A_3Adevice_3A_3ABaslerGigeCfg"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html">vc::device::BaslerGigeCfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus camera identity (model/serial/IP), exposed as Q_GADGET properties for the property-browser UI (each G_PROPERTY_* macro below declares a property with generated getter/setter backed by the matching m_* field declared further down).  <a href="classvc_1_1device_1_1_basler_gige_cfg.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Basler GigE camera config (BaslerGigeCfg) and CameraDevice implementation (BaslerGigECamera) built on the Pylon SDK for GigE Vision cameras. </p>
+
+<p class="definition">Definition in file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

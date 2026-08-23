@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1de
 </div><!--header-->
 <div class="contents">
 
+<p>Live link/heartbeat state snapshot exposed to the UI (read-only). Field names are transport-neutral: "mainClientConnected" / "heartbeatClientConnected" mean "the main / heartbeat link is up", whether this device accepted the link (server) or dialled it (client).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::device::VisionTcpipRuntimeState:</div>
@@ -141,10 +144,9 @@ Properties</h2></td></tr>
 <tr class="memdesc:aaa55706731a03edcb065b7ade74ef326"><td class="mdescLeft">&#160;</td><td class="mdescRight">True when the main-channel link is up.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="structvc_1_1device_1_1_vision_tcpip_runtime_state.html">VisionTcpipRuntimeState</a> — live link/heartbeat state, read-only for UI.</p>
-<p>Field names are transport-neutral: "mainClientConnected" / "heartbeatClientConnected" mean "the main / heartbeat link is up", whether this device accepted the link (server) or dialled it (client). </p>
+<div class="textblock"><p>Live link/heartbeat state snapshot exposed to the UI (read-only). Field names are transport-neutral: "mainClientConnected" / "heartbeatClientConnected" mean "the main / heartbeat link is up", whether this device accepted the link (server) or dialled it (client). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00046">46</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00043">43</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 </div><a name="doc-property-members" id="doc-property-members"></a><h2 id="header-doc-property-members" class="groupheader">Property Documentation</h2>
 <a id="a0dd3f5b69f5b31e3f178df343452dd2d" name="a0dd3f5b69f5b31e3f178df343452dd2d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0dd3f5b69f5b31e3f178df343452dd2d">&#9670;&#160;</a></span>awaitingHeartbeatReply</h2>
@@ -160,7 +162,7 @@ Properties</h2></td></tr>
 
 <p>True while a heartbeat probe is outstanding. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00051">51</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00048">48</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 </div>
 </div>
@@ -178,7 +180,7 @@ Properties</h2></td></tr>
 
 <p>msg_count expected in the next heartbeat ack. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00052">52</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00049">49</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 </div>
 </div>
@@ -196,7 +198,7 @@ Properties</h2></td></tr>
 
 <p>True when the heartbeat-channel link is up. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00050">50</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00047">47</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 </div>
 </div>
@@ -214,7 +216,7 @@ Properties</h2></td></tr>
 
 <p>msg_count of the last accepted heartbeat ack. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00053">53</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00050">50</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 </div>
 </div>
@@ -232,12 +234,12 @@ Properties</h2></td></tr>
 
 <p>True when the main-channel link is up. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00049">49</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__protocol_8h_source.html#l00046">46</a> of file <a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/output_device/<a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/output_device/<a class="el" href="vision__tcpip__protocol_8h_source.html">vision_tcpip_protocol.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

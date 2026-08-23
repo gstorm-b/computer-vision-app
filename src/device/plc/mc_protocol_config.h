@@ -1,16 +1,23 @@
 #ifndef MC_PROTOCOL_CONFIG_H
 #define MC_PROTOCOL_CONFIG_H
 
+/**
+ * @file mc_protocol_config.h
+ * @brief MC-protocol device configuration: McContext container plus MC-specific JSON persistence.
+ */
+
 #include "device/plc/plc_device.h"
 #include "device/plc/mc_context.h"
 #include "device/plc/mc_msg_interface.h"
 #include "device/plc/mc_context_factory.h"
 
-/// PLC device family (config, protocol devices, and MC-protocol support types).
 namespace vc::device {
 
-/// MC-protocol device configuration: holds a cloned McContext (frame type plus its
-/// addressing/timing parameters) and adds MC-specific JSON persistence on top of PlcCfg.
+/**
+ * @class McProtocolConfig
+ * @brief MC-protocol device configuration: holds a cloned McContext (frame type plus its
+ *        addressing/timing parameters) and adds MC-specific JSON persistence on top of PlcCfg.
+ */
 class McProtocolConfig : public PlcCfg {
     Q_GADGET
 
@@ -39,10 +46,12 @@ public:
         return m_context->frameType();
     }
 
-    /// Replaces the current context with a clone of `ctx`; this config does not take
-    /// ownership of `ctx` itself.
-    /// @param ctx source context to clone; must be non-null
-    /// @return false if `ctx` is null (context left unchanged), true otherwise
+    /**
+     * @brief Replaces the current context with a clone of `ctx`; this config does not take
+     *        ownership of `ctx` itself.
+     * @param[in] ctx source context to clone; must be non-null
+     * @return false if `ctx` is null (context left unchanged), true otherwise
+     */
     bool setContext(McContext *ctx) {
         if (!ctx) {
             return false;
@@ -57,11 +66,13 @@ public:
         return m_context.get();
     }
 
-    /// Builds a fresh context for `frame_type`/`code` via Factory::contextFactory() and
-    /// installs it, discarding any previous context.
-    /// @param frame_type MC frame variant to configure (e.g. Frame_3E)
-    /// @param code data code (binary/ASCII) the frame should use
-    /// @return false if the factory could not produce a context for the given type/code
+    /**
+     * @brief Builds a fresh context for `frame_type`/`code` via Factory::contextFactory() and
+     *        installs it, discarding any previous context.
+     * @param[in] frame_type MC frame variant to configure (e.g. Frame_3E)
+     * @param[in] code data code (binary/ASCII) the frame should use
+     * @return false if the factory could not produce a context for the given type/code
+     */
     bool configMcProtocol(McFrameType frame_type, McDataCode code = McDataCode::Binary) {
         std::shared_ptr<McContext> temp = Factory::contextFactory(frame_type, code);
         if (!temp) {
@@ -85,12 +96,14 @@ public:
         return obj;
     }
 
-    /// Restores base PlcCfg fields, then rebuilds the context from the JSON's MC frame type
-    /// via Factory::contextFactory() and loads the context's own fields from
-    /// DEVICE_JSK_MC_CONTEXT.
-    /// @param obj JSON object previously produced by toJson()
-    /// @return false if the base parse fails or the factory can't build a context for the
-    /// stored frame type
+    /**
+     * @brief Restores base PlcCfg fields, then rebuilds the context from the JSON's MC frame type
+     *        via Factory::contextFactory() and loads the context's own fields from
+     *        DEVICE_JSK_MC_CONTEXT.
+     * @param[in] obj JSON object previously produced by toJson()
+     * @return false if the base parse fails or the factory can't build a context for the
+     *         stored frame type
+     */
     bool fromJson(const QJsonObject &obj) override {
         if (!PlcCfg::fromJson(obj)) return false;
         McFrameType frame_type = McFrameTypeFromString(obj[DEVICE_JSK_MC_FRAME].toString());

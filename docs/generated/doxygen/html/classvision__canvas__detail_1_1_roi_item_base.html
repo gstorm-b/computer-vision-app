@@ -119,6 +119,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvision__c
   <div class="headertitle"><div class="title">vision_canvas_detail::RoiItemBase Class Reference<span class="mlabels"><span class="mlabel abstract">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Internal (private-implementation) interface for a selectable/editable ROI graphics item hosted on the canvas scene; concrete shapes live in <a class="el" href="vision__canvas_8cpp.html">vision_canvas.cpp</a>.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vision_canvas_detail::RoiItemBase:</div>
 <div class="dyncontent">
@@ -134,7 +139,7 @@ Collaboration diagram for vision_canvas_detail::RoiItemBase:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a02150aa2157800947707a96a06a3d0cf" id="r_a02150aa2157800947707a96a06a3d0cf"><td class="memItemLeft">virtual QGraphicsItem *&#160;</td><td class="memItemRight"><a class="el" href="#a02150aa2157800947707a96a06a3d0cf">graphicsItem</a> ()=0</td></tr>
 <tr class="memitem:a28e7bb9f471d0e2e5f149003fef8ad60" id="r_a28e7bb9f471d0e2e5f149003fef8ad60"><td class="memItemLeft">virtual <a class="el" href="struct_vision_roi.html">VisionRoi</a>&#160;</td><td class="memItemRight"><a class="el" href="#a28e7bb9f471d0e2e5f149003fef8ad60">roi</a> () const =0</td></tr>
-<tr class="memdesc:a28e7bb9f471d0e2e5f149003fef8ad60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current geometry/state of this ROI as a plain <a class="el" href="struct_vision_roi.html">VisionRoi</a> value.  <br /></td></tr>
+<tr class="memdesc:a28e7bb9f471d0e2e5f149003fef8ad60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current geometry/state of this ROI as a plain <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> value.  <br /></td></tr>
 <tr class="memitem:a33ffc3c998c9fad0fff28beb09e7c898" id="r_a33ffc3c998c9fad0fff28beb09e7c898"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a33ffc3c998c9fad0fff28beb09e7c898">VisionCanvasItemBase</a> (QObject *parent=nullptr)</td></tr>
 <tr class="memdesc:a33ffc3c998c9fad0fff28beb09e7c898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the signal mixin with the given QObject parent.  <br /></td></tr>
 <tr class="memitem:a5e3a952dd4f4742aa29e55b7889d6ad8" id="r_a5e3a952dd4f4742aa29e55b7889d6ad8"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#a5e3a952dd4f4742aa29e55b7889d6ad8">~RoiItemBase</a> ()=default</td></tr>
@@ -153,7 +158,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a375dbb228bdf49b5a17b4f5d8c3ec1eb signals_classvision__canvas__detail_1_1_vision_canvas_item_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when the item's QGraphicsItem selection state changes.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract interface for an editable ROI backed by a QGraphicsItem: exposes the underlying graphics item and a conversion to the plain <a class="el" href="struct_vision_roi.html">VisionRoi</a> data type. </p>
+<div class="textblock"><p>Internal (private-implementation) interface for a selectable/editable ROI graphics item hosted on the canvas scene; concrete shapes live in <a class="el" href="vision__canvas_8cpp.html">vision_canvas.cpp</a>. </p>
+<p>Abstract interface for an editable ROI backed by a QGraphicsItem: exposes the underlying graphics item and a conversion to the plain <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> data type. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00259">259</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -236,7 +242,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the current geometry/state of this ROI as a plain <a class="el" href="struct_vision_roi.html">VisionRoi</a> value. </p>
+<p>Returns the current geometry/state of this ROI as a plain <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> value. </p>
 
 <p>Implemented in <a class="el" href="classvision__canvas__detail_1_1_vision_rect_roi_item.html#a4eb2497f6aa13b69b0830ca05f44e1eb">vision_canvas_detail::VisionRectRoiItem</a>, and <a class="el" href="classvision__canvas__detail_1_1_vision_rotated_roi_item.html#a64ad297d8d971a142ddc441e261a59d9">vision_canvas_detail::VisionRotatedRoiItem</a>.</p>
 
@@ -272,7 +278,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

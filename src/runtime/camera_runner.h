@@ -1,6 +1,12 @@
 #ifndef CAMERA_RUNNER_H
 #define CAMERA_RUNNER_H
 
+/**
+ * @file camera_runner.h
+ * @brief CameraRunner — per-camera thread runner mediating GUI-thread requests and the
+ *        camera device's own worker thread via the DeviceCommand model.
+ */
+
 #include <QTimer>
 
 #include "runtime/device_runner.h"
@@ -9,31 +15,81 @@
 
 namespace vc::runtime {
 
-/// Per-camera thread runner (replaces the legacy CameraWorker that previously lived in
-/// src/model); mediates between the GUI thread and the camera device's own HighPriority
-/// worker thread.
-///
-/// Commission mode: widget code calls requestConnect() / requestSingleShot() etc. from the
-/// GUI thread. These emit queued signals that the camera device processes on its own thread;
-/// results arrive back via grabFinished(), parametersApplied(), etc. (also queued, so safe
-/// for GUI slots).
-///
-/// Runtime mode: the camera stays on its own thread while the task runtime thread triggers
-/// grabs and awaits grabFinished() via Qt::QueuedConnection; the runner remains the mediator
-/// so no direct cross-thread calls are needed.
-///
-/// Camera requests route through the standard DeviceCommand model, with queue and timeout
-/// behavior: Connect/Disconnect are rejected while another command is active, SingleShot is
-/// queued FIFO while busy, and ApplyParams keeps only the latest pending request.
+/**
+ * @class CameraRunner
+ * @brief Per-camera thread runner (replaces the legacy CameraWorker that previously lived in
+ *        src/model); mediates between the GUI thread and the camera device's own HighPriority
+ *        worker thread.
+ *
+ * Commission mode: widget code calls requestConnect() / requestSingleShot() etc. from the GUI
+ * thread. These emit queued signals that the camera device processes on its own thread; results
+ * arrive back via grabFinished(), parametersApplied(), etc. (also queued, so safe for GUI
+ * slots).
+ *
+ * Runtime mode: the camera stays on its own thread while the task runtime thread triggers grabs
+ * and awaits grabFinished() via Qt::QueuedConnection; the runner remains the mediator so no
+ * direct cross-thread calls are needed.
+ *
+ * Camera requests route through the standard DeviceCommand model, with queue and timeout
+ * behavior: Connect/Disconnect are rejected while another command is active, SingleShot is
+ * queued FIFO while busy, and ApplyParams keeps only the latest pending request.
+ *
+ * **Grab retry lives here, not in the caller.** A failed single-shot is re-issued up to
+ * kMaxGrabAttempts times before the command is failed, so one bad frame does not interrupt
+ * an automatic runtime cycle. Two consequences follow from that placement and are relied on
+ * upstream:
+ *  - the caller observes exactly ONE outcome per command. grabFinished() is deliberately
+ *    not re-emitted for an intermediate failure, so LocalizationRuntimeController never
+ *    sees the retries and cannot mistake one for a finished cycle;
+ *  - reaching LocalizationFaultCode::CameraGrabTimeout therefore means every attempt
+ *    failed, not that one did. A repeating 102 is a real hardware problem.
+ *
+ * The retry budget resets when a CameraSingleShot command starts, not when one succeeds,
+ * so failures during commissioning cannot consume the next runtime cycle's budget. Each
+ * attempt gets its own watchdog window (see kSingleShotTimeoutMs).
+ *
+ * @note The runner cannot rescue a camera whose own thread is blocked inside a driver
+ *       call. Its watchdog only ends the *command*; the device is responsible for
+ *       reporting every grab through grabFinished() and for publishing LostConnected when
+ *       it detects removal (see BaslerGigECamera::publishRemovalIfDetected()).
+ *
+ * @note Threading: the wrapped camera device lives on its own worker QThread once attached
+ *       (see DeviceRunner); requestConnect()/requestDisconnect()/requestSingleShot()/
+ *       requestApplyParams()/submitCommand() are all safe to call from any thread, since they
+ *       only touch this runner's own command queue/timer and dispatch to the device via
+ *       Qt::QueuedConnection triggers (see wireSignals()).
+ */
 class CameraRunner : public DeviceRunner<vc::device::CameraDevice> {
     Q_OBJECT
 
 public:
-    /// Constructs the runner for `camera`, registering the queued-connection meta types
-    /// (DeviceCommand, DeviceCommandResult, GrabResult) and wiring the single-shot
-    /// m_activeCommandTimer to onActiveCommandTimedOut() for active-command timeout handling.
-    /// @param camera the camera device this runner manages (not owned; must outlive the runner)
-    /// @param parent optional QObject parent
+    /// Watchdog window for a single-shot grab, in milliseconds.
+    ///
+    /// This MUST stay above the camera's own blocking-grab timeout
+    /// (BaslerGigECamera::kDefaultGrabTimeoutMs, 5000 ms). It used to share the generic
+    /// 3000 ms default, so the runner gave up while the camera was still legitimately
+    /// waiting: the command was reported TimedOut and the real grabFinished then arrived
+    /// with no active command to resolve.
+    static constexpr int kSingleShotTimeoutMs = 8000;
+
+    /// Watchdog window for connect/disconnect/apply-params commands, in milliseconds.
+    static constexpr int kDefaultCommandTimeoutMs = 3000;
+
+    /// Total single-shot attempts before the command is failed. A transient grab failure
+    /// is retried in the runner so one bad frame does not interrupt the automatic cycle;
+    /// exhausting these attempts is what surfaces as LocalizationFaultCode::CameraGrabTimeout.
+    /// @note This is an attempt count, not a retry count: 6 means one initial grab plus
+    ///       five retries.
+    static constexpr int kMaxGrabAttempts = 6;
+
+    /**
+     * @brief Constructs the runner for `camera`, registering the queued-connection meta types
+     *        (DeviceCommand, DeviceCommandResult, GrabResult) and wiring the single-shot
+     *        m_activeCommandTimer to onActiveCommandTimedOut() for active-command timeout
+     *        handling.
+     * @param[in] camera the camera device this runner manages (not owned; must outlive the runner)
+     * @param[in] parent optional QObject parent
+     */
     explicit CameraRunner(vc::device::CameraDevice *camera,
                           QObject *parent = nullptr)
         : DeviceRunner(camera, parent)
@@ -44,6 +100,7 @@ public:
         m_activeCommandTimer.setSingleShot(true);
         connect(&m_activeCommandTimer, &QTimer::timeout,
                 this, &CameraRunner::onActiveCommandTimedOut);
+        m_grabFailedCount = 0;
     }
 
     // ── Commission / runtime actions (safe from any thread) ──────────────────
@@ -77,14 +134,20 @@ public:
                                             m_device->id()));
     }
 
-    /// Validates and submits `command` for execution. Rejects it (via finishRejectedCommand())
-    /// if its targetDeviceId doesn't match this camera's id, or if its kind isn't one of the
-    /// supported camera commands (see isSupportedCommand()). Otherwise enqueues it under the
-    /// policy from queuePolicyFor() and either runs it immediately (runCommand()) when the
-    /// runner is idle, or queues it and logs the queued state via LOG_USER_INFO.
-    /// @param command the command to submit
-    /// @return the accepted/rejected result for this call; a queued command still returns
-    /// "accepted" and completes later via commandFinished()
+    /**
+     * @brief Validates and submits `command` for execution. Rejects it (via
+     *        finishRejectedCommand()) if its targetDeviceId doesn't match this camera's id, or
+     *        if its kind isn't one of the supported camera commands (see isSupportedCommand()).
+     *        Otherwise enqueues it under the policy from queuePolicyFor() and either runs it
+     *        immediately (runCommand()) when the runner is idle, or queues it and logs the
+     *        queued state via LOG_USER_INFO.
+     * @param[in] command the command to submit
+     * @return the accepted/rejected result for this call; a queued command still returns
+     *         "accepted" and completes later via commandFinished()
+     * @post On acceptance, the command's terminal outcome (succeeded/failed/timed out) is
+     *       always reported later via commandFinished(), whether it ran immediately or was
+     *       queued.
+     */
     DeviceCommandResult submitCommand(const DeviceCommand &command) override
     {
         if (command.targetDeviceId != m_device->id()) {
@@ -131,11 +194,17 @@ public:
 
 signals:
     // ── Results forwarded from camera thread ──────────────────────────────────
-    /// Re-emitted (GUI-thread side) whenever the camera device's grabFinished signal fires,
-    /// carrying the grab outcome/frame data in `result`.
+    /**
+     * @brief Re-emitted (GUI-thread side) whenever the camera device's grabFinished signal
+     *        fires.
+     * @param[in] result the grab outcome/frame data reported by the camera device.
+     */
     void grabFinished(vc::device::GrabResult result);
-    /// Re-emitted (GUI-thread side) whenever the camera device's parametersApplied signal
-    /// fires; `ok` reports whether the parameter apply succeeded.
+    /**
+     * @brief Re-emitted (GUI-thread side) whenever the camera device's parametersApplied
+     *        signal fires.
+     * @param[in] ok whether the parameter apply succeeded.
+     */
     void parametersApplied(bool ok);
 
     // ── Internal queued triggers (→ camera thread) ────────────────────────────
@@ -192,11 +261,13 @@ protected:
     }
 
 private slots:
-    /// Handles the camera device's connectStatusChanged signal. If a Connect or Disconnect
-    /// command is currently active, resolves it (succeeded/failed via finishActiveCommand())
-    /// based on `status`; the status is then re-emitted as connectStatusChanged() to listeners
-    /// regardless of whether a command was active.
-    /// @param status the camera's new connection status
+    /**
+     * @brief Handles the camera device's connectStatusChanged signal. If a Connect or
+     *        Disconnect command is currently active, resolves it (succeeded/failed via
+     *        finishActiveCommand()) based on `status`; the status is then re-emitted as
+     *        connectStatusChanged() to listeners regardless of whether a command was active.
+     * @param[in] status the camera's new connection status
+     */
     void onConnectStatusChanged(vc::device::ConnectStatus status) {
         if (!hasActiveCommand()) {
             emit connectStatusChanged(status);
@@ -240,11 +311,19 @@ private slots:
         emit errorOccurred(msg);
     }
 
-    /// Handles the camera device's grabFinished signal. If a CameraSingleShot command is
-    /// active, resolves it succeeded or failed based on `result.isGrabSuccess` (carrying
-    /// `result.msg` in the result payload's "message" entry), then always re-emits
-    /// grabFinished() with `result`.
-    /// @param result the grab outcome reported by the camera device
+    /**
+     * @brief Handles the camera device's grabFinished signal, applying the grab-retry policy.
+     *
+     * With a CameraSingleShot command active:
+     *  - success resolves the command and clears the retry counter;
+     *  - failure re-issues the grab (restarting the watchdog for the new attempt) until
+     *    kMaxGrabAttempts is reached, then fails the command.
+     *
+     * @param[in] result the grab outcome reported by the camera device
+     * @note grabFinished() is re-emitted only for the outcome the caller should act on —
+     *       an intermediate failure returns early instead. That is what lets the runtime
+     *       controller treat one command as one cycle result.
+     */
     void onGrabFinished(vc::device::GrabResult result) {
         QVariantMap payload;
         payload.insert(QStringLiteral("message"), result.msg);
@@ -255,24 +334,46 @@ private slots:
 
         if (m_activeCommand.kind == DeviceCommandKind::CameraSingleShot &&
             result.isGrabSuccess) {
+            m_grabFailedCount = 0;
             finishActiveCommand(DeviceCommandResult::succeeded(
                 m_activeCommand,
                 result.msg,
                 payload));
         } else if (m_activeCommand.kind == DeviceCommandKind::CameraSingleShot) {
-            finishActiveCommand(DeviceCommandResult::failed(
-                m_activeCommand,
-                DeviceCommandResultCode::DeviceError,
-                result.msg,
-                payload));
+            m_grabFailedCount++;
+            if (m_grabFailedCount >= kMaxGrabAttempts) {
+                LOG_USER_WARN << "Camera grab failed on every attempt."
+                              << "target=" << m_activeCommand.targetDeviceId
+                              << "attempts=" << m_grabFailedCount
+                              << "msg=" << result.msg;
+                finishActiveCommand(DeviceCommandResult::failed(
+                    m_activeCommand,
+                    DeviceCommandResultCode::DeviceError,
+                    result.msg,
+                    payload));
+            } else {
+                // Give the retry its own watchdog window. The timer was started once in
+                // runCommand() and never restarted, so the whole retry chain shared a
+                // single timeout: a grab that fails slowly used it up on the first
+                // attempt and the later attempts never ran at all.
+                LOG_DEV_INFO << "Camera grab failed, retrying."
+                             << "target=" << m_activeCommand.targetDeviceId
+                             << "attempt=" << m_grabFailedCount
+                             << "of=" << kMaxGrabAttempts;
+                m_activeCommandTimer.start(activeTimeoutMs(m_activeCommand));
+                emit sig_singleShot();
+                return;
+            }
         }
         emit grabFinished(result);
     }
 
-    /// Handles the camera device's parametersApplied signal. If a CameraApplyParams command is
-    /// active, resolves it succeeded or failed based on `ok`, then always re-emits
-    /// parametersApplied() with `ok`.
-    /// @param ok whether the parameter apply succeeded on the camera device
+    /**
+     * @brief Handles the camera device's parametersApplied signal. If a CameraApplyParams
+     *        command is active, resolves it succeeded or failed based on `ok`, then always
+     *        re-emits parametersApplied() with `ok`.
+     * @param[in] ok whether the parameter apply succeeded on the camera device
+     */
     void onParametersApplied(bool ok) {
         if (!hasActiveCommand()) {
             emit parametersApplied(ok);
@@ -369,6 +470,13 @@ private:
             return;
         }
 
+        // Reset the retry budget per command. It used to clear only on a successful grab,
+        // so failures during commissioning carried into the next runtime cycle and could
+        // consume the budget before that cycle's first attempt.
+        if (command.kind == DeviceCommandKind::CameraSingleShot) {
+            m_grabFailedCount = 0;
+        }
+
         m_activeCommand = command;
         m_activeCommandTimer.start(activeTimeoutMs(command));
         LOG_USER_INFO << "Camera command started."
@@ -400,10 +508,16 @@ private:
         }
     }
 
-    /// Returns `command.timeoutMs` if positive, otherwise a default timeout of 3000 ms.
+    /// Returns `command.timeoutMs` if positive, otherwise the per-kind default:
+    /// kSingleShotTimeoutMs for a grab, kDefaultCommandTimeoutMs for everything else.
     static int activeTimeoutMs(const DeviceCommand &command)
     {
-        return command.timeoutMs > 0 ? command.timeoutMs : 3000;
+        if (command.timeoutMs > 0) {
+            return command.timeoutMs;
+        }
+        return command.kind == DeviceCommandKind::CameraSingleShot
+                   ? kSingleShotTimeoutMs
+                   : kDefaultCommandTimeoutMs;
     }
 
     /// Logs a rejected command via LOG_USER_INFO and emits commandFinished(result).
@@ -459,6 +573,7 @@ private:
     DeviceCommandQueue m_commandQueue;      ///< FIFO queue of camera commands awaiting dispatch.
     QTimer m_activeCommandTimer;            ///< Single-shot timer that fails m_activeCommand if it doesn't finish in time.
     DeviceCommand m_activeCommand;          ///< Command currently running on the camera thread; empty id means none is active.
+    int m_grabFailedCount;
 };
 
 } // namespace vc::runtime

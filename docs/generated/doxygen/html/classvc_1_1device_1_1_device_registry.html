@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to create devices from JSON and to list the sub-types offered in the UI. Exposes only static members and is never instantiated.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="device__registry_8h_source.html">device_registry.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::device::DeviceRegistry:</div>
@@ -130,22 +133,25 @@ Collaboration diagram for vc::device::DeviceRegistry:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab1152b75c269e2cb5aea2dd593e13045" id="r_ab1152b75c269e2cb5aea2dd593e13045"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab1152b75c269e2cb5aea2dd593e13045">DeviceRegistry</a> ()=delete</td></tr>
-<tr class="memdesc:ab1152b75c269e2cb5aea2dd593e13045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted: <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a> exposes only static members and is never instantiated.  <br /></td></tr>
+<tr class="memdesc:ab1152b75c269e2cb5aea2dd593e13045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted: <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a> exposes only static members and is never instantiated.  <br /></td></tr>
 <tr class="memitem:adfc123af2f2705245d267abc2a3027c7" id="r_adfc123af2f2705245d267abc2a3027c7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adfc123af2f2705245d267abc2a3027c7">~DeviceRegistry</a> ()=delete</td></tr>
-<tr class="memdesc:adfc123af2f2705245d267abc2a3027c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted: <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a> exposes only static members and is never instantiated.  <br /></td></tr>
+<tr class="memdesc:adfc123af2f2705245d267abc2a3027c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted: <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a> exposes only static members and is never instantiated.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a27536bc003f440488e45b217e2200e34" id="r_a27536bc003f440488e45b217e2200e34"><td class="memItemLeft">static QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a27536bc003f440488e45b217e2200e34">displayNamesFor</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a> deviceType, bool includeUnavailable=false)</td></tr>
+<tr class="memdesc:a27536bc003f440488e45b217e2200e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lists the subTypeValue tokens of entries registered for <span class="tt">deviceType</span> (despite the name, these are the JSON sub-type tokens, not the entries' displayName field).  <br /></td></tr>
 <tr class="memitem:ad2ceb6e35ac52ba5e7baa0b1152db6eb" id="r_ad2ceb6e35ac52ba5e7baa0b1152db6eb"><td class="memItemLeft">static const QList&lt; <a class="el" href="structvc_1_1device_1_1_device_registry_entry.html">DeviceRegistryEntry</a> &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ad2ceb6e35ac52ba5e7baa0b1152db6eb">entries</a> ()</td></tr>
 <tr class="memdesc:ad2ceb6e35ac52ba5e7baa0b1152db6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the full static list of registered device entries.  <br /></td></tr>
 <tr class="memitem:aae085d56be192b42da5c179a21f9b0b3" id="r_aae085d56be192b42da5c179a21f9b0b3"><td class="memItemLeft">static const <a class="el" href="structvc_1_1device_1_1_device_registry_entry.html">DeviceRegistryEntry</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aae085d56be192b42da5c179a21f9b0b3">find</a> (const QJsonObject &amp;obj, <a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a> deviceType)</td></tr>
+<tr class="memdesc:aae085d56be192b42da5c179a21f9b0b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the registry entry for <span class="tt">deviceType</span> whose sub-type token — read from <span class="tt">obj</span> via each candidate entry's configJsonKey, checked at the top level and then under the nested DeviceConfig object — matches its subTypeValue.  <br /></td></tr>
 <tr class="memitem:a51fab5a6fcf71dc49a7abdbf3edd9315" id="r_a51fab5a6fcf71dc49a7abdbf3edd9315"><td class="memItemLeft">static const <a class="el" href="structvc_1_1device_1_1_device_registry_entry.html">DeviceRegistryEntry</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a51fab5a6fcf71dc49a7abdbf3edd9315">find</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a> deviceType, const QString &amp;subTypeValue)</td></tr>
+<tr class="memdesc:a51fab5a6fcf71dc49a7abdbf3edd9315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the registry entry for <span class="tt">deviceType</span> whose subTypeValue equals <span class="tt">subTypeValue</span>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to create devices from JSON and to list the sub-types offered in the UI. Exposes only static members and is never instantiated. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00031">31</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00041">41</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab1152b75c269e2cb5aea2dd593e13045" name="ab1152b75c269e2cb5aea2dd593e13045"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab1152b75c269e2cb5aea2dd593e13045">&#9670;&#160;</a></span>DeviceRegistry()</h2>
@@ -170,7 +176,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deleted: <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a> exposes only static members and is never instantiated. </p>
+<p>Deleted: <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a> exposes only static members and is never instantiated. </p>
 
 </div>
 </div>
@@ -197,7 +203,7 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deleted: <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a> exposes only static members and is never instantiated. </p>
+<p>Deleted: <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a> exposes only static members and is never instantiated. </p>
 
 </div>
 </div>
@@ -228,9 +234,12 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Lists the subTypeValue tokens of entries registered for <span class="tt">deviceType</span> (despite the name, these are the JSON sub-type tokens, not the entries' displayName field). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Lists the subTypeValue tokens of entries registered for <span class="tt">deviceType</span> (despite the name, these are the JSON sub-type tokens, not the entries' displayName field). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">includeUnavailable</td><td>when false (default), entries with available == false are skipped </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deviceType</td><td>device family to query </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">includeUnavailable</td><td>when false (default), entries with available == false are skipped </td></tr>
   </table>
   </dd>
 </dl>
@@ -296,7 +305,16 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Finds the registry entry for <span class="tt">deviceType</span> whose sub-type token — read from <span class="tt">obj</span> via each candidate entry's configJsonKey, checked at the top level and then under the nested DeviceConfig object — matches its subTypeValue. </p><dl class="section return"><dt>Returns</dt><dd>the matching entry, or nullptr if none is registered </dd></dl>
+
+<p>Finds the registry entry for <span class="tt">deviceType</span> whose sub-type token — read from <span class="tt">obj</span> via each candidate entry's configJsonKey, checked at the top level and then under the nested DeviceConfig object — matches its subTypeValue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>JSON object describing the device </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">deviceType</td><td>device family to search </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the matching entry, or nullptr if none is registered </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00210">210</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
@@ -328,7 +346,16 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Finds the registry entry for <span class="tt">deviceType</span> whose subTypeValue equals <span class="tt">subTypeValue</span>. </p><dl class="section return"><dt>Returns</dt><dd>the matching entry, or nullptr if none is registered </dd></dl>
+
+<p>Finds the registry entry for <span class="tt">deviceType</span> whose subTypeValue equals <span class="tt">subTypeValue</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">deviceType</td><td>device family to search </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">subTypeValue</td><td>JSON sub-type token to match </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the matching entry, or nullptr if none is registered </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00199">199</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
@@ -337,8 +364,8 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/<a class="el" href="device__registry_8h_source.html">device_registry.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/device/<a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/<a class="el" href="device__registry_8h_source.html">device_registry.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/<a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

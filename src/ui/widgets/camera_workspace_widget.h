@@ -11,13 +11,22 @@ class QCheckBox;
 class QPushButton;
 class QLabel;
 
-/// Per-camera workspace (ROI) row list. One row per mapped camera: a "use
-/// workspace" checkbox, a status label, and a "Set workspace…" button, plus a
-/// second "use as condition" checkbox/status line. Model-free on purpose: the
-/// owner feeds the camera id -> display-name map and per-camera state via
-/// primitives, and reacts to toggles / set-requests through signals. Keeping
-/// it free of vc::model types lets it stay a reusable widget under
-/// src/widgets/ (mirrors CameraMappingWidget).
+/**
+ * @file camera_workspace_widget.h
+ * @brief CameraWorkspaceWidget — per-camera workspace (ROI) row list widget.
+ */
+
+/**
+ * @class CameraWorkspaceWidget
+ * @brief Per-camera workspace (ROI) row list. One row per mapped camera: a "use
+ *        workspace" checkbox, a status label, and a "Set workspace…" button, plus a
+ *        second "use as condition" checkbox/status line.
+ *
+ * Model-free on purpose: the owner feeds the camera id -> display-name map and
+ * per-camera state via primitives, and reacts to toggles / set-requests through
+ * signals. Keeping it free of vc::model types lets it stay a reusable widget
+ * under src/widgets/ (mirrors CameraMappingWidget).
+ */
 class CameraWorkspaceWidget : public QWidget {
     Q_OBJECT
 
@@ -49,7 +58,10 @@ signals:
     void setWorkspaceRequested(const QString &cameraId);
 
 private:
-    /// Widgets making up a single camera row.
+    /**
+     * @struct Row
+     * @brief Widgets making up a single camera row.
+     */
     struct Row {
         QWidget     *container{nullptr};      ///< Top-level row container added to m_rowsLayout.
         QCheckBox   *useCheck{nullptr};        ///< "Use workspace" checkbox, labeled with the camera's display name.

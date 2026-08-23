@@ -1,6 +1,12 @@
 #ifndef MC_DEFINE_H
 #define MC_DEFINE_H
 
+/**
+ * @file mc_define.h
+ * @brief Mitsubishi MC-protocol enum/constant definitions, IEEE-754 helpers, and
+ *        string conversion helpers for the McFrameType / McMsgItfType / McDataCode enums.
+ */
+
 #include "core/utils/meta_utils.h"
 
 /// ASCII-frame (1C/1E) protocol control characters.
@@ -68,12 +74,13 @@
 #define MC_FRAME_1C                 "1C"
 #define MC_FRAME_3C                 "3C"
 
-/// Mitsubishi MC-protocol enum/constant definitions, exposed to QML/Qt meta
-/// system via Q_NAMESPACE so the enums below are usable as Q_ENUM_NS.
 namespace vc::device::mc {
 Q_NAMESPACE
 
-/// MC protocol frame variants (1E/3E ASCII+binary, 1C/3C) supported by the factory.
+/**
+ * @enum McFrameType
+ * @brief MC protocol frame variants (1E/3E ASCII+binary, 1C/3C) supported by the factory.
+ */
 enum McFrameType {
     Frame_User,
     Frame_1E,
@@ -83,7 +90,10 @@ enum McFrameType {
 };
 Q_ENUM_NS(McFrameType)
 
-/// Transport/message-interface types used to reach the PLC.
+/**
+ * @enum McMsgItfType
+ * @brief Transport/message-interface types used to reach the PLC.
+ */
 enum McMsgItfType {
     MsgItf_User,
     EthernetTCPIP,
@@ -92,7 +102,10 @@ enum McMsgItfType {
 };
 Q_ENUM_NS(McMsgItfType)
 
-/// Data encoding used on the wire for a frame (binary vs. ASCII).
+/**
+ * @enum McDataCode
+ * @brief Data encoding used on the wire for a frame (binary vs. ASCII).
+ */
 enum McDataCode {
     DataCode_User,
     Binary,
@@ -123,11 +136,13 @@ static inline const char* enum_keys_mc_defines[] = {
     QT_TR_NOOP("Ascii")
 };
 
-/// Looks up the binary/Ethernet-frame (3E) device code for an ASCII device
-/// type letter ('X', 'Y', 'M', or 'D').
-/// @param device_type ASCII device-type letter
-/// @param code output; set to the matching MC_E_DEIVCE_* constant on success
-/// @return true if `device_type` was recognized, false otherwise (code left unset)
+/**
+ * @brief Looks up the binary/Ethernet-frame (3E) device code for an ASCII device
+ *        type letter ('X', 'Y', 'M', or 'D').
+ * @param[in] device_type ASCII device-type letter
+ * @param[out] code set to the matching MC_E_DEIVCE_* constant on success
+ * @return true if `device_type` was recognized, false otherwise (code left unset)
+ */
 [[maybe_unused]] static bool Eframe_Binary_Device_Code(char device_type, quint32 &code) {
     switch (device_type) {
     case 'X':

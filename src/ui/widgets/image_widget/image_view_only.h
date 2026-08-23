@@ -15,16 +15,29 @@
 #include <opencv2/opencv.hpp>
 
 // cvs = computer vision
-/// Read-only, non-editable QGraphicsView for displaying a single image
-/// (loaded from a file path, an OpenCV cv::Mat, or a QPixmap) with Ctrl+wheel
-/// zoom, Ctrl+left-drag panning, rectangular ROI overlays drawn on top of the
-/// pixmap, and fit-to-view on load / double-middle-click / R key.
+
+/**
+ * @file image_view_only.h
+ * @brief ImageViewOnly — read-only QGraphicsView for displaying a single image with
+ *        Ctrl+wheel zoom, Ctrl+drag pan, and rectangular ROI overlays.
+ */
+
+/**
+ * @class ImageViewOnly
+ * @brief Read-only, non-editable QGraphicsView for displaying a single image (loaded
+ *        from a file path, an OpenCV cv::Mat, or a QPixmap) with Ctrl+wheel zoom,
+ *        Ctrl+left-drag panning, rectangular ROI overlays drawn on top of the pixmap,
+ *        and fit-to-view on load / double-middle-click / R key.
+ */
 class ImageViewOnly : public QGraphicsView {
     Q_OBJECT
 public:
-    /// Constructs the view: creates the backing QGraphicsScene, sets a dark
-    /// grey background brush, full-viewport update mode, and pixel-perfect
-    /// (non-smooth) pixmap rendering by default.
+    /**
+     * @brief Constructs the view: creates the backing QGraphicsScene, sets a dark
+     *        grey background brush, full-viewport update mode, and pixel-perfect
+     *        (non-smooth) pixmap rendering by default.
+     * @param[in] parent Optional owning widget; standard Qt parent/child ownership.
+     */
     explicit ImageViewOnly(QWidget *parent = nullptr);
 
     /// Toggles pixel-perfect rendering: when enabled, disables Qt's smooth
@@ -34,23 +47,33 @@ public:
     /// Returns the currently displayed pixmap, or a null QPixmap if no image is loaded.
     QPixmap getCurrentImage();
 
-    /// Adds a rectangular ROI outline (corners given as tl/br points) as a
-    /// child item of the current pixmap item so it renders on top of the
-    /// image; the fill is always a fixed low-alpha green regardless of
-    /// `border_color`, which is only used for the 3px border pen.
-    /// @param tl_x/tl_y top-left corner of the ROI rectangle
-    /// @param br_x/br_y bottom-right corner of the ROI rectangle
-    /// @param border_color colour used for the ROI border pen
+    /**
+     * @brief Adds a rectangular ROI outline (corners given as tl/br points) as a
+     *        child item of the current pixmap item so it renders on top of the
+     *        image; the fill is always a fixed low-alpha green regardless of
+     *        `border_color`, which is only used for the 3px border pen.
+     * @param[in] tl_x         top-left X of the ROI rectangle
+     * @param[in] tl_y         top-left Y of the ROI rectangle
+     * @param[in] br_x         bottom-right X of the ROI rectangle
+     * @param[in] br_y         bottom-right Y of the ROI rectangle
+     * @param[in] border_color colour used for the ROI border pen
+     */
     void addROI(int tl_x, int tl_y, int br_x, int br_y, QColor border_color);
     /// Removes all previously added ROI rectangles from the scene and clears the tracking list.
     void removeAllROI();
-    /// Loads an image from disk at `path` and displays it; logs and does
-    /// nothing if the file cannot be read as an image.
-    /// @param fitsize when true, refits the view to the image bounds after loading
+    /**
+     * @brief Loads an image from disk at `path` and displays it; logs and does
+     *        nothing if the file cannot be read as an image.
+     * @param[in] path    filesystem path of the image to load
+     * @param[in] fitsize when true, refits the view to the image bounds after loading
+     */
     void loadImageFromPath(QString &path, bool fitsize = true);
-    /// Converts an OpenCV image (8-bit grayscale, BGR, or BGRA) to a QPixmap
-    /// via cvMatToQPixmap and displays it; does nothing if `image` is empty.
-    /// @param fitsize when true, refits the view to the image bounds after loading
+    /**
+     * @brief Converts an OpenCV image (8-bit grayscale, BGR, or BGRA) to a QPixmap
+     *        via cvMatToQPixmap and displays it; does nothing if `image` is empty.
+     * @param[in] image   source OpenCV image to convert and display
+     * @param[in] fitsize when true, refits the view to the image bounds after loading
+     */
     void loadImageOpenCv(cv::Mat &image, bool fitsize = false);
     /// Displays `pixmap`, creating the scene's pixmap item on first use (with
     /// FastTransformation to avoid blur) or updating it otherwise; updates
@@ -64,12 +87,15 @@ public:
     bool hadImage();
 
 protected:
-    /// Current mouse-interaction mode, used to disambiguate plain view
-    /// navigation from the Ctrl-driven zoom/pan gestures.
+    /**
+     * @enum InteractMode
+     * @brief Current mouse-interaction mode, used to disambiguate plain view
+     *        navigation from the Ctrl-driven zoom/pan gestures.
+     */
     enum InteractMode {
-        IModeNone,
-        IModeZoom,
-        IModePan
+        IModeNone,  ///< No special interaction; default view/selection behavior.
+        IModeZoom,  ///< Ctrl+wheel zoom in progress.
+        IModePan    ///< Ctrl+left-drag panning in progress.
     };
 
     /// Routes right/left button presses to rightMouseButtonPressed() /

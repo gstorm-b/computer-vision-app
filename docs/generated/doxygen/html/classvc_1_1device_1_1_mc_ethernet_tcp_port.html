@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p><a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html" title="Abstract transport (message interface) to a PLC: connect/disconnect the port and send/receive raw byt...">McMsgInterface</a> transport that talks to the PLC over a plain TCP/IP socket (QTcpSocket), driven synchronously via waitFor*() calls.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::McEthernetTcpPort:</div>
@@ -146,6 +149,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aae9b11045884156c7c6f9c8b9a4a03d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying QTcpSocket as a QIODevice; ownership stays with this port.  <br /></td></tr>
 <tr class="memitem:ae52b6083b1a11e815a641e5543122240" id="r_ae52b6083b1a11e815a641e5543122240"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ae52b6083b1a11e815a641e5543122240">McEthernetTcpPort</a> ()</td></tr>
 <tr class="memitem:af9b488805b45f0d4d83908b2ae9ecf82" id="r_af9b488805b45f0d4d83908b2ae9ecf82"><td class="memItemLeft">const <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a97383e18c9eeb3bab24c811c419deda0">MsgErrorState</a>&#160;</td><td class="memItemRight"><a class="el" href="#af9b488805b45f0d4d83908b2ae9ecf82">ReceiveMsg</a> (QByteArray &amp;buffer, int wait_buffer=1) override</td></tr>
+<tr class="memdesc:af9b488805b45f0d4d83908b2ae9ecf82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Waits up to <span class="tt">wait_buffer</span> ms for readyRead, then appends any available bytes to <span class="tt">buffer</span>. Accumulated wait time triggers ResponseTimeout when it exceeds m_config.m_responseTimeout.  <br /></td></tr>
 <tr class="memitem:a586697e8ae8cfff2582200144c64a00e" id="r_a586697e8ae8cfff2582200144c64a00e"><td class="memItemLeft">const <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a97383e18c9eeb3bab24c811c419deda0">MsgErrorState</a>&#160;</td><td class="memItemRight"><a class="el" href="#a586697e8ae8cfff2582200144c64a00e">SendMsg</a> (QByteArray &amp;buffer) override</td></tr>
 <tr class="memitem:a8d29f80ce6f4c0bf613f1d170713c1f4" id="r_a8d29f80ce6f4c0bf613f1d170713c1f4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8d29f80ce6f4c0bf613f1d170713c1f4">SetConfig</a> (<a class="el" href="classvc_1_1device_1_1_mc_msg_itf_config.html">McMsgItfConfig</a> *cfg) override</td></tr>
 <tr class="memitem:ada128b5f02993187b5b13e49bf058bf0" id="r_ada128b5f02993187b5b13e49bf058bf0"><td class="memItemLeft">const <a class="el" href="namespacevc_1_1device_1_1mc.html#a442840e5c77418e67a8a360532bd4174">McMsgItfType</a>&#160;</td><td class="memItemRight"><a class="el" href="#ada128b5f02993187b5b13e49bf058bf0">type</a> () const override</td></tr>
@@ -156,7 +160,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2eabbc8f0716ef770ce1e0fb25ecbc44 pub_methods_classvc_1_1device_1_1_mc_msg_interface" id="r_a2eabbc8f0716ef770ce1e0fb25ecbc44"><td class="memItemLeft">virtual const <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a97383e18c9eeb3bab24c811c419deda0">MsgErrorState</a>&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a2eabbc8f0716ef770ce1e0fb25ecbc44">ErrorState</a> ()</td></tr>
 <tr class="memdesc:a2eabbc8f0716ef770ce1e0fb25ecbc44 pub_methods_classvc_1_1device_1_1_mc_msg_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last recorded send/receive error state (see <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a97383e18c9eeb3bab24c811c419deda0" title="Outcome of the most recent SendMsg()/ReceiveMsg() call.">MsgErrorState</a>).  <br /></td></tr>
 <tr class="memitem:a40cb3df0854f9367f06b1c590403ca5d pub_methods_classvc_1_1device_1_1_mc_msg_interface" id="r_a40cb3df0854f9367f06b1c590403ca5d"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a40cb3df0854f9367f06b1c590403ca5d">~McMsgInterface</a> ()=default</td></tr>
-<tr class="memdesc:a40cb3df0854f9367f06b1c590403ca5d pub_methods_classvc_1_1device_1_1_mc_msg_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor so concrete transports can be destroyed through a <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html">McMsgInterface</a> pointer.  <br /></td></tr>
+<tr class="memdesc:a40cb3df0854f9367f06b1c590403ca5d pub_methods_classvc_1_1device_1_1_mc_msg_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor so concrete transports can be destroyed through a <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html" title="Abstract transport (message interface) to a PLC: connect/disconnect the port and send/receive raw byt...">McMsgInterface</a> pointer.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -165,7 +169,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a84458ac9e690c9fc30380bd414dc32aa" id="r_a84458ac9e690c9fc30380bd414dc32aa"><td class="memItemLeft">QTcpSocket *&#160;</td><td class="memItemRight"><a class="el" href="#a84458ac9e690c9fc30380bd414dc32aa">m_socket</a></td></tr>
 <tr class="memdesc:a84458ac9e690c9fc30380bd414dc32aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owned TCP socket; null after <a class="el" href="#ae916b31055a8a8735c0f9d8c0f6cc90d">DestroyMsgPort()</a>.  <br /></td></tr>
 <tr class="memitem:a13beb75f3cbf51bc2b1bf2e43b00fc8a" id="r_a13beb75f3cbf51bc2b1bf2e43b00fc8a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a13beb75f3cbf51bc2b1bf2e43b00fc8a">m_total_wait_time</a> {0}</td></tr>
-<tr class="memdesc:a13beb75f3cbf51bc2b1bf2e43b00fc8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elapsed wait time (ms) accumulated across <a class="el" href="#af9b488805b45f0d4d83908b2ae9ecf82">ReceiveMsg()</a> calls toward m_config.m_responseTimeout.  <br /></td></tr>
+<tr class="memdesc:a13beb75f3cbf51bc2b1bf2e43b00fc8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Elapsed wait time (ms) accumulated across <a class="el" href="#af9b488805b45f0d4d83908b2ae9ecf82" title="Waits up to wait_buffer ms for readyRead, then appends any available bytes to buffer....">ReceiveMsg()</a> calls toward m_config.m_responseTimeout.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -199,9 +203,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a3a1f58e4de7181b1672b868ffe64fda4 pro_attribs_classvc_1_1device_1_1_mc_msg_interface"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current port connection state; set by <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#adad4dcabd8ff85275ea8381559c295d8">ConnectToPort()</a>/DisconnectFromPort().  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html">McMsgInterface</a> transport that talks to the PLC over a plain TCP/IP socket (QTcpSocket), driven synchronously via waitFor*() calls. </p>
+<div class="textblock"><p><a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html" title="Abstract transport (message interface) to a PLC: connect/disconnect the port and send/receive raw byt...">McMsgInterface</a> transport that talks to the PLC over a plain TCP/IP socket (QTcpSocket), driven synchronously via waitFor*() calls. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00069">69</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00080">80</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae52b6083b1a11e815a641e5543122240" name="ae52b6083b1a11e815a641e5543122240"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae52b6083b1a11e815a641e5543122240">&#9670;&#160;</a></span>McEthernetTcpPort()</h2>
@@ -227,9 +231,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructs the port in the NotInit state and allocates the underlying QTcpSocket (not yet connected). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00073">73</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00084">84</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00179">vc::device::McMsgInterface::m_error_description</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00178">vc::device::McMsgInterface::m_error_state</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00177">vc::device::McMsgInterface::m_port_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">m_socket</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00115">vc::device::McMsgInterface::NoError</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00106">vc::device::McMsgInterface::NotInit</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00200">vc::device::McMsgInterface::m_error_description</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00199">vc::device::McMsgInterface::m_error_state</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00198">vc::device::McMsgInterface::m_port_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">m_socket</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00132">vc::device::McMsgInterface::NoError</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00120">vc::device::McMsgInterface::NotInit</a>.</p>
 
 </div>
 </div>
@@ -257,7 +261,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Destructor. Does not close/delete the socket itself; callers must invoke <a class="el" href="#ae916b31055a8a8735c0f9d8c0f6cc90d">DestroyMsgPort()</a> first if that cleanup is needed. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00084">84</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00095">95</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
 </div>
 </div>
@@ -289,9 +293,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a9a88085992107d27c71e92f63af2209b">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00192">192</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00206">206</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">m_socket</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">m_socket</a>.</p>
 
 </div>
 </div>
@@ -321,7 +325,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a3a8a0c831c0c5915cc796635d2e56e22">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00104">104</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00115">115</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
 </div>
 </div>
@@ -351,9 +355,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#adad4dcabd8ff85275ea8381559c295d8">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00113">113</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00124">124</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00108">vc::device::McMsgInterface::Connected</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00109">vc::device::McMsgInterface::ConnectFail</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00233">m_config</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00179">vc::device::McMsgInterface::m_error_description</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00177">vc::device::McMsgInterface::m_port_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">m_socket</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00234">m_total_wait_time</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00122">vc::device::McMsgInterface::Connected</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00123">vc::device::McMsgInterface::ConnectFail</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00247">m_config</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00200">vc::device::McMsgInterface::m_error_description</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00198">vc::device::McMsgInterface::m_port_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">m_socket</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00248">m_total_wait_time</a>.</p>
 
 </div>
 </div>
@@ -383,9 +387,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a89ebc88736bdf6c3a385d68a5836e0cb">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00218">218</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">232</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__tcp__client_8h_source.html#l00128">DisconnectFromPort()</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">m_socket</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__tcp__client_8h_source.html#l00139">DisconnectFromPort()</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">m_socket</a>.</p>
 
 </div>
 </div>
@@ -415,11 +419,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a1a04b0fa276b64036c5349d06cddff42">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00128">128</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00139">139</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00177">vc::device::McMsgInterface::m_port_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">m_socket</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00107">vc::device::McMsgInterface::NoConnection</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00198">vc::device::McMsgInterface::m_port_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">m_socket</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00121">vc::device::McMsgInterface::NoConnection</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00218">DestroyMsgPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">DestroyMsgPort()</a>.</p>
 
 </div>
 </div>
@@ -450,9 +454,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a909d89aa9fe953d2f5ac30e6e5d8b036">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00199">199</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00213">213</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00179">vc::device::McMsgInterface::m_error_description</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00200">vc::device::McMsgInterface::m_error_description</a>.</p>
 
 </div>
 </div>
@@ -483,9 +487,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a63eff438db70e37fb4d6f4ab2fdb9670">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00210">210</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00224">224</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">m_socket</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">m_socket</a>.</p>
 
 </div>
 </div>
@@ -515,13 +519,22 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Waits up to <span class="tt">wait_buffer</span> ms for readyRead, then appends any available bytes to <span class="tt">buffer</span>. Accumulates elapsed wait time across calls (m_total_wait_time) so repeated BufferEmpty results eventually surface as ResponseTimeout once m_config.m_responseTimeout is exceeded. </p><dl class="section return"><dt>Returns</dt><dd>NoError if bytes were appended (resets the accumulated wait time), BufferEmpty while still under the response timeout, ResponseTimeout once it is exceeded </dd></dl>
+
+<p>Waits up to <span class="tt">wait_buffer</span> ms for readyRead, then appends any available bytes to <span class="tt">buffer</span>. Accumulated wait time triggers ResponseTimeout when it exceeds m_config.m_responseTimeout. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">buffer</td><td>buffer to append received bytes to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wait_buffer</td><td>per-call read wait time in milliseconds </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>NoError if bytes were appended (resets accumulated time), BufferEmpty while still under the response timeout, ResponseTimeout once it is exceeded </dd></dl>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a6904df796e857fed9e050bd65efe1266">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00170">170</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00184">184</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00118">vc::device::McMsgInterface::BufferEmpty</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00233">m_config</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00178">vc::device::McMsgInterface::m_error_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">m_socket</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00234">m_total_wait_time</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00115">vc::device::McMsgInterface::NoError</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00117">vc::device::McMsgInterface::ResponseTimeout</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00135">vc::device::McMsgInterface::BufferEmpty</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00247">m_config</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00199">vc::device::McMsgInterface::m_error_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">m_socket</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00248">m_total_wait_time</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00132">vc::device::McMsgInterface::NoError</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00134">vc::device::McMsgInterface::ResponseTimeout</a>.</p>
 
 </div>
 </div>
@@ -551,9 +564,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a2490015ec903e4069114c501eae4cb0d">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00140">140</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00151">151</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00118">vc::device::McMsgInterface::BufferEmpty</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00119">vc::device::McMsgInterface::ErrorOcurred</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00233">m_config</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00179">vc::device::McMsgInterface::m_error_description</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00178">vc::device::McMsgInterface::m_error_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">m_socket</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00115">vc::device::McMsgInterface::NoError</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00116">vc::device::McMsgInterface::WriteTimeout</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00135">vc::device::McMsgInterface::BufferEmpty</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00136">vc::device::McMsgInterface::ErrorOcurred</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00247">m_config</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00200">vc::device::McMsgInterface::m_error_description</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00199">vc::device::McMsgInterface::m_error_state</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">m_socket</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00132">vc::device::McMsgInterface::NoError</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00133">vc::device::McMsgInterface::WriteTimeout</a>.</p>
 
 </div>
 </div>
@@ -583,9 +596,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#aa59c7620364198d6175428892516faf3">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00090">90</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00101">101</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00089">vc::device::mc::EthernetTCPIP</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00233">m_config</a>, and <a class="el" href="classvc_1_1device_1_1_mc_msg_itf_config.html#af2611ecdf9f3dc363d4e753bb81ad9b9">vc::device::McMsgItfConfig::type()</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00099">vc::device::mc::EthernetTCPIP</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00247">m_config</a>, and <a class="el" href="classvc_1_1device_1_1_mc_msg_itf_config.html#af2611ecdf9f3dc363d4e753bb81ad9b9">vc::device::McMsgItfConfig::type()</a>.</p>
 
 </div>
 </div>
@@ -615,9 +628,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html#a6d93fc946a8bf3fc0c69920c638ea2b8">vc::device::McMsgInterface</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00205">205</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00219">219</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00089">vc::device::mc::EthernetTCPIP</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00099">vc::device::mc::EthernetTCPIP</a>.</p>
 
 </div>
 </div>
@@ -644,9 +657,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>IP/port/timeout configuration applied via <a class="el" href="#a8d29f80ce6f4c0bf613f1d170713c1f4">SetConfig()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00233">233</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00247">247</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00113">ConnectToPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00170">ReceiveMsg()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00140">SendMsg()</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00090">SetConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00124">ConnectToPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00184">ReceiveMsg()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00151">SendMsg()</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00101">SetConfig()</a>.</p>
 
 </div>
 </div>
@@ -672,9 +685,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Owned TCP socket; null after <a class="el" href="#ae916b31055a8a8735c0f9d8c0f6cc90d">DestroyMsgPort()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">232</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00246">246</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00192">clearBuffer()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00113">ConnectToPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00218">DestroyMsgPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00128">DisconnectFromPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00210">ioDevice()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00073">McEthernetTcpPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00170">ReceiveMsg()</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00140">SendMsg()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00206">clearBuffer()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00124">ConnectToPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00232">DestroyMsgPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00139">DisconnectFromPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00224">ioDevice()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00084">McEthernetTcpPort()</a>, <a class="el" href="mc__msg__tcp__client_8h_source.html#l00184">ReceiveMsg()</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00151">SendMsg()</a>.</p>
 
 </div>
 </div>
@@ -698,16 +711,16 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Elapsed wait time (ms) accumulated across <a class="el" href="#af9b488805b45f0d4d83908b2ae9ecf82">ReceiveMsg()</a> calls toward m_config.m_responseTimeout. </p>
+<p>Elapsed wait time (ms) accumulated across <a class="el" href="#af9b488805b45f0d4d83908b2ae9ecf82" title="Waits up to wait_buffer ms for readyRead, then appends any available bytes to buffer....">ReceiveMsg()</a> calls toward m_config.m_responseTimeout. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00234">234</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__tcp__client_8h_source.html#l00248">248</a> of file <a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00113">ConnectToPort()</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00170">ReceiveMsg()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00124">ConnectToPort()</a>, and <a class="el" href="mc__msg__tcp__client_8h_source.html#l00184">ReceiveMsg()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__msg__tcp__client_8h_source.html">mc_msg_tcp_client.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

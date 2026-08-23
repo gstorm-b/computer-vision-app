@@ -6,6 +6,7 @@
 #include "core/utils/theme_manager.h"
 #include "ui/forms/pattern/add_pattern_wizard.h"
 #include "ui/forms/pattern/edit_pattern_wizard.h"
+#include "ui/forms/pattern/gripper_register_dialog.h"
 #include "ui/forms/task/workspace_setting_dialog.h"
 #include "qtpropertybrowser/qtvariantproperty.h"
 #include "ui/widgets/vision/vision_canvas.h"
@@ -242,12 +243,12 @@ static const QList<PropSpec<mtc::MatchPatternConfig>> kCommonSpecs = {
       [](const mtc::MatchPatternConfig &c){ return QVariant(c.m_minScore); },
       [](mtc::MatchPatternConfig &c, const QVariant &v){ c.m_minScore = v.toDouble(); } },
 
-    { "angle",          "Angle (°)",           "Search center angle in degrees.",
+    { "angle",          "Picking Angle (°)",   "Constant added to the reported angle of every match from this pattern — the orientation the part is picked at. NOT a search parameter: it does not narrow or shift matching.",
       QMetaType::Double, -360.0, 360.0, 1.0,  1, false,
       [](const mtc::MatchPatternConfig &c){ return QVariant(c.m_angle); },
       [](mtc::MatchPatternConfig &c, const QVariant &v){ c.m_angle = v.toDouble(); } },
 
-    { "toleranceAngle", "Tolerance Angle (°)", "Allowed angle deviation around the center angle.",
+    { "toleranceAngle", "Tolerance Angle (°)", "Half-width of the angular search sweep, centred on zero (180 covers the full range). Independent of the picking angle.",
       QMetaType::Double, 0.0,  360.0,  1.0,   1, false,
       [](const mtc::MatchPatternConfig &c){ return QVariant(c.m_toleranceAngle); },
       [](mtc::MatchPatternConfig &c, const QVariant &v){ c.m_toleranceAngle = v.toDouble(); } },
@@ -267,36 +268,45 @@ static const QList<PropSpec<mtc::MatchPatternConfig>> kCommonSpecs = {
      [](const mtc::MatchPatternConfig &c){ return QVariant(c.m_pickPosition.y); },
      [](mtc::MatchPatternConfig &c, const QVariant &v){ c.m_pickPosition.y = v.toDouble(); } },
 
+    { "patternUsePickingBox",
+     "Use Picking Box",
+     "Run the gripper collision check for this pattern. Edge-Based mode only; when off, the pattern is never rejected for collision.",
+     QMetaType::Bool, {}, {}, {},  -1, false,
+     [](const mtc::MatchPatternConfig &c){
+         return QVariant(c.m_usePickingBox); },
+     [](mtc::MatchPatternConfig &c, const QVariant &v){
+         c.m_usePickingBox = v.toBool(); } },
+
     { "patternPickingBoxSizeWidth",
      "Picking Box Size (Width)",
      "Picking-box width. Edge-Based mode only; ignored in Correlation.",
      QMetaType::Double, 0.0, 100000.0, 1.0,  2, false,
      [](const mtc::MatchPatternConfig &c){
-         return QVariant(c.m_pickingBoxSize.width); },
+         return QVariant(c.m_gripperBoxes.size.width); },
      [](mtc::MatchPatternConfig &c, const QVariant &v){
-         c.m_pickingBoxSize.width = v.toDouble(); } },
+         c.m_gripperBoxes.size.width = v.toDouble(); } },
 
     { "patternPickingBoxSizeHeight",
      "Picking Box Size (Height)",
      "Picking-box height. Edge-Based mode only; ignored in Correlation.",
      QMetaType::Double, 0.0, 100000.0, 1.0,  2, false,
      [](const mtc::MatchPatternConfig &c){
-         return QVariant(c.m_pickingBoxSize.height); },
+         return QVariant(c.m_gripperBoxes.size.height); },
      [](mtc::MatchPatternConfig &c, const QVariant &v){
-         c.m_pickingBoxSize.height = v.toDouble(); } },
+         c.m_gripperBoxes.size.height = v.toDouble(); } },
 
     { "patternPickingBoxDistance",
      "Picking Box Distance",
      "Minimum distance between two picking boxes. Edge-Based mode only; ignored in Correlation.",
      QMetaType::Double, 0.0, 100000.0, 1.0,  2, false,
      [](const mtc::MatchPatternConfig &c){
-         return QVariant(c.m_pickingBoxDistance); },
+         return QVariant(c.m_gripperBoxes.distance); },
      [](mtc::MatchPatternConfig &c, const QVariant &v){
-         c.m_pickingBoxDistance = v.toDouble(); } },
+         c.m_gripperBoxes.distance = v.toDouble(); } },
 
     { "patternPickingBoxAngle",
      "Picking Box Angle",
-     "Orientation of the picking box (degrees). Edge-Based mode only; ignored in Correlation.",
+     "Orientation of the picking box (degrees), per pattern. Edge-Based mode only; ignored in Correlation.",
      QMetaType::Double, -360.0, 360.0, 0.1,  2, false,
      [](const mtc::MatchPatternConfig &c){
          return QVariant(c.m_pickingBoxAngle); },
@@ -329,6 +339,33 @@ static const QList<PropSpec<mtc::MatchPatternConfig>> kCommonSpecs = {
          return QVariant(c.m_pickingOffset.z); },
      [](mtc::MatchPatternConfig &c, const QVariant &v){
          c.m_pickingOffset.z = v.toFloat(); } },
+
+    { "patternPickingRotationOffsetRX",
+     "Picking Rotation Offset (RX)",
+     "Rotation offset about the tool X axis (degrees), applied at picking time.",
+     QMetaType::Double, -360.0, 360.0, 0.1,  3, false,
+     [](const mtc::MatchPatternConfig &c){
+         return QVariant(c.m_pickingRotationOffset.x); },
+     [](mtc::MatchPatternConfig &c, const QVariant &v){
+         c.m_pickingRotationOffset.x = v.toFloat(); } },
+
+    { "patternPickingRotationOffsetRY",
+     "Picking Rotation Offset (RY)",
+     "Rotation offset about the tool Y axis (degrees), applied at picking time.",
+     QMetaType::Double, -360.0, 360.0, 0.1,  3, false,
+     [](const mtc::MatchPatternConfig &c){
+         return QVariant(c.m_pickingRotationOffset.y); },
+     [](mtc::MatchPatternConfig &c, const QVariant &v){
+         c.m_pickingRotationOffset.y = v.toFloat(); } },
+
+    { "patternPickingRotationOffsetRZ",
+     "Picking Rotation Offset (RZ)",
+     "Rotation offset about the tool Z axis (degrees), applied at picking time.",
+     QMetaType::Double, -360.0, 360.0, 0.1,  3, false,
+     [](const mtc::MatchPatternConfig &c){
+         return QVariant(c.m_pickingRotationOffset.z); },
+     [](mtc::MatchPatternConfig &c, const QVariant &v){
+         c.m_pickingRotationOffset.z = v.toFloat(); } },
 };
 
 // ── Construction ─────────────────────────────────────────────────────────────
@@ -384,13 +421,8 @@ void LocalizationPatternsWidget::initWidget() {
     ui->splitter_thumb->setStretchFactor(0, 6);
     ui->splitter_thumb->setStretchFactor(1, 4);
 
-    // ── Pattern thumbnail scene — same QGraphicsView (now under the tree) ──
-    m_thumbScene  = new QGraphicsScene(this);
-    m_thumbPixmap = m_thumbScene->addPixmap(QPixmap{});
-    if (ui->imageView_PatternThumb) {
-        ui->imageView_PatternThumb->setScene(m_thumbScene);
-        ui->imageView_PatternThumb->setRenderHint(QPainter::SmoothPixmapTransform);
-    }
+    // The pattern thumbnail is a promoted PatternThumbnailView, which owns its own scene
+    // and overlay painting — nothing to wire up here.
 
     // Bind to the task
     if (m_task) {
@@ -528,6 +560,8 @@ void LocalizationPatternsWidget::wireTree() {
     connect(tree, &PatternTreeWidget::patternClicked,
             this, &LocalizationPatternsWidget::onTreePatternClicked);
 
+    connect(tree, &PatternTreeWidget::gripperRequested,
+            this, &LocalizationPatternsWidget::onTreeGripperRequested);
     connect(tree, &PatternTreeWidget::addGroupRequested,
             this, &LocalizationPatternsWidget::onTreeAddGroupRequested);
     connect(tree, &PatternTreeWidget::addPatternRequested,
@@ -892,25 +926,37 @@ void LocalizationPatternsWidget::clearSelection() {
     syncEditorImageForSelection();
 }
 
-/// Refreshes the pattern-thumbnail view for `pattern`: shows "No pattern selected" and an
-/// empty pixmap when `pattern` is null or has no image; otherwise renders the pick-position
-/// overlay image (falling back to the raw image) and updates the caption with name, pixel
-/// size, and minimum score.
+/// Refreshes the pattern-thumbnail view for `pattern`: clears it and shows
+/// "No pattern selected" when `pattern` is null or has no image; otherwise hands the raw
+/// image and the pattern's pick geometry to the viewer and updates the caption with name,
+/// pixel size, and minimum score.
+///
+/// The overlay is drawn by the view, not baked into the pixmap. MatchPattern::
+/// getImageWithPickPosition() used to burn the axes into a cv::Mat here — that put UI
+/// drawing inside the matching module, and burned-in marks cannot hold a constant
+/// on-screen size once the view can zoom.
 /// @param pattern pattern to display, or nullptr to clear the thumbnail
 void LocalizationPatternsWidget::updatePatternThumb(mtc::MatchPattern *pattern) {
     if (!pattern || pattern->isImageEmpty()) {
-        m_thumbPixmap->setPixmap(QPixmap{});
+        if (ui->imageView_PatternThumb) ui->imageView_PatternThumb->clear();
         ui->label_pattern_caption->setText(tr("No pattern selected"));
         return;
     }
 
-    cv::Mat img = pattern->getImageWithPickPosition();
-    if (img.empty()) img = pattern->getRawImage();
+    const QPixmap pm = matToPixmap(pattern->getRawImage());
+    const mtc::MatchPatternConfig &cfg = pattern->config();
 
-    QPixmap pm = matToPixmap(img);
-    m_thumbPixmap->setPixmap(pm);
-    m_thumbScene->setSceneRect(pm.rect());
-    ui->imageView_PatternThumb->fitInView(m_thumbPixmap, Qt::KeepAspectRatio);
+    if (ui->imageView_PatternThumb) {
+        ui->imageView_PatternThumb->setPattern(
+            pm,
+            QPointF(cfg.m_pickPosition.x, cfg.m_pickPosition.y),
+            cfg.m_angle,
+            cfg.m_gripperBoxes.size.width,
+            cfg.m_gripperBoxes.size.height,
+            cfg.m_gripperBoxes.distance,
+            cfg.m_pickingBoxAngle,
+            cfg.m_usePickingBox);
+    }
 
     ui->label_pattern_caption->setText(
         tr("%1   |   %2 × %3 px   |   min score %4")
@@ -1030,6 +1076,18 @@ void LocalizationPatternsWidget::onTreePatternClicked(int groupIndex,
 
 // ── Tree intent handlers ────────────────────────────────────────────────────
 
+/// Opens the gripper-preset editor on a copy of the task's presets. On accept the edited
+/// set replaces the task's; on cancel nothing changes. Patterns already authored from a
+/// preset are untouched either way — presets are copied on apply, never referenced.
+void LocalizationPatternsWidget::onTreeGripperRequested() {
+    if (!m_localizeTask) return;
+
+    GripperRegisterDialog dialog(m_localizeTask->gripperPresets(), this);
+    if (dialog.exec() != QDialog::Accepted) return;
+
+    m_localizeTask->setGripperPresets(dialog.presets());
+}
+
 /// Prompts for a new pattern group's name/number via AddGroupDialog, validates that both are
 /// unique, and adds the group through the pattern manager. Shows a warning dialog and aborts
 /// on a duplicate name/number or a manager-reported failure.
@@ -1097,6 +1155,8 @@ void LocalizationPatternsWidget::onTreeAddPatternRequested(int groupIndex) {
     // Replaces the old two-step flow (image dialog + simple AddPatternDialog).
     // Mirrors `ui_scratch/design_handoff_full_project/components/PatternWizard.jsx`.
     AddPatternWizard wiz(groupName, usedNames, usedNumbers, this);
+    if (m_localizeTask)
+        wiz.setGripperPresets(m_localizeTask->gripperPresets());
     m_activeAddWizard = &wiz;
     // Forward camera-capture request from wizard → host (same plumbing as
     // the legacy AddPatternImageDialog).  The wizard's signal is parameterless;
@@ -1149,10 +1209,18 @@ void LocalizationPatternsWidget::onTreeAddPatternRequested(int groupIndex) {
         auto pcfg = pat->config();
         pcfg.m_pickPosition = cv::Point2f(static_cast<float>(wiz.pickX()),
                                            static_cast<float>(wiz.pickY()));
-        pcfg.m_pickingBoxSize.width  = static_cast<float>(wiz.pickBoxW());
-        pcfg.m_pickingBoxSize.height = static_cast<float>(wiz.pickBoxH());
-        pcfg.m_pickingBoxDistance    = wiz.pickBoxDist();
-        pcfg.m_pickingBoxAngle       = wiz.pickBoxAngle();
+        pcfg.m_angle        = wiz.pickAngle();
+        // Whatever the box step ended up holding, preset-applied or hand-tuned.
+        pcfg.m_gripperBoxes.size.width  = static_cast<float>(wiz.pickBoxW());
+        pcfg.m_gripperBoxes.size.height = static_cast<float>(wiz.pickBoxH());
+        pcfg.m_gripperBoxes.distance    = wiz.pickBoxDist();
+        pcfg.m_pickingBoxAngle          = wiz.pickBoxAngle();
+        pcfg.m_pickingOffset         = cv::Point3f(static_cast<float>(wiz.offsetX()),
+                                                   static_cast<float>(wiz.offsetY()),
+                                                   static_cast<float>(wiz.offsetZ()));
+        pcfg.m_pickingRotationOffset = cv::Point3f(static_cast<float>(wiz.offsetRX()),
+                                                   static_cast<float>(wiz.offsetRY()),
+                                                   static_cast<float>(wiz.offsetRZ()));
         pat->setConfig(pcfg);
     }
 }
@@ -1197,14 +1265,23 @@ bool LocalizationPatternsWidget::editPattern(int groupNumber, int patternNumber)
         initial.number       = pat->number();
         initial.pickX        = static_cast<int>(pcfg.m_pickPosition.x);
         initial.pickY        = static_cast<int>(pcfg.m_pickPosition.y);
-        initial.pickBoxW     = pcfg.m_pickingBoxSize.width;
-        initial.pickBoxH     = pcfg.m_pickingBoxSize.height;
-        initial.pickBoxDist  = pcfg.m_pickingBoxDistance;
+        initial.pickAngle    = pcfg.m_angle;
+        initial.pickBoxW     = pcfg.m_gripperBoxes.size.width;
+        initial.pickBoxH     = pcfg.m_gripperBoxes.size.height;
+        initial.pickBoxDist  = pcfg.m_gripperBoxes.distance;
         initial.pickBoxAngle = pcfg.m_pickingBoxAngle;
+        initial.offX         = pcfg.m_pickingOffset.x;
+        initial.offY         = pcfg.m_pickingOffset.y;
+        initial.offZ         = pcfg.m_pickingOffset.z;
+        initial.offRX        = pcfg.m_pickingRotationOffset.x;
+        initial.offRY        = pcfg.m_pickingRotationOffset.y;
+        initial.offRZ        = pcfg.m_pickingRotationOffset.z;
         initial.image        = pcfg.m_rawImage.clone();
     }
 
     EditPatternWizard wiz(groupName, initial, usedNames, usedNumbers, this);
+    if (m_localizeTask)
+        wiz.setGripperPresets(m_localizeTask->gripperPresets());
     if (wiz.exec() != QDialog::Accepted) return false;
 
     const auto out = wiz.result();
@@ -1223,10 +1300,17 @@ bool LocalizationPatternsWidget::editPattern(int groupNumber, int patternNumber)
     pcfg.m_patternIndex = out.number;
     pcfg.m_pickPosition = cv::Point2f(static_cast<float>(out.pickX),
                                        static_cast<float>(out.pickY));
-    pcfg.m_pickingBoxSize.width  = static_cast<float>(out.pickBoxW);
-    pcfg.m_pickingBoxSize.height = static_cast<float>(out.pickBoxH);
-    pcfg.m_pickingBoxDistance    = out.pickBoxDist;
-    pcfg.m_pickingBoxAngle       = out.pickBoxAngle;
+    pcfg.m_angle        = out.pickAngle;
+    pcfg.m_gripperBoxes.size.width  = static_cast<float>(out.pickBoxW);
+    pcfg.m_gripperBoxes.size.height = static_cast<float>(out.pickBoxH);
+    pcfg.m_gripperBoxes.distance    = out.pickBoxDist;
+    pcfg.m_pickingBoxAngle          = out.pickBoxAngle;
+    pcfg.m_pickingOffset         = cv::Point3f(static_cast<float>(out.offX),
+                                               static_cast<float>(out.offY),
+                                               static_cast<float>(out.offZ));
+    pcfg.m_pickingRotationOffset = cv::Point3f(static_cast<float>(out.offRX),
+                                               static_cast<float>(out.offRY),
+                                               static_cast<float>(out.offRZ));
 
     // Commit through the manager so the rename/renumber is validated and a
     // patternChanged signal fires — that refreshes the tree row (name, number,

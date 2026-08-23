@@ -3,20 +3,23 @@
 
 #include <cstdint>
 
-/// Vision/matching module: MatchingType, the algorithm-family discriminator
-/// shared by pattern/group configuration.
+/**
+ * @file matching_types.h
+ * @brief MatchingType — algorithm-family discriminator shared by pattern/group configuration.
+ */
+
 namespace mtc {
 
-// ---------------------------------------------------------------------------
-// MatchingType — discriminates which algorithm family is in use.
-//
-// Adding a new algorithm type:
-//   1. Add a value here.
-//   2. Create a concrete IMatchTypeConfig subclass.
-//   3. Add a branch in IMatchTypeConfig::createDefault().
-//   4. Add a branch in MatchConfigPropertyAdapter::buildTypeGroup().
-// ---------------------------------------------------------------------------
-/// Discriminates which matching-algorithm family a group/pattern uses.
+/**
+ * @enum MatchingType
+ * @brief Discriminates which matching-algorithm family a group/pattern uses.
+ *
+ * Adding a new algorithm type:
+ *   1. Add a value here.
+ *   2. Create a concrete IMatchTypeConfig subclass.
+ *   3. Add a branch in IMatchTypeConfig::createDefault().
+ *   4. Add a branch in MatchConfigPropertyAdapter::buildTypeGroup().
+ */
 enum class MatchingType : uint8_t {
     EdgeBased   = 0,  ///< Gradient-direction edge template matching (SIMD-accelerated)
     Correlation = 1,  ///< Normalised cross-correlation (reserved — not yet implemented)

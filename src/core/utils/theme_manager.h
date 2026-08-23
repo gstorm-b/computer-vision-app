@@ -8,9 +8,31 @@
 #include <QString>
 #include <QVector>
 
-/// Describes a named visual style that can be registered with ThemeManager.
-/// Built-in styles "light" and "dark" are always pre-registered.
-/// Additional styles can be registered at runtime via ThemeManager::registerStyle().
+/**
+ * @file theme_manager.h
+ * @brief ThemeManager — application-wide theme/style manager; and ThemeStyle, the
+ *        descriptor for a named visual style.
+ *
+ * ThemeManager owns the registry of ThemeStyle entries (built-in "light"/"dark" plus
+ * any registered at runtime), applies the active style's QPalette and stylesheet to
+ * the QApplication, and resolves the §5 design-token placeholders used in the
+ * project's QSS files. Singleton, accessed via instance(); the instance is parented
+ * to qApp.
+ *
+ * Qt has no native QSS variables, so stylesheets reference design tokens by name
+ * through the placeholder syntax "@{group.token}" (e.g. "@{accent.primary}",
+ * "@{bg.surface}"). resolveTokens() substitutes every placeholder with the hex/rgba
+ * value the §5 token table (ui_design_rules.md) assigns it for the given theme. This
+ * is the one place tokens turn into literals; renaming a token is a single-table edit.
+ * Unknown tokens are left untouched (and logged once).
+ */
+
+/**
+ * @struct ThemeStyle
+ * @brief Describes a named visual style that can be registered with ThemeManager.
+ *        Built-in styles "light" and "dark" are always pre-registered; additional
+ *        styles can be registered at runtime via ThemeManager::registerStyle().
+ */
 struct ThemeStyle {
     QString id;                          ///< Unique key, e.g. "dark", "high_contrast".
     QString displayName;                 ///< Shown in the Theme menu.
@@ -19,11 +41,12 @@ struct ThemeStyle {
     QString qssPath;                     ///< Qt resource path to .qss file, empty = no stylesheet.
 };
 
-/// Application-wide theme/style manager: owns the registry of ThemeStyle
-/// entries (built-in "light"/"dark" plus any registered at runtime), applies
-/// the active style's QPalette and stylesheet to the QApplication, and
-/// resolves the §5 design-token placeholders used in the project's QSS files.
-/// Singleton, accessed via instance(); the instance is parented to qApp.
+/**
+ * @class ThemeManager
+ * @brief Application-wide theme/style manager: owns the registry of ThemeStyle entries,
+ *        applies the active style's QPalette and stylesheet to the QApplication, and
+ *        resolves §5 design-token placeholders used in the project's QSS files.
+ */
 class ThemeManager : public QObject {
     Q_OBJECT
 public:
@@ -54,24 +77,24 @@ public:
     /// Icons named "foo_dark.svg" carry BLACK paths (for light bg).
     QString themedIcon(const QString& basePath) const;
 
-    /// QSS design-token resolution.
-    ///
-    /// Qt has no native QSS variables, so stylesheets reference design tokens by
-    /// name through the placeholder syntax "@{group.token}" (e.g. "@{accent.primary}",
-    /// "@{bg.surface}"). resolveTokens() substitutes every placeholder with the hex /
-    /// rgba value the §5 token table (ui_design_rules.md) assigns it for the given
-    /// theme. This is the one place tokens turn into literals; renaming a token is a
-    /// single-table edit. Unknown tokens are left untouched (and logged once).
-    ///
-    /// The no-argument overload resolves for the active theme; the bool overload is
-    /// used by ThemeManager::apply() while a specific style is being installed.
+    /// Resolves design-token placeholders in `qss` against the active theme's token table.
+    /// The no-argument overload resolves for the active theme; the bool overload is used by
+    /// ThemeManager::apply() while a specific style is being installed.
     QString resolveTokens(const QString& qss) const;
-    /// @copydoc ThemeManager::resolveTokens(const QString&) const
-    /// @param dark true to resolve against the dark-theme values, false for light
+    /**
+     * @brief Resolves design-token placeholders in `qss` against a specific theme's token table.
+     * @param[in] qss  stylesheet text containing "@{group.token}" placeholders
+     * @param[in] dark true to resolve against the dark-theme values, false for light
+     * @return the stylesheet with all known tokens substituted; unknown tokens left untouched
+     */
     static QString resolveTokens(const QString& qss, bool dark);
 
-    /// Raw token lookup. Returns the value string for a token in the requested
-    /// theme, or an empty string if the token name is not in the §5 table.
+    /**
+     * @brief Raw token lookup: returns the value string for a token in the requested theme.
+     * @param[in] name token name as it appears inside "@{...}" (e.g. "accent.primary")
+     * @param[in] dark true to look up the dark-theme value, false for light
+     * @return the hex/rgba value string, or an empty string if the token name is unknown
+     */
     static QString tokenValue(const QString& name, bool dark);
 
 signals:

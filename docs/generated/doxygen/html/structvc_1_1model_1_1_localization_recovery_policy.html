@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1mo
 </div><!--header-->
 <div class="contents">
 
+<p>Per-role (camera/PLC/vision-output) reconnect policy: which connection statuses are recoverable at all, how many times to retry, and at what interval/timeout.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::model::LocalizationRecoveryPolicy:</div>
@@ -151,7 +154,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Per-role (camera/PLC/vision-output) reconnect policy: which connection statuses are recoverable at all, how many times to retry, and at what interval/timeout. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00022">22</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00032">32</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="af5c36e2e22861beda60d6b9e8afc569c" name="af5c36e2e22861beda60d6b9e8afc569c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5c36e2e22861beda60d6b9e8afc569c">&#9670;&#160;</a></span>canRetry()</h2>
@@ -178,11 +181,11 @@ Public Attributes</h2></td></tr>
 
 <p>Returns true if <span class="tt">currentRetryCount</span> is still below maxRetries. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00044">44</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00054">54</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__recovery__policy_8h_source.html#l00024">maxRetries</a>.</p>
+<p class="reference">References <a class="el" href="localization__recovery__policy_8h_source.html#l00034">maxRetries</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00085">vc::model::decideRecoveryAction()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00097">vc::model::decideRecoveryAction()</a>.</p>
 
 </div>
 </div>
@@ -210,11 +213,11 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns whether <span class="tt">status</span> is one this policy will attempt to recover from (per retryOnConnectFailed / retryOnLostConnected); any other status is never recoverable. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00032">32</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00042">42</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00028">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00027">vc::device::LostConnected</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00027">retryOnConnectFailed</a>, and <a class="el" href="localization__recovery__policy_8h_source.html#l00028">retryOnLostConnected</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00037">retryOnConnectFailed</a>, and <a class="el" href="localization__recovery__policy_8h_source.html#l00038">retryOnLostConnected</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00085">vc::model::decideRecoveryAction()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00097">vc::model::decideRecoveryAction()</a>.</p>
 
 </div>
 </div>
@@ -233,9 +236,9 @@ Public Attributes</h2></td></tr>
 
 <p>Timeout for a single reconnect attempt, in milliseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00026">26</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00036">36</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00114">vc::model::buildRecoveryFaultMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00128">vc::model::buildRecoveryFaultMessage()</a>.</p>
 
 </div>
 </div>
@@ -253,9 +256,9 @@ Public Attributes</h2></td></tr>
 
 <p>Max reconnect attempts before escalating to a fault. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00024">24</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00034">34</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00114">vc::model::buildRecoveryFaultMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryProgressMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00074">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryReadyMessage()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00044">canRetry()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01100">vc::model::LocalizationRuntimeController::requestRoleConnectNow()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00128">vc::model::buildRecoveryFaultMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryProgressMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00074">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryReadyMessage()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00054">canRetry()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01100">vc::model::LocalizationRuntimeController::requestRoleConnectNow()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
 
 </div>
 </div>
@@ -273,9 +276,9 @@ Public Attributes</h2></td></tr>
 
 <p>Delay between reconnect attempts, in milliseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00025">25</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00035">35</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00114">vc::model::buildRecoveryFaultMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryProgressMessage()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00128">vc::model::buildRecoveryFaultMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryProgressMessage()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
 
 </div>
 </div>
@@ -293,9 +296,9 @@ Public Attributes</h2></td></tr>
 
 <p>Whether ConnectStatus::ConnectFailed is recoverable. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00027">27</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00037">37</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00032">isRecoverableStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00042">isRecoverableStatus()</a>.</p>
 
 </div>
 </div>
@@ -313,9 +316,9 @@ Public Attributes</h2></td></tr>
 
 <p>Whether ConnectStatus::LostConnected is recoverable. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00028">28</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00038">38</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00032">isRecoverableStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__recovery__policy_8h_source.html#l00042">isRecoverableStatus()</a>.</p>
 
 </div>
 </div>
@@ -333,14 +336,14 @@ Public Attributes</h2></td></tr>
 
 <p>Human-readable role identifier (e.g. "camera"). </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00023">23</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__recovery__policy_8h_source.html#l00033">33</a> of file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00114">vc::model::buildRecoveryFaultMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryProgressMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00074">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryReadyMessage()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00052">vc::model::defaultCameraRecoveryPolicy()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00061">vc::model::defaultPlcRecoveryPolicy()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00070">vc::model::defaultVisionOutputRecoveryPolicy()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01100">vc::model::LocalizationRuntimeController::requestRoleConnectNow()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00128">vc::model::buildRecoveryFaultMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryProgressMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00074">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryReadyMessage()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00062">vc::model::defaultCameraRecoveryPolicy()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00071">vc::model::defaultPlcRecoveryPolicy()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00080">vc::model::defaultVisionOutputRecoveryPolicy()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01100">vc::model::LocalizationRuntimeController::requestRoleConnectNow()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

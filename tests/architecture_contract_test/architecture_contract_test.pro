@@ -19,6 +19,8 @@ include($$ROOT_DIR/components/RobotKinematics/robotkinematics.pri)
 SOURCES += \
     main.cpp \
     $$ROOT_DIR/src/core/app_settings/app_settings.cpp \
+    $$ROOT_DIR/src/core/auth/access_control.cpp \
+    $$ROOT_DIR/src/core/auth/settings_admin_credential_provider.cpp \
     $$ROOT_DIR/src/calibration/calibration_board.cpp \
     $$ROOT_DIR/src/calibration/calibration_board_factory.cpp \
     $$ROOT_DIR/src/calibration/calibrator.cpp \
@@ -35,6 +37,9 @@ SOURCES += \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_client_device.cpp \
     $$ROOT_DIR/src/device/robot/kawasaki_robot_device.cpp \
     $$ROOT_DIR/src/device/robot/nachi_robot_device.cpp \
+    $$ROOT_DIR/src/device/virtual/virtual_camera_device.cpp \
+    $$ROOT_DIR/src/device/virtual/virtual_plc_device.cpp \
+    $$ROOT_DIR/src/device/virtual/virtual_vision_output_device.cpp \
     $$ROOT_DIR/src/core/logger/app_logger.cpp \
     $$ROOT_DIR/src/matching/image_matcher.cpp \
     $$ROOT_DIR/src/matching/imatch_type_config.cpp \
@@ -45,6 +50,7 @@ SOURCES += \
     $$ROOT_DIR/src/matching/pattern_group_manager.cpp \
     $$ROOT_DIR/src/matching/utils_block_max.cpp \
     $$ROOT_DIR/src/matching/vision_utils.cpp \
+    $$ROOT_DIR/src/model/gripper_preset_store.cpp \
     $$ROOT_DIR/src/model/itask.cpp \
     $$ROOT_DIR/src/model/localization_pipeline.cpp \
     $$ROOT_DIR/src/model/localization_runtime_controller.cpp \
@@ -54,12 +60,18 @@ SOURCES += \
     $$ROOT_DIR/src/model/task_factory.cpp \
     $$ROOT_DIR/src/model/task_localization.cpp \
     $$ROOT_DIR/src/runtime/task_runner.cpp \
+    $$ROOT_DIR/src/core/utils/shell_handoff.cpp \
+    $$ROOT_DIR/src/core/utils/single_instance_guard.cpp \
     $$ROOT_DIR/src/core/utils/theme_manager.cpp \
     $$ROOT_DIR/src/ui/widgets/vision/vision_geometry.cpp \
     $$ROOT_DIR/src/ui/widgets/vision/vision_result_adapter.cpp
 
 HEADERS += \
     $$ROOT_DIR/src/core/app_settings/app_settings.h \
+    $$ROOT_DIR/src/core/app_version.h \
+    $$ROOT_DIR/src/core/auth/access_control.h \
+    $$ROOT_DIR/src/core/auth/admin_credential_provider.h \
+    $$ROOT_DIR/src/core/auth/settings_admin_credential_provider.h \
     $$ROOT_DIR/src/calibration/calibration_board.h \
     $$ROOT_DIR/src/calibration/calibration_board_factory.h \
     $$ROOT_DIR/src/calibration/calibrator.h \
@@ -71,6 +83,13 @@ HEADERS += \
     $$ROOT_DIR/src/device/device_factory.h \
     $$ROOT_DIR/src/device/device_manager.h \
     $$ROOT_DIR/src/device/device_registry.h \
+    $$ROOT_DIR/src/device/virtual/virtual_device.h \
+    $$ROOT_DIR/src/device/virtual/virtual_camera_config.h \
+    $$ROOT_DIR/src/device/virtual/virtual_camera_device.h \
+    $$ROOT_DIR/src/device/virtual/virtual_plc_config.h \
+    $$ROOT_DIR/src/device/virtual/virtual_plc_device.h \
+    $$ROOT_DIR/src/device/virtual/virtual_vision_output_config.h \
+    $$ROOT_DIR/src/device/virtual/virtual_vision_output_device.h \
     $$ROOT_DIR/src/device/idevice.h \
     $$ROOT_DIR/src/device/idevice_config.h \
     $$ROOT_DIR/src/device/irequest.h \
@@ -105,6 +124,8 @@ HEADERS += \
     $$ROOT_DIR/src/device/robot/robot_device.h \
     $$ROOT_DIR/src/core/logger/app_logger.h \
     $$ROOT_DIR/src/matching/edge_match_config.h \
+    $$ROOT_DIR/src/matching/gripper_boxes.h \
+    $$ROOT_DIR/src/model/gripper_preset_store.h \
     $$ROOT_DIR/src/matching/image_matcher.h \
     $$ROOT_DIR/src/matching/imatch_type_config.h \
     $$ROOT_DIR/src/matching/manager_result.h \
@@ -146,9 +167,22 @@ HEADERS += \
     $$ROOT_DIR/src/runtime/task_runner.h \
     $$ROOT_DIR/src/runtime/vision_output_runner.h \
     $$ROOT_DIR/src/core/utils/meta_utils.h \
+    $$ROOT_DIR/src/core/utils/shell_handoff.h \
+    $$ROOT_DIR/src/core/utils/single_instance_guard.h \
     $$ROOT_DIR/src/core/utils/theme_manager.h \
     $$ROOT_DIR/src/ui/widgets/vision/vision_geometry.h \
     $$ROOT_DIR/src/ui/widgets/vision/vision_overlay_types.h \
     $$ROOT_DIR/src/ui/widgets/vision/vision_result_adapter.h
 
 include($$ROOT_DIR/qmake/local_dependencies.pri)
+
+# Opt-in MSVC parallel compilation (CONFIG+=multicore). This .pro compiles ~50 src/ files
+# plus the RobotKinematics/Coal/Eigen template-heavy sources, so it is one of the four
+# builds big enough for the flag to matter. Included separately because this project lists
+# src/ sources individually rather than including qmake/common_deps.pri.
+include($$ROOT_DIR/qmake/multicore.pri)
+
+# This .pro lists src/ sources individually instead of including the module .pri files,
+# so link dependencies declared there do not reach it. Keep in sync with src/core/core.pri:
+# single_instance_guard.cpp calls AllowSetForegroundWindow().
+win32: LIBS += -luser32

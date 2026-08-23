@@ -152,7 +152,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Formats a fault code as "&lt;code&gt; — &lt;name&gt;" using the name resolved via <a class="el" href="namespacevc_1_1model.html#aad84ba764269155fc6dae08de2da782e">vc::model::localizationFaultCodeName</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Formats a fault code as "&lt;code&gt; — &lt;name&gt;" using the name resolved via <a class="el" href="namespacevc_1_1model.html#aad84ba764269155fc6dae08de2da782e" title="Returns the stable, human-readable identifier for code (e.g. &quot;CameraLost&quot;), used for logging/diagnost...">vc::model::localizationFaultCodeName</a>. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">code</td><td>the fault code to format </td></tr>
   </table>
@@ -162,7 +162,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00126">126</a> of file <a class="el" href="localization__dashboard__widget_8cpp_source.html">localization_dashboard_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__fault__code_8h_source.html#l00028">vc::model::localizationFaultCodeName()</a>.</p>
+<p class="reference">References <a class="el" href="localization__fault__code_8h_source.html#l00041">vc::model::localizationFaultCodeName()</a>.</p>
 
 </div>
 </div>
@@ -212,7 +212,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reads <span class="tt">internalName</span> as a Q_GADGET property off <a class="el" href="class_task_localize_config.html">TaskLocalizeConfig</a> via QMetaObject, converting the value to its string form (used to populate a signal row's config tag). </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Reads <span class="tt">internalName</span> as a Q_GADGET property off <a class="el" href="class_task_localize_config.html" title="Localization-task configuration: PLC signal-name bindings for camera/pattern selection and matching s...">TaskLocalizeConfig</a> via QMetaObject, converting the value to its string form (used to populate a signal row's config tag). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cfg</td><td>the config gadget to read the property from </td></tr>
     <tr><td class="paramname">internalName</td><td>the property name to look up </td></tr>
@@ -285,7 +285,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00109">109</a> of file <a class="el" href="localization__dashboard__widget_8cpp_source.html">localization_dashboard_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00015">Error</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00013">Info</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00016">Success</a>, and <a class="el" href="task__event__log__widget_8h_source.html#l00014">Warning</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00024">Error</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00022">Info</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00025">Success</a>, and <a class="el" href="task__event__log__widget_8h_source.html#l00023">Warning</a>.</p>
 
 </div>
 </div>
@@ -303,7 +303,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Looks up <span class="tt">internalName</span>'s <a class="el" href="class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444">SignalsMonitorWidget::Type</a> in kSignalRows. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Looks up <span class="tt">internalName</span>'s <a class="el" href="class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444" title="Signal value kind driving row rendering: a numeric readout or an ON/OFF pill with rising-edge detecti...">SignalsMonitorWidget::Type</a> in kSignalRows. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">internalName</td><td>the signal's internal name </td></tr>
   </table>
@@ -313,7 +313,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00098">98</a> of file <a class="el" href="localization__dashboard__widget_8cpp_source.html">localization_dashboard_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00064">kSignalRows</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00045">SignalsMonitorWidget::Number</a>.</p>
+<p class="reference">References <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00064">kSignalRows</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00057">SignalsMonitorWidget::Number</a>.</p>
 
 </div>
 </div>
@@ -354,8 +354,8 @@ Variables</h2></td></tr>
 <div class="line">    { <span class="stringliteral">&quot;bMatchingLowArea&quot;</span>,  <span class="stringliteral">&quot;Low binary area&quot;</span>,   <a class="code hl_enumvalue" href="class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034">SignalsMonitorWidget::Type::Bool</a>   },</div>
 <div class="line">    { <span class="stringliteral">&quot;bTaskFault&quot;</span>,        <span class="stringliteral">&quot;Task fault&quot;</span>,        <a class="code hl_enumvalue" href="class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034">SignalsMonitorWidget::Type::Bool</a>   },</div>
 <div class="line">}</div>
-<div class="ttc" id="aclass_signals_monitor_widget_html_aa47b88f9e86aef13ad714e13ac397444ab2ee912b91d69b435159c7c3f6df7f5f"><div class="ttname"><a href="class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444ab2ee912b91d69b435159c7c3f6df7f5f">SignalsMonitorWidget::Type::Number</a></div><div class="ttdeci">@ Number</div><div class="ttdef"><b>Definition</b> <a href="signals__monitor__widget_8h_source.html#l00045">signals_monitor_widget.h:45</a></div></div>
-<div class="ttc" id="aclass_signals_monitor_widget_html_aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034"><div class="ttname"><a href="class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034">SignalsMonitorWidget::Type::Bool</a></div><div class="ttdeci">@ Bool</div><div class="ttdef"><b>Definition</b> <a href="signals__monitor__widget_8h_source.html#l00045">signals_monitor_widget.h:45</a></div></div>
+<div class="ttc" id="aclass_signals_monitor_widget_html_aa47b88f9e86aef13ad714e13ac397444ab2ee912b91d69b435159c7c3f6df7f5f"><div class="ttname"><a href="class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444ab2ee912b91d69b435159c7c3f6df7f5f">SignalsMonitorWidget::Type::Number</a></div><div class="ttdeci">@ Number</div><div class="ttdef"><b>Definition</b> <a href="signals__monitor__widget_8h_source.html#l00057">signals_monitor_widget.h:57</a></div></div>
+<div class="ttc" id="aclass_signals_monitor_widget_html_aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034"><div class="ttname"><a href="class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034">SignalsMonitorWidget::Type::Bool</a></div><div class="ttdeci">@ Bool</div><div class="ttdef"><b>Definition</b> <a href="signals__monitor__widget_8h_source.html#l00057">signals_monitor_widget.h:57</a></div></div>
 </div><!-- fragment --><p>Fixed schema of signals shown in the dashboard's signal monitor: number signals (nActiveCamera, nActivePatternGroup, nDetectedNumber, nFaultCode) followed by bool signals (bCameraValid, bPatternValid, bTaskReady, bExecuteTrigger, bMatchingFinished, bMatchingBusy, bMatchingDetected, bMatchingLowArea, bTaskFault). </p>
 
 <p class="definition">Definition at line <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00064">64</a> of file <a class="el" href="localization__dashboard__widget_8cpp_source.html">localization_dashboard_widget.cpp</a>.</p>

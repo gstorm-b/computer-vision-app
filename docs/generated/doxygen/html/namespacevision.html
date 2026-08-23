@@ -131,9 +131,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a91314d12a5819d6588d83348cff1cca4" id="r_a91314d12a5819d6588d83348cff1cca4"><td class="memItemLeft">QPolygonF&#160;</td><td class="memItemRight"><a class="el" href="#a91314d12a5819d6588d83348cff1cca4">roiPolygon</a> (const <a class="el" href="struct_vision_roi.html">VisionRoi</a> &amp;roi)</td></tr>
 <tr class="memdesc:a91314d12a5819d6588d83348cff1cca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a closed polygon from roiCorners(roi).  <br /></td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Free functions for converting between OpenCV/ROI geometry and Qt geometry types (pixmap conversion, ROI-to-rect/polygon conversion, normalization and clamping). </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a269bdf19ac533cc74e5f185bf949bd71" name="a269bdf19ac533cc74e5f185bf949bd71"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a269bdf19ac533cc74e5f185bf949bd71">&#9670;&#160;</a></span>boundingRectForPoints()</h2>
 
@@ -178,7 +176,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__geometry_8cpp_source.html#l00070">70</a> of file <a class="el" href="vision__geometry_8cpp_source.html">vision_geometry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00017">AxisAlignedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00028">VisionRoi::center</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00059">normalizedRoi()</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00051">rectFromRoi()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">VisionRoi::shape</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00029">VisionRoi::size</a>.</p>
+<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00026">AxisAlignedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00040">VisionRoi::center</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00059">normalizedRoi()</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00051">rectFromRoi()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00039">VisionRoi::shape</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00041">VisionRoi::size</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00097">VisionNumericInspector::emitEditedRoi()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">VisionCanvas::rebuildEditableRois()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00715">VisionCanvas::updateSelectedRoi()</a>.</p>
 
@@ -198,11 +196,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns a copy of <span class="tt">roi</span> with width/height made non-negative and, for <a class="el" href="vision__overlay__types_8h.html#a841947179f71d7030aa9c94889d87da5a352dfef7357e8d07092ca1d2a3483dff">VisionRoiShape::AxisAlignedRect</a>, angleDeg forced to 0. </p>
+<p>Returns a copy of <span class="tt">roi</span> with width/height made non-negative and, for <a class="el" href="vision__overlay__types_8h.html#a841947179f71d7030aa9c94889d87da5a352dfef7357e8d07092ca1d2a3483dff" title="Unrotated axis-aligned rectangle; angleDeg is not meaningful.">VisionRoiShape::AxisAlignedRect</a>, angleDeg forced to 0. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__geometry_8cpp_source.html#l00059">59</a> of file <a class="el" href="vision__geometry_8cpp_source.html">vision_geometry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00030">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00017">AxisAlignedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">VisionRoi::shape</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00029">VisionRoi::size</a>.</p>
+<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00042">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00026">AxisAlignedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00039">VisionRoi::shape</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00041">VisionRoi::size</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__geometry_8cpp_source.html#l00070">clampRoiToImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00571">VisionCanvas::editableRois()</a>, and <a class="el" href="vision__geometry_8cpp_source.html#l00098">roiCorners()</a>.</p>
 
@@ -248,7 +246,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__geometry_8cpp_source.html#l00051">51</a> of file <a class="el" href="vision__geometry_8cpp_source.html">vision_geometry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00028">VisionRoi::center</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00029">VisionRoi::size</a>.</p>
+<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00040">VisionRoi::center</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00041">VisionRoi::size</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__geometry_8cpp_source.html#l00070">clampRoiToImage()</a>, and <a class="el" href="vision__geometry_8cpp_source.html#l00098">roiCorners()</a>.</p>
 
@@ -268,11 +266,11 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Computes the four corner points of <span class="tt">roi</span> (top-left, top-right, bottom-right, bottom-left order), rotating them about <span class="tt">roi.center</span> when the shape is <a class="el" href="vision__overlay__types_8h.html#a841947179f71d7030aa9c94889d87da5abc06efdbca29d4bc6a8ae95a7b1d881e">VisionRoiShape::RotatedRect</a> with a non-zero angle. </p>
+<p>Computes the four corner points of <span class="tt">roi</span> (top-left, top-right, bottom-right, bottom-left order), rotating them about <span class="tt">roi.center</span> when the shape is <a class="el" href="vision__overlay__types_8h.html#a841947179f71d7030aa9c94889d87da5abc06efdbca29d4bc6a8ae95a7b1d881e" title="Rectangle that may carry a non-zero rotation angle.">VisionRoiShape::RotatedRect</a> with a non-zero angle. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__geometry_8cpp_source.html#l00098">98</a> of file <a class="el" href="vision__geometry_8cpp_source.html">vision_geometry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00030">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00028">VisionRoi::center</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00059">normalizedRoi()</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00051">rectFromRoi()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00018">RotatedRect</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00027">VisionRoi::shape</a>.</p>
+<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00042">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00040">VisionRoi::center</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00059">normalizedRoi()</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00051">rectFromRoi()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">RotatedRect</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00039">VisionRoi::shape</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__geometry_8cpp_source.html#l00118">roiPolygon()</a>.</p>
 

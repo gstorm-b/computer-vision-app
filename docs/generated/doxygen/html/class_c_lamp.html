@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_c_lamp.h
 </div><!--header-->
 <div class="contents">
 
+<p>Circular status lamp widget: paints a filled, outlined circle centered in the widget, switching between an "enabled" and "disabled" fill color.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="clamp_8h_source.html">clamp.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CLamp:</div>
@@ -139,7 +142,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3bcf35a6a1b1b51086c98515bbc2a41e" id="r_a3bcf35a6a1b1b51086c98515bbc2a41e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3bcf35a6a1b1b51086c98515bbc2a41e">setColorEnable</a> (QColor color)</td></tr>
 <tr class="memitem:a3fbee31a95a711b44cdb5e0402d5a0dc" id="r_a3fbee31a95a711b44cdb5e0402d5a0dc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3fbee31a95a711b44cdb5e0402d5a0dc">setEnableState</a> (bool state)</td></tr>
 <tr class="memitem:aeb0083edc9722078b67b993aa6c2b8ad" id="r_aeb0083edc9722078b67b993aa6c2b8ad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aeb0083edc9722078b67b993aa6c2b8ad">setLampMaxSize</a> (int max_size)</td></tr>
+<tr class="memdesc:aeb0083edc9722078b67b993aa6c2b8ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a fixed lamp diameter (in pixels, before subtracting the outline width) used instead of auto-sizing to the widget's bounds.  <br /></td></tr>
 <tr class="memitem:a412d5be26bb32979cf0f9a3da8c27c8c" id="r_a412d5be26bb32979cf0f9a3da8c27c8c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a412d5be26bb32979cf0f9a3da8c27c8c">setOuterWidth</a> (int outer_width)</td></tr>
+<tr class="memdesc:a412d5be26bb32979cf0f9a3da8c27c8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the outline (pen) width used when drawing the lamp circle.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -167,7 +172,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Circular status lamp widget: paints a filled, outlined circle centered in the widget, switching between an "enabled" and "disabled" fill color. </p>
 
-<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00012">12</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00020">20</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a07e948acae0d6b01307fca349e5955e1" name="a07e948acae0d6b01307fca349e5955e1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a07e948acae0d6b01307fca349e5955e1">&#9670;&#160;</a></span>CLamp()</h2>
@@ -191,12 +196,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the lamp with default state (disabled), gray/green colors, and a 1px outline; the drawn size auto-fits the widget until <a class="el" href="#aeb0083edc9722078b67b993aa6c2b8ad">setLampMaxSize()</a> is called.</p>
+<p>Constructs the lamp with default state (disabled), gray/green colors, and a 1px outline; the drawn size auto-fits the widget until <a class="el" href="#aeb0083edc9722078b67b993aa6c2b8ad" title="Sets a fixed lamp diameter (in pixels, before subtracting the outline width) used instead of auto-siz...">setLampMaxSize()</a> is called.</p>
 <p>Initializes default state: disabled, 1px outline, green enabled / gray disabled fill colors, and no fixed max size (auto-sizes to the widget). </p>
 
 <p class="definition">Definition at line <a class="el" href="clamp_8cpp_source.html#l00005">5</a> of file <a class="el" href="clamp_8cpp_source.html">clamp.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="clamp_8h_source.html#l00060">m_color_disable</a>, <a class="el" href="clamp_8h_source.html#l00059">m_color_enable</a>, <a class="el" href="clamp_8h_source.html#l00058">m_enable_state</a>, <a class="el" href="clamp_8h_source.html#l00057">m_max_size</a>, and <a class="el" href="clamp_8h_source.html#l00061">m_pen_width</a>.</p>
+<p class="reference">References <a class="el" href="clamp_8h_source.html#l00072">m_color_disable</a>, <a class="el" href="clamp_8h_source.html#l00071">m_color_enable</a>, <a class="el" href="clamp_8h_source.html#l00070">m_enable_state</a>, <a class="el" href="clamp_8h_source.html#l00069">m_max_size</a>, and <a class="el" href="clamp_8h_source.html#l00073">m_pen_width</a>.</p>
 
 </div>
 </div>
@@ -288,7 +293,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="clamp_8cpp_source.html#l00051">51</a> of file <a class="el" href="clamp_8cpp_source.html">clamp.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="clamp_8cpp_source.html#l00086">center()</a>, <a class="el" href="clamp_8cpp_source.html#l00079">getAdjustedSize()</a>, <a class="el" href="clamp_8h_source.html#l00060">m_color_disable</a>, <a class="el" href="clamp_8h_source.html#l00059">m_color_enable</a>, <a class="el" href="clamp_8h_source.html#l00058">m_enable_state</a>, <a class="el" href="clamp_8h_source.html#l00057">m_max_size</a>, and <a class="el" href="clamp_8h_source.html#l00061">m_pen_width</a>.</p>
+<p class="reference">References <a class="el" href="clamp_8cpp_source.html#l00086">center()</a>, <a class="el" href="clamp_8cpp_source.html#l00079">getAdjustedSize()</a>, <a class="el" href="clamp_8h_source.html#l00072">m_color_disable</a>, <a class="el" href="clamp_8h_source.html#l00071">m_color_enable</a>, <a class="el" href="clamp_8h_source.html#l00070">m_enable_state</a>, <a class="el" href="clamp_8h_source.html#l00069">m_max_size</a>, and <a class="el" href="clamp_8h_source.html#l00073">m_pen_width</a>.</p>
 
 </div>
 </div>
@@ -310,7 +315,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="clamp_8cpp_source.html#l00037">37</a> of file <a class="el" href="clamp_8cpp_source.html">clamp.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="clamp_8h_source.html#l00060">m_color_disable</a>.</p>
+<p class="reference">References <a class="el" href="clamp_8h_source.html#l00072">m_color_disable</a>.</p>
 
 </div>
 </div>
@@ -332,7 +337,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="clamp_8cpp_source.html#l00031">31</a> of file <a class="el" href="clamp_8cpp_source.html">clamp.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="clamp_8h_source.html#l00059">m_color_enable</a>.</p>
+<p class="reference">References <a class="el" href="clamp_8h_source.html#l00071">m_color_enable</a>.</p>
 
 </div>
 </div>
@@ -354,7 +359,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="clamp_8cpp_source.html#l00022">22</a> of file <a class="el" href="clamp_8cpp_source.html">clamp.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="clamp_8h_source.html#l00058">m_enable_state</a>.</p>
+<p class="reference">References <a class="el" href="clamp_8h_source.html#l00070">m_enable_state</a>.</p>
 
 </div>
 </div>
@@ -372,16 +377,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets a fixed lamp diameter (in pixels, before subtracting the outline width) used instead of auto-sizing to the widget's bounds. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Sets a fixed lamp diameter (in pixels, before subtracting the outline width) used instead of auto-sizing to the widget's bounds. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">max_size</td><td>ignored (no-op) if less than 5 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max_size</td><td>ignored (no-op) if less than 5 </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="clamp_8cpp_source.html#l00014">14</a> of file <a class="el" href="clamp_8cpp_source.html">clamp.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="clamp_8h_source.html#l00057">m_max_size</a>.</p>
+<p class="reference">References <a class="el" href="clamp_8h_source.html#l00069">m_max_size</a>.</p>
 
 </div>
 </div>
@@ -399,16 +406,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets the outline (pen) width used when drawing the lamp circle. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Sets the outline (pen) width used when drawing the lamp circle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">outer_width</td><td>ignored (no-op) if negative </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">outer_width</td><td>ignored (no-op) if negative </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="clamp_8cpp_source.html#l00043">43</a> of file <a class="el" href="clamp_8cpp_source.html">clamp.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="clamp_8h_source.html#l00061">m_pen_width</a>.</p>
+<p class="reference">References <a class="el" href="clamp_8h_source.html#l00073">m_pen_width</a>.</p>
 
 </div>
 </div>
@@ -435,7 +444,7 @@ Private Attributes</h2></td></tr>
 
 <p>Fill color used when disabled (defaults to gray). </p>
 
-<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00060">60</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00072">72</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="clamp_8cpp_source.html#l00005">CLamp()</a>, <a class="el" href="clamp_8cpp_source.html#l00051">paintEvent()</a>, and <a class="el" href="clamp_8cpp_source.html#l00037">setColorDisable()</a>.</p>
 
@@ -463,7 +472,7 @@ Private Attributes</h2></td></tr>
 
 <p>Fill color used when enabled (defaults to green). </p>
 
-<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00059">59</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00071">71</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="clamp_8cpp_source.html#l00005">CLamp()</a>, <a class="el" href="clamp_8cpp_source.html#l00051">paintEvent()</a>, and <a class="el" href="clamp_8cpp_source.html#l00031">setColorEnable()</a>.</p>
 
@@ -491,7 +500,7 @@ Private Attributes</h2></td></tr>
 
 <p>Current enable/disable state driving which fill color is painted. </p>
 
-<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00058">58</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00070">70</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="clamp_8cpp_source.html#l00005">CLamp()</a>, <a class="el" href="clamp_8cpp_source.html#l00051">paintEvent()</a>, and <a class="el" href="clamp_8cpp_source.html#l00022">setEnableState()</a>.</p>
 
@@ -519,7 +528,7 @@ Private Attributes</h2></td></tr>
 
 <p>Fixed lamp diameter override; 0/unset triggers auto-sizing via <a class="el" href="#ac5bd8838be499fb160a45fc3119a938e">getAdjustedSize()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00057">57</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00069">69</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="clamp_8cpp_source.html#l00005">CLamp()</a>, <a class="el" href="clamp_8cpp_source.html#l00051">paintEvent()</a>, and <a class="el" href="clamp_8cpp_source.html#l00014">setLampMaxSize()</a>.</p>
 
@@ -547,15 +556,15 @@ Private Attributes</h2></td></tr>
 
 <p>Outline width used when drawing the lamp circle. </p>
 
-<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00061">61</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="clamp_8h_source.html#l00073">73</a> of file <a class="el" href="clamp_8h_source.html">clamp.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="clamp_8cpp_source.html#l00005">CLamp()</a>, <a class="el" href="clamp_8cpp_source.html#l00051">paintEvent()</a>, and <a class="el" href="clamp_8cpp_source.html#l00043">setOuterWidth()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="clamp_8h_source.html">clamp.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="clamp_8cpp_source.html">clamp.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="clamp_8h_source.html">clamp.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="clamp_8cpp_source.html">clamp.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

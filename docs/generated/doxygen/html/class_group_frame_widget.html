@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_group_fr
 </div><!--header-->
 <div class="contents">
 
+<p>QFrame subclass that paints a colored header bar with a title across the top of the widget and hosts a QVBoxLayout (offset below the header) for child widgets added via <a class="el" href="#af7188b7397ef143f16be9c70ec55392c" title="Adds w to the frame&#39;s body layout, below the header bar.">addWidget()</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for GroupFrameWidget:</div>
@@ -135,13 +138,13 @@ Collaboration diagram for GroupFrameWidget:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a206c56a8d349b8dbc38a3f736fa0bae8" id="r_a206c56a8d349b8dbc38a3f736fa0bae8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a206c56a8d349b8dbc38a3f736fa0bae8">headerBackGroundColorChanged</a> ()</td></tr>
-<tr class="memdesc:a206c56a8d349b8dbc38a3f736fa0bae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the header background color changes via <a class="el" href="#a8f20cb6c752ed146f3196bf497c4cd39">setHeaderBackground()</a>.  <br /></td></tr>
+<tr class="memdesc:a206c56a8d349b8dbc38a3f736fa0bae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the header background color changes via <a class="el" href="#a8f20cb6c752ed146f3196bf497c4cd39" title="Sets the header bar&#39;s fill color and repaints.">setHeaderBackground()</a>.  <br /></td></tr>
 <tr class="memitem:a8d46b23a4e561a8f35282f62dbeda44f" id="r_a8d46b23a4e561a8f35282f62dbeda44f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8d46b23a4e561a8f35282f62dbeda44f">headerColorChanged</a> ()</td></tr>
-<tr class="memdesc:a8d46b23a4e561a8f35282f62dbeda44f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the header title color changes via <a class="el" href="#ac3bcf638ec99a956a0bbe20875185aae">setHeaderColor()</a>.  <br /></td></tr>
+<tr class="memdesc:a8d46b23a4e561a8f35282f62dbeda44f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the header title color changes via <a class="el" href="#ac3bcf638ec99a956a0bbe20875185aae" title="Sets the color used to draw the header title text and repaints.">setHeaderColor()</a>.  <br /></td></tr>
 <tr class="memitem:aac35ad3708cf93baaf15752dd4bcda10" id="r_aac35ad3708cf93baaf15752dd4bcda10"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aac35ad3708cf93baaf15752dd4bcda10">headerFontChanged</a> ()</td></tr>
-<tr class="memdesc:aac35ad3708cf93baaf15752dd4bcda10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the header title font changes via <a class="el" href="#a65d5f1623b961b43602371a3ba9bfc70">setHeaderFont()</a>.  <br /></td></tr>
+<tr class="memdesc:aac35ad3708cf93baaf15752dd4bcda10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the header title font changes via <a class="el" href="#a65d5f1623b961b43602371a3ba9bfc70" title="Sets the font used to draw the header title text and repaints.">setHeaderFont()</a>.  <br /></td></tr>
 <tr class="memitem:a5036dbc6ef88001bcbd1ded1d6809c09" id="r_a5036dbc6ef88001bcbd1ded1d6809c09"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09">titleChanged</a> ()</td></tr>
-<tr class="memdesc:a5036dbc6ef88001bcbd1ded1d6809c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the header title text changes via <a class="el" href="#add5b2bc03f12bb0c00772f8498377b75" title="Sets the header title text, requests a repaint, and emits titleChanged().">setTitle()</a>.  <br /></td></tr>
+<tr class="memdesc:a5036dbc6ef88001bcbd1ded1d6809c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the header title text changes via <a class="el" href="#add5b2bc03f12bb0c00772f8498377b75" title="Sets the header title text and repaints.">setTitle()</a>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -155,10 +158,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acabaca0c1eb33a6f3e3c47833d4f2d57" id="r_acabaca0c1eb33a6f3e3c47833d4f2d57"><td class="memItemLeft">QFont&#160;</td><td class="memItemRight"><a class="el" href="#acabaca0c1eb33a6f3e3c47833d4f2d57">headerFont</a> () const</td></tr>
 <tr class="memdesc:acabaca0c1eb33a6f3e3c47833d4f2d57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the font used to draw the header title text.  <br /></td></tr>
 <tr class="memitem:a8f20cb6c752ed146f3196bf497c4cd39" id="r_a8f20cb6c752ed146f3196bf497c4cd39"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f20cb6c752ed146f3196bf497c4cd39">setHeaderBackground</a> (const QColor &amp;color)</td></tr>
+<tr class="memdesc:a8f20cb6c752ed146f3196bf497c4cd39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the header bar's fill color and repaints.  <br /></td></tr>
 <tr class="memitem:ac3bcf638ec99a956a0bbe20875185aae" id="r_ac3bcf638ec99a956a0bbe20875185aae"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac3bcf638ec99a956a0bbe20875185aae">setHeaderColor</a> (const QColor &amp;color)</td></tr>
+<tr class="memdesc:ac3bcf638ec99a956a0bbe20875185aae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color used to draw the header title text and repaints.  <br /></td></tr>
 <tr class="memitem:a65d5f1623b961b43602371a3ba9bfc70" id="r_a65d5f1623b961b43602371a3ba9bfc70"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a65d5f1623b961b43602371a3ba9bfc70">setHeaderFont</a> (const QFont &amp;font)</td></tr>
+<tr class="memdesc:a65d5f1623b961b43602371a3ba9bfc70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the font used to draw the header title text and repaints.  <br /></td></tr>
 <tr class="memitem:add5b2bc03f12bb0c00772f8498377b75" id="r_add5b2bc03f12bb0c00772f8498377b75"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#add5b2bc03f12bb0c00772f8498377b75">setTitle</a> (const QString &amp;t)</td></tr>
-<tr class="memdesc:add5b2bc03f12bb0c00772f8498377b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the header title text, requests a repaint, and emits <a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09" title="Emitted after the header title text changes via setTitle().">titleChanged()</a>.  <br /></td></tr>
+<tr class="memdesc:add5b2bc03f12bb0c00772f8498377b75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the header title text and repaints.  <br /></td></tr>
 <tr class="memitem:a6b43d25b13728bff63c7f6db881d25ca" id="r_a6b43d25b13728bff63c7f6db881d25ca"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a6b43d25b13728bff63c7f6db881d25ca">title</a> () const</td></tr>
 <tr class="memdesc:a6b43d25b13728bff63c7f6db881d25ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current header title text.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -189,7 +195,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>QFrame subclass that paints a colored header bar with a title across the top of the widget and hosts a QVBoxLayout (offset below the header) for child widgets added via <a class="el" href="#af7188b7397ef143f16be9c70ec55392c" title="Adds w to the frame&#39;s body layout, below the header bar.">addWidget()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00012">12</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00021">21</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a78ec413df14208df7483b95c5dd46e1f" name="a78ec413df14208df7483b95c5dd46e1f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78ec413df14208df7483b95c5dd46e1f">&#9670;&#160;</a></span>GroupFrameWidget()</h2>
@@ -217,7 +223,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00006">6</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00070">m_headerBackground</a>, <a class="el" href="group__frame__widget_8h_source.html#l00071">m_headerFont</a>, <a class="el" href="group__frame__widget_8h_source.html#l00069">m_layout</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00073">m_title</a>.</p>
+<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00087">m_headerBackground</a>, <a class="el" href="group__frame__widget_8h_source.html#l00088">m_headerFont</a>, <a class="el" href="group__frame__widget_8h_source.html#l00086">m_layout</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00090">m_title</a>.</p>
 
 </div>
 </div>
@@ -247,7 +253,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00022">22</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00069">m_layout</a>.</p>
+<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00086">m_layout</a>.</p>
 
 </div>
 </div>
@@ -270,7 +276,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00027">27</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00070">m_headerBackground</a>.</p>
+<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00087">m_headerBackground</a>.</p>
 
 </div>
 </div>
@@ -297,7 +303,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted after the header background color changes via <a class="el" href="#a8f20cb6c752ed146f3196bf497c4cd39">setHeaderBackground()</a>. </p>
+<p>Emitted after the header background color changes via <a class="el" href="#a8f20cb6c752ed146f3196bf497c4cd39" title="Sets the header bar&#39;s fill color and repaints.">setHeaderBackground()</a>. </p>
 
 <p class="reference">References <a class="el" href="#a206c56a8d349b8dbc38a3f736fa0bae8">headerBackGroundColorChanged()</a>.</p>
 
@@ -324,7 +330,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00053">53</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00072">m_headerColor</a>.</p>
+<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00089">m_headerColor</a>.</p>
 
 </div>
 </div>
@@ -351,7 +357,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted after the header title color changes via <a class="el" href="#ac3bcf638ec99a956a0bbe20875185aae">setHeaderColor()</a>. </p>
+<p>Emitted after the header title color changes via <a class="el" href="#ac3bcf638ec99a956a0bbe20875185aae" title="Sets the color used to draw the header title text and repaints.">setHeaderColor()</a>. </p>
 
 <p class="reference">References <a class="el" href="#a8d46b23a4e561a8f35282f62dbeda44f">headerColorChanged()</a>.</p>
 
@@ -378,7 +384,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00040">40</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00071">m_headerFont</a>.</p>
+<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00088">m_headerFont</a>.</p>
 
 </div>
 </div>
@@ -405,7 +411,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted after the header title font changes via <a class="el" href="#a65d5f1623b961b43602371a3ba9bfc70">setHeaderFont()</a>. </p>
+<p>Emitted after the header title font changes via <a class="el" href="#a65d5f1623b961b43602371a3ba9bfc70" title="Sets the font used to draw the header title text and repaints.">setHeaderFont()</a>. </p>
 
 <p class="reference">References <a class="el" href="#aac35ad3708cf93baaf15752dd4bcda10">headerFontChanged()</a>.</p>
 
@@ -445,7 +451,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00081">81</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00070">m_headerBackground</a>, <a class="el" href="group__frame__widget_8h_source.html#l00072">m_headerColor</a>, <a class="el" href="group__frame__widget_8h_source.html#l00071">m_headerFont</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00073">m_title</a>.</p>
+<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00087">m_headerBackground</a>, <a class="el" href="group__frame__widget_8h_source.html#l00089">m_headerColor</a>, <a class="el" href="group__frame__widget_8h_source.html#l00088">m_headerFont</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00090">m_title</a>.</p>
 
 </div>
 </div>
@@ -463,12 +469,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets the header bar's fill color and repaints. </p><dl class="section note"><dt>Note</dt><dd>emits <a class="el" href="#a206c56a8d349b8dbc38a3f736fa0bae8" title="Emitted after the header background color changes via setHeaderBackground().">headerBackGroundColorChanged()</a></dd></dl>
+
+<p>Sets the header bar's fill color and repaints. </p>
+<dl class="section note"><dt>Note</dt><dd>Emits <a class="el" href="#a206c56a8d349b8dbc38a3f736fa0bae8" title="Emitted after the header background color changes via setHeaderBackground().">headerBackGroundColorChanged()</a>.</dd></dl>
 <p>Sets the header bar's fill color, requests a repaint, and emits <a class="el" href="#a206c56a8d349b8dbc38a3f736fa0bae8" title="Emitted after the header background color changes via setHeaderBackground().">headerBackGroundColorChanged()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00033">33</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a206c56a8d349b8dbc38a3f736fa0bae8">headerBackGroundColorChanged()</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00070">m_headerBackground</a>.</p>
+<p class="reference">References <a class="el" href="#a206c56a8d349b8dbc38a3f736fa0bae8">headerBackGroundColorChanged()</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00087">m_headerBackground</a>.</p>
 
 </div>
 </div>
@@ -486,12 +494,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets the color used to draw the header title text and repaints. </p><dl class="section note"><dt>Note</dt><dd>emits <a class="el" href="#a8d46b23a4e561a8f35282f62dbeda44f" title="Emitted after the header title color changes via setHeaderColor().">headerColorChanged()</a></dd></dl>
+
+<p>Sets the color used to draw the header title text and repaints. </p>
+<dl class="section note"><dt>Note</dt><dd>Emits <a class="el" href="#a8d46b23a4e561a8f35282f62dbeda44f" title="Emitted after the header title color changes via setHeaderColor().">headerColorChanged()</a>.</dd></dl>
 <p>Sets the color used to draw the header title text, requests a repaint, and emits <a class="el" href="#a8d46b23a4e561a8f35282f62dbeda44f" title="Emitted after the header title color changes via setHeaderColor().">headerColorChanged()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00059">59</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a8d46b23a4e561a8f35282f62dbeda44f">headerColorChanged()</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00072">m_headerColor</a>.</p>
+<p class="reference">References <a class="el" href="#a8d46b23a4e561a8f35282f62dbeda44f">headerColorChanged()</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00089">m_headerColor</a>.</p>
 
 </div>
 </div>
@@ -509,12 +519,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets the font used to draw the header title text and repaints. </p><dl class="section note"><dt>Note</dt><dd>emits <a class="el" href="#aac35ad3708cf93baaf15752dd4bcda10" title="Emitted after the header title font changes via setHeaderFont().">headerFontChanged()</a></dd></dl>
+
+<p>Sets the font used to draw the header title text and repaints. </p>
+<dl class="section note"><dt>Note</dt><dd>Emits <a class="el" href="#aac35ad3708cf93baaf15752dd4bcda10" title="Emitted after the header title font changes via setHeaderFont().">headerFontChanged()</a>.</dd></dl>
 <p>Sets the font used to draw the header title text, requests a repaint, and emits <a class="el" href="#aac35ad3708cf93baaf15752dd4bcda10" title="Emitted after the header title font changes via setHeaderFont().">headerFontChanged()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00046">46</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#aac35ad3708cf93baaf15752dd4bcda10">headerFontChanged()</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00071">m_headerFont</a>.</p>
+<p class="reference">References <a class="el" href="#aac35ad3708cf93baaf15752dd4bcda10">headerFontChanged()</a>, and <a class="el" href="group__frame__widget_8h_source.html#l00088">m_headerFont</a>.</p>
 
 </div>
 </div>
@@ -533,12 +545,13 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the header title text, requests a repaint, and emits <a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09" title="Emitted after the header title text changes via setTitle().">titleChanged()</a>. </p>
-<p>Sets the header title text and repaints. </p><dl class="section note"><dt>Note</dt><dd>emits <a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09" title="Emitted after the header title text changes via setTitle().">titleChanged()</a> </dd></dl>
+<p>Sets the header title text and repaints. </p>
+<p>Sets the header title text, requests a repaint, and emits <a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09" title="Emitted after the header title text changes via setTitle().">titleChanged()</a>.</p>
+<dl class="section note"><dt>Note</dt><dd>Emits <a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09" title="Emitted after the header title text changes via setTitle().">titleChanged()</a>. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00071">71</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00073">m_title</a>, and <a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09">titleChanged()</a>.</p>
+<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00090">m_title</a>, and <a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09">titleChanged()</a>.</p>
 
 </div>
 </div>
@@ -561,7 +574,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="group__frame__widget_8cpp_source.html#l00066">66</a> of file <a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00073">m_title</a>.</p>
+<p class="reference">References <a class="el" href="group__frame__widget_8h_source.html#l00090">m_title</a>.</p>
 
 </div>
 </div>
@@ -588,7 +601,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Emitted after the header title text changes via <a class="el" href="#add5b2bc03f12bb0c00772f8498377b75" title="Sets the header title text, requests a repaint, and emits titleChanged().">setTitle()</a>. </p>
+<p>Emitted after the header title text changes via <a class="el" href="#add5b2bc03f12bb0c00772f8498377b75" title="Sets the header title text and repaints.">setTitle()</a>. </p>
 
 <p class="reference">References <a class="el" href="#a5036dbc6ef88001bcbd1ded1d6809c09">titleChanged()</a>.</p>
 
@@ -619,7 +632,7 @@ Private Attributes</h2></td></tr>
 
 <p>Fill color of the header bar (default: Qt::darkGray). </p>
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00070">70</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00087">87</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__frame__widget_8cpp_source.html#l00006">GroupFrameWidget()</a>, <a class="el" href="group__frame__widget_8cpp_source.html#l00027">headerBackground()</a>, <a class="el" href="group__frame__widget_8cpp_source.html#l00081">paintEvent()</a>, and <a class="el" href="group__frame__widget_8cpp_source.html#l00033">setHeaderBackground()</a>.</p>
 
@@ -647,7 +660,7 @@ Private Attributes</h2></td></tr>
 
 <p>Color for the header title text (default-constructed QColor until set). </p>
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00072">72</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00089">89</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__frame__widget_8cpp_source.html#l00053">headerColor()</a>, <a class="el" href="group__frame__widget_8cpp_source.html#l00081">paintEvent()</a>, and <a class="el" href="group__frame__widget_8cpp_source.html#l00059">setHeaderColor()</a>.</p>
 
@@ -675,7 +688,7 @@ Private Attributes</h2></td></tr>
 
 <p>Font for the header title text (default: bold 10pt "Segoe UI"). </p>
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00071">71</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00088">88</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__frame__widget_8cpp_source.html#l00006">GroupFrameWidget()</a>, <a class="el" href="group__frame__widget_8cpp_source.html#l00040">headerFont()</a>, <a class="el" href="group__frame__widget_8cpp_source.html#l00081">paintEvent()</a>, and <a class="el" href="group__frame__widget_8cpp_source.html#l00046">setHeaderFont()</a>.</p>
 
@@ -703,7 +716,7 @@ Private Attributes</h2></td></tr>
 
 <p>Body layout for child widgets added via <a class="el" href="#af7188b7397ef143f16be9c70ec55392c" title="Adds w to the frame&#39;s body layout, below the header bar.">addWidget()</a>; top margin reserved for the header bar. </p>
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00069">69</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00086">86</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__frame__widget_8cpp_source.html#l00022">addWidget()</a>, and <a class="el" href="group__frame__widget_8cpp_source.html#l00006">GroupFrameWidget()</a>.</p>
 
@@ -731,7 +744,7 @@ Private Attributes</h2></td></tr>
 
 <p>Header title text displayed in the header bar (default: "Header"). </p>
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00073">73</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00090">90</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="group__frame__widget_8cpp_source.html#l00006">GroupFrameWidget()</a>, <a class="el" href="group__frame__widget_8cpp_source.html#l00081">paintEvent()</a>, <a class="el" href="group__frame__widget_8cpp_source.html#l00071">setTitle()</a>, and <a class="el" href="group__frame__widget_8cpp_source.html#l00066">title()</a>.</p>
 
@@ -758,7 +771,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00014">14</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00023">23</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 </div>
 </div>
@@ -782,7 +795,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00016">16</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00025">25</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 </div>
 </div>
@@ -806,7 +819,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00015">15</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00024">24</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 </div>
 </div>
@@ -830,13 +843,13 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00017">17</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="group__frame__widget_8h_source.html#l00026">26</a> of file <a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="group__frame__widget_8h_source.html">group_frame_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="group__frame__widget_8cpp_source.html">group_frame_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

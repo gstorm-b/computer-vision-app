@@ -62,6 +62,8 @@
     <addaction name="actionSave_Project"/>
     <addaction name="actionSaveAs_Project"/>
     <addaction name="actionClose_Project"/>
+    <addaction name="separator"/>
+    <addaction name="actionOpen_Runtime"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -79,7 +81,24 @@
     <property name="title">
      <string>View</string>
     </property>
+    <widget class="QMenu" name="menuTheme">
+     <property name="title">
+      <string>Theme</string>
+     </property>
+     <addaction name="actionTheme_Light"/>
+     <addaction name="actionTheme_Dark"/>
+    </widget>
+    <widget class="QMenu" name="menuLanguage">
+     <property name="title">
+      <string>Language</string>
+     </property>
+     <addaction name="actionLanguage_English"/>
+     <addaction name="actionLanguage_Japanese"/>
+    </widget>
     <addaction name="actionSystemLog"/>
+    <addaction name="separator"/>
+    <addaction name="menuTheme"/>
+    <addaction name="menuLanguage"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
@@ -152,6 +171,46 @@
   <action name="actionNew_Pproject">
    <property name="text">
     <string>New project</string>
+   </property>
+  </action>
+  <action name="actionOpen_Runtime">
+   <property name="text">
+    <string>Open Runtime</string>
+   </property>
+   <property name="toolTip">
+    <string>Close this application and start the operator runtime</string>
+   </property>
+  </action>
+  <action name="actionTheme_Light">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Light</string>
+   </property>
+  </action>
+  <action name="actionTheme_Dark">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Dark</string>
+   </property>
+  </action>
+  <action name="actionLanguage_English">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">English</string>
+   </property>
+  </action>
+  <action name="actionLanguage_Japanese">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string notr="true">日本語</string>
    </property>
   </action>
  </widget>

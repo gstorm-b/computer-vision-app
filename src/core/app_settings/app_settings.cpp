@@ -54,6 +54,14 @@ AppSettings::AppSettings(QObject* parent) : QObject(parent) {
     // future schema versions always have a valid fallback value.
     m_data[AppKey::Theme]    = QStringLiteral("light");
     m_data[AppKey::Language] = QStringLiteral("en");
+    // Empty means "no project has ever been run by the operator runtime shell", which is
+    // what sends it to the project-select page on a first launch.
+    m_data[AppKey::lastRuntimeProjectPath] = QString();
+    // Empty means "no admin credential stored yet"; SettingsAdminCredentialProvider seeds
+    // both on first construction. Deliberately not defaulted to a hash of the shipped
+    // password — the salt has to be random per installation, so it cannot be a constant.
+    m_data[AppKey::adminPasswordSalt] = QString();
+    m_data[AppKey::adminPasswordHash] = QString();
 
     load();
 }
@@ -82,6 +90,11 @@ QString AppSettings::lastImageAccessDir() const {
     return m_data.value(AppKey::lastImageAccessDir).toString();
 }
 
+/// Returns the project file the operator runtime shell last ran successfully.
+QString AppSettings::lastRuntimeProjectPath() const {
+    return m_data.value(AppKey::lastRuntimeProjectPath).toString();
+}
+
 /// Sets the UI theme id and persists it (no-op if unchanged; see setValue).
 void AppSettings::setTheme(const QString& styleId) {
     setValue(AppKey::Theme, styleId);
@@ -100,6 +113,12 @@ void AppSettings::setLastFolderAccessDir(const QString& dir) {
 /// Sets the last image-picker access directory and persists it (no-op if unchanged; see setValue).
 void AppSettings::setLastImageAccessDir(const QString& path) {
     setValue(AppKey::lastImageAccessDir, path);
+}
+
+/// Sets the operator runtime's remembered project path and persists it (no-op if
+/// unchanged; see setValue).
+void AppSettings::setLastRuntimeProjectPath(const QString& path) {
+    setValue(AppKey::lastRuntimeProjectPath, path);
 }
 
 // ---------------------------------------------------------------------------
@@ -124,27 +143,60 @@ void AppSettings::setValue(const QString& key, const QVariant& val) {
 //  Persistence
 // ---------------------------------------------------------------------------
 
-/// Returns the absolute path of the settings file ("settings.dat" in the OS
-/// application-data directory for this app).
+/// Returns the absolute path of the settings file: "settings.dat" under a
+/// PRODUCT-scoped folder in the OS application-data directory.
+///
+/// Deliberately not derived from QCoreApplication::applicationName(). Doing so scopes the
+/// file to whichever shell wrote it, and the two shells set different application names —
+/// which is how the commissioning app and the operator runtime ended up with two separate
+/// settings files, so a theme or language chosen in one was invisible to the other
+/// (Phase 7 / A3). They are one product and they share one file.
+///
+/// On Windows this resolves to the same %APPDATA%\NCRN Pick\settings.dat the editor has
+/// always used, so existing settings are picked up with no migration. legacyFilePath()
+/// covers the other direction.
 QString AppSettings::filePath() {
+    return QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+           + QStringLiteral("/") + QLatin1String(kProductFolder)
+           + QStringLiteral("/settings.dat");
+}
+
+/// Returns the pre-Phase-7 application-scoped path for the CURRENT executable, which is
+/// where a shell whose application name differs from the product folder used to write.
+/// Read only as a fallback by load(); nothing ever writes here again.
+QString AppSettings::legacyFilePath() {
     return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)
            + QStringLiteral("/settings.dat");
 }
 
-/// Reads and decodes the settings file at filePath(), merging decoded values on top of
-/// the current (default) m_data. Leaves m_data untouched (i.e. all defaults) if the
-/// file is missing, unreadable, or fails integrity/format checks in decode().
+/// Reads and decodes the settings file, merging decoded values on top of the current
+/// (default) m_data. Leaves m_data untouched (i.e. all defaults) if nothing is readable
+/// or the content fails the integrity/format checks in decode().
+///
+/// Tries filePath() first and legacyFilePath() only if that produced nothing. A shell that
+/// used to write to its own application-scoped folder therefore keeps its settings on the
+/// first launch after the unification, and writes them back to the shared path on the next
+/// change. Both existing → the shared file wins; it is the one being maintained.
 void AppSettings::load() {
-    QFile f(filePath());
-    if (!f.open(QFile::ReadOnly)) return;
+    auto readInto = [this](const QString& path) -> bool {
+        QFile f(path);
+        if (!f.open(QFile::ReadOnly)) return false;
 
-    QVariantMap loaded;
-    if (!decode(f.readAll(), loaded)) return;  // corrupt or wrong magic → keep defaults
+        QVariantMap loaded;
+        if (!decode(f.readAll(), loaded)) return false;  // corrupt or wrong magic → keep defaults
 
-    // Merge: values from disk override defaults, but unknown new-version keys
-    // that don't exist in the file retain their default values.
-    for (auto it = loaded.cbegin(); it != loaded.cend(); ++it)
-        m_data[it.key()] = it.value();
+        // Merge: values from disk override defaults, but unknown new-version keys
+        // that don't exist in the file retain their default values.
+        for (auto it = loaded.cbegin(); it != loaded.cend(); ++it)
+            m_data[it.key()] = it.value();
+        return true;
+    };
+
+    if (readInto(filePath())) return;
+
+    const QString legacy = legacyFilePath();
+    if (legacy != filePath())
+        readInto(legacy);
 }
 
 /// Encodes m_data and writes it (truncating any existing file) to filePath(), creating

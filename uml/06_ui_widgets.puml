@@ -83,9 +83,25 @@ package "Pattern UI" {
   class EditPatternWizard <<QDialog>>
   class AddPatternImageDialog <<QDialog>>
   class AddPatternImageCanvas <<QWidget>>
+  class GripperRegisterDialog <<QDialog>>
   class PatternGroupItemWidget <<QWidget>>
   class PatternItemWidget <<QWidget>>
   class FooterItemWidget <<QWidget>>
+
+  class PatternThumbnailView <<QGraphicsView>> {
+    ..read-only viewer..
+    +setPattern(image, pick, angle, w, h, dist, boxAngle, showBoxes)
+    +clear()
+    +resetView()
+  }
+
+  class "pick_overlay" as PickOverlay <<namespace>> {
+    +knobOffset(angleDeg) : QPointF
+    +drawOrientationGizmo(p, pick, angle, showKnob, held)
+    +drawPickRing(p, pick)
+    +drawPickCrosshair(p, pick)
+    +drawJawPair(p, pick, w, h, dist, angle)
+  }
 }
 
 package "Mapping widgets" {
@@ -131,6 +147,11 @@ package "Calibration UI" {
   class CalibrationPointsTable <<QTableWidget>>
 }
 
+package "Shells" {
+  class "MainWindow (app)" as MainWindow <<QMainWindow>>
+  class "RuntimeShellWindow (runtime_app)" as RuntimeShellWindow <<QMainWindow>>
+}
+
 package "Models and devices" {
   class "vc::model::TaskLocalization" as TaskLocalization
   class "vc::model::LocalizationRuntimeController::CycleResult" as CycleResult
@@ -146,6 +167,47 @@ package "Models and devices" {
   class "vc::device::VisionTcpipDiagnostics" as VisionTcpipDiagnostics
 }
 
+note bottom of PickOverlay
+  The ONE implementation of the pick marker, the X/Y
+  orientation gizmo and the jaw pair. Shared so the
+  authoring canvas and the read-only thumbnail cannot
+  drift apart -- "drawn the same way" decays silently
+  with two copies, and this gizmo was revised twice
+  during Phase 5.
+
+  Takes widget (viewport) pixels only: callers do their
+  own image-to-widget mapping, so it knows nothing about
+  zoom, pan or crop. Gizmo sizes are widget-pixel
+  constants (fixed on screen); jaw boxes arrive
+  pre-scaled (they track the image).
+end note
+
+note bottom of RuntimeShellWindow
+  Operator runtime shell (Phase 6). Reuses the dashboard
+  widget as-is and deliberately NOT LocalizationTaskWidget,
+  which starts Commission on the task in its constructor.
+
+  Peer of MainWindow, not a child: neither shell may
+  include the other's headers. Only MainWindow writes a
+  project file. Full contract:
+  docs/domains/runtime_app/runtime_shell.md
+end note
+
+note bottom of PatternThumbnailView
+  Viewer, not editor: pan / zoom / reset only.
+  Read-only by CONSTRUCTION -- one pixmap item with no
+  interaction flags and no accepted mouse buttons, plus
+  ScrollHandDrag -- rather than by disabling handlers
+  one at a time.
+
+  Overlay is drawn in drawForeground() with the world
+  transform reset, which is what keeps the gizmo a
+  constant on-screen size while the jaw boxes stay locked
+  to the image. Needs FullViewportUpdate: the overlay
+  lives outside scene coordinates, so a partial repaint
+  would clip it against the wrong rectangle.
+end note
+
 ITaskWidget <|-- LocalizationTaskWidget
 ITaskWidget <|-- LocalizationDashboardWidget
 ITaskWidget <|-- LocalizationPatternsWidget
@@ -156,6 +218,7 @@ IDeviceWidget <|-- MitsubishiMcDeviceWidget
 IDeviceWidget <|-- VisionTcpipDeviceWidget
 
 LocalizationTaskWidget *-- LocalizationDashboardWidget : dashboard page
+RuntimeShellWindow *-- LocalizationDashboardWidget : one per task (operator runtime)
 LocalizationTaskWidget *-- LocalizationPatternsWidget : patterns page
 LocalizationTaskWidget *-- LocalizationSettingWidget : settings page
 LocalizationTaskWidget --> DeviceWidgetFactory : create device pages
@@ -174,6 +237,12 @@ LocalizationPatternsWidget --> TaskLocalization
 LocalizationPatternsWidget --> PatternGroupManager
 LocalizationPatternsWidget --> AddPatternWizard
 LocalizationPatternsWidget --> EditPatternWizard
+LocalizationPatternsWidget --> GripperRegisterDialog : preset registry
+LocalizationPatternsWidget *-- PatternThumbnailView : selected-pattern preview
+AddPatternWizard *-- AddPatternImageCanvas
+EditPatternWizard *-- AddPatternImageCanvas
+AddPatternImageCanvas ..> PickOverlay : paints the overlay
+PatternThumbnailView ..> PickOverlay : paints the same overlay
 LocalizationSettingWidget --> TaskLocalization
 LocalizationSettingWidget *-- CameraMappingWidget
 LocalizationSettingWidget *-- CameraWorkspaceWidget

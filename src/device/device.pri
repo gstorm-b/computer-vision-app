@@ -14,7 +14,10 @@ SOURCES += \
     $$PWD/output_device/vision_tcpip_device.cpp \
     $$PWD/output_device/vision_tcpip_client_device.cpp \
     $$PWD/robot/kawasaki_robot_device.cpp \
-    $$PWD/robot/nachi_robot_device.cpp
+    $$PWD/robot/nachi_robot_device.cpp \
+    $$PWD/virtual/virtual_camera_device.cpp \
+    $$PWD/virtual/virtual_plc_device.cpp \
+    $$PWD/virtual/virtual_vision_output_device.cpp
 
 HEADERS += \
     $$PWD/camera/basler_define.h \
@@ -58,4 +61,11 @@ HEADERS += \
     $$PWD/robot/kawasaki_robot_config.h \
     $$PWD/robot/kawasaki_robot_device.h \
     $$PWD/robot/nachi_robot_config.h \
-    $$PWD/robot/nachi_robot_device.h
+    $$PWD/robot/nachi_robot_device.h \
+    $$PWD/virtual/virtual_device.h \
+    $$PWD/virtual/virtual_camera_config.h \
+    $$PWD/virtual/virtual_camera_device.h \
+    $$PWD/virtual/virtual_plc_config.h \
+    $$PWD/virtual/virtual_plc_device.h \
+    $$PWD/virtual/virtual_vision_output_config.h \
+    $$PWD/virtual/virtual_vision_output_device.h

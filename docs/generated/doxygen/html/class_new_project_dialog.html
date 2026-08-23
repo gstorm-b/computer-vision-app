@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_new_proj
 </div><!--header-->
 <div class="contents">
 
+<p>Modal dialog that collects a name and description for a new project; on success the values are read back via <a class="el" href="#a1e30b8280f6ef6362861e727ac026435" title="Returns the project name entered by the user, captured on finish.">getName()</a>/getDescription().  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for NewProjectDialog:</div>
@@ -161,7 +164,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Modal dialog that collects a name and description for a new project; on success the values are read back via <a class="el" href="#a1e30b8280f6ef6362861e727ac026435" title="Returns the project name entered by the user, captured on finish.">getName()</a>/getDescription(). </p>
 
-<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00012">12</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00021">21</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a14fdcfdffb4e326c93faa438b6443a8a" name="a14fdcfdffb4e326c93faa438b6443a8a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14fdcfdffb4e326c93faa438b6443a8a">&#9670;&#160;</a></span>NewProjectDialog()</h2>
@@ -191,7 +194,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="new__project__dialog_8cpp_source.html#l00008">8</a> of file <a class="el" href="new__project__dialog_8cpp_source.html">new_project_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="new__project__dialog_8cpp_source.html#l00008">NewProjectDialog()</a>, <a class="el" href="new__project__dialog_8cpp_source.html#l00081">onClicked_btn_cancel()</a>, <a class="el" href="new__project__dialog_8cpp_source.html#l00047">onClicked_btn_finish()</a>, and <a class="el" href="new__project__dialog_8h_source.html#l00045">ui</a>.</p>
+<p class="reference">References <a class="el" href="new__project__dialog_8cpp_source.html#l00008">NewProjectDialog()</a>, <a class="el" href="new__project__dialog_8cpp_source.html#l00081">onClicked_btn_cancel()</a>, <a class="el" href="new__project__dialog_8cpp_source.html#l00047">onClicked_btn_finish()</a>, and <a class="el" href="new__project__dialog_8h_source.html#l00054">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="new__project__dialog_8cpp_source.html#l00008">NewProjectDialog()</a>.</p>
 
@@ -217,7 +220,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="new__project__dialog_8cpp_source.html#l00024">24</a> of file <a class="el" href="new__project__dialog_8cpp_source.html">new_project_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="new__project__dialog_8h_source.html#l00045">ui</a>.</p>
+<p class="reference">References <a class="el" href="new__project__dialog_8h_source.html#l00054">ui</a>.</p>
 
 </div>
 </div>
@@ -247,9 +250,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the project description entered by the user, captured on finish. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00032">32</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00041">41</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="new__project__dialog_8h_source.html#l00048">m_description</a>.</p>
+<p class="reference">References <a class="el" href="new__project__dialog_8h_source.html#l00057">m_description</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00495">MainWindow::onNewProject()</a>.</p>
 
@@ -280,9 +283,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the project name entered by the user, captured on finish. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00027">27</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00036">36</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="new__project__dialog_8h_source.html#l00047">m_name</a>.</p>
+<p class="reference">References <a class="el" href="new__project__dialog_8h_source.html#l00056">m_name</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00495">MainWindow::onNewProject()</a>.</p>
 
@@ -347,7 +350,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="new__project__dialog_8cpp_source.html#l00047">47</a> of file <a class="el" href="new__project__dialog_8cpp_source.html">new_project_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="new__project__dialog_8h_source.html#l00048">m_description</a>, <a class="el" href="new__project__dialog_8h_source.html#l00047">m_name</a>, and <a class="el" href="new__project__dialog_8h_source.html#l00045">ui</a>.</p>
+<p class="reference">References <a class="el" href="new__project__dialog_8h_source.html#l00057">m_description</a>, <a class="el" href="new__project__dialog_8h_source.html#l00056">m_name</a>, and <a class="el" href="new__project__dialog_8h_source.html#l00054">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="new__project__dialog_8cpp_source.html#l00008">NewProjectDialog()</a>.</p>
 
@@ -376,9 +379,9 @@ Private Attributes</h2></td></tr>
 
 <p><a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> description captured from the input field on finish. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00048">48</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00057">57</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="new__project__dialog_8h_source.html#l00032">getDescription()</a>, and <a class="el" href="new__project__dialog_8cpp_source.html#l00047">onClicked_btn_finish()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="new__project__dialog_8h_source.html#l00041">getDescription()</a>, and <a class="el" href="new__project__dialog_8cpp_source.html#l00047">onClicked_btn_finish()</a>.</p>
 
 </div>
 </div>
@@ -404,9 +407,9 @@ Private Attributes</h2></td></tr>
 
 <p><a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> name captured from the input field on finish. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00047">47</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00056">56</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="new__project__dialog_8h_source.html#l00027">getName()</a>, and <a class="el" href="new__project__dialog_8cpp_source.html#l00047">onClicked_btn_finish()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="new__project__dialog_8h_source.html#l00036">getName()</a>, and <a class="el" href="new__project__dialog_8cpp_source.html#l00047">onClicked_btn_finish()</a>.</p>
 
 </div>
 </div>
@@ -432,15 +435,15 @@ Private Attributes</h2></td></tr>
 
 <p>Generated UI form for this dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00045">45</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__project__dialog_8h_source.html#l00054">54</a> of file <a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="new__project__dialog_8cpp_source.html#l00008">NewProjectDialog()</a>, <a class="el" href="new__project__dialog_8cpp_source.html#l00047">onClicked_btn_finish()</a>, and <a class="el" href="new__project__dialog_8cpp_source.html#l00024">~NewProjectDialog()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="new__project__dialog_8cpp_source.html">new_project_dialog.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="new__project__dialog_8h_source.html">new_project_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="new__project__dialog_8cpp_source.html">new_project_dialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

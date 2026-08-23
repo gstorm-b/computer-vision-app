@@ -147,7 +147,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-slots" class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr class="memitem:a443c14501caaf32da2c15619a2698008" id="r_a443c14501caaf32da2c15619a2698008"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a443c14501caaf32da2c15619a2698008">onAddDeviceToTaskRequested</a> (const QString &amp;taskId)</td></tr>
-<tr class="memdesc:a443c14501caaf32da2c15619a2698008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs <a class="el" href="class_add_device_wizard.html">AddDeviceWizard</a> and, on acceptance, assigns the chosen device to task <span class="tt">taskId</span>.  <br /></td></tr>
+<tr class="memdesc:a443c14501caaf32da2c15619a2698008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs <a class="el" href="class_add_device_wizard.html" title="Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager.">AddDeviceWizard</a> and, on acceptance, assigns the chosen device to task <span class="tt">taskId</span>.  <br /></td></tr>
 <tr class="memitem:a0fbe3cfe9cc9d9c911d0b45f0c3d5e0f" id="r_a0fbe3cfe9cc9d9c911d0b45f0c3d5e0f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0fbe3cfe9cc9d9c911d0b45f0c3d5e0f">onCloseProject</a> ()</td></tr>
 <tr class="memdesc:a0fbe3cfe9cc9d9c911d0b45f0c3d5e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the project tree, releases m_project, and tears down its docks.  <br /></td></tr>
 <tr class="memitem:a16b18f12ecdff4aecd10b7cb263e9947" id="r_a16b18f12ecdff4aecd10b7cb263e9947"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a16b18f12ecdff4aecd10b7cb263e9947">onDeleteDeviceRequested</a> (const QString &amp;taskId, const QString &amp;deviceId)</td></tr>
@@ -164,7 +164,7 @@ Private Slots</h2></td></tr>
 <tr class="memitem:ae0362ab32b29a4d47ab9071c56e29523" id="r_ae0362ab32b29a4d47ab9071c56e29523"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae0362ab32b29a4d47ab9071c56e29523">onMoveDeviceRequested</a> (const QString &amp;taskId, const QString &amp;deviceId)</td></tr>
 <tr class="memdesc:ae0362ab32b29a4d47ab9071c56e29523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prompts to pick a destination task and moves <span class="tt">deviceId</span> from <span class="tt">taskId</span> to it.  <br /></td></tr>
 <tr class="memitem:acaf6621786b454e269586dd2447cc8a7" id="r_acaf6621786b454e269586dd2447cc8a7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acaf6621786b454e269586dd2447cc8a7">onNewProject</a> ()</td></tr>
-<tr class="memdesc:acaf6621786b454e269586dd2447cc8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new project via <a class="el" href="class_new_project_dialog.html">NewProjectDialog</a> after confirming/closing any open project.  <br /></td></tr>
+<tr class="memdesc:acaf6621786b454e269586dd2447cc8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new project via <a class="el" href="class_new_project_dialog.html" title="Modal dialog that collects a name and description for a new project; on success the values are read b...">NewProjectDialog</a> after confirming/closing any open project.  <br /></td></tr>
 <tr class="memitem:a1cc79151566767c278c25a813e9075b2" id="r_a1cc79151566767c278c25a813e9075b2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1cc79151566767c278c25a813e9075b2">onOpenProject</a> ()</td></tr>
 <tr class="memdesc:a1cc79151566767c278c25a813e9075b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens a .vproj file chosen via QFileDialog, closing any currently open project first.  <br /></td></tr>
 <tr class="memitem:a8e6de8511f8397bbb04349597268433a" id="r_a8e6de8511f8397bbb04349597268433a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8e6de8511f8397bbb04349597268433a">onPrivilegeAdmin</a> ()</td></tr>
@@ -201,7 +201,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a2d50e5c26dd4cdfb3c9ea38af50f47ff" id="r_a2d50e5c26dd4cdfb3c9ea38af50f47ff"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2d50e5c26dd4cdfb3c9ea38af50f47ff">createMainContents</a> ()</td></tr>
 <tr class="memdesc:a2d50e5c26dd4cdfb3c9ea38af50f47ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the ADS dock manager, the system-log dock, and the fixed central anchor dock.  <br /></td></tr>
 <tr class="memitem:af0662f91ad53b43a71c5e6ff75de341d" id="r_af0662f91ad53b43a71c5e6ff75de341d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af0662f91ad53b43a71c5e6ff75de341d">createProjectInfoDock</a> ()</td></tr>
-<tr class="memdesc:af0662f91ad53b43a71c5e6ff75de341d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the <a class="el" href="class_project_infor_setting.html">ProjectInforSetting</a> widget/dock docked alongside the anchor dock.  <br /></td></tr>
+<tr class="memdesc:af0662f91ad53b43a71c5e6ff75de341d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the <a class="el" href="class_project_infor_setting.html" title="Settings form showing/editing a project&#39;s name and description, and displaying its created/updated ti...">ProjectInforSetting</a> widget/dock docked alongside the anchor dock.  <br /></td></tr>
 <tr class="memitem:a240878345f6ccbdd18e4c4b6d8985146" id="r_a240878345f6ccbdd18e4c4b6d8985146"><td class="memItemLeft"><a class="el" href="struct_u_i_task_entry.html">UITaskEntry</a>&#160;</td><td class="memItemRight"><a class="el" href="#a240878345f6ccbdd18e4c4b6d8985146">createTaskEntry</a> (std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_i_task.html">vc::model::ITask</a> &gt; task, ads::CDockWidget *anchorDock)</td></tr>
 <tr class="memitem:a6c48d2dd93edfd22e6d23ffd4faddd5a" id="r_a6c48d2dd93edfd22e6d23ffd4faddd5a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6c48d2dd93edfd22e6d23ffd4faddd5a">createToolBarActions</a> ()</td></tr>
 <tr class="memdesc:a6c48d2dd93edfd22e6d23ffd4faddd5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the file/task toolbar actions plus the Theme and Language submenus under View.  <br /></td></tr>
@@ -248,7 +248,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a9549a6d3079f589d660c112aecb3dfba" id="r_a9549a6d3079f589d660c112aecb3dfba"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9549a6d3079f589d660c112aecb3dfba">m_isDirty</a> {false}</td></tr>
 <tr class="memdesc:a9549a6d3079f589d660c112aecb3dfba"><td class="mdescLeft">&#160;</td><td class="mdescRight">True when the current project has unsaved changes.  <br /></td></tr>
 <tr class="memitem:ae222c3ee05ac3867cf5ff338620fc94c" id="r_ae222c3ee05ac3867cf5ff338620fc94c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae222c3ee05ac3867cf5ff338620fc94c">m_lastFolderDir</a></td></tr>
-<tr class="memdesc:ae222c3ee05ac3867cf5ff338620fc94c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last folder used in open/save dialogs; persisted via <a class="el" href="class_app_settings.html">AppSettings</a>.  <br /></td></tr>
+<tr class="memdesc:ae222c3ee05ac3867cf5ff338620fc94c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last folder used in open/save dialogs; persisted via <a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a>.  <br /></td></tr>
 <tr class="memitem:ac4976cf6f6d0791c76fdd81117eda67b" id="r_ac4976cf6f6d0791c76fdd81117eda67b"><td class="memItemLeft">std::shared_ptr&lt; ads::CDockAreaWidget &gt; *&#160;</td><td class="memItemRight"><a class="el" href="#ac4976cf6f6d0791c76fdd81117eda67b">m_mainDockArea</a> {nullptr}</td></tr>
 <tr class="memdesc:ac4976cf6f6d0791c76fdd81117eda67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unused/reserved reference to the main dock area.  <br /></td></tr>
 <tr class="memitem:a2975820e47f790ea936642870c494d1f" id="r_a2975820e47f790ea936642870c494d1f"><td class="memItemLeft">ads::CDockContainerWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a2975820e47f790ea936642870c494d1f">m_mainDockContainer</a> {nullptr}</td></tr>
@@ -256,7 +256,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a693996c2b9760ce5a58aef220b2a4cc0" id="r_a693996c2b9760ce5a58aef220b2a4cc0"><td class="memItemLeft">QMenu *&#160;</td><td class="memItemRight"><a class="el" href="#a693996c2b9760ce5a58aef220b2a4cc0">m_menuLanguage</a> {nullptr}</td></tr>
 <tr class="memdesc:a693996c2b9760ce5a58aef220b2a4cc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Language" submenu under View.  <br /></td></tr>
 <tr class="memitem:ab422fe74a920d8d17d5701930fbbc54f" id="r_ab422fe74a920d8d17d5701930fbbc54f"><td class="memItemLeft">QMenu *&#160;</td><td class="memItemRight"><a class="el" href="#ab422fe74a920d8d17d5701930fbbc54f">m_menuTheme</a> {nullptr}</td></tr>
-<tr class="memdesc:ab422fe74a920d8d17d5701930fbbc54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Theme" submenu under View, populated from <a class="el" href="class_theme_manager.html">ThemeManager</a> styles.  <br /></td></tr>
+<tr class="memdesc:ab422fe74a920d8d17d5701930fbbc54f"><td class="mdescLeft">&#160;</td><td class="mdescRight">"Theme" submenu under View, populated from <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> styles.  <br /></td></tr>
 <tr class="memitem:a31cb3a6bebccfc01c01eebfd758b4b21" id="r_a31cb3a6bebccfc01c01eebfd758b4b21"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_project.html">vc::model::Project</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a31cb3a6bebccfc01c01eebfd758b4b21">m_project</a></td></tr>
 <tr class="memdesc:a31cb3a6bebccfc01c01eebfd758b4b21"><td class="mdescLeft">&#160;</td><td class="mdescRight">The currently open project, or null when none is open.  <br /></td></tr>
 <tr class="memitem:abbb45295f303121f2840b221c50d5718" id="r_abbb45295f303121f2840b221c50d5718"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#abbb45295f303121f2840b221c50d5718">m_projectFilePath</a></td></tr>
@@ -277,7 +277,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a35466a70ed47252a0191168126a352a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generated UI form; owns the widgets declared in mainwindow.ui.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Main application window: hosts the ADS dock layout, the project tree, toolbar/menu actions, and owns the current <a class="el" href="classvc_1_1model_1_1_project.html">vc::model::Project</a> plus the docks for its devices/tasks. </p>
+<div class="textblock"><p>Main application window: hosts the ADS dock layout, the project tree, toolbar/menu actions, and owns the current <a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">vc::model::Project</a> plus the docks for its devices/tasks. </p>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8h_source.html#l00044">44</a> of file <a class="el" href="mainwindow_8h_source.html">mainwindow.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -305,7 +305,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Builds the UI, toolbar actions, and dock layout, and wires the project tree signals. </p>
-<p>Constructs the main window: builds the generated UI, toolbar actions, and dock layout, then initializes project state to "no project open" and restores the last-used folder from <a class="el" href="class_app_settings.html">AppSettings</a>. Wires the project tree widget's signals to the corresponding slots. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Constructs the main window: builds the generated UI, toolbar actions, and dock layout, then initializes project state to "no project open" and restores the last-used folder from <a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a>. Wires the project tree widget's signals to the corresponding slots. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parent</td><td>optional parent widget </td></tr>
   </table>
@@ -539,8 +539,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds the dock widget and <a class="el" href="class_localization_task_widget.html">LocalizationTaskWidget</a> for a localization task, wires its addDeviceRequested signal, and docks it in the center area next to <span class="tt">anchorDock</span>.</p>
-<p>Creates the dock widget and <a class="el" href="class_localization_task_widget.html">LocalizationTaskWidget</a> for a localization task, connects its addDeviceRequested signal to onAddDeviceToTaskRequested, docks it under <span class="tt">anchorDock</span>, and makes it the current tab. </p><dl class="section note"><dt>Note</dt><dd>the dashboard/patterns/calibration child-widget entries are commented out (not yet wired up) &ndash; only the main task widget is created. </dd></dl>
+<p>Builds the dock widget and <a class="el" href="class_localization_task_widget.html" title="Task-configuration widget for a LocalizationTask: a left-hand nav panel (task header,...">LocalizationTaskWidget</a> for a localization task, wires its addDeviceRequested signal, and docks it in the center area next to <span class="tt">anchorDock</span>.</p>
+<p>Creates the dock widget and <a class="el" href="class_localization_task_widget.html" title="Task-configuration widget for a LocalizationTask: a left-hand nav panel (task header,...">LocalizationTaskWidget</a> for a localization task, connects its addDeviceRequested signal to onAddDeviceToTaskRequested, docks it under <span class="tt">anchorDock</span>, and makes it the current tab. </p><dl class="section note"><dt>Note</dt><dd>the dashboard/patterns/calibration child-widget entries are commented out (not yet wired up) &ndash; only the main task widget is created. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">task</td><td>the localization task to build UI for </td></tr>
@@ -552,7 +552,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00981">981</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="class_localization_task_widget.html#a7363761ff403ac3c27efdaa7e5f29bd2">LocalizationTaskWidget::addDeviceRequested()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00927">configureDockWidget()</a>, <a class="el" href="mainwindow_8h_source.html#l00038">UITaskEntry::dockWidget</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="mainwindow_8h_source.html#l00173">m_dockManager</a>, <a class="el" href="mainwindow_8h_source.html#l00036">UITaskEntry::name</a>, <a class="el" href="mainwindow_8cpp_source.html#l00808">onAddDeviceToTaskRequested()</a>, and <a class="el" href="mainwindow_8h_source.html#l00037">UITaskEntry::widget</a>.</p>
+<p class="reference">References <a class="el" href="class_localization_task_widget.html#a7363761ff403ac3c27efdaa7e5f29bd2">LocalizationTaskWidget::addDeviceRequested()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00927">configureDockWidget()</a>, <a class="el" href="mainwindow_8h_source.html#l00038">UITaskEntry::dockWidget</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="mainwindow_8h_source.html#l00173">m_dockManager</a>, <a class="el" href="mainwindow_8h_source.html#l00036">UITaskEntry::name</a>, <a class="el" href="mainwindow_8cpp_source.html#l00808">onAddDeviceToTaskRequested()</a>, and <a class="el" href="mainwindow_8h_source.html#l00037">UITaskEntry::widget</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00960">createTaskEntry()</a>.</p>
 
@@ -615,7 +615,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates the <a class="el" href="class_project_infor_setting.html">ProjectInforSetting</a> widget/dock docked alongside the anchor dock. </p>
+<p>Creates the <a class="el" href="class_project_infor_setting.html" title="Settings form showing/editing a project&#39;s name and description, and displaying its created/updated ti...">ProjectInforSetting</a> widget/dock docked alongside the anchor dock. </p>
 <p>Creates the project-information dock widget for m_project and docks it at the center anchor; connects its projectModified signal to onProjectModified. </p>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00435">435</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
@@ -664,7 +664,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00960">960</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mainwindow_8cpp_source.html#l00981">createLocalizationEntry()</a>, and <a class="el" href="task__define_8h_source.html#l00022">vc::model::LocalizationTask</a>.</p>
+<p class="reference">References <a class="el" href="mainwindow_8cpp_source.html#l00981">createLocalizationEntry()</a>, and <a class="el" href="task__define_8h_source.html#l00032">vc::model::LocalizationTask</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00767">onTaskCreated()</a>.</p>
 
@@ -694,12 +694,12 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates the file/task toolbar actions plus the Theme and Language submenus under View. </p>
-<p>Builds the file and task toolbars' actions, wires their triggers (and the equivalent menu actions) to the corresponding slots, and populates the Theme and Language submenus under the View menu from <a class="el" href="class_theme_manager.html">ThemeManager</a> and the supported UI languages. </p>
+<p>Builds the file and task toolbars' actions, wires their triggers (and the equivalent menu actions) to the corresponding slots, and populates the Theme and Language submenus under the View menu from <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> and the supported UI languages. </p>
 <p>One entry in the Language submenu: an internal language id paired with its display name.</p>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00125">125</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00056">ThemeManager::applyStyle()</a>, <a class="el" href="theme__manager_8h_source.html#l00045">ThemeManager::currentStyleId()</a>, <a class="el" href="app__settings_8cpp_source.html#l00043">AppSettings::instance()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="app__settings_8cpp_source.html#l00071">AppSettings::language()</a>, <a class="el" href="mainwindow_8h_source.html#l00184">m_actCaptureImage</a>, <a class="el" href="mainwindow_8h_source.html#l00183">m_actCloseProject</a>, <a class="el" href="mainwindow_8h_source.html#l00190">m_actGrpLanguage</a>, <a class="el" href="mainwindow_8h_source.html#l00188">m_actGrpTheme</a>, <a class="el" href="mainwindow_8h_source.html#l00180">m_actNewProject</a>, <a class="el" href="mainwindow_8h_source.html#l00181">m_actOpenProject</a>, <a class="el" href="mainwindow_8h_source.html#l00182">m_actSaveProject</a>, <a class="el" href="mainwindow_8h_source.html#l00189">m_menuLanguage</a>, <a class="el" href="mainwindow_8h_source.html#l00187">m_menuTheme</a>, <a class="el" href="mainwindow_8cpp_source.html#l00578">onCloseProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00658">onLanguageAction()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00495">onNewProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00519">onOpenProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00622">onPrivilegeAdmin()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00617">onPrivilegeStandard()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00561">onSaveAsProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00550">onSaveProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00601">onSystemLogAction()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00631">onThemeChanged()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00644">onThemeStyleRegistered()</a>, <a class="el" href="class_theme_manager.html#ae7cf5c3cad9b8ef4421f62b4c982adb1">ThemeManager::styleRegistered()</a>, <a class="el" href="windows__helper_8h_source.html#l00179">svgIcon()</a>, <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>, and <a class="el" href="mainwindow_8h_source.html#l00170">ui</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00056">ThemeManager::applyStyle()</a>, <a class="el" href="theme__manager_8h_source.html#l00068">ThemeManager::currentStyleId()</a>, <a class="el" href="app__settings_8cpp_source.html#l00043">AppSettings::instance()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="app__settings_8cpp_source.html#l00071">AppSettings::language()</a>, <a class="el" href="mainwindow_8h_source.html#l00184">m_actCaptureImage</a>, <a class="el" href="mainwindow_8h_source.html#l00183">m_actCloseProject</a>, <a class="el" href="mainwindow_8h_source.html#l00190">m_actGrpLanguage</a>, <a class="el" href="mainwindow_8h_source.html#l00188">m_actGrpTheme</a>, <a class="el" href="mainwindow_8h_source.html#l00180">m_actNewProject</a>, <a class="el" href="mainwindow_8h_source.html#l00181">m_actOpenProject</a>, <a class="el" href="mainwindow_8h_source.html#l00182">m_actSaveProject</a>, <a class="el" href="mainwindow_8h_source.html#l00189">m_menuLanguage</a>, <a class="el" href="mainwindow_8h_source.html#l00187">m_menuTheme</a>, <a class="el" href="mainwindow_8cpp_source.html#l00578">onCloseProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00658">onLanguageAction()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00495">onNewProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00519">onOpenProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00622">onPrivilegeAdmin()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00617">onPrivilegeStandard()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00561">onSaveAsProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00550">onSaveProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00601">onSystemLogAction()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00631">onThemeChanged()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00644">onThemeStyleRegistered()</a>, <a class="el" href="class_theme_manager.html#ae7cf5c3cad9b8ef4421f62b4c982adb1">ThemeManager::styleRegistered()</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>, and <a class="el" href="mainwindow_8h_source.html#l00170">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow()</a>.</p>
 
@@ -729,7 +729,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Persists m_lastFolderDir and releases the current project on window close. </p>
-<p>Persists the last-used folder to <a class="el" href="class_app_settings.html">AppSettings</a> and releases the current project (if any) as part of application shutdown. </p>
+<p>Persists the last-used folder to <a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a> and releases the current project (if any) as part of application shutdown. </p>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00116">116</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
@@ -827,7 +827,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Runs <a class="el" href="class_add_device_wizard.html">AddDeviceWizard</a> and, on acceptance, assigns the chosen device to task <span class="tt">taskId</span>. </p>
+<p>Runs <a class="el" href="class_add_device_wizard.html" title="Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager.">AddDeviceWizard</a> and, on acceptance, assigns the chosen device to task <span class="tt">taskId</span>. </p>
 <p>Slot: runs the Add Device wizard for <span class="tt">taskId</span> and, if accepted, assigns the chosen device to the task (the resulting devicesChanged signal refreshes the project tree). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">taskId</td><td>id of the task to add a device to </td></tr>
@@ -837,7 +837,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00808">808</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00040">AddDeviceWizard::getDeviceId()</a>, <a class="el" href="app__logger_8h_source.html#l00166">LOG_USER_INFO</a>, <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00188">AddDeviceWizard::showWizard()</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00054">AddDeviceWizard::getDeviceId()</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00188">AddDeviceWizard::showWizard()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00981">createLocalizationEntry()</a>, and <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow()</a>.</p>
 
@@ -915,7 +915,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00869">869</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00166">LOG_USER_INFO</a>, and <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, and <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow()</a>.</p>
 
@@ -954,7 +954,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00895">895</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00166">LOG_USER_INFO</a>, and <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, and <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow()</a>.</p>
 
@@ -993,7 +993,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00740">740</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, and <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, and <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00402">connectProjectSignals()</a>, and <a class="el" href="mainwindow_8cpp_source.html#l00673">onDeviceDoubleClicked()</a>.</p>
 
@@ -1101,7 +1101,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Persists the chosen language and informs the user the change applies on next launch. </p>
-<p>Slot: persists the language chosen from the Language submenu to <a class="el" href="class_app_settings.html">AppSettings</a> and informs the user the change takes effect on next application start. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Slot: persists the language chosen from the Language submenu to <a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a> and informs the user the change takes effect on next application start. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">act</td><td>the triggered language action; its data() holds the language id </td></tr>
   </table>
@@ -1154,7 +1154,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00829">829</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00166">LOG_USER_INFO</a>, and <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, and <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow()</a>.</p>
 
@@ -1183,12 +1183,12 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a new project via <a class="el" href="class_new_project_dialog.html">NewProjectDialog</a> after confirming/closing any open project. </p>
+<p>Creates a new project via <a class="el" href="class_new_project_dialog.html" title="Modal dialog that collects a name and description for a new project; on success the values are read b...">NewProjectDialog</a> after confirming/closing any open project. </p>
 <p>Slot: prompts to save/close any open project, then runs the New <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> dialog and, if accepted, creates a new <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> with the entered name/description and wires it into the UI (tree, info dock, signals). </p>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00495">495</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mainwindow_8cpp_source.html#l00402">connectProjectSignals()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00435">createProjectInfoDock()</a>, <a class="el" href="new__project__dialog_8h_source.html#l00032">NewProjectDialog::getDescription()</a>, <a class="el" href="new__project__dialog_8h_source.html#l00027">NewProjectDialog::getName()</a>, <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>, <a class="el" href="mainwindow_8cpp_source.html#l00366">maybeSave()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00578">onCloseProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00390">refreshUIForProject()</a>, and <a class="el" href="mainwindow_8h_source.html#l00170">ui</a>.</p>
+<p class="reference">References <a class="el" href="mainwindow_8cpp_source.html#l00402">connectProjectSignals()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00435">createProjectInfoDock()</a>, <a class="el" href="new__project__dialog_8h_source.html#l00041">NewProjectDialog::getDescription()</a>, <a class="el" href="new__project__dialog_8h_source.html#l00036">NewProjectDialog::getName()</a>, <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>, <a class="el" href="mainwindow_8cpp_source.html#l00366">maybeSave()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00578">onCloseProject()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00390">refreshUIForProject()</a>, and <a class="el" href="mainwindow_8h_source.html#l00170">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00125">createToolBarActions()</a>.</p>
 
@@ -1494,7 +1494,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00767">767</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mainwindow_8cpp_source.html#l00960">createTaskEntry()</a>, <a class="el" href="classvc_1_1model_1_1_i_task.html#a964fb414cf50415ffcdb55df534ef4f4">vc::model::ITask::devicesChanged()</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="mainwindow_8h_source.html#l00176">m_anchorDock</a>, <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>, <a class="el" href="mainwindow_8h_source.html#l00200">m_taskEntries</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00226">ProjectTreeWidget::refreshTree()</a>, <a class="el" href="mainwindow_8h_source.html#l00170">ui</a>, and <a class="el" href="mainwindow_8h_source.html#l00037">UITaskEntry::widget</a>.</p>
+<p class="reference">References <a class="el" href="mainwindow_8cpp_source.html#l00960">createTaskEntry()</a>, <a class="el" href="classvc_1_1model_1_1_i_task.html#a964fb414cf50415ffcdb55df534ef4f4">vc::model::ITask::devicesChanged()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="mainwindow_8h_source.html#l00176">m_anchorDock</a>, <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>, <a class="el" href="mainwindow_8h_source.html#l00200">m_taskEntries</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00226">ProjectTreeWidget::refreshTree()</a>, <a class="el" href="mainwindow_8h_source.html#l00170">ui</a>, and <a class="el" href="mainwindow_8h_source.html#l00037">UITaskEntry::widget</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00402">connectProjectSignals()</a>, and <a class="el" href="mainwindow_8cpp_source.html#l00705">onTaskDoubleClicked()</a>.</p>
 
@@ -1609,7 +1609,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Syncs the Theme menu's checked action to <span class="tt">styleId</span> and refreshes the tree if a project is open (theme-dependent icons/colors need repainting).</p>
-<p>Slot: reflects the active <a class="el" href="class_theme_manager.html">ThemeManager</a> style in the Theme menu's checked action (signals blocked while updating to avoid re-triggering) and refreshes the project tree so it repaints with the new theme. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Slot: reflects the active <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> style in the Theme menu's checked action (signals blocked while updating to avoid re-triggering) and refreshes the project tree so it repaints with the new theme. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">styleId</td><td>id of the newly active theme style </td></tr>
     <tr><td class="paramname">isDark</td><td>unused: whether the new style is a dark theme </td></tr>
@@ -1649,7 +1649,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Adds a menu entry/action for a newly registered theme style, if not already present. </p>
-<p>Slot: adds a menu entry for a theme style newly registered with <a class="el" href="class_theme_manager.html">ThemeManager</a>, unless one already exists for its id. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Slot: adds a menu entry for a theme style newly registered with <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a>, unless one already exists for its id. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">style</td><td>the newly registered theme style </td></tr>
   </table>
@@ -1658,7 +1658,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00644">644</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00016">ThemeStyle::displayName</a>, <a class="el" href="theme__manager_8h_source.html#l00015">ThemeStyle::id</a>, <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="mainwindow_8h_source.html#l00188">m_actGrpTheme</a>, and <a class="el" href="mainwindow_8h_source.html#l00187">m_menuTheme</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00038">ThemeStyle::displayName</a>, <a class="el" href="theme__manager_8h_source.html#l00037">ThemeStyle::id</a>, <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="mainwindow_8h_source.html#l00188">m_actGrpTheme</a>, and <a class="el" href="mainwindow_8h_source.html#l00187">m_menuTheme</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00125">createToolBarActions()</a>.</p>
 
@@ -1773,7 +1773,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8cpp_source.html#l00322">322</a> of file <a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mainwindow_8cpp_source.html#l00358">addRecentPath()</a>, <a class="el" href="project__repository_8cpp_source.html#l00125">vc::model::ProjectRepository::createNew()</a>, <a class="el" href="project__repository_8cpp_source.html#l00299">vc::model::ProjectRepository::lastMsg()</a>, <a class="el" href="app__logger_8h_source.html#l00166">LOG_USER_INFO</a>, <a class="el" href="mainwindow_8h_source.html#l00207">m_isDirty</a>, <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>, <a class="el" href="mainwindow_8h_source.html#l00205">m_projectFilePath</a>, <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>, and <a class="el" href="mainwindow_8cpp_source.html#l00263">updateWindowTitle()</a>.</p>
+<p class="reference">References <a class="el" href="mainwindow_8cpp_source.html#l00358">addRecentPath()</a>, <a class="el" href="project__repository_8cpp_source.html#l00125">vc::model::ProjectRepository::createNew()</a>, <a class="el" href="project__repository_8cpp_source.html#l00299">vc::model::ProjectRepository::lastMsg()</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="mainwindow_8h_source.html#l00207">m_isDirty</a>, <a class="el" href="mainwindow_8h_source.html#l00193">m_project</a>, <a class="el" href="mainwindow_8h_source.html#l00205">m_projectFilePath</a>, <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>, and <a class="el" href="mainwindow_8cpp_source.html#l00263">updateWindowTitle()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00561">onSaveAsProject()</a>, and <a class="el" href="mainwindow_8cpp_source.html#l00550">onSaveProject()</a>.</p>
 
@@ -2248,7 +2248,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Last folder used in open/save dialogs; persisted via <a class="el" href="class_app_settings.html">AppSettings</a>. </p>
+<p>Last folder used in open/save dialogs; persisted via <a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8h_source.html#l00204">204</a> of file <a class="el" href="mainwindow_8h_source.html">mainwindow.h</a>.</p>
 
@@ -2356,7 +2356,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>"Theme" submenu under View, populated from <a class="el" href="class_theme_manager.html">ThemeManager</a> styles. </p>
+<p>"Theme" submenu under View, populated from <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> styles. </p>
 
 <p class="definition">Definition at line <a class="el" href="mainwindow_8h_source.html#l00187">187</a> of file <a class="el" href="mainwindow_8h_source.html">mainwindow.h</a>.</p>
 
@@ -2617,8 +2617,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/app/<a class="el" href="mainwindow_8h_source.html">mainwindow.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/app/<a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/app/<a class="el" href="mainwindow_8h_source.html">mainwindow.h</a></li>
+<li>C:/DGB/Project/ncr_picking/app/<a class="el" href="mainwindow_8cpp_source.html">mainwindow.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

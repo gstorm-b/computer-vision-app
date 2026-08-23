@@ -7,25 +7,26 @@
 
 #include <memory>
 
-/// Vision/matching module: MatchGroupConfig and MatchGroup, the per-group
-/// pattern container and its shared algorithm config.
+/**
+ * @file match_group.h
+ * @brief MatchGroupConfig and MatchGroup — per-group pattern container and shared algorithm config.
+ */
+
 namespace mtc {
 
 class PatternGroupManager;
 
-/// MatchGroupConfig — per-group configuration.
-///
-/// Holds group identity and the algorithm-specific config (`typeConfig`,
-/// default EdgeMatchConfig) that is SHARED by every pattern in the group.
-/// Typed access helpers (edgeConfig / configAs<T>) return nullptr when the
-/// current matching type does not match.
-///
-/// Picking / collision-box geometry is per-pattern — it lives on
-/// MatchPatternConfig, not here (collision is an Edge-Based, per-pattern
-/// concern).
-///
-/// Copy semantics: deep-copies `typeConfig` via clone() so each group owns an
-/// independent copy of its algorithm config.
+/**
+ * @class MatchGroupConfig
+ * @brief Per-group configuration: holds group identity and the algorithm-specific config
+ *        (`typeConfig`, default EdgeMatchConfig) that is SHARED by every pattern in the group.
+ *
+ * Typed access helpers (edgeConfig / configAs<T>) return nullptr when the current matching type
+ * does not match. Picking / collision-box geometry is per-pattern (MatchPatternConfig), not here.
+ *
+ * Copy semantics: deep-copies `typeConfig` via clone() so each group owns an independent copy of
+ * its algorithm config.
+ */
 class MatchGroupConfig {
 public:
     /// Default-constructs group identity fields and a default EdgeMatchConfig typeConfig.
@@ -75,10 +76,15 @@ public:
     template<typename T> const T* configAs() const noexcept { return dynamic_cast<const T*>(typeConfig.get()); }
 };
 
-/// Owns one named/numbered group of patterns plus their shared MatchGroupConfig:
-/// pattern CRUD (add/remove/rename/renumber/setImage), lookup, and static
-/// group/pattern index-range validation. Instances not created via
-/// PatternGroupManager have no manager and cannot use setConfig/setName/setNumber.
+/**
+ * @class MatchGroup
+ * @brief Owns one named/numbered group of patterns plus their shared MatchGroupConfig:
+ *        pattern CRUD (add/remove/rename/renumber/setImage), lookup, and static
+ *        group/pattern index-range validation.
+ *
+ * Instances not created via PatternGroupManager have no manager and cannot use
+ * setConfig/setName/setNumber.
+ */
 class MatchGroup {
 public:
     /// Default-constructs an empty, unnamed group with no manager.
@@ -132,11 +138,16 @@ public:
                                    const MatchPatternConfig &newConfig);
 
     /// Targeted field setters — avoids shipping the whole config just to rename.
-    /// Renames a pattern from `currentName` to `newName` (no-op/success if unchanged).
-    /// @note As implemented the guard is `!containsPatternName(newName)`: it fails
-    ///       (with an "already exists" message) when `newName` is NOT already in
-    ///       use, and proceeds — even into a colliding name — when it IS already
-    ///       in use. The check's polarity does not match its failure message.
+    /**
+     * @brief Renames a pattern from `currentName` to `newName` (no-op/success if unchanged).
+     * @param[in] currentName current name of the pattern to rename
+     * @param[in] newName     desired new name
+     * @return success, or failure if the name collision check fires
+     * @note As implemented the guard is `!containsPatternName(newName)`: it fails (with an
+     *       "already exists" message) when `newName` is NOT already in use, and proceeds —
+     *       even into a colliding name — when it IS already in use. The check's polarity does
+     *       not match its failure message.
+     */
     ManagerResult renamePattern  (const std::wstring &currentName, const std::wstring &newName);
     /// Changes a pattern's number; fails if `newNumber` is already used by another pattern in the group.
     ManagerResult renumberPattern(const std::wstring &patternName, int newNumber);
@@ -177,11 +188,15 @@ private:
     ManagerResult setNumber(int number);
 
     // ── Helpers ───────────────────────────────────────────────────────────────
-    /// Validates a candidate pattern config against the group's existing patterns:
-    /// fails if the name is empty, or if another pattern (other than `excludeName`)
-    /// already has the same name or number.
-    /// @param cfg candidate pattern config to validate
-    /// @param excludeName pattern name to skip during the collision check (used when validating a rename/edit of that same pattern)
+    /**
+     * @brief Validates a candidate pattern config against the group's existing patterns:
+     *        fails if the name is empty, or if another pattern (other than `excludeName`)
+     *        already has the same name or number.
+     * @param[in] cfg         candidate pattern config to validate
+     * @param[in] excludeName pattern name to skip during the collision check (used when
+     *                        validating a rename/edit of that same pattern)
+     * @return success, or a failure describing the first violated constraint
+     */
     ManagerResult validatePatternConfig(const MatchPatternConfig &cfg,
                                         const std::wstring &excludeName = {}) const;
 

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classcalib_1_1
 </div><!--header-->
 <div class="contents">
 
+<p>Fanuc iRVision-style dot grid calibration board (concrete <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a>).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for calib::FanucIRvisionBoard:</div>
@@ -137,7 +140,7 @@ Classes</h2></td></tr>
 <tr class="memitem:GridCell" id="r_GridCell"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_grid_cell.html">GridCell</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single grid cell location, identified by zero-based row and column.  <a href="structcalib_1_1_fanuc_i_rvision_board_1_1_grid_cell.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Params" id="r_Params"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html">Params</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometry and detection parameters for a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a> instance.  <a href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometry and detection parameters for a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a> instance.  <a href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -148,27 +151,34 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a1b6a9e2023b81e8a26018520b70c45a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts <a class="el" href="#a41928b111c39711908d0959cdebeda05">coordCells()</a> to flat row-major grid indices (row * cols + col).  <br /></td></tr>
 <tr class="memitem:a7144dc89ca41228964e0d4213000e4f7" id="r_a7144dc89ca41228964e0d4213000e4f7"><td class="memItemLeft">std::vector&lt; cv::Point2f &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a7144dc89ca41228964e0d4213000e4f7">cornerObjectPointsXY</a> () const override</td></tr>
 <tr class="memitem:a13cb90a77a13a802454e243d5da4cdbb" id="r_a13cb90a77a13a802454e243d5da4cdbb"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a13cb90a77a13a802454e243d5da4cdbb">detect</a> (const cv::Mat &amp;image, std::vector&lt; cv::Point2f &gt; &amp;imagePoints, std::vector&lt; cv::Point2f &gt; *cornerImagePoints=nullptr, cv::Mat *debugOverlay=nullptr) const override</td></tr>
+<tr class="memdesc:a13cb90a77a13a802454e243d5da4cdbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects the dot grid in <span class="tt">image</span>: binarizes, extracts near-circular blobs, identifies the 4 orientation markers (centre + 3 coord dots) by geometry, then projects the expected grid and matches each blob to its nearest cell.  <br /></td></tr>
 <tr class="memitem:a8eabbc8dc54128f99daeeee963a4af5a" id="r_a8eabbc8dc54128f99daeeee963a4af5a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8eabbc8dc54128f99daeeee963a4af5a">FanucIRvisionBoard</a> (const <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html">Params</a> &amp;params=<a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html">Params</a>{11, 11, 15.0, 15.0, 4.0, 8.0, 1.0, -1})</td></tr>
+<tr class="memdesc:a8eabbc8dc54128f99daeeee963a4af5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the board with the given params.  <br /></td></tr>
 <tr class="memitem:a2719e18d87f91991185a51d8ece5c06f" id="r_a2719e18d87f91991185a51d8ece5c06f"><td class="memItemLeft">cv::Mat&#160;</td><td class="memItemRight"><a class="el" href="#a2719e18d87f91991185a51d8ece5c06f">generateImage</a> (double pixelsPerMm=10.0) const override</td></tr>
+<tr class="memdesc:a2719e18d87f91991185a51d8ece5c06f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Synthesizes the board as a grayscale dot-grid image (white background, black dots per <a class="el" href="#a12479c01781358e022885d6bfb95a062" title="Visual role a grid dot can play: plain fill dot, one of the 8 target rings, the single centre ring,...">DotRole</a>, using the configured dot sizes and margin).  <br /></td></tr>
 <tr class="memitem:ad66e0d935d7bfe3a802eda7c47dd9cce" id="r_ad66e0d935d7bfe3a802eda7c47dd9cce"><td class="memItemLeft">std::vector&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad66e0d935d7bfe3a802eda7c47dd9cce">markerIndices</a> () const</td></tr>
 <tr class="memitem:a9d25778cf8f306efbd9fb1bdf98e071f" id="r_a9d25778cf8f306efbd9fb1bdf98e071f"><td class="memItemLeft">std::vector&lt; cv::Point3f &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9d25778cf8f306efbd9fb1bdf98e071f">objectPoints</a> () const override</td></tr>
 <tr class="memitem:aa9f6c6065ee7e7c755a2008d9e51bc76" id="r_aa9f6c6065ee7e7c755a2008d9e51bc76"><td class="memItemLeft">std::vector&lt; cv::Point2f &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa9f6c6065ee7e7c755a2008d9e51bc76">objectPointsXY</a> () const override</td></tr>
 <tr class="memitem:accd83aaa65ae1f58775c1fd9202b6243" id="r_accd83aaa65ae1f58775c1fd9202b6243"><td class="memItemLeft">const <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html">Params</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#accd83aaa65ae1f58775c1fd9202b6243">params</a> () const</td></tr>
 <tr class="memitem:ae2fe243e847af34f1c3fa48909b82c56" id="r_ae2fe243e847af34f1c3fa48909b82c56"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae2fe243e847af34f1c3fa48909b82c56">setBinarizeThreshold</a> (int threshold) override</td></tr>
+<tr class="memdesc:ae2fe243e847af34f1c3fa48909b82c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the binarization threshold used by <a class="el" href="#a13cb90a77a13a802454e243d5da4cdbb" title="Detects the dot grid in image: binarizes, extracts near-circular blobs, identifies the 4 orientation ...">detect()</a>, clamping to the valid range.  <br /></td></tr>
 <tr class="memitem:a0a2b2354c9f5d9e241714ab4494fb1d7" id="r_a0a2b2354c9f5d9e241714ab4494fb1d7"><td class="memItemLeft">std::vector&lt; int &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a0a2b2354c9f5d9e241714ab4494fb1d7">targetIndices</a> () const</td></tr>
 <tr class="memdesc:a0a2b2354c9f5d9e241714ab4494fb1d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts <a class="el" href="#a7372db7a435f1ad3829745586873026e" title="Returns the 8 target-ring grid cells: the 4 grid corners plus the 4 edge midpoints.">targetCells()</a> to flat row-major grid indices (row * cols + col).  <br /></td></tr>
 <tr class="memitem:a98eabf4b2b0d4980579a84ac31b64895" id="r_a98eabf4b2b0d4980579a84ac31b64895"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a98eabf4b2b0d4980579a84ac31b64895">totalDots</a> () const override</td></tr>
 <tr class="memitem:a11233ecd9369101601a86fb50f28dbed" id="r_a11233ecd9369101601a86fb50f28dbed"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#a11233ecd9369101601a86fb50f28dbed">typeName</a> () const override</td></tr>
 <tr class="inherit_header pub_methods_classcalib_1_1_calibration_board"><td colspan="2">Public Member Functions inherited from <a class="el" href="classcalib_1_1_calibration_board.html">calib::CalibrationBoard</a></td></tr>
 <tr class="memitem:aa99706a6e68da8439612676ab480116b pub_methods_classcalib_1_1_calibration_board" id="r_aa99706a6e68da8439612676ab480116b"><td class="memItemLeft">virtual cv::Mat&#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibration_board.html#aa99706a6e68da8439612676ab480116b">binarize</a> (const cv::Mat &amp;image, double *usedThreshold=nullptr) const</td></tr>
+<tr class="memdesc:aa99706a6e68da8439612676ab480116b pub_methods_classcalib_1_1_calibration_board"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binarizes <span class="tt">image</span> (grayscale or BGR) into a single-channel mask where the dark board dots become foreground (255). When <a class="el" href="classcalib_1_1_calibration_board.html#a21b0c6b54e04d20963db849161875bf0">binarizeThreshold()</a> &lt; 0 the threshold is computed automatically (Otsu); otherwise the fixed value is applied (THRESH_BINARY_INV).  <br /></td></tr>
 <tr class="memitem:ab19c34cdf6d5ccf3d536e922f0f9de8c pub_methods_classcalib_1_1_calibration_board" id="r_ab19c34cdf6d5ccf3d536e922f0f9de8c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibration_board.html#ab19c34cdf6d5ccf3d536e922f0f9de8c">toJson</a> () const</td></tr>
 <tr class="memitem:ac697b42722d9e09fa958e5a2f7dd6585 pub_methods_classcalib_1_1_calibration_board" id="r_ac697b42722d9e09fa958e5a2f7dd6585"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibration_board.html#ac697b42722d9e09fa958e5a2f7dd6585">writePrintableImage</a> (const std::string &amp;path, double dpi=300.0) const</td></tr>
+<tr class="memdesc:ac697b42722d9e09fa958e5a2f7dd6585 pub_methods_classcalib_1_1_calibration_board"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the board at <span class="tt">dpi</span> DPI and writes it as a PNG with an embedded pHYs chunk so that printer drivers reproduce the exact physical size. Default 300 DPI is fine for laser printers; use 600 DPI for finer ink.  <br /></td></tr>
 <tr class="memitem:aa97bb6c41fb6fe7d022672ad9a2ffe1d pub_methods_classcalib_1_1_calibration_board" id="r_aa97bb6c41fb6fe7d022672ad9a2ffe1d"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibration_board.html#aa97bb6c41fb6fe7d022672ad9a2ffe1d">~CalibrationBoard</a> ()=default</td></tr>
-<tr class="memdesc:aa97bb6c41fb6fe7d022672ad9a2ffe1d pub_methods_classcalib_1_1_calibration_board"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor to allow safe deletion through a <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a> pointer.  <br /></td></tr>
+<tr class="memdesc:aa97bb6c41fb6fe7d022672ad9a2ffe1d pub_methods_classcalib_1_1_calibration_board"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor to allow safe deletion through a <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a> pointer.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a1491748cc5f84d33f41b1e98026ba7c6" id="r_a1491748cc5f84d33f41b1e98026ba7c6"><td class="memItemLeft">static <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html">FanucIRvisionBoard::Params</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1491748cc5f84d33f41b1e98026ba7c6">paramsFromJson</a> (const std::string &amp;json)</td></tr>
+<tr class="memdesc:a1491748cc5f84d33f41b1e98026ba7c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> from a JSON document produced by <a class="el" href="classcalib_1_1_calibration_board.html#ab19c34cdf6d5ccf3d536e922f0f9de8c">toJson()</a>.  <br /></td></tr>
 <tr class="inherit_header pub_static_methods_classcalib_1_1_calibration_board"><td colspan="2">Static Public Member Functions inherited from <a class="el" href="classcalib_1_1_calibration_board.html">calib::CalibrationBoard</a></td></tr>
 <tr class="memitem:a69a54ef0d362e966e5d8301967c4d121 pub_static_methods_classcalib_1_1_calibration_board" id="r_a69a54ef0d362e966e5d8301967c4d121"><td class="memItemLeft">static double&#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibration_board.html#a69a54ef0d362e966e5d8301967c4d121">dpiFromPixelsPerMm</a> (double pxPerMm)</td></tr>
 <tr class="memdesc:a69a54ef0d362e966e5d8301967c4d121 pub_static_methods_classcalib_1_1_calibration_board"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a pixels-per-millimeter value to DPI (pxPerMm * 25.4).  <br /></td></tr>
@@ -204,6 +214,7 @@ Private Types</h2></td></tr>
 , <a class="el" href="#a12479c01781358e022885d6bfb95a062a4f1f6016fc9f3f2353c0cc7c67b292bd">Center</a>
 , <a class="el" href="#a12479c01781358e022885d6bfb95a062a36f0cb13576fbd59bc2ba264739dc647">Coord</a>
  }</td></tr>
+<tr class="memdesc:a12479c01781358e022885d6bfb95a062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visual role a grid dot can play: plain fill dot, one of the 8 target rings, the single centre ring, or one of the 3 solid coordinate-axis dots.  <a href="#a12479c01781358e022885d6bfb95a062">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -222,15 +233,16 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a3bd49e872e9dd0741300fd39957cc2d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This board's geometry and detection parameters.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fanuc iRVision-style dot grid calibration board (concrete <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a>). Pattern: R x C grid of dots with 4 visual roles:</p><ul>
+<div class="textblock"><p>Fanuc iRVision-style dot grid calibration board (concrete <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a>). </p>
+<p>Pattern: R × C grid of dots with 4 visual roles:</p><ul>
 <li>Normal dots : small solid black dots filling the grid</li>
 <li>Target dots : 8 ring dots (4 corners + 4 edge midpoints), white inner</li>
 <li>Centre dot : 1 larger ring dot at the grid centre, white inner</li>
-<li>Coord dots : 3 larger solid dots near centre encoding +X (two dots right of centre) and +Y (one dot above centre) <dl class="section note"><dt>Note</dt><dd>rows and cols MUST be odd; rows &gt;= 5 and cols &gt;= 7. </dd></dl>
-</li>
+<li>Coord dots : 3 larger solid dots near centre encoding +X (two dots right of centre) and +Y (one dot above centre)</li>
 </ul>
+<dl class="section note"><dt>Note</dt><dd>rows and cols MUST be odd; rows &gt;= 5 and cols &gt;= 7. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00016">16</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00026">26</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a12479c01781358e022885d6bfb95a062" name="a12479c01781358e022885d6bfb95a062"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a12479c01781358e022885d6bfb95a062">&#9670;&#160;</a></span>DotRole</h2>
@@ -251,6 +263,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
 <p>Visual role a grid dot can play: plain fill dot, one of the 8 target rings, the single centre ring, or one of the 3 solid coordinate-axis dots. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a12479c01781358e022885d6bfb95a062a960b44c579bc2f6818d2daaf9e4c16f0" name="a12479c01781358e022885d6bfb95a062a960b44c579bc2f6818d2daaf9e4c16f0"></a>Normal&#160;</td><td class="fielddoc"></td></tr>
@@ -259,7 +272,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="a12479c01781358e022885d6bfb95a062a36f0cb13576fbd59bc2ba264739dc647" name="a12479c01781358e022885d6bfb95a062a36f0cb13576fbd59bc2ba264739dc647"></a>Coord&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">138</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">167</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 </div>
 </div>
@@ -286,18 +299,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the board with the given params. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Constructs the board with the given params. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">params</td><td>board geometry/detection parameters (defaults to the standard 11x11, 15mm layout) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>board geometry/detection parameters (defaults to standard 11×11, 15 mm layout) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>throws std::invalid_argument if <span class="tt"><a class="el" href="#accd83aaa65ae1f58775c1fd9202b6243">params</a></span> fails <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html#a8d8b93fd1ddfd394eb1c0fbc58d29fe8">Params::isValid()</a>.</dd></dl>
-<p>Constructs the board, validating <span class="tt"><a class="el" href="#accd83aaa65ae1f58775c1fd9202b6243">params</a></span> up front. </p><dl class="section note"><dt>Note</dt><dd>throws std::invalid_argument (with the <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html#a8d8b93fd1ddfd394eb1c0fbc58d29fe8">Params::isValid()</a> error message) if <span class="tt"><a class="el" href="#accd83aaa65ae1f58775c1fd9202b6243">params</a></span> is invalid. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Throws std::invalid_argument if <span class="tt"><a class="el" href="#accd83aaa65ae1f58775c1fd9202b6243">params</a></span> fails <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html#a8d8b93fd1ddfd394eb1c0fbc58d29fe8" title="Checks internal consistency of the parameter set (odd/min row-col counts, positive spacings,...">Params::isValid()</a>.</dd></dl>
+<p>Constructs the board, validating <span class="tt"><a class="el" href="#accd83aaa65ae1f58775c1fd9202b6243">params</a></span> up front. </p><dl class="section note"><dt>Note</dt><dd>throws std::invalid_argument (with the <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html#a8d8b93fd1ddfd394eb1c0fbc58d29fe8" title="Checks internal consistency of the parameter set (odd/min row-col counts, positive spacings,...">Params::isValid()</a> error message) if <span class="tt"><a class="el" href="#accd83aaa65ae1f58775c1fd9202b6243">params</a></span> is invalid. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00052">52</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00060">params()</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00078">params()</a>.</p>
 
 </div>
 </div>
@@ -328,9 +343,9 @@ Private Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classcalib_1_1_calibration_board.html#a21b0c6b54e04d20963db849161875bf0">calib::CalibrationBoard</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00092">92</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00114">114</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 </div>
 </div>
@@ -362,7 +377,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00122">122</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00170">centerIndex()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00150">roleOf()</a>.</p>
 
@@ -388,7 +403,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00170">170</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00122">centerCell()</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00122">centerCell()</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00188">markerIndices()</a>.</p>
 
@@ -421,7 +436,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00129">129</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00177">coordIndices()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00150">roleOf()</a>.</p>
 
@@ -447,7 +462,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00177">177</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00129">coordCells()</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00129">coordCells()</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00188">markerIndices()</a>.</p>
 
@@ -481,7 +496,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00141">141</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00228">cornerObjectPointsXY()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00401">detect()</a>.</p>
 
@@ -516,7 +531,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00228">228</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00141">cornerCells()</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00141">cornerCells()</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 </div>
 </div>
@@ -556,23 +571,25 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Detects the dot grid in <span class="tt">image</span>: binarizes, extracts near-circular blobs, identifies the 4 orientation markers (centre + 3 coord dots) by geometry, then projects the expected grid and matches each blob to its nearest cell. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Detects the dot grid in <span class="tt">image</span>: binarizes, extracts near-circular blobs, identifies the 4 orientation markers (centre + 3 coord dots) by geometry, then projects the expected grid and matches each blob to its nearest cell. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">image</td><td>input image (colour or grayscale) </td></tr>
-    <tr><td class="paramname">imagePoints</td><td>output; on success, one detected point per grid cell in row-major order </td></tr>
-    <tr><td class="paramname">cornerImagePoints</td><td>optional output; the 4 corner dot positions (TL, TR, BR, BL) when non-null </td></tr>
-    <tr><td class="paramname">debugOverlay</td><td>optional output; a BGR visualisation of the detected markers/grid/corners when non-null </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">image</td><td>input image (colour or grayscale) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">imagePoints</td><td>on success, one detected point per grid cell in row-major order </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cornerImagePoints</td><td>optional; the 4 corner dot positions (TL, TR, BR, BL) when non-null </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">debugOverlay</td><td>optional; a BGR visualisation of the detected markers/grid/corners when non-null </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the full grid (all <a class="el" href="#a98eabf4b2b0d4980579a84ac31b64895">totalDots()</a> cells) was matched; false otherwise (imagePoints left empty)</dd></dl>
-<p>Detects the dot grid in <span class="tt">image</span>: binarizes it (via <a class="el" href="classcalib_1_1_calibration_board.html#aa99706a6e68da8439612676ab480116b">binarize()</a>), extracts near-circular blobs from contours (circularity + bounding-box squareness filters, plus a median-area outlier cap), takes the 4 largest surviving blobs as the orientation markers and resolves their roles via identifyOrientationMarkers4(), then projects the expected grid from those markers and greedily assigns each remaining blob to its nearest expected cell (within maxAcceptDist). </p>
+<p>Detects the dot grid in <span class="tt">image</span>: binarizes it (via <a class="el" href="classcalib_1_1_calibration_board.html#aa99706a6e68da8439612676ab480116b" title="Binarizes image (grayscale or BGR) into a single-channel mask where the dark board dots become foregr...">binarize()</a>), extracts near-circular blobs from contours (circularity + bounding-box squareness filters, plus a median-area outlier cap), takes the 4 largest surviving blobs as the orientation markers and resolves their roles via identifyOrientationMarkers4(), then projects the expected grid from those markers and greedily assigns each remaining blob to its nearest expected cell (within maxAcceptDist). </p>
 
 <p>Implements <a class="el" href="classcalib_1_1_calibration_board.html#adb40faf4c1695acf1fbf94df7732bab2">calib::CalibrationBoard</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00401">401</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board_8cpp_source.html#l00045">calib::CalibrationBoard::binarize()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00141">cornerCells()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00012">PI_NUM</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00083">totalDots()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board_8cpp_source.html#l00045">calib::CalibrationBoard::binarize()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00141">cornerCells()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00012">PI_NUM</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00105">totalDots()</a>.</p>
 
 </div>
 </div>
@@ -598,20 +615,22 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Synthesizes the board as a grayscale dot-grid image (white background, black dots per <a class="el" href="#a12479c01781358e022885d6bfb95a062">DotRole</a>, using the configured dot sizes and margin). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Synthesizes the board as a grayscale dot-grid image (white background, black dots per <a class="el" href="#a12479c01781358e022885d6bfb95a062" title="Visual role a grid dot can play: plain fill dot, one of the 8 target rings, the single centre ring,...">DotRole</a>, using the configured dot sizes and margin). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pixelsPerMm</td><td>rasterization scale used to convert the mm-based <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> into pixels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pixelsPerMm</td><td>rasterization scale used to convert the mm-based <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> into pixels </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an 8-bit single-channel (CV_8UC1) image of the generated board</dd></dl>
-<p>Rasterizes the board per <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> onto a white background: each dot is drawn per its <a class="el" href="#a12479c01781358e022885d6bfb95a062">DotRole</a> (plain solid Normal dots; Target/Center dots get a solid outer circle plus a white inner ring; Coord dots are solid at the larger coord size). The resulting image is sized to the full grid plus margin. </p>
+<p>Rasterizes the board per <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> onto a white background: each dot is drawn per its <a class="el" href="#a12479c01781358e022885d6bfb95a062" title="Visual role a grid dot can play: plain fill dot, one of the 8 target rings, the single centre ring,...">DotRole</a> (plain solid Normal dots; Target/Center dots get a solid outer circle plus a white inner ring; Coord dots are solid at the larger coord size). The resulting image is sized to the full grid plus margin. </p>
 
 <p>Implements <a class="el" href="classcalib_1_1_calibration_board.html#a7cb03cd996a2bc16d253544f3ad1c2ab">calib::CalibrationBoard</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00245">245</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">Center</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">Coord</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">Normal</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00150">roleOf()</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">Target</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">Center</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">Coord</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">Normal</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00150">roleOf()</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">Target</a>.</p>
 
 </div>
 </div>
@@ -667,7 +686,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00201">201</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00083">totalDots()</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00105">totalDots()</a>.</p>
 
 </div>
 </div>
@@ -700,7 +719,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00215">215</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00083">totalDots()</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00105">totalDots()</a>.</p>
 
 </div>
 </div>
@@ -728,9 +747,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the board's current parameter set. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00060">60</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00078">78</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00052">FanucIRvisionBoard()</a>.</p>
 
@@ -758,19 +777,21 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Reads the <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> from a JSON document produced by <a class="el" href="classcalib_1_1_calibration_board.html#ab19c34cdf6d5ccf3d536e922f0f9de8c">toJson()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Reads the <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> from a JSON document produced by <a class="el" href="classcalib_1_1_calibration_board.html#ab19c34cdf6d5ccf3d536e922f0f9de8c">toJson()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">json</td><td>serialised board JSON </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">json</td><td>serialised board JSON </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the parsed, validated <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>throws std::invalid_argument if the JSON cannot be opened or any parsed field is invalid.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Throws std::invalid_argument if the JSON cannot be opened or any parsed field is invalid.</dd></dl>
 <p>Parses <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> from a JSON document produced by <a class="el" href="#a3a0def33d5e944b1193cb5a95795410d" title="Writes this board&#39;s Params fields into fs (used by CalibrationBoard::toJson()).">writeJsonFields()</a>/toJson(). The parsed <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">Params</a> leaves binarizeThreshold at its default -1 when absent, for backward compatibility with JSON saved before that field existed. </p><dl class="section note"><dt>Note</dt><dd>throws std::invalid_argument if the JSON cannot be opened as an OpenCV FileStorage. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">81</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00034">calib::FanucIRvisionBoard::Params::binarizeThreshold</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00022">calib::FanucIRvisionBoard::Params::cols</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00028">calib::FanucIRvisionBoard::Params::coorDotSizeMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00023">calib::FanucIRvisionBoard::Params::dotSpacingMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00030">calib::FanucIRvisionBoard::Params::innerTargetDotSizeMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00024">calib::FanucIRvisionBoard::Params::marginMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00026">calib::FanucIRvisionBoard::Params::normalDotSizeMm</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00021">calib::FanucIRvisionBoard::Params::rows</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00047">calib::FanucIRvisionBoard::Params::binarizeThreshold</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00035">calib::FanucIRvisionBoard::Params::cols</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00041">calib::FanucIRvisionBoard::Params::coorDotSizeMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00036">calib::FanucIRvisionBoard::Params::dotSpacingMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00043">calib::FanucIRvisionBoard::Params::innerTargetDotSizeMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00037">calib::FanucIRvisionBoard::Params::marginMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00039">calib::FanucIRvisionBoard::Params::normalDotSizeMm</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00034">calib::FanucIRvisionBoard::Params::rows</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__factory_8cpp_source.html#l00053">calib::CalibrationBoardFactory::createFromJson()</a>.</p>
 
@@ -807,7 +828,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00150">150</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">Center</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00122">centerCell()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">Coord</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00129">coordCells()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">Normal</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00138">Target</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00107">targetCells()</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">Center</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00122">centerCell()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">Coord</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00129">coordCells()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">Normal</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00167">Target</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00107">targetCells()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00245">generateImage()</a>.</p>
 
@@ -835,18 +856,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets the binarization threshold used by <a class="el" href="#a13cb90a77a13a802454e243d5da4cdbb">detect()</a>, clamping to the valid range. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Sets the binarization threshold used by <a class="el" href="#a13cb90a77a13a802454e243d5da4cdbb" title="Detects the dot grid in image: binarizes, extracts near-circular blobs, identifies the 4 orientation ...">detect()</a>, clamping to the valid range. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">threshold</td><td>desired threshold; values &lt; 0 collapse to -1 (auto/Otsu), values &gt; 255 clamp to 255 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">threshold</td><td>desired threshold; values &lt; 0 collapse to -1 (auto/Otsu), values &gt; 255 clamp to 255 </td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Reimplemented from <a class="el" href="classcalib_1_1_calibration_board.html#a9bf20520de48783b461fda281e24633a">calib::CalibrationBoard</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00095">95</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00119">119</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 </div>
 </div>
@@ -878,7 +901,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00107">107</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00150">roleOf()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00160">targetIndices()</a>.</p>
 
@@ -904,7 +927,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00160">160</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00107">targetCells()</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00107">targetCells()</a>.</p>
 
 </div>
 </div>
@@ -934,9 +957,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classcalib_1_1_calibration_board.html#a2ef30deacc796e479cecb983e79fa7fa">calib::CalibrationBoard</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00083">83</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00105">105</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00401">detect()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00201">objectPoints()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00215">objectPointsXY()</a>.</p>
 
@@ -968,7 +991,7 @@ Private Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classcalib_1_1_calibration_board.html#a9ad4805013df2024a1d01d5bf56e04b9">calib::CalibrationBoard</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00101">101</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00125">125</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 </div>
 </div>
@@ -1007,7 +1030,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00065">65</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">m_params</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">m_params</a>.</p>
 
 </div>
 </div>
@@ -1034,7 +1057,7 @@ Private Attributes</h2></td></tr>
 
 <p>Built-in preset: iRVision part with 11 mm dot pitch (11x11 grid). </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00046">46</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00062">62</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>.</p>
 
@@ -1062,7 +1085,7 @@ Private Attributes</h2></td></tr>
 
 <p>Built-in preset: iRVision part with 15 mm dot pitch (11x11 grid). </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00048">48</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00064">64</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>.</p>
 
@@ -1090,7 +1113,7 @@ Private Attributes</h2></td></tr>
 
 <p>Built-in preset: iRVision part with 22 mm dot pitch (11x11 grid). </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00050">50</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00066">66</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>.</p>
 
@@ -1118,7 +1141,7 @@ Private Attributes</h2></td></tr>
 
 <p>Built-in preset: iRVision part with 30 mm dot pitch (17x17 grid). </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00052">52</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00068">68</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>.</p>
 
@@ -1146,7 +1169,7 @@ Private Attributes</h2></td></tr>
 
 <p>Built-in preset: iRVision part with 5 mm dot pitch (17x17 grid). </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00044">44</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00060">60</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>.</p>
 
@@ -1174,15 +1197,15 @@ Private Attributes</h2></td></tr>
 
 <p>This board's geometry and detection parameters. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00143">143</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00172">172</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8h_source.html#l00092">binarizeThreshold()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00122">centerCell()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00170">centerIndex()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00129">coordCells()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00177">coordIndices()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00141">cornerCells()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00228">cornerObjectPointsXY()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00401">detect()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00052">FanucIRvisionBoard()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00245">generateImage()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00201">objectPoints()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00215">objectPointsXY()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00060">params()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00095">setBinarizeThreshold()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00107">targetCells()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00160">targetIndices()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00083">totalDots()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00065">writeJsonFields()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8h_source.html#l00114">binarizeThreshold()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00122">centerCell()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00170">centerIndex()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00129">coordCells()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00177">coordIndices()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00141">cornerCells()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00228">cornerObjectPointsXY()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00401">detect()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00052">FanucIRvisionBoard()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00245">generateImage()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00201">objectPoints()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00215">objectPointsXY()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00078">params()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00119">setBinarizeThreshold()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00107">targetCells()</a>, <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00160">targetIndices()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00105">totalDots()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00065">writeJsonFields()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/calibration/<a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/calibration/<a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/calibration/<a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/calibration/<a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

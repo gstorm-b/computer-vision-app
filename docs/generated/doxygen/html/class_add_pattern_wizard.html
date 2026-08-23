@@ -120,6 +120,10 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_add_patt
 </div><!--header-->
 <div class="contents">
 
+<p>5-step modal dialog reimplementation of <span class="tt">PatternWizard.jsx</span>: Image (capture from camera or open file + name + number), Crop (drag rect on canvas, or "use original
+       frame"), Pick Point (click canvas to set pick X/Y), Picking Box (symmetric jaw pair — size + distance + angle), and Finish (preview + summary).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AddPatternWizard:</div>
@@ -145,6 +149,7 @@ Signals</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a177d7bc5eb839520b605f52c0f6a8b42" id="r_a177d7bc5eb839520b605f52c0f6a8b42"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a177d7bc5eb839520b605f52c0f6a8b42">AddPatternWizard</a> (const QString &amp;groupName, const QStringList &amp;usedNames, const QList&lt; int &gt; &amp;usedNumbers, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a177d7bc5eb839520b605f52c0f6a8b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the wizard for group <code class="param">groupName</code>, seeded with the names/numbers already used in that group so Step 1 can flag duplicates.  <br /></td></tr>
 <tr class="memitem:ae6c21741dc2d3cbd05b8dcf4ed0c3efd" id="r_ae6c21741dc2d3cbd05b8dcf4ed0c3efd"><td class="memItemLeft">QRect&#160;</td><td class="memItemRight"><a class="el" href="#ae6c21741dc2d3cbd05b8dcf4ed0c3efd">cropRect</a> () const</td></tr>
 <tr class="memdesc:ae6c21741dc2d3cbd05b8dcf4ed0c3efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the crop rectangle selected on Step 2, in source-image pixel coordinates.  <br /></td></tr>
 <tr class="memitem:a36b900aeddb126bd6e61353e513c81ee" id="r_a36b900aeddb126bd6e61353e513c81ee"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a36b900aeddb126bd6e61353e513c81ee">keepOriginal</a> () const</td></tr>
@@ -176,7 +181,7 @@ Private Slots</h2></td></tr>
 <tr class="memitem:a5a0d0403419778ecc4bf8fb427881aa6" id="r_a5a0d0403419778ecc4bf8fb427881aa6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5a0d0403419778ecc4bf8fb427881aa6">onApply</a> ()</td></tr>
 <tr class="memdesc:a5a0d0403419778ecc4bf8fb427881aa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Confirms the wizard (Apply on Step 5), closing the dialog with QDialog::Accepted.  <br /></td></tr>
 <tr class="memitem:a6c1f7d1943e3d9d1cc5db10d6a3ef308" id="r_a6c1f7d1943e3d9d1cc5db10d6a3ef308"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6c1f7d1943e3d9d1cc5db10d6a3ef308">onBack</a> ()</td></tr>
-<tr class="memdesc:a6c1f7d1943e3d9d1cc5db10d6a3ef308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the footer "Back" button: returns to the previous step via <a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2">goToStep()</a>.  <br /></td></tr>
+<tr class="memdesc:a6c1f7d1943e3d9d1cc5db10d6a3ef308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the footer "Back" button: returns to the previous step via <a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2" title="Switches the stacked widget to step, updating the step rail and footer.">goToStep()</a>.  <br /></td></tr>
 <tr class="memitem:a06d2789bc848710c82a93ea47589d17d" id="r_a06d2789bc848710c82a93ea47589d17d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a06d2789bc848710c82a93ea47589d17d">onBoxChanged</a> ()</td></tr>
 <tr class="memitem:a2f8bb1e9660136f3470ccbe4a69c9d6b" id="r_a2f8bb1e9660136f3470ccbe4a69c9d6b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2f8bb1e9660136f3470ccbe4a69c9d6b">onBoxReset</a> ()</td></tr>
 <tr class="memitem:ab7a0d6fb349df2e2825c69dae99b5f2c" id="r_ab7a0d6fb349df2e2825c69dae99b5f2c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab7a0d6fb349df2e2825c69dae99b5f2c">onBoxRotate90</a> ()</td></tr>
@@ -184,14 +189,19 @@ Private Slots</h2></td></tr>
 <tr class="memdesc:a331f91a0e83a880ceeebca52250c7d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the footer "Cancel" button / dialog close: rejects the dialog.  <br /></td></tr>
 <tr class="memitem:a66bd3a8eda15d4f463329694873b8c10" id="r_a66bd3a8eda15d4f463329694873b8c10"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a66bd3a8eda15d4f463329694873b8c10">onCenter1to1Crop</a> ()</td></tr>
 <tr class="memitem:af7e191ca4c2374f5ef371a08c1ea0422" id="r_af7e191ca4c2374f5ef371a08c1ea0422"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af7e191ca4c2374f5ef371a08c1ea0422">onCropChanged</a> (const QRect &amp;r)</td></tr>
+<tr class="memdesc:af7e191ca4c2374f5ef371a08c1ea0422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles crop-rectangle changes from the crop canvas or the X/Y/W/H spin boxes: updates m_crop and keeps canvas and spin boxes in sync with each other.  <br /></td></tr>
 <tr class="memitem:abd04095215f339c4cd9bc0f76ecc8a70" id="r_abd04095215f339c4cd9bc0f76ecc8a70"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abd04095215f339c4cd9bc0f76ecc8a70">onDiscardImageClicked</a> ()</td></tr>
 <tr class="memitem:a10cb58f771d4145bc97aa75e9afbd1b9" id="r_a10cb58f771d4145bc97aa75e9afbd1b9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a10cb58f771d4145bc97aa75e9afbd1b9">onKeepOriginalToggled</a> (bool on)</td></tr>
+<tr class="memdesc:a10cb58f771d4145bc97aa75e9afbd1b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the "use original frame" checkbox on Step 2: sets m_keepOriginal and enables/disables the crop canvas and spin boxes accordingly.  <br /></td></tr>
 <tr class="memitem:a0d8c3c0c7bade66356aab74ab1a050bb" id="r_a0d8c3c0c7bade66356aab74ab1a050bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0d8c3c0c7bade66356aab74ab1a050bb">onNameChanged</a> (const QString &amp;v)</td></tr>
+<tr class="memdesc:a0d8c3c0c7bade66356aab74ab1a050bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles edits to the Step 1 name field: validates <code class="param">v</code> against m_usedNames and updates the name-error label / Next-button enabled state.  <br /></td></tr>
 <tr class="memitem:a061fc475094c7c2b35fdc1da88341aa3" id="r_a061fc475094c7c2b35fdc1da88341aa3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a061fc475094c7c2b35fdc1da88341aa3">onNext</a> ()</td></tr>
 <tr class="memdesc:a061fc475094c7c2b35fdc1da88341aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances the wizard to the next step (Next button; no-op past Step 5).  <br /></td></tr>
 <tr class="memitem:a8b19b61ca9cd4c69ab0dabb5e0b22f4d" id="r_a8b19b61ca9cd4c69ab0dabb5e0b22f4d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8b19b61ca9cd4c69ab0dabb5e0b22f4d">onNumberChanged</a> (int v)</td></tr>
+<tr class="memdesc:a8b19b61ca9cd4c69ab0dabb5e0b22f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles edits to the Step 1 number field: validates <code class="param">v</code> against m_usedNumbers and updates the number-error label / Next-button enabled state.  <br /></td></tr>
 <tr class="memitem:aee18138ba3d925780e4808b47f7457f7" id="r_aee18138ba3d925780e4808b47f7457f7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aee18138ba3d925780e4808b47f7457f7">onPickCenter</a> ()</td></tr>
 <tr class="memitem:a0a53f37f3bebb52f95d2962f59843ede" id="r_a0a53f37f3bebb52f95d2962f59843ede"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0a53f37f3bebb52f95d2962f59843ede">onPickChanged</a> (const QPoint &amp;p, const QPoint &amp;imgp)</td></tr>
+<tr class="memdesc:a0a53f37f3bebb52f95d2962f59843ede"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles pick-point changes from the pick canvas or the X/Y spin boxes: updates m_pick and keeps canvas and spin boxes in sync with each other.  <br /></td></tr>
 <tr class="memitem:a2573c0ecd0660d8c6569fd17179c96bc" id="r_a2573c0ecd0660d8c6569fd17179c96bc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2573c0ecd0660d8c6569fd17179c96bc">onPickFromCameraClicked</a> ()</td></tr>
 <tr class="memitem:ab4c453235e8505b4583d54e49153fe8e" id="r_ab4c453235e8505b4583d54e49153fe8e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab4c453235e8505b4583d54e49153fe8e">onPickFromFileClicked</a> ()</td></tr>
 <tr class="memitem:ae779b2d2374a72a113e470205cce0969" id="r_ae779b2d2374a72a113e470205cce0969"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae779b2d2374a72a113e470205cce0969">onResetCrop</a> ()</td></tr>
@@ -211,8 +221,11 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:a49e54801e500d0a0f4b2d023de71e4ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the full wizard UI: header, step rail, stacked step pages, and footer.  <br /></td></tr>
 <tr class="memitem:a8bdf640a4000ae3f4a07d4b8cdc83f02" id="r_a8bdf640a4000ae3f4a07d4b8cdc83f02"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8bdf640a4000ae3f4a07d4b8cdc83f02">currentStepValid</a> () const</td></tr>
 <tr class="memitem:ab064c2f7014f9dbe62794b3ae1265dc2" id="r_ab064c2f7014f9dbe62794b3ae1265dc2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2">goToStep</a> (int step)</td></tr>
+<tr class="memdesc:ab064c2f7014f9dbe62794b3ae1265dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches the stacked widget to <code class="param">step</code>, updating the step rail and footer.  <br /></td></tr>
 <tr class="memitem:af6abedb697e9977649fe958469eaaafd" id="r_af6abedb697e9977649fe958469eaaafd"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#af6abedb697e9977649fe958469eaaafd">makeStepBubble</a> (int idx)</td></tr>
+<tr class="memdesc:af6abedb697e9977649fe958469eaaafd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the numbered circular bubble label used for step <code class="param">idx</code> in the step rail.  <br /></td></tr>
 <tr class="memitem:af25afd9414cf56a4eb6a1426257ec97f" id="r_af25afd9414cf56a4eb6a1426257ec97f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af25afd9414cf56a4eb6a1426257ec97f">onImageSizeChanged</a> (int imageW, int imageH)</td></tr>
+<tr class="memdesc:af25afd9414cf56a4eb6a1426257ec97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes all geometry spin boxes so they can mirror the canvas for the currently-loaded image, and clamps the default crop/pick to fit.  <br /></td></tr>
 <tr class="memitem:a5b7d65af5565afc68fc0e64ac7788344" id="r_a5b7d65af5565afc68fc0e64ac7788344"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5b7d65af5565afc68fc0e64ac7788344">refreshFinishSummary</a> ()</td></tr>
 <tr class="memitem:a910f04129f773421a378d4d212454950" id="r_a910f04129f773421a378d4d212454950"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a910f04129f773421a378d4d212454950">updateFooterStatus</a> ()</td></tr>
 <tr class="memitem:a03fba263f25ff0ed2098f80f4839e88e" id="r_a03fba263f25ff0ed2098f80f4839e88e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a03fba263f25ff0ed2098f80f4839e88e">updateStepRail</a> ()</td></tr>
@@ -318,11 +331,13 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>5-step modal dialog reimplementation of <span class="tt">PatternWizard.jsx</span>: Image (capture from camera or open file + name + number), Crop (drag rect on canvas, or "use original
-frame"), Pick Point (click canvas to set pick X/Y), Picking Box (symmetric jaw pair — size + distance + angle), and Finish (preview + summary). All design tokens (colors, fonts, spacings) come from <span class="tt"><a class="el" href="pattern__theme_8h.html">pattern_theme.h</a></span>, which mirrors <span class="tt">ui_scratch/design_handoff_full_project/README.md</span>. </p><dl class="section note"><dt>Note</dt><dd>Emits <a class="el" href="#a4fd6cd1f71ba846e19eee03a8c5ebf5d">requestCameraImage()</a> when the user picks "Capture from Camera" on Step 1; the host must capture a frame and feed it back via <a class="el" href="#a7d8e765d2e8214f46f3c7ebfc438329c">setCameraImage()</a>. </dd>
+       frame"), Pick Point (click canvas to set pick X/Y), Picking Box (symmetric jaw pair — size + distance + angle), and Finish (preview + summary). </p>
+<p>All design tokens (colors, fonts, spacings) come from <span class="tt"><a class="el" href="pattern__theme_8h.html" title="Pattern UI theme tokens (Hybrid Graphite Vision + Orange palette): hex color constants and reusable Q...">pattern_theme.h</a></span>, which mirrors <span class="tt">ui_scratch/design_handoff_full_project/README.md</span>.</p>
+<dl class="section note"><dt>Note</dt><dd>Emits <a class="el" href="#a4fd6cd1f71ba846e19eee03a8c5ebf5d">requestCameraImage()</a> when the user picks "Capture from Camera" on Step 1; the host must capture a frame and feed it back via <a class="el" href="#a7d8e765d2e8214f46f3c7ebfc438329c">setCameraImage()</a>. </dd>
 <dd>
 Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title="Returns the pattern name entered on Step 1.">patternName()</a>, <a class="el" href="#a6f580db785739cb7cfea061c2765142f" title="Returns the pattern number entered on Step 1.">patternNumber()</a>, <a class="el" href="#aa40bdd46bde2df296cd96f5248121b52">patternImage()</a>, <a class="el" href="#a4e0fd3d11a44bef9b3e063e3907d83a4" title="Returns the pick point&#39;s X coordinate, in source-image pixel coordinates.">pickX()</a>/Y(), <a class="el" href="#a062c660a353fb0fddc1cb2c10ca0ddfe" title="Returns the picking-box width (image pixels) set on Step 4.">pickBoxW()</a>/H()/Dist()/Angle()) are only meaningful after exec() returns Accepted. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00039">39</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00049">49</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a177d7bc5eb839520b605f52c0f6a8b42" name="a177d7bc5eb839520b605f52c0f6a8b42"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a177d7bc5eb839520b605f52c0f6a8b42">&#9670;&#160;</a></span>AddPatternWizard()</h2>
@@ -360,11 +375,14 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the wizard for group <span class="tt">groupName</span>, seeded with the names/numbers already used in that group so Step 1 can flag duplicates. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Constructs the wizard for group <code class="param">groupName</code>, seeded with the names/numbers already used in that group so Step 1 can flag duplicates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">groupName</td><td>pattern group the new pattern will be added to </td></tr>
-    <tr><td class="paramname">usedNames</td><td>existing pattern names in the group, rejected as duplicates </td></tr>
-    <tr><td class="paramname">usedNumbers</td><td>existing pattern numbers in the group, rejected as duplicates</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">groupName</td><td>pattern group the new pattern will be added to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">usedNames</td><td>existing pattern names in the group, rejected as duplicates </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">usedNumbers</td><td>existing pattern numbers in the group, rejected as duplicates </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>parent widget</td></tr>
   </table>
   </dd>
 </dl>
@@ -372,7 +390,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00062">62</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00058">ptn::baseStyleSheet()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00252">m_groupName</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00253">m_usedNames</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00254">m_usedNumbers</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00059">ptn::baseStyleSheet()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00281">m_groupName</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00282">m_usedNames</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00283">m_usedNumbers</a>.</p>
 
 </div>
 </div>
@@ -431,7 +449,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">211</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00028">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00122">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00025">ptn::HD</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00275">m_btnBack</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00277">m_btnCancel</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00276">m_btnNext</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00274">m_footerStatus</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00812">onBack()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00814">onCancel()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00810">onNext()</a>, <a class="el" href="pattern__theme_8h_source.html#l00110">ptn::primaryButtonStyle()</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00026">ptn::HD</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00304">m_btnBack</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00306">m_btnCancel</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00305">m_btnNext</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00303">m_footerStatus</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00812">onBack()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00814">onCancel()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00810">onNext()</a>, <a class="el" href="pattern__theme_8h_source.html#l00111">ptn::primaryButtonStyle()</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>.</p>
 
@@ -460,11 +478,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </table>
 </div><div class="memdoc">
 <p>Builds the dialog header widget (title + group-name subtitle). </p><dl class="section return"><dt>Returns</dt><dd>the constructed header widget, ready to insert into the layout</dd></dl>
-<p>Builds the fixed-height title bar: wizard title, subtitle label (updated per-step by <a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2">goToStep()</a>), and a close button wired to <a class="el" href="#a331f91a0e83a880ceeebca52250c7d8d" title="Handles the footer &quot;Cancel&quot; button / dialog close: rejects the dialog.">onCancel()</a>. </p>
+<p>Builds the fixed-height title bar: wizard title, subtitle label (updated per-step by <a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2" title="Switches the stacked widget to step, updating the step rail and footer.">goToStep()</a>), and a close button wired to <a class="el" href="#a331f91a0e83a880ceeebca52250c7d8d" title="Handles the footer &quot;Cancel&quot; button / dialog close: rejects the dialog.">onCancel()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00112">112</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00028">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00025">ptn::HD</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00273">m_subtitleLabel</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00814">onCancel()</a>, <a class="el" href="pattern__theme_8h_source.html#l00032">ptn::TXT</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00026">ptn::HD</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00302">m_subtitleLabel</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00814">onCancel()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>.</p>
 
@@ -497,7 +515,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">468</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00041">AddPatternImageCanvas::Box</a>, <a class="el" href="class_add_pattern_image_canvas.html#a4b68cd0099a090359b28369b62505da9">AddPatternImageCanvas::boxChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00122">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00094">ptn::inputStyle()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00308">m_boxAngleSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00304">m_boxCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00307">m_boxDistSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00306">m_boxHSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00305">m_boxWSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00264">m_pick</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00300">m_pickXSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00301">m_pickYSpin</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01120">onBoxRotate90()</a>, <a class="el" href="class_add_pattern_image_canvas.html#a78594f7c5d66d2b55cd13eb8f6ed1910">AddPatternImageCanvas::pickChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT2</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::Box</a>, <a class="el" href="class_add_pattern_image_canvas.html#a4b68cd0099a090359b28369b62505da9">AddPatternImageCanvas::boxChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00337">m_boxAngleSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00333">m_boxCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00336">m_boxDistSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00335">m_boxHSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00334">m_boxWSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_pick</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00329">m_pickXSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00330">m_pickYSpin</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01120">onBoxRotate90()</a>, <a class="el" href="class_add_pattern_image_canvas.html#a78594f7c5d66d2b55cd13eb8f6ed1910">AddPatternImageCanvas::pickChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>.</p>
 
@@ -530,7 +548,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">335</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00039">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD2</a>, <a class="el" href="pattern__theme_8h_source.html#l00022">ptn::BG</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">AddPatternImageCanvas::Crop</a>, <a class="el" href="class_add_pattern_image_canvas.html#a95f4f5b1a6a93a160d1c2ea98c228bcf">AddPatternImageCanvas::cropChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00122">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00094">ptn::inputStyle()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_chkKeepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00296">m_cropH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_cropW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_cropX</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_cropY</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01049">onCenter1to1Crop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01035">onResetCrop()</a>, <a class="el" href="pattern__theme_8h_source.html#l00032">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00040">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00030">ptn::BD2</a>, <a class="el" href="pattern__theme_8h_source.html#l00023">ptn::BG</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::Crop</a>, <a class="el" href="class_add_pattern_image_canvas.html#a95f4f5b1a6a93a160d1c2ea98c228bcf">AddPatternImageCanvas::cropChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00320">m_chkKeepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00321">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00325">m_cropH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00324">m_cropW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00322">m_cropX</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00323">m_cropY</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01049">onCenter1to1Crop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01035">onResetCrop()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>.</p>
 
@@ -563,7 +581,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00575">575</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00041">AddPatternImageCanvas::Finish</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00312">m_finishCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00311">m_finishSummary</a>, <a class="el" href="pattern__theme_8h_source.html#l00032">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT2</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::Finish</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00341">m_finishCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00340">m_finishSummary</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>.</p>
 
@@ -596,7 +614,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">250</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00028">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00042">ptn::ERR</a>, <a class="el" href="pattern__theme_8h_source.html#l00122">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00094">ptn::inputStyle()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_btnDiscardImage</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00286">m_btnFromCamera</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00287">m_btnFromFile</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00285">m_imagePreviewLabel</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00280">m_inputName</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00281">m_inputNumber</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00284">m_lblImageStatus</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00282">m_lblNameError</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00283">m_lblNumberError</a>, <a class="el" href="pattern__theme_8h_source.html#l00040">ptn::OK</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00975">onNameChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00989">onNumberChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00820">onPickFromCameraClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00829">onPickFromFileClicked()</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00043">ptn::ERR</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00317">m_btnDiscardImage</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00315">m_btnFromCamera</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00316">m_btnFromFile</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00314">m_imagePreviewLabel</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00309">m_inputName</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00310">m_inputNumber</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00313">m_lblImageStatus</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00311">m_lblNameError</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00312">m_lblNumberError</a>, <a class="el" href="pattern__theme_8h_source.html#l00041">ptn::OK</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00975">onNameChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00989">onNumberChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00820">onPickFromCameraClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00829">onPickFromFileClicked()</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>.</p>
 
@@ -629,7 +647,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00404">404</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00039">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00028">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00022">ptn::BG</a>, <a class="el" href="pattern__theme_8h_source.html#l00122">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00094">ptn::inputStyle()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00299">m_pickCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00300">m_pickXSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00301">m_pickYSpin</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">AddPatternImageCanvas::Pick</a>, <a class="el" href="class_add_pattern_image_canvas.html#a78594f7c5d66d2b55cd13eb8f6ed1910">AddPatternImageCanvas::pickChanged()</a>, and <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT2</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00040">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00023">ptn::BG</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00328">m_pickCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00329">m_pickXSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00330">m_pickYSpin</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::Pick</a>, <a class="el" href="class_add_pattern_image_canvas.html#a78594f7c5d66d2b55cd13eb8f6ed1910">AddPatternImageCanvas::pickChanged()</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>.</p>
 
@@ -662,7 +680,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00162">162</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00028">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00022">ptn::BG</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00271">m_stepBubbles</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00272">m_stepLabels</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00151">makeStepBubble()</a>, <a class="el" href="pattern__theme_8h_source.html#l00032">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00023">ptn::BG</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00300">m_stepBubbles</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00301">m_stepLabels</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00151">makeStepBubble()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>.</p>
 
@@ -696,7 +714,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">85</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">buildFooter()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00112">buildHeader()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00575">buildStepFinish()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00404">buildStepPick()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00162">buildStepRail()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00270">m_stack</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">AddPatternImageCanvas::None</a>, and <a class="el" href="pattern__theme_8h_source.html#l00024">ptn::SURF2</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">buildFooter()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00112">buildHeader()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00575">buildStepFinish()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00404">buildStepPick()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00162">buildStepRail()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00321">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00299">m_stack</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::None</a>, and <a class="el" href="pattern__theme_8h_source.html#l00025">ptn::SURF2</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00062">AddPatternWizard()</a>.</p>
 
@@ -727,9 +745,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the crop rectangle selected on Step 2, in source-image pixel coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00084">84</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00097">97</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>.</p>
 
 </div>
 </div>
@@ -760,7 +778,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">709</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00269">m_currentStep</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00257">m_name</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00258">m_number</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00253">m_usedNames</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00254">m_usedNumbers</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00298">m_currentStep</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00286">m_name</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00287">m_number</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00282">m_usedNames</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00283">m_usedNumbers</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
@@ -788,9 +806,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Switches the stacked widget to <span class="tt">step</span>, updating the step rail and footer. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Switches the stacked widget to <code class="param">step</code>, updating the step rail and footer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">step</td><td>zero-based step index to switch to</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">step</td><td>zero-based step index to switch to</td></tr>
   </table>
   </dd>
 </dl>
@@ -798,7 +818,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">621</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00304">m_boxCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00275">m_btnBack</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00276">m_btnNext</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00269">m_currentStep</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00312">m_finishCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00252">m_groupName</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00264">m_pick</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00299">m_pickCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00270">m_stack</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00273">m_subtitleLabel</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00816">onApply()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00810">onNext()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00066">patternImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00693">updateStepRail()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00333">m_boxCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00304">m_btnBack</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00305">m_btnNext</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00321">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00298">m_currentStep</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00341">m_finishCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00281">m_groupName</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_pick</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00328">m_pickCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00299">m_stack</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00302">m_subtitleLabel</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00816">onApply()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00810">onNext()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00079">patternImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00693">updateStepRail()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00062">AddPatternWizard()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00812">onBack()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00810">onNext()</a>.</p>
 
@@ -829,9 +849,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns whether Step 2's "use original frame" toggle is enabled (crop skipped). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00082">82</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00095">95</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>.</p>
 
 </div>
 </div>
@@ -857,9 +877,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates the numbered circular bubble label used for step <span class="tt">idx</span> in the step rail. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Creates the numbered circular bubble label used for step <code class="param">idx</code> in the step rail. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">idx</td><td>zero-based step index </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">idx</td><td>zero-based step index </td></tr>
   </table>
   </dd>
 </dl>
@@ -868,7 +890,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00151">151</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00138">ptn::stepBubbleStyle()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00141">ptn::stepBubbleStyle()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00162">buildStepRail()</a>.</p>
 
@@ -929,12 +951,12 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </table>
 </div><div class="memdoc">
 
-<p>Handles the footer "Back" button: returns to the previous step via <a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2">goToStep()</a>. </p>
+<p>Handles the footer "Back" button: returns to the previous step via <a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2" title="Switches the stacked widget to step, updating the step rail and footer.">goToStep()</a>. </p>
 <p>Moves the wizard back to the previous step (Back button; no-op before Step 1). </p>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00812">812</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00269">m_currentStep</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00298">m_currentStep</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">buildFooter()</a>.</p>
 
@@ -967,7 +989,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">1095</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00308">m_boxAngleSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00304">m_boxCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00307">m_boxDistSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00306">m_boxHSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00305">m_boxWSpin</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00337">m_boxAngleSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00333">m_boxCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00336">m_boxDistSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00335">m_boxHSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00334">m_boxWSpin</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01120">onBoxRotate90()</a>.</p>
 
@@ -1000,7 +1022,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">1108</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00308">m_boxAngleSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00307">m_boxDistSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00306">m_boxHSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00305">m_boxWSpin</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00337">m_boxAngleSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00336">m_boxDistSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00335">m_boxHSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00334">m_boxWSpin</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>.</p>
 
@@ -1033,7 +1055,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01120">1120</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00308">m_boxAngleSpin</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00337">m_boxAngleSpin</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>.</p>
 
@@ -1094,11 +1116,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </table>
 </div><div class="memdoc">
 <p>Handles the "Center 1:1" button on Step 2: recentres the crop rectangle over the image at its current size.</p>
-<p>Resets the crop rect to a centered square (1:1 aspect ratio) sized to the smaller image dimension minus a 40px margin, then applies it via <a class="el" href="#af7e191ca4c2374f5ef371a08c1ea0422">onCropChanged()</a>. </p>
+<p>Resets the crop rect to a centered square (1:1 aspect ratio) sized to the smaller image dimension minus a 40px margin, then applies it via <a class="el" href="#af7e191ca4c2374f5ef371a08c1ea0422" title="Handles crop-rectangle changes from the crop canvas or the X/Y/W/H spin boxes: updates m_crop and kee...">onCropChanged()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01049">1049</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>.</p>
 
@@ -1126,9 +1148,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Handles crop-rectangle changes from the crop canvas or the X/Y/W/H spin boxes: updates m_crop and keeps canvas and spin boxes in sync with each other. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Handles crop-rectangle changes from the crop canvas or the X/Y/W/H spin boxes: updates m_crop and keeps canvas and spin boxes in sync with each other. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r</td><td>the new crop rectangle, in source-image pixel coordinates</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>the new crop rectangle, in source-image pixel coordinates</td></tr>
   </table>
   </dd>
 </dl>
@@ -1136,7 +1160,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">1021</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00296">m_cropH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_cropW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_cropX</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_cropY</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00321">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00325">m_cropH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00324">m_cropW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00322">m_cropX</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00323">m_cropY</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01049">onCenter1to1Crop()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01035">onResetCrop()</a>.</p>
 
@@ -1169,7 +1193,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">843</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_btnDiscardImage</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00261">m_imageFilename</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00285">m_imagePreviewLabel</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00260">m_imageSource</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00284">m_lblImageStatus</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00317">m_btnDiscardImage</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00290">m_imageFilename</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00314">m_imagePreviewLabel</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00289">m_imageSource</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00313">m_lblImageStatus</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>.</p>
 
@@ -1201,19 +1225,21 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Resizes all geometry spin boxes so they can mirror the canvas for the currently-loaded image, and clamps the default crop/pick to fit. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Resizes all geometry spin boxes so they can mirror the canvas for the currently-loaded image, and clamps the default crop/pick to fit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">imageW</td><td>loaded image width, in pixels </td></tr>
-    <tr><td class="paramname">imageH</td><td>loaded image height, in pixels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">imageW</td><td>loaded image width, in pixels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">imageH</td><td>loaded image height, in pixels </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Called from <a class="el" href="#a7d8e765d2e8214f46f3c7ebfc438329c">setCameraImage()</a> / <a class="el" href="#a69cc5f4dcacd44cfa7fdae8619444aff" title="Allow host to set initial image (eg. when file is loaded externally).">setLoadedImage()</a>.</dd></dl>
-<p>Widens the crop/pick/box spin-box ranges to span the newly-(re)loaded image (in image pixels), then clamps or re-centers the current crop rect and pick point so both stay inside the new image bounds, pushing the clamped values back into their spin boxes. All range/value changes are signal-blocked to avoid re-triggering <a class="el" href="#af7e191ca4c2374f5ef371a08c1ea0422">onCropChanged()</a> etc. No-op if either dimension is non-positive. </p>
+<p>Widens the crop/pick/box spin-box ranges to span the newly-(re)loaded image (in image pixels), then clamps or re-centers the current crop rect and pick point so both stay inside the new image bounds, pushing the clamped values back into their spin boxes. All range/value changes are signal-blocked to avoid re-triggering <a class="el" href="#af7e191ca4c2374f5ef371a08c1ea0422" title="Handles crop-rectangle changes from the crop canvas or the X/Y/W/H spin boxes: updates m_crop and kee...">onCropChanged()</a> etc. No-op if either dimension is non-positive. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">914</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00307">m_boxDistSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00306">m_boxHSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00305">m_boxWSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00296">m_cropH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_cropW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_cropX</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_cropY</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00264">m_pick</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00300">m_pickXSpin</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00301">m_pickYSpin</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00336">m_boxDistSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00335">m_boxHSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00334">m_boxWSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00325">m_cropH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00324">m_cropW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00322">m_cropX</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00323">m_cropY</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_pick</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00329">m_pickXSpin</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00330">m_pickYSpin</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>.</p>
 
@@ -1241,9 +1267,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Handles the "use original frame" checkbox on Step 2: sets m_keepOriginal and enables/disables the crop canvas and spin boxes accordingly. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Handles the "use original frame" checkbox on Step 2: sets m_keepOriginal and enables/disables the crop canvas and spin boxes accordingly. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">on</td><td>new checkbox state</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">on</td><td>new checkbox state</td></tr>
   </table>
   </dd>
 </dl>
@@ -1251,7 +1279,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">1004</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00041">AddPatternImageCanvas::Crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00304">m_boxCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">AddPatternImageCanvas::None</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::Crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00333">m_boxCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00321">m_cropCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::None</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>.</p>
 
@@ -1279,9 +1307,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Handles edits to the Step 1 name field: validates <span class="tt">v</span> against m_usedNames and updates the name-error label / Next-button enabled state. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Handles edits to the Step 1 name field: validates <code class="param">v</code> against m_usedNames and updates the name-error label / Next-button enabled state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>the candidate pattern name</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>the candidate pattern name</td></tr>
   </table>
   </dd>
 </dl>
@@ -1289,7 +1319,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00975">975</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00282">m_lblNameError</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00257">m_name</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00253">m_usedNames</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00311">m_lblNameError</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00286">m_name</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00282">m_usedNames</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>.</p>
 
@@ -1319,11 +1349,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </div><div class="memdoc">
 
 <p>Advances the wizard to the next step (Next button; no-op past Step 5). </p>
-<p>Handles the footer "Next" button: validates the current step via <a class="el" href="#a8bdf640a4000ae3f4a07d4b8cdc83f02">currentStepValid()</a> and, if it passes, advances via <a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2">goToStep()</a>. </p>
+<p>Handles the footer "Next" button: validates the current step via <a class="el" href="#a8bdf640a4000ae3f4a07d4b8cdc83f02">currentStepValid()</a> and, if it passes, advances via <a class="el" href="#ab064c2f7014f9dbe62794b3ae1265dc2" title="Switches the stacked widget to step, updating the step rail and footer.">goToStep()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00810">810</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00269">m_currentStep</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00298">m_currentStep</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">buildFooter()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -1351,9 +1381,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Handles edits to the Step 1 number field: validates <span class="tt">v</span> against m_usedNumbers and updates the number-error label / Next-button enabled state. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Handles edits to the Step 1 number field: validates <code class="param">v</code> against m_usedNumbers and updates the number-error label / Next-button enabled state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">v</td><td>the candidate pattern number</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>the candidate pattern number</td></tr>
   </table>
   </dd>
 </dl>
@@ -1361,7 +1393,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00989">989</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00283">m_lblNumberError</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00258">m_number</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00254">m_usedNumbers</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00312">m_lblNumberError</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00287">m_number</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00283">m_usedNumbers</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>.</p>
 
@@ -1390,11 +1422,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </table>
 </div><div class="memdoc">
 <p>Handles the "Center" button on Step 3: moves the pick point to the center of the crop rectangle (or of the image, when uncropped).</p>
-<p>Centers the pick point: within the crop rect when cropping is active, or within the full captured frame (falling back to CW x CH) when using the original frame; applies the result via <a class="el" href="#a0a53f37f3bebb52f95d2962f59843ede">onPickChanged()</a>. </p>
+<p>Centers the pick point: within the crop rect when cropping is active, or within the full captured frame (falling back to CW x CH) when using the original frame; applies the result via <a class="el" href="#a0a53f37f3bebb52f95d2962f59843ede" title="Handles pick-point changes from the pick canvas or the X/Y spin boxes: updates m_pick and keeps canva...">onPickChanged()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">1077</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00404">buildStepPick()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -1426,10 +1458,12 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Handles pick-point changes from the pick canvas or the X/Y spin boxes: updates m_pick and keeps canvas and spin boxes in sync with each other. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Handles pick-point changes from the pick canvas or the X/Y spin boxes: updates m_pick and keeps canvas and spin boxes in sync with each other. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td>pick point in absolute source-image pixel coordinates </td></tr>
-    <tr><td class="paramname">imgp</td><td>pick point relative to the crop origin (equal to p when uncropped)</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">p</td><td>pick point in absolute source-image pixel coordinates </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">imgp</td><td>pick point relative to the crop origin (equal to p when uncropped)</td></tr>
   </table>
   </dd>
 </dl>
@@ -1437,7 +1471,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">1060</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00264">m_pick</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00299">m_pickCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00300">m_pickXSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00301">m_pickYSpin</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_pick</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00328">m_pickCanvas</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00329">m_pickXSpin</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00330">m_pickYSpin</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00404">buildStepPick()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>.</p>
 
@@ -1470,7 +1504,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00820">820</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00260">m_imageSource</a>, and <a class="el" href="#a4fd6cd1f71ba846e19eee03a8c5ebf5d">requestCameraImage()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00289">m_imageSource</a>, and <a class="el" href="#a4fd6cd1f71ba846e19eee03a8c5ebf5d">requestCameraImage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>.</p>
 
@@ -1533,11 +1567,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </div><div class="memdoc">
 
 <p>Handles the "Reset" button on Step 2: restores the crop rectangle to its default. </p>
-<p>Resets the crop rect to a centered region inset by 1/8 of the image dimensions on each side (falling back to the canvas size CW x CH if no image is loaded), then applies it via <a class="el" href="#af7e191ca4c2374f5ef371a08c1ea0422">onCropChanged()</a>. </p>
+<p>Resets the crop rect to a centered region inset by 1/8 of the image dimensions on each side (falling back to the canvas size CW x CH if no image is loaded), then applies it via <a class="el" href="#af7e191ca4c2374f5ef371a08c1ea0422" title="Handles crop-rectangle changes from the crop canvas or the X/Y/W/H spin boxes: updates m_crop and kee...">onCropChanged()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l01035">1035</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>.</p>
 
@@ -1567,11 +1601,11 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </div><div class="memdoc">
 <p>Returns the image to persist as the pattern: the raw captured/loaded frame when <a class="el" href="#a36b900aeddb126bd6e61353e513c81ee" title="Returns whether Step 2&#39;s &quot;use original frame&quot; toggle is enabled (crop skipped).">keepOriginal()</a> is true, otherwise <span class="tt"><a class="el" href="#a9b832a9061bf2d477278d0addcb407e7" title="Returns the full, uncropped captured/loaded source image.">rawImage()</a></span> cropped to <span class="tt"><a class="el" href="#ae6c21741dc2d3cbd05b8dcf4ed0c3efd" title="Returns the crop rectangle selected on Step 2, in source-image pixel coordinates.">cropRect()</a></span> (only if the crop rect is non-empty and fully inside the image bounds; falls back to the uncropped image otherwise). </p><dl class="section return"><dt>Returns</dt><dd>a cloned cv::Mat, independent of the wizard's internal buffer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00066">66</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00079">79</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00066">patternImage()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00079">patternImage()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00066">patternImage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00079">patternImage()</a>.</p>
 
 </div>
 </div>
@@ -1600,9 +1634,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the pattern name entered on Step 1. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00056">56</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00069">69</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00257">m_name</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00286">m_name</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>.</p>
 
@@ -1633,9 +1667,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the pattern number entered on Step 1. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00058">58</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00071">71</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00258">m_number</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00287">m_number</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>.</p>
 
@@ -1666,9 +1700,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the jaw-pair angle (degrees) set on Step 4. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00105">105</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00118">118</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxAngle</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxAngle</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>.</p>
 
@@ -1699,9 +1733,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the jaw-pair centre-to-centre distance (image pixels) set on Step 4. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00103">103</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00116">116</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxDist</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxDist</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>.</p>
 
@@ -1732,9 +1766,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the picking-box height (image pixels) set on Step 4. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00101">101</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00114">114</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxH</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxH</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>.</p>
 
@@ -1765,9 +1799,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the picking-box width (image pixels) set on Step 4. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00099">99</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00112">112</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxW</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxW</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>.</p>
 
@@ -1798,9 +1832,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the pick point's X coordinate, in source-image pixel coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00095">95</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00108">108</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00264">m_pick</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_pick</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>.</p>
 
@@ -1831,9 +1865,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the pick point's Y coordinate, in source-image pixel coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00097">97</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00110">110</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00264">m_pick</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_pick</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01073">LocalizationPatternsWidget::onTreeAddPatternRequested()</a>.</p>
 
@@ -1864,9 +1898,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Returns the full, uncropped captured/loaded source image. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00060">60</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00073">73</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>.</p>
 
 </div>
 </div>
@@ -1897,7 +1931,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">771</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00039">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00028">ptn::BD</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00311">m_finishSummary</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00261">m_imageFilename</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00260">m_imageSource</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00257">m_name</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00258">m_number</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00264">m_pick</a>, <a class="el" href="pattern__theme_8h_source.html#l00032">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00040">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00340">m_finishSummary</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00290">m_imageFilename</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00289">m_imageSource</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00286">m_name</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00287">m_number</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_pick</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -1954,7 +1988,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </table>
 </div><div class="memdoc">
 <p>Called by host when camera capture finishes (in response to <a class="el" href="#a4fd6cd1f71ba846e19eee03a8c5ebf5d">requestCameraImage()</a>). Feeds the image into Step 1 preview.</p>
-<p>Stores a clone of <span class="tt">image</span> as the captured source (marking the source as "camera"), converts it to a QImage for preview (BGR888-&gt;RGB888 for 3-channel, direct copy for 8-bit grayscale; other formats are left unpreviewed), updates the Step 1 preview/status, and re-derives the geometry spin-box ranges and default crop/pick via <a class="el" href="#af25afd9414cf56a4eb6a1426257ec97f">onImageSizeChanged()</a>. Does nothing if <span class="tt">image</span> is empty. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Stores a clone of <span class="tt">image</span> as the captured source (marking the source as "camera"), converts it to a QImage for preview (BGR888-&gt;RGB888 for 3-channel, direct copy for 8-bit grayscale; other formats are left unpreviewed), updates the Step 1 preview/status, and re-derives the geometry spin-box ranges and default crop/pick via <a class="el" href="#af25afd9414cf56a4eb6a1426257ec97f" title="Resizes all geometry spin boxes so they can mirror the canvas for the currently-loaded image,...">onImageSizeChanged()</a>. Does nothing if <span class="tt">image</span> is empty. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">image</td><td>captured frame in OpenCV BGR (CV_8UC3) or grayscale (CV_8UC1) format </td></tr>
   </table>
@@ -1963,7 +1997,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">861</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_btnDiscardImage</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00261">m_imageFilename</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00285">m_imagePreviewLabel</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00260">m_imageSource</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00284">m_lblImageStatus</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00317">m_btnDiscardImage</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00290">m_imageFilename</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00314">m_imagePreviewLabel</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00289">m_imageSource</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00313">m_lblImageStatus</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00900">setLoadedImage()</a>.</p>
 
@@ -2007,7 +2041,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00900">900</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00261">m_imageFilename</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00260">m_imageSource</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00284">m_lblImageStatus</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00290">m_imageFilename</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00289">m_imageSource</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00313">m_lblImageStatus</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00829">onPickFromFileClicked()</a>.</p>
 
@@ -2040,7 +2074,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">727</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00266">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00265">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00259">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00263">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00269">m_currentStep</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00274">m_footerStatus</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00262">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00257">m_name</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00258">m_number</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00264">m_pick</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxAngle</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00295">m_boxDist</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxH</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00294">m_boxW</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00288">m_capturedMat</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00292">m_crop</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00298">m_currentStep</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00303">m_footerStatus</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00291">m_keepOriginal</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00286">m_name</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00287">m_number</a>, and <a class="el" href="add__pattern__wizard_8h_source.html#l00293">m_pick</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00975">onNameChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00989">onNumberChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>.</p>
 
@@ -2073,7 +2107,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8cpp_source.html#l00693">693</a> of file <a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00269">m_currentStep</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00271">m_stepBubbles</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00272">m_stepLabels</a>, <a class="el" href="pattern__theme_8h_source.html#l00138">ptn::stepBubbleStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00032">ptn::TXT</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__wizard_8h_source.html#l00298">m_currentStep</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00300">m_stepBubbles</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00301">m_stepLabels</a>, <a class="el" href="pattern__theme_8h_source.html#l00141">ptn::stepBubbleStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -2102,9 +2136,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Jaw-pair distance (image px) / angle (degrees), Step 4. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00266">266</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00295">295</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01120">onBoxRotate90()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00105">pickBoxAngle()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01120">onBoxRotate90()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00118">pickBoxAngle()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -2130,7 +2164,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 4 jaw-pair angle spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00308">308</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00337">337</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01120">onBoxRotate90()</a>.</p>
 
@@ -2158,7 +2192,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 4 picking-box overlay canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00304">304</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00333">333</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>.</p>
 
@@ -2184,9 +2218,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00266">266</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00295">295</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00103">pickBoxDist()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00116">pickBoxDist()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -2212,7 +2246,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 4 jaw-pair distance spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00307">307</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00336">336</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>.</p>
 
@@ -2240,9 +2274,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Picking-box width/height (image pixels), Step 4. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00265">265</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00294">294</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00101">pickBoxH()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00114">pickBoxH()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -2268,7 +2302,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 4 box-height spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00306">306</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00335">335</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>.</p>
 
@@ -2294,9 +2328,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00265">265</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00294">294</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00099">pickBoxW()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00112">pickBoxW()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -2322,7 +2356,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 4 box-width spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00305">305</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00334">334</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01095">onBoxChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01108">onBoxReset()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>.</p>
 
@@ -2350,7 +2384,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Footer "Back" button. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00275">275</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00304">304</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">buildFooter()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -2378,7 +2412,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Footer "Cancel" button. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00277">277</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00306">306</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">buildFooter()</a>.</p>
 
@@ -2406,7 +2440,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 "Discard" button. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00288">288</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00317">317</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>.</p>
 
@@ -2434,7 +2468,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 "Capture from Camera" button. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00286">286</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00315">315</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>.</p>
 
@@ -2462,7 +2496,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 "Open File" button. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00287">287</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00316">316</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>.</p>
 
@@ -2490,7 +2524,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Footer "Next" button. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00276">276</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00305">305</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">buildFooter()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -2518,9 +2552,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Full captured/loaded source image (uncropped). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00259">259</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00288">288</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01049">onCenter1to1Crop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01035">onResetCrop()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00066">patternImage()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00060">rawImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01049">onCenter1to1Crop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01035">onResetCrop()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00079">patternImage()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00073">rawImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -2546,7 +2580,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 2 "use original frame" checkbox. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00291">291</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00320">320</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>.</p>
 
@@ -2574,9 +2608,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Crop rectangle selected on Step 2 (source-image px). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00263">263</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00292">292</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00084">cropRect()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00066">patternImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00097">cropRect()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00079">patternImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -2602,7 +2636,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 2 drag-to-crop canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00292">292</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00321">321</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>.</p>
 
@@ -2630,7 +2664,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 2 crop-rectangle height spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00296">296</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00325">325</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>.</p>
 
@@ -2658,7 +2692,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 2 crop-rectangle width spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00295">295</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00324">324</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>.</p>
 
@@ -2686,7 +2720,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 2 crop-rectangle X spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00293">293</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00322">322</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>.</p>
 
@@ -2714,7 +2748,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 2 crop-rectangle Y spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00294">294</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00323">323</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00335">buildStepCrop()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01021">onCropChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>.</p>
 
@@ -2742,7 +2776,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Zero-based index of the visible step. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00269">269</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00298">298</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00812">onBack()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00810">onNext()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00693">updateStepRail()</a>.</p>
 
@@ -2770,7 +2804,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 5 read-only preview canvas (locked). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00312">312</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00341">341</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00575">buildStepFinish()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -2798,7 +2832,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 5 read-only result summary text. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00311">311</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00340">340</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00575">buildStepFinish()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>.</p>
 
@@ -2826,7 +2860,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Footer status/validation message label. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00274">274</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00303">303</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00211">buildFooter()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
@@ -2854,7 +2888,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Name of the pattern group this wizard adds to. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00252">252</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00281">281</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00062">AddPatternWizard()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -2882,7 +2916,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Filename of the loaded image, when loaded from file. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00261">261</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00290">290</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00900">setLoadedImage()</a>.</p>
 
@@ -2910,7 +2944,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 thumbnail preview of the image. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00285">285</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00314">314</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>.</p>
 
@@ -2938,7 +2972,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Image origin: "camera", "file", or empty when none loaded. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00260">260</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00289">289</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00820">onPickFromCameraClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00900">setLoadedImage()</a>.</p>
 
@@ -2966,7 +3000,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 pattern-name text field. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00280">280</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00309">309</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>.</p>
 
@@ -2994,7 +3028,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 pattern-number spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00281">281</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00310">310</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>.</p>
 
@@ -3022,9 +3056,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Whether Step 2's "use original frame" toggle is on. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00262">262</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00291">291</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00082">keepOriginal()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00066">patternImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00095">keepOriginal()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01004">onKeepOriginalToggled()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01077">onPickCenter()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00079">patternImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -3050,7 +3084,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 image-loaded status label. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00284">284</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00313">313</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00843">onDiscardImageClicked()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00861">setCameraImage()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00900">setLoadedImage()</a>.</p>
 
@@ -3078,7 +3112,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 name-validation error label. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00282">282</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00311">311</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00975">onNameChanged()</a>.</p>
 
@@ -3106,7 +3140,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 1 number-validation error label. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00283">283</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00312">312</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00250">buildStepImage()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00989">onNumberChanged()</a>.</p>
 
@@ -3134,9 +3168,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Pattern name entered on Step 1. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00257">257</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00286">286</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00975">onNameChanged()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00056">patternName()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00975">onNameChanged()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00069">patternName()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -3162,9 +3196,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Pattern number entered on Step 1. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00258">258</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00287">287</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00989">onNumberChanged()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00058">patternNumber()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00989">onNumberChanged()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00071">patternNumber()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -3190,9 +3224,9 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Pick point, in source-image pixel coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00264">264</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00293">293</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00095">pickX()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00097">pickY()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00108">pickX()</a>, <a class="el" href="add__pattern__wizard_8h_source.html#l00110">pickY()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00771">refreshFinishSummary()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00727">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -3218,7 +3252,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 3 click-to-pick canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00299">299</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00328">328</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00404">buildStepPick()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>.</p>
 
@@ -3246,7 +3280,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 3 pick-X spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00300">300</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00329">329</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00404">buildStepPick()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>.</p>
 
@@ -3274,7 +3308,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step 3 pick-Y spin box. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00301">301</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00330">330</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00468">buildStepBox()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00404">buildStepPick()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00914">onImageSizeChanged()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l01060">onPickChanged()</a>.</p>
 
@@ -3302,7 +3336,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Stacked widget holding the 5 step pages. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00270">270</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00299">299</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00085">buildUi()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -3330,7 +3364,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Numbered circular labels in the step rail. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00271">271</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00300">300</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00162">buildStepRail()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00693">updateStepRail()</a>.</p>
 
@@ -3358,7 +3392,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Step-name labels in the step rail. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00272">272</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00301">301</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00162">buildStepRail()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00693">updateStepRail()</a>.</p>
 
@@ -3386,7 +3420,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Header subtitle label (group name). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00273">273</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00302">302</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00112">buildHeader()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00621">goToStep()</a>.</p>
 
@@ -3414,7 +3448,7 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Existing pattern names in the group (Step 1 duplicate check). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00253">253</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00282">282</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00062">AddPatternWizard()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00975">onNameChanged()</a>.</p>
 
@@ -3442,15 +3476,15 @@ Result accessors (<a class="el" href="#a80f2b7a0a0814e9561b81eef91d25233" title=
 
 <p>Existing pattern numbers in the group (Step 1 duplicate check). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00254">254</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__wizard_8h_source.html#l00283">283</a> of file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__wizard_8cpp_source.html#l00062">AddPatternWizard()</a>, <a class="el" href="add__pattern__wizard_8cpp_source.html#l00709">currentStepValid()</a>, and <a class="el" href="add__pattern__wizard_8cpp_source.html#l00989">onNumberChanged()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="add__pattern__wizard_8cpp_source.html">add_pattern_wizard.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

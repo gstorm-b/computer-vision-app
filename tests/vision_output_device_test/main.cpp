@@ -138,13 +138,16 @@ private slots:
     }
 
     void test_request_payload_format() {
+        // x, y, z, rx, ry, rz — the pre-Phase-5 `r` is now the trailing rz axis.
         QVector<VisionOutputPosition> positions = {
-            {10.0, 20.0, 0.0, 90.0},
-            {15.0, 25.0, 0.0, 0.0},
+            {10.0, 20.0, 0.0, 0.0, 0.0, 90.0},
+            {15.0, 25.0, 0.0, 0.0, 0.0, 0.0},
         };
         VisionOutputRequest req(positions);
         QCOMPARE(req.buildPayload(),
-                 QByteArray("2,00010.00,00020.00,00000.00,00090.00,00015.00,00025.00,00000.00,00000.00;"));
+                 QByteArray("2,"
+                            "00010.00,00020.00,00000.00,00000.00,00000.00,00090.00,"
+                            "00015.00,00025.00,00000.00,00000.00,00000.00,00000.00;"));
 
         VisionOutputRequest empty(QVector<VisionOutputPosition>{});
         QCOMPARE(empty.buildPayload(), QByteArray("0;"));
@@ -195,10 +198,11 @@ private slots:
         QCOMPARE(device.connectStatus(), ConnectStatus::Connected);
 
         // Result push from the server reaches the client's main socket.
-        VisionOutputRequest result(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 4.0}});
+        VisionOutputRequest result(QVector<VisionOutputPosition>{{1.0, 2.0, 3.0, 0.0, 0.0, 4.0}});
         QVERIFY(device.pushRequest(&result));
         QVERIFY(waitFor([&]() { return peer.mainRx().contains(';'); }));
-        QCOMPARE(peer.mainRx(), QByteArray("1,00001.00,00002.00,00003.00,00004.00;"));
+        QCOMPARE(peer.mainRx(),
+                 QByteArray("1,00001.00,00002.00,00003.00,00000.00,00000.00,00004.00;"));
 
         // A ';'-framed message from the client is surfaced as a request.
         peer.sendMain(QByteArray("trigger;"));
@@ -270,10 +274,11 @@ private slots:
 
         // The server still has exactly one main client and forwards a push to it.
         QVERIFY(device.isMainClientConnected());
-        VisionOutputRequest result(QVector<VisionOutputPosition>{{5.0, 6.0, 7.0, 8.0}});
+        VisionOutputRequest result(QVector<VisionOutputPosition>{{5.0, 6.0, 7.0, 0.0, 0.0, 8.0}});
         QVERIFY(device.pushRequest(&result));
         QVERIFY(waitFor([&]() { return first.mainRx().contains(';'); }));
-        QCOMPARE(first.mainRx(), QByteArray("1,00005.00,00006.00,00007.00,00008.00;"));
+        QCOMPARE(first.mainRx(),
+                 QByteArray("1,00005.00,00006.00,00007.00,00000.00,00000.00,00008.00;"));
 
         device.deviceDisconnect();
     }

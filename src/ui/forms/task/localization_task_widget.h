@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QMap>
 #include <QButtonGroup>
+#include <QPushButton>
 
 #include "ui/widgets/controls/device_nav_item_widget.h"
 #include "ui/widgets/controls/status_lamp_dot.h"
@@ -15,22 +16,32 @@ namespace Ui {
 class LocalizationTaskWidget;
 }
 
-/// Task-configuration widget for a LocalizationTask: a left-hand nav panel
-/// (task header, status lamps, Dashboard/Patterns/Settings buttons, and the
-/// assigned-device list) driving a right-hand breadcrumb bar plus
-/// content_stack that swaps between the Dashboard, Settings, Patterns, and
-/// per-device configuration pages.
-///
-///  Layout:
-///    ┌──────────────┬──────────────────────────────────────────┐
-///    │  Nav panel   │  Breadcrumb bar (36px)                   │
-///    │  (188px)     ├──────────────────────────────────────────┤
-///    │  task header │  content_stack                           │
-///    │  status lamps│  [0] Dashboard                           │
-///    │  [Dashboard] │  [1] Settings                            │
-///    │  [Devices]   │  [2+] Device config                      │
-///    │  [Settings]  │                                          │
-///    └──────────────┴──────────────────────────────────────────┘
+/**
+ * @file localization_task_widget.h
+ * @brief LocalizationTaskWidget — task-configuration widget for a LocalizationTask.
+ */
+
+/**
+ * @class LocalizationTaskWidget
+ * @brief Task-configuration widget for a LocalizationTask: a left-hand nav panel
+ *        (task header, status lamps, Dashboard/Patterns/Settings buttons, and the
+ *        assigned-device list) driving a right-hand breadcrumb bar plus
+ *        content_stack that swaps between the Dashboard, Settings, Patterns, and
+ *        per-device configuration pages.
+ *
+ * Layout:
+ * @code
+ *    ┌──────────────┬──────────────────────────────────────────┐
+ *    │  Nav panel   │  Breadcrumb bar (36px)                   │
+ *    │  (188px)     ├──────────────────────────────────────────┤
+ *    │  task header │  content_stack                           │
+ *    │  status lamps│  [0] Dashboard                           │
+ *    │  [Dashboard] │  [1] Settings                            │
+ *    │  [Devices]   │  [2+] Device config                      │
+ *    │  [Settings]  │                                          │
+ *    └──────────────┴──────────────────────────────────────────┘
+ * @endcode
+ */
 class LocalizationTaskWidget : public ITaskWidget {
     Q_OBJECT
 
@@ -172,8 +183,11 @@ private:
     std::shared_ptr<vc::device::IDevice> m_commDevice;  ///< Unused: declared but never assigned or read.
 
     // ── Nav: status lamps ─────────────────────────────────────────────────
-    /// One status-lamp column (dot + text label) shown in the nav panel's
-    /// status-lamp row (READY/CAM/PLC/OUT).
+    /**
+     * @struct StatusLamp
+     * @brief One status-lamp column (dot + text label) shown in the nav panel's
+     *        status-lamp row (READY/CAM/PLC/OUT).
+     */
     struct StatusLamp {
         StatusLampDot *dot{nullptr};
         StatusTextLabel *label{nullptr};

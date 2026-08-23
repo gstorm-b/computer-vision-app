@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/task_state_machine.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/task_state_machine.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('task__state__m
   <div class="headertitle"><div class="title">task_state_machine.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Task model layer: per-task configuration types, state machines, and device/camera bindings for the picking application.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QString&gt;</code><br />
 <code>#include &quot;<a class="el" href="task__define_8h_source.html">model/task_define.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -138,15 +141,22 @@ This graph shows which files directly or indirectly include this file:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a776571bcfc72ff92cc7dc9f5d30e24b4" id="r_a776571bcfc72ff92cc7dc9f5d30e24b4"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#a776571bcfc72ff92cc7dc9f5d30e24b4">vc::model::buildInvalidTaskStateTransitionMessage</a> (<a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> from, <a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> to, const QString &amp;reason=QString())</td></tr>
+<tr class="memdesc:a776571bcfc72ff92cc7dc9f5d30e24b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a human-readable log message describing a rejected task state transition, in the form "Rejected task state transition: &lt;from&gt; -&gt; &lt;to&gt;", optionally suffixed with "(reason)".  <br /></td></tr>
 <tr class="memitem:ab3915767aafc338ba34d830576eb4cda" id="r_ab3915767aafc338ba34d830576eb4cda"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#ab3915767aafc338ba34d830576eb4cda">vc::model::buildTaskStateTransitionMessage</a> (<a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> from, <a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> to, const QString &amp;reason=QString())</td></tr>
+<tr class="memdesc:ab3915767aafc338ba34d830576eb4cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a human-readable log message describing an accepted task state transition, in the form "Task state transition: &lt;from&gt; -&gt; &lt;to&gt;", optionally suffixed with "(reason)".  <br /></td></tr>
 <tr class="memitem:ae3e7c50d5cdaebecaf06c4ba6a6ce703" id="r_ae3e7c50d5cdaebecaf06c4ba6a6ce703"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#ae3e7c50d5cdaebecaf06c4ba6a6ce703">vc::model::canTransitionTaskState</a> (<a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> from, <a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> to)</td></tr>
+<tr class="memdesc:ae3e7c50d5cdaebecaf06c4ba6a6ce703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a task is allowed to move from state <span class="tt">from</span> to state <span class="tt">to</span> according to the task lifecycle graph (Idle -&gt; Commission* -&gt; Runtime* -&gt; Ready/RunningCycle/ Recovering -&gt; Stopping -&gt; Idle, with Faulted reachable from most states and only able to proceed to Stopping). Staying in the same state is always allowed.  <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Task model layer: per-task configuration types, state machines, and device/camera bindings for the picking application. </p>
+
+<p class="definition">Definition in file <a class="el" href="task__state__machine_8h_source.html">task_state_machine.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

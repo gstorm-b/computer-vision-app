@@ -6,32 +6,45 @@
 #include "opencv2/imgcodecs.hpp"
 #include "match_pattern.h"
 
-/// Vision/matching module: MatchedObject, the per-match result geometry and
-/// picking/collision state produced by ImageMatcher.
+/**
+ * @file match_object.h
+ * @brief MatchedObject — per-match result geometry and picking/collision state produced by
+ *        ImageMatcher.
+ */
+
 namespace mtc {
 
 class ImageMatcher;
 
-/// One matched pattern instance found by ImageMatcher: its geometry (corners,
-/// center, angle, score), picking/collision state, and a non-owning link back
-/// to the MatchPattern it was matched against.
+/**
+ * @class MatchedObject
+ * @brief One matched pattern instance found by ImageMatcher: its geometry (corners,
+ *        center, angle, score), picking/collision state, and a non-owning link back
+ *        to the MatchPattern it was matched against.
+ */
 class MatchedObject {
 public:
-    /// Geometry of the two gripper jaw boxes computed around a matched object's
-    /// pick point, used for both drawing and collision testing.
-    struct GripperBox {
+    /**
+     * @struct CollisionGeometry
+     * @brief Geometry of the two gripper jaw boxes computed around a matched object's
+     *        pick point, used for both drawing and collision testing.
+     */
+    struct CollisionGeometry {
         cv::RotatedRect box_left;                  ///< Oriented rect of the left jaw.
         cv::RotatedRect box_right;                 ///< Oriented rect of the right jaw.
         std::vector<cv::Point2f> box_left_pts;     ///< Corner points of box_left (from RotatedRect::points()).
         std::vector<cv::Point2f> box_right_pts;    ///< Corner points of box_right (from RotatedRect::points()).
-        cv::Point2f center;                        ///< Unused/reserved center point (not set by computeGripperBox).
-        double distance;                            ///< Unused/reserved jaw distance (not set by computeGripperBox).
+        cv::Point2f center;                        ///< Unused/reserved center point (not set by computeCollisionGeometry).
+        double distance;                            ///< Unused/reserved jaw distance (not set by computeCollisionGeometry).
     };
 
-    /// Spatial relationship of the gripper jaws to the detected part footprints.
-    ///   Outside   - jaws land entirely in free space (pickable)
-    ///   Inside    - jaws sit entirely on top of one part footprint
-    ///   Collision - jaws straddle a part boundary
+    /**
+     * @enum CollisionState
+     * @brief Spatial relationship of the gripper jaws to the detected part footprints.
+     *   - Outside   — jaws land entirely in free space (pickable)
+     *   - Inside    — jaws sit entirely on top of one part footprint
+     *   - Collision — jaws straddle a part boundary
+     */
     enum class CollisionState { Outside, Inside, Collision };
 
     /// Default-constructs an unmatched object with zeroed geometry, no parent
@@ -112,48 +125,50 @@ public:
 
     /// Draws both gripper jaw quads (as closed 4-point outlines) onto `image`
     /// in `color`.
-    void drawGripperBoxToImage(cv::Mat &image, cv::Scalar color) {
+    void drawCollisionGeometryToImage(cv::Mat &image, cv::Scalar color) {
         for (int i=0; i<4; i++) {
-            cv::line(image, m_gripperBox.box_right_pts[i],
-                     m_gripperBox.box_right_pts[(i+1)%4], color, 1);
+            cv::line(image, m_collisionGeometry.box_right_pts[i],
+                     m_collisionGeometry.box_right_pts[(i+1)%4], color, 1);
         }
 
         for (int i=0; i<4; i++) {
-            cv::line(image, m_gripperBox.box_left_pts[i],
-                     m_gripperBox.box_left_pts[(i+1)%4], color, 1);
+            cv::line(image, m_collisionGeometry.box_left_pts[i],
+                     m_collisionGeometry.box_left_pts[(i+1)%4], color, 1);
         }
     }
 
     /// Computes both gripper jaw boxes at `distance` from point_Center along the
-    /// (point_angle + angle) direction, each sized `box_size` and oriented at
-    /// (point_angle + angle); also fills their corner-point vectors.
-    void computeGripperBox(cv::Size box_size, double distance, double angle) {
-        double rad = (point_angle + angle) * CV_PI / 180.0f;
+    /// angle direction, each sized `box_size` and oriented at angle;
+    /// also fills their corner-point vectors.
+    void computeCollisionGeometry(cv::Size box_size, double distance, double angle) {
+        double rad = angle * CV_PI / 180.0f;
         cv::Point2f offset(distance * cos(rad), distance * sin(rad));
-        m_gripperBox.box_right = cv::RotatedRect(point_Center + offset, box_size, point_angle + angle);
-        m_gripperBox.box_left = cv::RotatedRect(point_Center - offset, box_size, point_angle + angle);
-        m_gripperBox.box_right.points(m_gripperBox.box_right_pts);
-        m_gripperBox.box_left.points(m_gripperBox.box_left_pts);
+        m_collisionGeometry.box_right = cv::RotatedRect(point_Center + offset, box_size, angle);
+        m_collisionGeometry.box_left = cv::RotatedRect(point_Center - offset, box_size, angle);
+        m_collisionGeometry.box_right.points(m_collisionGeometry.box_right_pts);
+        m_collisionGeometry.box_left.points(m_collisionGeometry.box_left_pts);
     }
 
-    /// Point-in-polygon collision test: sets m_hasCollision if any vertex of any
-    /// contour named by `indexes` falls inside either gripper jaw quad. Superseded
-    /// by checkCollisionObject2, which also catches a jaw lying wholly inside a
-    /// contour with no vertex inside the jaw.
-    /// @param contours full contour list; only the contours at `indexes` are tested
-    /// @param indexes indexes into `contours` to test against the jaws
-    /// @return the resulting m_hasCollision value
+    /**
+     * @brief Point-in-polygon collision test: sets m_hasCollision if any vertex of any
+     *        contour named by `indexes` falls inside either gripper jaw quad. Superseded
+     *        by checkCollisionObject2, which also catches a jaw lying wholly inside a
+     *        contour with no vertex inside the jaw.
+     * @param[in,out] contours full contour list; only the contours at `indexes` are tested
+     * @param[in]     indexes  indexes into `contours` to test against the jaws
+     * @return the resulting m_hasCollision value
+     */
     bool checkCollisionObject(std::vector<std::vector<cv::Point>> &contours, std::vector<int> &indexes) {
         m_hasCollision = false;
         for(int idx=0;idx<indexes.size();idx++) {
             std::vector<cv::Point>& con = contours.at(indexes[idx]);
             for(int con_idx=0;con_idx<con.size();con_idx++) {
-                if(cv::pointPolygonTest(m_gripperBox.box_left_pts, con.at(con_idx), false) >= 0) {
+                if(cv::pointPolygonTest(m_collisionGeometry.box_left_pts, con.at(con_idx), false) >= 0) {
                     m_hasCollision = true;
                     goto _ret_point;
                 }
 
-                if(cv::pointPolygonTest(m_gripperBox.box_right_pts, con.at(con_idx), false) >= 0) {
+                if(cv::pointPolygonTest(m_collisionGeometry.box_right_pts, con.at(con_idx), false) >= 0) {
                     m_hasCollision = true;
                     goto _ret_point;
                 }
@@ -164,19 +179,22 @@ public:
         return m_hasCollision;
     }
 
-    /// Mask-based collision test between the two gripper jaws and the filled
-    /// part footprints in contourMask (single-channel CV_8UC1, 0 = free,
-    /// non-zero = part), which must be in the same pixel frame as the already
-    /// translated jaw points. Unlike checkCollisionObject, rasterising both
-    /// shapes and intersecting their filled areas also catches the case where a
-    /// jaw lies wholly inside a large part (no contour vertex falls inside the
-    /// jaw) - a false negative the point-in-polygon test cannot see.
-    ///
-    /// For speed the intersection is evaluated only inside the union bounding
-    /// box of the two jaws: outside that box the gripper mask is empty, so
-    /// scanning the whole image would be wasted work.
-    /// @param contourMask filled-contour footprint mask; empty mask short-circuits to Outside
-    /// @return Outside (no overlap), Inside (jaws fully within the footprint), or Collision (partial overlap); also stored in m_collisionState/m_hasCollision
+    /**
+     * @brief Mask-based collision test between the two gripper jaws and the filled part
+     *        footprints in contourMask (single-channel CV_8UC1, 0 = free, non-zero = part).
+     *
+     * Unlike checkCollisionObject, rasterising both shapes and intersecting their filled
+     * areas also catches the case where a jaw lies wholly inside a large part (no contour
+     * vertex falls inside the jaw) — a false negative the point-in-polygon test cannot see.
+     *
+     * For speed the intersection is evaluated only inside the union bounding box of the two
+     * jaws: outside that box the gripper mask is empty, so scanning the whole image would be
+     * wasted work.
+     *
+     * @param[in] contourMask filled-contour footprint mask; empty mask short-circuits to Outside
+     * @return Outside (no overlap), Inside (jaws fully within the footprint), or Collision
+     *         (partial overlap); also stored in m_collisionState/m_hasCollision
+     */
     CollisionState checkCollisionObject2(const cv::Mat &contourMask) {
         m_collisionState = CollisionState::Outside;
         m_hasCollision = false;
@@ -188,9 +206,9 @@ public:
         // legitimately extend off-image; the off-image part cannot overlap any
         // contour, so clamping is safe.
         std::vector<cv::Point2f> allPts;
-        allPts.reserve(m_gripperBox.box_left_pts.size() + m_gripperBox.box_right_pts.size());
-        allPts.insert(allPts.end(), m_gripperBox.box_left_pts.begin(), m_gripperBox.box_left_pts.end());
-        allPts.insert(allPts.end(), m_gripperBox.box_right_pts.begin(), m_gripperBox.box_right_pts.end());
+        allPts.reserve(m_collisionGeometry.box_left_pts.size() + m_collisionGeometry.box_right_pts.size());
+        allPts.insert(allPts.end(), m_collisionGeometry.box_left_pts.begin(), m_collisionGeometry.box_left_pts.end());
+        allPts.insert(allPts.end(), m_collisionGeometry.box_right_pts.begin(), m_collisionGeometry.box_right_pts.end());
         if (allPts.empty()) {
             return m_collisionState;
         }
@@ -204,8 +222,8 @@ public:
         // crop-local coordinates. Each jaw is a convex quad.
         cv::Mat gripperCrop = cv::Mat::zeros(bbox.size(), CV_8UC1);
         const cv::Point shift = bbox.tl();
-        fillJawInto(gripperCrop, m_gripperBox.box_left_pts, shift);
-        fillJawInto(gripperCrop, m_gripperBox.box_right_pts, shift);
+        fillJawInto(gripperCrop, m_collisionGeometry.box_left_pts, shift);
+        fillJawInto(gripperCrop, m_collisionGeometry.box_right_pts, shift);
 
         // contourMask(bbox) is a view (no copy); AND it with the jaw mask.
         cv::Mat inter;
@@ -267,17 +285,19 @@ public:
         m_isPossibleToPicking = state;
     }
 
-    /// Returns the two computed gripper jaw boxes (see computeGripperBox).
-    const GripperBox& gripperBox() const {
-        return m_gripperBox;
+    /// Returns the two computed gripper jaw boxes (see computeCollisionGeometry).
+    const CollisionGeometry& collisionGeometry() const {
+        return m_collisionGeometry;
     }
 
 private:
-    /// Rasterise one convex jaw quad into mask, translating its points into the
-    /// crop-local frame by subtracting shift.
-    /// @param mask output mask, filled in place (255 inside the quad)
-    /// @param pts jaw corner points, in the same frame as `shift`; no-op if fewer than 3
-    /// @param shift crop-local origin subtracted from each point before filling
+    /**
+     * @brief Rasterises one convex jaw quad into mask, translating its points into the
+     *        crop-local frame by subtracting shift.
+     * @param[in,out] mask  output mask, filled in place (255 inside the quad)
+     * @param[in]     pts   jaw corner points, in the same frame as `shift`; no-op if fewer than 3
+     * @param[in]     shift crop-local origin subtracted from each point before filling
+     */
     static void fillJawInto(cv::Mat &mask, const std::vector<cv::Point2f> &pts,
                             const cv::Point &shift) {
         if (pts.size() < 3) {
@@ -359,7 +379,8 @@ public:
     cv::Point2f point_LB;         ///< Bottom-left corner of the matched template footprint.
     cv::Point2f point_RB;         ///< Bottom-right corner of the matched template footprint.
     cv::Point2f point_Center;     ///< Pick-point center, derived from the pattern's learned pick position.
-    cv::Point3f point_offset;     ///< Pick offset copied from the pattern's config (MatchPatternConfig::m_pickingOffset).
+    cv::Point3f point_offset;     ///< Pick XYZ offset (mm) copied from the pattern's config (MatchPatternConfig::m_pickingOffset).
+    cv::Point3f point_rotation_offset; ///< Pick RX/RY/RZ offset (deg, TOOL frame) copied from MatchPatternConfig::m_pickingRotationOffset.
     cv::RotatedRect pickingBox;   ///< Oriented picking-box rect, sized/positioned from the pattern's picking-box config.
     double point_angle;           ///< Absolute pick angle: matched_Angle plus the pattern's learned reference angle (see computePointAngle).
     double matched_Angle;         ///< Raw rotation angle at which the template matched, wrapped into (-180, 180] (see computeMatchAngle).
@@ -370,7 +391,7 @@ public:
 
 private:
     MatchPattern *m_parent{nullptr};                        ///< Non-owning pointer to the pattern this object was matched against.
-    GripperBox m_gripperBox;                                 ///< Computed gripper jaw geometry (see computeGripperBox).
+    CollisionGeometry m_collisionGeometry;                    ///< Computed gripper jaw geometry (see computeCollisionGeometry).
     CollisionState m_collisionState{CollisionState::Outside}; ///< Result of the last checkCollisionObject2 call.
     bool m_hasCollision{false};                               ///< Result of the last collision check.
     bool m_isPossibleToPicking{false};                        ///< Robot-pickability state (see isPossibleToPick/setPossibleToPick).

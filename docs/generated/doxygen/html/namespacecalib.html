@@ -119,9 +119,6 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('namespacecalib
   <div class="headertitle"><div class="title">calib Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Calibration board synthesis, detection, and factory types.  
-<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -132,9 +129,13 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:CalibrationBoard" id="r_CalibrationBoard"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base class for calibration board synthesis/detection.  <a href="classcalib_1_1_calibration_board.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CalibrationBoardFactory" id="r_CalibrationBoardFactory"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibration_board_factory.html">CalibrationBoardFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centralised allocator for <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a> subclasses. Returns base-class std::unique_ptr&lt;CalibrationBoard&gt; so callers can stay board-agnostic.  <a href="classcalib_1_1_calibration_board_factory.html#details">More...</a><br /></td></tr>
 <tr class="memitem:Calibrator" id="r_Calibrator"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibrator.html">Calibrator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Holds a planar 2D ↔ 3D calibration between the camera image and the robot world.  <a href="classcalib_1_1_calibrator.html#details">More...</a><br /></td></tr>
 <tr class="memitem:FanucIRvisionBoard" id="r_FanucIRvisionBoard"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fanuc iRVision-style dot grid calibration board (concrete <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a>).  <a href="classcalib_1_1_fanuc_i_rvision_board.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -145,12 +146,10 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0c3719b9f0eff8383a33e475d55e9f81" id="r_a0c3719b9f0eff8383a33e475d55e9f81"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0c3719b9f0eff8383a33e475d55e9f81">writePrintablePng</a> (const std::string &amp;path, const cv::Mat &amp;img, double pxPerMm)</td></tr>
+<tr class="memdesc:a0c3719b9f0eff8383a33e475d55e9f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a PNG file with an embedded pHYs chunk so the printer/viewer can render the image at the correct physical size (1:1 mm scale).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Calibration board synthesis, detection, and factory types. </p>
-<p>Calibration board generation/detection types (board synthesis, presets, factory).</p>
-<p>Implementation of the <a class="el" href="classcalib_1_1_calibrator.html">Calibrator</a> class: homography + work-plane fitting, angle conversion, and cv::FileStorage-based persistence (see <a class="el" href="calibrator_8h.html">calibrator.h</a>).</p>
-<p>Calibration and coordinate-conversion utilities for mapping between camera image space and robot world space. </p>
+<div class="textblock"><p>Implementation of the <a class="el" href="classcalib_1_1_calibrator.html" title="Holds a planar 2D ↔ 3D calibration between the camera image and the robot world.">Calibrator</a> class: homography + work-plane fitting, angle conversion, and cv::FileStorage-based persistence (see <a class="el" href="calibrator_8h.html" title="Calibrator — planar 2D↔3D camera/robot calibration via homography + work-plane fitting.">calibrator.h</a>). </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="aa21d7855d1fe4ab6a08379ffc43ad592" name="aa21d7855d1fe4ab6a08379ffc43ad592"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa21d7855d1fe4ab6a08379ffc43ad592">&#9670;&#160;</a></span>CalibrationBoardType</h2>
@@ -177,7 +176,7 @@ Functions</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa21d7855d1fe4ab6a08379ffc43ad592a380997e20440b3c237a771a33309af13" name="aa21d7855d1fe4ab6a08379ffc43ad592a380997e20440b3c237a771a33309af13"></a>FanucIRvision&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board__factory_8h_source.html#l00015">15</a> of file <a class="el" href="calibration__board__factory_8h_source.html">calibration_board_factory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board__factory_8h_source.html#l00022">22</a> of file <a class="el" href="calibration__board__factory_8h_source.html">calibration_board_factory.h</a>.</p>
 
 </div>
 </div>
@@ -205,10 +204,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Writes a PNG file with an embedded pHYs chunk so the printer/viewer can render the image at the correct physical size (1:1 mm scale). </p>
 <p>Encodes <span class="tt">img</span> as PNG, locates the first IDAT chunk, and inserts a pHYs chunk (pixels per meter, derived from <span class="tt">pxPerMm</span>) immediately before it so viewers/printers render at the correct physical scale, then writes the result to <span class="tt">path</span>. </p><dl class="section return"><dt>Returns</dt><dd>false if <span class="tt">img</span> is empty, <span class="tt">pxPerMm</span> is not positive, PNG encoding fails, the encoded signature/IDAT chunk cannot be located, or the file write fails</dd></dl>
-<p>Writes a PNG file with an embedded pHYs chunk so the printer / viewer can render the image at the correct physical size (1:1 mm scale). </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pxPerMm</td><td>the rendering resolution of <span class="tt">img</span> (e.g. 300/25.4 for 300 DPI) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>destination file path </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">img</td><td>image to encode and write </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pxPerMm</td><td>rendering resolution of <span class="tt">img</span> (e.g. 300/25.4 for 300 DPI) </td></tr>
   </table>
   </dd>
 </dl>

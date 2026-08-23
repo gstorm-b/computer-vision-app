@@ -9,43 +9,54 @@ class QtVariantPropertyManager;
 class QtVariantProperty;
 class QtProperty;
 
-/// Property-browser adapters for editing matching configuration (group/algorithm
-/// parameters, pattern trees) via QtVariantPropertyManager/Browser.
+/**
+ * @file match_config_property_adapter.h
+ * @brief Property-browser adapters for editing matching configuration (group/algorithm
+ *        parameters, pattern trees) via QtVariantPropertyManager/Browser.
+ */
+
 namespace mtc {
 
 class MatchGroupConfig;
 
-/// Bridges a group's algorithm config (MatchGroupConfig::typeConfig) to a
-/// QtVariantPropertyManager/Browser. The edge/algorithm parameters are shared
-/// by every pattern in the group, so they are edited at the group level; the
-/// currently-bound config's matching type determines which property spec table
-/// (e.g. kEdgeSpecs) drives the generated property tree.
-///
-/// Usage:
-///   auto* adapter = new MatchConfigPropertyAdapter(variantMgr, this);
-///   adapter->bind(&myGroupConfig);
-///   for (auto* p : adapter->rootProperties())
-///       browser->addProperty(p);
-///   // property edits are automatically committed back to the group config
-///   // and configModified() is emitted
-///
-/// Extending — adding a new EdgeBased setting requires only two steps:
-///   1. Add the field to EdgeMatchConfig.
-///   2. Add ONE entry to kEdgeSpecs[] in match_config_property_adapter.cpp.
-///   Nothing else changes.
-///
-/// Extending — adding a new algorithm type:
-///   1. Implement IMatchTypeConfig + matching_types.h as documented there.
-///   2. Add a PropSpec table for the new type in the .cpp.
-///   3. Add a branch in buildTypeGroup() to use that table.
+/**
+ * @class MatchConfigPropertyAdapter
+ * @brief Bridges a group's algorithm config (MatchGroupConfig::typeConfig) to a
+ *        QtVariantPropertyManager/Browser. The edge/algorithm parameters are shared
+ *        by every pattern in the group, so they are edited at the group level; the
+ *        currently-bound config's matching type determines which property spec table
+ *        (e.g. kEdgeSpecs) drives the generated property tree.
+ *
+ * Usage:
+ * @code
+ *   auto* adapter = new MatchConfigPropertyAdapter(variantMgr, this);
+ *   adapter->bind(&myGroupConfig);
+ *   for (auto* p : adapter->rootProperties())
+ *       browser->addProperty(p);
+ *   // property edits are automatically committed back to the group config
+ *   // and configModified() is emitted
+ * @endcode
+ *
+ * Extending — adding a new EdgeBased setting requires only two steps:
+ *   1. Add the field to EdgeMatchConfig.
+ *   2. Add ONE entry to kEdgeSpecs[] in match_config_property_adapter.cpp.
+ *   Nothing else changes.
+ *
+ * Extending — adding a new algorithm type:
+ *   1. Implement IMatchTypeConfig + matching_types.h as documented there.
+ *   2. Add a PropSpec table for the new type in the .cpp.
+ *   3. Add a branch in buildTypeGroup() to use that table.
+ */
 class MatchConfigPropertyAdapter : public QObject {
     Q_OBJECT
 
 public:
-    /// Constructs the adapter, connecting to `mgr`'s valueChanged signal so
-    /// edits made in the property browser are routed to onPropertyValueChanged().
-    /// @param mgr shared QtVariantPropertyManager this adapter adds its properties to
-    /// @param parent optional QObject owner
+    /**
+     * @brief Constructs the adapter, connecting to `mgr`'s valueChanged signal so
+     *        edits made in the property browser are routed to onPropertyValueChanged().
+     * @param[in] mgr    shared QtVariantPropertyManager this adapter adds its properties to
+     * @param[in] parent optional QObject owner
+     */
     explicit MatchConfigPropertyAdapter(QtVariantPropertyManager* mgr,
                                         QObject* parent = nullptr);
     /// Destroys the adapter, tearing down any properties it owns via destroy().

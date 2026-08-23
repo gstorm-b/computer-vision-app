@@ -1,21 +1,26 @@
 #ifndef VISION_OUTPUT_RUNNER_H
 #define VISION_OUTPUT_RUNNER_H
 
+/**
+ * @file vision_output_runner.h
+ * @brief VisionOutputRunner — per-device thread runner for the VisionOutput device family:
+ *        thread lifecycle, signal wiring, and request forwarding to the device's worker thread.
+ */
+
 #include "runtime/device_runner.h"
 #include "device/output_device/vision_output_device.h"
 #include "device/output_device/vision_output_request.h"
 
 #include <QMetaObject>
 
-
-/// Runner for the VisionOutput device family: thread lifecycle, signal wiring,
-/// and per-device runners (see VisionOutputRunner).
 namespace vc::runtime {
 
-/// Per-device thread controller for vc::device::VisionOutputDevice: exposes
-/// thread-safe request*() entry points that queue work onto the device's own
-/// worker thread and forwards its connection-status/error signals back to the
-/// GUI thread.
+/**
+ * @class VisionOutputRunner
+ * @brief Per-device thread controller for vc::device::VisionOutputDevice: exposes thread-safe
+ *        request*() entry points that queue work onto the device's own worker thread and
+ *        forwards its connection-status/error signals back to the GUI thread.
+ */
 class VisionOutputRunner : public DeviceRunner<vc::device::VisionOutputDevice> {
     Q_OBJECT
 
@@ -33,10 +38,13 @@ public:
     /// Requests a disconnect via sig_disconnect(), queued onto the device thread.
     /// No-op while a previous request is still in flight (m_busy).
     void requestDisconnect() { if (!m_busy) { m_busy = true; emit sig_disconnect(); } }
-    /// Builds a VisionOutputRequest from `positions` and pushes it to the device
-    /// on the device's own thread via QMetaObject::invokeMethod, then emits
-    /// resultRequestFinished() with the outcome.
-    /// @param positions vision result positions to send to the output device
+    /**
+     * @brief Builds a VisionOutputRequest from `positions` and pushes it to the device on the
+     *        device's own thread via QMetaObject::invokeMethod.
+     * @param[in] positions vision result positions to send to the output device
+     * @post resultRequestFinished() is emitted asynchronously, from the device's worker thread,
+     *       once the push completes.
+     */
     void requestSendResult(const QVector<vc::device::VisionOutputPosition> &positions)
     {
         const QVector<vc::device::VisionOutputPosition> payload = positions;
@@ -51,8 +59,11 @@ public:
     }
 
 signals:
-    /// Emitted after requestSendResult() completes, reporting success/failure
-    /// and a human-readable message.
+    /**
+     * @brief Emitted after requestSendResult() completes.
+     * @param[in] ok whether the send succeeded.
+     * @param[in] message human-readable success/failure detail.
+     */
     void resultRequestFinished(bool ok, QString message);
 
     // ── Internal queued triggers ──────────────────────────────────────────────

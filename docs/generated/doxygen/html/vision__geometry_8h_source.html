@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/vision_geometry.h Source File</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/widgets/vision/vision_geometry.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -132,25 +132,26 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('vision__geomet
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="vision__overlay__types_8h.html">ui/widgets/vision/vision_overlay_types.h</a>&quot;</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacevision.html">vision</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>QPixmap <a class="code hl_function" href="namespacevision.html#aafd255cfd74dcf4bc24eaea1f7e16191">pixmapFromMat</a>(<span class="keyword">const</span> cv::Mat &amp;mat);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>QRectF <a class="code hl_function" href="namespacevision.html#a5c80cfe6092f8e23d08c2fd9e9986db4">rectFromRoi</a>(<span class="keyword">const</span> VisionRoi &amp;roi);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacevision.html">vision</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>QPixmap <a class="code hl_function" href="namespacevision.html#aafd255cfd74dcf4bc24eaea1f7e16191">pixmapFromMat</a>(<span class="keyword">const</span> cv::Mat &amp;mat);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>VisionRoi <a class="code hl_function" href="namespacevision.html#af486b61f8f4c67c102f67390147ea234">normalizedRoi</a>(<span class="keyword">const</span> VisionRoi &amp;roi);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>QRectF <a class="code hl_function" href="namespacevision.html#a5c80cfe6092f8e23d08c2fd9e9986db4">rectFromRoi</a>(<span class="keyword">const</span> VisionRoi &amp;roi);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>VisionRoi <a class="code hl_function" href="namespacevision.html#af4fa5740337fbb44c0e503af54b71c28">clampRoiToImage</a>(<span class="keyword">const</span> VisionRoi &amp;roi, <span class="keyword">const</span> QSize &amp;imageSize);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>QVector&lt;QPointF&gt; <a class="code hl_function" href="namespacevision.html#a0d4c6eb921ad2b9d59788108fd2ebad0">roiCorners</a>(<span class="keyword">const</span> VisionRoi &amp;roi);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>QPolygonF <a class="code hl_function" href="namespacevision.html#a91314d12a5819d6588d83348cff1cca4">roiPolygon</a>(<span class="keyword">const</span> VisionRoi &amp;roi);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>QRectF <a class="code hl_function" href="namespacevision.html#a269bdf19ac533cc74e5f185bf949bd71">boundingRectForPoints</a>(<span class="keyword">const</span> QVector&lt;QPointF&gt; &amp;points);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace vision</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif </span><span class="comment">// VISION_GEOMETRY_H</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>VisionRoi <a class="code hl_function" href="namespacevision.html#af486b61f8f4c67c102f67390147ea234">normalizedRoi</a>(<span class="keyword">const</span> VisionRoi &amp;roi);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>VisionRoi <a class="code hl_function" href="namespacevision.html#af4fa5740337fbb44c0e503af54b71c28">clampRoiToImage</a>(<span class="keyword">const</span> VisionRoi &amp;roi, <span class="keyword">const</span> QSize &amp;imageSize);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>QVector&lt;QPointF&gt; <a class="code hl_function" href="namespacevision.html#a0d4c6eb921ad2b9d59788108fd2ebad0">roiCorners</a>(<span class="keyword">const</span> VisionRoi &amp;roi);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>QPolygonF <a class="code hl_function" href="namespacevision.html#a91314d12a5819d6588d83348cff1cca4">roiPolygon</a>(<span class="keyword">const</span> VisionRoi &amp;roi);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>QRectF <a class="code hl_function" href="namespacevision.html#a269bdf19ac533cc74e5f185bf949bd71">boundingRectForPoints</a>(<span class="keyword">const</span> QVector&lt;QPointF&gt; &amp;points);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <span class="comment">// namespace vision</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif </span><span class="comment">// VISION_GEOMETRY_H</span></div>
 <div class="ttc" id="anamespacevision_html"><div class="ttname"><a href="namespacevision.html">vision</a></div><div class="ttdef"><b>Definition</b> <a href="vision__geometry_8cpp_source.html#l00024">vision_geometry.cpp:24</a></div></div>
 <div class="ttc" id="anamespacevision_html_a0d4c6eb921ad2b9d59788108fd2ebad0"><div class="ttname"><a href="namespacevision.html#a0d4c6eb921ad2b9d59788108fd2ebad0">vision::roiCorners</a></div><div class="ttdeci">QVector&lt; QPointF &gt; roiCorners(const VisionRoi &amp;roi)</div><div class="ttdef"><b>Definition</b> <a href="vision__geometry_8cpp_source.html#l00098">vision_geometry.cpp:98</a></div></div>
 <div class="ttc" id="anamespacevision_html_a269bdf19ac533cc74e5f185bf949bd71"><div class="ttname"><a href="namespacevision.html#a269bdf19ac533cc74e5f185bf949bd71">vision::boundingRectForPoints</a></div><div class="ttdeci">QRectF boundingRectForPoints(const QVector&lt; QPointF &gt; &amp;points)</div><div class="ttdef"><b>Definition</b> <a href="vision__geometry_8cpp_source.html#l00128">vision_geometry.cpp:128</a></div></div>
@@ -159,7 +160,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('vision__geomet
 <div class="ttc" id="anamespacevision_html_aafd255cfd74dcf4bc24eaea1f7e16191"><div class="ttname"><a href="namespacevision.html#aafd255cfd74dcf4bc24eaea1f7e16191">vision::pixmapFromMat</a></div><div class="ttdeci">QPixmap pixmapFromMat(const cv::Mat &amp;mat)</div><div class="ttdef"><b>Definition</b> <a href="vision__geometry_8cpp_source.html#l00026">vision_geometry.cpp:26</a></div></div>
 <div class="ttc" id="anamespacevision_html_af486b61f8f4c67c102f67390147ea234"><div class="ttname"><a href="namespacevision.html#af486b61f8f4c67c102f67390147ea234">vision::normalizedRoi</a></div><div class="ttdeci">VisionRoi normalizedRoi(const VisionRoi &amp;roi)</div><div class="ttdef"><b>Definition</b> <a href="vision__geometry_8cpp_source.html#l00059">vision_geometry.cpp:59</a></div></div>
 <div class="ttc" id="anamespacevision_html_af4fa5740337fbb44c0e503af54b71c28"><div class="ttname"><a href="namespacevision.html#af4fa5740337fbb44c0e503af54b71c28">vision::clampRoiToImage</a></div><div class="ttdeci">VisionRoi clampRoiToImage(const VisionRoi &amp;roi, const QSize &amp;imageSize)</div><div class="ttdef"><b>Definition</b> <a href="vision__geometry_8cpp_source.html#l00070">vision_geometry.cpp:70</a></div></div>
-<div class="ttc" id="avision__overlay__types_8h_html"><div class="ttname"><a href="vision__overlay__types_8h.html">vision_overlay_types.h</a></div></div>
+<div class="ttc" id="avision__overlay__types_8h_html"><div class="ttname"><a href="vision__overlay__types_8h.html">vision_overlay_types.h</a></div><div class="ttdoc">VisionRoi/VisionResultObject/VisionResultOverlay — UI-facing value types shared by the vision canvas,...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

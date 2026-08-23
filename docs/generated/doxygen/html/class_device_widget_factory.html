@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_device_w
 </div><!--header-->
 <div class="contents">
 
+<p>Factory that maps a device (by its concrete device type/subtype) to the matching device-specific control widget (e.g. Basler camera, Mitsubishi MC PLC, vision output).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="device__widget__factory_8h_source.html">device_widget_factory.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for DeviceWidgetFactory:</div>
@@ -130,11 +133,12 @@ Collaboration diagram for DeviceWidgetFactory:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ad449b28080c20c2e90d641ced36d1571" id="r_ad449b28080c20c2e90d641ced36d1571"><td class="memItemLeft">static QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#ad449b28080c20c2e90d641ced36d1571">createDeviceWidget</a> (const std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a> &gt; &amp;device, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html">vc::runtime::IDeviceRunner</a> *runner, ads::CDockWidget *dock=nullptr, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:ad449b28080c20c2e90d641ced36d1571"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns the control widget appropriate for <code class="param">device's</code> runtime type/subtype, wiring it to <code class="param">runner</code> and, if given, hosting it inside <code class="param">dock</code>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Factory that maps a device (by its concrete device type/subtype) to the matching device-specific control widget (e.g. Basler camera, Mitsubishi MC PLC, vision output). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__widget__factory_8h_source.html#l00020">20</a> of file <a class="el" href="device__widget__factory_8h_source.html">device_widget_factory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__widget__factory_8h_source.html#l00028">28</a> of file <a class="el" href="device__widget__factory_8h_source.html">device_widget_factory.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="ad449b28080c20c2e90d641ced36d1571" name="ad449b28080c20c2e90d641ced36d1571"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad449b28080c20c2e90d641ced36d1571">&#9670;&#160;</a></span>createDeviceWidget()</h2>
@@ -172,29 +176,31 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates and returns the control widget appropriate for <span class="tt">device</span>'s runtime type/subtype, wiring it to <span class="tt">runner</span> and, if given, hosting it inside <span class="tt">dock</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Creates and returns the control widget appropriate for <code class="param">device's</code> runtime type/subtype, wiring it to <code class="param">runner</code> and, if given, hosting it inside <code class="param">dock</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>the device to create a widget for; dispatch is based on its deviceType() and, where applicable, its subtype (camera type, PLC type, vision output type) </td></tr>
-    <tr><td class="paramname">runner</td><td>the device runner to bind to the widget, cast to the subtype-specific runner interface expected by the created widget </td></tr>
-    <tr><td class="paramname">dock</td><td>optional dock widget host passed through to the created widget </td></tr>
-    <tr><td class="paramname">parent</td><td>optional parent widget passed through to the created widget </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>the device to create a widget for; dispatch is based on its deviceType() and, where applicable, its subtype (camera type, PLC type, vision output type) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">runner</td><td>the device runner to bind to the widget, cast to the subtype-specific runner interface expected by the created widget </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dock</td><td>optional dock widget host passed through to the created widget </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>optional parent widget passed through to the created widget </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a newly allocated widget owned by the caller, or nullptr if <span class="tt">device</span> is null or its type/subtype is not supported</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a newly allocated widget owned by the caller, or nullptr if <code class="param">device</code> is null or its type/subtype is not supported</dd></dl>
 <p>Dispatches on device-&gt;deviceType() (and the relevant subtype enum) to construct the matching device widget; logs via LOG_DEV_ERR and returns nullptr for a null device or any unsupported type/subtype combination. </p>
 
 <p class="definition">Definition at line <a class="el" href="device__widget__factory_8cpp_source.html#l00018">18</a> of file <a class="el" href="device__widget__factory_8cpp_source.html">device_widget_factory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00023">vc::device::BaslerGigE</a>, <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="plc__device_8h_source.html#l00020">vc::device::MitsubishiMc</a>, <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>, <a class="el" href="vision__output__config_8h_source.html#l00021">vc::device::VisionTCPIP</a>, and <a class="el" href="vision__output__config_8h_source.html#l00022">vc::device::VisionTcpipClient</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00030">vc::device::BaslerGigE</a>, <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="plc__device_8h_source.html#l00027">vc::device::MitsubishiMc</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>, <a class="el" href="vision__output__config_8h_source.html#l00028">vc::device::VisionTCPIP</a>, and <a class="el" href="vision__output__config_8h_source.html#l00029">vc::device::VisionTcpipClient</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00835">LocalizationTaskWidget::getOrCreateDeviceConfigPage()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="device__widget__factory_8h_source.html">device_widget_factory.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="device__widget__factory_8cpp_source.html">device_widget_factory.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="device__widget__factory_8h_source.html">device_widget_factory.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="device__widget__factory_8cpp_source.html">device_widget_factory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

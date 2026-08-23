@@ -56,6 +56,7 @@ constexpr SignalRowSpec kSignalRows[] = {
     { "bMatchingDetected",  SignalsMapWidget::Type::Bool },
     { "bMatchingLowArea",   SignalsMapWidget::Type::Bool },
     { "bTaskFault",         SignalsMapWidget::Type::Bool },
+    { "bErrorReset",        SignalsMapWidget::Type::Bool },
 };
 
 /// Thin wrapper over the shared vc::gadget_meta helpers (qgadget_marco.h),

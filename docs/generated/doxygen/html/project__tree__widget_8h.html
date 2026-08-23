@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/widgets/project_tree_widget.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/widgets/project_tree_widget.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('project__tree_
   <div class="headertitle"><div class="title">project_tree_widget.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="class_project_tree_widget.html" title="Displays the current project as a tree — project root, then each task with its assigned devices neste...">ProjectTreeWidget</a> — tree view of the current project (tasks and their assigned devices) with colored chip badges, plus its supporting delegate, tree-row-kind enum, and item-data-role namespace.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QWidget&gt;</code><br />
 <code>#include &lt;QTreeView&gt;</code><br />
 <code>#include &lt;QStandardItemModel&gt;</code><br />
@@ -137,7 +140,7 @@ Include dependency graph for project_tree_widget.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="project__tree__widget_8h__dep__incl.svg" width="183" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="project__tree__widget_8h__dep__incl.svg" width="175" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="project__tree__widget_8h_source.html">Go to the source code of this file.</a></p>
@@ -145,7 +148,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:ProjectTreeDelegate" id="r_ProjectTreeDelegate"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_project_tree_delegate.html">ProjectTreeDelegate</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Item delegate that paints the default row content shrunk to leave room on the right, then draws a rounded, translucent-filled chip badge sourced from <a class="el" href="namespace_tree_item_role.html#ab5e9b03050d753827840424ea92ea499" title="QString — &quot;LOC&quot; / &quot;CAM&quot; / &quot;PLC&quot;.">TreeItemRole::ChipText</a> / <a class="el" href="namespace_tree_item_role.html#a5f70ae76c23955f070dc5bb12fad042d" title="QString — token name, e.g. &quot;device.camera&quot;.">TreeItemRole::ChipColor</a> over that space; rows with no chip text fall back to plain QStyledItemDelegate painting.  <a href="class_project_tree_delegate.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ProjectTreeWidget" id="r_ProjectTreeWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_project_tree_widget.html">ProjectTreeWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the current project as a tree — project root, then each task with its assigned devices nested underneath, using colored chip badges (via <a class="el" href="class_project_tree_delegate.html" title="Item delegate that paints the default row content shrunk to leave room on the right,...">ProjectTreeDelegate</a>) to mark task/device type.  <a href="class_project_tree_widget.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -157,6 +162,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aa8383ec8251036f278da8fb417ae327baeaeb30f9f18e0c50b178676f3eaef45f">Task</a> = 1
 , <a class="el" href="#aa8383ec8251036f278da8fb417ae327bae0ac20adce6ffee48c7151b070aa5737">Device</a> = 2
  }</td></tr>
+<tr class="memdesc:aa8383ec8251036f278da8fb417ae327b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kind of tree row stored in <a class="el" href="namespace_tree_item_role.html#a02b3164734e4c2eb80a05191711e8ecd" title="int — 0:root 1:task 2:device">TreeItemRole::ItemKind</a>: the project root, a task node, or a device node.  <a href="#aa8383ec8251036f278da8fb417ae327b">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -171,7 +177,12 @@ Variables</h2></td></tr>
 <tr class="memitem:a56fead282c11cd84b3c9a4638e50a93a" id="r_a56fead282c11cd84b3c9a4638e50a93a"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespace_tree_item_role.html#a56fead282c11cd84b3c9a4638e50a93a">TreeItemRole::ParentId</a> = Qt::UserRole + 2</td></tr>
 <tr class="memdesc:a56fead282c11cd84b3c9a4638e50a93a"><td class="mdescLeft">&#160;</td><td class="mdescRight">QString — parent task ID (devices only).  <br /></td></tr>
 </table>
-<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_project_tree_widget.html" title="Displays the current project as a tree — project root, then each task with its assigned devices neste...">ProjectTreeWidget</a> — tree view of the current project (tasks and their assigned devices) with colored chip badges, plus its supporting delegate, tree-row-kind enum, and item-data-role namespace. </p>
+<p><a class="el" href="namespace_tree_item_role.html">TreeItemRole</a> holds the custom Qt::ItemDataRole values used to stash tree-row metadata (id, kind, parent link, and chip badge appearance) on each QStandardItem. </p>
+
+<p class="definition">Definition in file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="aa8383ec8251036f278da8fb417ae327b" name="aa8383ec8251036f278da8fb417ae327b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa8383ec8251036f278da8fb417ae327b">&#9670;&#160;</a></span>TreeItemKind</h2>
 
@@ -191,6 +202,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
 <p>Kind of tree row stored in <a class="el" href="namespace_tree_item_role.html#a02b3164734e4c2eb80a05191711e8ecd" title="int — 0:root 1:task 2:device">TreeItemRole::ItemKind</a>: the project root, a task node, or a device node. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa8383ec8251036f278da8fb417ae327bafa03eb688ad8aa1db593d33dabd89bad" name="aa8383ec8251036f278da8fb417ae327bafa03eb688ad8aa1db593d33dabd89bad"></a>Root&#160;</td><td class="fielddoc"></td></tr>
@@ -198,7 +210,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="aa8383ec8251036f278da8fb417ae327bae0ac20adce6ffee48c7151b070aa5737" name="aa8383ec8251036f278da8fb417ae327bae0ac20adce6ffee48c7151b070aa5737"></a>Device&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00028">28</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00039">39</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
 </div>
 </div>

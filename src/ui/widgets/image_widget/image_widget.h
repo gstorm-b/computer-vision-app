@@ -25,14 +25,26 @@
 #include "ui/widgets/image_widget/item_roi_rotated.h"
 
 
-/// QGraphicsView-based image viewer that shows a loaded pixmap and lets the user
-/// pan/zoom it and draw/manage ROI (region of interest) and picking-position
-/// overlay items on top of it, optionally via a right-click context menu.
+/**
+ * @file image_widget.h
+ * @brief ImageWidget — QGraphicsView-based image viewer with pan/zoom and
+ *        draw/manage ROI + picking-position overlay items.
+ */
+
+/**
+ * @class ImageWidget
+ * @brief QGraphicsView-based image viewer that shows a loaded pixmap and lets the user
+ *        pan/zoom it and draw/manage ROI (region of interest) and picking-position
+ *        overlay items on top of it, optionally via a right-click context menu.
+ */
 class ImageWidget : public QGraphicsView {
   Q_OBJECT
 
 public:
-  /// Current mouse/view interaction mode of the widget.
+  /**
+   * @enum InteractMode
+   * @brief Current mouse/view interaction mode of the widget.
+   */
   enum InteractMode {
     IModeNone,    ///< No special interaction; default view/selection behavior.
     IModeZoom,    ///< Ctrl+wheel zoom in progress.
@@ -40,14 +52,24 @@ public:
     IModeDrawing  ///< A new ROI/picking-position item is being drawn.
   };
 
-  /// Kind of overlay item being added to the scene.
+  /**
+   * @enum ItemAddType
+   * @brief Kind of overlay item being added to the scene.
+   */
   enum ItemAddType {
     NormalROI,      ///< Axis-aligned rectangular ROI (ItemRoi).
     RotatedROI,      ///< Rotatable rectangular ROI (ItemRoiRotated).
     PickingPosition  ///< Picking-position marker item.
   };
 
+  /**
+   * @brief Constructs the widget: creates the backing QGraphicsScene, sets a tan
+   *        background brush, full-viewport update mode, disables smooth pixmap
+   *        transform to avoid blur when zoomed in, and builds the right-click menus.
+   * @param[in] parent Optional owning widget; standard Qt parent/child ownership.
+   */
   explicit ImageWidget(QWidget *parent = nullptr);
+  /// Default destructor; the scene and its items are owned (parented) by the view.
   ~ImageWidget();
 
   /// Installs the QSettings instance used to persist the last save/open

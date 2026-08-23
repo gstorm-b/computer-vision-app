@@ -1,5 +1,7 @@
 #include "project_tree_widget.h"
 
+#include "device/virtual/virtual_device.h"
+
 #include <QPainter>
 #include <QVBoxLayout>
 #include <QMenu>
@@ -24,9 +26,19 @@
 /// Short label + theme-token pair used to render a device/task type chip badge.
 struct ChipInfo { QString text; QString token; };
 
-/// Maps a device type to its chip label ("CAM"/"PLC"/"DEV") and theme color token.
-static ChipInfo chipForDeviceType(vc::device::DeviceType t) {
-    switch (t) {
+/// Maps a device to its chip label ("CAM"/"PLC"/"DEV") and theme color token.
+///
+/// A virtual device gets "VIRT" instead of its family label, deliberately replacing it rather
+/// than sitting beside it. The chip is the one piece of per-device text in the tree that the
+/// operator did not choose — the device NAME is theirs, and nothing stops them calling a
+/// simulated camera "Camera 1". Risk R8 is a station handed over "working" while running on
+/// nothing; the marker has to survive whatever the device was named.
+static ChipInfo chipForDevice(const vc::device::IDevice *device) {
+    if (vc::device::isVirtualDevice(device)) {
+        return { "VIRT", QStringLiteral("state.warning") };
+    }
+
+    switch (device ? device->deviceType() : vc::device::DeviceType::UserType) {
     case vc::device::DeviceType::Camera:   return { "CAM", QStringLiteral("device.camera") };
     case vc::device::DeviceType::PLC:      return { "PLC", QStringLiteral("device.plc") };
     default:                               return { "DEV", QStringLiteral("device.robot") };
@@ -285,7 +297,7 @@ void ProjectTreeWidget::buildDeviceItem(QStandardItem *taskItem,
 {
     if (!device || !taskItem) return;
 
-    ChipInfo chip = chipForDeviceType(device->deviceType());
+    ChipInfo chip = chipForDevice(device);
 
     QIcon icon;
     switch (device->deviceType()) {

@@ -96,6 +96,12 @@ bool McProtocolDevice::deviceConnect() {
     }
 
     if (!this->initialize_mc_device()) {
+        // Must publish a status even here. PlcRunner::requestConnect() sets a busy flag
+        // that is only cleared by a status/failure signal, so returning false silently
+        // wedged the runner: every later reconnect request — automatic or manual — was
+        // dropped without a trace.
+        this->setConnectionStatus(ConnectStatus::ConnectFailed,
+                                  QStringLiteral("MC device initialization failed."));
         return false;
     }
 
@@ -464,8 +470,13 @@ void McProtocolDevice::request_handle() {
                 m_retry_count += 1;
 
                 if (m_retry_count >= 5) {
-                    LOG_USER_ERR << tr("Mc Device error, retry send request over 5 times, disconnect.");
-                    deviceDisconnect();
+                    LOG_USER_ERR << tr("Mc Device error, retry send request over 5 times, connection lost.");
+                    // LostConnected, not Disconnected. Disconnected means "an operator
+                    // asked for this" and is deliberately NOT a recoverable status, so
+                    // publishing it here made a pulled cable permanent: the localization
+                    // recovery policy ignored it, never scheduled a reconnect, and never
+                    // withdrew bTaskReady. A failed send is an unexpected loss.
+                    setDeviceLostConnect();
                 }
                 return;
             }
@@ -725,6 +736,12 @@ void McProtocolDevice::update_last_d_map() {
 /// Tears down the connection and publishes LostConnected status after repeated response
 /// timeouts.
 void McProtocolDevice::setDeviceLostConnect() {
+    // Clear the retry budget with the connection. It is a per-session counter, and
+    // leaving it exhausted meant the first timeout after a successful reconnect
+    // immediately declared the link lost again.
+    m_retry_count = 0;
+    m_wait_for_response = false;
+
     teardownConnection(ConnectStatus::LostConnected);
     LOG_USER_ERR << "MC Device lost connect.";
 }

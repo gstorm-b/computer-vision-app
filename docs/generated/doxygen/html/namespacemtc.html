@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('namespacemtc.h
 </div><!--header-->
 <div class="contents">
 
-<p>Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html">utils_block_max.h</a>).  
+<p>Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html" title="MatchBlock/BlockMax — block-partitioned max-value search helper used to enumerate multiple local maxi...">utils_block_max.h</a>).  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -132,25 +132,45 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:BlockMax" id="r_BlockMax"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_block_max.html">BlockMax</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partitions a score map into a grid of blocks (sized from the pattern size) and caches each block's local maximum, so repeated searches for the next-best match only need to rescan the blocks touched by a previously matched region (via UpdateMax) instead of the whole map.  <a href="classmtc_1_1_block_max.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EdgeMatchConfig" id="r_EdgeMatchConfig"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm in <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a>).  <a href="classmtc_1_1_edge_match_config.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ImageMatcher" id="r_ImageMatcher"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape/edge match for every registered pattern against a source image, then filters, sorts, and annotates the results.  <a href="classmtc_1_1_image_matcher.html#details">More...</a><br /></td></tr>
 <tr class="memitem:IMatchTypeConfig" id="r_IMatchTypeConfig"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_i_match_type_config.html">IMatchTypeConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for per-algorithm runtime/learn parameters.  <a href="classmtc_1_1_i_match_type_config.html#details">More...</a><br /></td></tr>
 <tr class="memitem:IRobotPickingChecker" id="r_IRobotPickingChecker"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_i_robot_picking_checker.html">IRobotPickingChecker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Port (dependency-inversion boundary) that lets the pure-vision <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a> ask "can the robot actually pick this object?" without depending on the robot kinematics / calibration / device layers.  <a href="classmtc_1_1_i_robot_picking_checker.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ManagerResult" id="r_ManagerResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lightweight ok/error result: <span class="tt"><a class="el" href="structmtc_1_1_manager_result.html#acc4f809810b6ad077ab6264946718748" title="True on success; false when the operation failed.">ok</a></span> reports success, <span class="tt"><a class="el" href="structmtc_1_1_manager_result.html#a5e9c61e009c6cac5b4862260846e81e4" title="Failure message; empty when ok is true.">error</a></span> carries a human-readable failure message when <span class="tt"><a class="el" href="structmtc_1_1_manager_result.html#acc4f809810b6ad077ab6264946718748" title="True on success; false when the operation failed.">ok</a></span> is false.  <a href="structmtc_1_1_manager_result.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchBlock" id="r_MatchBlock"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_block.html">MatchBlock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One rectangular block of a score map, together with its cached maximum value and the location of that maximum.  <a href="classmtc_1_1_match_block.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchBoxGripper" id="r_MatchBoxGripper"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_box_gripper.html">MatchBoxGripper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Picking/collision-box geometry for a gripper: its footprint size and the distance the box is offset from the pick position.  <a href="classmtc_1_1_match_box_gripper.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchConfigPropertyAdapter" id="r_MatchConfigPropertyAdapter"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_config_property_adapter.html">MatchConfigPropertyAdapter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bridges a group's algorithm config (<a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">MatchGroupConfig::typeConfig</a>) to a QtVariantPropertyManager/Browser. The edge/algorithm parameters are shared by every pattern in the group, so they are edited at the group level; the currently-bound config's matching type determines which property spec table (e.g. kEdgeSpecs) drives the generated property tree.  <a href="classmtc_1_1_match_config_property_adapter.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchedObject" id="r_MatchedObject"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One matched pattern instance found by <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a>: its geometry (corners, center, angle, score), picking/collision state, and a non-owning link back to the <a class="el" href="classmtc_1_1_match_pattern.html" title="A single learned template.">MatchPattern</a> it was matched against.  <a href="classmtc_1_1_matched_object.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchGroup" id="r_MatchGroup"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_group.html">MatchGroup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns one named/numbered group of patterns plus their shared <a class="el" href="classmtc_1_1_match_group_config.html" title="Per-group configuration: holds group identity and the algorithm-specific config (typeConfig,...">MatchGroupConfig</a>: pattern CRUD (add/remove/rename/renumber/setImage), lookup, and static group/pattern index-range validation.  <a href="classmtc_1_1_match_group.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchGroupConfig" id="r_MatchGroupConfig"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_group_config.html">MatchGroupConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-group configuration: holds group identity and the algorithm-specific config (<span class="tt"><a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">typeConfig</a></span>, default <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>) that is SHARED by every pattern in the group.  <a href="classmtc_1_1_match_group_config.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchParams" id="r_MatchParams"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_params.html">MatchParams</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result data for a single match candidate produced during pattern search: its location/score/angle, the search ROI and rotated/bounding geometry, and the sub-pixel refinement fields filled in by the fine-search stage.  <a href="classmtc_1_1_match_params.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchPattern" id="r_MatchPattern"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_pattern.html">MatchPattern</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single learned template.  <a href="classmtc_1_1_match_pattern.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchPatternConfig" id="r_MatchPatternConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_match_pattern_config.html">MatchPatternConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-pattern configuration carried by <a class="el" href="classmtc_1_1_match_pattern.html" title="A single learned template.">MatchPattern</a>: identity, type-agnostic search parameters, and the per-pattern picking/collision-box geometry.  <a href="structmtc_1_1_match_pattern_config.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchResult" id="r_MatchResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_match_result.html">MatchResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Snapshot of one <a class="el" href="classmtc_1_1_image_matcher.html#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">ImageMatcher::matching()</a> run: the matched objects, the annotated output image, timing, and picking-availability stats.  <a href="structmtc_1_1_match_result.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PatternGroupManager" id="r_PatternGroupManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns the full library of <a class="el" href="classmtc_1_1_match_group.html" title="Owns one named/numbered group of patterns plus their shared MatchGroupConfig: pattern CRUD (add/remov...">MatchGroup</a> instances (and, transitively, their <a class="el" href="classmtc_1_1_match_pattern.html" title="A single learned template.">MatchPattern</a> children) for a task: validates group/pattern mutations, emits Qt change signals for every successful mutation, and (de)serialises the whole library to/from JSON.  <a href="classmtc_1_1_pattern_group_manager.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PatternLayer" id="r_PatternLayer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_pattern_layer.html">PatternLayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Learned template data for one trained pattern image: the extracted edge points/contours plus the raw SIMD-aligned gradient buffers (pGx/pGy/pMag) used by the Edge-Based matching algorithm.  <a href="classmtc_1_1_pattern_layer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PatternPoint" id="r_PatternPoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_pattern_point.html">PatternPoint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-edge-point sample extracted from a pattern's edges: pixel coordinate, gradient direction (Derivative) and gradient magnitude.  <a href="structmtc_1_1_pattern_point.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldPickPose" id="r_WorldPickPose"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_world_pick_pose.html">WorldPickPose</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Neutral data-transfer pose: robot/world coordinates in millimetres, top-down pick rotation in degrees. Carries no robot-library or Qt types.  <a href="structmtc_1_1_world_pick_pose.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -165,7 +185,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a75c6aa1b2f46d008254b1c8c533f4875" id="r_a75c6aa1b2f46d008254b1c8c533f4875"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a75c6aa1b2f46d008254b1c8c533f4875">clearImageBorder</a> (Mat &amp;image, int offset)</td></tr>
 <tr class="memitem:a4d1a2c334cf1a70c8627b0e5d910a703" id="r_a4d1a2c334cf1a70c8627b0e5d910a703"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a4d1a2c334cf1a70c8627b0e5d910a703">comparePtWithAngle</a> (const pair&lt; Point2f, double &gt; lhs, const pair&lt; Point2f, double &gt; rhs)</td></tr>
 <tr class="memitem:a7d9ac27d952cd5bb65d390325f788cfa" id="r_a7d9ac27d952cd5bb65d390325f788cfa"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a7d9ac27d952cd5bb65d390325f788cfa">compareScoreBig2Small</a> (const <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> &amp;lhs, const <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a7d9ac27d952cd5bb65d390325f788cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort predicate ordering <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> by descending match score (best first).  <br /></td></tr>
+<tr class="memdesc:a7d9ac27d952cd5bb65d390325f788cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort predicate ordering <a class="el" href="classmtc_1_1_match_params.html" title="Result data for a single match candidate produced during pattern search: its location/score/angle,...">MatchParams</a> by descending match score (best first).  <br /></td></tr>
 <tr class="memitem:af88c6f4d9537a7938044396b1e076ac8" id="r_af88c6f4d9537a7938044396b1e076ac8"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#af88c6f4d9537a7938044396b1e076ac8">edge_template_match_simd_omp</a> (const float *iSx, const float *iSy, const float *iTx, const float *iTy, const float *SMag, const float *TMag, int length)</td></tr>
 <tr class="memitem:ad3908560c59723ee406acae1b089779d" id="r_ad3908560c59723ee406acae1b089779d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad3908560c59723ee406acae1b089779d">IM_Conv_SIMD</a> (unsigned char *pCharKernel, unsigned char *pCharConv, int iLength)</td></tr>
 <tr class="memitem:a767831b5011089a34862e4dc3e7bd7a6" id="r_a767831b5011089a34862e4dc3e7bd7a6"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a767831b5011089a34862e4dc3e7bd7a6">matchingTypeName</a> (<a class="el" href="#a7e9a49f348493d4696153cfc0d145516">MatchingType</a> t) noexcept</td></tr>
@@ -177,26 +197,10 @@ Variables</h2></td></tr>
 <tr class="memitem:ab271d6e28018fbd7155b854a6954cf50" id="r_ab271d6e28018fbd7155b854a6954cf50"><td class="memItemLeft">static const QList&lt; <a class="el" href="struct_prop_spec.html">PropSpec</a>&lt; <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab271d6e28018fbd7155b854a6954cf50">kEdgeSpecs</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html">utils_block_max.h</a>). </p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a>, the tunable parameters for gradient-direction edge template matching used by <a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a>.</p>
-<p>Vision/matching module: template-matching engine (<a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a>), pattern group/config model, and the geometry/SIMD helpers it depends on.</p>
-<p>Vision/matching module: the <a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a> template-matching engine and its <a class="el" href="structmtc_1_1_match_result.html">MatchResult</a> output type.</p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_i_match_type_config.html">IMatchTypeConfig</a>, the abstract base for per-algorithm runtime/learn parameter configs.</p>
-<p>Vision/matching module: <a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>, a lightweight ok/error result type returned by pattern/group manager mutation operations.</p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_match_box_gripper.html">MatchBoxGripper</a>, the picking/collision-box geometry for a gripper.</p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_match_group_config.html">MatchGroupConfig</a> and <a class="el" href="classmtc_1_1_match_group.html">MatchGroup</a> implementation (see <a class="el" href="match__group_8h.html">match_group.h</a>).</p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_match_group_config.html">MatchGroupConfig</a> and <a class="el" href="classmtc_1_1_match_group.html">MatchGroup</a>, the per-group pattern container and its shared algorithm config.</p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a>, the per-match result geometry and picking/collision state produced by <a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a>.</p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a>, the per-candidate result data produced during pattern search.</p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_match_pattern.html">MatchPattern</a>, a single learned template plus its per-pattern configuration and learned pyramid/edge data.</p>
-<p>Vision/matching module: <a class="el" href="structmtc_1_1_match_pattern_config.html">MatchPatternConfig</a>, the per-pattern identity, search-parameter, and picking/collision-box configuration owned by <a class="el" href="classmtc_1_1_match_pattern.html">MatchPattern</a>.</p>
-<p>Vision/matching module: <a class="el" href="structmtc_1_1_pattern_point.html">PatternPoint</a> and <a class="el" href="classmtc_1_1_pattern_layer.html">PatternLayer</a>, the learned per-point edge data and template layer produced when training a pattern.</p>
-<p>Vision/matching module: <a class="el" href="#a7e9a49f348493d4696153cfc0d145516" title="Discriminates which matching-algorithm family a group/pattern uses.">MatchingType</a>, the algorithm-family discriminator shared by pattern/group configuration.</p>
-<p>Machine-vision pattern-matching model: match groups/patterns (<a class="el" href="classmtc_1_1_match_group.html">MatchGroup</a>, <a class="el" href="classmtc_1_1_match_pattern.html">MatchPattern</a>) and their owning manager (<a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a>).</p>
-<p>Vision/matching module: <a class="el" href="classmtc_1_1_i_robot_picking_checker.html">IRobotPickingChecker</a>, the dependency-inversion port used by <a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a> to query robot reachability/collision without depending on the robot-kinematics/calibration/device layers.</p>
-<p>Vision/matching module: MatchBlock/BlockMax, a block-partitioned max-value search helper used to enumerate multiple local maxima in a score/response map.</p>
-<p>Match-configuration property browser adapter: binds <a class="el" href="classmtc_1_1_match_group_config.html">MatchGroupConfig</a> (and its per-algorithm sub-configs, e.g. <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a>) to a QtVariantPropertyManager-backed property tree.</p>
-<p>Property-browser adapters for editing matching configuration (group/algorithm parameters, pattern trees) via QtVariantPropertyManager/Browser. </p>
+<div class="textblock"><p>Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html" title="MatchBlock/BlockMax — block-partitioned max-value search helper used to enumerate multiple local maxi...">utils_block_max.h</a>). </p>
+<p>Vision/matching module: template-matching engine (<a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a>), pattern group/config model, and the geometry/SIMD helpers it depends on.</p>
+<p>Vision/matching module: <a class="el" href="classmtc_1_1_match_group_config.html" title="Per-group configuration: holds group identity and the algorithm-specific config (typeConfig,...">MatchGroupConfig</a> and <a class="el" href="classmtc_1_1_match_group.html" title="Owns one named/numbered group of patterns plus their shared MatchGroupConfig: pattern CRUD (add/remov...">MatchGroup</a> implementation (see <a class="el" href="match__group_8h.html" title="MatchGroupConfig and MatchGroup — per-group pattern container and shared algorithm config.">match_group.h</a>).</p>
+<p>Match-configuration property browser adapter: binds <a class="el" href="classmtc_1_1_match_group_config.html" title="Per-group configuration: holds group identity and the algorithm-specific config (typeConfig,...">MatchGroupConfig</a> (and its per-algorithm sub-configs, e.g. <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>) to a QtVariantPropertyManager-backed property tree. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a7e9a49f348493d4696153cfc0d145516" name="a7e9a49f348493d4696153cfc0d145516"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e9a49f348493d4696153cfc0d145516">&#9670;&#160;</a></span>MatchingType</h2>
@@ -219,6 +223,12 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Discriminates which matching-algorithm family a group/pattern uses. </p>
+<p>Adding a new algorithm type:</p><ol type="1">
+<li>Add a value here.</li>
+<li>Create a concrete <a class="el" href="classmtc_1_1_i_match_type_config.html" title="Abstract base for per-algorithm runtime/learn parameters.">IMatchTypeConfig</a> subclass.</li>
+<li>Add a branch in <a class="el" href="classmtc_1_1_i_match_type_config.html#a23cfdfcc126e738916da8c3ec98a7859" title="Factory: constructs a default-initialised config for a given type.">IMatchTypeConfig::createDefault()</a>.</li>
+<li>Add a branch in <a class="el" href="classmtc_1_1_match_config_property_adapter.html#ac0691748e859b3e0dc8b45d8203997a5">MatchConfigPropertyAdapter::buildTypeGroup()</a>. </li>
+</ol>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7e9a49f348493d4696153cfc0d145516a6b0fe71e8439dbcc5e30f3d80c9a54e9" name="a7e9a49f348493d4696153cfc0d145516a6b0fe71e8439dbcc5e30f3d80c9a54e9"></a>EdgeBased&#160;</td><td class="fielddoc"><p>Gradient-direction edge template matching (SIMD-accelerated). </p>
 </td></tr>
@@ -226,7 +236,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="matching__types_8h_source.html#l00020">20</a> of file <a class="el" href="matching__types_8h_source.html">matching_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="matching__types_8h_source.html#l00023">23</a> of file <a class="el" href="matching__types_8h_source.html">matching_types.h</a>.</p>
 
 </div>
 </div>
@@ -368,11 +378,11 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sort predicate ordering <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> by descending match score (best first). </p>
+<p>Sort predicate ordering <a class="el" href="classmtc_1_1_match_params.html" title="Result data for a single match candidate produced during pattern search: its location/score/angle,...">MatchParams</a> by descending match score (best first). </p>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00072">72</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__params_8h_source.html#l00027">mtc::MatchParams::_matchScore</a>.</p>
+<p class="reference">References <a class="el" href="match__params_8h_source.html#l00038">mtc::MatchParams::_matchScore</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l01143">mtc::ImageMatcher::FilterWithScore()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -523,9 +533,9 @@ Variables</h2></td></tr>
 
 <p>Returns the human-readable name of <span class="tt">t</span> ("Edge-Based", "Correlation", or "Unknown"). </p>
 
-<p class="definition">Definition at line <a class="el" href="matching__types_8h_source.html#l00026">26</a> of file <a class="el" href="matching__types_8h_source.html">matching_types.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="matching__types_8h_source.html#l00029">29</a> of file <a class="el" href="matching__types_8h_source.html">matching_types.h</a>.</p>
 
-<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00022">Correlation</a>, and <a class="el" href="matching__types_8h_source.html#l00021">EdgeBased</a>.</p>
+<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00025">Correlation</a>, and <a class="el" href="matching__types_8h_source.html#l00024">EdgeBased</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">mtc::MatchConfigPropertyAdapter::buildTypeGroup()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00049">mtc::anonymous_namespace{pattern_group_manager.cpp}::matchingTypeToString()</a>.</p>
 
@@ -587,7 +597,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Property spec table — EdgeBased algorithm parameters (group-level). Each entry fully describes one editable field. Adding a new setting = adding ONE entry here. Nothing else changes. See <a class="el" href="prop__spec_8h.html">prop_spec.h</a> for the complete <a class="el" href="struct_prop_spec.html">PropSpec&lt;Config&gt;</a> field reference. (Pattern-level "Common" params live in the patterns widget — they are per-pattern, not shared at the group level.) </p>
+<p>Property spec table — EdgeBased algorithm parameters (group-level). Each entry fully describes one editable field. Adding a new setting = adding ONE entry here. Nothing else changes. See <a class="el" href="prop__spec_8h.html" title="Generic property-spec framework for QtPropertyBrowser: define a new editable parameter by adding ONE ...">prop_spec.h</a> for the complete <a class="el" href="struct_prop_spec.html" title="One row in a property spec table: a single editable parameter&#39;s identity, editor attributes (type/ran...">PropSpec&lt;Config&gt;</a> field reference. (Pattern-level "Common" params live in the patterns widget — they are per-pattern, not shared at the group level.) </p>
 
 <p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8cpp_source.html#l00022">22</a> of file <a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a>.</p>
 

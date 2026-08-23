@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_e
 </div><!--header-->
 <div class="contents">
 
+<p>All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm in <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a>).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for mtc::EdgeMatchConfig:</div>
@@ -177,9 +180,10 @@ Public Attributes</h2></td></tr>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_methods_classmtc_1_1_i_match_type_config"><td colspan="2">Static Public Member Functions inherited from <a class="el" href="classmtc_1_1_i_match_type_config.html">mtc::IMatchTypeConfig</a></td></tr>
 <tr class="memitem:a23cfdfcc126e738916da8c3ec98a7859 pub_static_methods_classmtc_1_1_i_match_type_config" id="r_a23cfdfcc126e738916da8c3ec98a7859"><td class="memItemLeft">static std::unique_ptr&lt; <a class="el" href="classmtc_1_1_i_match_type_config.html">IMatchTypeConfig</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_i_match_type_config.html#a23cfdfcc126e738916da8c3ec98a7859">createDefault</a> (<a class="el" href="namespacemtc.html#a7e9a49f348493d4696153cfc0d145516">MatchingType</a> t)</td></tr>
+<tr class="memdesc:a23cfdfcc126e738916da8c3ec98a7859 pub_static_methods_classmtc_1_1_i_match_type_config"><td class="mdescLeft">&#160;</td><td class="mdescRight">Factory: constructs a default-initialised config for a given type.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm in <a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a>).</p>
+<div class="textblock"><p>All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm in <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a>). </p>
 <p>Covers both the template-learning phase (Canny / pyramid) and the runtime search phase (greediness, sub-pixel, layer control).</p>
 <p>Adding a new EdgeBased setting:</p><ol type="1">
 <li>Add a field here with a sensible default value.</li>
@@ -187,7 +191,7 @@ Additional Inherited Members</h2></td></tr>
 <li>Access the field in <a class="el" href="match__pattern_8cpp.html">match_pattern.cpp</a> or <a class="el" href="image__matcher_8cpp.html">image_matcher.cpp</a>. No other files need to change. </li>
 </ol>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00021">21</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00027">27</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab3b251cba57ef92d39d17dc72141f771" name="ab3b251cba57ef92d39d17dc72141f771"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3b251cba57ef92d39d17dc72141f771">&#9670;&#160;</a></span>EdgeMatchConfig()</h2>
@@ -239,11 +243,11 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns a heap-allocated deep copy of this config. </p><dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a> with the same field values </dd></dl>
+<p>Returns a heap-allocated deep copy of this config. </p><dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a> with the same field values </dd></dl>
 
 <p>Implements <a class="el" href="classmtc_1_1_i_match_type_config.html#a104a759093820ee55a32f6caa46de231">mtc::IMatchTypeConfig</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00031">31</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00037">37</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 </div>
 </div>
@@ -274,9 +278,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classmtc_1_1_i_match_type_config.html#a738b98b0dbc34561c085be26ffc8944a">mtc::IMatchTypeConfig</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00027">27</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00033">33</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00021">mtc::EdgeBased</a>.</p>
+<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00024">mtc::EdgeBased</a>.</p>
 
 </div>
 </div>
@@ -295,7 +299,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>cv::threshold maxval — intensity assigned above threshold (0..255) </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00053">53</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00059">59</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
@@ -315,7 +319,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>-1 =&gt; auto (Otsu); 0..255 =&gt; fixed threshold </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00052">52</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00058">58</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
@@ -335,7 +339,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Gaussian pre-blur kernel height (px). </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00040">40</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00046">46</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
@@ -355,7 +359,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Gaussian pre-blur kernel width (px). </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00039">39</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00045">45</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
@@ -375,7 +379,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Early-exit accumulation ratio (0 = off). </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00043">43</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00049">49</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00779">mtc::ImageMatcher::MatchEdgePattern()</a>.</p>
 
@@ -395,7 +399,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Invert binary threshold for PCA contour. </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00049">49</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00055">55</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
@@ -415,7 +419,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Sobel / Canny aperture (1, 3, 5, 7). </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00038">38</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00044">44</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00247">mtc::MatchPattern::getImageWithCannyThreshold()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>.</p>
 
@@ -435,7 +439,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Ratio used to flag low / partially-visible workpieces. </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00044">44</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00050">50</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
@@ -455,7 +459,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Pyramid descent stops when side &lt; this (px). </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00047">47</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00053">53</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00277">mtc::MatchPattern::findTopLayer()</a>.</p>
 
@@ -475,7 +479,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Stop pyramid descent at layer 1 (faster). </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00057">57</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00063">63</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -495,7 +499,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Quadratic sub-pixel position refinement. </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00056">56</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00062">62</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -515,7 +519,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Canny lower hysteresis threshold. </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00036">36</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00042">42</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>.</p>
 
@@ -535,7 +539,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Canny upper hysteresis threshold. </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00037">37</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00043">43</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>.</p>
 
@@ -555,14 +559,14 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Contour point spacing during learn. </p>
 
-<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00048">48</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edge__match__config_8h_source.html#l00054">54</a> of file <a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00087">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigFromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00066">mtc::anonymous_namespace{pattern_group_manager.cpp}::edgeConfigToJson()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">mtc::MatchPattern::learnPattern()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

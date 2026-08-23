@@ -8,14 +8,28 @@
 #include <QFile>
 #include <QTextStream>
 
-/// Audience a log message is destined for: user-facing (shown to the operator) or
-/// developer-facing (diagnostic, tagged with file:line context).
+/**
+ * @file app_logger.h
+ * @brief AppLogger — application-wide logging facade (singleton): routes user- and
+ *        developer-facing messages to a rotating daily log file and emits newLogAdded
+ *        for live UI display. Also defines LogCategory, LogLevel, LogMessage, and the
+ *        inner LogStream helper.
+ */
+
+/**
+ * @enum LogCategory
+ * @brief Audience a log message is destined for: user-facing (shown to the operator)
+ *        or developer-facing (diagnostic, tagged with file:line context).
+ */
 enum class LogCategory {
     User,
     Developer
 };
 
-/// Severity of a log message, ordered from least to most severe.
+/**
+ * @enum LogLevel
+ * @brief Severity of a log message, ordered from least to most severe.
+ */
 enum class LogLevel {
     Debug,
     Info,
@@ -24,7 +38,10 @@ enum class LogLevel {
     Critical
 };
 
-/// A single recorded log entry, as emitted by AppLogger::newLogAdded.
+/**
+ * @struct LogMessage
+ * @brief A single recorded log entry, as emitted by AppLogger::newLogAdded.
+ */
 struct LogMessage {
     QDateTime timestamp;   ///< Time the message was recorded.
     LogCategory category;  ///< Whether this is a user- or developer-facing message.
@@ -37,20 +54,28 @@ struct LogMessage {
 /// queued signal/slot connections (e.g. to a UI log view on another thread).
 Q_DECLARE_METATYPE(LogMessage)
 
-/// Application-wide logging facade (singleton): routes user- and developer-facing
-/// messages to a rotating daily log file and emits newLogAdded for live UI display.
+/**
+ * @class AppLogger
+ * @brief Application-wide logging facade (singleton): routes user- and developer-facing
+ *        messages to a rotating daily log file and emits newLogAdded for live UI display.
+ */
 class AppLogger : public QObject {
     Q_OBJECT
 
 public:
-    /// Temporary stream object returned by AppLogger's info()/warning()/error()/...
-    /// helpers: buffers `operator<<` chained values and, on destruction, flushes the
-    /// accumulated text to the owning AppLogger as one log message (dev-tagged when
-    /// constructed with a non-empty context, user-facing otherwise).
+    /**
+     * @class LogStream
+     * @brief Temporary stream object returned by AppLogger's info()/warning()/error()/...
+     *        helpers: buffers `operator<<` chained values and, on destruction, flushes the
+     *        accumulated text to the owning AppLogger as one log message (dev-tagged when
+     *        constructed with a non-empty context, user-facing otherwise).
+     */
     class LogStream {
     public:
-        /// Starts a new buffered log entry at `level` for `logger`.
-        /// @param ctx developer context (e.g. file:line); empty means a user-facing entry
+        /**
+         * @brief Starts a new buffered log entry at `level` for `logger`.
+         * @param[in] ctx developer context (e.g. file:line); empty means a user-facing entry
+         */
         LogStream(LogLevel level, AppLogger* logger, QString ctx = QString())
             : m_context(ctx), m_level(level), m_logger(logger) {
             m_stream.setString(&m_buffer);
@@ -121,8 +146,11 @@ public:
     AppLogger& operator=(const AppLogger&) = delete;
 
 signals:
-    /// Emitted whenever a message has been logged (user or developer), after it has
-    /// been written to the log file.
+    /**
+     * @brief Emitted whenever a message has been logged (user or developer), after it has
+     *        been written to the log file.
+     * @param[in] logMsg the complete log entry that was just recorded
+     */
     void newLogAdded(const LogMessage &logMsg);
 
 private:

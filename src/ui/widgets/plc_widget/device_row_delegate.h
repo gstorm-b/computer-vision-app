@@ -7,31 +7,47 @@ class QAbstractItemView;
 
 namespace vc::widgets {
 
-/// Item delegate that paints every interactive cell of `DevicesMonitorWidget` itself —
-/// chip, ON/OFF/TOGGLE buttons, value text and the Word action strip — instead of
-/// relying on `setCellWidget()` with native QPushButton / QSpinBox children. The Qt
-/// native button bevel + focus ring need ~28 px of usable height plus a safety margin;
-/// when the cell widget was forced into a 30/40-px row Qt was clipping the button
-/// decoration, so owning the paint loop here gives full control over geometry and
-/// pins the row height through sizeHint().
-/// @note Data model: each row stores its data on the column-0 / column-2 / column-3
-///       `QTableWidgetItem` via the custom roles below (see the Role enum); see
-///       `DevicesMonitorWidget` for how they are populated.
-/// @note Click handling: editorEvent() reads mouse press/release positions for the
-///       action column (column 3) and emits bitWriteRequested() / wordWriteRequested()
-///       with the row's address and the appropriate value.
-/// @note Word action editing: column 3 in Word mode opens a QSpinBox via
-///       createEditor() when the user clicks on the value rect. The committed value
-///       is stored in `PendingWriteRole`; the WRITE button then reads it on click.
+/**
+ * @file device_row_delegate.h
+ * @brief DeviceRowDelegate — paints and edits every interactive cell of DevicesMonitorWidget.
+ */
+
+/**
+ * @class DeviceRowDelegate
+ * @brief Item delegate that paints every interactive cell of `DevicesMonitorWidget` itself —
+ *        chip, ON/OFF/TOGGLE buttons, value text and the Word action strip — instead of
+ *        relying on `setCellWidget()` with native QPushButton / QSpinBox children.
+ *
+ * The Qt native button bevel + focus ring need ~28 px of usable height plus a safety margin;
+ * when the cell widget was forced into a 30/40-px row Qt was clipping the button
+ * decoration, so owning the paint loop here gives full control over geometry and
+ * pins the row height through sizeHint().
+ *
+ * @note Data model: each row stores its data on the column-0 / column-2 / column-3
+ *       `QTableWidgetItem` via the custom roles below (see the Role enum); see
+ *       `DevicesMonitorWidget` for how they are populated.
+ * @note Click handling: editorEvent() reads mouse press/release positions for the
+ *       action column (column 3) and emits bitWriteRequested() / wordWriteRequested()
+ *       with the row's address and the appropriate value.
+ * @note Word action editing: column 3 in Word mode opens a QSpinBox via
+ *       createEditor() when the user clicks on the value rect. The committed value
+ *       is stored in `PendingWriteRole`; the WRITE button then reads it on click.
+ */
 class DeviceRowDelegate : public QStyledItemDelegate {
     Q_OBJECT
 public:
-    /// Selects which family of PLC data this delegate renders/edits: discrete bit
-    /// devices (chip + ON/OFF/TOGGLE) or 16-bit word devices (value + WRITE).
+    /**
+     * @enum Mode
+     * @brief Selects which family of PLC data this delegate renders/edits: discrete bit
+     *        devices (chip + ON/OFF/TOGGLE) or 16-bit word devices (value + WRITE).
+     */
     enum Mode { Bit, Word };
 
-    /// Column indices of the table this delegate paints; the meaning of ColState and
-    /// ColAction depends on the active Mode.
+    /**
+     * @enum Column
+     * @brief Column indices of the table this delegate paints; the meaning of ColState and
+     *        ColAction depends on the active Mode.
+     */
     enum Column {
         ColAddress     = 0,   ///< PLC address text (M#### for Bit, D#### for Word).
         ColDescription = 1,   ///< User-editable free-text description (default-drawn).
@@ -39,8 +55,11 @@ public:
         ColAction      = 3,    ///< ON/OFF/TOGGLE (Bit) or [value][WRITE] (Word)
     };
 
-    /// Custom `QTableWidgetItem` data roles used to store each row's PLC state,
-    /// populated by `DevicesMonitorWidget` and read back by this delegate.
+    /**
+     * @enum Role
+     * @brief Custom `QTableWidgetItem` data roles used to store each row's PLC state,
+     *        populated by `DevicesMonitorWidget` and read back by this delegate.
+     */
     enum Role {
         AddressRole      = Qt::UserRole + 100,   ///< int (PLC address)
         BitStateRole     = Qt::UserRole + 101,   ///< bool
@@ -48,8 +67,11 @@ public:
         PendingWriteRole = Qt::UserRole + 103,   ///< int (treated as qint16)
     };
 
-    /// Identifies the sub-region of the action cell a mouse position/press maps to,
-    /// for hit-testing and press-flash tracking.
+    /**
+     * @enum SubButton
+     * @brief Identifies the sub-region of the action cell a mouse position/press maps to,
+     *        for hit-testing and press-flash tracking.
+     */
     enum SubButton {
         SubNone   = -1,   ///< No sub-region hit.
         SubOn     = 0,    ///< Bit-mode ON button.
@@ -157,10 +179,12 @@ private:
     /// right-aligned, followed by the WRITE button (flashing pressed state for row).
     void paintWordAction(QPainter *p, const QRect &cell, int row, int pending)   const;
 
-    /// Paints one themed pill button: primary uses the accent palette (distinct
-    /// pressed/hovered/idle shades), otherwise a neutral outline button.
-    /// @note hovered is accepted for API symmetry but every current call site always
-    ///       passes false; this delegate does not track hover state.
+    /**
+     * @brief Paints one themed pill button: primary uses the accent palette (distinct
+     *        pressed/hovered/idle shades), otherwise a neutral outline button.
+     * @note hovered is accepted for API symmetry but every current call site always
+     *       passes false; this delegate does not track hover state.
+     */
     void paintButton(QPainter *p, const QRect &r,
                      const QString &label,
                      bool primary, bool pressed, bool hovered) const;

@@ -147,6 +147,7 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1c39e048fc9b97cbefbd018592b11474" id="r_a1c39e048fc9b97cbefbd018592b11474"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a1c39e048fc9b97cbefbd018592b11474">Eframe_Binary_Device_Code</a> (char device_type, quint32 &amp;code)</td></tr>
+<tr class="memdesc:a1c39e048fc9b97cbefbd018592b11474"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up the binary/Ethernet-frame (3E) device code for an ASCII device type letter ('X', 'Y', 'M', or 'D').  <br /></td></tr>
 <tr class="memitem:a9fe794356a021356e6eee78652bc040f" id="r_a9fe794356a021356e6eee78652bc040f"><td class="memItemLeft">static <a class="el" href="#a67328b18acd39ab07ad908e6d3b58b1c">McDataCode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a9fe794356a021356e6eee78652bc040f">McDataCodeFromString</a> (QString t)</td></tr>
 <tr class="memitem:a2ef77cef673964239cee6e9158fd4244" id="r_a2ef77cef673964239cee6e9158fd4244"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a2ef77cef673964239cee6e9158fd4244">McDataCodeToString</a> (<a class="el" href="#a67328b18acd39ab07ad908e6d3b58b1c">McDataCode</a> t)</td></tr>
 <tr class="memdesc:a2ef77cef673964239cee6e9158fd4244"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <a class="el" href="#a67328b18acd39ab07ad908e6d3b58b1c" title="Data encoding used on the wire for a frame (binary vs. ASCII).">McDataCode</a> value to its enum key name (e.g. "Binary").  <br /></td></tr>
@@ -161,9 +162,7 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:add9a1f67ece63a6d1d1dd0ec8785057e" id="r_add9a1f67ece63a6d1d1dd0ec8785057e"><td class="memItemLeft">static const char *&#160;</td><td class="memItemRight"><a class="el" href="#add9a1f67ece63a6d1d1dd0ec8785057e">enum_keys_mc_defines</a> []</td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Mitsubishi MC-protocol enum/constant definitions, exposed to QML/Qt meta system via Q_NAMESPACE so the enums below are usable as Q_ENUM_NS. </p>
-</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a67328b18acd39ab07ad908e6d3b58b1c" name="a67328b18acd39ab07ad908e6d3b58b1c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a67328b18acd39ab07ad908e6d3b58b1c">&#9670;&#160;</a></span>McDataCode</h2>
 
@@ -183,7 +182,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a67328b18acd39ab07ad908e6d3b58b1ca6259dff93540ec70a2c4d573645c8d9e" name="a67328b18acd39ab07ad908e6d3b58b1ca6259dff93540ec70a2c4d573645c8d9e"></a>Ascii&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00096">96</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00109">109</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
 </div>
 </div>
@@ -208,7 +207,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a0d6895c4d48891d0fdbda5e69c6c997caa5c4c1d45d52c9cd7768ac27154e5c49" name="a0d6895c4d48891d0fdbda5e69c6c997caa5c4c1d45d52c9cd7768ac27154e5c49"></a>Frame_3C&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00077">77</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00084">84</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
 </div>
 </div>
@@ -232,7 +231,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a442840e5c77418e67a8a360532bd4174ad486b225e4764fbf3410a67a8a875bd0" name="a442840e5c77418e67a8a360532bd4174ad486b225e4764fbf3410a67a8a875bd0"></a>SerialPort&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00087">87</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00097">97</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
 </div>
 </div>
@@ -263,18 +262,20 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Looks up the binary/Ethernet-frame (3E) device code for an ASCII device type letter ('X', 'Y', 'M', or 'D'). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Looks up the binary/Ethernet-frame (3E) device code for an ASCII device type letter ('X', 'Y', 'M', or 'D'). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device_type</td><td>ASCII device-type letter </td></tr>
-    <tr><td class="paramname">code</td><td>output; set to the matching MC_E_DEIVCE_* constant on success </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device_type</td><td>ASCII device-type letter </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">code</td><td>set to the matching MC_E_DEIVCE_* constant on success </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if <span class="tt">device_type</span> was recognized, false otherwise (code left unset) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00131">131</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00146">146</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00054">MC_E_DEIVCE_D</a>, <a class="el" href="mc__define_8h_source.html#l00053">MC_E_DEIVCE_M</a>, <a class="el" href="mc__define_8h_source.html#l00051">MC_E_DEIVCE_X</a>, and <a class="el" href="mc__define_8h_source.html#l00052">MC_E_DEIVCE_Y</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00060">MC_E_DEIVCE_D</a>, <a class="el" href="mc__define_8h_source.html#l00059">MC_E_DEIVCE_M</a>, <a class="el" href="mc__define_8h_source.html#l00057">MC_E_DEIVCE_X</a>, and <a class="el" href="mc__define_8h_source.html#l00058">MC_E_DEIVCE_Y</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mc__fame__3e_8cpp_source.html#l00140">vc::device::make_device_data()</a>.</p>
 
@@ -304,9 +305,9 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Parses a <a class="el" href="#a67328b18acd39ab07ad908e6d3b58b1c" title="Data encoding used on the wire for a frame (binary vs. ASCII).">McDataCode</a> enum key name back into its value. </p><dl class="section return"><dt>Returns</dt><dd>the matching <a class="el" href="#a67328b18acd39ab07ad908e6d3b58b1c" title="Data encoding used on the wire for a frame (binary vs. ASCII).">McDataCode</a>, or DataCode_User if <span class="tt">t</span> is not a valid key </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00179">179</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00194">194</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00097">DataCode_User</a>, and <a class="el" href="meta__utils_8h_source.html#l00025">stringToQEnum()</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00110">DataCode_User</a>, and <a class="el" href="meta__utils_8h_source.html#l00035">stringToQEnum()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>.</p>
 
@@ -337,9 +338,9 @@ Variables</h2></td></tr>
 
 <p>Converts a <a class="el" href="#a67328b18acd39ab07ad908e6d3b58b1c" title="Data encoding used on the wire for a frame (binary vs. ASCII).">McDataCode</a> value to its enum key name (e.g. "Binary"). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00173">173</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00188">188</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="meta__utils_8h_source.html#l00014">qenumToString()</a>.</p>
+<p class="reference">References <a class="el" href="meta__utils_8h_source.html#l00022">qenumToString()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard::AddDeviceWizard()</a>, and <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00412">MitsubishiMcDeviceWidget::refreshMetaSummary()</a>.</p>
 
@@ -369,11 +370,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Parses a <a class="el" href="#a0d6895c4d48891d0fdbda5e69c6c997c" title="MC protocol frame variants (1E/3E ASCII+binary, 1C/3C) supported by the factory.">McFrameType</a> enum key name back into its value. </p><dl class="section return"><dt>Returns</dt><dd>the matching <a class="el" href="#a0d6895c4d48891d0fdbda5e69c6c997c" title="MC protocol frame variants (1E/3E ASCII+binary, 1C/3C) supported by the factory.">McFrameType</a>, or Frame_User if <span class="tt">t</span> is not a valid key </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00156">156</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00171">171</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00078">Frame_User</a>, and <a class="el" href="meta__utils_8h_source.html#l00025">stringToQEnum()</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00085">Frame_User</a>, and <a class="el" href="meta__utils_8h_source.html#l00035">stringToQEnum()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00094">vc::device::McProtocolConfig::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00107">vc::device::McProtocolConfig::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -402,11 +403,11 @@ Variables</h2></td></tr>
 
 <p>Converts a <a class="el" href="#a0d6895c4d48891d0fdbda5e69c6c997c" title="MC protocol frame variants (1E/3E ASCII+binary, 1C/3C) supported by the factory.">McFrameType</a> value to its enum key name (e.g. "Frame_3E"). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00150">150</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00165">165</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="meta__utils_8h_source.html#l00014">qenumToString()</a>.</p>
+<p class="reference">References <a class="el" href="meta__utils_8h_source.html#l00022">qenumToString()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard::AddDeviceWizard()</a>, <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00412">MitsubishiMcDeviceWidget::refreshMetaSummary()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00077">vc::device::McProtocolConfig::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard::AddDeviceWizard()</a>, <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00412">MitsubishiMcDeviceWidget::refreshMetaSummary()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00088">vc::device::McProtocolConfig::toJson()</a>.</p>
 
 </div>
 </div>
@@ -434,9 +435,9 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Parses a <a class="el" href="#a442840e5c77418e67a8a360532bd4174" title="Transport/message-interface types used to reach the PLC.">McMsgItfType</a> enum key name back into its value. </p><dl class="section return"><dt>Returns</dt><dd>the matching <a class="el" href="#a442840e5c77418e67a8a360532bd4174" title="Transport/message-interface types used to reach the PLC.">McMsgItfType</a>, or MsgItf_User if <span class="tt">t</span> is not a valid key </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00167">167</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00182">182</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00088">MsgItf_User</a>, and <a class="el" href="meta__utils_8h_source.html#l00025">stringToQEnum()</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00098">MsgItf_User</a>, and <a class="el" href="meta__utils_8h_source.html#l00035">stringToQEnum()</a>.</p>
 
 </div>
 </div>
@@ -465,9 +466,9 @@ Variables</h2></td></tr>
 
 <p>Converts a <a class="el" href="#a442840e5c77418e67a8a360532bd4174" title="Transport/message-interface types used to reach the PLC.">McMsgItfType</a> value to its enum key name (e.g. "EthernetTCPIP"). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00161">161</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00176">176</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="meta__utils_8h_source.html#l00014">qenumToString()</a>.</p>
+<p class="reference">References <a class="el" href="meta__utils_8h_source.html#l00022">qenumToString()</a>.</p>
 
 </div>
 </div>
@@ -512,7 +513,7 @@ Variables</h2></td></tr>
 <div class="line">}</div>
 </div><!-- fragment --><p>String table of the McFrameType/McMsgItfType/McDataCode enum key names, wrapped in QT_TR_NOOP so <span class="tt">lupdate</span> picks them up for translation. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00106">106</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__define_8h_source.html#l00119">119</a> of file <a class="el" href="mc__define_8h_source.html">mc_define.h</a>.</p>
 
 </div>
 </div>

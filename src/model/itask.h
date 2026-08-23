@@ -18,17 +18,25 @@
 #include "runtime/task_runner.h"
 #include "device/idevice.h"
 
-/// Model classes for projects, tasks, and task configuration.
+/**
+ * @file itask.h
+ * @brief ITask — abstract base for a configurable, stateful vision task; part of the model
+ *        classes for projects, tasks, and task configuration.
+ */
 namespace vc::model {
 
 /// Forward declaration; ITask holds a raw back-pointer to its owning Project
 /// (see m_proj) without needing the full Project definition here.
 class Project;
 
-/// Abstract base for a configurable, stateful vision task: owns a set of assigned
-/// device ids, a per-task TaskRunner for commission/runtime thread management, and
-/// JSON (de)serialization of its identity and ITaskConfig. Concrete subclasses supply
-/// taskType(), isValid(), and device-limit checks.
+/**
+ * @class ITask
+ * @brief Abstract base for a configurable, stateful vision task.
+ *
+ * Owns a set of assigned device ids, a per-task TaskRunner for commission/runtime thread
+ * management, and JSON (de)serialization of its identity and ITaskConfig. Concrete subclasses
+ * supply taskType(), isValid(), and device-limit checks.
+ */
 class ITask : public QObject {
     Q_OBJECT
 
@@ -36,10 +44,12 @@ class ITask : public QObject {
     Q_CLASSINFO("name_name", "Task name")
 
 public:
-    /// Constructs the task, assigning it a fixed id.
-    /// @param init_id id to reuse (e.g. when reloading from JSON); if empty, a new
-    ///   random UUID is generated instead. The id cannot be changed after construction.
-    /// @param parent optional QObject parent
+    /**
+     * @brief Constructs the task, assigning it a fixed id.
+     * @param[in] init_id id to reuse (e.g. when reloading from JSON); if empty, a new
+     *   random UUID is generated instead. The id cannot be changed after construction.
+     * @param[in] parent optional QObject parent
+     */
     explicit ITask(QString init_id = "", QObject* parent = nullptr)
         : QObject(parent) {
 
@@ -73,8 +83,10 @@ public:
         return m_name;
     }
 
-    /// Sets the task's display name, emitting nameChanged() if it actually changed.
-    /// @param v new name
+    /**
+     * @brief Sets the task's display name, emitting nameChanged() if it actually changed.
+     * @param[in] v new name
+     */
     void setName(const QString& v) {
         if (m_name == v) {
             return;
@@ -88,9 +100,11 @@ public:
         return m_cameraSourceType;
     }
 
-    /// Sets the camera source type, always emitting cameraSourceTypeChanged()
-    /// (unlike setName(), there is no no-op check for an unchanged value).
-    /// @param v new camera source type
+    /**
+     * @brief Sets the camera source type, always emitting cameraSourceTypeChanged()
+     *        (unlike setName(), there is no no-op check for an unchanged value).
+     * @param[in] v new camera source type
+     */
     void setCameraSourceType(CameraSourceType v) {
         m_cameraSourceType = v;
         emit cameraSourceTypeChanged();
@@ -111,26 +125,32 @@ public:
         return m_ownedCameraId;
     }
 
-    /// Sets the owned camera id. Does not check for a no-op value and does not
-    /// emit any change signal.
-    /// @param v new owned camera id
+    /**
+     * @brief Sets the owned camera id. Does not check for a no-op value and does not
+     *        emit any change signal.
+     * @param[in] v new owned camera id
+     */
     void setOwnedCameraId(const QString& v) {
         m_ownedCameraId = v;
     }
 
     // ── Device ownership ───────────────────────────────
-    /// Adds `deviceId` to the set of devices assigned to this task; no-op (and no
-    /// signal) if already assigned. Emits devicesChanged() on success.
-    /// @param deviceId id of the device to assign
+    /**
+     * @brief Adds `deviceId` to the set of devices assigned to this task; no-op (and no
+     *        signal) if already assigned. Emits devicesChanged() on success.
+     * @param[in] deviceId id of the device to assign
+     */
     void assignDevice(const QString &deviceId) {
         if (m_assignedDeviceIds.contains(deviceId)) return;
         m_assignedDeviceIds.append(deviceId);
         emit devicesChanged();
     }
 
-    /// Removes `deviceId` from the assigned-device set. Emits devicesChanged()
-    /// only if the id was actually present and removed.
-    /// @param deviceId id of the device to unassign
+    /**
+     * @brief Removes `deviceId` from the assigned-device set. Emits devicesChanged()
+     *        only if the id was actually present and removed.
+     * @param[in] deviceId id of the device to unassign
+     */
     void unassignDevice(const QString &deviceId) {
         if (m_assignedDeviceIds.removeOne(deviceId))
             emit devicesChanged();
@@ -146,18 +166,22 @@ public:
         return m_assignedDeviceIds;
     }
 
-    /// Looks up `deviceId` via the owning Project's DeviceManager.
-    /// @param deviceId id of the device to resolve
-    /// @return the shared device instance, or a null pointer if the task has no
-    ///   project set, the project has no DeviceManager, or the id isn't registered
+    /**
+     * @brief Looks up `deviceId` via the owning Project's DeviceManager.
+     * @param[in] deviceId id of the device to resolve
+     * @return the shared device instance, or a null pointer if the task has no
+     *   project set, the project has no DeviceManager, or the id isn't registered
+     */
     std::shared_ptr<vc::device::IDevice> getTaskDevice(const QString &deviceId) const;
 
-    /// Resolves m_assignedDeviceIds against the project's DeviceManager and
-    /// returns only the devices matching `t`.  Skips ids whose device isn't
-    /// currently registered.  Returns an empty list if the task has no
-    /// project set yet.
-    /// @param t device type to filter by
-    /// @return assigned devices of type `t`
+    /**
+     * @brief Resolves m_assignedDeviceIds against the project's DeviceManager and
+     *        returns only the devices matching `t`. Skips ids whose device isn't
+     *        currently registered. Returns an empty list if the task has no
+     *        project set yet.
+     * @param[in] t device type to filter by
+     * @return assigned devices of type `t`
+     */
     QList<std::shared_ptr<vc::device::IDevice>>
         assignedDevicesOfType(vc::device::DeviceType t) const;
 
@@ -165,8 +189,10 @@ public:
     /// as its configuration allows (subclass-defined limit).
     virtual bool isReachLimitOfDeviceType(vc::device::DeviceType t) const = 0;
 
-    /// Replaces the task's abstract configuration object and emits configChanged().
-    /// @param cfg new configuration; ownership/lifetime is managed by the caller
+    /**
+     * @brief Replaces the task's abstract configuration object and emits configChanged().
+     * @param[in] cfg new configuration; ownership/lifetime is managed by the caller
+     */
     virtual void setTaskConfig(ITaskConfig *cfg) {
         m_abstract_cfg = cfg;
         emit configChanged();
@@ -201,12 +227,14 @@ public:
     }
 
 
-    /// Restores id, name, assignedDeviceIds, and (if a config object is already set)
-    /// the taskConfig from a JSON object previously produced by toJson().
-    /// @param obj serialized task; must contain "id", "name", "taskType", and
-    ///   "taskConfig" with a "taskType" matching this instance's taskType()
-    /// @return false (logging the mismatch) if required keys are missing or the
-    ///   task type doesn't match; true otherwise
+    /**
+     * @brief Restores id, name, assignedDeviceIds, and (if a config object is already set)
+     *        the taskConfig from a JSON object previously produced by toJson().
+     * @param[in] obj serialized task; must contain "id", "name", "taskType", and
+     *   "taskConfig" with a "taskType" matching this instance's taskType()
+     * @return false (logging the mismatch) if required keys are missing or the
+     *   task type doesn't match; true otherwise
+     */
     virtual bool fromJson(const QJsonObject& obj) {
         if (!obj.contains("id") ||
             !obj.contains("name") ||
@@ -246,16 +274,20 @@ public:
         return QMap<QString, cv::Mat>();
     }
 
-    /// Base implementation is a no-op that always fails; subclasses that support
-    /// restoring cached images from a mapping override this.
-    /// @param mapping candidate images keyed by identifier
-    /// @return false (base class does not load anything)
+    /**
+     * @brief Base implementation is a no-op that always fails; subclasses that support
+     *        restoring cached images from a mapping override this.
+     * @param[in] mapping candidate images keyed by identifier
+     * @return false (base class does not load anything)
+     */
     virtual bool loadTaskImageMap(QMap<QString, cv::Mat> &mapping) {
         return false;
     }
 
-    /// Sets the owning Project back-pointer (non-owning).
-    /// @param proj owning project, or nullptr
+    /**
+     * @brief Sets the owning Project back-pointer (non-owning).
+     * @param[in] proj owning project, or nullptr
+     */
     virtual void setProject(Project *proj) {
         m_proj = proj;
     }
@@ -277,9 +309,11 @@ public:
     /// End commission, stop per-device threads (→ Idle).
     virtual void endCommission();
 
-    /// Runtime phase: start production execution.
-    /// @param mergeToTaskThread false (default): keep per-device threads, runtime
-    ///   thread acts as coordinator; true: move all devices to the single runtime thread.
+    /**
+     * @brief Runtime phase: start production execution.
+     * @param[in] mergeToTaskThread false (default): keep per-device threads, runtime
+     *   thread acts as coordinator; true: move all devices to the single runtime thread.
+     */
     virtual void beginRuntime(bool mergeToTaskThread = false);
 
     /// End runtime, stop all threads (→ Idle).
@@ -309,11 +343,17 @@ signals:
     void runtimeStopped();    ///< Emitted at the end of endRuntime().
 
 protected:
-    /// Attempts to move the task's lifecycle state to `targetState`, validating the
-    /// transition, logging the outcome, and emitting taskStateChanged() on success.
-    /// @param targetState desired new state
-    /// @param reason free-text context for the transition, used in log messages
-    /// @return true if the transition was valid and applied (or was already a no-op)
+    /**
+     * @brief Attempts to move the task's lifecycle state to `targetState`, validating the
+     *        transition, logging the outcome, and emitting taskStateChanged() on success.
+     * @param[in] targetState desired new state
+     * @param[in] reason free-text context for the transition, used in log messages
+     * @return true if the transition was valid and applied (or was already a no-op)
+     * @pre `targetState` must be reachable from the current taskState() per
+     *      canTransitionTaskState(), unless it equals the current state.
+     * @post On a true return, taskState() equals `targetState` and taskStateChanged(targetState)
+     *       has been emitted (unless the transition was a same-state no-op).
+     */
     bool transitionTaskState(TaskState targetState, const QString &reason = QString());
 
     // Syncs registered runners with m_assignedDeviceIds.

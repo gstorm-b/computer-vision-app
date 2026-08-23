@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/core/utils/windows_helper.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/core/utils/windows_helper.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('windows__helpe
   <div class="headertitle"><div class="title">windows_helper.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>UI utility helpers: <a class="el" href="class_themed_svg_icon_engine.html" title="QIconEngine that resolves an SVG icon path through ThemeManager (so the icon follows the active light...">ThemedSvgIconEngine</a> (QIconEngine that follows the active theme), <a class="el" href="#a86fb894a153b167bcca2068f76fdfef3" title="Creates a QIcon backed by a ThemedSvgIconEngine for File, rendered at intent pixels.">svgIcon()</a> factory, and small static helpers for ADS CDockWidget feature-string display.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QTime&gt;</code><br />
 <code>#include &lt;QLabel&gt;</code><br />
 <code>#include &lt;QTextEdit&gt;</code><br />
@@ -169,6 +172,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:ThemedSvgIconEngine" id="r_ThemedSvgIconEngine"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_themed_svg_icon_engine.html">ThemedSvgIconEngine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">QIconEngine that resolves an SVG icon path through <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> (so the icon follows the active light/dark theme/style) and caches rendered pixmaps in QPixmapCache keyed by style, path, mode, state, and size to avoid re-rendering the SVG each time.  <a href="class_themed_svg_icon_engine.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -176,9 +180,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a00bb9014915728ab171580ee28290ab2" id="r_a00bb9014915728ab171580ee28290ab2"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a00bb9014915728ab171580ee28290ab2">featuresString</a> (ads::CDockWidget *DockWidget)</td></tr>
 <tr class="memitem:a4eda97ec568a2da7a7487494e2798b0b" id="r_a4eda97ec568a2da7a7487494e2798b0b"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a4eda97ec568a2da7a7487494e2798b0b">randomNumberBounded</a> (int highest)</td></tr>
 <tr class="memitem:a86fb894a153b167bcca2068f76fdfef3" id="r_a86fb894a153b167bcca2068f76fdfef3"><td class="memItemLeft">static QIcon&#160;</td><td class="memItemRight"><a class="el" href="#a86fb894a153b167bcca2068f76fdfef3">svgIcon</a> (const QString &amp;File, int intent=92)</td></tr>
-<tr class="memdesc:a86fb894a153b167bcca2068f76fdfef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a QIcon backed by a <a class="el" href="class_themed_svg_icon_engine.html">ThemedSvgIconEngine</a> for <span class="tt">File</span>, rendered at <span class="tt">intent</span> pixels.  <br /></td></tr>
+<tr class="memdesc:a86fb894a153b167bcca2068f76fdfef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a QIcon backed by a <a class="el" href="class_themed_svg_icon_engine.html" title="QIconEngine that resolves an SVG icon path through ThemeManager (so the icon follows the active light...">ThemedSvgIconEngine</a> for <span class="tt">File</span>, rendered at <span class="tt">intent</span> pixels.  <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>UI utility helpers: <a class="el" href="class_themed_svg_icon_engine.html" title="QIconEngine that resolves an SVG icon path through ThemeManager (so the icon follows the active light...">ThemedSvgIconEngine</a> (QIconEngine that follows the active theme), <a class="el" href="#a86fb894a153b167bcca2068f76fdfef3" title="Creates a QIcon backed by a ThemedSvgIconEngine for File, rendered at intent pixels.">svgIcon()</a> factory, and small static helpers for ADS CDockWidget feature-string display. </p>
+
+<p class="definition">Definition in file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aa4aa7ba02bdcba49868f1acbc594a872" name="aa4aa7ba02bdcba49868f1acbc594a872"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa4aa7ba02bdcba49868f1acbc594a872">&#9670;&#160;</a></span>appendFeaturStringToWindowTitle()</h2>
 
@@ -203,9 +211,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Appends the string returned by <a class="el" href="#a00bb9014915728ab171580ee28290ab2">featuresString()</a> (in parentheses) to the current window title of the given DockWidget. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00075">75</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00082">82</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00063">featuresString()</a>.</p>
+<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00070">featuresString()</a>.</p>
 
 </div>
 </div>
@@ -233,9 +241,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Builds a compact feature-flags string for <span class="tt">DockWidget</span> showing its closable (c), movable (m), and floatable (f) features as +/- suffixes, e.g. a not-closable but movable and floatable widget yields "c- m+ f+". </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00063">63</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00070">70</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00075">appendFeaturStringToWindowTitle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00082">appendFeaturStringToWindowTitle()</a>.</p>
 
 </div>
 </div>
@@ -263,7 +271,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a pseudo-random integer in the range [0, highest) using the global QRandomGenerator. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00054">54</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00061">61</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
 </div>
 </div>
@@ -294,9 +302,9 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a QIcon backed by a <a class="el" href="class_themed_svg_icon_engine.html">ThemedSvgIconEngine</a> for <span class="tt">File</span>, rendered at <span class="tt">intent</span> pixels. </p>
+<p>Creates a QIcon backed by a <a class="el" href="class_themed_svg_icon_engine.html" title="QIconEngine that resolves an SVG icon path through ThemeManager (so the icon follows the active light...">ThemedSvgIconEngine</a> for <span class="tt">File</span>, rendered at <span class="tt">intent</span> pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00179">179</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00194">194</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00282">ProjectTreeWidget::buildDeviceItem()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">BaslerCameraWidget::initCameraWiget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00194">LocalizationTaskWidget::initNavPanel()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00437">BaslerCameraWidget::onCameraConnected()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00450">BaslerCameraWidget::onCameraDisconnected()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget::ProjectTreeWidget()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00117">AddDeviceWizard::refreshCardIcons()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00150">DeviceNavItemWidget::setIconPath()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00358">ProjectTreeWidget::showContextMenu()</a>.</p>
 

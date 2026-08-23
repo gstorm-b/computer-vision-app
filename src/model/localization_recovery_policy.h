@@ -5,23 +5,49 @@
 
 #include "device/idevice.h"
 
-/// Connection-recovery policy model for localization-owned devices (camera, PLC, vision
-/// output): retry/escalate decision rules and default per-role policies.
+/**
+ * @file localization_recovery_policy.h
+ * @brief Connection-recovery policy model for localization-owned devices (camera, PLC, vision
+ *        output): retry decision rules and default per-role policies.
+ *
+ * @note Reconnect is UNLIMITED. A recoverable connection loss is retried at the policy's
+ *       interval until the runtime is torn down; it never escalates to a task fault. The
+ *       goal is that a dropped link recovers and returns to Ready without any operator
+ *       action.
+ *
+ *       Operator-visible consequence: a device that never comes back leaves the task in
+ *       Recovering indefinitely, publishing bTaskReady=false with bTaskFault=false. A PLC
+ *       program that detects a dead link by waiting for bTaskFault will wait forever — it
+ *       must watch bTaskReady (or a timeout of its own) instead. See
+ *       docs/domains/task_localization/plc_signal_contract.md → "Recovery Behavior".
+ */
+
 namespace vc::model {
 
-/// Recovery decision the localization runtime should take in response to a device
-/// connection-status change (see decideRecoveryAction()).
+/**
+ * @enum LocalizationRecoveryAction
+ * @brief Recovery decision the localization runtime should take in response to a device
+ *        connection-status change (see decideRecoveryAction()).
+ *
+ * @note There is deliberately no "escalate to fault" action. Reconnect is unlimited: a
+ *       recoverable status is retried until the runtime ends, so a lost device never
+ *       turns into a task fault on its own. See the file-level note.
+ */
 enum class LocalizationRecoveryAction {
-    Ignore,          ///< Status is not recoverable per policy, or a retry is already pending.
-    RetryScheduled,  ///< Perform another reconnect attempt (retry budget not yet exhausted).
-    EscalateFault    ///< Retry budget exhausted; the runtime should raise a localization fault.
+    Ignore,         ///< Status is not recoverable per policy, or a retry is already pending.
+    RetryScheduled  ///< Perform another reconnect attempt.
 };
 
-/// Per-role (camera/PLC/vision-output) reconnect policy: which connection statuses are
-/// recoverable at all, how many times to retry, and at what interval/timeout.
+/**
+ * @struct LocalizationRecoveryPolicy
+ * @brief Per-role (camera/PLC/vision-output) reconnect policy: which connection statuses are
+ *        recoverable at all, and at what interval/timeout to retry them.
+ *
+ * The policy answers "how often do we retry", never "how many times". Retrying is
+ * unbounded by design — the runtime keeps trying until it is torn down.
+ */
 struct LocalizationRecoveryPolicy {
     QString roleName;                 ///< Human-readable role identifier (e.g. "camera").
-    int maxRetries{10};                ///< Max reconnect attempts before escalating to a fault.
     int retryIntervalMs{5000};         ///< Delay between reconnect attempts, in milliseconds.
     int connectTimeoutMs{3000};        ///< Timeout for a single reconnect attempt, in milliseconds.
     bool retryOnConnectFailed{true};   ///< Whether ConnectStatus::ConnectFailed is recoverable.
@@ -38,12 +64,6 @@ struct LocalizationRecoveryPolicy {
             return retryOnLostConnected;
         }
         return false;
-    }
-
-    /// Returns true if `currentRetryCount` is still below maxRetries.
-    bool canRetry(int currentRetryCount) const
-    {
-        return currentRetryCount < maxRetries;
     }
 };
 
@@ -74,18 +94,18 @@ inline LocalizationRecoveryPolicy defaultVisionOutputRecoveryPolicy()
     return policy;
 }
 
-/// Decides how the localization runtime should react to a device's connection-status change,
-/// given its recovery policy and current retry state.
-/// @param policy recovery policy for the device's role
-/// @param status the device's new connection status
-/// @param currentRetryCount number of reconnect attempts already performed
-/// @param retryAlreadyScheduled true if a retry is already pending, to avoid double-scheduling
-/// @return Ignore if `status` isn't recoverable per `policy` or a retry is already scheduled;
-///         EscalateFault if the retry budget is exhausted; otherwise RetryScheduled
+/**
+ * @brief Decides how the localization runtime should react to a device's connection-status
+ *        change, given its recovery policy and current retry state.
+ * @param[in] policy               recovery policy for the device's role
+ * @param[in] status               the device's new connection status
+ * @param[in] retryAlreadyScheduled true if a retry is already pending, to avoid double-scheduling
+ * @return Ignore if `status` isn't recoverable per `policy` or a retry is already scheduled;
+ *         otherwise RetryScheduled
+ */
 inline LocalizationRecoveryAction decideRecoveryAction(
     const LocalizationRecoveryPolicy &policy,
     vc::device::ConnectStatus status,
-    int currentRetryCount,
     bool retryAlreadyScheduled)
 {
     if (!policy.isRecoverableStatus(status)) {
@@ -96,59 +116,7 @@ inline LocalizationRecoveryAction decideRecoveryAction(
         return LocalizationRecoveryAction::Ignore;
     }
 
-    if (!policy.canRetry(currentRetryCount)) {
-        return LocalizationRecoveryAction::EscalateFault;
-    }
-
     return LocalizationRecoveryAction::RetryScheduled;
-}
-
-/// Builds a human-readable fault message summarizing a failed recovery attempt (role, device id,
-/// status, retry count/budget, and timing parameters), suitable for logging or as a fault
-/// message payload.
-/// @param policy recovery policy in effect for the device's role
-/// @param deviceId identifier of the device that failed to recover
-/// @param status the device's connection status that triggered the fault
-/// @param performedRetries number of reconnect attempts already performed
-/// @return the formatted "Recovery failed for role=... deviceId=... status=..." message
-inline QString buildRecoveryFaultMessage(
-    const LocalizationRecoveryPolicy &policy,
-    const QString &deviceId,
-    vc::device::ConnectStatus status,
-    int performedRetries)
-{
-    // Fallback covers any future ConnectStatus value; every current value is
-    // enumerated (no default:) so -Wswitch / C4062 flags additions.
-    QString statusText = QStringLiteral("UnknownStatus");
-    switch (status) {
-    case vc::device::ConnectStatus::LostConnected:
-        statusText = QStringLiteral("LostConnected");
-        break;
-    case vc::device::ConnectStatus::ConnectFailed:
-        statusText = QStringLiteral("ConnectFailed");
-        break;
-    case vc::device::ConnectStatus::NoConnection:
-        statusText = QStringLiteral("NoConnection");
-        break;
-    case vc::device::ConnectStatus::Disconnected:
-        statusText = QStringLiteral("Disconnected");
-        break;
-    case vc::device::ConnectStatus::Connected:
-        statusText = QStringLiteral("Connected");
-        break;
-    case vc::device::ConnectStatus::Connecting:
-        statusText = QStringLiteral("Connecting");
-        break;
-    }
-
-    return QStringLiteral("Recovery failed for role=%1 deviceId=%2 status=%3 retries=%4/%5 intervalMs=%6 timeoutMs=%7")
-        .arg(policy.roleName,
-             deviceId,
-             statusText)
-        .arg(performedRetries)
-        .arg(policy.maxRetries)
-        .arg(policy.retryIntervalMs)
-        .arg(policy.connectTimeoutMs);
 }
 
 } // namespace vc::model

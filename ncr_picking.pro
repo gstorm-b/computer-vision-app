@@ -1,66 +1,26 @@
-QT       += core gui network sql
-
-greaterThan(QT_MAJOR_VERSION, 5): QT += widgets
-
-CONFIG += c++17 deploy_deps
+# Commissioning application shell.
+#
+# Everything shared with the operator runtime shell (runtime_app/ncr_runtime.pro) lives in
+# qmake/app_common.pri: the link against the ncr_shared static library that carries all of
+# src/, Qt modules, RobotKinematics, ADS, resources and dependency deployment. Only this
+# shell's own pieces belong below.
+#
+# This .pro still builds on its own, but it no longer builds src/ — it LINKS ncr_shared,
+# and qmake has no way to build another project from an app template. So a standalone build
+# needs the library built first (see docs/rules/build_and_verification.md). Building through
+# ncr_picking_all.pro does that for you and is the normal path.
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-# Module code resolves includes rooted at src/ (e.g. #include "model/project.h").
-INCLUDEPATH += \
-    src/
+include(qmake/app_common.pri)
 
-# One .pri per module: each module lists only its own SOURCES/HEADERS/FORMS,
-# so adding a file touches that module's .pri, never this root file.
-# Dependency levels (low to high) — lower levels must not include higher ones;
-# see README.md "Module dependency rule".
-include(src/core/core.pri)                  # level 0: settings/logger/utils
-include(src/device/device.pri)              # level 1: device families
-include(src/calibration/calibration.pri)    # level 1: calibration
-include(src/matching/matching.pri)          # level 1: pattern matching
-include(src/model/model.pri)                # level 2: project/task/pipeline
-include(src/runtime/runtime.pri)            # level 2: per-device runners
-include(src/ui/ui.pri)                      # UI: forms (dialogs/wizards/pages) + widgets
 include(app/app.pri)                        # app shell (top level, owns translations)
-
-# Robot kinematics component (forward / inverse kinematics + optional Coal
-# mesh-collision). Reusable library under components/RobotKinematics/, consumed
-# here as source via its integration .pri. It pulls in the header-only Eigen
-# and the prebuilt Coal/Boost/Assimp install trees under the repo-root 3rdparty
-# folder. The .pri auto-copies the mesh-collision runtime DLL set and the
-# Nachi MZ04D mesh assets next to the built binary after link. Customer installer
-# packaging is still tracked in docs/backlog/later_todo_list.md #27.
-include(components/RobotKinematics/robotkinematics.pri)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-include(qmake/local_dependencies.pri)
-
-# Opt-in dependency deployment: copy third-party runtime DLLs (ADS docking,
-# OpenCV world, Basler Pylon) next to the built binary when the target dir is
-# missing them, and run windeployqt for the Qt runtime + plugins. Off by
-# default; enable with `qmake ... CONFIG+=deploy_deps`. RobotKinematics/Coal is
-# deployed by robotkinematics.pri.
-include(qmake/deploy_dependencies.pri)
-
-RESOURCES += \
-    3rdparty/advance_docking/include/ads.qrc \
-    resrc.qrc
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/3rdparty/advance_docking/lib/ -lqtadvanceddocking
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/3rdparty/advance_docking/lib/ -lqtadvanceddockingd
-
-INCLUDEPATH += $$PWD/3rdparty/advance_docking/include
-DEPENDPATH += $$PWD/3rdparty/advance_docking/include
-
-# Vendored Qt Solutions property browser (compiled into the app). Headers are
-# included as "qtpropertybrowser/<name>" via the 3rdparty include root below.
-include(3rdparty/qtpropertybrowser/qtpropertybrowser_vendor.pri)
-INCLUDEPATH += $$PWD/3rdparty
 
 RC_ICONS = resrc/icon/software_icon.ico

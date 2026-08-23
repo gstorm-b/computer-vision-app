@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>MC-protocol device configuration: holds a cloned <a class="el" href="classvc_1_1device_1_1_mc_context.html" title="Abstract base context for an MC-protocol PLC connection: holds the frame-independent addressing/refre...">McContext</a> (frame type plus its addressing/timing parameters) and adds MC-specific JSON persistence on top of <a class="el" href="classvc_1_1device_1_1_plc_cfg.html" title="Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (M...">PlcCfg</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::McProtocolConfig:</div>
@@ -136,15 +139,18 @@ Collaboration diagram for vc::device::McProtocolConfig:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:add0c1147a23f97e1edda6acefd3b9579" id="r_add0c1147a23f97e1edda6acefd3b9579"><td class="memItemLeft"><a class="el" href="classvc_1_1device_1_1_i_device_cfg.html">IDeviceCfg</a> *&#160;</td><td class="memItemRight"><a class="el" href="#add0c1147a23f97e1edda6acefd3b9579">clone</a> () override</td></tr>
 <tr class="memitem:acdeaa7d94f4c34df5c3c94cc7d7517fe" id="r_acdeaa7d94f4c34df5c3c94cc7d7517fe"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acdeaa7d94f4c34df5c3c94cc7d7517fe">configMcProtocol</a> (<a class="el" href="namespacevc_1_1device_1_1mc.html#a0d6895c4d48891d0fdbda5e69c6c997c">McFrameType</a> frame_type, <a class="el" href="namespacevc_1_1device_1_1mc.html#a67328b18acd39ab07ad908e6d3b58b1c">McDataCode</a> code=McDataCode::Binary)</td></tr>
+<tr class="memdesc:acdeaa7d94f4c34df5c3c94cc7d7517fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a fresh context for <span class="tt">frame_type</span>/<span class="tt">code</span> via <a class="el" href="namespacevc_1_1device_1_1_factory.html#a86b1cd4a6e1587aef9dfb6ccc481fcf0" title="Allocates the McContext subclass matching frame_type (only Frame_3E is currently implemented; other f...">Factory::contextFactory()</a> and installs it, discarding any previous context.  <br /></td></tr>
 <tr class="memitem:ad28315c9d7b9ccce406ff64d817a27be" id="r_ad28315c9d7b9ccce406ff64d817a27be"><td class="memItemLeft"><a class="el" href="classvc_1_1device_1_1_mc_context.html">McContext</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad28315c9d7b9ccce406ff64d817a27be">context</a> ()</td></tr>
 <tr class="memitem:aef40106666459e6b8399f113d40ae02d" id="r_aef40106666459e6b8399f113d40ae02d"><td class="memItemLeft"><a class="el" href="namespacevc_1_1device_1_1mc.html#a0d6895c4d48891d0fdbda5e69c6c997c">McFrameType</a>&#160;</td><td class="memItemRight"><a class="el" href="#aef40106666459e6b8399f113d40ae02d">currentFrameType</a> () const</td></tr>
 <tr class="memitem:a749bb2caa8ec1038ec962883cf3040aa" id="r_a749bb2caa8ec1038ec962883cf3040aa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a749bb2caa8ec1038ec962883cf3040aa">fromJson</a> (const QJsonObject &amp;obj) override</td></tr>
+<tr class="memdesc:a749bb2caa8ec1038ec962883cf3040aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores base <a class="el" href="classvc_1_1device_1_1_plc_cfg.html" title="Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (M...">PlcCfg</a> fields, then rebuilds the context from the JSON's MC frame type via <a class="el" href="namespacevc_1_1device_1_1_factory.html#a86b1cd4a6e1587aef9dfb6ccc481fcf0" title="Allocates the McContext subclass matching frame_type (only Frame_3E is currently implemented; other f...">Factory::contextFactory()</a> and loads the context's own fields from DEVICE_JSK_MC_CONTEXT.  <br /></td></tr>
 <tr class="memitem:a892cd282eafb4cb7780c944aa66a15e0" id="r_a892cd282eafb4cb7780c944aa66a15e0"><td class="memItemLeft">const QMetaObject &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a892cd282eafb4cb7780c944aa66a15e0">getMetaObject</a> () const override</td></tr>
 <tr class="memitem:a1e9d3468d27333e9f4f8ecac5ece62d1" id="r_a1e9d3468d27333e9f4f8ecac5ece62d1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1e9d3468d27333e9f4f8ecac5ece62d1">McProtocolConfig</a> ()</td></tr>
 <tr class="memdesc:a1e9d3468d27333e9f4f8ecac5ece62d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an MC-protocol config with no context set yet.  <br /></td></tr>
 <tr class="memitem:a0aa7b863bd2888b8005736f8f63e12c1" id="r_a0aa7b863bd2888b8005736f8f63e12c1"><td class="memItemLeft"><a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">PlcType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0aa7b863bd2888b8005736f8f63e12c1">plcType</a> () const override</td></tr>
 <tr class="memdesc:a0aa7b863bd2888b8005736f8f63e12c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388baa25d694a4292a9cebae1b1446e509f2c">PlcType::MitsubishiMc</a>, identifying this as the Mitsubishi MC PLC family config.  <br /></td></tr>
 <tr class="memitem:a55c28d0383ae113077d7237683e200ab" id="r_a55c28d0383ae113077d7237683e200ab"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a55c28d0383ae113077d7237683e200ab">setContext</a> (<a class="el" href="classvc_1_1device_1_1_mc_context.html">McContext</a> *ctx)</td></tr>
+<tr class="memdesc:a55c28d0383ae113077d7237683e200ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the current context with a clone of <span class="tt">ctx</span>; this config does not take ownership of <span class="tt">ctx</span> itself.  <br /></td></tr>
 <tr class="memitem:a3338aeba6968215d7a545ecbb56e6897" id="r_a3338aeba6968215d7a545ecbb56e6897"><td class="memItemLeft">QJsonObject&#160;</td><td class="memItemRight"><a class="el" href="#a3338aeba6968215d7a545ecbb56e6897">toJson</a> () const override</td></tr>
 <tr class="inherit_header pub_methods_classvc_1_1device_1_1_plc_cfg"><td colspan="2">Public Member Functions inherited from <a class="el" href="classvc_1_1device_1_1_plc_cfg.html">vc::device::PlcCfg</a></td></tr>
 <tr class="memitem:a0586723e1d7eea7ee28dec044921b10c pub_methods_classvc_1_1device_1_1_plc_cfg" id="r_a0586723e1d7eea7ee28dec044921b10c"><td class="memItemLeft"><a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a>&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_plc_cfg.html#a0586723e1d7eea7ee28dec044921b10c">deviceType</a> () const override</td></tr>
@@ -161,9 +167,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a05d30349256146159e07f734df252f67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current frame type + addressing/timing context, or null if unset.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>MC-protocol device configuration: holds a cloned <a class="el" href="classvc_1_1device_1_1_mc_context.html">McContext</a> (frame type plus its addressing/timing parameters) and adds MC-specific JSON persistence on top of <a class="el" href="classvc_1_1device_1_1_plc_cfg.html">PlcCfg</a>. </p>
+<div class="textblock"><p>MC-protocol device configuration: holds a cloned <a class="el" href="classvc_1_1device_1_1_mc_context.html" title="Abstract base context for an MC-protocol PLC connection: holds the frame-independent addressing/refre...">McContext</a> (frame type plus its addressing/timing parameters) and adds MC-specific JSON persistence on top of <a class="el" href="classvc_1_1device_1_1_plc_cfg.html" title="Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (M...">PlcCfg</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00014">14</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00021">21</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1e9d3468d27333e9f4f8ecac5ece62d1" name="a1e9d3468d27333e9f4f8ecac5ece62d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1e9d3468d27333e9f4f8ecac5ece62d1">&#9670;&#160;</a></span>McProtocolConfig()</h2>
@@ -190,9 +196,9 @@ Private Attributes</h2></td></tr>
 
 <p>Constructs an MC-protocol config with no context set yet. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00019">19</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00026">26</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00107">clone()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00120">clone()</a>.</p>
 
 </div>
 </div>
@@ -223,9 +229,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#a3f68f42a59b6720550f19bf790389584">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00107">107</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00120">120</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__config_8h_source.html#l00117">m_context</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00019">McProtocolConfig()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00046">setContext()</a>.</p>
+<p class="reference">References <a class="el" href="mc__protocol__config_8h_source.html#l00130">m_context</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00026">McProtocolConfig()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00055">setContext()</a>.</p>
 
 </div>
 </div>
@@ -255,18 +261,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds a fresh context for <span class="tt">frame_type</span>/<span class="tt">code</span> via <a class="el" href="namespacevc_1_1device_1_1_factory.html#a86b1cd4a6e1587aef9dfb6ccc481fcf0">Factory::contextFactory()</a> and installs it, discarding any previous context. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Builds a fresh context for <span class="tt">frame_type</span>/<span class="tt">code</span> via <a class="el" href="namespacevc_1_1device_1_1_factory.html#a86b1cd4a6e1587aef9dfb6ccc481fcf0" title="Allocates the McContext subclass matching frame_type (only Frame_3E is currently implemented; other f...">Factory::contextFactory()</a> and installs it, discarding any previous context. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">frame_type</td><td>MC frame variant to configure (e.g. Frame_3E) </td></tr>
-    <tr><td class="paramname">code</td><td>data code (binary/ASCII) the frame should use </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">frame_type</td><td>MC frame variant to configure (e.g. Frame_3E) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">code</td><td>data code (binary/ASCII) the frame should use </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>false if the factory could not produce a context for the given type/code </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00065">65</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00076">76</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00098">vc::device::mc::Binary</a>, <a class="el" href="mc__context__factory_8h_source.html#l00017">vc::device::Factory::contextFactory()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00117">m_context</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00111">vc::device::mc::Binary</a>, <a class="el" href="mc__context__factory_8h_source.html#l00022">vc::device::Factory::contextFactory()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00130">m_context</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>.</p>
 
@@ -296,9 +304,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the current context, or nullptr if none has been set. Ownership stays with this config. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00056">56</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00065">65</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__config_8h_source.html#l00117">m_context</a>.</p>
+<p class="reference">References <a class="el" href="mc__protocol__config_8h_source.html#l00130">m_context</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00164">vc::device::McProtocolDevice::setDeviceConfig()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00184">vc::device::McProtocolDevice::setMcProtocolConfig()</a>.</p>
 
@@ -328,9 +336,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the frame type of the current context, or McFrameType::Frame_User if no context has been set yet. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00035">35</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00042">42</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00078">vc::device::mc::Frame_User</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00117">m_context</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00085">vc::device::mc::Frame_User</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00130">m_context</a>.</p>
 
 </div>
 </div>
@@ -356,9 +364,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Restores base <a class="el" href="classvc_1_1device_1_1_plc_cfg.html">PlcCfg</a> fields, then rebuilds the context from the JSON's MC frame type via <a class="el" href="namespacevc_1_1device_1_1_factory.html#a86b1cd4a6e1587aef9dfb6ccc481fcf0">Factory::contextFactory()</a> and loads the context's own fields from DEVICE_JSK_MC_CONTEXT. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Restores base <a class="el" href="classvc_1_1device_1_1_plc_cfg.html" title="Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (M...">PlcCfg</a> fields, then rebuilds the context from the JSON's MC frame type via <a class="el" href="namespacevc_1_1device_1_1_factory.html#a86b1cd4a6e1587aef9dfb6ccc481fcf0" title="Allocates the McContext subclass matching frame_type (only Frame_3E is currently implemented; other f...">Factory::contextFactory()</a> and loads the context's own fields from DEVICE_JSK_MC_CONTEXT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>JSON object previously produced by <a class="el" href="#a3338aeba6968215d7a545ecbb56e6897">toJson()</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>JSON object previously produced by <a class="el" href="#a3338aeba6968215d7a545ecbb56e6897">toJson()</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -366,9 +376,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ab2110eaf63e41619a07dd83f86c32716">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00094">94</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00107">107</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__context__factory_8h_source.html#l00017">vc::device::Factory::contextFactory()</a>, <a class="el" href="idevice__config_8h_source.html#l00031">DEVICE_JSK_MC_CONTEXT</a>, <a class="el" href="idevice__config_8h_source.html#l00030">DEVICE_JSK_MC_FRAME</a>, <a class="el" href="plc__device_8h_source.html#l00065">vc::device::PlcCfg::fromJson()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00117">m_context</a>, and <a class="el" href="mc__define_8h_source.html#l00156">vc::device::mc::McFrameTypeFromString()</a>.</p>
+<p class="reference">References <a class="el" href="mc__context__factory_8h_source.html#l00022">vc::device::Factory::contextFactory()</a>, <a class="el" href="idevice__config_8h_source.html#l00037">DEVICE_JSK_MC_CONTEXT</a>, <a class="el" href="idevice__config_8h_source.html#l00036">DEVICE_JSK_MC_FRAME</a>, <a class="el" href="plc__device_8h_source.html#l00075">vc::device::PlcCfg::fromJson()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00130">m_context</a>, and <a class="el" href="mc__define_8h_source.html#l00171">vc::device::mc::McFrameTypeFromString()</a>.</p>
 
 </div>
 </div>
@@ -394,11 +404,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the static QMetaObject for <a class="el" href="classvc_1_1device_1_1_mc_protocol_config.html">McProtocolConfig</a>, so Q_GADGET-based reflection (e.g. the property browser) resolves the runtime type through a PlcCfg/IDeviceCfg pointer. </p>
+<p>Returns the static QMetaObject for <a class="el" href="classvc_1_1device_1_1_mc_protocol_config.html" title="MC-protocol device configuration: holds a cloned McContext (frame type plus its addressing/timing par...">McProtocolConfig</a>, so Q_GADGET-based reflection (e.g. the property browser) resolves the runtime type through a PlcCfg/IDeviceCfg pointer. </p>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ad1351944ee1dabb3bfc194f2b7025c2d">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00024">24</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00031">31</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
 </div>
 </div>
@@ -429,9 +439,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_plc_cfg.html#a1b19e509ccef84a27a0bef104b2356fd">vc::device::PlcCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00029">29</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00036">36</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="plc__device_8h_source.html#l00020">vc::device::MitsubishiMc</a>.</p>
+<p class="reference">References <a class="el" href="plc__device_8h_source.html#l00027">vc::device::MitsubishiMc</a>.</p>
 
 </div>
 </div>
@@ -457,19 +467,21 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Replaces the current context with a clone of <span class="tt">ctx</span>; this config does not take ownership of <span class="tt">ctx</span> itself. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Replaces the current context with a clone of <span class="tt">ctx</span>; this config does not take ownership of <span class="tt">ctx</span> itself. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ctx</td><td>source context to clone; must be non-null </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>source context to clone; must be non-null </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>false if <span class="tt">ctx</span> is null (context left unchanged), true otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00046">46</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00055">55</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="classvc_1_1device_1_1_mc_context.html#a8913175e291bbe2e27aa78ca7fd6168b">vc::device::McContext::clone()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00117">m_context</a>.</p>
+<p class="reference">References <a class="el" href="classvc_1_1device_1_1_mc_context.html#a8913175e291bbe2e27aa78ca7fd6168b">vc::device::McContext::clone()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00130">m_context</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00107">clone()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00120">clone()</a>.</p>
 
 </div>
 </div>
@@ -495,13 +507,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Serializes the base <a class="el" href="classvc_1_1device_1_1_plc_cfg.html">PlcCfg</a> fields plus the MC frame type and context (if any) to JSON. </p><dl class="section return"><dt>Returns</dt><dd>JSON object with DEVICE_JSK_MC_FRAME (empty string when no context) and, when a context is set, DEVICE_JSK_MC_CONTEXT holding the context's own JSON. </dd></dl>
+<p>Serializes the base <a class="el" href="classvc_1_1device_1_1_plc_cfg.html" title="Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (M...">PlcCfg</a> fields plus the MC frame type and context (if any) to JSON. </p><dl class="section return"><dt>Returns</dt><dd>JSON object with DEVICE_JSK_MC_FRAME (empty string when no context) and, when a context is set, DEVICE_JSK_MC_CONTEXT holding the context's own JSON. </dd></dl>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#a6287b4b385f2f48b51d6a5fe4940bc33">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00077">77</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00088">88</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00031">DEVICE_JSK_MC_CONTEXT</a>, <a class="el" href="idevice__config_8h_source.html#l00030">DEVICE_JSK_MC_FRAME</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00117">m_context</a>, <a class="el" href="mc__define_8h_source.html#l00150">vc::device::mc::McFrameTypeToString()</a>, and <a class="el" href="plc__device_8h_source.html#l00056">vc::device::PlcCfg::toJson()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00037">DEVICE_JSK_MC_CONTEXT</a>, <a class="el" href="idevice__config_8h_source.html#l00036">DEVICE_JSK_MC_FRAME</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00130">m_context</a>, <a class="el" href="mc__define_8h_source.html#l00165">vc::device::mc::McFrameTypeToString()</a>, and <a class="el" href="plc__device_8h_source.html#l00066">vc::device::PlcCfg::toJson()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>.</p>
 
@@ -530,14 +542,14 @@ Private Attributes</h2></td></tr>
 
 <p>Current frame type + addressing/timing context, or null if unset. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00117">117</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__config_8h_source.html#l00130">130</a> of file <a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00107">clone()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00065">configMcProtocol()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00056">context()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00035">currentFrameType()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00094">fromJson()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00046">setContext()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00077">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00120">clone()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00076">configMcProtocol()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00065">context()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00042">currentFrameType()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00107">fromJson()</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00055">setContext()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00088">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__protocol__config_8h_source.html">mc_protocol_config.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

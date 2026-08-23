@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>MC-protocol <a class="el" href="classvc_1_1device_1_1_plc_value_map.html" title="Abstract, vendor-agnostic holder for a PLC&#39;s polled register values. Concrete vendors provide a concr...">PlcValueMap</a>: holds the X/Y/M/D device subscription ranges used to plan poll requests, plus the resulting M (bit) and D (word) value maps populated by <a class="el" href="classvc_1_1device_1_1_frame3_e.html" title="Concrete MC-protocol frame codec for the 3E frame: builds/parses the binary 3E read/write (bit and wo...">Frame3E</a>'s response parsers.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::McDeviceMap:</div>
@@ -137,11 +140,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aad7d53b6eaa3a3b5a7d1385932b33bdb" id="r_aad7d53b6eaa3a3b5a7d1385932b33bdb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aad7d53b6eaa3a3b5a7d1385932b33bdb">clearMap</a> ()</td></tr>
 <tr class="memitem:a6db70ca18d2cedeae010817bcb1e4abc" id="r_a6db70ca18d2cedeae010817bcb1e4abc"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_plc_value_map.html">PlcValueMap</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6db70ca18d2cedeae010817bcb1e4abc">clone</a> () const</td></tr>
 <tr class="memitem:adcf3cd7205363652a4216a034b425fd0" id="r_adcf3cd7205363652a4216a034b425fd0"><td class="memItemLeft"><a class="el" href="classvc_1_1device_1_1_mc_device_range.html">McDeviceRange</a> *&#160;</td><td class="memItemRight"><a class="el" href="#adcf3cd7205363652a4216a034b425fd0">GetDeviceRange</a> (char device)</td></tr>
+<tr class="memdesc:adcf3cd7205363652a4216a034b425fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the subscription ranges for a specific device type.  <br /></td></tr>
 <tr class="memitem:a3847344d69be2150f6c37b721640d8f0" id="r_a3847344d69be2150f6c37b721640d8f0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3847344d69be2150f6c37b721640d8f0">McDeviceMap</a> ()</td></tr>
 <tr class="memdesc:a3847344d69be2150f6c37b721640d8f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty device map (all ranges and value maps default-empty).  <br /></td></tr>
 <tr class="memitem:a8ca59327a4989f6a0bcb2133f7437777" id="r_a8ca59327a4989f6a0bcb2133f7437777"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8ca59327a4989f6a0bcb2133f7437777">OptimizeRanges</a> ()</td></tr>
 <tr class="memdesc:a8ca59327a4989f6a0bcb2133f7437777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optimizes the X, Y, D, and M device ranges in turn.  <br /></td></tr>
 <tr class="memitem:a2f654fb3b85a6511b5a2f0ccdbf94c41" id="r_a2f654fb3b85a6511b5a2f0ccdbf94c41"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2f654fb3b85a6511b5a2f0ccdbf94c41">Subscribe_deivce</a> (char device, int address, int amount, bool optimal=true)</td></tr>
+<tr class="memdesc:a2f654fb3b85a6511b5a2f0ccdbf94c41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a range of devices of the given type to that type's subscription list.  <br /></td></tr>
 <tr class="memitem:a70407a2b10cb18e768ac889992c1863c" id="r_a70407a2b10cb18e768ac889992c1863c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a70407a2b10cb18e768ac889992c1863c">~McDeviceMap</a> ()</td></tr>
 <tr class="memdesc:a70407a2b10cb18e768ac889992c1863c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor; McDeviceRange/std::map members clean themselves up.  <br /></td></tr>
 <tr class="inherit_header pub_methods_classvc_1_1device_1_1_plc_value_map"><td colspan="2">Public Member Functions inherited from <a class="el" href="classvc_1_1device_1_1_plc_value_map.html">vc::device::PlcValueMap</a></td></tr>
@@ -163,9 +168,9 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:add8b881afd0cc55d2be09f13d45f2bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribed ranges for Y (output) devices.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>MC-protocol <a class="el" href="classvc_1_1device_1_1_plc_value_map.html">PlcValueMap</a>: holds the X/Y/M/D device subscription ranges used to plan poll requests, plus the resulting M (bit) and D (word) value maps populated by <a class="el" href="classvc_1_1device_1_1_frame3_e.html">Frame3E</a>'s response parsers. </p>
+<div class="textblock"><p>MC-protocol <a class="el" href="classvc_1_1device_1_1_plc_value_map.html" title="Abstract, vendor-agnostic holder for a PLC&#39;s polled register values. Concrete vendors provide a concr...">PlcValueMap</a>: holds the X/Y/M/D device subscription ranges used to plan poll requests, plus the resulting M (bit) and D (word) value maps populated by <a class="el" href="classvc_1_1device_1_1_frame3_e.html" title="Concrete MC-protocol frame codec for the 3E frame: builds/parses the binary 3E read/write (bit and wo...">Frame3E</a>'s response parsers. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00071">71</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00085">85</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3847344d69be2150f6c37b721640d8f0" name="a3847344d69be2150f6c37b721640d8f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3847344d69be2150f6c37b721640d8f0">&#9670;&#160;</a></span>McDeviceMap()</h2>
@@ -183,7 +188,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs an empty device map (all ranges and value maps default-empty). </p>
-<p><a class="el" href="classvc_1_1device_1_1_mc_device_map.html">McDeviceMap</a> Constructs an empty device map (all ranges and value maps default-empty). </p>
+<p><a class="el" href="classvc_1_1device_1_1_mc_device_map.html" title="MC-protocol PlcValueMap: holds the X/Y/M/D device subscription ranges used to plan poll requests,...">McDeviceMap</a> Constructs an empty device map (all ranges and value maps default-empty). </p>
 
 <p class="definition">Definition at line <a class="el" href="mc__device__map_8cpp_source.html#l00090">90</a> of file <a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a>.</p>
 
@@ -236,9 +241,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Clears all device ranges and the M/D value maps. </p><dl class="section note"><dt>Note</dt><dd>does not reset each range's has_optimized flag. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00102">102</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00120">120</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00115">d_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00118">device_map_d</a>, <a class="el" href="mc__device__map_8h_source.html#l00117">device_map_m</a>, <a class="el" href="mc__device__map_8h_source.html#l00114">m_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00112">x_devices</a>, and <a class="el" href="mc__device__map_8h_source.html#l00113">y_devices</a>.</p>
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00133">d_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00136">device_map_d</a>, <a class="el" href="mc__device__map_8h_source.html#l00135">device_map_m</a>, <a class="el" href="mc__device__map_8h_source.html#l00132">m_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00130">x_devices</a>, and <a class="el" href="mc__device__map_8h_source.html#l00131">y_devices</a>.</p>
 
 </div>
 </div>
@@ -264,11 +269,11 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Implements <a class="el" href="classvc_1_1device_1_1_plc_value_map.html#a9d868f92fa8f917177f69aed44167783">PlcValueMap::clone()</a> via the copy constructor. </p><dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="classvc_1_1device_1_1_mc_device_map.html">McDeviceMap</a> holding a copy of this map's ranges and values </dd></dl>
+<p>Implements <a class="el" href="classvc_1_1device_1_1_plc_value_map.html#a9d868f92fa8f917177f69aed44167783">PlcValueMap::clone()</a> via the copy constructor. </p><dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="classvc_1_1device_1_1_mc_device_map.html" title="MC-protocol PlcValueMap: holds the X/Y/M/D device subscription ranges used to plan poll requests,...">McDeviceMap</a> holding a copy of this map's ranges and values </dd></dl>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_plc_value_map.html#a9d868f92fa8f917177f69aed44167783">vc::device::PlcValueMap</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00080">80</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00094">94</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
 </div>
 </div>
@@ -286,18 +291,20 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Retrieves the subscription ranges for a specific device type. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Retrieves the subscription ranges for a specific device type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>device type in uppercase: 'X', 'Y', 'M', or 'D' </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>device type in uppercase: 'X', 'Y', 'M', or 'D' </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>pointer to the matching <a class="el" href="classvc_1_1device_1_1_mc_device_range.html">McDeviceRange</a>, or nullptr if <span class="tt"><a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">device</a></span> is unrecognized</dd></dl>
-<p>Returns the <a class="el" href="classvc_1_1device_1_1_mc_device_range.html">McDeviceRange</a> member matching <span class="tt"><a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">device</a></span> ('X'/'Y'/'M'/'D'), or nullptr if <span class="tt"><a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">device</a></span> is not one of those four letters. </p>
+<dl class="section return"><dt>Returns</dt><dd>pointer to the matching <a class="el" href="classvc_1_1device_1_1_mc_device_range.html" title="Tracks the individual device addresses subscribed for one MC device type (X/Y/M/D) and can coalesce t...">McDeviceRange</a>, or nullptr if <span class="tt"><a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">device</a></span> is unrecognized</dd></dl>
+<p>Returns the <a class="el" href="classvc_1_1device_1_1_mc_device_range.html" title="Tracks the individual device addresses subscribed for one MC device type (X/Y/M/D) and can coalesce t...">McDeviceRange</a> member matching <span class="tt"><a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">device</a></span> ('X'/'Y'/'M'/'D'), or nullptr if <span class="tt"><a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">device</a></span> is not one of those four letters. </p>
 
 <p class="definition">Definition at line <a class="el" href="mc__device__map_8cpp_source.html#l00129">129</a> of file <a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00115">d_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00114">m_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00112">x_devices</a>, and <a class="el" href="mc__device__map_8h_source.html#l00113">y_devices</a>.</p>
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00133">d_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00132">m_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00130">x_devices</a>, and <a class="el" href="mc__device__map_8h_source.html#l00131">y_devices</a>.</p>
 
 </div>
 </div>
@@ -321,7 +328,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__device__map_8cpp_source.html#l00120">120</a> of file <a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00115">d_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00114">m_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00112">x_devices</a>, and <a class="el" href="mc__device__map_8h_source.html#l00113">y_devices</a>.</p>
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00133">d_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00132">m_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00130">x_devices</a>, and <a class="el" href="mc__device__map_8h_source.html#l00131">y_devices</a>.</p>
 
 </div>
 </div>
@@ -353,20 +360,22 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds a range of devices of the given type to that type's subscription list. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Adds a range of devices of the given type to that type's subscription list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>device type in uppercase: 'X', 'Y', 'M', or 'D' (others are ignored) </td></tr>
-    <tr><td class="paramname">address</td><td>start address </td></tr>
-    <tr><td class="paramname">amount</td><td>amount of devices </td></tr>
-    <tr><td class="paramname">optimal</td><td>optimize the target range immediately after adding</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">device</td><td>device type in uppercase: 'X', 'Y', 'M', or 'D' (others are ignored) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">address</td><td>start address </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">amount</td><td>amount of devices </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">optimal</td><td>optimize the target range immediately after adding</td></tr>
   </table>
   </dd>
 </dl>
-<p>Dispatches to the SubscribeDevice() call of the <a class="el" href="classvc_1_1device_1_1_mc_device_range.html">McDeviceRange</a> matching <span class="tt"><a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">device</a></span>; unrecognized device letters are silently ignored. </p>
+<p>Dispatches to the SubscribeDevice() call of the <a class="el" href="classvc_1_1device_1_1_mc_device_range.html" title="Tracks the individual device addresses subscribed for one MC device type (X/Y/M/D) and can coalesce t...">McDeviceRange</a> matching <span class="tt"><a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">device</a></span>; unrecognized device letters are silently ignored. </p>
 
 <p class="definition">Definition at line <a class="el" href="mc__device__map_8cpp_source.html#l00102">102</a> of file <a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00115">d_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00114">m_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00112">x_devices</a>, and <a class="el" href="mc__device__map_8h_source.html#l00113">y_devices</a>.</p>
+<p class="reference">References <a class="el" href="mc__device__map_8h_source.html#l00133">d_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00132">m_devices</a>, <a class="el" href="mc__device__map_8h_source.html#l00130">x_devices</a>, and <a class="el" href="mc__device__map_8h_source.html#l00131">y_devices</a>.</p>
 
 </div>
 </div>
@@ -385,9 +394,9 @@ Public Attributes</h2></td></tr>
 
 <p>Subscribed ranges for D (data register/word) devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00115">115</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00133">133</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00102">clearMap()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00129">GetDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00120">OptimizeRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00102">Subscribe_deivce()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00120">clearMap()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00129">GetDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00120">OptimizeRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00102">Subscribe_deivce()</a>.</p>
 
 </div>
 </div>
@@ -405,9 +414,9 @@ Public Attributes</h2></td></tr>
 
 <p>Latest polled word value per D device address. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00118">118</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00136">136</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00102">clearMap()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00410">vc::device::Frame3E::parse_read_word()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00120">clearMap()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00410">vc::device::Frame3E::parse_read_word()</a>.</p>
 
 </div>
 </div>
@@ -425,9 +434,9 @@ Public Attributes</h2></td></tr>
 
 <p>Latest polled bit value per M device address. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00117">117</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00135">135</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00102">clearMap()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00314">vc::device::Frame3E::parse_read_bit()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00361">vc::device::Frame3E::parse_read_bit_from_word()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00120">clearMap()</a>, <a class="el" href="mc__fame__3e_8cpp_source.html#l00314">vc::device::Frame3E::parse_read_bit()</a>, and <a class="el" href="mc__fame__3e_8cpp_source.html#l00361">vc::device::Frame3E::parse_read_bit_from_word()</a>.</p>
 
 </div>
 </div>
@@ -445,9 +454,9 @@ Public Attributes</h2></td></tr>
 
 <p>Subscribed ranges for M (internal relay/bit) devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00114">114</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00132">132</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00102">clearMap()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00129">GetDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00120">OptimizeRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00102">Subscribe_deivce()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00120">clearMap()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00129">GetDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00120">OptimizeRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00102">Subscribe_deivce()</a>.</p>
 
 </div>
 </div>
@@ -465,9 +474,9 @@ Public Attributes</h2></td></tr>
 
 <p>Subscribed ranges for X (input) devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00112">112</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00130">130</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00102">clearMap()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00129">GetDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00120">OptimizeRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00102">Subscribe_deivce()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00120">clearMap()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00129">GetDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00120">OptimizeRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00102">Subscribe_deivce()</a>.</p>
 
 </div>
 </div>
@@ -485,15 +494,15 @@ Public Attributes</h2></td></tr>
 
 <p>Subscribed ranges for Y (output) devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00113">113</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__device__map_8h_source.html#l00131">131</a> of file <a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00102">clearMap()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00129">GetDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00120">OptimizeRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00102">Subscribe_deivce()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__device__map_8h_source.html#l00120">clearMap()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00129">GetDeviceRange()</a>, <a class="el" href="mc__device__map_8cpp_source.html#l00120">OptimizeRanges()</a>, and <a class="el" href="mc__device__map_8cpp_source.html#l00102">Subscribe_deivce()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__device__map_8h_source.html">mc_device_map.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__device__map_8cpp_source.html">mc_device_map.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

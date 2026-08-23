@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/camera_workspace.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/camera_workspace.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('camera__worksp
   <div class="headertitle"><div class="title">camera_workspace.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Per-camera workspace ROI model types: CameraWorkspace (working + condition crop regions) and CameraWorkspaceMap, its camera-id-keyed container with JSON (de)serialization and reference-image BLOB helpers.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QJsonArray&gt;</code><br />
 <code>#include &lt;QJsonObject&gt;</code><br />
 <code>#include &lt;QJsonValue&gt;</code><br />
@@ -143,6 +146,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ACameraWorkspace" id="r_vc_3A_3Amodel_3A_3ACameraWorkspace"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_camera_workspace.html">vc::model::CameraWorkspace</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-camera workspace (ROI) used to crop the grabbed image before matching.  <a href="structvc_1_1model_1_1_camera_workspace.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ACameraWorkspaceMap" id="r_vc_3A_3Amodel_3A_3ACameraWorkspaceMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1model_1_1_camera_workspace_map.html">vc::model::CameraWorkspaceMap</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container of per-camera workspaces, keyed by camera device id.  <a href="classvc_1_1model_1_1_camera_workspace_map.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -150,9 +154,13 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Per-camera workspace ROI model types: CameraWorkspace (working + condition crop regions) and CameraWorkspaceMap, its camera-id-keyed container with JSON (de)serialization and reference-image BLOB helpers. </p>
+
+<p class="definition">Definition in file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

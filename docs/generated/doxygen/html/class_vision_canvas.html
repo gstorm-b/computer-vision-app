@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_vision_c
 </div><!--header-->
 <div class="contents">
 
+<p>Interactive QGraphicsView-based canvas that shows a live/still image (cv::Mat or QPixmap) together with editable ROI shapes and read-only vision result overlays (accepted/rejected matches, picking boxes, fault/output markers). Supports pan/zoom, draw/move/resize of ROIs, ROI undo/redo history, and result-object hover/selection picking in read-only mode.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for VisionCanvas:</div>
@@ -180,6 +183,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aea97e5bd6f3ece49792b5d24e4e50aa0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverts the editable ROIs to the previous undo-history snapshot, if any.  <br /></td></tr>
 <tr class="memitem:a3cfe8b00f4146c8a7d85d46ffd5e6808" id="r_a3cfe8b00f4146c8a7d85d46ffd5e6808"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3cfe8b00f4146c8a7d85d46ffd5e6808">updateSelectedRoi</a> (const <a class="el" href="struct_vision_roi.html">VisionRoi</a> &amp;roi)</td></tr>
 <tr class="memitem:a0790ad6d4b557e3411d38e9449840377" id="r_a0790ad6d4b557e3411d38e9449840377"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0790ad6d4b557e3411d38e9449840377">VisionCanvas</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a0790ad6d4b557e3411d38e9449840377"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the canvas: installs its QGraphicsScene, enables mouse tracking and full-viewport repaint, and applies the current theme background color, refreshing it (and rebuilding auxiliary/overlay items) whenever <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> fires.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -277,7 +281,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interactive QGraphicsView-based canvas that shows a live/still image (cv::Mat or QPixmap) together with editable ROI shapes and read-only vision result overlays (accepted/rejected matches, picking boxes, fault/output markers). Supports pan/zoom, draw/move/resize of ROIs, ROI undo/redo history, and result-object hover/selection picking in read-only mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00029">29</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00041">41</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0790ad6d4b557e3411d38e9449840377" name="a0790ad6d4b557e3411d38e9449840377"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0790ad6d4b557e3411d38e9449840377">&#9670;&#160;</a></span>VisionCanvas()</h2>
@@ -301,12 +305,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the canvas: installs its QGraphicsScene, enables mouse tracking and full-viewport repaint, and applies the current theme background color, refreshing it (and rebuilding auxiliary/overlay items) whenever <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> fires.</p>
-<p>Constructs the canvas: creates and installs the QGraphicsScene, configures the mouse-tracking/focus/viewport-update settings needed for hover highlighting and smooth panning, and re-themes the background plus auxiliary/overlay items whenever <a class="el" href="class_theme_manager.html">ThemeManager</a> reports a theme change. </p>
+
+<p>Constructs the canvas: installs its QGraphicsScene, enables mouse tracking and full-viewport repaint, and applies the current theme background color, refreshing it (and rebuilding auxiliary/overlay items) whenever <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> fires. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Optional owning widget; standard Qt parent/child ownership.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Constructs the canvas: creates and installs the QGraphicsScene, configures the mouse-tracking/focus/viewport-update settings needed for hover highlighting and smooth panning, and re-themes the background plus auxiliary/overlay items whenever <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> reports a theme change. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00437">437</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="vision__canvas_8h_source.html#l00225">m_scene</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="vision__canvas_8h_source.html#l00240">m_scene</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
 
 </div>
 </div>
@@ -338,7 +349,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01239">1239</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_history</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_historyIndex</a>, <a class="el" href="vision__canvas_8h_source.html#l00246">m_historyLocked</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="#aa804bb4fcdbf5e727ae99fa24e023e28">undoAvailabilityChanged()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__canvas_8h_source.html#l00259">m_history</a>, <a class="el" href="vision__canvas_8h_source.html#l00260">m_historyIndex</a>, <a class="el" href="vision__canvas_8h_source.html#l00261">m_historyLocked</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="#aa804bb4fcdbf5e727ae99fa24e023e28">undoAvailabilityChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00770">redo()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00763">undo()</a>.</p>
 
@@ -371,7 +382,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01335">1335</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00233">m_drawing</a>, <a class="el" href="vision__canvas_8h_source.html#l00228">m_drawRectItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00234">m_drawStart</a>, and <a class="el" href="vision__canvas_8h_source.html#l00225">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00248">m_drawing</a>, <a class="el" href="vision__canvas_8h_source.html#l00243">m_drawRectItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00249">m_drawStart</a>, and <a class="el" href="vision__canvas_8h_source.html#l00240">m_scene</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>.</p>
 
@@ -405,7 +416,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01310">1310</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00232">m_lastPanPoint</a>, <a class="el" href="vision__canvas_8h_source.html#l00231">m_panning</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00247">m_lastPanPoint</a>, <a class="el" href="vision__canvas_8h_source.html#l00246">m_panning</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>.</p>
 
@@ -463,7 +474,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00503">503</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00235">m_auxiliaryRois</a>, <a class="el" href="vision__canvas_8h_source.html#l00228">m_drawRectItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00240">m_editableItems</a>, <a class="el" href="vision__canvas_8h_source.html#l00227">m_fittedImageSize</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_history</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_historyIndex</a>, <a class="el" href="vision__canvas_8h_source.html#l00242">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00236">m_overlay</a>, <a class="el" href="vision__canvas_8h_source.html#l00225">m_scene</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_selectedResultObject</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="#aa804bb4fcdbf5e727ae99fa24e023e28">undoAvailabilityChanged()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00250">m_auxiliaryRois</a>, <a class="el" href="vision__canvas_8h_source.html#l00243">m_drawRectItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00255">m_editableItems</a>, <a class="el" href="vision__canvas_8h_source.html#l00242">m_fittedImageSize</a>, <a class="el" href="vision__canvas_8h_source.html#l00259">m_history</a>, <a class="el" href="vision__canvas_8h_source.html#l00260">m_historyIndex</a>, <a class="el" href="vision__canvas_8h_source.html#l00257">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00251">m_overlay</a>, <a class="el" href="vision__canvas_8h_source.html#l00240">m_scene</a>, <a class="el" href="vision__canvas_8h_source.html#l00256">m_selectedResultObject</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="#aa804bb4fcdbf5e727ae99fa24e023e28">undoAvailabilityChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>.</p>
 
@@ -546,7 +557,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00736">736</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00025">VisionRoi::id</a>, <a class="el" href="vision__canvas_8h_source.html#l00230">m_readOnly</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00688">selectedRoi()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00037">VisionRoi::id</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_readOnly</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00688">selectedRoi()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00896">keyPressEvent()</a>, and <a class="el" href="vision__roi__editor__widget_8cpp_source.html#l00013">VisionRoiEditorWidget::VisionRoiEditorWidget()</a>.</p>
 
@@ -571,7 +582,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00571">571</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00240">m_editableItems</a>, and <a class="el" href="vision__geometry_8cpp_source.html#l00059">vision::normalizedRoi()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00255">m_editableItems</a>, and <a class="el" href="vision__geometry_8cpp_source.html#l00059">vision::normalizedRoi()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01253">currentSnapshot()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00736">deleteSelectedRoi()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00715">updateSelectedRoi()</a>.</p>
 
@@ -633,11 +644,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Finishes the in-progress ROI draw: discards the preview rect and, if the resulting rectangle is at least 4x4 scene units, appends a new axis-aligned or rotated ROI (per the active tool mode) with an auto-generated id/label, rebuilds the editable items, emits <a class="el" href="#ae32a4e706d178d1183ce6b9e2578ad84" title="Emitted whenever the set of editable ROIs changes, carrying the full current list.">roisChanged()</a>, and records an undo snapshot.</p>
-<p>Finishes drawing: removes the preview rect and, if the drawn rectangle is at least 4x4 pixels, appends a new <a class="el" href="struct_vision_roi.html">VisionRoi</a> (axis-aligned or rotated, per the active tool mode) with an auto-generated id/label, then rebuilds the editable ROIs, emits the ROI-changed signals, and pushes an undo snapshot. Rectangles smaller than 4x4 are discarded as accidental clicks. </p>
+<p>Finishes drawing: removes the preview rect and, if the drawn rectangle is at least 4x4 pixels, appends a new <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> (axis-aligned or rotated, per the active tool mode) with an auto-generated id/label, then rebuilds the editable ROIs, emits the ROI-changed signals, and pushes an undo snapshot. Rectangles smaller than 4x4 are discarded as accidental clicks. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01361">1361</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00030">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00017">AxisAlignedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00028">VisionRoi::center</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00023">VisionToolPalette::DrawRotatedRect</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00025">VisionRoi::id</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00026">VisionRoi::label</a>, <a class="el" href="vision__canvas_8h_source.html#l00233">m_drawing</a>, <a class="el" href="vision__canvas_8h_source.html#l00228">m_drawRectItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00234">m_drawStart</a>, <a class="el" href="vision__canvas_8h_source.html#l00229">m_toolMode</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00018">RotatedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">VisionRoi::shape</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00029">VisionRoi::size</a>.</p>
+<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00042">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00026">AxisAlignedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00040">VisionRoi::center</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00034">VisionToolPalette::DrawRotatedRect</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00037">VisionRoi::id</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00038">VisionRoi::label</a>, <a class="el" href="vision__canvas_8h_source.html#l00248">m_drawing</a>, <a class="el" href="vision__canvas_8h_source.html#l00243">m_drawRectItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00249">m_drawStart</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_toolMode</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">RotatedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00039">VisionRoi::shape</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00041">VisionRoi::size</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>.</p>
 
@@ -671,7 +682,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01327">1327</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00231">m_panning</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00246">m_panning</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00896">keyPressEvent()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>.</p>
 
@@ -697,7 +708,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00755">755</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00859">mouseDoubleClickEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>, <a class="el" href="vision__result__viewer__widget_8cpp_source.html#l00043">VisionResultViewerWidget::VisionResultViewerWidget()</a>, and <a class="el" href="vision__roi__editor__widget_8cpp_source.html#l00013">VisionRoiEditorWidget::VisionRoiEditorWidget()</a>.</p>
 
@@ -723,7 +734,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00699">699</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00025">VisionRoi::id</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00688">selectedRoi()</a>.</p>
+<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00037">VisionRoi::id</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00688">selectedRoi()</a>.</p>
 
 </div>
 </div>
@@ -755,7 +766,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01264">1264</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01271">clampScenePointToImage()</a>.</p>
 
@@ -781,7 +792,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00705">705</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00715">updateSelectedRoi()</a>.</p>
 
@@ -812,9 +823,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns whether the canvas is currently read-only. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00053">53</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00068">68</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00230">m_readOnly</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00245">m_readOnly</a>.</p>
 
 </div>
 </div>
@@ -845,7 +856,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00896">896</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l00629">clearSelectedResultObject()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00736">deleteSelectedRoi()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01327">endPan()</a>, <a class="el" href="vision__canvas_8h_source.html#l00231">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_selectedResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00229">m_toolMode</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00021">VisionToolPalette::Pan</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00020">VisionToolPalette::SelectMove</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00544">setToolMode()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l00629">clearSelectedResultObject()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00736">deleteSelectedRoi()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01327">endPan()</a>, <a class="el" href="vision__canvas_8h_source.html#l00246">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00256">m_selectedResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_toolMode</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00032">VisionToolPalette::Pan</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00031">VisionToolPalette::SelectMove</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00544">setToolMode()</a>.</p>
 
 </div>
 </div>
@@ -876,7 +887,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00884">884</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00231">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00230">m_readOnly</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00246">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_readOnly</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>.</p>
 
 </div>
 </div>
@@ -938,7 +949,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00816">816</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01271">clampScenePointToImage()</a>, <a class="el" href="vision__canvas_8h_source.html#l00233">m_drawing</a>, <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00231">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00230">m_readOnly</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01350">updateDraw()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01318">updatePan()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01271">clampScenePointToImage()</a>, <a class="el" href="vision__canvas_8h_source.html#l00248">m_drawing</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00246">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_readOnly</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01350">updateDraw()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01318">updatePan()</a>.</p>
 
 </div>
 </div>
@@ -969,7 +980,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00779">779</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01335">beginDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01310">beginPan()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01271">clampScenePointToImage()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00022">VisionToolPalette::DrawAxisAlignedRect</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00023">VisionToolPalette::DrawRotatedRect</a>, <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00230">m_readOnly</a>, <a class="el" href="vision__canvas_8h_source.html#l00229">m_toolMode</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00021">VisionToolPalette::Pan</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00617">setSelectedResultObject()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01335">beginDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01310">beginPan()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01271">clampScenePointToImage()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00033">VisionToolPalette::DrawAxisAlignedRect</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00034">VisionToolPalette::DrawRotatedRect</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_readOnly</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_toolMode</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00032">VisionToolPalette::Pan</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00617">setSelectedResultObject()</a>.</p>
 
 </div>
 </div>
@@ -1000,7 +1011,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00838">838</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01271">clampScenePointToImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01327">endPan()</a>, <a class="el" href="vision__canvas_8h_source.html#l00233">m_drawing</a>, <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00231">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00230">m_readOnly</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01198">updateSelectionFromScene()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01271">clampScenePointToImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01327">endPan()</a>, <a class="el" href="vision__canvas_8h_source.html#l00248">m_drawing</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00246">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_readOnly</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01198">updateSelectionFromScene()</a>.</p>
 
 </div>
 </div>
@@ -1131,7 +1142,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01216">1216</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01253">currentSnapshot()</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_history</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_historyIndex</a>, <a class="el" href="vision__canvas_8h_source.html#l00246">m_historyLocked</a>, and <a class="el" href="#aa804bb4fcdbf5e727ae99fa24e023e28">undoAvailabilityChanged()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01253">currentSnapshot()</a>, <a class="el" href="vision__canvas_8h_source.html#l00259">m_history</a>, <a class="el" href="vision__canvas_8h_source.html#l00260">m_historyIndex</a>, <a class="el" href="vision__canvas_8h_source.html#l00261">m_historyLocked</a>, and <a class="el" href="#aa804bb4fcdbf5e727ae99fa24e023e28">undoAvailabilityChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00736">deleteSelectedRoi()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01396">onEditableItemGeometryFinished()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00715">updateSelectedRoi()</a>.</p>
 
@@ -1164,7 +1175,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00928">928</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00128">vision::boundingRectForPoints()</a>, <a class="el" href="vision__canvas_8h_source.html#l00238">m_auxiliaryItems</a>, <a class="el" href="vision__canvas_8h_source.html#l00235">m_auxiliaryRois</a>, <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00225">m_scene</a>, and <a class="el" href="vision__geometry_8cpp_source.html#l00118">vision::roiPolygon()</a>.</p>
+<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00128">vision::boundingRectForPoints()</a>, <a class="el" href="vision__canvas_8h_source.html#l00253">m_auxiliaryItems</a>, <a class="el" href="vision__canvas_8h_source.html#l00250">m_auxiliaryRois</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00240">m_scene</a>, and <a class="el" href="vision__geometry_8cpp_source.html#l00118">vision::roiPolygon()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00584">setAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00437">VisionCanvas()</a>.</p>
 
@@ -1197,7 +1208,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01155">1155</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00070">vision::clampRoiToImage()</a>, <a class="el" href="classvision__canvas__detail_1_1_roi_item_base.html#a02150aa2157800947707a96a06a3d0cf">vision_canvas_detail::RoiItemBase::graphicsItem()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00705">imageSize()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00038">VisionRoi::isValid()</a>, <a class="el" href="vision__canvas_8h_source.html#l00240">m_editableItems</a>, <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00243">m_sceneInteractionLocked</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01186">registerEditableItem()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00018">RotatedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00033">VisionRoi::selected</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00027">VisionRoi::shape</a>.</p>
+<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00070">vision::clampRoiToImage()</a>, <a class="el" href="classvision__canvas__detail_1_1_roi_item_base.html#a02150aa2157800947707a96a06a3d0cf">vision_canvas_detail::RoiItemBase::graphicsItem()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00705">imageSize()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00050">VisionRoi::isValid()</a>, <a class="el" href="vision__canvas_8h_source.html#l00255">m_editableItems</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00258">m_sceneInteractionLocked</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01186">registerEditableItem()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">RotatedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00045">VisionRoi::selected</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00039">VisionRoi::shape</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01239">applyUndoSnapshot()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00736">deleteSelectedRoi()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00558">setEditableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00715">updateSelectedRoi()</a>.</p>
 
@@ -1231,7 +1242,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00966">966</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00128">vision::boundingRectForPoints()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00035">VisionRoi::color</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00026">VisionRoi::label</a>, <a class="el" href="vision__canvas_8h_source.html#l00242">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00236">m_overlay</a>, <a class="el" href="vision__canvas_8h_source.html#l00239">m_overlayItems</a>, <a class="el" href="vision__canvas_8h_source.html#l00237">m_overlayVisibility</a>, <a class="el" href="vision__canvas_8h_source.html#l00225">m_scene</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_selectedResultObject</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00118">vision::roiPolygon()</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00032">VisionRoi::visible</a>.</p>
+<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00128">vision::boundingRectForPoints()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00047">VisionRoi::color</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00038">VisionRoi::label</a>, <a class="el" href="vision__canvas_8h_source.html#l00257">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00251">m_overlay</a>, <a class="el" href="vision__canvas_8h_source.html#l00254">m_overlayItems</a>, <a class="el" href="vision__canvas_8h_source.html#l00252">m_overlayVisibility</a>, <a class="el" href="vision__canvas_8h_source.html#l00240">m_scene</a>, <a class="el" href="vision__canvas_8h_source.html#l00256">m_selectedResultObject</a>, <a class="el" href="vision__geometry_8cpp_source.html#l00118">vision::roiPolygon()</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00044">VisionRoi::visible</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00606">setOverlayVisibility()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00594">setResultOverlay()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00617">setSelectedResultObject()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00437">VisionCanvas()</a>.</p>
 
@@ -1257,7 +1268,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00770">770</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01239">applyUndoSnapshot()</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_history</a>, and <a class="el" href="vision__canvas_8h_source.html#l00245">m_historyIndex</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01239">applyUndoSnapshot()</a>, <a class="el" href="vision__canvas_8h_source.html#l00259">m_history</a>, and <a class="el" href="vision__canvas_8h_source.html#l00260">m_historyIndex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__roi__editor__widget_8cpp_source.html#l00013">VisionRoiEditorWidget::VisionRoiEditorWidget()</a>.</p>
 
@@ -1290,7 +1301,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01186">1186</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00240">m_editableItems</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01389">onEditableItemGeometryChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01396">onEditableItemGeometryFinished()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01404">onEditableItemSelectionChanged()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00255">m_editableItems</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01389">onEditableItemGeometryChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01396">onEditableItemGeometryFinished()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01404">onEditableItemSelectionChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>.</p>
 
@@ -1323,7 +1334,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00641">641</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00236">m_overlay</a>, <a class="el" href="vision__canvas_8h_source.html#l00237">m_overlayVisibility</a>, and <a class="el" href="vision__canvas_8h_source.html#l00241">m_selectedResultObject</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00251">m_overlay</a>, <a class="el" href="vision__canvas_8h_source.html#l00252">m_overlayVisibility</a>, and <a class="el" href="vision__canvas_8h_source.html#l00256">m_selectedResultObject</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>.</p>
 
@@ -1412,9 +1423,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the index of the currently selected result object, or -1 if none. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00087">87</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00102">102</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00241">m_selectedResultObject</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00256">m_selectedResultObject</a>.</p>
 
 </div>
 </div>
@@ -1432,12 +1443,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns the ROI data for the currently selected editable item, or a default-constructed (empty-id) <a class="el" href="struct_vision_roi.html">VisionRoi</a> if none is selected.</p>
-<p>Finds the first editable ROI item currently selected in the graphics scene. </p><dl class="section return"><dt>Returns</dt><dd>the selected ROI, or a default-constructed (empty-id) <a class="el" href="struct_vision_roi.html">VisionRoi</a> if none is selected. </dd></dl>
+<p>Returns the ROI data for the currently selected editable item, or a default-constructed (empty-id) <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> if none is selected.</p>
+<p>Finds the first editable ROI item currently selected in the graphics scene. </p><dl class="section return"><dt>Returns</dt><dd>the selected ROI, or a default-constructed (empty-id) <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> if none is selected. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00688">688</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00240">m_editableItems</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00255">m_editableItems</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00736">deleteSelectedRoi()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00699">hasSelectedRoi()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01404">onEditableItemSelectionChanged()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01198">updateSelectionFromScene()</a>.</p>
 
@@ -1465,7 +1476,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Emitted whenever the selected editable ROI changes, carrying its current data (or an empty <a class="el" href="struct_vision_roi.html">VisionRoi</a> if nothing is selected). </p>
+<p>Emitted whenever the selected editable ROI changes, carrying its current data (or an empty <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> if nothing is selected). </p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01404">onEditableItemSelectionChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01198">updateSelectionFromScene()</a>, and <a class="el" href="vision__roi__editor__widget_8cpp_source.html#l00013">VisionRoiEditorWidget::VisionRoiEditorWidget()</a>.</p>
 
@@ -1490,7 +1501,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00584">584</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00235">m_auxiliaryRois</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00250">m_auxiliaryRois</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>.</p>
 
 </div>
 </div>
@@ -1513,7 +1524,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00558">558</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01253">currentSnapshot()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_history</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_historyIndex</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="#aa804bb4fcdbf5e727ae99fa24e023e28">undoAvailabilityChanged()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01253">currentSnapshot()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__canvas_8h_source.html#l00259">m_history</a>, <a class="el" href="vision__canvas_8h_source.html#l00260">m_historyIndex</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="#aa804bb4fcdbf5e727ae99fa24e023e28">undoAvailabilityChanged()</a>.</p>
 
 </div>
 </div>
@@ -1544,7 +1555,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00674">674</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00242">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00231">m_panning</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00257">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00246">m_panning</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00884">leaveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>.</p>
 
@@ -1595,7 +1606,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00469">469</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00755">fitImageToView()</a>, <a class="el" href="vision__canvas_8h_source.html#l00227">m_fittedImageSize</a>, <a class="el" href="vision__canvas_8h_source.html#l00226">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00225">m_scene</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00755">fitImageToView()</a>, <a class="el" href="vision__canvas_8h_source.html#l00242">m_fittedImageSize</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_imageItem</a>, <a class="el" href="vision__canvas_8h_source.html#l00240">m_scene</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>.</p>
 
 </div>
 </div>
@@ -1618,7 +1629,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00606">606</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00237">m_overlayVisibility</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00252">m_overlayVisibility</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>.</p>
 
 </div>
 </div>
@@ -1641,7 +1652,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00536">536</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00230">m_readOnly</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00245">m_readOnly</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
 
 </div>
 </div>
@@ -1664,7 +1675,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00594">594</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00236">m_overlay</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00251">m_overlay</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>.</p>
 
 </div>
 </div>
@@ -1692,7 +1703,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00617">617</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00242">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00241">m_selectedResultObject</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="#a4edfcb171c07a6d066b4aeb54e361623">resultObjectSelectionChanged()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00257">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00256">m_selectedResultObject</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="#a4edfcb171c07a6d066b4aeb54e361623">resultObjectSelectionChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00629">clearSelectedResultObject()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>.</p>
 
@@ -1717,7 +1728,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00544">544</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00229">m_toolMode</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>, and <a class="el" href="#a13a04fa9ac80dca17cc4c58b9e5cbb54">toolModeChanged()</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00244">m_toolMode</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>, and <a class="el" href="#a13a04fa9ac80dca17cc4c58b9e5cbb54">toolModeChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00896">keyPressEvent()</a>, and <a class="el" href="vision__roi__editor__widget_8cpp_source.html#l00013">VisionRoiEditorWidget::VisionRoiEditorWidget()</a>.</p>
 
@@ -1751,7 +1762,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01283">1283</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00022">VisionToolPalette::DrawAxisAlignedRect</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00023">VisionToolPalette::DrawRotatedRect</a>, <a class="el" href="vision__canvas_8h_source.html#l00242">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00231">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00230">m_readOnly</a>, <a class="el" href="vision__canvas_8h_source.html#l00229">m_toolMode</a>, and <a class="el" href="vision__tool__palette_8h_source.html#l00021">VisionToolPalette::Pan</a>.</p>
+<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00033">VisionToolPalette::DrawAxisAlignedRect</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00034">VisionToolPalette::DrawRotatedRect</a>, <a class="el" href="vision__canvas_8h_source.html#l00257">m_hoveredResultObject</a>, <a class="el" href="vision__canvas_8h_source.html#l00246">m_panning</a>, <a class="el" href="vision__canvas_8h_source.html#l00245">m_readOnly</a>, <a class="el" href="vision__canvas_8h_source.html#l00244">m_toolMode</a>, and <a class="el" href="vision__tool__palette_8h_source.html#l00032">VisionToolPalette::Pan</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01310">beginPan()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01327">endPan()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00536">setReadOnly()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00544">setToolMode()</a>.</p>
 
@@ -1782,9 +1793,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the current interaction tool mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00059">59</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00074">74</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00229">m_toolMode</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00244">m_toolMode</a>.</p>
 
 </div>
 </div>
@@ -1837,7 +1848,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00763">763</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01239">applyUndoSnapshot()</a>, and <a class="el" href="vision__canvas_8h_source.html#l00245">m_historyIndex</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l01239">applyUndoSnapshot()</a>, and <a class="el" href="vision__canvas_8h_source.html#l00260">m_historyIndex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__roi__editor__widget_8cpp_source.html#l00013">VisionRoiEditorWidget::VisionRoiEditorWidget()</a>.</p>
 
@@ -1904,7 +1915,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01350">1350</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00228">m_drawRectItem</a>, and <a class="el" href="vision__canvas_8h_source.html#l00234">m_drawStart</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00243">m_drawRectItem</a>, and <a class="el" href="vision__canvas_8h_source.html#l00249">m_drawStart</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>.</p>
 
@@ -1937,7 +1948,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l01318">1318</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00232">m_lastPanPoint</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8h_source.html#l00247">m_lastPanPoint</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>.</p>
 
@@ -1962,7 +1973,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00715">715</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00070">vision::clampRoiToImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00025">VisionRoi::id</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00705">imageSize()</a>, <a class="el" href="vision__canvas_8h_source.html#l00240">m_editableItems</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>.</p>
+<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00070">vision::clampRoiToImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01206">emitRoisChanged()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00037">VisionRoi::id</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00705">imageSize()</a>, <a class="el" href="vision__canvas_8h_source.html#l00255">m_editableItems</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__roi__editor__widget_8cpp_source.html#l00013">VisionRoiEditorWidget::VisionRoiEditorWidget()</a>.</p>
 
@@ -2053,7 +2064,7 @@ Private Attributes</h2></td></tr>
 
 <p>Scene items created for m_auxiliaryRois; torn down and rebuilt on change. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00238">238</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00253">253</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>.</p>
 
@@ -2081,7 +2092,7 @@ Private Attributes</h2></td></tr>
 
 <p>Read-only auxiliary ROI outlines shown alongside the editable ROIs. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00235">235</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00250">250</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00584">setAuxiliaryRois()</a>.</p>
 
@@ -2109,7 +2120,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while a new ROI rectangle is being drawn. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00233">233</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00248">248</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01335">beginDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>.</p>
 
@@ -2137,7 +2148,7 @@ Private Attributes</h2></td></tr>
 
 <p>Dashed preview rectangle shown while drawing a new ROI. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00228">228</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00243">243</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01335">beginDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01350">updateDraw()</a>.</p>
 
@@ -2165,7 +2176,7 @@ Private Attributes</h2></td></tr>
 
 <p>Scene-space anchor point of the ROI currently being drawn. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00234">234</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00249">249</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01335">beginDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01350">updateDraw()</a>.</p>
 
@@ -2193,7 +2204,7 @@ Private Attributes</h2></td></tr>
 
 <p>Interactive ROI items currently on the scene. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00240">240</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00255">255</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00571">editableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01186">registerEditableItem()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00688">selectedRoi()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00715">updateSelectedRoi()</a>.</p>
 
@@ -2221,7 +2232,7 @@ Private Attributes</h2></td></tr>
 
 <p>Size of the image last auto-fit to the view; used to detect resolution changes across <a class="el" href="#a40de01f257ffb801558114487f55f16d" title="Converts image to a QPixmap (via vision::pixmapFromMat) and displays it.">setImage()</a> calls. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00227">227</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00242">242</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>.</p>
 
@@ -2249,7 +2260,7 @@ Private Attributes</h2></td></tr>
 
 <p>ROI undo/redo snapshots. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00244">244</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00259">259</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01239">applyUndoSnapshot()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00770">redo()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00558">setEditableRois()</a>.</p>
 
@@ -2277,7 +2288,7 @@ Private Attributes</h2></td></tr>
 
 <p>Index of the current snapshot within m_history. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00245">245</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00260">260</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01239">applyUndoSnapshot()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00770">redo()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00558">setEditableRois()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00763">undo()</a>.</p>
 
@@ -2305,7 +2316,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while replaying a snapshot, to suppress recording a new undo entry. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00246">246</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00261">261</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01239">applyUndoSnapshot()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01216">pushUndoSnapshotIfChanged()</a>.</p>
 
@@ -2333,7 +2344,7 @@ Private Attributes</h2></td></tr>
 
 <p>Index of the hovered result object in read-only mode, or -1 if none. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00242">242</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00257">257</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00617">setSelectedResultObject()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
 
@@ -2361,7 +2372,7 @@ Private Attributes</h2></td></tr>
 
 <p>Displayed background image item, or null when no image is set. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00226">226</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00241">241</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00755">fitImageToView()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01264">imageBounds()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00705">imageSize()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>.</p>
 
@@ -2389,7 +2400,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last mouse position seen during an active pan, in viewport coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00232">232</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00247">247</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01310">beginPan()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01318">updatePan()</a>.</p>
 
@@ -2417,7 +2428,7 @@ Private Attributes</h2></td></tr>
 
 <p>Current vision result overlay data (accepted/rejected objects, ROI overlays, runtime signal values). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00236">236</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00251">251</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00594">setResultOverlay()</a>.</p>
 
@@ -2445,7 +2456,7 @@ Private Attributes</h2></td></tr>
 
 <p>Scene items created for m_overlay/m_overlayVisibility; torn down and rebuilt on change. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00239">239</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00254">254</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>.</p>
 
@@ -2473,7 +2484,7 @@ Private Attributes</h2></td></tr>
 
 <p>Which overlay elements are currently drawn. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00237">237</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00252">252</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00606">setOverlayVisibility()</a>.</p>
 
@@ -2501,7 +2512,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while a viewport pan gesture is in progress. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00231">231</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00246">246</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01310">beginPan()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01327">endPan()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00896">keyPressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00884">leaveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00674">setHoveredResultObject()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
 
@@ -2529,9 +2540,9 @@ Private Attributes</h2></td></tr>
 
 <p>When true, disables ROI editing and enables result-object picking. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00230">230</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00245">245</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00736">deleteSelectedRoi()</a>, <a class="el" href="vision__canvas_8h_source.html#l00053">isReadOnly()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00884">leaveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00536">setReadOnly()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00736">deleteSelectedRoi()</a>, <a class="el" href="vision__canvas_8h_source.html#l00068">isReadOnly()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00884">leaveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00816">mouseMoveEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00838">mouseReleaseEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00536">setReadOnly()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>.</p>
 
 </div>
 </div>
@@ -2557,7 +2568,7 @@ Private Attributes</h2></td></tr>
 
 <p>Scene backing this view; owned (parented) by the canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00225">225</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00240">240</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01335">beginDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00928">rebuildAuxiliaryRois()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00469">setImage()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00437">VisionCanvas()</a>.</p>
 
@@ -2585,7 +2596,7 @@ Private Attributes</h2></td></tr>
 
 <p>Shared flag passed to ROI items to suppress interaction (e.g. while rebuilding). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00243">243</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00258">258</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01155">rebuildEditableRois()</a>.</p>
 
@@ -2613,9 +2624,9 @@ Private Attributes</h2></td></tr>
 
 <p>Index of the selected result object in read-only mode, or -1 if none. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00241">241</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00256">256</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00896">keyPressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, <a class="el" href="vision__canvas_8h_source.html#l00087">selectedResultObject()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00617">setSelectedResultObject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00503">clearImage()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00896">keyPressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00966">rebuildOverlayItems()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00641">resultObjectAtScenePoint()</a>, <a class="el" href="vision__canvas_8h_source.html#l00102">selectedResultObject()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00617">setSelectedResultObject()</a>.</p>
 
 </div>
 </div>
@@ -2641,15 +2652,15 @@ Private Attributes</h2></td></tr>
 
 <p>Active interaction tool. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00229">229</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__canvas_8h_source.html#l00244">244</a> of file <a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00896">keyPressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00544">setToolMode()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>, and <a class="el" href="vision__canvas_8h_source.html#l00059">toolMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l01361">endDraw()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00896">keyPressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00779">mousePressEvent()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00544">setToolMode()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l01283">syncCursor()</a>, and <a class="el" href="vision__canvas_8h_source.html#l00074">toolMode()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__canvas_8h_source.html">vision_canvas.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

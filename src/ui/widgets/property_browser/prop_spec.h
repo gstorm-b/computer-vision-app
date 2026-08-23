@@ -1,40 +1,5 @@
 #pragma once
 
-// ============================================================================
-//  prop_spec.h  —  Generic property-spec framework for QtPropertyBrowser
-//
-//  Design goal: define a new editable parameter by adding ONE entry to a
-//  spec list. Building, refreshing, and dispatching changes are handled
-//  entirely by the helper functions below. Nothing else needs to change.
-//
-//  Typical usage pattern:
-//
-//    // 1. Define specs (usually as a static / file-level variable)
-//    static const QList<PropSpec<MyConfig>> kMySpecs = {
-//        { "speed", "Speed (m/s)", "Maximum linear velocity",
-//          QMetaType::Double, 0.0, 10.0, 0.01, 2, false,
-//          [](const MyConfig &c){ return c.speed; },
-//          [](MyConfig &c, const QVariant &v){ c.speed = v.toDouble(); } },
-//        { "enabled", "Enabled", nullptr,
-//          QMetaType::Bool, {}, {}, {}, -1, false,
-//          [](const MyConfig &c){ return c.enabled; },
-//          [](MyConfig &c, const QVariant &v){ c.enabled = v.toBool(); } },
-//    };
-//
-//    // 2. Build (once, inside your "build" method)
-//    auto *grp = mgr->addProperty(QtVariantPropertyManager::groupTypeId(), "My Group");
-//    m_propMap = PropSpecHelper::buildGroup(mgr, grp, kMySpecs, cfg, m_propKeys);
-//    browser->addProperty(grp);
-//
-//    // 3. Refresh (on external cfg changes)
-//    PropSpecHelper::refresh(mgr, kMySpecs, cfg, m_propMap);
-//
-//    // 4. Dispatch (in valueChanged slot)
-//    if (PropSpecHelper::dispatch(kMySpecs, key, val, cfg))
-//        emit configModified();
-//
-// ============================================================================
-
 #include <functional>
 #include <QList>
 #include <QMap>
@@ -45,16 +10,49 @@
 
 #include "qtpropertybrowser/qtvariantproperty.h"
 
-/// One row in a property spec table. Fields:
-///   key         — unique internal id (ASCII, used as map key)
-///   label       — user-visible name in the property browser
-///   description — shown in the description panel; nullptr → no tooltip
-///   propType    — QMetaType type id: QMetaType::Double, Int, Bool, QString …
-///   min/max/step — range and step attributes (invalid QVariant = skip)
-///   decimals    — precision for Double; -1 = use manager default
-///   readOnly    — disables the editor widget for this property
-///   read        — extract the value from the config as a QVariant
-///   write       — apply a changed QVariant value back to the config
+/**
+ * @file prop_spec.h
+ * @brief Generic property-spec framework for QtPropertyBrowser: define a new editable
+ *        parameter by adding ONE entry to a spec list; building, refreshing, and
+ *        dispatching changes are handled entirely by the PropSpecHelper free functions.
+ *
+ * Design goal: define a new editable parameter by adding ONE entry to a spec list.
+ * Nothing else needs to change.
+ *
+ * Typical usage pattern:
+ * @code
+ *   // 1. Define specs (usually as a static / file-level variable)
+ *   static const QList<PropSpec<MyConfig>> kMySpecs = {
+ *       { "speed", "Speed (m/s)", "Maximum linear velocity",
+ *         QMetaType::Double, 0.0, 10.0, 0.01, 2, false,
+ *         [](const MyConfig &c){ return c.speed; },
+ *         [](MyConfig &c, const QVariant &v){ c.speed = v.toDouble(); } },
+ *       { "enabled", "Enabled", nullptr,
+ *         QMetaType::Bool, {}, {}, {}, -1, false,
+ *         [](const MyConfig &c){ return c.enabled; },
+ *         [](MyConfig &c, const QVariant &v){ c.enabled = v.toBool(); } },
+ *   };
+ *
+ *   // 2. Build (once, inside your "build" method)
+ *   auto *grp = mgr->addProperty(QtVariantPropertyManager::groupTypeId(), "My Group");
+ *   m_propMap = PropSpecHelper::buildGroup(mgr, grp, kMySpecs, cfg, m_propKeys);
+ *   browser->addProperty(grp);
+ *
+ *   // 3. Refresh (on external cfg changes)
+ *   PropSpecHelper::refresh(mgr, kMySpecs, cfg, m_propMap);
+ *
+ *   // 4. Dispatch (in valueChanged slot)
+ *   if (PropSpecHelper::dispatch(kMySpecs, key, val, cfg))
+ *       emit configModified();
+ * @endcode
+ */
+
+/**
+ * @struct PropSpec
+ * @brief One row in a property spec table: a single editable parameter's identity, editor
+ *        attributes (type/range/decimals/read-only), and the read/write accessors that
+ *        connect it to a bound Config instance.
+ */
 template<typename Config>
 struct PropSpec {
     const char *key;             ///< Unique internal id (ASCII, used as the lookup-map key).
@@ -69,16 +67,17 @@ struct PropSpec {
     std::function<void(Config &, const QVariant &)> write;  ///< Applies a changed value back to the config.
 };
 
-/// A labelled collection of PropSpec entries that forms one collapsible group
-/// in the property browser.
+/**
+ * @struct PropGroup
+ * @brief A labelled collection of PropSpec entries that forms one collapsible group
+ *        in the property browser.
+ */
 template<typename Config>
 struct PropGroup {
     const char              *label;   ///< Group label shown in the property browser.
     QList<PropSpec<Config>>  specs;   ///< Specs built as sub-properties of this group.
 };
 
-/// Free functions that build, refresh, and dispatch value changes for
-/// PropSpec/PropGroup tables against a QtVariantPropertyManager-based browser.
 namespace PropSpecHelper {
 
 /// Applies a spec's optional min/max/step/decimals/description attributes to
@@ -97,12 +96,17 @@ inline void applyAttributes(QtVariantPropertyManager       *mgr,
     prop->setEnabled(!spec.readOnly);
 }
 
-/// Creates one standalone QtVariantProperty from `spec` (applying its
-/// attributes and initial value from `cfg`), and records it in `propMap`/
-/// `propKeyMap` when those are provided.
-/// @param propMap optional {key → prop} map to populate for later lookup
-/// @param propKeyMap optional {prop → key} reverse map to populate
-/// @return the created property, or nullptr if the manager failed to create it
+/**
+ * @brief Creates one standalone QtVariantProperty from `spec` (applying its
+ *        attributes and initial value from `cfg`), and records it in `propMap`/
+ *        `propKeyMap` when those are provided.
+ * @param[in]  mgr        property manager used to create the property
+ * @param[in]  spec       spec describing the property to create
+ * @param[in]  cfg        config instance to read the property's initial value from
+ * @param[out] propMap    optional {key → prop} map to populate for later lookup
+ * @param[out] propKeyMap optional {prop → key} reverse map to populate
+ * @return the created property, or nullptr if the manager failed to create it
+ */
 template<typename Config>
 inline QtVariantProperty *buildOne(QtVariantPropertyManager          *mgr,
                                     const PropSpec<Config>             &spec,

@@ -1,6 +1,12 @@
 #ifndef IDEVICE_CONFIG_H
 #define IDEVICE_CONFIG_H
 
+/**
+ * @file idevice_config.h
+ * @brief Device abstraction layer: device-family/type identification and the IDeviceCfg contract
+ *        shared by every device's configuration object.
+ */
+
 #include <QJsonObject>
 
 /// Human-readable DeviceType names, used by DeviceTypeToString()/DeviceTypeFromString() for
@@ -43,11 +49,12 @@
 // #define DEVICE_JSK_PLC_BRAND        "PlcBrand"
 // #define DEVICE_JSK_PLC_TYPE         "PlcType"
 
-/// Device abstraction layer: device-family/type identification and the IDeviceCfg contract
-/// shared by every device's configuration object.
 namespace vc::device {
 
-/// Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.
+/**
+ * @enum DeviceType
+ * @brief Top-level device family identifying which IDevice/IDeviceCfg subclass hierarchy applies.
+ */
 enum DeviceType {
     UserType,
     Camera,
@@ -91,8 +98,11 @@ enum DeviceType {
     return UserType;
 }
 
-/// Abstract configuration contract shared by every device family: JSON (de)serialization,
-/// its owning DeviceType, Qt meta-object access (for property-browser reflection), and cloning.
+/**
+ * @class IDeviceCfg
+ * @brief Abstract configuration contract shared by every device family: JSON (de)serialization,
+ *        its owning DeviceType, Qt meta-object access (for property-browser reflection), and cloning.
+ */
 class IDeviceCfg {
 public:
     /// Default virtual destructor; concrete configs own no extra resources here.
@@ -108,8 +118,10 @@ public:
     /// reflection of its parameters.
     virtual const QMetaObject &getMetaObject() const = 0;
 
-    /// Restores this config's parameters from `obj`.
-    /// @param obj JSON object produced by toJson()
+    /**
+     * @brief Restores this config's parameters from `obj`.
+     * @param[in] obj JSON object produced by toJson()
+     */
     virtual bool fromJson(const QJsonObject &obj) = 0;
 
     /// Allocates and returns a heap copy of this config (caller owns the returned instance).

@@ -1,6 +1,11 @@
 #ifndef MC_DEVICE_MAP_H
 #define MC_DEVICE_MAP_H
 
+/**
+ * @file mc_device_map.h
+ * @brief MC-protocol device subscription ranges and polled register value map.
+ */
+
 #include <vector>
 #include <QByteArray>
 #include <QSet>
@@ -10,12 +15,14 @@
 /// Upper bound accepted for a single SubscribeDevice()/Subscribe_deivce() amount.
 #define MC_MAXIMUM_DEVICE_AMOUNT   256
 
-/// PLC device family (config, protocol devices, and MC-protocol support types).
 namespace vc::device {
 
-/// Tracks the individual device addresses subscribed for one MC device type
-/// (X/Y/M/D) and can coalesce them into contiguous DeviceRange spans so a
-/// poll cycle can read multiple devices with a single MC-protocol command.
+/**
+ * @class McDeviceRange
+ * @brief Tracks the individual device addresses subscribed for one MC device type
+ *        (X/Y/M/D) and can coalesce them into contiguous DeviceRange spans so a
+ *        poll cycle can read multiple devices with a single MC-protocol command.
+ */
 class McDeviceRange {
 public:
     /// A contiguous, inclusive span of subscribed addresses.
@@ -30,14 +37,16 @@ public:
     /// Destructor; no owned resources to release.
     ~McDeviceRange();
 
-    /// Appends `amount` consecutive addresses starting at `address` to
-    /// subscribed_devices and marks the set as unoptimized.
-    /// @param address start address
-    /// @param amount amount of devices
-    /// @param optimizal if true, calls OptimizeRange() immediately after adding
-    /// @note the amount guard (`amount < 1 && amount > MC_MAXIMUM_DEVICE_AMOUNT`)
-    /// can never be true for a single value, so out-of-range amounts are not
-    /// actually rejected here.
+    /**
+     * @brief Appends `amount` consecutive addresses starting at `address` to
+     *        subscribed_devices and marks the set as unoptimized.
+     * @param[in] address start address
+     * @param[in] amount amount of devices
+     * @param[in] optimizal if true, calls OptimizeRange() immediately after adding
+     * @note The amount guard (`amount < 1 && amount > MC_MAXIMUM_DEVICE_AMOUNT`)
+     *       can never be true for a single value, so out-of-range amounts are not
+     *       actually rejected here.
+     */
     void SubscribeDevice(int address, int amount, bool optimizal = false);
 
     /// Sorts and de-duplicates subscribed_devices, then groups consecutive
@@ -51,8 +60,10 @@ public:
         return this->has_optimized;
     }
 
-    /// Clears subscribed_devices and the computed ranges.
-    /// @note does not reset has_optimized.
+    /**
+     * @brief Clears subscribed_devices and the computed ranges.
+     * @note Does not reset has_optimized.
+     */
     void clearRanges() {
         subscribed_devices.clear();
         ranges.clear();
@@ -65,9 +76,12 @@ private:
     bool has_optimized;  ///< True once `ranges` reflects the current subscribed_devices.
 };
 
-/// MC-protocol PlcValueMap: holds the X/Y/M/D device subscription ranges
-/// used to plan poll requests, plus the resulting M (bit) and D (word)
-/// value maps populated by Frame3E's response parsers.
+/**
+ * @class McDeviceMap
+ * @brief MC-protocol PlcValueMap: holds the X/Y/M/D device subscription ranges
+ *        used to plan poll requests, plus the resulting M (bit) and D (word)
+ *        value maps populated by Frame3E's response parsers.
+ */
 class McDeviceMap : public PlcValueMap {
 public:
     /// Constructs an empty device map (all ranges and value maps default-empty).
@@ -81,20 +95,24 @@ public:
         return std::make_shared<McDeviceMap>(*this);
     }
 
-    /// Adds a range of devices of the given type to that type's subscription list.
-    /// @param device device type in uppercase: 'X', 'Y', 'M', or 'D' (others are ignored)
-    /// @param address start address
-    /// @param amount amount of devices
-    /// @param optimal optimize the target range immediately after adding
+    /**
+     * @brief Adds a range of devices of the given type to that type's subscription list.
+     * @param[in] device device type in uppercase: 'X', 'Y', 'M', or 'D' (others are ignored)
+     * @param[in] address start address
+     * @param[in] amount amount of devices
+     * @param[in] optimal optimize the target range immediately after adding
+     */
     void Subscribe_deivce(char device, int address, int amount, bool optimal = true);
 
     /// Optimizes the X, Y, M, and D device ranges so each type can be queried
     /// with as few MC-protocol commands as possible.
     void OptimizeRanges();
 
-    /// Retrieves the subscription ranges for a specific device type.
-    /// @param device device type in uppercase: 'X', 'Y', 'M', or 'D'
-    /// @return pointer to the matching McDeviceRange, or nullptr if `device` is unrecognized
+    /**
+     * @brief Retrieves the subscription ranges for a specific device type.
+     * @param[in] device device type in uppercase: 'X', 'Y', 'M', or 'D'
+     * @return pointer to the matching McDeviceRange, or nullptr if `device` is unrecognized
+     */
     McDeviceRange* GetDeviceRange(char device);
 
     /// Clears all device ranges and the M/D value maps.

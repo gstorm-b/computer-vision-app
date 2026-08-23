@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Base configuration contract for a camera device: exposure/gain/frame-rate parameters, backlight control, calibration data and JSON (de)serialization. Concrete cameras (e.g. <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html" title="Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus camera identity ...">BaslerGigeCfg</a>) subclass this and add their own hardware-specific properties.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="camera__device_8h_source.html">camera_device.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::CameraCfg:</div>
@@ -135,6 +138,7 @@ Collaboration diagram for vc::device::CameraCfg:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa54ff09907b9d765ba3153f149a9d5cc" id="r_aa54ff09907b9d765ba3153f149a9d5cc"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#aa54ff09907b9d765ba3153f149a9d5cc">acquisitionFrameRate</a> (bool &amp;enable, double &amp;rate)=0</td></tr>
+<tr class="memdesc:aa54ff09907b9d765ba3153f149a9d5cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether acquisition frame-rate limiting is enabled and its current value.  <br /></td></tr>
 <tr class="memitem:a68ecb9127ae226936dfa969fd68961cd" id="r_a68ecb9127ae226936dfa969fd68961cd"><td class="memItemLeft">virtual QString&#160;</td><td class="memItemRight"><a class="el" href="#a68ecb9127ae226936dfa969fd68961cd">calibBoardPreset</a> () const</td></tr>
 <tr class="memitem:a5c5b3af0283edda51839280d9f49551b" id="r_a5c5b3af0283edda51839280d9f49551b"><td class="memItemLeft">virtual <a class="el" href="classcalib_1_1_calibrator.html">calib::Calibrator</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5c5b3af0283edda51839280d9f49551b">calibrator</a> () const</td></tr>
 <tr class="memdesc:a5c5b3af0283edda51839280d9f49551b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the calibrator holding this camera's calibration state (intrinsics/board data).  <br /></td></tr>
@@ -146,16 +150,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a172b116c151bb2ba761667f763c31494" id="r_a172b116c151bb2ba761667f763c31494"><td class="memItemLeft">virtual double&#160;</td><td class="memItemRight"><a class="el" href="#a172b116c151bb2ba761667f763c31494">exposureTime</a> ()=0</td></tr>
 <tr class="memdesc:a172b116c151bb2ba761667f763c31494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently configured exposure time.  <br /></td></tr>
 <tr class="memitem:a40cebbeb9a74c683d6fc2dece17564d9" id="r_a40cebbeb9a74c683d6fc2dece17564d9"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a40cebbeb9a74c683d6fc2dece17564d9">exposureTimeLimit</a> (double &amp;min, double &amp;max)=0</td></tr>
+<tr class="memdesc:a40cebbeb9a74c683d6fc2dece17564d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the allowed exposure-time range via the output parameters.  <br /></td></tr>
 <tr class="memitem:afddad218984a57270a397be373c5d26a" id="r_afddad218984a57270a397be373c5d26a"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#afddad218984a57270a397be373c5d26a">fromJson</a> (const QJsonObject &amp;obj) override</td></tr>
 <tr class="memitem:a9bc58c58666aa5f2b91979b525791682" id="r_a9bc58c58666aa5f2b91979b525791682"><td class="memItemLeft">virtual int&#160;</td><td class="memItemRight"><a class="el" href="#a9bc58c58666aa5f2b91979b525791682">gain</a> ()=0</td></tr>
 <tr class="memdesc:a9bc58c58666aa5f2b91979b525791682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently configured gain.  <br /></td></tr>
 <tr class="memitem:aefa9ca57743a7bf33f291ee9b33d5ffc" id="r_aefa9ca57743a7bf33f291ee9b33d5ffc"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#aefa9ca57743a7bf33f291ee9b33d5ffc">gainLimit</a> (int &amp;min, int &amp;max)=0</td></tr>
+<tr class="memdesc:aefa9ca57743a7bf33f291ee9b33d5ffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the allowed gain range via the output parameters.  <br /></td></tr>
 <tr class="memitem:a3b7a09a06bd2e23b7d4e99d07c8b2504" id="r_a3b7a09a06bd2e23b7d4e99d07c8b2504"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a3b7a09a06bd2e23b7d4e99d07c8b2504">setAcquisitionFrameRate</a> (bool enable, double rate)=0</td></tr>
 <tr class="memdesc:a3b7a09a06bd2e23b7d4e99d07c8b2504"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables acquisition frame-rate limiting and sets its value.  <br /></td></tr>
 <tr class="memitem:af21ef50ab3179ea784efc41935e5eb3c" id="r_af21ef50ab3179ea784efc41935e5eb3c"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#af21ef50ab3179ea784efc41935e5eb3c">setCalibBoardPreset</a> (const QString &amp;preset)</td></tr>
 <tr class="memdesc:af21ef50ab3179ea784efc41935e5eb3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the calibration-board preset name.  <br /></td></tr>
 <tr class="memitem:a38177ef52f13710590f1c97a2b25dd1c" id="r_a38177ef52f13710590f1c97a2b25dd1c"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a38177ef52f13710590f1c97a2b25dd1c">setCalibrator</a> (<a class="el" href="classcalib_1_1_calibrator.html">calib::Calibrator</a> calib)</td></tr>
-<tr class="memdesc:a38177ef52f13710590f1c97a2b25dd1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the calibrator with <span class="tt"><a class="el" href="namespacecalib.html" title="Calibration board synthesis, detection, and factory types.">calib</a></span> (copied).  <br /></td></tr>
+<tr class="memdesc:a38177ef52f13710590f1c97a2b25dd1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the calibrator with <span class="tt"><a class="el" href="namespacecalib.html">calib</a></span> (copied).  <br /></td></tr>
 <tr class="memitem:a007d0c376f8654cb08bfe68425e6e622" id="r_a007d0c376f8654cb08bfe68425e6e622"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a007d0c376f8654cb08bfe68425e6e622">setCalibThreshold</a> (int threshold)</td></tr>
 <tr class="memdesc:a007d0c376f8654cb08bfe68425e6e622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the binarization threshold, clamped to [-1, 255] (-1 = auto/Otsu, 0..255 = manual).  <br /></td></tr>
 <tr class="memitem:a38487ad10e0fb568668153453bdba724" id="r_a38487ad10e0fb568668153453bdba724"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a38487ad10e0fb568668153453bdba724">setExposureTime</a> (double value)=0</td></tr>
@@ -182,9 +188,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:abac8e880be1b67dc412b32ad98781d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detection binarization threshold; -1 = auto (Otsu).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base configuration contract for a camera device: exposure/gain/frame-rate parameters, backlight control, calibration data and JSON (de)serialization. Concrete cameras (e.g. <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html">BaslerGigeCfg</a>) subclass this and add their own hardware-specific properties. </p>
+<div class="textblock"><p>Base configuration contract for a camera device: exposure/gain/frame-rate parameters, backlight control, calibration data and JSON (de)serialization. Concrete cameras (e.g. <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html" title="Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus camera identity ...">BaslerGigeCfg</a>) subclass this and add their own hardware-specific properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00059">59</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00069">69</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="aa54ff09907b9d765ba3153f149a9d5cc" name="aa54ff09907b9d765ba3153f149a9d5cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa54ff09907b9d765ba3153f149a9d5cc">&#9670;&#160;</a></span>acquisitionFrameRate()</h2>
@@ -212,10 +218,12 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns whether acquisition frame-rate limiting is enabled and its current value. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns whether acquisition frame-rate limiting is enabled and its current value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">enable</td><td>output; true if frame-rate limiting is enabled </td></tr>
-    <tr><td class="paramname">rate</td><td>output; the configured frame rate </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">enable</td><td>true if frame-rate limiting is enabled </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">rate</td><td>the configured frame rate </td></tr>
   </table>
   </dd>
 </dl>
@@ -246,11 +254,11 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the name of the calibration-board preset resolved by <a class="el" href="classcalib_1_1_calibration_board_factory.html">calib::CalibrationBoardFactory</a> (e.g. dot-grid spacing/layout). </p>
+<p>Returns the name of the calibration-board preset resolved by <a class="el" href="classcalib_1_1_calibration_board_factory.html" title="Centralised allocator for CalibrationBoard subclasses. Returns base-class std::unique_ptr&lt;Calibration...">calib::CalibrationBoardFactory</a> (e.g. dot-grid spacing/layout). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00156">156</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00172">172</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00181">m_calibBoardPreset</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00197">m_calibBoardPreset</a>.</p>
 
 </div>
 </div>
@@ -279,9 +287,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns the calibrator holding this camera's calibration state (intrinsics/board data). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00145">145</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00161">161</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00178">m_calibrator</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00194">m_calibrator</a>.</p>
 
 </div>
 </div>
@@ -309,9 +317,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Binarization threshold for calibration-board detection: -1 =&gt; auto (Otsu), 0..255 =&gt; fixed manual threshold. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00167">167</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00183">183</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00183">m_calibThreshold</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00199">m_calibThreshold</a>.</p>
 
 </div>
 </div>
@@ -342,7 +350,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#aebed740ff29334ea606eec6cd7d0a68b">vc::device::BaslerGigeCfg</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00120">fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00107">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00136">fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">toJson()</a>.</p>
 
 </div>
 </div>
@@ -430,10 +438,12 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the allowed exposure-time range via the output parameters. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns the allowed exposure-time range via the output parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">min</td><td>output; minimum exposure time </td></tr>
-    <tr><td class="paramname">max</td><td>output; maximum exposure time </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">min</td><td>minimum exposure time </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">max</td><td>maximum exposure time </td></tr>
   </table>
   </dd>
 </dl>
@@ -470,9 +480,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a4a7aa2cb2f3788c17b9c4ba3e8c783b3">vc::device::BaslerGigeCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00120">120</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00136">136</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a00a7cc82c5427757d4dd7b6d81161b05">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeFromString()</a>, <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_CALIB_BOARD_PRESET</a>, <a class="el" href="idevice__config_8h_source.html#l00023">DEVICE_JSK_CALIB_THRESHOLD</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_CALIBRATOR</a>, <a class="el" href="idevice__config_8h_source.html#l00020">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="camera__device_8h_source.html#l00181">m_calibBoardPreset</a>, <a class="el" href="camera__device_8h_source.html#l00178">m_calibrator</a>, and <a class="el" href="camera__device_8h_source.html#l00183">m_calibThreshold</a>.</p>
+<p class="reference">References <a class="el" href="#a00a7cc82c5427757d4dd7b6d81161b05">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00052">vc::device::CameraTypeFromString()</a>, <a class="el" href="idevice__config_8h_source.html#l00028">DEVICE_JSK_CALIB_BOARD_PRESET</a>, <a class="el" href="idevice__config_8h_source.html#l00029">DEVICE_JSK_CALIB_THRESHOLD</a>, <a class="el" href="idevice__config_8h_source.html#l00027">DEVICE_JSK_CALIBRATOR</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="camera__device_8h_source.html#l00197">m_calibBoardPreset</a>, <a class="el" href="camera__device_8h_source.html#l00194">m_calibrator</a>, and <a class="el" href="camera__device_8h_source.html#l00199">m_calibThreshold</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">vc::device::BaslerGigeCfg::fromJson()</a>.</p>
 
@@ -533,10 +543,12 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the allowed gain range via the output parameters. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns the allowed gain range via the output parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">min</td><td>output; minimum gain </td></tr>
-    <tr><td class="paramname">max</td><td>output; maximum gain </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">min</td><td>minimum gain </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">max</td><td>maximum gain </td></tr>
   </table>
   </dd>
 </dl>
@@ -603,9 +615,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Sets the calibration-board preset name. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00161">161</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00177">177</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00181">m_calibBoardPreset</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00197">m_calibBoardPreset</a>.</p>
 
 </div>
 </div>
@@ -632,11 +644,11 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Replaces the calibrator with <span class="tt"><a class="el" href="namespacecalib.html" title="Calibration board synthesis, detection, and factory types.">calib</a></span> (copied). </p>
+<p>Replaces the calibrator with <span class="tt"><a class="el" href="namespacecalib.html">calib</a></span> (copied). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00150">150</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00166">166</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00178">m_calibrator</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00194">m_calibrator</a>.</p>
 
 </div>
 </div>
@@ -665,9 +677,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Sets the binarization threshold, clamped to [-1, 255] (-1 = auto/Otsu, 0..255 = manual). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00172">172</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00188">188</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00183">m_calibThreshold</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00199">m_calibThreshold</a>.</p>
 
 </div>
 </div>
@@ -821,9 +833,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#abe585230b8a52116896afa965e427872">vc::device::BaslerGigeCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00107">107</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00123">123</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a00a7cc82c5427757d4dd7b6d81161b05">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00029">vc::device::CameraTypeToString()</a>, <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_CALIB_BOARD_PRESET</a>, <a class="el" href="idevice__config_8h_source.html#l00023">DEVICE_JSK_CALIB_THRESHOLD</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_CALIBRATOR</a>, <a class="el" href="idevice__config_8h_source.html#l00020">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="camera__device_8h_source.html#l00181">m_calibBoardPreset</a>, <a class="el" href="camera__device_8h_source.html#l00178">m_calibrator</a>, and <a class="el" href="camera__device_8h_source.html#l00183">m_calibThreshold</a>.</p>
+<p class="reference">References <a class="el" href="#a00a7cc82c5427757d4dd7b6d81161b05">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>, <a class="el" href="idevice__config_8h_source.html#l00028">DEVICE_JSK_CALIB_BOARD_PRESET</a>, <a class="el" href="idevice__config_8h_source.html#l00029">DEVICE_JSK_CALIB_THRESHOLD</a>, <a class="el" href="idevice__config_8h_source.html#l00027">DEVICE_JSK_CALIBRATOR</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="camera__device_8h_source.html#l00197">m_calibBoardPreset</a>, <a class="el" href="camera__device_8h_source.html#l00194">m_calibrator</a>, and <a class="el" href="camera__device_8h_source.html#l00199">m_calibThreshold</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">vc::device::BaslerGigeCfg::toJson()</a>.</p>
 
@@ -849,11 +861,11 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Stored preset name (resolved by <a class="el" href="classcalib_1_1_calibration_board_factory.html">calib::CalibrationBoardFactory</a>). Default matches iRVision 22.5 mm dot grid; UI lets the user change it. </p>
+<p>Stored preset name (resolved by <a class="el" href="classcalib_1_1_calibration_board_factory.html" title="Centralised allocator for CalibrationBoard subclasses. Returns base-class std::unique_ptr&lt;Calibration...">calib::CalibrationBoardFactory</a>). Default matches iRVision 22.5 mm dot grid; UI lets the user change it. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00181">181</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00197">197</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00156">calibBoardPreset()</a>, <a class="el" href="camera__device_8h_source.html#l00120">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00161">setCalibBoardPreset()</a>, and <a class="el" href="camera__device_8h_source.html#l00107">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00172">calibBoardPreset()</a>, <a class="el" href="camera__device_8h_source.html#l00136">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00177">setCalibBoardPreset()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">toJson()</a>.</p>
 
 </div>
 </div>
@@ -878,9 +890,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Calibration state (intrinsics/board data) for this camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00178">178</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00194">194</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00145">calibrator()</a>, <a class="el" href="camera__device_8h_source.html#l00120">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00150">setCalibrator()</a>, and <a class="el" href="camera__device_8h_source.html#l00107">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00161">calibrator()</a>, <a class="el" href="camera__device_8h_source.html#l00136">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00166">setCalibrator()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">toJson()</a>.</p>
 
 </div>
 </div>
@@ -906,14 +918,14 @@ Protected Attributes</h2></td></tr>
 
 <p>Detection binarization threshold; -1 = auto (Otsu). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00183">183</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00199">199</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00167">calibThreshold()</a>, <a class="el" href="camera__device_8h_source.html#l00120">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00172">setCalibThreshold()</a>, and <a class="el" href="camera__device_8h_source.html#l00107">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00183">calibThreshold()</a>, <a class="el" href="camera__device_8h_source.html#l00136">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00188">setCalibThreshold()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/camera/<a class="el" href="camera__device_8h_source.html">camera_device.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/camera/<a class="el" href="camera__device_8h_source.html">camera_device.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

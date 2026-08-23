@@ -1,6 +1,11 @@
 #ifndef PLC_REQUEST_H
 #define PLC_REQUEST_H
 
+/**
+ * @file plc_request.h
+ * @brief Placeholder for a future PlcRequest/PlcResult base (currently unused/commented out).
+ */
+
 // #include <QString>
 
 // namespace vc::device {

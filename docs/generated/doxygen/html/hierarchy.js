@@ -24,6 +24,7 @@ var hierarchy =
     [ "RobotKinematics::CollisionChecker", "class_robot_kinematics_1_1_collision_checker.html", null ],
     [ "RobotKinematics::CollisionCheckRequest", "struct_robot_kinematics_1_1_collision_check_request.html", null ],
     [ "RobotKinematics::CollisionCheckResult", "struct_robot_kinematics_1_1_collision_check_result.html", null ],
+    [ "mtc::MatchedObject::CollisionGeometry", "structmtc_1_1_matched_object_1_1_collision_geometry.html", null ],
     [ "RobotKinematics::CollisionGeometry", "struct_robot_kinematics_1_1_collision_geometry.html", null ],
     [ "RobotKinematics::CollisionPairResult", "struct_robot_kinematics_1_1_collision_pair_result.html", null ],
     [ "RobotKinematics::CollisionProfile", "struct_robot_kinematics_1_1_collision_profile.html", null ],
@@ -58,7 +59,6 @@ var hierarchy =
     [ "RobotKinematics::FrameRegistry", "class_robot_kinematics_1_1_frame_registry.html", null ],
     [ "vc::device::GrabResult", "structvc_1_1device_1_1_grab_result.html", null ],
     [ "calib::FanucIRvisionBoard::GridCell", "structcalib_1_1_fanuc_i_rvision_board_1_1_grid_cell.html", null ],
-    [ "mtc::MatchedObject::GripperBox", "structmtc_1_1_matched_object_1_1_gripper_box.html", null ],
     [ "vc::device::IDeviceCfg", "classvc_1_1device_1_1_i_device_cfg.html", [
       [ "vc::device::CameraCfg", "classvc_1_1device_1_1_camera_cfg.html", [
         [ "vc::device::BaslerGigeCfg", "classvc_1_1device_1_1_basler_gige_cfg.html", null ]

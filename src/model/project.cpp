@@ -156,8 +156,6 @@ bool Project::unassignDeviceFromTask(const QString &deviceId, const QString &tas
     return true;
 }
 
-/// Looks up a task by id.
-/// @param id task id to look up
 std::shared_ptr<vc::model::ITask> Project::taskById(const QString& id) const {
     if (m_tasks.contains(id)) {
         return m_tasks.value(id, nullptr);
@@ -165,15 +163,6 @@ std::shared_ptr<vc::model::ITask> Project::taskById(const QString& id) const {
     return nullptr;
 }
 
-/// Renames the task with the given id to `name` and emits taskModified(id).
-/// @param id id of the task to rename
-/// @param name new name; rejected if already occupied by another task
-/// @return false if `name` is already occupied or `id` is not a known task;
-///   also returns false unconditionally after a successful rename (the
-///   `return false` below is reached even when the rename succeeded)
-/// @note frees the *old* occupied-name entry using `task->id()` rather than the
-///   task's previous name, so m_occupiedTaskNames is only cleared correctly when
-///   the task's id happens to equal its prior name
 bool Project::changeTaskName(const QString& id, const QString &name) {
     if (m_occupiedTaskNames.contains(name)) {
         return false;

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_vision_r
 </div><!--header-->
 <div class="contents">
 
+<p>Adapter that holds per-pattern ROI overlays for the UI session, keyed by group/pattern number. <span class="tt"><a class="el" href="structmtc_1_1_match_pattern_config.html" title="Per-pattern configuration carried by MatchPattern: identity, type-agnostic search parameters,...">mtc::MatchPatternConfig</a></span> currently has no dedicated ROI field, so ROIs are kept in-memory only (<span class="tt">config</span> is accepted for future use but otherwise unused) and are lost when the session ends.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__roi__config__adapter_8h_source.html">vision_roi_config_adapter.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for VisionRoiConfigAdapter:</div>
@@ -143,9 +146,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:adc56cb2cef6d05833d47f4a2d27499e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-session ROI cache, keyed by sessionKey(groupNumber, patternNumber).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Adapter that holds per-pattern ROI overlays for the UI session, keyed by group/pattern number. <span class="tt"><a class="el" href="structmtc_1_1_match_pattern_config.html">mtc::MatchPatternConfig</a></span> currently has no dedicated ROI field, so ROIs are kept in-memory only (<span class="tt">config</span> is accepted for future use but otherwise unused) and are lost when the session ends. </p>
+<div class="textblock"><p>Adapter that holds per-pattern ROI overlays for the UI session, keyed by group/pattern number. <span class="tt"><a class="el" href="structmtc_1_1_match_pattern_config.html" title="Per-pattern configuration carried by MatchPattern: identity, type-agnostic search parameters,...">mtc::MatchPatternConfig</a></span> currently has no dedicated ROI field, so ROIs are kept in-memory only (<span class="tt">config</span> is accepted for future use but otherwise unused) and are lost when the session ends. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__roi__config__adapter_8h_source.html#l00015">15</a> of file <a class="el" href="vision__roi__config__adapter_8h_source.html">vision_roi_config_adapter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__roi__config__adapter_8h_source.html#l00023">23</a> of file <a class="el" href="vision__roi__config__adapter_8h_source.html">vision_roi_config_adapter.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="ab4004bed4d759ae96039cf0f51cf4bce" name="ab4004bed4d759ae96039cf0f51cf4bce"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab4004bed4d759ae96039cf0f51cf4bce">&#9670;&#160;</a></span>loadPatternRois()</h2>
@@ -174,7 +177,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__roi__config__adapter_8cpp_source.html#l00008">8</a> of file <a class="el" href="vision__roi__config__adapter_8cpp_source.html">vision_roi_config_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__roi__config__adapter_8h_source.html#l00039">m_sessionPatternRois</a>, and <a class="el" href="vision__roi__config__adapter_8cpp_source.html#l00003">sessionKey()</a>.</p>
+<p class="reference">References <a class="el" href="vision__roi__config__adapter_8h_source.html#l00047">m_sessionPatternRois</a>, and <a class="el" href="vision__roi__config__adapter_8cpp_source.html#l00003">sessionKey()</a>.</p>
 
 </div>
 </div>
@@ -211,11 +214,11 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Stores <span class="tt">rois</span> in the in-session cache for (<span class="tt">groupNumber</span>, <span class="tt">patternNumber</span>). <span class="tt">config</span> is currently unused (no persistent ROI field exists on <a class="el" href="struct_match_pattern_config.html">MatchPatternConfig</a> yet). When <span class="tt">warningMessage</span> is non-null and <span class="tt">rois</span> is non-empty, it is set to a note that the ROI is session-only and not persisted. </p><dl class="section return"><dt>Returns</dt><dd>true if <span class="tt">rois</span> is empty, false otherwise </dd></dl>
+<p>Stores <span class="tt">rois</span> in the in-session cache for (<span class="tt">groupNumber</span>, <span class="tt">patternNumber</span>). <span class="tt">config</span> is currently unused (no persistent ROI field exists on <a class="el" href="struct_match_pattern_config.html" title="A single match pattern&#39;s editable data: display name, identifying number, match threshold score,...">MatchPatternConfig</a> yet). When <span class="tt">warningMessage</span> is non-null and <span class="tt">rois</span> is non-empty, it is set to a note that the ROI is session-only and not persisted. </p><dl class="section return"><dt>Returns</dt><dd>true if <span class="tt">rois</span> is empty, false otherwise </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="vision__roi__config__adapter_8cpp_source.html#l00017">17</a> of file <a class="el" href="vision__roi__config__adapter_8cpp_source.html">vision_roi_config_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__roi__config__adapter_8h_source.html#l00039">m_sessionPatternRois</a>, and <a class="el" href="vision__roi__config__adapter_8cpp_source.html#l00003">sessionKey()</a>.</p>
+<p class="reference">References <a class="el" href="vision__roi__config__adapter_8h_source.html#l00047">m_sessionPatternRois</a>, and <a class="el" href="vision__roi__config__adapter_8cpp_source.html#l00003">sessionKey()</a>.</p>
 
 </div>
 </div>
@@ -277,15 +280,15 @@ Private Attributes</h2></td></tr>
 
 <p>In-session ROI cache, keyed by sessionKey(groupNumber, patternNumber). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__roi__config__adapter_8h_source.html#l00039">39</a> of file <a class="el" href="vision__roi__config__adapter_8h_source.html">vision_roi_config_adapter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__roi__config__adapter_8h_source.html#l00047">47</a> of file <a class="el" href="vision__roi__config__adapter_8h_source.html">vision_roi_config_adapter.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__roi__config__adapter_8cpp_source.html#l00008">loadPatternRois()</a>, and <a class="el" href="vision__roi__config__adapter_8cpp_source.html#l00017">savePatternRois()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__roi__config__adapter_8h_source.html">vision_roi_config_adapter.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__roi__config__adapter_8cpp_source.html">vision_roi_config_adapter.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__roi__config__adapter_8h_source.html">vision_roi_config_adapter.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__roi__config__adapter_8cpp_source.html">vision_roi_config_adapter.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

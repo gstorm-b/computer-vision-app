@@ -1,18 +1,25 @@
 #ifndef BASLER_DEFINE_H
 #define BASLER_DEFINE_H
 
+/**
+ * @file basler_define.h
+ * @brief Basler-camera-specific enums, GenICam/Pylon parameter conversion helpers, and the
+ *        BaslerIOLine capability struct shared by the Basler GigE camera device and its config.
+ */
+
 #include <QJsonObject>
 #include "core/utils/meta_utils.h"
 
 #include <pylon/PylonIncludes.h>
 #include <pylon/_BaslerUniversalCameraParams.h>
 
-/// Basler-camera-specific enums, GenICam/Pylon parameter conversion helpers, and the
-/// BaslerIOLine capability struct shared by the Basler GigE camera device and its config.
 namespace vc::device::basler {
 Q_NAMESPACE
 
-/// GenICam I/O line role, as reported by the camera's LineSelector/LineMode nodes.
+/**
+ * @enum BaslerLineType
+ * @brief GenICam I/O line role, as reported by the camera's LineSelector/LineMode nodes.
+ */
 enum class BaslerLineType {
     Line_Input,   ///< Line can be configured as a digital input.
     Line_Output,  ///< Line can be configured as a digital output.
@@ -20,7 +27,10 @@ enum class BaslerLineType {
 };
 Q_ENUM_NS(BaslerLineType)
 
-/// Auto-exposure mode, mirroring the Basler GenICam ExposureAuto enumeration.
+/**
+ * @enum BaslerExposureMode
+ * @brief Auto-exposure mode, mirroring the Basler GenICam ExposureAuto enumeration.
+ */
 enum class BaslerExposureMode {
     Exposure_Off,         ///< Exposure time is fixed and set manually.
     Exposure_Once,        ///< Camera auto-adjusts exposure once, then holds it.
@@ -42,24 +52,30 @@ static inline const char* enum_keys_basler_defines[] = {
     QT_TR_NOOP("Exposure_Continuous"),
 };
 
-/// Converts a BaslerExposureMode to its Qt-enum-registered string name (e.g. "Exposure_Off").
-/// @param t the exposure mode to convert
-/// @return the enum's registered name string
+/**
+ * @brief Converts a BaslerExposureMode to its Qt-enum-registered string name (e.g. "Exposure_Off").
+ * @param[in] t the exposure mode to convert
+ * @return the enum's registered name string
+ */
 [[maybe_unused]] static QString BaslerExposureTypeToString(BaslerExposureMode t) {
     return qenumToString(t);
 };
 
-/// Parses a BaslerExposureMode from its registered enum name string.
-/// @param t the enum name string (as produced by BaslerExposureTypeToString)
-/// @return the matching enum value, or Exposure_Off if `t` does not match any name
+/**
+ * @brief Parses a BaslerExposureMode from its registered enum name string.
+ * @param[in] t the enum name string (as produced by BaslerExposureTypeToString)
+ * @return the matching enum value, or Exposure_Off if `t` does not match any name
+ */
 [[maybe_unused]] static BaslerExposureMode BaslerExposureTypeFromString(QString t) {
     return stringToQEnum(t, BaslerExposureMode::Exposure_Off);
 };
 
-/// Converts a Pylon/GenICam ExposureAutoEnums value to the plain "Off"/"Once"/"Continuous"
-/// string used by the camera's GenApi ExposureAuto parameter.
-/// @param mode the Pylon SDK exposure-auto enum value
-/// @return "Off", "Once", or "Continuous"; defaults to "Off" for unrecognized values
+/**
+ * @brief Converts a Pylon/GenICam ExposureAutoEnums value to the plain "Off"/"Once"/"Continuous"
+ *        string used by the camera's GenApi ExposureAuto parameter.
+ * @param[in] mode the Pylon SDK exposure-auto enum value
+ * @return "Off", "Once", or "Continuous"; defaults to "Off" for unrecognized values
+ */
 [[maybe_unused]] static QString autoExposureToQString(Basler_UniversalCameraParams::ExposureAutoEnums mode) {
     if (mode == Basler_UniversalCameraParams::ExposureAutoEnums::ExposureAuto_Off) {
         return "Off";
@@ -71,9 +87,11 @@ static inline const char* enum_keys_basler_defines[] = {
     return "Off";
 }
 
-/// Parses a Pylon/GenICam ExposureAutoEnums value from its "Off"/"Once"/"Continuous" string.
-/// @param mode the exposure-auto mode string
-/// @return the matching Pylon SDK enum value, or ExposureAuto_Off if `mode` is unrecognized
+/**
+ * @brief Parses a Pylon/GenICam ExposureAutoEnums value from its "Off"/"Once"/"Continuous" string.
+ * @param[in] mode the exposure-auto mode string
+ * @return the matching Pylon SDK enum value, or ExposureAuto_Off if `mode` is unrecognized
+ */
 [[maybe_unused]] static Basler_UniversalCameraParams::ExposureAutoEnums autoExposureToEnum(QString mode) {
     if (mode == "Off") {
         return Basler_UniversalCameraParams::ExposureAutoEnums::ExposureAuto_Off;
@@ -85,8 +103,11 @@ static inline const char* enum_keys_basler_defines[] = {
     return Basler_UniversalCameraParams::ExposureAutoEnums::ExposureAuto_Off;
 }
 
-/// Reported I/O capability of a single GenICam camera line, as discovered by querying the
-/// camera's LineSelector/LineMode nodes (see BaslerGigECamera::initializeIOPort).
+/**
+ * @struct BaslerIOLine
+ * @brief Reported I/O capability of a single GenICam camera line, as discovered by querying the
+ *        camera's LineSelector/LineMode nodes (see BaslerGigECamera::initializeIOPort).
+ */
 struct BaslerIOLine {
     bool can_be_input = false;   ///< True if the line's LineMode entries include "Input".
     bool can_be_output = false;  ///< True if the line's LineMode entries include "Output".

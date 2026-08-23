@@ -30,24 +30,45 @@ package "mtc matching" {
     +clone() : unique_ptr<IMatchTypeConfig>
   }
 
+  struct GripperBoxes {
+    +size : cv::Size2f
+    +distance : double
+  }
+
   struct MatchPatternConfig {
     +m_patternName : wstring
     +m_patternIndex : int
     +m_rawImage : cv::Mat
     +m_minScore : double
-    +m_angle / m_toleranceAngle : double
+    +m_angle : double
+    +m_toleranceAngle : double
     +m_maxOverlap : double
     +m_pickPosition : cv::Point2f
-    +m_pickingBoxSize : cv::Size2f
-    +m_pickingBoxDistance : double
+    +m_gripperBoxes : GripperBoxes
     +m_pickingBoxAngle : double
+    +m_usePickingBox : bool
     +m_pickingOffset : cv::Point3f
+    +m_pickingRotationOffset : cv::Point3f
   }
 
   class PatternLayer
   class MatchParams
-  class MatchedObject
   class MatchBoxGripper
+
+  class MatchedObject {
+    +point_Center / point_angle
+    +point_offset : cv::Point3f
+    +point_rotation_offset : cv::Point3f
+    +collisionGeometry() : CollisionGeometry
+    +computeCollisionGeometry(size, distance, angleDeg)
+    +checkCollisionObject2(mask)
+  }
+
+  struct CollisionGeometry {
+    ..per-match, derived at match time..
+    +two oriented jaw rects
+    +their corner points
+  }
 
   class MatchPattern {
     +name() : wstring
@@ -114,6 +135,24 @@ package "vc::model" {
   class LocalizationPipeline {
     +runMatch(group, image) : MatchResult
   }
+
+  struct GripperPreset {
+    +name : QString
+    +boxes : GripperBoxes
+  }
+
+  class GripperPresetStore {
+    ..plain value type, no QObject..
+    +presets() : QVector<GripperPreset>
+    +contains(name) : bool
+    +find(name) : const GripperPreset*
+    +add(preset) : bool
+    +setBoxes(name, boxes) : bool
+    +rename(from, to) : bool
+    +remove(name) : bool
+    +toJson() : QJsonArray
+    +fromJson(arr)
+  }
 }
 
 package "calib calibration" {
@@ -169,6 +208,10 @@ package "calib calibration" {
 IMatchTypeConfig <|-- EdgeMatchConfig
 MatchGroupConfig *-- IMatchTypeConfig : shared by all patterns (typeConfig)
 MatchPattern *-- MatchPatternConfig
+MatchPatternConfig *-- GripperBoxes : configured jaw size + spacing
+MatchedObject *-- CollisionGeometry : computed per match
+GripperPresetStore o-- "0..*" GripperPreset
+GripperPreset *-- GripperBoxes : the values a preset applies
 MatchPattern *-- "0..*" PatternLayer
 MatchGroup *-- MatchGroupConfig
 MatchGroup o-- "0..*" MatchPattern
@@ -209,6 +252,54 @@ end note
 note bottom of PatternGroupManager
   The manager owns mutation validation and emits
   group/pattern change signals after successful edits.
+
+  Pattern JSON is versioned via kSchemaVersion (= 2);
+  a document newer than that is refused rather than
+  loaded with partial defaults. Reads still accept the
+  two older gripper-geometry shapes -- see the note
+  on GripperBoxes.
+end note
+
+note bottom of GripperBoxes
+  Describes the GRIPPER: jaw size and spacing only, so
+  it is shareable as a named preset (GripperPresetStore).
+  The jaw ORIENTATION is per-pattern and therefore lives
+  on MatchPatternConfig::m_pickingBoxAngle, not here.
+
+  On-disk history (Phase 5):
+    v0  flat pickingBoxSize / Distance / Angle
+    v1  nested gripperBoxes { w, h, distance, angle }
+    v2  nested gripperBoxes { w, h, distance }
+        + flat pickingBoxAngle   <-- current
+  One read rule covers all three: take the angle from
+  gripperBoxes.angle when present (v1), else from the
+  flat pickingBoxAngle key (v0 and v2 share it).
+  This back-compatible READ is a deliberate, agreed
+  exception to the no-compat-shims rule in AGENT.md --
+  real commissioned picking geometry exists in saved
+  projects. Writes always emit v2.
+end note
+
+note bottom of GripperPresetStore
+  Project-scoped: owned by TaskLocalization and saved
+  under its "gripperPresets" key, so presets travel with
+  the project rather than the machine.
+
+  Applying a preset COPIES its values into the pattern's
+  own m_gripperBoxes. Nothing holds a reference, so
+  editing or deleting a preset later cannot mutate a
+  pattern already authored from it -- which is what keeps
+  a commissioned task stable when the list is tidied up.
+
+  Lives in model, not matching: matching never reads
+  presets at runtime.
+end note
+
+note bottom of CollisionGeometry
+  Not to be confused with GripperBoxes: this is the
+  per-match geometry derived from it, and with
+  ItemGripperBox, an unrelated QGraphicsItem in the ui
+  module.
 end note
 
 @enduml

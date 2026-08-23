@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/prop_spec.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/prop_spec.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('prop__spec_8h.
   <div class="headertitle"><div class="title">prop_spec.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Generic property-spec framework for QtPropertyBrowser: define a new editable parameter by adding ONE entry to a spec list; building, refreshing, and dispatching changes are handled entirely by the <a class="el" href="namespace_prop_spec_helper.html">PropSpecHelper</a> free functions.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;functional&gt;</code><br />
 <code>#include &lt;QList&gt;</code><br />
 <code>#include &lt;QMap&gt;</code><br />
@@ -143,7 +146,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:PropGroup_3C_20Config_20_3E" id="r_PropGroup_3C_20Config_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_prop_group.html">PropGroup&lt; Config &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A labelled collection of <a class="el" href="struct_prop_spec.html" title="One row in a property spec table: a single editable parameter&#39;s identity, editor attributes (type/ran...">PropSpec</a> entries that forms one collapsible group in the property browser.  <a href="struct_prop_group.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PropSpec_3C_20Config_20_3E" id="r_PropSpec_3C_20Config_20_3E"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_prop_spec.html">PropSpec&lt; Config &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One row in a property spec table: a single editable parameter's identity, editor attributes (type/range/decimals/read-only), and the read/write accessors that connect it to a bound Config instance.  <a href="struct_prop_spec.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -159,6 +164,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ab762f88debf7141a3645c3111980ce7f template"><td class="memItemLeft">QMap&lt; QString, QtVariantProperty * &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespace_prop_spec_helper.html#ab762f88debf7141a3645c3111980ce7f">PropSpecHelper::buildGroups</a> (QtVariantPropertyManager *mgr, QtAbstractPropertyBrowser *browser, const QList&lt; <a class="el" href="struct_prop_group.html">PropGroup</a>&lt; Config &gt; &gt; &amp;groups, const Config &amp;cfg, QMap&lt; QtProperty *, QString &gt; &amp;propKeyMap)</td></tr>
 <tr class="memitem:a740c3cc44dd0d7801f5da371293d5ab0" id="r_a740c3cc44dd0d7801f5da371293d5ab0"><td class="memTemplParams" colspan="2">template&lt;typename Config&gt; </td></tr>
 <tr class="memitem:a740c3cc44dd0d7801f5da371293d5ab0 template"><td class="memItemLeft">QtVariantProperty *&#160;</td><td class="memItemRight"><a class="el" href="namespace_prop_spec_helper.html#a740c3cc44dd0d7801f5da371293d5ab0">PropSpecHelper::buildOne</a> (QtVariantPropertyManager *mgr, const <a class="el" href="struct_prop_spec.html">PropSpec</a>&lt; Config &gt; &amp;spec, const Config &amp;cfg, QMap&lt; QString, QtVariantProperty * &gt; *propMap=nullptr, QMap&lt; QtProperty *, QString &gt; *propKeyMap=nullptr)</td></tr>
+<tr class="memdesc:a740c3cc44dd0d7801f5da371293d5ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates one standalone QtVariantProperty from <span class="tt">spec</span> (applying its attributes and initial value from <span class="tt">cfg</span>), and records it in <span class="tt">propMap</span>/ <span class="tt">propKeyMap</span> when those are provided.  <br /></td></tr>
 <tr class="memitem:a83e48d5dc8593ed8b402447bf06bbca0" id="r_a83e48d5dc8593ed8b402447bf06bbca0"><td class="memTemplParams" colspan="2">template&lt;typename Config&gt; </td></tr>
 <tr class="memitem:a83e48d5dc8593ed8b402447bf06bbca0 template"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespace_prop_spec_helper.html#a83e48d5dc8593ed8b402447bf06bbca0">PropSpecHelper::dispatch</a> (const QList&lt; <a class="el" href="struct_prop_spec.html">PropSpec</a>&lt; Config &gt; &gt; &amp;specs, const QString &amp;key, const QVariant &amp;val, Config &amp;cfg)</td></tr>
 <tr class="memitem:a9ad4a53d24558318c92fc5371c574bc2" id="r_a9ad4a53d24558318c92fc5371c574bc2"><td class="memTemplParams" colspan="2">template&lt;typename Config&gt; </td></tr>
@@ -169,7 +175,38 @@ Functions</h2></td></tr>
 <tr class="memitem:adba3f41f7b027f9278f36f0ee99cf98f template"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespace_prop_spec_helper.html#adba3f41f7b027f9278f36f0ee99cf98f">PropSpecHelper::refreshGroups</a> (QtVariantPropertyManager *mgr, const QList&lt; <a class="el" href="struct_prop_group.html">PropGroup</a>&lt; Config &gt; &gt; &amp;groups, const Config &amp;cfg, const QMap&lt; QString, QtVariantProperty * &gt; &amp;propMap)</td></tr>
 <tr class="memdesc:adba3f41f7b027f9278f36f0ee99cf98f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls <a class="el" href="namespace_prop_spec_helper.html#a5c64ea393d9ad09a68e168420d978651">refresh()</a> for every group in <span class="tt">groups</span> against the shared <span class="tt">propMap</span>.  <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Generic property-spec framework for QtPropertyBrowser: define a new editable parameter by adding ONE entry to a spec list; building, refreshing, and dispatching changes are handled entirely by the <a class="el" href="namespace_prop_spec_helper.html">PropSpecHelper</a> free functions. </p>
+<p>Design goal: define a new editable parameter by adding ONE entry to a spec list. Nothing else needs to change.</p>
+<p>Typical usage pattern: </p><div class="fragment"><div class="line"><span class="comment">// 1. Define specs (usually as a static / file-level variable)</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> QList&lt;PropSpec&lt;MyConfig&gt;&gt; kMySpecs = {</div>
+<div class="line">    { <span class="stringliteral">&quot;speed&quot;</span>, <span class="stringliteral">&quot;Speed (m/s)&quot;</span>, <span class="stringliteral">&quot;Maximum linear velocity&quot;</span>,</div>
+<div class="line">      QMetaType::Double, 0.0, 10.0, 0.01, 2, <span class="keyword">false</span>,</div>
+<div class="line">      [](<span class="keyword">const</span> MyConfig &amp;c){ <span class="keywordflow">return</span> c.speed; },</div>
+<div class="line">      [](MyConfig &amp;c, <span class="keyword">const</span> QVariant &amp;v){ c.speed = v.toDouble(); } },</div>
+<div class="line">    { <span class="stringliteral">&quot;enabled&quot;</span>, <span class="stringliteral">&quot;Enabled&quot;</span>, <span class="keyword">nullptr</span>,</div>
+<div class="line">      QMetaType::Bool, {}, {}, {}, -1, <span class="keyword">false</span>,</div>
+<div class="line">      [](<span class="keyword">const</span> MyConfig &amp;c){ <span class="keywordflow">return</span> c.enabled; },</div>
+<div class="line">      [](MyConfig &amp;c, <span class="keyword">const</span> QVariant &amp;v){ c.enabled = v.toBool(); } },</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// 2. Build (once, inside your &quot;build&quot; method)</span></div>
+<div class="line"><span class="keyword">auto</span> *grp = mgr-&gt;addProperty(QtVariantPropertyManager::groupTypeId(), <span class="stringliteral">&quot;My Group&quot;</span>);</div>
+<div class="line">m_propMap = <a class="code hl_function" href="namespace_prop_spec_helper.html#a844706010ec703aabaeb463951d59c37">PropSpecHelper::buildGroup</a>(mgr, grp, kMySpecs, cfg, m_propKeys);</div>
+<div class="line">browser-&gt;addProperty(grp);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// 3. Refresh (on external cfg changes)</span></div>
+<div class="line"><a class="code hl_function" href="namespace_prop_spec_helper.html#a5c64ea393d9ad09a68e168420d978651">PropSpecHelper::refresh</a>(mgr, kMySpecs, cfg, m_propMap);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// 4. Dispatch (in valueChanged slot)</span></div>
+<div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="namespace_prop_spec_helper.html#a83e48d5dc8593ed8b402447bf06bbca0">PropSpecHelper::dispatch</a>(kMySpecs, key, val, cfg))</div>
+<div class="line">    emit configModified();</div>
+<div class="ttc" id="anamespace_prop_spec_helper_html_a5c64ea393d9ad09a68e168420d978651"><div class="ttname"><a href="namespace_prop_spec_helper.html#a5c64ea393d9ad09a68e168420d978651">PropSpecHelper::refresh</a></div><div class="ttdeci">void refresh(QtVariantPropertyManager *mgr, const QList&lt; PropSpec&lt; Config &gt; &gt; &amp;specs, const Config &amp;cfg, const QMap&lt; QString, QtVariantProperty * &gt; &amp;propMap)</div><div class="ttdef"><b>Definition</b> <a href="prop__spec_8h_source.html#l00174">prop_spec.h:174</a></div></div>
+<div class="ttc" id="anamespace_prop_spec_helper_html_a83e48d5dc8593ed8b402447bf06bbca0"><div class="ttname"><a href="namespace_prop_spec_helper.html#a83e48d5dc8593ed8b402447bf06bbca0">PropSpecHelper::dispatch</a></div><div class="ttdeci">bool dispatch(const QList&lt; PropSpec&lt; Config &gt; &gt; &amp;specs, const QString &amp;key, const QVariant &amp;val, Config &amp;cfg)</div><div class="ttdef"><b>Definition</b> <a href="prop__spec_8h_source.html#l00201">prop_spec.h:201</a></div></div>
+<div class="ttc" id="anamespace_prop_spec_helper_html_a844706010ec703aabaeb463951d59c37"><div class="ttname"><a href="namespace_prop_spec_helper.html#a844706010ec703aabaeb463951d59c37">PropSpecHelper::buildGroup</a></div><div class="ttdeci">QMap&lt; QString, QtVariantProperty * &gt; buildGroup(QtVariantPropertyManager *mgr, QtVariantProperty *group, const QList&lt; PropSpec&lt; Config &gt; &gt; &amp;specs, const Config &amp;cfg, QMap&lt; QtProperty *, QString &gt; &amp;propKeyMap)</div><div class="ttdef"><b>Definition</b> <a href="prop__spec_8h_source.html#l00134">prop_spec.h:134</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition in file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

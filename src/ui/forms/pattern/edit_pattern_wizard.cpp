@@ -2,8 +2,10 @@
 #include "pattern_canvas.h"
 #include "pattern_theme.h"
 
+#include <QComboBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QKeyEvent>
 #include <QSpinBox>
 #include <QDoubleSpinBox>
 #include <QPushButton>
@@ -19,6 +21,32 @@ constexpr int CW = 560;        ///< Default/minimum width of the image canvas, i
 constexpr int CH = 380;        ///< Default/minimum height of the image canvas, in pixels.
 constexpr int DIALOG_W = 920;  ///< Fixed dialog width, in pixels.
 constexpr int DIALOG_H = 620;  ///< Fixed dialog height, in pixels.
+
+/// Number of wizard steps; the rail, navigation bounds and subtitle all derive from this.
+constexpr int STEP_COUNT = 5;
+constexpr int STEP_LAST  = STEP_COUNT - 1;
+
+/// Zero-based page indices, so the navigation reads by name rather than by number.
+constexpr int STEP_IDENTITY = 0;
+constexpr int STEP_PICK     = 1;
+constexpr int STEP_BOX      = 2;
+constexpr int STEP_OFFSET   = 3;
+constexpr int STEP_FINISH   = 4;
+
+/// Per-step rail titles; index-aligned with STEP_* above.
+QStringList stepTitles() {
+    return {QObject::tr("Identity"), QObject::tr("Pick Point"), QObject::tr("Picking Box"),
+            QObject::tr("Offset"),   QObject::tr("Finish")};
+}
+
+/// Per-step rail sublines; index-aligned with stepTitles().
+QStringList stepSublines() {
+    return {QObject::tr("Image locked · edit name/number"),
+            QObject::tr("Adjust pick position & angle"),
+            QObject::tr("Tweak gripper bounds"),
+            QObject::tr("Set 6-axis pick offset"),
+            QObject::tr("Review changes")};
+}
 
 /// Creates a small-caps-style uppercase section label (e.g. "PATTERN NAME") used above input fields.
 QLabel *makeFieldLabel(const QString &text) {
@@ -80,6 +108,7 @@ void EditPatternWizard::buildUi() {
     m_stack->addWidget(buildStepIdentity());
     m_stack->addWidget(buildStepPick());
     m_stack->addWidget(buildStepBox());
+    m_stack->addWidget(buildStepOffset());
     m_stack->addWidget(buildStepFinish());
     root->addWidget(m_stack, 1);
 
@@ -135,9 +164,8 @@ QLabel *EditPatternWizard::makeStepBubble(int idx) {
     return b;
 }
 
-/// Builds the horizontal 4-cell step rail (bubble + title + subline per
-/// step) and populates m_stepBubbles / m_stepLabels for later restyling by
-/// updateStepRail().
+/// Builds the horizontal step rail (bubble + title + subline per step, STEP_COUNT cells)
+/// and populates m_stepBubbles / m_stepLabels for later restyling by updateStepRail().
 /// @return the constructed step-rail frame, ready to add to the root layout
 QWidget *EditPatternWizard::buildStepRail() {
     auto *w = new QFrame;
@@ -150,13 +178,9 @@ QWidget *EditPatternWizard::buildStepRail() {
     lay->setContentsMargins(18, 0, 18, 0);
     lay->setSpacing(0);
 
-    const QStringList labels   = {tr("Identity"), tr("Pick Point"),
-                                   tr("Picking Box"), tr("Finish")};
-    const QStringList sublines = {tr("Image locked · edit name/number"),
-                                   tr("Adjust pick position"),
-                                   tr("Tweak gripper bounds"),
-                                   tr("Review changes")};
-    for (int i = 0; i < 4; ++i) {
+    const QStringList labels   = stepTitles();
+    const QStringList sublines = stepSublines();
+    for (int i = 0; i < STEP_COUNT; ++i) {
         auto *cell = new QWidget;
         auto *cellLay = new QHBoxLayout(cell);
         cellLay->setContentsMargins(8, 10, 8, 10); cellLay->setSpacing(8);
@@ -199,12 +223,17 @@ QWidget *EditPatternWizard::buildFooter() {
     ).arg(ptn::TXT3, "JetBrains Mono"));
     lay->addWidget(m_footerStatus, 1);
 
+    // Cancel and Back opt out of autoDefault so Return can never reach them. A focused
+    // QPushButton consumes Return itself, before the dialog's keyPressEvent guard ever
+    // runs -- so the guard alone cannot stop Enter from discarding in-progress edits.
     m_btnCancel = new QPushButton(tr("Cancel"));
     m_btnCancel->setStyleSheet(ptn::ghostButtonStyle());
+    m_btnCancel->setAutoDefault(false);
     connect(m_btnCancel, &QPushButton::clicked, this, &EditPatternWizard::onCancel);
 
     m_btnBack = new QPushButton("← " + tr("Back"));
     m_btnBack->setStyleSheet(ptn::ghostButtonStyle());
+    m_btnBack->setAutoDefault(false);
     connect(m_btnBack, &QPushButton::clicked, this, &EditPatternWizard::onBack);
 
     m_btnNext = new QPushButton(tr("Next") + " →");
@@ -300,8 +329,21 @@ QWidget *EditPatternWizard::buildStepPick() {
     m_pickCanvas->setMinimumSize(CW, CH);
     m_pickCanvas->setImage(m_old.image);
     m_pickCanvas->setPick({m_old.pickX, m_old.pickY});
+    m_pickCanvas->setPickAngle(m_old.pickAngle);
     connect(m_pickCanvas, &AddPatternImageCanvas::pickChanged,
             this, &EditPatternWizard::onPickChanged);
+    // Dragging the orientation knob on the canvas echoes into the angle spin box. Blocked
+    // so the spin box does not push the value straight back at the canvas mid-drag.
+    connect(m_pickCanvas, &AddPatternImageCanvas::pickAngleChanged,
+            this, [this](double v) {
+                m_new.pickAngle = v;
+                if (m_pickAngleSpin) {
+                    QSignalBlocker block(m_pickAngleSpin);
+                    m_pickAngleSpin->setValue(v);
+                }
+                if (m_finishCanvas) m_finishCanvas->setPickAngle(v);
+                updateFooterStatus();
+            });
     lay->addWidget(m_pickCanvas, 1);
 
     auto *col = new QWidget; col->setFixedWidth(280);
@@ -347,6 +389,31 @@ QWidget *EditPatternWizard::buildStepPick() {
     right->addWidget(prev);
 
     right->addWidget(makeHSeparator());
+
+    // Picking angle — MatchPatternConfig::m_angle, added to the reported angle of every
+    // match from this pattern. Distinct from the jaw angle on the next step.
+    right->addWidget(makeFieldLabel(tr("Picking Angle (deg)")));
+    m_pickAngleSpin = new QDoubleSpinBox;
+    m_pickAngleSpin->setRange(-360.0, 360.0);
+    m_pickAngleSpin->setDecimals(2);
+    m_pickAngleSpin->setSingleStep(1.0);
+    m_pickAngleSpin->setValue(m_old.pickAngle);
+    m_pickAngleSpin->setStyleSheet(ptn::inputStyle());
+    connect(m_pickAngleSpin, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+            this, [this](double v) {
+                m_new.pickAngle = v;
+                if (m_pickCanvas)   m_pickCanvas->setPickAngle(v);
+                if (m_finishCanvas) m_finishCanvas->setPickAngle(v);
+                updateFooterStatus();
+            });
+    right->addWidget(m_pickAngleSpin);
+
+    auto *prevAngle = new QLabel(QString(tr("was: %1°")).arg(m_old.pickAngle));
+    prevAngle->setStyleSheet(QString("color: %1; font: 9pt '%2';")
+                                 .arg(ptn::TXT3, "JetBrains Mono"));
+    right->addWidget(prevAngle);
+
+    right->addWidget(makeHSeparator());
     auto *info = new QLabel(tr(
         "Click anywhere on the locked image to set a new picking position."));
     info->setWordWrap(true);
@@ -362,6 +429,27 @@ QWidget *EditPatternWizard::buildStepPick() {
 }
 
 // ── Step 3 — Box ────────────────────────────────────────────────────────────
+
+void EditPatternWizard::setGripperPresets(const vc::model::GripperPresetStore &presets) {
+    m_gripperPresets = presets;
+    if (!m_presetCombo) return;
+
+    QSignalBlocker block(m_presetCombo);
+    m_presetCombo->clear();
+    m_presetCombo->addItem(tr("Custom"));
+    for (const vc::model::GripperPreset &p : m_gripperPresets.presets())
+        m_presetCombo->addItem(p.name);
+    m_presetCombo->setCurrentIndex(0);
+}
+
+/// Returns the selector to "Custom" after a manual geometry edit. No-op when it is
+/// already there, so this is cheap to call from every value-changed path.
+void EditPatternWizard::markGripperPresetCustom() {
+    if (!m_presetCombo || m_presetCombo->currentIndex() == 0) return;
+    QSignalBlocker block(m_presetCombo);
+    m_presetCombo->setCurrentIndex(0);
+}
+
 
 /// Builds Step 3 ("Picking Box"): the locked image canvas in Box mode plus a
 /// right-hand column with width/height and distance/angle spin boxes (ranged
@@ -395,6 +483,7 @@ QWidget *EditPatternWizard::buildStepBox() {
                 }
                 m_new.pickBoxW = w; m_new.pickBoxH = h;
                 m_new.pickBoxDist = d; m_new.pickBoxAngle = a;
+                markGripperPresetCustom();   // dragging on the canvas is a manual edit too
                 updateFooterStatus();
             });
     // The picking centre is draggable on the box canvas too (image is locked,
@@ -413,6 +502,30 @@ QWidget *EditPatternWizard::buildStepBox() {
 
     auto *col = new QWidget; col->setFixedWidth(280);
     auto *right = new QVBoxLayout(col); right->setSpacing(12);
+
+    // Gripper preset selector, same contract as AddPatternWizard: index 0 is "Custom",
+    // picking a preset fills jaw size and distance only. It starts on "Custom" because an
+    // existing pattern stores resolved values and no record of which preset produced them.
+    right->addWidget(makeFieldLabel(tr("Gripper Preset")));
+    m_presetCombo = new QComboBox;
+    m_presetCombo->setStyleSheet(ptn::inputStyle());
+    m_presetCombo->addItem(tr("Custom"));
+    connect(m_presetCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, [this](int index) {
+                if (index <= 0) return;   // "Custom" applies nothing
+                const auto &list = m_gripperPresets.presets();
+                if (index - 1 >= list.size()) return;
+                const mtc::GripperBoxes &g = list.at(index - 1).boxes;
+
+                // Block the spins so filling them does not bounce the selector straight
+                // back to "Custom" through the markGripperPresetCustom() connections.
+                QSignalBlocker b1(m_boxWSpin), b2(m_boxHSpin), b3(m_boxDistSpin);
+                m_boxWSpin->setValue(g.size.width);
+                m_boxHSpin->setValue(g.size.height);
+                m_boxDistSpin->setValue(g.distance);
+                onBoxChanged();
+            });
+    right->addWidget(m_presetCombo);
 
     right->addWidget(makeFieldLabel(tr("Box Size (shared)")));
     auto *sg = new QGridLayout; sg->setSpacing(6);
@@ -462,6 +575,14 @@ QWidget *EditPatternWizard::buildStepBox() {
         m_boxDistSpin->setValue(m_new.pickBoxDist);
     }
 
+    // Editing a value a preset supplies means the geometry no longer matches it. The jaw
+    // angle is excluded because presets carry no angle.
+    const QList<QDoubleSpinBox *> boxSpins{ m_boxWSpin, m_boxHSpin, m_boxDistSpin };
+    for (QDoubleSpinBox *sb : boxSpins) {
+        connect(sb, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+                this, [this](double) { markGripperPresetCustom(); });
+    }
+
     auto *btns = new QHBoxLayout;
     auto *bReset = new QPushButton(tr("Reset"));
     bReset->setStyleSheet(ptn::ghostButtonStyle());
@@ -484,9 +605,87 @@ QWidget *EditPatternWizard::buildStepBox() {
     return page;
 }
 
-// ── Step 4 — Finish (diff view) ─────────────────────────────────────────────
+// ── Step 4 — Offset ─────────────────────────────────────────────────────────
 
-/// Builds Step 4 ("Finish"): the read-only finish canvas plus a right-hand
+/// Builds Step 4 ("Offset"): the six pick-offset axes, seeded from the pattern's saved
+/// values. Purely numeric — the offset is applied in the robot's TOOL frame after the 2D
+/// match has been transformed into world coordinates, so there is nothing to draw on the
+/// locked image.
+/// @return the constructed step page, ready to add to the step stack
+QWidget *EditPatternWizard::buildStepOffset() {
+    auto *page = new QWidget;
+    auto *lay  = new QHBoxLayout(page);
+    lay->setSpacing(18); lay->setContentsMargins(0, 0, 0, 0);
+
+    auto *info = new QLabel(tr(
+        "The pick offset is applied in the TOOL frame, on top of the pose derived from "
+        "the match. Translation is in millimetres; rotation is in degrees and composes "
+        "as roll (RX), pitch (RY), yaw (RZ).\n\n"
+        "All zeros means the matched pose itself is commanded."));
+    info->setWordWrap(true);
+    info->setAlignment(Qt::AlignTop);
+    info->setStyleSheet(QString(
+        "QLabel { background: %1; border: 1px solid %2; border-radius: 5px;"
+        "  padding: 14px 16px; color: %3; font: 10pt 'Segoe UI'; }"
+    ).arg(ptn::BG, ptn::BD, ptn::TXT2));
+    lay->addWidget(info, 1);
+
+    auto *col = new QWidget; col->setFixedWidth(280);
+    auto *right = new QVBoxLayout(col); right->setSpacing(12);
+
+    auto addAxis = [&](QGridLayout *grid, const QString &label, QDoubleSpinBox *&sb,
+                       double limit, double init, int row) {
+        auto *l = new QLabel(label);
+        l->setStyleSheet(QString("color: %1; font: 9pt '%2';")
+                            .arg(ptn::TXT3, "JetBrains Mono"));
+        sb = new QDoubleSpinBox;
+        sb->setRange(-limit, limit);
+        sb->setDecimals(3);
+        sb->setValue(init);
+        sb->setStyleSheet(ptn::inputStyle());
+        connect(sb, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
+                this, [this](double){ onOffsetChanged(); });
+        grid->addWidget(l, row, 0);
+        grid->addWidget(sb, row, 1);
+    };
+
+    right->addWidget(makeFieldLabel(tr("Translation (mm)")));
+    auto *tg = new QGridLayout; tg->setSpacing(6);
+    addAxis(tg, "X", m_offXSpin, 100000.0, m_old.offX, 0);
+    addAxis(tg, "Y", m_offYSpin, 100000.0, m_old.offY, 1);
+    addAxis(tg, "Z", m_offZSpin, 100000.0, m_old.offZ, 2);
+    right->addLayout(tg);
+
+    right->addWidget(makeFieldLabel(tr("Rotation (deg, tool frame)")));
+    auto *rg = new QGridLayout; rg->setSpacing(6);
+    addAxis(rg, "RX", m_offRXSpin, 360.0, m_old.offRX, 0);
+    addAxis(rg, "RY", m_offRYSpin, 360.0, m_old.offRY, 1);
+    addAxis(rg, "RZ", m_offRZSpin, 360.0, m_old.offRZ, 2);
+    right->addLayout(rg);
+
+    auto *btns = new QHBoxLayout;
+    auto *bReset = new QPushButton(tr("Reset to zero"));
+    bReset->setStyleSheet(ptn::ghostButtonStyle());
+    connect(bReset, &QPushButton::clicked, this, &EditPatternWizard::onOffsetReset);
+    btns->addWidget(bReset); btns->addStretch();
+    right->addLayout(btns);
+
+    auto *prev = new QLabel(QString(tr("was: (%1, %2, %3) mm · (%4, %5, %6)°"))
+                                .arg(m_old.offX).arg(m_old.offY).arg(m_old.offZ)
+                                .arg(m_old.offRX).arg(m_old.offRY).arg(m_old.offRZ));
+    prev->setWordWrap(true);
+    prev->setStyleSheet(QString("color: %1; font: 9pt '%2';")
+                            .arg(ptn::TXT3, "JetBrains Mono"));
+    right->addWidget(prev);
+
+    right->addStretch();
+    lay->addWidget(col);
+    return page;
+}
+
+// ── Step 5 — Finish (diff view) ─────────────────────────────────────────────
+
+/// Builds Step 5 ("Finish"): the read-only finish canvas plus a right-hand
 /// column with the "CHANGES" header and the HTML diff summary label
 /// (refreshed by refreshDiff()).
 /// @return the constructed step page, ready to add to the step stack
@@ -533,24 +732,26 @@ QWidget *EditPatternWizard::buildStepFinish() {
 /// canvas being entered, refreshes the diff on the Finish step, and updates
 /// the step rail, footer status, subtitle, and Back/Next button state
 /// (rewiring Next to Apply on the final step).
-/// @param step target step index; out-of-range values (not 0-3) are ignored
+/// @param step target step index; out-of-range values are ignored
 void EditPatternWizard::goToStep(int step) {
-    if (step < 0 || step > 3) return;
+    if (step < 0 || step > STEP_LAST) return;
     if (step > m_currentStep && !currentStepValid()) return;
 
     m_currentStep = step;
     m_stack->setCurrentIndex(step);
 
-    if (step == 1 && m_pickCanvas) {
+    if (step == STEP_PICK && m_pickCanvas) {
         m_pickCanvas->setPick({m_new.pickX, m_new.pickY});
+        m_pickCanvas->setPickAngle(m_new.pickAngle);
     }
-    if (step == 2 && m_boxCanvas) {
+    if (step == STEP_BOX && m_boxCanvas) {
         m_boxCanvas->setPick({m_new.pickX, m_new.pickY});
         m_boxCanvas->setBoxConfig(m_new.pickBoxW, m_new.pickBoxH,
                                    m_new.pickBoxDist, m_new.pickBoxAngle);
     }
-    if (step == 3 && m_finishCanvas) {
+    if (step == STEP_FINISH && m_finishCanvas) {
         m_finishCanvas->setPick({m_new.pickX, m_new.pickY});
+        m_finishCanvas->setPickAngle(m_new.pickAngle);
         m_finishCanvas->setBoxConfig(m_new.pickBoxW, m_new.pickBoxH,
                                       m_new.pickBoxDist, m_new.pickBoxAngle);
         refreshDiff();
@@ -560,7 +761,7 @@ void EditPatternWizard::goToStep(int step) {
     updateFooterStatus();
     m_btnBack->setEnabled(step > 0);
 
-    if (step == 3) {
+    if (step == STEP_LAST) {
         m_btnNext->setText("✓  " + tr("Apply Changes"));
         disconnect(m_btnNext, nullptr, this, nullptr);
         connect(m_btnNext, &QPushButton::clicked, this, &EditPatternWizard::onApply);
@@ -571,15 +772,17 @@ void EditPatternWizard::goToStep(int step) {
     }
 
     if (m_subtitleLabel) {
-        const QStringList subs = {tr("Image locked · edit name/number"),
-                                   tr("Adjust pick position"),
-                                   tr("Tweak gripper bounds"),
-                                   tr("Review changes")};
-        m_subtitleLabel->setText(QString("%1  ·  %2  %3 of 4  —  %4")
+        m_subtitleLabel->setText(QString("%1  ·  %2  %3 of %4  —  %5")
                                      .arg(tr("Group:"), m_groupName)
                                      .arg(step + 1)
-                                     .arg(subs[step]));
+                                     .arg(STEP_COUNT)
+                                     .arg(stepSublines().at(step)));
     }
+
+    // Park focus on Next on every step, including the initial goToStep(0) from the
+    // constructor. Whatever holds focus is what a stray Return or Space activates, so the
+    // only safe resting place is the button that moves the user forward.
+    m_btnNext->setFocus(Qt::OtherFocusReason);
 }
 
 /// Restyles every step bubble/label to reflect the current step: done
@@ -600,10 +803,10 @@ void EditPatternWizard::updateStepRail() {
 /// Only step 0 (Identity) is gated: requires a non-empty name that either
 /// matches the original or is unused elsewhere in the group, and a number
 /// >= 1 that either matches the original or is unused elsewhere in the
-/// group. Steps 1-3 have no blocking requirement.
+/// group. Every later step has no blocking requirement.
 /// @return true if the wizard may move forward from the current step
 bool EditPatternWizard::currentStepValid() const {
-    if (m_currentStep == 0) {
+    if (m_currentStep == STEP_IDENTITY) {
         const bool nameOk = !m_new.name.trimmed().isEmpty()
                             && (m_new.name == m_old.name
                                 || !m_usedNames.contains(m_new.name.trimmed()));
@@ -622,21 +825,32 @@ void EditPatternWizard::updateFooterStatus() {
     if (!m_footerStatus) return;
     QString s;
     switch (m_currentStep) {
-    case 0:
+    case STEP_IDENTITY:
         s = currentStepValid()
             ? "✓ " + tr("Identity ready")
             : tr("Resolve the highlighted errors.");
         break;
-    case 1:
-        s = QString("✓ ") + tr("Pick point at (%1, %2)")
-                                .arg(m_new.pickX).arg(m_new.pickY);
+    case STEP_PICK:
+        s = QString("✓ ") + tr("Pick point at (%1, %2) · %3°")
+                                .arg(m_new.pickX).arg(m_new.pickY).arg(m_new.pickAngle);
         break;
-    case 2:
+    case STEP_BOX:
         s = QString("✓ ") + tr("Box %1×%2 · d=%3 · ±%4°")
                                 .arg(m_new.pickBoxW).arg(m_new.pickBoxH)
                                 .arg(m_new.pickBoxDist).arg(m_new.pickBoxAngle);
         break;
-    case 3:
+    case STEP_OFFSET: {
+        const bool zero = qFuzzyIsNull(m_new.offX)  && qFuzzyIsNull(m_new.offY)
+                       && qFuzzyIsNull(m_new.offZ)  && qFuzzyIsNull(m_new.offRX)
+                       && qFuzzyIsNull(m_new.offRY) && qFuzzyIsNull(m_new.offRZ);
+        s = zero
+            ? "✓ " + tr("No pick offset — commanding the matched pose")
+            : QString("✓ ") + tr("Offset (%1, %2, %3) mm · (%4, %5, %6)°")
+                                  .arg(m_new.offX).arg(m_new.offY).arg(m_new.offZ)
+                                  .arg(m_new.offRX).arg(m_new.offRY).arg(m_new.offRZ);
+        break;
+    }
+    case STEP_FINISH:
         s = "✓ " + tr("Review changes — Apply to commit");
         break;
     }
@@ -672,25 +886,75 @@ void EditPatternWizard::refreshDiff() {
                                 QString("#%1").arg(m_new.number));
     html += row(tr("PICK"),    QString("(%1, %2)").arg(m_old.pickX).arg(m_old.pickY),
                                 QString("(%1, %2)").arg(m_new.pickX).arg(m_new.pickY));
+    html += row(tr("PICK ANGLE"), QString("%1°").arg(m_old.pickAngle),
+                                   QString("%1°").arg(m_new.pickAngle));
     html += row(tr("BOX W×H"), QString("%1×%2").arg(m_old.pickBoxW).arg(m_old.pickBoxH),
                                 QString("%1×%2").arg(m_new.pickBoxW).arg(m_new.pickBoxH));
-    html += row(tr("OFFSET"),  QString("d=%1 · %2°")
-                                  .arg(m_old.pickBoxDist).arg(m_old.pickBoxAngle),
-                                QString("d=%1 · %2°")
-                                  .arg(m_new.pickBoxDist).arg(m_new.pickBoxAngle));
+    html += row(tr("JAW OFFSET"), QString("d=%1 · %2°")
+                                     .arg(m_old.pickBoxDist).arg(m_old.pickBoxAngle),
+                                   QString("d=%1 · %2°")
+                                     .arg(m_new.pickBoxDist).arg(m_new.pickBoxAngle));
+    html += row(tr("PICK OFFSET"), QString("(%1, %2, %3) mm")
+                                      .arg(m_old.offX).arg(m_old.offY).arg(m_old.offZ),
+                                    QString("(%1, %2, %3) mm")
+                                      .arg(m_new.offX).arg(m_new.offY).arg(m_new.offZ));
+    html += row(tr("ROT OFFSET"),  QString("(%1, %2, %3)°")
+                                      .arg(m_old.offRX).arg(m_old.offRY).arg(m_old.offRZ),
+                                    QString("(%1, %2, %3)°")
+                                      .arg(m_new.offRX).arg(m_new.offRY).arg(m_new.offRZ));
     m_diffSummary->setText(html);
+}
+
+// ── Key handling ────────────────────────────────────────────────────────────
+
+/// Drops Return/Enter and Escape on the floor, letting every other key through.
+///
+/// QDialog maps Return to accept() and Escape to reject(). Both are wrong here: Return is
+/// a reflex after typing into a field and would commit a half-reviewed edit, and Escape
+/// would discard the whole thing. Closing stays deliberate — Cancel or the header button.
+void EditPatternWizard::keyPressEvent(QKeyEvent *event) {
+    switch (event->key()) {
+    case Qt::Key_Return:
+    case Qt::Key_Enter:
+    case Qt::Key_Escape:
+        event->accept();
+        return;
+    default:
+        QDialog::keyPressEvent(event);
+    }
 }
 
 // ── Slots ───────────────────────────────────────────────────────────────────
 
-/// Advances the wizard to the next step (Next button; no-op past step 3).
+/// Advances the wizard to the next step (Next button; no-op past the last step).
 void EditPatternWizard::onNext()    { goToStep(m_currentStep + 1); }
 /// Moves the wizard back to the previous step (Back button; no-op before step 0).
 void EditPatternWizard::onBack()    { goToStep(m_currentStep - 1); }
 /// Cancels the wizard, closing the dialog with QDialog::Rejected.
 void EditPatternWizard::onCancel()  { reject(); }
-/// Confirms the wizard (Apply Changes on step 3), closing the dialog with QDialog::Accepted.
+/// Confirms the wizard (Apply Changes on the Finish step), closing the dialog with QDialog::Accepted.
 void EditPatternWizard::onApply()   { accept(); }
+
+/// Copies all six offset spin boxes into m_new and refreshes the footer status.
+void EditPatternWizard::onOffsetChanged() {
+    if (m_offXSpin)  m_new.offX  = m_offXSpin->value();
+    if (m_offYSpin)  m_new.offY  = m_offYSpin->value();
+    if (m_offZSpin)  m_new.offZ  = m_offZSpin->value();
+    if (m_offRXSpin) m_new.offRX = m_offRXSpin->value();
+    if (m_offRYSpin) m_new.offRY = m_offRYSpin->value();
+    if (m_offRZSpin) m_new.offRZ = m_offRZSpin->value();
+    updateFooterStatus();
+}
+
+/// Zeroes all six offset axes, writes them into the spin boxes, and applies via
+/// onOffsetChanged().
+void EditPatternWizard::onOffsetReset() {
+    const QList<QDoubleSpinBox *> spins{ m_offXSpin,  m_offYSpin,  m_offZSpin,
+                                         m_offRXSpin, m_offRYSpin, m_offRZSpin };
+    for (QDoubleSpinBox *sb : spins)
+        if (sb) sb->setValue(0.0);
+    onOffsetChanged();
+}
 
 /// Updates the stored pattern name from the name field, shows/clears the
 /// "already exists" error label depending on whether the trimmed name

@@ -18,7 +18,11 @@ extending the localization runtime, not an operator manual.
    - PLC input/output signal names.
    - Handshake behavior.
    - Stable fault-code values.
-4. [maintenance_and_extension.md](maintenance_and_extension.md)
+4. [pick_geometry_and_output_contract.md](pick_geometry_and_output_contract.md)
+   - Pattern pick geometry, gripper presets, and the pattern JSON schema versions.
+   - The 6-axis TOOL-frame pick offset and how a match becomes a robot pose.
+   - The 6-axis wire format and the per-axis absolute pick-path semantics.
+5. [maintenance_and_extension.md](maintenance_and_extension.md)
    - How to safely add signals, fault codes, device roles, matching behavior,
      tests, and UML changes.
 
@@ -33,10 +37,17 @@ extending the localization runtime, not an operator manual.
 | Fault codes | `src/model/localization_fault_code.h` |
 | Recovery policy | `src/model/localization_recovery_policy.h` |
 | Matching facade | `src/model/localization_pipeline.h`, `src/model/localization_pipeline.cpp` |
+| Pattern pick geometry | `src/matching/match_pattern_config.h`, `src/matching/gripper_boxes.h` |
+| Pattern library persistence | `src/matching/pattern_group_manager.cpp` (schema v0/v1/v2) |
+| Gripper presets | `src/model/gripper_preset_store.h`, `src/model/gripper_preset_store.cpp` |
+| Vision output wire format | `src/device/output_device/vision_output_request.h` |
+| Pick-path waypoints | `src/device/output_device/vision_output_config.h` |
+| Advisory pickability check | `src/model/robot_kinematic_picking_checker.h`, `src/matching/robot_picking_checker.h` |
+| Pattern authoring wizards | `src/ui/forms/pattern/add_pattern_wizard.*`, `src/ui/forms/pattern/edit_pattern_wizard.*` |
 | Runtime runners | `src/runtime/camera_runner.h`, `src/runtime/plc_runner.h`, `src/runtime/vision_output_runner.h` |
 | Dashboard | `src/ui/forms/task/localization_dashboard_widget.*` |
 | Settings UI | `src/ui/forms/task/localization_setting_widget.*` |
-| Architecture diagrams | `uml/03_runtime_threading.puml`, `uml/04_localization_task.puml` |
+| Architecture diagrams | `uml/03_runtime_threading.puml`, `uml/04_localization_task.puml`, `uml/05_matching_calibration.puml` |
 | Contract tests | `tests/architecture_contract_test/main.cpp` |
 
 ## Architecture Summary
@@ -63,7 +74,14 @@ At runtime:
 - `nActivePatternGroup` is the active pattern group number. The old
   `nActivePattern` signal is intentionally not supported.
 - Runtime output coordinates are world coordinates converted from image
-  coordinates through the active camera calibrator.
+  coordinates through the active camera calibrator, then composed with the
+  pattern's 6-axis TOOL-frame pick offset. Each position is emitted as six axes
+  (`x, y, z, rx, ry, rz`); it was four before Phase 5, and a robot program reading
+  four **misaligns** rather than ignoring the extras. See
+  [pick_geometry_and_output_contract.md](pick_geometry_and_output_contract.md).
+- Pattern JSON is versioned (`kSchemaVersion` = 2) and its back-compatible read of
+  older gripper-geometry shapes is a deliberate, agreed exception to the
+  no-compat-shims rule. Do not remove it.
 - PLC fault reporting uses `bTaskFault` and `nFaultCode`.
 - `bExecuteTrigger` is rising-edge triggered. A held trigger must not enqueue a
   second cycle.

@@ -21,10 +21,20 @@ namespace Ui {
 class VisionTcpipDeviceWidget;
 }
 
-/// Device configuration/monitoring widget for the TCP-transport Vision Output device: edits the
-/// listen address/ports, shows connection and runtime-state/diagnostics properties in the
-/// embedded property browser, hosts the robot kinematic-check sub-widget, and lets the operator
-/// build a position table and send it to the connected vision client.
+/**
+ * @file vision_tcpip_device_widget.h
+ * @brief VisionTcpipDeviceWidget — device configuration/monitoring widget for the
+ *        TCP-transport Vision Output device.
+ */
+
+/**
+ * @class VisionTcpipDeviceWidget
+ * @brief Device configuration/monitoring widget for the TCP-transport Vision Output device:
+ *        edits the listen address/ports, shows connection and runtime-state/diagnostics
+ *        properties in the embedded property browser, hosts the robot kinematic-check
+ *        sub-widget, and lets the operator build a position table and send it to the
+ *        connected vision client.
+ */
 class VisionTcpipDeviceWidget : public IDeviceWidget {
     Q_OBJECT
 

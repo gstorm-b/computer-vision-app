@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1mod
 </div><!--header-->
 <div class="contents">
 
+<p>A single role-&gt;device assignment (optionally with a camera slot number) for a task; the building block that <a class="el" href="classvc_1_1model_1_1_task_device_bindings.html" title="Ordered collection of a task&#39;s TaskDeviceBinding entries, with role-keyed convenience accessors for t...">TaskDeviceBindings</a> stores a list of.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::model::TaskDeviceBinding:</div>
@@ -161,9 +164,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ac0c0c354fb1df59eb7e5989e65315203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Role this binding fulfills.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A single role-&gt;device assignment (optionally with a camera slot number) for a task; the building block that <a class="el" href="classvc_1_1model_1_1_task_device_bindings.html">TaskDeviceBindings</a> stores a list of. </p>
+<div class="textblock"><p>A single role-&gt;device assignment (optionally with a camera slot number) for a task; the building block that <a class="el" href="classvc_1_1model_1_1_task_device_bindings.html" title="Ordered collection of a task&#39;s TaskDeviceBinding entries, with role-keyed convenience accessors for t...">TaskDeviceBindings</a> stores a list of. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00052">52</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00062">62</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab149d1a96095cd8c137ee5fa6d3ab50d" name="ab149d1a96095cd8c137ee5fa6d3ab50d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab149d1a96095cd8c137ee5fa6d3ab50d">&#9670;&#160;</a></span>TaskDeviceBinding() <span class="overload">[1/2]</span></h2>
@@ -225,9 +228,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructs a binding for <span class="tt"><a class="el" href="#a8f2f80cd791bec22f8b605805c89f915" title="Returns the role this binding fulfills.">role</a></span> pointing at <span class="tt"><a class="el" href="#afe72fbfa2f656e9f94315941d3c5524f" title="Returns the bound device&#39;s id.">deviceId</a></span>, optionally with a camera slot number (meaningful only when <span class="tt"><a class="el" href="#a8f2f80cd791bec22f8b605805c89f915" title="Returns the role this binding fulfills.">role</a></span> is <a class="el" href="namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0a599fd7f294f4b91c23a7df02ea4f25c6" title="A camera bound to a specific numeric camera slot (see TaskDeviceBinding::cameraNumber()).">TaskDeviceRole::CameraNumber</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00067">67</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00077">77</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00075">cameraNumber()</a>, <a class="el" href="task__device__binding_8h_source.html#l00073">deviceId()</a>, <a class="el" href="task__device__binding_8h_source.html#l00117">m_cameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00116">m_deviceId</a>, <a class="el" href="task__device__binding_8h_source.html#l00115">m_role</a>, and <a class="el" href="task__device__binding_8h_source.html#l00071">role()</a>.</p>
+<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00085">cameraNumber()</a>, <a class="el" href="task__device__binding_8h_source.html#l00083">deviceId()</a>, <a class="el" href="task__device__binding_8h_source.html#l00127">m_cameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00126">m_deviceId</a>, <a class="el" href="task__device__binding_8h_source.html#l00125">m_role</a>, and <a class="el" href="task__device__binding_8h_source.html#l00081">role()</a>.</p>
 
 </div>
 </div>
@@ -257,11 +260,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the camera slot number (only meaningful when <a class="el" href="#a8f2f80cd791bec22f8b605805c89f915" title="Returns the role this binding fulfills.">role()</a> is <a class="el" href="namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0a599fd7f294f4b91c23a7df02ea4f25c6" title="A camera bound to a specific numeric camera slot (see TaskDeviceBinding::cameraNumber()).">TaskDeviceRole::CameraNumber</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00075">75</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00085">85</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00117">m_cameraNumber</a>.</p>
+<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00127">m_cameraNumber</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00067">TaskDeviceBinding()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00077">TaskDeviceBinding()</a>.</p>
 
 </div>
 </div>
@@ -290,11 +293,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the bound device's id. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00073">73</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00083">83</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00116">m_deviceId</a>.</p>
+<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00126">m_deviceId</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00207">vc::model::TaskDeviceBindings::fromJson()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00067">TaskDeviceBinding()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00220">vc::model::TaskDeviceBindings::fromJson()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00077">TaskDeviceBinding()</a>.</p>
 
 </div>
 </div>
@@ -322,11 +325,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Parses this binding from <span class="tt">obj</span>, validating role, device id length, and (for CameraNumber) the camera slot range. </p><dl class="section return"><dt>Returns</dt><dd>false if the role is unrecognized, the device id exceeds kMaxDeviceIdLength, or a CameraNumber role's number is outside [kMinCameraNumber, kMaxCameraNumber] </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00092">92</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00102">102</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00020">vc::model::CameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00059">kMaxCameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00060">kMaxDeviceIdLength</a>, <a class="el" href="task__device__binding_8h_source.html#l00117">m_cameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00116">m_deviceId</a>, <a class="el" href="task__device__binding_8h_source.html#l00115">m_role</a>, <a class="el" href="task__device__binding_8h_source.html#l00042">vc::model::taskDeviceRoleFromString()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00017">vc::model::Unknown</a>.</p>
+<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00027">vc::model::CameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00069">kMaxCameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00070">kMaxDeviceIdLength</a>, <a class="el" href="task__device__binding_8h_source.html#l00127">m_cameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00126">m_deviceId</a>, <a class="el" href="task__device__binding_8h_source.html#l00125">m_role</a>, <a class="el" href="task__device__binding_8h_source.html#l00049">vc::model::taskDeviceRoleFromString()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00024">vc::model::Unknown</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00207">vc::model::TaskDeviceBindings::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00220">vc::model::TaskDeviceBindings::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -355,11 +358,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the role this binding fulfills. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00071">71</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00081">81</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00115">m_role</a>.</p>
+<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00125">m_role</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00067">TaskDeviceBinding()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00077">TaskDeviceBinding()</a>.</p>
 
 </div>
 </div>
@@ -388,9 +391,9 @@ Private Attributes</h2></td></tr>
 
 <p>Serializes this binding to JSON; <span class="tt"><a class="el" href="#a6d99b978dfb87c11e7d1faeae4674e3e" title="Returns the camera slot number (only meaningful when role() is TaskDeviceRole::CameraNumber).">cameraNumber</a></span> is included only for the CameraNumber role. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00078">78</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00088">88</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00020">vc::model::CameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00117">m_cameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00116">m_deviceId</a>, <a class="el" href="task__device__binding_8h_source.html#l00115">m_role</a>, and <a class="el" href="task__device__binding_8h_source.html#l00025">vc::model::taskDeviceRoleToString()</a>.</p>
+<p class="reference">References <a class="el" href="task__device__binding_8h_source.html#l00027">vc::model::CameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00127">m_cameraNumber</a>, <a class="el" href="task__device__binding_8h_source.html#l00126">m_deviceId</a>, <a class="el" href="task__device__binding_8h_source.html#l00125">m_role</a>, and <a class="el" href="task__device__binding_8h_source.html#l00032">vc::model::taskDeviceRoleToString()</a>.</p>
 
 </div>
 </div>
@@ -417,9 +420,9 @@ Private Attributes</h2></td></tr>
 
 <p>Highest allowed <a class="el" href="namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0a599fd7f294f4b91c23a7df02ea4f25c6" title="A camera bound to a specific numeric camera slot (see TaskDeviceBinding::cameraNumber()).">TaskDeviceRole::CameraNumber</a> slot. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00059">59</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00069">69</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00092">fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00102">fromJson()</a>.</p>
 
 </div>
 </div>
@@ -445,9 +448,9 @@ Private Attributes</h2></td></tr>
 
 <p>Max accepted length of a deserialized device id. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00060">60</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00070">70</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00092">fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00102">fromJson()</a>.</p>
 
 </div>
 </div>
@@ -472,9 +475,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Lowest allowed <a class="el" href="namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0a599fd7f294f4b91c23a7df02ea4f25c6" title="A camera bound to a specific numeric camera slot (see TaskDeviceBinding::cameraNumber()).">TaskDeviceRole::CameraNumber</a> slot. </p>
-<p>Camera bindings use 1..16 numbers — the task enforces the same bound at runtime via <a class="el" href="classvc_1_1model_1_1_task_localization.html#a42ff725646ed8b70e1c20e359011ce1a" title="Max number of camera devices this task accepts.">TaskLocalization::kLimitNumCamera</a>. Device ids are short (numeric or short tokens); cap the length to reject malformed/hostile input. Kept local to avoid a dependency on <a class="el" href="classvc_1_1model_1_1_task_localization.html">TaskLocalization</a> here. </p>
+<p>Camera bindings use 1..16 numbers — the task enforces the same bound at runtime via <a class="el" href="classvc_1_1model_1_1_task_localization.html#a42ff725646ed8b70e1c20e359011ce1a" title="Max number of camera devices this task accepts.">TaskLocalization::kLimitNumCamera</a>. Device ids are short (numeric or short tokens); cap the length to reject malformed/hostile input. Kept local to avoid a dependency on <a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">TaskLocalization</a> here. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00058">58</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00068">68</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
 </div>
 </div>
@@ -500,9 +503,9 @@ Private Attributes</h2></td></tr>
 
 <p>Camera slot number (CameraNumber role only). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00117">117</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00127">127</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00075">cameraNumber()</a>, <a class="el" href="task__device__binding_8h_source.html#l00092">fromJson()</a>, <a class="el" href="task__device__binding_8h_source.html#l00067">TaskDeviceBinding()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00078">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00085">cameraNumber()</a>, <a class="el" href="task__device__binding_8h_source.html#l00102">fromJson()</a>, <a class="el" href="task__device__binding_8h_source.html#l00077">TaskDeviceBinding()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00088">toJson()</a>.</p>
 
 </div>
 </div>
@@ -528,9 +531,9 @@ Private Attributes</h2></td></tr>
 
 <p>Bound device's id. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00116">116</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00126">126</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00073">deviceId()</a>, <a class="el" href="task__device__binding_8h_source.html#l00092">fromJson()</a>, <a class="el" href="task__device__binding_8h_source.html#l00067">TaskDeviceBinding()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00078">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00083">deviceId()</a>, <a class="el" href="task__device__binding_8h_source.html#l00102">fromJson()</a>, <a class="el" href="task__device__binding_8h_source.html#l00077">TaskDeviceBinding()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00088">toJson()</a>.</p>
 
 </div>
 </div>
@@ -556,14 +559,14 @@ Private Attributes</h2></td></tr>
 
 <p>Role this binding fulfills. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00115">115</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__device__binding_8h_source.html#l00125">125</a> of file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00092">fromJson()</a>, <a class="el" href="task__device__binding_8h_source.html#l00071">role()</a>, <a class="el" href="task__device__binding_8h_source.html#l00067">TaskDeviceBinding()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00078">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__device__binding_8h_source.html#l00102">fromJson()</a>, <a class="el" href="task__device__binding_8h_source.html#l00081">role()</a>, <a class="el" href="task__device__binding_8h_source.html#l00077">TaskDeviceBinding()</a>, and <a class="el" href="task__device__binding_8h_source.html#l00088">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

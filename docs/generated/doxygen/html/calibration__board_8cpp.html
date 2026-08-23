@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/calibration/calibration_board.cpp File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/calibration/calibration_board.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -141,13 +141,13 @@ Include dependency graph for calibration_board.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:calib" id="r_calib"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecalib.html">calib</a></td></tr>
-<tr class="memdesc:namespacecalib"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibration board synthesis, detection, and factory types. <br /></td></tr>
 <tr class="memitem:calib_3A_3Aanonymous_5Fnamespace_7Bcalibration_5Fboard_2Ecpp_7D" id="r_calib_3A_3Aanonymous_5Fnamespace_7Bcalibration_5Fboard_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecalib_1_1anonymous__namespace_02calibration__board_8cpp_03.html">calib::anonymous_namespace{calibration_board.cpp}</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af67436a2a7d0eedc1d49689be8b1c052" id="r_af67436a2a7d0eedc1d49689be8b1c052"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="namespacecalib_1_1anonymous__namespace_02calibration__board_8cpp_03.html#af67436a2a7d0eedc1d49689be8b1c052">calib::anonymous_namespace{calibration_board.cpp}::pngCrc32</a> (const uint8_t *data, size_t len)</td></tr>
 <tr class="memitem:a0c3719b9f0eff8383a33e475d55e9f81" id="r_a0c3719b9f0eff8383a33e475d55e9f81"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacecalib.html#a0c3719b9f0eff8383a33e475d55e9f81">calib::writePrintablePng</a> (const std::string &amp;path, const cv::Mat &amp;img, double pxPerMm)</td></tr>
+<tr class="memdesc:a0c3719b9f0eff8383a33e475d55e9f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes a PNG file with an embedded pHYs chunk so the printer/viewer can render the image at the correct physical size (1:1 mm scale).  <br /></td></tr>
 <tr class="memitem:a7b3f5a91c071af83a4cf228836e96f1e" id="r_a7b3f5a91c071af83a4cf228836e96f1e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="namespacecalib_1_1anonymous__namespace_02calibration__board_8cpp_03.html#a7b3f5a91c071af83a4cf228836e96f1e">calib::anonymous_namespace{calibration_board.cpp}::writeU32BE</a> (std::vector&lt; uint8_t &gt; &amp;out, uint32_t v)</td></tr>
 <tr class="memdesc:a7b3f5a91c071af83a4cf228836e96f1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends <span class="tt">v</span> to <span class="tt">out</span> as 4 big-endian bytes (PNG chunk length/data fields are big-endian).  <br /></td></tr>
 </table>

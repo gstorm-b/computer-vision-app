@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/matching/vision_utils.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/matching/vision_utils.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('vision__utils_
   <div class="headertitle"><div class="title">vision_utils.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>vsu — static utility bag: OpenCV helpers for wide-path image I/O, contour simplification, PCA orientation, histogram statistics, and debug drawing.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;opencv2/core.hpp&gt;</code><br />
 <code>#include &lt;opencv2/imgcodecs.hpp&gt;</code><br />
 <code>#include &lt;opencv2/imgproc.hpp&gt;</code><br />
@@ -143,6 +146,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vsu" id="r_vsu"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvsu.html">vsu</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static utility bag ("Vision Support Utilities"): OpenCV-based helpers for wide-path image I/O, contour simplification, PCA orientation, pixel-histogram statistics, and debug drawing used across the matching pipeline. All members are static; the class is never instantiated.  <a href="classvsu.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -156,7 +160,11 @@ Macros</h2></td></tr>
 <tr class="memitem:a39c663074332446065723e9be9350139" id="r_a39c663074332446065723e9be9350139"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a39c663074332446065723e9be9350139">R2D</a>&#160;&#160;&#160;(180.0 / CV_PI)</td></tr>
 <tr class="memdesc:a39c663074332446065723e9be9350139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Radians-to-degrees conversion factor (multiply a radian value by this to get degrees).  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>vsu — static utility bag: OpenCV helpers for wide-path image I/O, contour simplification, PCA orientation, histogram statistics, and debug drawing. </p>
+
+<p class="definition">Definition in file <a class="el" href="vision__utils_8h_source.html">vision_utils.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a0a3cc1d5cde549e408f825ddd7f5853d" name="a0a3cc1d5cde549e408f825ddd7f5853d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0a3cc1d5cde549e408f825ddd7f5853d">&#9670;&#160;</a></span>D2R</h2>
 
@@ -173,7 +181,7 @@ Macros</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__utils_8h_source.html#l00023">23</a> of file <a class="el" href="vision__utils_8h_source.html">vision_utils.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__utils_8h_source.html#l00175">vsu::drawAxes2Img()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__utils_8h_source.html#l00196">vsu::drawAxes2Img()</a>.</p>
 
 </div>
 </div>
@@ -191,7 +199,7 @@ Macros</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__utils_8h_source.html#l00019">19</a> of file <a class="el" href="vision__utils_8h_source.html">vision_utils.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__utils_8h_source.html#l00175">vsu::drawAxes2Img()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00232">mtc::MatchPattern::getImageWithPickPosition()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__utils_8h_source.html#l00196">vsu::drawAxes2Img()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00232">mtc::MatchPattern::getImageWithPickPosition()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
 </div>
 </div>
@@ -229,7 +237,7 @@ Macros</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__utils_8h_source.html#l00017">17</a> of file <a class="el" href="vision__utils_8h_source.html">vision_utils.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__utils_8h_source.html#l00175">vsu::drawAxes2Img()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00232">mtc::MatchPattern::getImageWithPickPosition()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__utils_8h_source.html#l00196">vsu::drawAxes2Img()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00232">mtc::MatchPattern::getImageWithPickPosition()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
 </div>
 </div>
@@ -247,7 +255,7 @@ Macros</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__utils_8h_source.html#l00020">20</a> of file <a class="el" href="vision__utils_8h_source.html">vision_utils.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__utils_8h_source.html#l00175">vsu::drawAxes2Img()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__utils_8h_source.html#l00196">vsu::drawAxes2Img()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
 </div>
 </div>

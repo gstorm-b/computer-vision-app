@@ -120,6 +120,10 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_camera_w
 </div><!--header-->
 <div class="contents">
 
+<p>Per-camera workspace (ROI) row list. One row per mapped camera: a "use
+       workspace" checkbox, a status label, and a "Set workspace…" button, plus a second "use as condition" checkbox/status line.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CameraWorkspaceWidget:</div>
@@ -169,9 +173,10 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Per-camera workspace (ROI) row list. One row per mapped camera: a "use
-workspace" checkbox, a status label, and a "Set workspace…" button, plus a second "use as condition" checkbox/status line. Model-free on purpose: the owner feeds the camera id -&gt; display-name map and per-camera state via primitives, and reacts to toggles / set-requests through signals. Keeping it free of <a class="el" href="namespacevc_1_1model.html" title="Model classes for projects, tasks, and task configuration.">vc::model</a> types lets it stay a reusable widget under src/widgets/ (mirrors <a class="el" href="class_camera_mapping_widget.html">CameraMappingWidget</a>). </p>
+       workspace" checkbox, a status label, and a "Set workspace…" button, plus a second "use as condition" checkbox/status line. </p>
+<p>Model-free on purpose: the owner feeds the camera id -&gt; display-name map and per-camera state via primitives, and reacts to toggles / set-requests through signals. Keeping it free of <a class="el" href="namespacevc_1_1model.html" title="Application data-model types: tasks, device bindings, and localization signal mapping.">vc::model</a> types lets it stay a reusable widget under src/widgets/ (mirrors <a class="el" href="class_camera_mapping_widget.html" title="Main manager widget (&quot;Component 5&quot;): a FlatListWidget of camera-to-number mapping rows plus a trailin...">CameraMappingWidget</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8h_source.html#l00021">21</a> of file <a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8h_source.html#l00030">30</a> of file <a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2557333e41b2927d0794b0f8158f6dd9" name="a2557333e41b2927d0794b0f8158f6dd9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2557333e41b2927d0794b0f8158f6dd9">&#9670;&#160;</a></span>CameraWorkspaceWidget()</h2>
@@ -200,7 +205,7 @@ workspace" checkbox, a status label, and a "Set workspace…" button, plus a sec
 
 <p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8cpp_source.html#l00013">13</a> of file <a class="el" href="camera__workspace__widget_8cpp_source.html">camera_workspace_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace__widget_8h_source.html#l00065">m_rowsLayout</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace__widget_8h_source.html#l00077">m_rowsLayout</a>.</p>
 
 </div>
 </div>
@@ -232,7 +237,7 @@ workspace" checkbox, a status label, and a "Set workspace…" button, plus a sec
 
 <p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8cpp_source.html#l00023">23</a> of file <a class="el" href="camera__workspace__widget_8cpp_source.html">camera_workspace_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace__widget_8h_source.html#l00067">m_rows</a>, and <a class="el" href="camera__workspace__widget_8h_source.html#l00065">m_rowsLayout</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace__widget_8h_source.html#l00079">m_rows</a>, and <a class="el" href="camera__workspace__widget_8h_source.html#l00077">m_rowsLayout</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__workspace__widget_8cpp_source.html#l00035">setCameras()</a>.</p>
 
@@ -256,7 +261,7 @@ workspace" checkbox, a status label, and a "Set workspace…" button, plus a sec
 
 <p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8cpp_source.html#l00035">35</a> of file <a class="el" href="camera__workspace__widget_8cpp_source.html">camera_workspace_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace__widget_8cpp_source.html#l00023">clearRows()</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00058">CameraWorkspaceWidget::Row::conditionCheck</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00059">CameraWorkspaceWidget::Row::conditionStatus</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00054">CameraWorkspaceWidget::Row::container</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00066">m_idToName</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00067">m_rows</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00065">m_rowsLayout</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00057">CameraWorkspaceWidget::Row::setButton</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00056">CameraWorkspaceWidget::Row::statusLabel</a>, and <a class="el" href="camera__workspace__widget_8h_source.html#l00055">CameraWorkspaceWidget::Row::useCheck</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace__widget_8cpp_source.html#l00023">clearRows()</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00070">CameraWorkspaceWidget::Row::conditionCheck</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00071">CameraWorkspaceWidget::Row::conditionStatus</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00066">CameraWorkspaceWidget::Row::container</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00078">m_idToName</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00079">m_rows</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00077">m_rowsLayout</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00069">CameraWorkspaceWidget::Row::setButton</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00068">CameraWorkspaceWidget::Row::statusLabel</a>, and <a class="el" href="camera__workspace__widget_8h_source.html#l00067">CameraWorkspaceWidget::Row::useCheck</a>.</p>
 
 </div>
 </div>
@@ -332,7 +337,7 @@ workspace" checkbox, a status label, and a "Set workspace…" button, plus a sec
 
 <p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8cpp_source.html#l00113">113</a> of file <a class="el" href="camera__workspace__widget_8cpp_source.html">camera_workspace_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace__widget_8h_source.html#l00058">CameraWorkspaceWidget::Row::conditionCheck</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00059">CameraWorkspaceWidget::Row::conditionStatus</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00067">m_rows</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00056">CameraWorkspaceWidget::Row::statusLabel</a>, and <a class="el" href="camera__workspace__widget_8h_source.html#l00055">CameraWorkspaceWidget::Row::useCheck</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace__widget_8h_source.html#l00070">CameraWorkspaceWidget::Row::conditionCheck</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00071">CameraWorkspaceWidget::Row::conditionStatus</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00079">m_rows</a>, <a class="el" href="camera__workspace__widget_8h_source.html#l00068">CameraWorkspaceWidget::Row::statusLabel</a>, and <a class="el" href="camera__workspace__widget_8h_source.html#l00067">CameraWorkspaceWidget::Row::useCheck</a>.</p>
 
 </div>
 </div>
@@ -425,7 +430,7 @@ workspace" checkbox, a status label, and a "Set workspace…" button, plus a sec
 
 <p>id -&gt; display name </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8h_source.html#l00066">66</a> of file <a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8h_source.html#l00078">78</a> of file <a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__workspace__widget_8cpp_source.html#l00035">setCameras()</a>.</p>
 
@@ -453,7 +458,7 @@ workspace" checkbox, a status label, and a "Set workspace…" button, plus a sec
 
 <p>id -&gt; row </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8h_source.html#l00067">67</a> of file <a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8h_source.html#l00079">79</a> of file <a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__workspace__widget_8cpp_source.html#l00023">clearRows()</a>, <a class="el" href="camera__workspace__widget_8cpp_source.html#l00035">setCameras()</a>, and <a class="el" href="camera__workspace__widget_8cpp_source.html#l00113">setWorkspaceState()</a>.</p>
 
@@ -481,15 +486,15 @@ workspace" checkbox, a status label, and a "Set workspace…" button, plus a sec
 
 <p>Vertical layout holding all rows above a trailing stretch. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8h_source.html#l00065">65</a> of file <a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace__widget_8h_source.html#l00077">77</a> of file <a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__workspace__widget_8cpp_source.html#l00013">CameraWorkspaceWidget()</a>, <a class="el" href="camera__workspace__widget_8cpp_source.html#l00023">clearRows()</a>, and <a class="el" href="camera__workspace__widget_8cpp_source.html#l00035">setCameras()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="camera__workspace__widget_8cpp_source.html">camera_workspace_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="camera__workspace__widget_8h_source.html">camera_workspace_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="camera__workspace__widget_8cpp_source.html">camera_workspace_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

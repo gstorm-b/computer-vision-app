@@ -1,26 +1,27 @@
 #ifndef VISION_TCPIP_CONFIG_H
 #define VISION_TCPIP_CONFIG_H
 
+/**
+ * @file vision_tcpip_config.h
+ * @brief Concrete config for the TCP/IP server transport of VisionOutput (VisionTcpipDeviceCfg).
+ *        The device listens on two ports: main (matching request/result) and heartbeat
+ *        ("connection_check." / "ack,{count}." protocol). Clients that fail to ack within
+ *        heartbeatTimeoutMs cause the device to enter LostConnected.
+ */
+
 #include "device/output_device/vision_output_device.h"
 #include "core/qgadget_macro.h"
 
 #include <QJsonObject>
 #include <QString>
 
-/// Device-layer types: concrete IDevice/IDeviceCfg implementations (PLC,
-/// vision-output transports, etc.) and their supporting config/state types.
 namespace vc::device {
 
-/// Concrete config for the TCP/IP transport of VisionOutput.
-///
-/// Vision Output Device hoạt động ở chế độ TCP/IP server với 2 port:
-///     - Main port (Port 1): kênh yêu cầu matching và trả kết quả.
-///     - Heartbeat port (Port 2): kênh kiểm tra kết nối, server gửi
-///       "connection_check." và mong client trả "ack,{msg_count}."
-///       sau mỗi `heartbeatIntervalMs`.
-///
-/// Nếu client không phản hồi đúng định dạng hoặc quá `heartbeatTimeoutMs`
-/// thì device sẽ chuyển sang trạng thái LostConnected.
+/**
+ * @class VisionTcpipDeviceCfg
+ * @brief Concrete config for the TCP/IP server transport of VisionOutput: listen address,
+ *        main and heartbeat port numbers, heartbeat probe interval and reply timeout.
+ */
 class VisionTcpipDeviceCfg : public VisionOutputDeviceCfg {
     Q_GADGET
 

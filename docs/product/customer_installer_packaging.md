@@ -1,8 +1,13 @@
 # Customer Installer Packaging
 
-**Status:** Open release risk  
-**Last updated:** 2026-06-24  
+**Status:** Open release risk, ON HOLD as of 2026-07-28  
+**Last updated:** 2026-07-28  
 **Scope:** customer-facing installer or deployment package, not developer build folders
+
+Phase 4 is deferred, so this checklist is not active work. It stays accurate as
+a payload reference for whenever the release track resumes; nothing here should
+be started, and nothing else should be blocked on it. See the hold notice in
+[phase4_product_release_plan.md](phase4_product_release_plan.md).
 
 See also [phase4_product_release_plan.md](phase4_product_release_plan.md) for
 the first-release product shape and release gate.
@@ -15,12 +20,24 @@ execution. Customer packaging is a separate release concern: a clean target
 machine must run without relying on source-tree paths, developer PATH entries,
 Qt Creator kits, or previously installed third-party DLLs.
 
+> **Update 2026-08-21 (Phase 6).** The payload is no longer hypothetical: the product now
+> ships **two** executables, and `scripts/make_dist.ps1` stages both over one shared
+> runtime set into `dist/`. That staged layout — and the reasoning behind one folder rather
+> than two — is written down in [install_image.md](install_image.md), which is the concrete
+> manifest this checklist described in the abstract. The remaining gaps below (GenTL
+> producers, VC++ redist, a real installer, clean-machine smoke) are still open.
+
 ## Installer Payload Checklist
 
 Ship these beside the installed executable or in a layout that the executable
 can resolve deterministically:
 
-- The application binary and any project-owned helper executables.
+- **Both** application shells — `ncr_picking.exe` and `ncr_runtime.exe` — in the
+  same folder, over one copy of the runtime. Two folders means two copies that
+  can drift to different Qt or Pylon versions, and a future editor/runtime switch
+  locates its sibling by `applicationDirPath()`. See
+  [install_image.md](install_image.md).
+- Any other project-owned helper executables.
 - Qt runtime DLLs and plugins, including at minimum `platforms/`, `imageformats/`,
   and any SQL/style/plugin folders used by the app. Prefer `windeployqt` as an
   initial collector, then audit the result manually.
@@ -53,6 +70,25 @@ Run this before a customer release:
 - Run a simulated or real Localization cycle and confirm PLC outputs,
   VisionOutput send, dashboard lamps/faults, result table, and task log.
 - Capture missing-DLL failures with a dependency scanner before changing PATH.
+
+## Field Machine Configuration
+
+Beyond copying files, a field station needs three things set up. Full rationale and the
+exact Task Scheduler settings are in
+[../domains/runtime_app/runtime_shell.md](../domains/runtime_app/runtime_shell.md) →
+"Starting With Windows"; the traps worth repeating here, because an installer author will
+meet them:
+
+- **Boot start via Task Scheduler**, trigger "At log on" with a delay, running **as the
+  operator's account** with **"Run only when user is logged on"**. Selecting "whether user
+  is logged on or not" starts the runtime in a session with no desktop: it takes the
+  camera and the PLC socket and displays nothing, so the station looks dead while working.
+- **Same account as the interactive login.** The single-instance guard is per-user; a task
+  running under a different account cannot see the interactive instance, and both start.
+- **Windows auto-login**, if the station must reach the runtime with nobody present.
+
+An installer that writes the scheduled task should verify these three rather than assume
+them — each one fails silently in a way that looks like a different problem.
 
 ## Current Boundary
 

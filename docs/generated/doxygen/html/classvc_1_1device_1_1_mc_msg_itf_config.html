@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract base for a message-interface (transport) configuration: the common connect/write/response timeout Q_GADGET properties shared by every <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html" title="Abstract transport (message interface) to a PLC: connect/disconnect the port and send/receive raw byt...">McMsgInterface</a> transport, plus the JSON (de)serialization and meta-object hooks each transport-specific subclass (e.g. <a class="el" href="classvc_1_1device_1_1_mc_msg_ethernet_tcp_cfg.html" title="McMsgItfConfig for the Ethernet TCP/IP transport: adds the target IP address and port,...">McMsgEthernetTcpCfg</a>) must implement.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::McMsgItfConfig:</div>
@@ -143,7 +146,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af2611ecdf9f3dc363d4e753bb81ad9b9" id="r_af2611ecdf9f3dc363d4e753bb81ad9b9"><td class="memItemLeft">virtual <a class="el" href="namespacevc_1_1device_1_1mc.html#a442840e5c77418e67a8a360532bd4174">McMsgItfType</a>&#160;</td><td class="memItemRight"><a class="el" href="#af2611ecdf9f3dc363d4e753bb81ad9b9">type</a> () const =0</td></tr>
 <tr class="memdesc:af2611ecdf9f3dc363d4e753bb81ad9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the concrete transport (e.g. EthernetTCPIP) this config is for.  <br /></td></tr>
 <tr class="memitem:a0f059c43c7df16518a9f7978bd023b43" id="r_a0f059c43c7df16518a9f7978bd023b43"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#a0f059c43c7df16518a9f7978bd023b43">~McMsgItfConfig</a> ()=default</td></tr>
-<tr class="memdesc:a0f059c43c7df16518a9f7978bd023b43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor so concrete transport configs can be destroyed through a <a class="el" href="classvc_1_1device_1_1_mc_msg_itf_config.html">McMsgItfConfig</a> pointer.  <br /></td></tr>
+<tr class="memdesc:a0f059c43c7df16518a9f7978bd023b43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor so concrete transport configs can be destroyed through a <a class="el" href="classvc_1_1device_1_1_mc_msg_itf_config.html" title="Abstract base for a message-interface (transport) configuration: the common connect/write/response ti...">McMsgItfConfig</a> pointer.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -155,9 +158,9 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a619c27e6f3cd8b4f5cf005d67b93a15a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write timeout in ms; not currently exposed as a Q_GADGET property.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract base for a message-interface (transport) configuration: the common connect/write/response timeout Q_GADGET properties shared by every <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html">McMsgInterface</a> transport, plus the JSON (de)serialization and meta-object hooks each transport-specific subclass (e.g. <a class="el" href="classvc_1_1device_1_1_mc_msg_ethernet_tcp_cfg.html">McMsgEthernetTcpCfg</a>) must implement. </p>
+<div class="textblock"><p>Abstract base for a message-interface (transport) configuration: the common connect/write/response timeout Q_GADGET properties shared by every <a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html" title="Abstract transport (message interface) to a PLC: connect/disconnect the port and send/receive raw byt...">McMsgInterface</a> transport, plus the JSON (de)serialization and meta-object hooks each transport-specific subclass (e.g. <a class="el" href="classvc_1_1device_1_1_mc_msg_ethernet_tcp_cfg.html" title="McMsgItfConfig for the Ethernet TCP/IP transport: adds the target IP address and port,...">McMsgEthernetTcpCfg</a>) must implement. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00024">24</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00032">32</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0f059c43c7df16518a9f7978bd023b43" name="a0f059c43c7df16518a9f7978bd023b43"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f059c43c7df16518a9f7978bd023b43">&#9670;&#160;</a></span>~McMsgItfConfig()</h2>
@@ -182,7 +185,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Virtual destructor so concrete transport configs can be destroyed through a <a class="el" href="classvc_1_1device_1_1_mc_msg_itf_config.html">McMsgItfConfig</a> pointer. </p>
+<p>Virtual destructor so concrete transport configs can be destroyed through a <a class="el" href="classvc_1_1device_1_1_mc_msg_itf_config.html" title="Abstract base for a message-interface (transport) configuration: the common connect/write/response ti...">McMsgItfConfig</a> pointer. </p>
 <p>&lt; Q_GADGET property backed by m_connectTimeout; max wait to establish the connection. Q_GADGET property backed by m_responseTimeout; max wait for a PLC response. </p>
 
 </div>
@@ -214,11 +217,11 @@ Public Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_mc_msg_ethernet_tcp_cfg.html#a148ae0f5f96f3f1543ca67ea589c2328">vc::device::McMsgEthernetTcpCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00085">85</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00093">93</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00093">m_connectTimeout</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00095">m_responseTimeout</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00094">m_writeTimeout</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00101">m_connectTimeout</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00103">m_responseTimeout</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00102">m_writeTimeout</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00055">vc::device::McMsgEthernetTcpCfg::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00063">vc::device::McMsgEthernetTcpCfg::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -276,9 +279,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the connect timeout (ms) if <span class="tt">timeout</span> is in (1, 10000]. </p><dl class="section return"><dt>Returns</dt><dd>true if the value was accepted and applied, false otherwise (unchanged) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00044">44</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00052">52</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00093">m_connectTimeout</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00101">m_connectTimeout</a>.</p>
 
 </div>
 </div>
@@ -306,9 +309,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the response-wait timeout (ms) if <span class="tt">timeout</span> is in (1, 5000). </p><dl class="section return"><dt>Returns</dt><dd>true if the value was accepted and applied, false otherwise (unchanged) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00064">64</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00072">72</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00095">m_responseTimeout</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00103">m_responseTimeout</a>.</p>
 
 </div>
 </div>
@@ -336,9 +339,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the write timeout (ms) if <span class="tt">timeout</span> is in (1, 5000). </p><dl class="section return"><dt>Returns</dt><dd>true if the value was accepted and applied, false otherwise (unchanged) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00054">54</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00062">62</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00094">m_writeTimeout</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00102">m_writeTimeout</a>.</p>
 
 </div>
 </div>
@@ -368,11 +371,11 @@ Public Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_mc_msg_ethernet_tcp_cfg.html#a3d1e2f0b151df1cb2a282401d81b5ae9">vc::device::McMsgEthernetTcpCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00074">74</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00082">82</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00093">m_connectTimeout</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00095">m_responseTimeout</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00094">m_writeTimeout</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00101">m_connectTimeout</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00103">m_responseTimeout</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00102">m_writeTimeout</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00045">vc::device::McMsgEthernetTcpCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00053">vc::device::McMsgEthernetTcpCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -403,7 +406,7 @@ Public Attributes</h2></td></tr>
 
 <p>Implemented in <a class="el" href="classvc_1_1device_1_1_mc_msg_ethernet_tcp_cfg.html#a69e7b1bea1fab40cb8d88b2ab4fe9d04">vc::device::McMsgEthernetTcpCfg</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00090">vc::device::McEthernetTcpPort::SetConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__tcp__client_8h_source.html#l00101">vc::device::McEthernetTcpPort::SetConfig()</a>.</p>
 
 </div>
 </div>
@@ -422,9 +425,9 @@ Public Attributes</h2></td></tr>
 
 <p>Connect timeout in ms; backing store for the connectTimeout property. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00093">93</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00101">101</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__interface_8h_source.html#l00085">fromJson()</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00044">SetConnectTimeout()</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00074">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__interface_8h_source.html#l00093">fromJson()</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00052">SetConnectTimeout()</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00082">toJson()</a>.</p>
 
 </div>
 </div>
@@ -442,9 +445,9 @@ Public Attributes</h2></td></tr>
 
 <p>Response-wait timeout in ms; backing store for the responseTimeout property. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00095">95</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00103">103</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__interface_8h_source.html#l00085">fromJson()</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00064">SetWaitResponseTimeout()</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00074">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__interface_8h_source.html#l00093">fromJson()</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00072">SetWaitResponseTimeout()</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00082">toJson()</a>.</p>
 
 </div>
 </div>
@@ -462,14 +465,14 @@ Public Attributes</h2></td></tr>
 
 <p>Write timeout in ms; not currently exposed as a Q_GADGET property. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00094">94</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__msg__interface_8h_source.html#l00102">102</a> of file <a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__msg__interface_8h_source.html#l00085">fromJson()</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00054">SetWriteTimeout()</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00074">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__msg__interface_8h_source.html#l00093">fromJson()</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00062">SetWriteTimeout()</a>, and <a class="el" href="mc__msg__interface_8h_source.html#l00082">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__msg__interface_8h_source.html">mc_msg_interface.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

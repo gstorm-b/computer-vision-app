@@ -13,8 +13,17 @@ namespace Ui {
 class PlcMitsuDeviceWizard;
 }
 
-/// Wizard page for configuring a Mitsubishi PLC device (MC Protocol, Ethernet TCP/IP): lets the
-/// user pick interface/frame type and keeps the generated form's row labels aligned.
+/**
+ * @file plc_mitsu_device_wizard.h
+ * @brief PlcMitsuDeviceWizard — wizard page for configuring a Mitsubishi PLC device.
+ */
+
+/**
+ * @class PlcMitsuDeviceWizard
+ * @brief Wizard page for configuring a Mitsubishi PLC device (MC Protocol, Ethernet
+ *        TCP/IP): lets the user pick interface/frame type and keeps the generated form's
+ *        row labels aligned.
+ */
 class PlcMitsuDeviceWizard : public QWidget {
     Q_OBJECT
 
@@ -34,9 +43,12 @@ private:
     /// Collects every QFormLayout in this widget and, if any exist, aligns their row-label widths
     /// via syncFormLabelsWidth().
     void fixedAllRowWidth();
-    /// Sets every row label across `layouts` to a common fixed width equal to the widest label's
-    /// size hint, so form rows line up visually across multiple form layouts.
-    /// @param layouts the form layouts whose label columns should be width-synced
+    /**
+     * @brief Sets every row label across @p layouts to a common fixed width equal to the
+     *        widest label's size hint, so form rows line up visually across multiple form
+     *        layouts.
+     * @param[in] layouts the form layouts whose label columns should be width-synced
+     */
     void syncFormLabelsWidth(QList<QFormLayout*> layouts);
 
 private:

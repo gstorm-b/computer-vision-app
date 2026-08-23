@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classcalib_1_1
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract base class for calibration board synthesis/detection.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for calib::CalibrationBoard:</div>
@@ -135,10 +138,12 @@ Collaboration diagram for calib::CalibrationBoard:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa99706a6e68da8439612676ab480116b" id="r_aa99706a6e68da8439612676ab480116b"><td class="memItemLeft">virtual cv::Mat&#160;</td><td class="memItemRight"><a class="el" href="#aa99706a6e68da8439612676ab480116b">binarize</a> (const cv::Mat &amp;image, double *usedThreshold=nullptr) const</td></tr>
+<tr class="memdesc:aa99706a6e68da8439612676ab480116b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binarizes <span class="tt">image</span> (grayscale or BGR) into a single-channel mask where the dark board dots become foreground (255). When <a class="el" href="#a21b0c6b54e04d20963db849161875bf0">binarizeThreshold()</a> &lt; 0 the threshold is computed automatically (Otsu); otherwise the fixed value is applied (THRESH_BINARY_INV).  <br /></td></tr>
 <tr class="memitem:a21b0c6b54e04d20963db849161875bf0" id="r_a21b0c6b54e04d20963db849161875bf0"><td class="memItemLeft">virtual int&#160;</td><td class="memItemRight"><a class="el" href="#a21b0c6b54e04d20963db849161875bf0">binarizeThreshold</a> () const</td></tr>
 <tr class="memitem:a8671917b31018ab894bec80614a69fdc" id="r_a8671917b31018ab894bec80614a69fdc"><td class="memItemLeft">virtual std::vector&lt; cv::Point2f &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a8671917b31018ab894bec80614a69fdc">cornerObjectPointsXY</a> () const =0</td></tr>
 <tr class="memdesc:a8671917b31018ab894bec80614a69fdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 4 corner dot positions in board coordinates (mm), ordered [TL, TR, BR, BL].  <br /></td></tr>
 <tr class="memitem:adb40faf4c1695acf1fbf94df7732bab2" id="r_adb40faf4c1695acf1fbf94df7732bab2"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#adb40faf4c1695acf1fbf94df7732bab2">detect</a> (const cv::Mat &amp;image, std::vector&lt; cv::Point2f &gt; &amp;imagePoints, std::vector&lt; cv::Point2f &gt; *cornerImagePoints=nullptr, cv::Mat *debugOverlay=nullptr) const =0</td></tr>
+<tr class="memdesc:adb40faf4c1695acf1fbf94df7732bab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detects the board's dot pattern in <span class="tt">image</span>.  <br /></td></tr>
 <tr class="memitem:a7cb03cd996a2bc16d253544f3ad1c2ab" id="r_a7cb03cd996a2bc16d253544f3ad1c2ab"><td class="memItemLeft">virtual cv::Mat&#160;</td><td class="memItemRight"><a class="el" href="#a7cb03cd996a2bc16d253544f3ad1c2ab">generateImage</a> (double pixelsPerMm=10.0) const =0</td></tr>
 <tr class="memdesc:a7cb03cd996a2bc16d253544f3ad1c2ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the board into a single-channel image at <span class="tt">pixelsPerMm</span> pixels per millimeter.  <br /></td></tr>
 <tr class="memitem:adb8357ae1fb3fe8993518c5427f1bdd1" id="r_adb8357ae1fb3fe8993518c5427f1bdd1"><td class="memItemLeft">virtual std::vector&lt; cv::Point3f &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adb8357ae1fb3fe8993518c5427f1bdd1">objectPoints</a> () const =0</td></tr>
@@ -151,8 +156,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2ef30deacc796e479cecb983e79fa7fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of dots on the board.  <br /></td></tr>
 <tr class="memitem:a9ad4805013df2024a1d01d5bf56e04b9" id="r_a9ad4805013df2024a1d01d5bf56e04b9"><td class="memItemLeft">virtual std::string&#160;</td><td class="memItemRight"><a class="el" href="#a9ad4805013df2024a1d01d5bf56e04b9">typeName</a> () const</td></tr>
 <tr class="memitem:ac697b42722d9e09fa958e5a2f7dd6585" id="r_ac697b42722d9e09fa958e5a2f7dd6585"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ac697b42722d9e09fa958e5a2f7dd6585">writePrintableImage</a> (const std::string &amp;path, double dpi=300.0) const</td></tr>
+<tr class="memdesc:ac697b42722d9e09fa958e5a2f7dd6585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the board at <span class="tt">dpi</span> DPI and writes it as a PNG with an embedded pHYs chunk so that printer drivers reproduce the exact physical size. Default 300 DPI is fine for laser printers; use 600 DPI for finer ink.  <br /></td></tr>
 <tr class="memitem:aa97bb6c41fb6fe7d022672ad9a2ffe1d" id="r_aa97bb6c41fb6fe7d022672ad9a2ffe1d"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#aa97bb6c41fb6fe7d022672ad9a2ffe1d">~CalibrationBoard</a> ()=default</td></tr>
-<tr class="memdesc:aa97bb6c41fb6fe7d022672ad9a2ffe1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor to allow safe deletion through a <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a> pointer.  <br /></td></tr>
+<tr class="memdesc:aa97bb6c41fb6fe7d022672ad9a2ffe1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor to allow safe deletion through a <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a> pointer.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -170,11 +176,11 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:add01e42e723e800af98cf5188067e305" id="r_add01e42e723e800af98cf5188067e305"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#add01e42e723e800af98cf5188067e305">writeJsonFields</a> (cv::FileStorage &amp;fs) const =0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract base class for calibration board synthesis/detection.</p>
-<p>Every concrete board type (Fanuc iRVision, Halcon, ChArUco, ...) implements this interface so that downstream code (<a class="el" href="classcalib_1_1_calibrator.html">Calibrator</a>, GUI, automation scripts) can stay board-agnostic.</p>
-<p>Concrete subclasses live in their own headers, e.g. <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a> in "fanuc_irvision_board.h". Use <a class="el" href="classcalib_1_1_calibration_board_factory.html">CalibrationBoardFactory</a> (in "calibration_board_factory.h") to construct instances polymorphically. </p>
+<div class="textblock"><p>Abstract base class for calibration board synthesis/detection. </p>
+<p>Every concrete board type (Fanuc iRVision, Halcon, ChArUco, ...) implements this interface so that downstream code (<a class="el" href="classcalib_1_1_calibrator.html" title="Holds a planar 2D ↔ 3D calibration between the camera image and the robot world.">Calibrator</a>, GUI, automation scripts) can stay board-agnostic.</p>
+<p>Concrete subclasses live in their own headers, e.g. <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a> in "fanuc_irvision_board.h". Use <a class="el" href="classcalib_1_1_calibration_board_factory.html" title="Centralised allocator for CalibrationBoard subclasses. Returns base-class std::unique_ptr&lt;Calibration...">CalibrationBoardFactory</a> (in "calibration_board_factory.h") to construct instances polymorphically. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00028">28</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00038">38</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa97bb6c41fb6fe7d022672ad9a2ffe1d" name="aa97bb6c41fb6fe7d022672ad9a2ffe1d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa97bb6c41fb6fe7d022672ad9a2ffe1d">&#9670;&#160;</a></span>~CalibrationBoard()</h2>
@@ -199,7 +205,7 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Virtual destructor to allow safe deletion through a <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a> pointer. </p>
+<p>Virtual destructor to allow safe deletion through a <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a> pointer. </p>
 
 </div>
 </div>
@@ -230,7 +236,17 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Binarizes <span class="tt">image</span> (grayscale or BGR) into a single-channel mask where the dark board dots become foreground (255). When <a class="el" href="#a21b0c6b54e04d20963db849161875bf0">binarizeThreshold()</a> &lt; 0 the threshold is computed automatically (Otsu); otherwise the fixed value is applied (THRESH_BINARY_INV). If <span class="tt">usedThreshold</span> is non-null it receives the value actually applied (the Otsu-computed value in auto mode). </p><dl class="section note"><dt>Note</dt><dd><a class="el" href="#adb40faf4c1695acf1fbf94df7732bab2">detect()</a> uses this same routine, so a preview built from <a class="el" href="#aa99706a6e68da8439612676ab480116b">binarize()</a> matches exactly what detection sees.</dd></dl>
+
+<p>Binarizes <span class="tt">image</span> (grayscale or BGR) into a single-channel mask where the dark board dots become foreground (255). When <a class="el" href="#a21b0c6b54e04d20963db849161875bf0">binarizeThreshold()</a> &lt; 0 the threshold is computed automatically (Otsu); otherwise the fixed value is applied (THRESH_BINARY_INV). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">image</td><td>input image to binarize </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">usedThreshold</td><td>if non-null, receives the value actually applied </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>binary mask </dd></dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#adb40faf4c1695acf1fbf94df7732bab2" title="Detects the board&#39;s dot pattern in image.">detect()</a> uses this same routine, so a preview built from <a class="el" href="#aa99706a6e68da8439612676ab480116b" title="Binarizes image (grayscale or BGR) into a single-channel mask where the dark board dots become foregr...">binarize()</a> matches exactly what detection sees.</dd></dl>
 <p>Converts <span class="tt">image</span> to grayscale (if needed) and thresholds it into a binary mask where dark board dots become foreground (255): auto Otsu thresholding when <a class="el" href="#a21b0c6b54e04d20963db849161875bf0">binarizeThreshold()</a> is negative, otherwise a fixed manual threshold via THRESH_BINARY_INV. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">usedThreshold</td><td>optional; receives the threshold value actually applied </td></tr>
@@ -240,7 +256,7 @@ Protected Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board_8cpp_source.html#l00045">45</a> of file <a class="el" href="calibration__board_8cpp_source.html">calibration_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board_8h_source.html#l00070">binarizeThreshold()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board_8h_source.html#l00090">binarizeThreshold()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00401">calib::FanucIRvisionBoard::detect()</a>.</p>
 
@@ -268,11 +284,11 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Binarization threshold used by <a class="el" href="#adb40faf4c1695acf1fbf94df7732bab2">detect()</a>: -1 =&gt; auto (Otsu), 0..255 =&gt; fixed manual threshold. The base defaults to auto; subclasses that expose the value through their Params override these. </p><dl class="section return"><dt>Returns</dt><dd>the configured threshold, or -1 for automatic (Otsu) thresholding </dd></dl>
+<p>Binarization threshold used by <a class="el" href="#adb40faf4c1695acf1fbf94df7732bab2" title="Detects the board&#39;s dot pattern in image.">detect()</a>: -1 =&gt; auto (Otsu), 0..255 =&gt; fixed manual threshold. The base defaults to auto; subclasses that expose the value through their Params override these. </p><dl class="section return"><dt>Returns</dt><dd>the configured threshold, or -1 for automatic (Otsu) thresholding </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html#a07e1c101e27329a82454dd39b53231cc">calib::FanucIRvisionBoard</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00070">70</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00090">90</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board_8cpp_source.html#l00045">binarize()</a>.</p>
 
@@ -343,11 +359,14 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Detects the board's dot pattern in <span class="tt">image</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Detects the board's dot pattern in <span class="tt">image</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">imagePoints</td><td>all detected dot centres in row-major (objectPoints) order </td></tr>
-    <tr><td class="paramname">cornerImagePoints</td><td>optional; receives the 4 corner dots used for homography fit, ordered [TL, TR, BR, BL] in board coordinates </td></tr>
-    <tr><td class="paramname">debugOverlay</td><td>optional; receives a BGR image with overlay annotations </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">image</td><td>input image to detect the board in </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">imagePoints</td><td>all detected dot centres in row-major (objectPoints) order </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cornerImagePoints</td><td>optional; receives the 4 corner dots used for homography fit, ordered [TL, TR, BR, BL] in board coordinates </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">debugOverlay</td><td>optional; receives a BGR image with overlay annotations </td></tr>
   </table>
   </dd>
 </dl>
@@ -382,7 +401,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Converts a pixels-per-millimeter value to DPI (pxPerMm * 25.4). </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00104">104</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00124">124</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
 
 </div>
 </div>
@@ -500,7 +519,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Converts a DPI value to pixels-per-millimeter (dpi / 25.4). </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00102">102</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00122">122</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board_8cpp_source.html#l00086">writePrintableImage()</a>.</p>
 
@@ -590,7 +609,7 @@ Protected Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html#ae2fe243e847af34f1c3fa48909b82c56">calib::FanucIRvisionBoard</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00073">73</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board_8h_source.html#l00093">93</a> of file <a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>.</p>
 
 </div>
 </div>
@@ -608,7 +627,7 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Serializes this board to a JSON string. NVI: writes the type identifier and delegates the subclass-specific fields to <a class="el" href="#add01e42e723e800af98cf5188067e305">writeJsonFields()</a>. To rebuild a board instance from JSON, call <a class="el" href="classcalib_1_1_calibration_board_factory.html#af5259660f400f3f5c641011522d6ec2f">CalibrationBoardFactory::createFromJson()</a>.</p>
+<p>Serializes this board to a JSON string. NVI: writes the type identifier and delegates the subclass-specific fields to <a class="el" href="#add01e42e723e800af98cf5188067e305">writeJsonFields()</a>. To rebuild a board instance from JSON, call <a class="el" href="classcalib_1_1_calibration_board_factory.html#af5259660f400f3f5c641011522d6ec2f" title="Reconstructs a board instance from JSON produced by CalibrationBoard::toJson(), dispatching on the to...">CalibrationBoardFactory::createFromJson()</a>.</p>
 <p>Serializes this board to a JSON string: opens an in-memory cv::FileStorage, writes the "type" key via <a class="el" href="#a9ad4805013df2024a1d01d5bf56e04b9">typeName()</a>, and delegates subclass fields to <a class="el" href="#add01e42e723e800af98cf5188067e305">writeJsonFields()</a>. </p><dl class="section return"><dt>Returns</dt><dd>the JSON string, or an empty string if the in-memory FileStorage failed to open </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board_8cpp_source.html#l00072">72</a> of file <a class="el" href="calibration__board_8cpp_source.html">calibration_board.cpp</a>.</p>
@@ -727,18 +746,27 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Renders the board at <span class="tt">dpi</span> DPI and writes it as a PNG with an embedded pHYs chunk so that printer drivers reproduce the exact physical size. Default 300 DPI is fine for laser printers; use 600 DPI for finer ink. </p><dl class="section return"><dt>Returns</dt><dd>true on success (see <a class="el" href="namespacecalib.html#a0c3719b9f0eff8383a33e475d55e9f81">writePrintablePng()</a>)</dd></dl>
-<p>Renders this board via <a class="el" href="#a7cb03cd996a2bc16d253544f3ad1c2ab" title="Renders the board into a single-channel image at pixelsPerMm pixels per millimeter.">generateImage()</a> at the pixel scale implied by <span class="tt">dpi</span>, then writes it as a PNG with an embedded pHYs chunk via <a class="el" href="namespacecalib.html#a0c3719b9f0eff8383a33e475d55e9f81">writePrintablePng()</a>. </p><dl class="section return"><dt>Returns</dt><dd>false if <span class="tt">dpi</span> is not positive, otherwise the result of <a class="el" href="namespacecalib.html#a0c3719b9f0eff8383a33e475d55e9f81">writePrintablePng()</a> </dd></dl>
+
+<p>Renders the board at <span class="tt">dpi</span> DPI and writes it as a PNG with an embedded pHYs chunk so that printer drivers reproduce the exact physical size. Default 300 DPI is fine for laser printers; use 600 DPI for finer ink. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>destination file path </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dpi</td><td>output resolution in dots-per-inch (default 300) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success (see <a class="el" href="namespacecalib.html#a0c3719b9f0eff8383a33e475d55e9f81" title="Writes a PNG file with an embedded pHYs chunk so the printer/viewer can render the image at the corre...">writePrintablePng()</a>)</dd></dl>
+<p>Renders this board via <a class="el" href="#a7cb03cd996a2bc16d253544f3ad1c2ab" title="Renders the board into a single-channel image at pixelsPerMm pixels per millimeter.">generateImage()</a> at the pixel scale implied by <span class="tt">dpi</span>, then writes it as a PNG with an embedded pHYs chunk via <a class="el" href="namespacecalib.html#a0c3719b9f0eff8383a33e475d55e9f81" title="Writes a PNG file with an embedded pHYs chunk so the printer/viewer can render the image at the corre...">writePrintablePng()</a>. </p><dl class="section return"><dt>Returns</dt><dd>false if <span class="tt">dpi</span> is not positive, otherwise the result of <a class="el" href="namespacecalib.html#a0c3719b9f0eff8383a33e475d55e9f81" title="Writes a PNG file with an embedded pHYs chunk so the printer/viewer can render the image at the corre...">writePrintablePng()</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board_8cpp_source.html#l00086">86</a> of file <a class="el" href="calibration__board_8cpp_source.html">calibration_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a7cb03cd996a2bc16d253544f3ad1c2ab">generateImage()</a>, <a class="el" href="calibration__board_8h_source.html#l00102">pixelsPerMmFromDpi()</a>, and <a class="el" href="calibration__board_8cpp_source.html#l00136">calib::writePrintablePng()</a>.</p>
+<p class="reference">References <a class="el" href="#a7cb03cd996a2bc16d253544f3ad1c2ab">generateImage()</a>, <a class="el" href="calibration__board_8h_source.html#l00122">pixelsPerMmFromDpi()</a>, and <a class="el" href="calibration__board_8cpp_source.html#l00136">calib::writePrintablePng()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/calibration/<a class="el" href="calibration__board_8h_source.html">calibration_board.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/calibration/<a class="el" href="calibration__board_8cpp_source.html">calibration_board.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/calibration/<a class="el" href="calibration__board_8h_source.html">calibration_board.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/calibration/<a class="el" href="calibration__board_8cpp_source.html">calibration_board.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

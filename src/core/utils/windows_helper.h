@@ -49,6 +49,13 @@
 // #include "ads_globals.h"
 #include "core/utils/theme_manager.h"
 
+/**
+ * @file windows_helper.h
+ * @brief UI utility helpers: ThemedSvgIconEngine (QIconEngine that follows the active
+ *        theme), svgIcon() factory, and small static helpers for ADS CDockWidget
+ *        feature-string display.
+ */
+
 /// Returns a pseudo-random integer in the range [0, highest) using the global
 /// QRandomGenerator.
 static int randomNumberBounded(int highest)
@@ -78,9 +85,13 @@ static void appendFeaturStringToWindowTitle(ads::CDockWidget* DockWidget)
                                +  QString(" (%1)").arg(featuresString(DockWidget)));
 }
 
-/// QIconEngine that resolves an SVG icon path through ThemeManager (so the icon follows
-/// the active light/dark theme/style) and caches rendered pixmaps in QPixmapCache keyed
-/// by style, path, mode, state, and size to avoid re-rendering the SVG each time.
+/**
+ * @class ThemedSvgIconEngine
+ * @brief QIconEngine that resolves an SVG icon path through ThemeManager (so the icon
+ *        follows the active light/dark theme/style) and caches rendered pixmaps in
+ *        QPixmapCache keyed by style, path, mode, state, and size to avoid re-rendering
+ *        the SVG each time.
+ */
 class ThemedSvgIconEngine final : public QIconEngine
 {
 public:
@@ -104,10 +115,14 @@ public:
         return QStringLiteral("ThemedSvgIconEngine");
     }
 
-    /// Renders (or fetches from QPixmapCache) the themed SVG at `size` for the given
-    /// icon `mode`/`state`, caching the result keyed by style, path, mode, state, and size.
-    /// @param size desired pixmap size; falls back to an m_intent square when invalid
-    /// @return the rendered or cached pixmap
+    /**
+     * @brief Renders (or fetches from QPixmapCache) the themed SVG for the given icon
+     *        `mode`/`state`, caching the result keyed by style, path, mode, state, and size.
+     * @param[in] size  desired pixmap size; falls back to an m_intent square when invalid
+     * @param[in] mode  icon mode (Normal, Disabled, Active, Selected)
+     * @param[in] state icon state (Off, On)
+     * @return the rendered or cached pixmap
+     */
     QPixmap pixmap(const QSize &size, QIcon::Mode mode, QIcon::State state) override
     {
         const QString resolvedPath = themedPath();

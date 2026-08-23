@@ -7,8 +7,17 @@
 #include <QString>
 #include <QWidget>
 
-/// Severity of one TaskEvent log entry; drives both the "LEVEL" badge text
-/// and the QSS `severity` property used to color-code the row.
+/**
+ * @file task_event_log_widget.h
+ * @brief TaskEventLogWidget — operator-facing, read-only log of discrete task events, plus
+ *        its supporting TaskEvent record, TaskEventLevel severity enum, and row widget.
+ */
+
+/**
+ * @enum TaskEventLevel
+ * @brief Severity of one TaskEvent log entry; drives both the "LEVEL" badge text
+ *        and the QSS `severity` property used to color-code the row.
+ */
 enum class TaskEventLevel {
     Info,       ///< Normal operational event
     Warning,    ///< Recoverable / attention-needed condition
@@ -16,7 +25,10 @@ enum class TaskEventLevel {
     Success     ///< Positive confirmation (cycle OK, recovery OK, …)
 };
 
-/// Data record for one row of TaskEventLogWidget.
+/**
+ * @struct TaskEvent
+ * @brief Data record for one row of TaskEventLogWidget.
+ */
 struct TaskEvent {
     QDateTime      timestamp = QDateTime::currentDateTime();  ///< Defaults to the construction time.
     TaskEventLevel level     = TaskEventLevel::Info;  ///< Severity shown as the LEVEL badge.
@@ -26,16 +38,21 @@ struct TaskEvent {
     QString        source;
 };
 
-/// Visual row inside TaskEventLogWidget for a single TaskEvent.
-///
-/// Layout (left to right):
-///   [3 px severity bar] | [hh:mm:ss] | [LEVEL] | [[SOURCE]] | [message ...]
-///
-/// Styling is owned entirely by dark.qss / light.qss via:
-///   TaskEventItemWidget[severity="info"|"warning"|"error"|"success"]
-///   TaskEventItemWidget[...] QFrame[eventPart="bar"]
-///   TaskEventItemWidget[...] QLabel[eventPart="level"]
-///   QLabel[eventPart="time"|"message"|"source"]
+/**
+ * @class TaskEventItemWidget
+ * @brief Visual row inside TaskEventLogWidget for a single TaskEvent.
+ *
+ * Layout (left to right):
+ * @code
+ *   [3 px severity bar] | [hh:mm:ss] | [LEVEL] | [[SOURCE]] | [message ...]
+ * @endcode
+ *
+ * Styling is owned entirely by dark.qss / light.qss via:
+ *   TaskEventItemWidget[severity="info"|"warning"|"error"|"success"]
+ *   TaskEventItemWidget[...] QFrame[eventPart="bar"]
+ *   TaskEventItemWidget[...] QLabel[eventPart="level"]
+ *   QLabel[eventPart="time"|"message"|"source"]
+ */
 class TaskEventItemWidget : public QWidget
 {
     Q_OBJECT
@@ -62,18 +79,22 @@ private:
     static QString     levelText       (TaskEventLevel level);
 };
 
-/// Operator-facing task event log (read-only).
-///
-/// Designed for operator dashboards: shows discrete task events (ready, cycle
-/// start, fault, recovery ...) as a timestamped, severity-coded list.
-/// NOT a replacement for the global SystemLog -- scope is the active task only.
-///
-/// Usage:
-///   TaskEvent ev;
-///   ev.level   = TaskEventLevel::Error;
-///   ev.message = "Camera grab timeout - fault code 102.";
-///   ev.source  = "Camera";
-///   m_eventLog->appendEvent(ev);
+/**
+ * @class TaskEventLogWidget
+ * @brief Operator-facing task event log (read-only).
+ *
+ * Designed for operator dashboards: shows discrete task events (ready, cycle
+ * start, fault, recovery ...) as a timestamped, severity-coded list.
+ * NOT a replacement for the global SystemLog -- scope is the active task only.
+ *
+ * @code
+ *   TaskEvent ev;
+ *   ev.level   = TaskEventLevel::Error;
+ *   ev.message = "Camera grab timeout - fault code 102.";
+ *   ev.source  = "Camera";
+ *   m_eventLog->appendEvent(ev);
+ * @endcode
+ */
 class TaskEventLogWidget : public QListWidget
 {
     Q_OBJECT

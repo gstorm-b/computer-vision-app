@@ -4,18 +4,19 @@
 #include <QString>
 #include <QColor>
 
-// ─────────────────────────────────────────────────────────────────────────────
-//  Pattern UI theme tokens — Hybrid (Graphite Vision + Orange)
-//
-//  Single source of truth for C++ painted / inline-styled surfaces in the
-//  pattern manager and device wizards. Aligned with docs/rules/ui_theme_tokens.md.
-//  QSS-driven widgets use resrc/styles/*.qss directly; this header covers only
-//  surfaces that cannot be styled via QSS (custom-painted or runtime-built).
-// ─────────────────────────────────────────────────────────────────────────────
+/**
+ * @file pattern_theme.h
+ * @brief Pattern UI theme tokens (Hybrid Graphite Vision + Orange palette): hex color
+ *        constants and reusable QSS-fragment builders for C++ painted / inline-styled
+ *        surfaces in the pattern manager and device wizards that cannot be styled via the
+ *        QSS files under resrc/styles/*.qss.
+ *
+ * Single source of truth for C++ painted / inline-styled surfaces in the pattern manager
+ * and device wizards. Aligned with docs/rules/ui_theme_tokens.md. QSS-driven widgets use
+ * resrc/styles/*.qss directly; this header covers only surfaces that cannot be styled via
+ * QSS (custom-painted or runtime-built).
+ */
 
-/// Pattern UI theme tokens (Hybrid Graphite Vision + Orange palette): hex color constants and
-/// reusable QSS-fragment builders for C++ painted / inline-styled surfaces in the pattern
-/// manager and device wizards that cannot be styled via the QSS files under resrc/styles/*.qss.
 namespace ptn {
 
 // ── Surfaces ─────────────────────────────────────────────────────────────────
@@ -130,11 +131,13 @@ inline QString ghostButtonStyle() {
     ).arg(TXT2, BD, SURF2, TXT, BD2, TXT4);
 }
 
-/// Active step pill (in wizard step rail): picks background/foreground/border colors based on
-/// whether the step is completed, the current step, or upcoming.
-/// @param done true if this step has already been completed (renders with the success color)
-/// @param current true if this is the active step (renders with the accent color); ignored if `done`
-/// @return QSS rule for a fixed-size circular QLabel styled for the resolved step state
+/**
+ * @brief Active step pill (in wizard step rail): picks background/foreground/border colors
+ *        based on whether the step is completed, the current step, or upcoming.
+ * @param[in] done true if this step has already been completed (renders with the success color)
+ * @param[in] current true if this is the active step (renders with the accent color); ignored if @p done
+ * @return QSS rule for a fixed-size circular QLabel styled for the resolved step state
+ */
 inline QString stepBubbleStyle(bool done, bool current) {
     const char *bg     = done ? OK : current ? ACC : SURF;
     const char *fg     = (done || current) ? "white" : TXT3;

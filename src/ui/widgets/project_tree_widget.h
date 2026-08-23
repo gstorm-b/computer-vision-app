@@ -13,8 +13,16 @@
 #include "model/itask.h"
 #include "model/project.h"
 
-/// Custom Qt::ItemDataRole values used to stash tree-row metadata (id, kind,
-/// parent link, and chip badge appearance) on each QStandardItem.
+/**
+ * @file project_tree_widget.h
+ * @brief ProjectTreeWidget — tree view of the current project (tasks and their assigned
+ *        devices) with colored chip badges, plus its supporting delegate, tree-row-kind
+ *        enum, and item-data-role namespace.
+ *
+ * TreeItemRole holds the custom Qt::ItemDataRole values used to stash tree-row metadata
+ * (id, kind, parent link, and chip badge appearance) on each QStandardItem.
+ */
+
 namespace TreeItemRole {
     constexpr int ItemId    = Qt::UserRole;      ///< QString — task or device ID
     constexpr int ItemKind  = Qt::UserRole + 1;  ///< int — 0:root  1:task  2:device
@@ -23,17 +31,23 @@ namespace TreeItemRole {
     constexpr int ChipColor = Qt::UserRole + 4;  ///< QString — token name, e.g. "device.camera"
 }
 
-/// Kind of tree row stored in TreeItemRole::ItemKind: the project root, a task
-/// node, or a device node.
+/**
+ * @enum TreeItemKind
+ * @brief Kind of tree row stored in TreeItemRole::ItemKind: the project root, a task
+ *        node, or a device node.
+ */
 enum class TreeItemKind { Root = 0, Task = 1, Device = 2 };
 
 // ──────────────────────────────────────────────────────────────────────────────
 //  ProjectTreeDelegate — draws colored chip badges on the right of each row
 // ──────────────────────────────────────────────────────────────────────────────
-/// Item delegate that paints the default row content shrunk to leave room on
-/// the right, then draws a rounded, translucent-filled chip badge sourced from
-/// TreeItemRole::ChipText / TreeItemRole::ChipColor over that space; rows with
-/// no chip text fall back to plain QStyledItemDelegate painting.
+/**
+ * @class ProjectTreeDelegate
+ * @brief Item delegate that paints the default row content shrunk to leave room on
+ *        the right, then draws a rounded, translucent-filled chip badge sourced from
+ *        TreeItemRole::ChipText / TreeItemRole::ChipColor over that space; rows with
+ *        no chip text fall back to plain QStyledItemDelegate painting.
+ */
 class ProjectTreeDelegate : public QStyledItemDelegate {
     Q_OBJECT
 public:
@@ -52,25 +66,31 @@ public:
                    const QModelIndex &index) const override;
 };
 
-/// Displays the current project as a tree — project root, then each task with
-/// its assigned devices nested underneath, using colored chip badges (via
-/// ProjectTreeDelegate) to mark task/device type:
-///
-///  Tree structure:
-///    ▾ Project Name                   [root]
-///        ▾ Task_Loc_01         [LOC]  [task]
-///            Basler_cam_01     [CAM]  [device]
-///            PLC_Mitsu_01      [PLC]  [device]
-///        ▾ Task_Loc_02         [LOC]  [task]
-///            ...
-///
-///  Signals emitted (MainWindow connects these):
-///    taskDoubleClicked(taskId, widgetName) — open task dock
-///    deviceDoubleClicked(deviceId)         — open device config dock
-///    addDeviceToTaskRequested(taskId)      — show AddDeviceWizard
-///    moveDeviceRequested(taskId, deviceId) — show move-to-task dialog
-///    deleteDeviceRequested(taskId, deviceId)
-///    deleteTaskRequested(taskId)
+/**
+ * @class ProjectTreeWidget
+ * @brief Displays the current project as a tree — project root, then each task with
+ *        its assigned devices nested underneath, using colored chip badges (via
+ *        ProjectTreeDelegate) to mark task/device type.
+ *
+ * Tree structure:
+ * @code
+ *  ▾ Project Name                   [root]
+ *      ▾ Task_Loc_01         [LOC]  [task]
+ *          Basler_cam_01     [CAM]  [device]
+ *          PLC_Mitsu_01      [PLC]  [device]
+ *      ▾ Task_Loc_02         [LOC]  [task]
+ *          ...
+ * @endcode
+ *
+ * Signals emitted (MainWindow connects these): taskDoubleClicked(taskId, widgetName)
+ * opens the task dock; deviceDoubleClicked(deviceId) opens the device config dock;
+ * addDeviceToTaskRequested(taskId) shows the AddDeviceWizard;
+ * moveDeviceRequested(taskId, deviceId) shows the move-to-task dialog;
+ * deleteDeviceRequested(taskId, deviceId) and deleteTaskRequested(taskId) request
+ * deletion of the corresponding row.
+ *
+ * @see ProjectTreeDelegate
+ */
 class ProjectTreeWidget : public QWidget {
     Q_OBJECT
 
@@ -81,11 +101,13 @@ public:
     /// via setProject().
     explicit ProjectTreeWidget(QWidget *parent = nullptr);
 
-    /// Adopts `proj` as the active project (or clears the tree if `proj` is
-    /// null), caches its device manager, re-enables the widget, sets the root
-    /// item's label to the project name (or "Project" if empty), and rebuilds
-    /// the tree.
-    /// @param proj the project to display; a null pointer clears the current project
+    /**
+     * @brief Adopts `proj` as the active project (or clears the tree if `proj` is
+     *        null), caches its device manager, re-enables the widget, sets the root
+     *        item's label to the project name (or "Project" if empty), and rebuilds
+     *        the tree.
+     * @param[in] proj the project to display; a null pointer clears the current project
+     */
     void setProject(std::shared_ptr<vc::model::Project> proj);
     /// Releases the current project and device manager, blocks context-menu/
     /// double-click actions, removes all task/device rows, resets the root
@@ -96,9 +118,11 @@ public:
     /// Updates the root item's displayed label to `name` (or "Project" if
     /// empty), without touching the rest of the tree.
     void changeProjectName(const QString &name);
-    /// Enables or disables user interaction with the tree; when disabling,
-    /// also sets m_accessBlock so double-click/context-menu handlers no-op.
-    /// @param ena true to enable the tree, false to block interaction and disable it
+    /**
+     * @brief Enables or disables user interaction with the tree; when disabling,
+     *        also sets m_accessBlock so double-click/context-menu handlers no-op.
+     * @param[in] ena true to enable the tree, false to block interaction and disable it
+     */
     void enableProjectTree(bool ena);
 
 public slots:
@@ -140,12 +164,14 @@ private slots:
     /// blocked (see m_accessBlock), the index is invalid, or no item resolves
     /// from it.
     void onItemDoubleClicked(const QModelIndex &index);
-    /// Builds and shows a context menu appropriate to the row kind at `pos`:
-    /// "New Localization Task..." for the root, "Add Device.../Delete Task"
-    /// for a task row, or "Open Configuration/Move to Task.../Remove Device"
-    /// for a device row. No-op if access is blocked, the position doesn't hit
-    /// a valid row, or no item resolves from it.
-    /// @param pos position in the tree view's viewport coordinates
+    /**
+     * @brief Builds and shows a context menu appropriate to the row kind at `pos`:
+     *        "New Localization Task..." for the root, "Add Device.../Delete Task"
+     *        for a task row, or "Open Configuration/Move to Task.../Remove Device"
+     *        for a device row. No-op if access is blocked, the position doesn't hit
+     *        a valid row, or no item resolves from it.
+     * @param[in] pos position in the tree view's viewport coordinates
+     */
     void showContextMenu(const QPoint &pos);
 
     /// Prompts for a new task name (re-prompting on empty or duplicate names

@@ -7,6 +7,7 @@
 #include "model/localization_pipeline.h"
 #include "model/localization_runtime_controller.h"
 #include "task_localization_config.h"
+#include "model/gripper_preset_store.h"
 #include "matching/pattern_group_manager.h"
 #include <opencv2/imgcodecs.hpp>
 
@@ -14,24 +15,35 @@
 #include "runtime/camera_runner.h"
 #include "runtime/plc_runner.h"
 
-/// Task model layer: TaskLocalization, the localization ITask implementation that owns
-/// the pattern library, runtime controller, and matching worker thread.
+/**
+ * @file task_localization.h
+ * @brief Task model layer: TaskLocalization, the localization ITask implementation that owns
+ *        the pattern library, runtime controller, and matching worker thread.
+ */
 namespace vc::model {
 
-/// Localization ITask implementation. Binds a PLC, one or more cameras, and a vision
-/// output device; drives a LocalizationRuntimeController through commissioning and
-/// runtime cycles on a per-device runner model; and persists its pattern library
-/// (via PatternGroupManager) and config (TaskLocalizeConfig) to/from JSON.
+/**
+ * @class TaskLocalization
+ * @brief Localization ITask implementation.
+ *
+ * Binds a PLC, one or more cameras, and a vision output device; drives a
+ * LocalizationRuntimeController through commissioning and runtime cycles on a per-device
+ * runner model; and persists its pattern library (via PatternGroupManager) and config
+ * (TaskLocalizeConfig) to/from JSON.
+ */
 class TaskLocalization : public ITask {
     Q_OBJECT
 
 public:
-    /// Constructs the task: registers the cross-thread meta types used by its signals
-    /// (MatchResult, cv::Mat, shared_ptr<MatchGroup>, shared_ptr<IRobotPickingChecker>),
-    /// creates the pattern manager, starts the dedicated matching worker thread, and
-    /// creates the initial runtime controller.
-    /// @param name display name of the task
-    /// @param id stable task id; ITask auto-generates one when left empty
+    /**
+     * @brief Constructs the task: registers the cross-thread meta types used by its signals
+     *        (MatchResult, cv::Mat, shared_ptr<MatchGroup>, shared_ptr<IRobotPickingChecker>),
+     *        creates the pattern manager, starts the dedicated matching worker thread, and
+     *        creates the initial runtime controller.
+     * @param[in] name   display name of the task
+     * @param[in] id     stable task id; ITask auto-generates one when left empty
+     * @param[in] parent optional QObject parent
+     */
     explicit TaskLocalization(QString name, QString id = "", QObject* parent = nullptr);
 
     /// Destroys the runtime controller and stops the matching worker thread, waiting
@@ -55,12 +67,14 @@ public:
     /// (fail-safe) if the project or its device manager isn't available.
     bool isReachLimitOfDeviceType(vc::device::DeviceType t) const override;
 
-    /// Starts localization runtime: syncs runners with assigned devices, enters the
-    /// runtime phase, (re)creates and moves the runtime controller to the runtime
-    /// thread, then calls setupTask(). Transitions to Faulted if setup fails,
-    /// otherwise emits runtimeStarted().
-    /// @param mergeToTaskThread ignored — localization always keeps per-device
-    ///        runner threads; a warning is logged if this is true
+    /**
+     * @brief Starts localization runtime: syncs runners with assigned devices, enters the
+     *        runtime phase, (re)creates and moves the runtime controller to the runtime
+     *        thread, then calls setupTask(). Transitions to Faulted if setup fails,
+     *        otherwise emits runtimeStarted().
+     * @param[in] mergeToTaskThread ignored — localization always keeps per-device
+     *            runner threads; a warning is logged if this is true
+     */
     void beginRuntime(bool mergeToTaskThread = false) override;
 
     /// Tears down and recreates the runtime controller around ITask::endRuntime().
@@ -79,14 +93,16 @@ public:
         return m_config;
     }
 
-    /// Kicks off commissioning (single-shot, GUI-triggered) matching on the matching
-    /// worker thread via startCommissionMatchingRequest.
-    /// @param group pattern group to match against; deep-copied on this (GUI) thread
-    ///        before crossing to the worker thread (see snapshotPatternGroup()) since
-    ///        MatchGroup is non-QObject/unlocked and would otherwise race concurrent
-    ///        pattern edits (addPattern/removePattern/setPatternImage)
-    /// @param image source image to match; cloned before crossing threads
-    /// @param workspace camera workspace (ROI) the match runs within
+    /**
+     * @brief Kicks off commissioning (single-shot, GUI-triggered) matching on the matching
+     *        worker thread via startCommissionMatchingRequest.
+     * @param[in] group     pattern group to match against; deep-copied on this (GUI) thread
+     *            before crossing to the worker thread (see snapshotPatternGroup()) since
+     *            MatchGroup is non-QObject/unlocked and would otherwise race concurrent
+     *            pattern edits (addPattern/removePattern/setPatternImage)
+     * @param[in] image     source image to match; cloned before crossing threads
+     * @param[in] workspace camera workspace (ROI) the match runs within
+     */
     void startCommissionMatching(
         std::shared_ptr<mtc::MatchGroup> group, cv::Mat image, vc::model::CameraWorkspace workspace) {
 
@@ -105,6 +121,20 @@ public:
         return m_patternManager;
     }
 
+    /// Returns the task's named gripper-geometry presets (read-only).
+    /// @see setGripperPresets()
+    const GripperPresetStore& gripperPresets() const {
+        return m_gripperPresets;
+    }
+
+    /// Replaces the task's gripper presets, e.g. after the register widget is closed.
+    /// Presets are an authoring aid: existing patterns keep the geometry already copied
+    /// into their own config and are not touched by this call.
+    /// @param[in] presets the new preset collection
+    void setGripperPresets(const GripperPresetStore &presets) {
+        m_gripperPresets = presets;
+    }
+
     /// Returns the image BLOBs owned by this task, paired with the JSON written by
     /// toJson(). ProjectRepository stores these in the project_images table and
     /// re-injects them on load via loadTaskImageMap().
@@ -113,13 +143,15 @@ public:
     ///         "ws_{cameraId}" for each camera workspace's reference image
     QMap<QString, cv::Mat> getTaskImageMap() override;
 
-    /// Re-injects image BLOBs previously produced by getTaskImageMap(), routing each
-    /// entry by its key: "ws_{cameraId}" sets a camera workspace reference image,
-    /// "g{groupNumber}_p{patternNumber}" sets the matching pattern's training image.
-    /// Unparseable keys or unresolved group/pattern references are logged and skipped
-    /// rather than aborting the whole load.
-    /// @param mapping image map as returned by getTaskImageMap()
-    /// @return true if every entry was parsed and applied successfully
+    /**
+     * @brief Re-injects image BLOBs previously produced by getTaskImageMap(), routing each
+     *        entry by its key: "ws_{cameraId}" sets a camera workspace reference image,
+     *        "g{groupNumber}_p{patternNumber}" sets the matching pattern's training image.
+     *        Unparseable keys or unresolved group/pattern references are logged and skipped
+     *        rather than aborting the whole load.
+     * @param[in] mapping image map as returned by getTaskImageMap()
+     * @return true if every entry was parsed and applied successfully
+     */
     bool                   loadTaskImageMap(QMap<QString, cv::Mat> &mapping) override;
 
     /// Serializes base ITask state plus the pattern library, written as the nested
@@ -178,14 +210,20 @@ private slots:
     /// Transitions the task state to Recovering.
     void onRuntimeRecovering(const QString &message);
 
-    /// Transitions the task state to Ready, unless the task is currently Faulted,
-    /// Stopping, or Idle (those states are not overridden by a runtime-ready event).
+    /// Transitions the task state to Ready, unless the task is currently Stopping or
+    /// Idle (those states are not overridden by a runtime-ready event). Faulted IS
+    /// overridden: that is how an acknowledged or auto-cleared fault returns to service.
     void onRuntimeReady(const QString &message);
 
     /// Transitions the task state to Faulted.
     void onRuntimeFault(const QString &message);
 
 private:
+    /// Writes one user-log warning per virtual device this task is about to run against.
+    /// One of the three risk-R8 markers, and the only one that does not need anyone to be
+    /// looking at the screen.
+    void logVirtualDevicesInUse();
+
     /// Lazily allocates m_runtimeController (no-op if one already exists), configures
     /// it with the current m_config, and wires its signals to this task.
     void createRuntimeController();
@@ -311,6 +349,7 @@ private:
     LocalizationPipeline m_pipeline;   ///< Loads/runs the matcher model used for both commission and runtime matching.
     LocalizationRuntimeController *m_runtimeController{nullptr};   ///< Owns the per-cycle runtime state machine; recreated by createRuntimeController()/destroyRuntimeController().
     mtc::PatternGroupManager *m_patternManager;   ///< Owns the task's pattern groups/patterns; QObject child of this task.
+    GripperPresetStore m_gripperPresets;          ///< Named gripper geometries offered when authoring a pattern's picking box.
 
     /// Persistent runtime matcher — built once and reused across cycles (touched
     /// only on the matchingRunner thread). The learned model is reloaded only

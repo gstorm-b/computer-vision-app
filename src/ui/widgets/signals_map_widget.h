@@ -7,48 +7,59 @@
 class QLineEdit;
 class QStyledItemDelegate;
 
-/// 3-column table that maps "task signals" (logical names declared by a task,
-/// e.g. "Camera selection", "Pattern selection") to "communication tags"
-/// (PLC addresses or named tags, e.g. "M100", "D200") provided by the assigned
-/// communication device.
-///
-///   Signal    |  Type           |  Mapped to
-///   --------- + --------------- + ------------------
-///   `<display>` | Number | Bool   | `<combobox tag>`
-///
-/// @par Internal vs display name
-/// Every row carries an internalName (the field key in the owning config,
-/// e.g. "nActiveCamera") that the owner uses to write back into the model,
-/// AND a displayName (the user-facing label) shown in column 1. The change
-/// signal carries the internalName so the owner can route it without parsing
-/// human text.
-///
-/// @par Tag list ownership
-/// The widget never queries devices itself. The owning page is expected to
-/// push the per-type tag lists via setBoolTags() / setNumberTags() whenever
-/// the assigned comm device (or its configuration) changes. The combobox is
-/// non-editable: users can only pick from the supplied list.
-///
-/// @par Orphan handling
-/// When a tag list is replaced, any currently-selected tag that is not in
-/// the new list is kept visible (so the user sees what was there) but the
-/// row is flagged as a warning (background tint + tooltip). The orphan is
-/// not auto-cleared. checkEmpty() is the explicit point where orphans get
-/// purged to "" so the caller can report which signals need re-mapping.
-///
-/// @par Conflict handling
-/// Tags already chosen by other rows are rendered in the dropdown with a
-/// grey colour and a "(used by …)" suffix. The user can still pick them;
-/// doing so opens a Yes/No confirmation. On Yes, the previous owning row
-/// is cleared to "" and flagged as warning; on No, the picked combobox
-/// reverts to its previous value.
+/**
+ * @file signals_map_widget.h
+ * @brief SignalsMapWidget — table mapping task signals to communication-device tags.
+ */
+
+/**
+ * @class SignalsMapWidget
+ * @brief 3-column table that maps "task signals" (logical names declared by a task,
+ *        e.g. "Camera selection", "Pattern selection") to "communication tags"
+ *        (PLC addresses or named tags, e.g. "M100", "D200") provided by the assigned
+ *        communication device.
+ *
+ *   Signal    |  Type           |  Mapped to
+ *   --------- + --------------- + ------------------
+ *   `<display>` | Number | Bool   | `<combobox tag>`
+ *
+ * @par Internal vs display name
+ * Every row carries an internalName (the field key in the owning config,
+ * e.g. "nActiveCamera") that the owner uses to write back into the model,
+ * AND a displayName (the user-facing label) shown in column 1. The change
+ * signal carries the internalName so the owner can route it without parsing
+ * human text.
+ *
+ * @par Tag list ownership
+ * The widget never queries devices itself. The owning page is expected to
+ * push the per-type tag lists via setBoolTags() / setNumberTags() whenever
+ * the assigned comm device (or its configuration) changes. The combobox is
+ * non-editable: users can only pick from the supplied list.
+ *
+ * @par Orphan handling
+ * When a tag list is replaced, any currently-selected tag that is not in
+ * the new list is kept visible (so the user sees what was there) but the
+ * row is flagged as a warning (background tint + tooltip). The orphan is
+ * not auto-cleared. checkEmpty() is the explicit point where orphans get
+ * purged to "" so the caller can report which signals need re-mapping.
+ *
+ * @par Conflict handling
+ * Tags already chosen by other rows are rendered in the dropdown with a
+ * grey colour and a "(used by …)" suffix. The user can still pick them;
+ * doing so opens a Yes/No confirmation. On Yes, the previous owning row
+ * is cleared to "" and flagged as warning; on No, the picked combobox
+ * reverts to its previous value.
+ */
 class SignalsMapWidget : public QTableWidget
 {
     Q_OBJECT
 
 public:
-    /// Signal value kind: numeric (word) or boolean (bit); drives which tag
-    /// list (m_numberTags / m_boolTags) a row's combobox is populated from.
+    /**
+     * @enum Type
+     * @brief Signal value kind: numeric (word) or boolean (bit); drives which tag
+     *        list (m_numberTags / m_boolTags) a row's combobox is populated from.
+     */
     enum class Type { Number, Bool };
     Q_ENUM(Type)
 
@@ -56,17 +67,21 @@ public:
     /// Mapped to) with no rows.
     explicit SignalsMapWidget(QWidget *parent = nullptr);
 
-    /// Appends a new row for `internalName` at the end of the table.
-    /// @note internalName is the unique row key; this is a no-op (with a
-    /// logged warning) if a row for internalName already exists.
+    /**
+     * @brief Appends a new row for `internalName` at the end of the table.
+     * @note internalName is the unique row key; this is a no-op (with a
+     *       logged warning) if a row for internalName already exists.
+     */
     void appendRow(const QString &internalName,
                    const QString &displayName,
                    Type type);
-    /// Inserts a new row for `internalName` at `row` (clamped to the valid
-    /// range), with its tag editor populated from the current per-type tag
-    /// list.
-    /// @note internalName is the unique row key; this is a no-op (with a
-    /// logged warning) if a row for internalName already exists.
+    /**
+     * @brief Inserts a new row for `internalName` at `row` (clamped to the valid
+     *        range), with its tag editor populated from the current per-type tag
+     *        list.
+     * @note internalName is the unique row key; this is a no-op (with a
+     *       logged warning) if a row for internalName already exists.
+     */
     void insertRowAt(int row,
                      const QString &internalName,
                      const QString &displayName,
@@ -84,15 +99,19 @@ public:
     /// `internalName`, or an empty string if the row does not exist.
     QString rowValue(const QString &internalName) const;
 
-    /// Replaces the selectable tag list for Number-type rows and re-populates
-    /// every Number row's editor from it.
-    /// @note Rows whose current tag is not in `tags` become warning-flagged
-    /// (orphaned) but keep their displayed text.
+    /**
+     * @brief Replaces the selectable tag list for Number-type rows and re-populates
+     *        every Number row's editor from it.
+     * @note Rows whose current tag is not in `tags` become warning-flagged
+     *       (orphaned) but keep their displayed text.
+     */
     void setNumberTags(const QStringList &tags);
-    /// Replaces the selectable tag list for Bool-type rows and re-populates
-    /// every Bool row's editor from it.
-    /// @note Rows whose current tag is not in `tags` become warning-flagged
-    /// (orphaned) but keep their displayed text.
+    /**
+     * @brief Replaces the selectable tag list for Bool-type rows and re-populates
+     *        every Bool row's editor from it.
+     * @note Rows whose current tag is not in `tags` become warning-flagged
+     *       (orphaned) but keep their displayed text.
+     */
     void setBoolTags(const QStringList &tags);
 
     /// Clears the tag of every warning-flagged (orphaned) row to "" and emits
@@ -113,16 +132,21 @@ signals:
     void signalMappingChanged(const QString &internalName, const QString &tag);
 
 private slots:
-    /// Handles QLineEdit::editingFinished for a row's tag editor: detects
-    /// conflicts with tags already owned by another row (prompting a Yes/No
-    /// reassignment dialog), reverts on "No", clears the losing row on "Yes",
-    /// updates orphan-warning state, and emits signalMappingChanged().
-    /// @note No-op while m_suppressEdit guards a programmatic text revert.
+    /**
+     * @brief Handles QLineEdit::editingFinished for a row's tag editor: detects
+     *        conflicts with tags already owned by another row (prompting a Yes/No
+     *        reassignment dialog), reverts on "No", clears the losing row on "Yes",
+     *        updates orphan-warning state, and emits signalMappingChanged().
+     * @note No-op while m_suppressEdit guards a programmatic text revert.
+     */
     void onLineEditingFinished();
 
 private:
-    /// Per-row state backing one line of the table: identity, display text,
-    /// value kind, current tag selection, and orphan-warning flag.
+    /**
+     * @struct RowState
+     * @brief Per-row state backing one line of the table: identity, display text,
+     *        value kind, current tag selection, and orphan-warning flag.
+     */
     struct RowState {
         QString internalName;   ///< Unique row key used by the owning config.
         QString displayName;    ///< User-facing label shown in column 1.

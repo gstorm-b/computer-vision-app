@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_m
 </div><!--header-->
 <div class="contents">
 
+<p>Owns one named/numbered group of patterns plus their shared <a class="el" href="classmtc_1_1_match_group_config.html" title="Per-group configuration: holds group identity and the algorithm-specific config (typeConfig,...">MatchGroupConfig</a>: pattern CRUD (add/remove/rename/renumber/setImage), lookup, and static group/pattern index-range validation.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="match__group_8h_source.html">match_group.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::MatchGroup:</div>
@@ -163,6 +166,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad6fb868bd728b53f054cee60782d3e6b" id="r_ad6fb868bd728b53f054cee60782d3e6b"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad6fb868bd728b53f054cee60782d3e6b">removePatternByNumber</a> (int number)</td></tr>
 <tr class="memdesc:ad6fb868bd728b53f054cee60782d3e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience: remove by number.  <br /></td></tr>
 <tr class="memitem:ac4794a53c54aa66476cf8383403165d1" id="r_ac4794a53c54aa66476cf8383403165d1"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac4794a53c54aa66476cf8383403165d1">renamePattern</a> (const std::wstring &amp;currentName, const std::wstring &amp;newName)</td></tr>
+<tr class="memdesc:ac4794a53c54aa66476cf8383403165d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Targeted field setters — avoids shipping the whole config just to rename.  <br /></td></tr>
 <tr class="memitem:a39c63bb640ca2e3140f6560933cc7674" id="r_a39c63bb640ca2e3140f6560933cc7674"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a39c63bb640ca2e3140f6560933cc7674">renumberPattern</a> (const std::wstring &amp;patternName, int newNumber)</td></tr>
 <tr class="memdesc:a39c63bb640ca2e3140f6560933cc7674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes a pattern's number; fails if <span class="tt">newNumber</span> is already used by another pattern in the group.  <br /></td></tr>
 <tr class="memitem:a0ed5f9a5f31391badeebe02013f2aab7" id="r_a0ed5f9a5f31391badeebe02013f2aab7"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0ed5f9a5f31391badeebe02013f2aab7">setPatternConfig</a> (const std::wstring &amp;currentName, const <a class="el" href="struct_match_pattern_config.html">MatchPatternConfig</a> &amp;newConfig)</td></tr>
@@ -198,14 +202,15 @@ Static Public Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a0909e3d613615ec2a3eae778699c5b26" id="r_a0909e3d613615ec2a3eae778699c5b26"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0909e3d613615ec2a3eae778699c5b26">MatchGroup</a> (const <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &amp;config, <a class="el" href="#a78e9fd730a3159d6a76124ada06860fc">PatternGroupManager</a> *parent)</td></tr>
-<tr class="memdesc:a0909e3d613615ec2a3eae778699c5b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a group owned by <span class="tt">parent</span>, copying <span class="tt"><a class="el" href="#a973683721cc41837bc00cdd8c7285034" title="Returns the group&#39;s current config (identity + shared algorithm config).">config</a></span>. Only <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> may call this.  <br /></td></tr>
+<tr class="memdesc:a0909e3d613615ec2a3eae778699c5b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a group owned by <span class="tt">parent</span>, copying <span class="tt"><a class="el" href="#a973683721cc41837bc00cdd8c7285034" title="Returns the group&#39;s current config (identity + shared algorithm config).">config</a></span>. Only <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> may call this.  <br /></td></tr>
 <tr class="memitem:a42eb62e81eac20ac55c7c2d411db652a" id="r_a42eb62e81eac20ac55c7c2d411db652a"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a42eb62e81eac20ac55c7c2d411db652a">setConfig</a> (const <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &amp;cfg)</td></tr>
-<tr class="memdesc:a42eb62e81eac20ac55c7c2d411db652a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> after uniqueness check at manager level.  <br /></td></tr>
+<tr class="memdesc:a42eb62e81eac20ac55c7c2d411db652a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> after uniqueness check at manager level.  <br /></td></tr>
 <tr class="memitem:aae0903e8cb34333ca9e345135df1382c" id="r_aae0903e8cb34333ca9e345135df1382c"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#aae0903e8cb34333ca9e345135df1382c">setName</a> (const std::wstring &amp;name)</td></tr>
-<tr class="memdesc:aae0903e8cb34333ca9e345135df1382c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> after uniqueness check at manager level. No-op if <span class="tt"><a class="el" href="#a8bddb6cf5b291196c6b16e3387d3fe90" title="Returns the group&#39;s display name.">name</a></span> is unchanged.  <br /></td></tr>
+<tr class="memdesc:aae0903e8cb34333ca9e345135df1382c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> after uniqueness check at manager level. No-op if <span class="tt"><a class="el" href="#a8bddb6cf5b291196c6b16e3387d3fe90" title="Returns the group&#39;s display name.">name</a></span> is unchanged.  <br /></td></tr>
 <tr class="memitem:aecbfdbe7f8128b03a74121a44557790e" id="r_aecbfdbe7f8128b03a74121a44557790e"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#aecbfdbe7f8128b03a74121a44557790e">setNumber</a> (int number)</td></tr>
-<tr class="memdesc:aecbfdbe7f8128b03a74121a44557790e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> after uniqueness check at manager level. No-op if <span class="tt"><a class="el" href="#a40a3d2068c6eebca33ad3f97785a74d9" title="Returns the group&#39;s numeric index.">number</a></span> is unchanged.  <br /></td></tr>
+<tr class="memdesc:aecbfdbe7f8128b03a74121a44557790e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> after uniqueness check at manager level. No-op if <span class="tt"><a class="el" href="#a40a3d2068c6eebca33ad3f97785a74d9" title="Returns the group&#39;s numeric index.">number</a></span> is unchanged.  <br /></td></tr>
 <tr class="memitem:a38c9b1390c231841b2d6e749ef8b9fbe" id="r_a38c9b1390c231841b2d6e749ef8b9fbe"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a38c9b1390c231841b2d6e749ef8b9fbe">validatePatternConfig</a> (const <a class="el" href="struct_match_pattern_config.html">MatchPatternConfig</a> &amp;cfg, const std::wstring &amp;excludeName={}) const</td></tr>
+<tr class="memdesc:a38c9b1390c231841b2d6e749ef8b9fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates a candidate pattern config against the group's existing patterns: fails if the name is empty, or if another pattern (other than <span class="tt">excludeName</span>) already has the same name or number.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -223,9 +228,10 @@ Friends</h2></td></tr>
 <tr class="memitem:a78e9fd730a3159d6a76124ada06860fc" id="r_a78e9fd730a3159d6a76124ada06860fc"><td class="memItemLeft">class&#160;</td><td class="memItemRight"><a class="el" href="#a78e9fd730a3159d6a76124ada06860fc">PatternGroupManager</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Owns one named/numbered group of patterns plus their shared <a class="el" href="classmtc_1_1_match_group_config.html">MatchGroupConfig</a>: pattern CRUD (add/remove/rename/renumber/setImage), lookup, and static group/pattern index-range validation. Instances not created via <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> have no manager and cannot use setConfig/setName/setNumber. </p>
+<div class="textblock"><p>Owns one named/numbered group of patterns plus their shared <a class="el" href="classmtc_1_1_match_group_config.html" title="Per-group configuration: holds group identity and the algorithm-specific config (typeConfig,...">MatchGroupConfig</a>: pattern CRUD (add/remove/rename/renumber/setImage), lookup, and static group/pattern index-range validation. </p>
+<p>Instances not created via <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> have no manager and cannot use setConfig/setName/setNumber. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00082">82</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00088">88</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a84a87b0721c2035d5a8f2e44afd3e973" name="a84a87b0721c2035d5a8f2e44afd3e973"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a84a87b0721c2035d5a8f2e44afd3e973">&#9670;&#160;</a></span>MatchGroup() <span class="overload">[1/3]</span></h2>
@@ -273,7 +279,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00046">46</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__group_8h_source.html#l00189">m_manager</a>, and <a class="el" href="match__group_8h_source.html#l00095">name()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__group_8h_source.html#l00204">m_manager</a>, and <a class="el" href="match__group_8h_source.html#l00101">name()</a>.</p>
 
 </div>
 </div>
@@ -323,11 +329,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructs a group owned by <span class="tt">parent</span>, copying <span class="tt"><a class="el" href="#a973683721cc41837bc00cdd8c7285034" title="Returns the group&#39;s current config (identity + shared algorithm config).">config</a></span>. Only <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> may call this. </p>
+<p>Constructs a group owned by <span class="tt">parent</span>, copying <span class="tt"><a class="el" href="#a973683721cc41837bc00cdd8c7285034" title="Returns the group&#39;s current config (identity + shared algorithm config).">config</a></span>. Only <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> may call this. </p>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00061">61</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00093">config()</a>, <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__group_8h_source.html#l00189">m_manager</a>, and <a class="el" href="match__group_8h_source.html#l00167">PatternGroupManager</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00099">config()</a>, <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__group_8h_source.html#l00204">m_manager</a>, and <a class="el" href="match__group_8h_source.html#l00178">PatternGroupManager</a>.</p>
 
 </div>
 </div>
@@ -350,7 +356,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00103">103</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00093">config()</a>, <a class="el" href="match__group_8h_source.html#l00192">m_lastPatternAccess</a>, <a class="el" href="match__group_8h_source.html#l00191">m_patterns</a>, <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>, and <a class="el" href="match__group_8cpp_source.html#l00245">validatePatternConfig()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00099">config()</a>, <a class="el" href="match__group_8h_source.html#l00207">m_lastPatternAccess</a>, <a class="el" href="match__group_8h_source.html#l00206">m_patterns</a>, <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>, and <a class="el" href="match__group_8cpp_source.html#l00245">validatePatternConfig()</a>.</p>
 
 </div>
 </div>
@@ -373,7 +379,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00057">57</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, and <a class="el" href="match__group_8cpp_source.html#l00042">MatchGroup()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, and <a class="el" href="match__group_8cpp_source.html#l00042">MatchGroup()</a>.</p>
 
 </div>
 </div>
@@ -402,11 +408,11 @@ Friends</h2></td></tr>
 
 <p>Returns the group's current config (identity + shared algorithm config). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00093">93</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00099">99</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00190">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00205">m_config</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00103">addPattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>, <a class="el" href="match__group_8cpp_source.html#l00061">MatchGroup()</a>, and <a class="el" href="match__group_8h_source.html#l00167">PatternGroupManager</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00103">addPattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>, <a class="el" href="match__group_8cpp_source.html#l00061">MatchGroup()</a>, and <a class="el" href="match__group_8h_source.html#l00178">PatternGroupManager</a>.</p>
 
 </div>
 </div>
@@ -429,7 +435,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00083">83</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, and <a class="el" href="match__group_8h_source.html#l00095">name()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, and <a class="el" href="match__group_8h_source.html#l00101">name()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00166">renamePattern()</a>.</p>
 
@@ -454,7 +460,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00088">88</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8cpp_source.html#l00077">findPatternByNumber()</a>, and <a class="el" href="match__group_8h_source.html#l00097">number()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8cpp_source.html#l00077">findPatternByNumber()</a>, and <a class="el" href="match__group_8h_source.html#l00103">number()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00186">renumberPattern()</a>.</p>
 
@@ -479,7 +485,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00071">71</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00191">m_patterns</a>, and <a class="el" href="match__group_8h_source.html#l00095">name()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00206">m_patterns</a>, and <a class="el" href="match__group_8h_source.html#l00101">name()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00083">containsPatternName()</a>, <a class="el" href="match__group_8cpp_source.html#l00114">removePattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00166">renamePattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00186">renumberPattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00150">setPatternConfig()</a>, and <a class="el" href="match__group_8cpp_source.html#l00207">setPatternImage()</a>.</p>
 
@@ -504,7 +510,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00077">77</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00191">m_patterns</a>, and <a class="el" href="match__group_8h_source.html#l00097">number()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00206">m_patterns</a>, and <a class="el" href="match__group_8h_source.html#l00103">number()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00088">containsPatternNumber()</a>, and <a class="el" href="match__group_8cpp_source.html#l00135">removePatternByNumber()</a>.</p>
 
@@ -537,7 +543,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00284">284</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00162">m_max_index_range</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00173">m_max_index_range</a>.</p>
 
 </div>
 </div>
@@ -568,7 +574,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00292">292</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00164">m_max_pattern_range</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00175">m_max_pattern_range</a>.</p>
 
 </div>
 </div>
@@ -599,7 +605,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00288">288</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00161">m_min_index_range</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00172">m_min_index_range</a>.</p>
 
 </div>
 </div>
@@ -630,7 +636,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00296">296</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00163">m_min_pattern_range</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00174">m_min_pattern_range</a>.</p>
 
 </div>
 </div>
@@ -653,7 +659,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00097">97</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00191">m_patterns</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00206">m_patterns</a>.</p>
 
 </div>
 </div>
@@ -676,7 +682,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00146">146</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00192">m_lastPatternAccess</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00207">m_lastPatternAccess</a>.</p>
 
 </div>
 </div>
@@ -705,11 +711,11 @@ Friends</h2></td></tr>
 
 <p>Returns the group's display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00095">95</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00101">101</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00190">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00205">m_config</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00083">containsPatternName()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8cpp_source.html#l00046">MatchGroup()</a>, <a class="el" href="match__group_8h_source.html#l00167">PatternGroupManager</a>, and <a class="el" href="match__group_8cpp_source.html#l00229">setName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00083">containsPatternName()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8cpp_source.html#l00046">MatchGroup()</a>, <a class="el" href="match__group_8h_source.html#l00178">PatternGroupManager</a>, and <a class="el" href="match__group_8cpp_source.html#l00229">setName()</a>.</p>
 
 </div>
 </div>
@@ -738,11 +744,11 @@ Friends</h2></td></tr>
 
 <p>Returns the group's numeric index. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00097">97</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00103">103</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00190">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00205">m_config</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00088">containsPatternNumber()</a>, <a class="el" href="match__group_8cpp_source.html#l00077">findPatternByNumber()</a>, <a class="el" href="match__group_8h_source.html#l00167">PatternGroupManager</a>, <a class="el" href="match__group_8cpp_source.html#l00135">removePatternByNumber()</a>, and <a class="el" href="match__group_8cpp_source.html#l00236">setNumber()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00088">containsPatternNumber()</a>, <a class="el" href="match__group_8cpp_source.html#l00077">findPatternByNumber()</a>, <a class="el" href="match__group_8h_source.html#l00178">PatternGroupManager</a>, <a class="el" href="match__group_8cpp_source.html#l00135">removePatternByNumber()</a>, and <a class="el" href="match__group_8cpp_source.html#l00236">setNumber()</a>.</p>
 
 </div>
 </div>
@@ -765,7 +771,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00093">93</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00191">m_patterns</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00206">m_patterns</a>.</p>
 
 </div>
 </div>
@@ -788,7 +794,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00067">67</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00191">m_patterns</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00206">m_patterns</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00168">mtc::anonymous_namespace{pattern_group_manager.cpp}::groupToJson()</a>.</p>
 
@@ -813,7 +819,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00114">114</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00028">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__group_8h_source.html#l00191">m_patterns</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__group_8h_source.html#l00206">m_patterns</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00135">removePatternByNumber()</a>.</p>
 
@@ -838,7 +844,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00135">135</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00028">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00077">findPatternByNumber()</a>, <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00034">mtc::MatchPattern::name()</a>, <a class="el" href="match__group_8h_source.html#l00097">number()</a>, and <a class="el" href="match__group_8cpp_source.html#l00114">removePattern()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00077">findPatternByNumber()</a>, <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00045">mtc::MatchPattern::name()</a>, <a class="el" href="match__group_8h_source.html#l00103">number()</a>, and <a class="el" href="match__group_8cpp_source.html#l00114">removePattern()</a>.</p>
 
 </div>
 </div>
@@ -860,11 +866,21 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Targeted field setters — avoids shipping the whole config just to rename. Renames a pattern from <span class="tt">currentName</span> to <span class="tt">newName</span> (no-op/success if unchanged). </p><dl class="section note"><dt>Note</dt><dd>As implemented the guard is <span class="tt">!containsPatternName(newName)</span>: it fails (with an "already exists" message) when <span class="tt">newName</span> is NOT already in use, and proceeds — even into a colliding name — when it IS already in use. The check's polarity does not match its failure message. </dd></dl>
+
+<p>Targeted field setters — avoids shipping the whole config just to rename. </p>
+<p>Renames a pattern from <span class="tt">currentName</span> to <span class="tt">newName</span> (no-op/success if unchanged). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">currentName</td><td>current name of the pattern to rename </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">newName</td><td>desired new name </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>success, or failure if the name collision check fires </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>As implemented the guard is <span class="tt">!containsPatternName(newName)</span>: it fails (with an "already exists" message) when <span class="tt">newName</span> is NOT already in use, and proceeds — even into a colliding name — when it IS already in use. The check's polarity does not match its failure message. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00166">166</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8cpp_source.html#l00083">containsPatternName()</a>, <a class="el" href="manager__result_8h_source.html#l00028">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__pattern_8cpp_source.html#l00298">mtc::MatchPattern::setName()</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8cpp_source.html#l00083">containsPatternName()</a>, <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__pattern_8cpp_source.html#l00298">mtc::MatchPattern::setName()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -891,7 +907,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00186">186</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8cpp_source.html#l00088">containsPatternNumber()</a>, <a class="el" href="manager__result_8h_source.html#l00028">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00035">mtc::MatchPattern::number()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00304">mtc::MatchPattern::setNumber()</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8cpp_source.html#l00088">containsPatternNumber()</a>, <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00046">mtc::MatchPattern::number()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00304">mtc::MatchPattern::setNumber()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -918,11 +934,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> after uniqueness check at manager level. </p>
+<p>Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> after uniqueness check at manager level. </p>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00221">221</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -956,7 +972,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00275">275</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00162">m_max_index_range</a>, and <a class="el" href="match__group_8h_source.html#l00161">m_min_index_range</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00173">m_max_index_range</a>, and <a class="el" href="match__group_8h_source.html#l00172">m_min_index_range</a>.</p>
 
 </div>
 </div>
@@ -983,11 +999,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> after uniqueness check at manager level. No-op if <span class="tt"><a class="el" href="#a8bddb6cf5b291196c6b16e3387d3fe90" title="Returns the group&#39;s display name.">name</a></span> is unchanged. </p>
+<p>Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> after uniqueness check at manager level. No-op if <span class="tt"><a class="el" href="#a8bddb6cf5b291196c6b16e3387d3fe90" title="Returns the group&#39;s display name.">name</a></span> is unchanged. </p>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00229">229</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__group_8h_source.html#l00095">name()</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__group_8h_source.html#l00101">name()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -1014,11 +1030,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html">PatternGroupManager</a> after uniqueness check at manager level. No-op if <span class="tt"><a class="el" href="#a40a3d2068c6eebca33ad3f97785a74d9" title="Returns the group&#39;s numeric index.">number</a></span> is unchanged. </p>
+<p>Called only by <a class="el" href="classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ...">PatternGroupManager</a> after uniqueness check at manager level. No-op if <span class="tt"><a class="el" href="#a40a3d2068c6eebca33ad3f97785a74d9" title="Returns the group&#39;s numeric index.">number</a></span> is unchanged. </p>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00236">236</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__group_8h_source.html#l00097">number()</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__group_8h_source.html#l00103">number()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -1044,7 +1060,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00150">150</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00028">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__pattern_8cpp_source.html#l00182">mtc::MatchPattern::setConfig()</a>, and <a class="el" href="match__group_8cpp_source.html#l00245">validatePatternConfig()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__pattern_8cpp_source.html#l00182">mtc::MatchPattern::setConfig()</a>, and <a class="el" href="match__group_8cpp_source.html#l00245">validatePatternConfig()</a>.</p>
 
 </div>
 </div>
@@ -1071,7 +1087,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00207">207</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00028">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__pattern_8cpp_source.html#l00311">mtc::MatchPattern::setImage()</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__pattern_8cpp_source.html#l00311">mtc::MatchPattern::setImage()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -1102,7 +1118,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00271">271</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00162">m_max_index_range</a>, and <a class="el" href="match__group_8h_source.html#l00161">m_min_index_range</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00173">m_max_index_range</a>, and <a class="el" href="match__group_8h_source.html#l00172">m_min_index_range</a>.</p>
 
 </div>
 </div>
@@ -1132,17 +1148,20 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Validates a candidate pattern config against the group's existing patterns: fails if the name is empty, or if another pattern (other than <span class="tt">excludeName</span>) already has the same name or number. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Validates a candidate pattern config against the group's existing patterns: fails if the name is empty, or if another pattern (other than <span class="tt">excludeName</span>) already has the same name or number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cfg</td><td>candidate pattern config to validate </td></tr>
-    <tr><td class="paramname">excludeName</td><td>pattern name to skip during the collision check (used when validating a rename/edit of that same pattern) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>candidate pattern config to validate </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">excludeName</td><td>pattern name to skip during the collision check (used when validating a rename/edit of that same pattern) </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>success, or a failure describing the first violated constraint </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="match__group_8cpp_source.html#l00245">245</a> of file <a class="el" href="match__group_8cpp_source.html">match_group.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00028">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8h_source.html#l00190">m_config</a>, <a class="el" href="match__pattern__config_8h_source.html#l00033">mtc::MatchPatternConfig::m_patternIndex</a>, <a class="el" href="match__pattern__config_8h_source.html#l00032">mtc::MatchPatternConfig::m_patternName</a>, <a class="el" href="match__group_8h_source.html#l00191">m_patterns</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8h_source.html#l00205">m_config</a>, <a class="el" href="match__pattern__config_8h_source.html#l00048">mtc::MatchPatternConfig::m_patternIndex</a>, <a class="el" href="match__pattern__config_8h_source.html#l00047">mtc::MatchPatternConfig::m_patternName</a>, <a class="el" href="match__group_8h_source.html#l00206">m_patterns</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00103">addPattern()</a>, and <a class="el" href="match__group_8cpp_source.html#l00150">setPatternConfig()</a>.</p>
 
@@ -1169,11 +1188,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00167">167</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00178">178</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__group_8h_source.html#l00093">config()</a>, <a class="el" href="match__group_8h_source.html#l00095">name()</a>, <a class="el" href="match__group_8h_source.html#l00097">number()</a>, and <a class="el" href="match__group_8h_source.html#l00167">PatternGroupManager</a>.</p>
+<p class="reference">References <a class="el" href="match__group_8h_source.html#l00099">config()</a>, <a class="el" href="match__group_8h_source.html#l00101">name()</a>, <a class="el" href="match__group_8h_source.html#l00103">number()</a>, and <a class="el" href="match__group_8h_source.html#l00178">PatternGroupManager</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00061">MatchGroup()</a>, and <a class="el" href="match__group_8h_source.html#l00167">PatternGroupManager</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00061">MatchGroup()</a>, and <a class="el" href="match__group_8h_source.html#l00178">PatternGroupManager</a>.</p>
 
 </div>
 </div>
@@ -1200,9 +1219,9 @@ Friends</h2></td></tr>
 
 <p>This group's identity and shared algorithm config. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00190">190</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00205">205</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00057">cloneConfigTo()</a>, <a class="el" href="match__group_8h_source.html#l00093">config()</a>, <a class="el" href="match__group_8cpp_source.html#l00061">MatchGroup()</a>, <a class="el" href="match__group_8cpp_source.html#l00046">MatchGroup()</a>, <a class="el" href="match__group_8h_source.html#l00095">name()</a>, <a class="el" href="match__group_8h_source.html#l00097">number()</a>, <a class="el" href="match__group_8cpp_source.html#l00114">removePattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00135">removePatternByNumber()</a>, <a class="el" href="match__group_8cpp_source.html#l00166">renamePattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00186">renumberPattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00221">setConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00229">setName()</a>, <a class="el" href="match__group_8cpp_source.html#l00236">setNumber()</a>, <a class="el" href="match__group_8cpp_source.html#l00150">setPatternConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00207">setPatternImage()</a>, and <a class="el" href="match__group_8cpp_source.html#l00245">validatePatternConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00057">cloneConfigTo()</a>, <a class="el" href="match__group_8h_source.html#l00099">config()</a>, <a class="el" href="match__group_8cpp_source.html#l00061">MatchGroup()</a>, <a class="el" href="match__group_8cpp_source.html#l00046">MatchGroup()</a>, <a class="el" href="match__group_8h_source.html#l00101">name()</a>, <a class="el" href="match__group_8h_source.html#l00103">number()</a>, <a class="el" href="match__group_8cpp_source.html#l00114">removePattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00135">removePatternByNumber()</a>, <a class="el" href="match__group_8cpp_source.html#l00166">renamePattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00186">renumberPattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00221">setConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00229">setName()</a>, <a class="el" href="match__group_8cpp_source.html#l00236">setNumber()</a>, <a class="el" href="match__group_8cpp_source.html#l00150">setPatternConfig()</a>, <a class="el" href="match__group_8cpp_source.html#l00207">setPatternImage()</a>, and <a class="el" href="match__group_8cpp_source.html#l00245">validatePatternConfig()</a>.</p>
 
 </div>
 </div>
@@ -1228,7 +1247,7 @@ Friends</h2></td></tr>
 
 <p>Pattern most recently added via <a class="el" href="#a3e01d2209b257dc31057707be634a158">addPattern()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00192">192</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00207">207</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00103">addPattern()</a>, and <a class="el" href="match__group_8cpp_source.html#l00146">lastPatternAccess()</a>.</p>
 
@@ -1256,7 +1275,7 @@ Friends</h2></td></tr>
 
 <p>Non-owning back-reference to the owning manager (nullptr if not manager-created). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00189">189</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00204">204</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00061">MatchGroup()</a>, and <a class="el" href="match__group_8cpp_source.html#l00046">MatchGroup()</a>.</p>
 
@@ -1284,7 +1303,7 @@ Friends</h2></td></tr>
 
 <p>Maximum valid group index, adjustable via <a class="el" href="#a3f4e6eba5686c0f6b73c318a615afdf1">setIndexRange()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00162">162</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00173">173</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00284">getMaxGroupRange()</a>, <a class="el" href="match__group_8cpp_source.html#l00275">setIndexRange()</a>, and <a class="el" href="match__group_8cpp_source.html#l00271">validateIndexRange()</a>.</p>
 
@@ -1312,7 +1331,7 @@ Friends</h2></td></tr>
 
 <p>Maximum valid pattern index (fixed at construction time). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00164">164</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00175">175</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00292">getMaxPatternRange()</a>.</p>
 
@@ -1340,7 +1359,7 @@ Friends</h2></td></tr>
 
 <p>Minimum valid group index, adjustable via <a class="el" href="#a3f4e6eba5686c0f6b73c318a615afdf1">setIndexRange()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00161">161</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00172">172</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00288">getMinGroupRange()</a>, <a class="el" href="match__group_8cpp_source.html#l00275">setIndexRange()</a>, and <a class="el" href="match__group_8cpp_source.html#l00271">validateIndexRange()</a>.</p>
 
@@ -1368,7 +1387,7 @@ Friends</h2></td></tr>
 
 <p>Minimum valid pattern index (fixed at construction time). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00163">163</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00174">174</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00296">getMinPatternRange()</a>.</p>
 
@@ -1396,15 +1415,15 @@ Friends</h2></td></tr>
 
 <p>Live patterns registered in this group. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00191">191</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__group_8h_source.html#l00206">206</a> of file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00103">addPattern()</a>, <a class="el" href="match__group_8cpp_source.html#l00071">findPatternByName()</a>, <a class="el" href="match__group_8cpp_source.html#l00077">findPatternByNumber()</a>, <a class="el" href="match__group_8cpp_source.html#l00097">isEmpty()</a>, <a class="el" href="match__group_8cpp_source.html#l00093">patternCount()</a>, <a class="el" href="match__group_8cpp_source.html#l00067">patterns()</a>, <a class="el" href="match__group_8cpp_source.html#l00114">removePattern()</a>, and <a class="el" href="match__group_8cpp_source.html#l00245">validatePatternConfig()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__group_8h_source.html">match_group.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__group_8cpp_source.html">match_group.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__group_8h_source.html">match_group.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__group_8cpp_source.html">match_group.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

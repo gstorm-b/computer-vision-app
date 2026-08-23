@@ -162,7 +162,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a1203b5e436e5c4a863d30915a0346548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generated UI form; owns the log view, combo box, and clear button.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dockable log viewer widget: renders <a class="el" href="class_app_logger.html">AppLogger</a> messages as color-coded HTML, filtered by a User/Developer view-mode combo box, and re-themes itself on <a class="el" href="class_theme_manager.html">ThemeManager</a> changes. </p>
+<div class="textblock"><p>Dockable log viewer widget: renders <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> messages as color-coded HTML, filtered by a User/Developer view-mode combo box, and re-themes itself on <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> changes. </p>
 
 <p class="definition">Definition at line <a class="el" href="system__log__form_8h_source.html#l00015">15</a> of file <a class="el" href="system__log__form_8h_source.html">system_log_form.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -188,7 +188,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Populates the view-mode combo, applies the initial stylesheet, and connects to <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> and <a class="el" href="class_app_logger.html#a133157d23100440952c0843bf5296ab5">AppLogger::newLogAdded</a>. </p>
+<p>Populates the view-mode combo, applies the initial stylesheet, and connects to <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> and <a class="el" href="class_app_logger.html#a133157d23100440952c0843bf5296ab5" title="Emitted whenever a message has been logged (user or developer), after it has been written to the log ...">AppLogger::newLogAdded</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="system__log__form_8cpp_source.html#l00051">51</a> of file <a class="el" href="system__log__form_8cpp_source.html">system_log_form.cpp</a>.</p>
 
@@ -379,7 +379,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="system__log__form_8cpp_source.html#l00093">93</a> of file <a class="el" href="system__log__form_8cpp_source.html">system_log_form.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00030">LogMessage::category</a>, <a class="el" href="app__logger_8h_source.html#l00033">LogMessage::context</a>, <a class="el" href="app__logger_8h_source.html#l00031">LogMessage::level</a>, <a class="el" href="app__logger_8h_source.html#l00032">LogMessage::message</a>, <a class="el" href="app__logger_8h_source.html#l00029">LogMessage::timestamp</a>, and <a class="el" href="app__logger_8h_source.html#l00014">User</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00047">LogMessage::category</a>, <a class="el" href="app__logger_8h_source.html#l00050">LogMessage::context</a>, <a class="el" href="app__logger_8h_source.html#l00048">LogMessage::level</a>, <a class="el" href="app__logger_8h_source.html#l00049">LogMessage::message</a>, <a class="el" href="app__logger_8h_source.html#l00046">LogMessage::timestamp</a>, and <a class="el" href="app__logger_8h_source.html#l00025">User</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="system__log__form_8cpp_source.html#l00129">rerenderLogs()</a>.</p>
 
@@ -444,7 +444,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="system__log__form_8cpp_source.html#l00088">88</a> of file <a class="el" href="system__log__form_8cpp_source.html">system_log_form.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00030">LogMessage::category</a>, <a class="el" href="system__log__form_8h_source.html#l00044">ui</a>, and <a class="el" href="app__logger_8h_source.html#l00014">User</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00047">LogMessage::category</a>, <a class="el" href="system__log__form_8h_source.html#l00044">ui</a>, and <a class="el" href="app__logger_8h_source.html#l00025">User</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="system__log__form_8cpp_source.html#l00159">onNewLogReceived()</a>, and <a class="el" href="system__log__form_8cpp_source.html#l00129">rerenderLogs()</a>.</p>
 
@@ -508,8 +508,8 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/app/<a class="el" href="system__log__form_8h_source.html">system_log_form.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/app/<a class="el" href="system__log__form_8cpp_source.html">system_log_form.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/app/<a class="el" href="system__log__form_8h_source.html">system_log_form.h</a></li>
+<li>C:/DGB/Project/ncr_picking/app/<a class="el" href="system__log__form_8cpp_source.html">system_log_form.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

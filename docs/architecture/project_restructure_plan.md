@@ -207,7 +207,14 @@ Basler and Vision TCP/IP device widgets. See
 
 ## Phase 4 - Product Split And Commercial Packaging
 
-**Status:** Product/release plan defined; installer implementation pending.
+**Status (2026-07-28):** ON HOLD. The plan and decision below stand, but Phase 4
+is deferred — the product needs further development before a first release is
+meaningful. The tasks and acceptance criteria in this section are not active
+work. See the hold notice in
+[phase4_product_release_plan.md](../product/phase4_product_release_plan.md).
+
+**Status (2026-06-24):** Product/release plan defined; installer implementation
+pending.
 
 **Goal.** Turn the architecture into a deliverable product layout.
 

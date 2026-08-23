@@ -1,6 +1,12 @@
 #ifndef IDEVICE_RUNNER_H
 #define IDEVICE_RUNNER_H
 
+/**
+ * @file idevice_runner.h
+ * @brief Abstract interface (IDeviceRunner) for per-device thread controllers that own and
+ *        drive a device on its own worker QThread.
+ */
+
 #include <QObject>
 #include <QThread>
 #include <QEventLoop>
@@ -8,22 +14,23 @@
 #include "device/idevice.h"
 #include "runtime/device_command.h"
 
-/// Runtime layer: per-device thread controllers that own and drive a device on its
-/// own worker QThread.
 namespace vc::runtime {
 
-/// Abstract interface for per-device thread controllers. Concrete implementations
-/// (CameraRunner, PlcRunner, VisionOutputRunner) inherit from the DeviceRunner<T>
-/// template base which provides the boilerplate.
-///
-/// Lifecycle:
-///   - start()  starts the internal QThread
-///   - attach() moves the device onto the worker thread and wires its signals
-///   - detach() unwires the device's signals and moves it to the destination thread
-///   - stop()   quits the worker thread and waits (up to 3 s) for it to finish
-///
-/// @note All signals forwarded from the device are emitted as Qt::QueuedConnection
-/// and can be safely received on the GUI thread.
+/**
+ * @class IDeviceRunner
+ * @brief Abstract interface for per-device thread controllers. Concrete implementations
+ *        (CameraRunner, PlcRunner, VisionOutputRunner) inherit from the DeviceRunner<T>
+ *        template base which provides the boilerplate.
+ *
+ * Lifecycle:
+ *   - start()  starts the internal QThread
+ *   - attach() moves the device onto the worker thread and wires its signals
+ *   - detach() unwires the device's signals and moves it to the destination thread
+ *   - stop()   quits the worker thread and waits (up to 3 s) for it to finish
+ *
+ * @note All signals forwarded from the device are emitted as Qt::QueuedConnection
+ *       and can be safely received on the GUI thread.
+ */
 class IDeviceRunner : public QObject {
     Q_OBJECT
 
@@ -43,9 +50,11 @@ public:
     /// Moves the device onto the worker thread and wires its signals for
     /// cross-thread forwarding.
     virtual void attach()                        = 0;
-    /// Unwires the device's signals and moves it off the worker thread onto
-    /// `dest` (or the caller's thread if null).
-    /// @param dest destination thread to move the device to
+    /**
+     * @brief Unwires the device's signals and moves it off the worker thread onto `dest` (or
+     *        the caller's thread if null).
+     * @param[in] dest destination thread to move the device to
+     */
     virtual void detach(QThread *dest = nullptr) = 0;
 
     // ── State ─────────────────────────────────────────────────────────────────
@@ -54,10 +63,13 @@ public:
     /// Returns the concrete device instance owned/managed by this runner.
     virtual vc::device::IDevice *device()         const = 0;
 
-    /// Default command handler: rejects any command as unsupported. Concrete
-    /// runners that support DeviceCommand dispatch override this.
-    /// @param command the command that was submitted
-    /// @return an UnsupportedCommand rejection result; also emitted via commandFinished()
+    /**
+     * @brief Default command handler: rejects any command as unsupported. Concrete runners
+     *        that support DeviceCommand dispatch override this.
+     * @param[in] command the command that was submitted
+     * @return an UnsupportedCommand rejection result; also emitted via commandFinished()
+     * @post commandFinished() is emitted with the returned result before this call returns.
+     */
     virtual DeviceCommandResult submitCommand(const DeviceCommand &command)
     {
         auto result = DeviceCommandResult::rejected(
@@ -73,10 +85,12 @@ public:
     /// Returns whether the worker thread exists and is currently running.
     bool isRunning()  const { return workerThread() && workerThread()->isRunning(); }
 
-    /// Requests the device detach on its own worker thread and blocks the calling
-    /// thread (via a local QEventLoop) until the device confirms it via
-    /// deviceThreadDetached().
-    /// @param dest destination thread to move the device to once detached
+    /**
+     * @brief Requests the device detach on its own worker thread and blocks the calling
+     *        thread (via a local QEventLoop) until the device confirms it via
+     *        deviceThreadDetached().
+     * @param[in] dest destination thread to move the device to once detached
+     */
     void detachFromOutsideThread(QThread *dest = nullptr) {
         QEventLoop loop;
         connect(this, &IDeviceRunner::requestDetach,
@@ -87,19 +101,22 @@ public:
         loop.exec();
     }
 
-    /// Synchronously closes the device connection on its own worker thread.
-    ///
-    /// Must be called BEFORE detach()/stop() during a phase teardown: the device
-    /// owns thread-affined transport objects (e.g. a QTcpSocket created on the
-    /// worker thread). Moving the device across threads or stopping the worker
-    /// while the link is still open leaks the connection and can crash on
-    /// re-entry. Triggering deviceDisconnect() here lets the device close its
-    /// transport on the correct thread.
-    ///
-    /// No-op when the device is not connected. Bounded by timeoutMs so a
-    /// misbehaving device cannot stall teardown. Requires the runner to still be
-    /// attached with its worker thread running (the normal pre-detach state).
-    /// @param timeoutMs maximum time to wait for the device to report disconnected
+    /**
+     * @brief Synchronously closes the device connection on its own worker thread.
+     *
+     * Must be called BEFORE detach()/stop() during a phase teardown: the device owns
+     * thread-affined transport objects (e.g. a QTcpSocket created on the worker thread). Moving
+     * the device across threads or stopping the worker while the link is still open leaks the
+     * connection and can crash on re-entry. Triggering deviceDisconnect() here lets the device
+     * close its transport on the correct thread.
+     *
+     * No-op when the device is not connected. Bounded by timeoutMs so a misbehaving device
+     * cannot stall teardown.
+     *
+     * @param[in] timeoutMs maximum time to wait for the device to report disconnected
+     * @pre The runner must still be attached with its worker thread running (the normal
+     *      pre-detach state).
+     */
     void disconnectAndWait(int timeoutMs = 3000) {
         vc::device::IDevice *dev = device();
         if (!dev) return;
@@ -135,20 +152,34 @@ public:
 
 signals:
     // Forwarded from the concrete device (cross-thread safe)
-    /// Internal request (used by detachFromOutsideThread()) asking the device to
-    /// detach on its own thread and move to `dest`.
+    /**
+     * @brief Internal request (used by detachFromOutsideThread()) asking the device to detach
+     *        on its own thread and move to `dest`.
+     * @param[in] dest destination thread to move the device to once detached.
+     */
     void requestDetach(QThread *dest);
     /// Internal request (used by disconnectAndWait()) asking the device to close
     /// its connection on its own worker thread.
     void requestDeviceDisconnect();
     // void detachFinished();
-    /// Forwarded from the device via Qt::QueuedConnection: notifies of a connection
-    /// state change; safe to receive on the GUI thread.
+    /**
+     * @brief Forwarded from the device via Qt::QueuedConnection: notifies of a connection
+     *        state change.
+     * @param[in] status the device's new connection status.
+     * @note Safe to receive on the GUI thread.
+     */
     void connectStatusChanged(vc::device::ConnectStatus status);
-    /// Forwarded from the device via Qt::QueuedConnection: reports an error message;
-    /// safe to receive on the GUI thread.
+    /**
+     * @brief Forwarded from the device via Qt::QueuedConnection: reports an error message.
+     * @param[in] msg human-readable error description.
+     * @note Safe to receive on the GUI thread.
+     */
     void errorOccurred(const QString &msg);
-    /// Emitted with the outcome of a submitCommand() call.
+    /**
+     * @brief Emitted with the outcome of a submitCommand() call.
+     * @param[in] result the command's accepted/rejected/succeeded/failed outcome.
+     * @see submitCommand()
+     */
     void commandFinished(vc::runtime::DeviceCommandResult result);
 
 protected:

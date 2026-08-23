@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/plc/mc_protocol_device.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/plc/mc_protocol_device.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('mc__protocol__
   <div class="headertitle"><div class="title">mc_protocol_device.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Mitsubishi MC-protocol PLC device (McProtocolDevice).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="plc__device_8h_source.html">device/plc/plc_device.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mc__protocol__config_8h_source.html">device/plc/mc_protocol_config.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mc__fame__3e_8h_source.html">device/plc/mc_fame_3e.h</a>&quot;</code><br />
@@ -141,19 +144,24 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AMcProtocolDevice" id="r_vc_3A_3Adevice_3A_3AMcProtocolDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html">vc::device::McProtocolDevice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mitsubishi MC-protocol PLC device: owns the transport (<a class="el" href="classvc_1_1device_1_1_mc_msg_interface.html" title="Abstract transport (message interface) to a PLC: connect/disconnect the port and send/receive raw byt...">McMsgInterface</a>) and frame codec (<a class="el" href="classvc_1_1device_1_1_m_c_frame_abstract.html" title="Abstract MC-protocol frame codec: builds outgoing request frames and parses incoming response frames ...">MCFrameAbstract</a>), round-robins polling reads over the configured M/D device ranges, and serves ad-hoc digital/word writes via IPlcTagProvider/IPlcIoWriter.  <a href="classvc_1_1device_1_1_mc_protocol_device.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a862d26d303a5bc0e6b74a5124d058d6a" id="r_a862d26d303a5bc0e6b74a5124d058d6a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a862d26d303a5bc0e6b74a5124d058d6a">MC_PROTOCOL_DEVICE_STR</a>&#160;&#160;&#160;&quot;MC protocol device&quot;</td></tr>
 <tr class="memdesc:a862d26d303a5bc0e6b74a5124d058d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Human-readable display label for this device type.  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Mitsubishi MC-protocol PLC device (McProtocolDevice). </p>
+
+<p class="definition">Definition in file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a862d26d303a5bc0e6b74a5124d058d6a" name="a862d26d303a5bc0e6b74a5124d058d6a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a862d26d303a5bc0e6b74a5124d058d6a">&#9670;&#160;</a></span>MC_PROTOCOL_DEVICE_STR</h2>
 
@@ -168,7 +176,7 @@ Macros</h2></td></tr>
 
 <p>Human-readable display label for this device type. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00012">12</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00017">17</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
 </div>
 </div>

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1mod
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract per-task-type configuration.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="itask__config_8h_source.html">itask_config.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::model::ITaskConfig:</div>
@@ -136,6 +139,7 @@ Collaboration diagram for vc::model::ITaskConfig:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:accb0472e0759ff53fb00217ca4475483" id="r_accb0472e0759ff53fb00217ca4475483"><td class="memItemLeft">virtual <a class="el" href="classvc_1_1model_1_1_i_task_config.html">ITaskConfig</a> *&#160;</td><td class="memItemRight"><a class="el" href="#accb0472e0759ff53fb00217ca4475483">copy</a> ()=0</td></tr>
 <tr class="memitem:a588b4ab3223befddf108af464486f6e4" id="r_a588b4ab3223befddf108af464486f6e4"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a588b4ab3223befddf108af464486f6e4">fromJson</a> (const QJsonObject &amp;obj)=0</td></tr>
+<tr class="memdesc:a588b4ab3223befddf108af464486f6e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores the configuration's fields from a JSON object previously produced by <a class="el" href="#a8f55b79f911dd81b99633a95dbc7055f" title="Serializes the configuration&#39;s fields to a JSON object.">toJson()</a>.  <br /></td></tr>
 <tr class="memitem:a0b5e8424e3fef579f867c38f0dd6359c" id="r_a0b5e8424e3fef579f867c38f0dd6359c"><td class="memItemLeft">virtual const QMetaObject &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0b5e8424e3fef579f867c38f0dd6359c">getMetaObject</a> () const =0</td></tr>
 <tr class="memdesc:a0b5e8424e3fef579f867c38f0dd6359c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the QMetaObject of the concrete subclass, for property introspection.  <br /></td></tr>
 <tr class="memitem:ad32d5f95ee4cf000d0e46563076265ea" id="r_ad32d5f95ee4cf000d0e46563076265ea"><td class="memItemLeft">virtual <a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b">TaskType</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad32d5f95ee4cf000d0e46563076265ea">taskType</a> () const =0</td></tr>
@@ -146,9 +150,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:af81c54085745a44e074807d3a9146c72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-destructs the configuration.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract per-task-type configuration: defines the JSON (de)serialization and cloning contract that every concrete <a class="el" href="classvc_1_1model_1_1_i_task_config.html">ITaskConfig</a> subclass (one per <a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b" title="Identifies the kind of work a task performs.">TaskType</a>) must implement. Not a QObject; concrete subclasses expose their own QMetaObject via <a class="el" href="#a0b5e8424e3fef579f867c38f0dd6359c" title="Returns the QMetaObject of the concrete subclass, for property introspection.">getMetaObject()</a> for property introspection. </p>
+<div class="textblock"><p>Abstract per-task-type configuration. </p>
+<p>Defines the JSON (de)serialization and cloning contract that every concrete <a class="el" href="classvc_1_1model_1_1_i_task_config.html" title="Abstract per-task-type configuration.">ITaskConfig</a> subclass (one per <a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b" title="Identifies the kind of work a task performs.">TaskType</a>) must implement. Not a QObject; concrete subclasses expose their own QMetaObject via <a class="el" href="#a0b5e8424e3fef579f867c38f0dd6359c" title="Returns the QMetaObject of the concrete subclass, for property introspection.">getMetaObject()</a> for property introspection. </p>
 
-<p class="definition">Definition at line <a class="el" href="itask__config_8h_source.html#l00015">15</a> of file <a class="el" href="itask__config_8h_source.html">itask_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="itask__config_8h_source.html#l00023">23</a> of file <a class="el" href="itask__config_8h_source.html">itask_config.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af81c54085745a44e074807d3a9146c72" name="af81c54085745a44e074807d3a9146c72"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af81c54085745a44e074807d3a9146c72">&#9670;&#160;</a></span>~ITaskConfig()</h2>
@@ -228,9 +233,11 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Restores the configuration's fields from a JSON object previously produced by <a class="el" href="#a8f55b79f911dd81b99633a95dbc7055f" title="Serializes the configuration&#39;s fields to a JSON object.">toJson()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Restores the configuration's fields from a JSON object previously produced by <a class="el" href="#a8f55b79f911dd81b99633a95dbc7055f" title="Serializes the configuration&#39;s fields to a JSON object.">toJson()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>serialized configuration </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>serialized configuration </td></tr>
   </table>
   </dd>
 </dl>
@@ -328,7 +335,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="itask__config_8h_source.html">itask_config.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="itask__config_8h_source.html">itask_config.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

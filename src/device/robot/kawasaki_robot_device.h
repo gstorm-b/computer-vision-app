@@ -1,14 +1,21 @@
 #ifndef KAWASAKI_ROBOT_DEVICE_H
 #define KAWASAKI_ROBOT_DEVICE_H
 
+/**
+ * @file kawasaki_robot_device.h
+ * @brief Kawasaki robot device stub (KawasakiRobotDevice).
+ */
+
 #include "device/robot/robot_device.h"
 #include "device/robot/kawasaki_robot_config.h"
 
 namespace vc::device {
 
-/// Minimum concrete robot device for the Kawasaki vendor. Implements only what IDevice
-/// requires; all calls are stubs returning sensible defaults until the vendor
-/// integration starts.
+/**
+ * @class KawasakiRobotDevice
+ * @brief Minimum concrete robot device for the Kawasaki vendor. All calls are stubs returning
+ *        sensible defaults until the vendor integration starts.
+ */
 class KawasakiRobotDevice : public RobotDevice {
     Q_OBJECT
 

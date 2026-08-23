@@ -1,20 +1,30 @@
 #ifndef IREQUEST_H
 #define IREQUEST_H
 
+/**
+ * @file irequest.h
+ * @brief Device abstraction layer: the abstract request contract devices process via IDevice::pushRequest().
+ */
+
 #include <memory>
 
-/// Device abstraction layer: the abstract request contract devices process via IDevice::pushRequest().
 namespace vc::device {
 
-/// Identifies which device-family protocol a request targets.
+/**
+ * @enum RequestType
+ * @brief Identifies which device-family protocol a request targets.
+ */
 enum RequestType {
     Request_MC,
     Request_PLC,
     Request_VisionOutput
 };
 
-/// Abstract request object pushed to a device via IDevice::pushRequest(); concrete requests
-/// carry protocol-specific payload/addressing data.
+/**
+ * @class IRequest
+ * @brief Abstract request object pushed to a device via IDevice::pushRequest(); concrete requests
+ *        carry protocol-specific payload/addressing data.
+ */
 class IRequest {
 public:
     /// Default virtual destructor; concrete requests own no extra resources here.

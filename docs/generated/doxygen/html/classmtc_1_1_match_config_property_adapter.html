@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_m
 </div><!--header-->
 <div class="contents">
 
+<p>Bridges a group's algorithm config (<a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">MatchGroupConfig::typeConfig</a>) to a QtVariantPropertyManager/Browser. The edge/algorithm parameters are shared by every pattern in the group, so they are edited at the group level; the currently-bound config's matching type determines which property spec table (e.g. kEdgeSpecs) drives the generated property tree.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for mtc::MatchConfigPropertyAdapter:</div>
@@ -141,6 +144,7 @@ Signals</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8107cf40d1b397a4dec4ceaf6a8af328" id="r_a8107cf40d1b397a4dec4ceaf6a8af328"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8107cf40d1b397a4dec4ceaf6a8af328">bind</a> (<a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> *cfg)</td></tr>
 <tr class="memitem:a055f2058072a14d3d048c25ef37768f3" id="r_a055f2058072a14d3d048c25ef37768f3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a055f2058072a14d3d048c25ef37768f3">MatchConfigPropertyAdapter</a> (QtVariantPropertyManager *mgr, QObject *parent=nullptr)</td></tr>
+<tr class="memdesc:a055f2058072a14d3d048c25ef37768f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the adapter, connecting to <span class="tt">mgr</span>'s valueChanged signal so edits made in the property browser are routed to <a class="el" href="#a796de115b115171219568c9abfb17b27">onPropertyValueChanged()</a>.  <br /></td></tr>
 <tr class="memitem:a773b36e1f6836515b6e6e9ef32b673aa" id="r_a773b36e1f6836515b6e6e9ef32b673aa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a773b36e1f6836515b6e6e9ef32b673aa">refresh</a> ()</td></tr>
 <tr class="memitem:ab243dd158c4e854f2f02c5124b6aa96a" id="r_ab243dd158c4e854f2f02c5124b6aa96a"><td class="memItemLeft">QList&lt; QtProperty * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ab243dd158c4e854f2f02c5124b6aa96a">rootProperties</a> () const</td></tr>
 <tr class="memitem:a6cc6b3725a386d08ce2da821a2c30ef0" id="r_a6cc6b3725a386d08ce2da821a2c30ef0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6cc6b3725a386d08ce2da821a2c30ef0">~MatchConfigPropertyAdapter</a> () override</td></tr>
@@ -171,19 +175,25 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a6057fed36be5c62329f42839468a0673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps spec key to its generated property.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Bridges a group's algorithm config (<a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">MatchGroupConfig::typeConfig</a>) to a QtVariantPropertyManager/Browser. The edge/algorithm parameters are shared by every pattern in the group, so they are edited at the group level; the currently-bound config's matching type determines which property spec table (e.g. kEdgeSpecs) drives the generated property tree.</p>
-<p>Usage: auto* adapter = new MatchConfigPropertyAdapter(variantMgr, this); adapter-&gt;bind(&amp;myGroupConfig); for (auto* p : adapter-&gt;<a class="el" href="#ab243dd158c4e854f2f02c5124b6aa96a">rootProperties()</a>) browser-&gt;addProperty(p); // property edits are automatically committed back to the group config // and <a class="el" href="#a07a21a6bd0cbcd2164072336fe3c2101" title="Emitted after a property edit has been committed to the bound config.">configModified()</a> is emitted</p>
-<p>Extending — adding a new EdgeBased setting requires only two steps:</p><ol type="1">
-<li>Add the field to <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a>.</li>
+<div class="textblock"><p>Bridges a group's algorithm config (<a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">MatchGroupConfig::typeConfig</a>) to a QtVariantPropertyManager/Browser. The edge/algorithm parameters are shared by every pattern in the group, so they are edited at the group level; the currently-bound config's matching type determines which property spec table (e.g. kEdgeSpecs) drives the generated property tree. </p>
+<p>Usage: </p><div class="fragment"><div class="line"><span class="keyword">auto</span>* adapter = <span class="keyword">new</span> <a class="code hl_function" href="#a055f2058072a14d3d048c25ef37768f3">MatchConfigPropertyAdapter</a>(variantMgr, <span class="keyword">this</span>);</div>
+<div class="line">adapter-&gt;bind(&amp;myGroupConfig);</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keyword">auto</span>* p : adapter-&gt;rootProperties())</div>
+<div class="line">    browser-&gt;addProperty(p);</div>
+<div class="line"><span class="comment">// property edits are automatically committed back to the group config</span></div>
+<div class="line"><span class="comment">// and configModified() is emitted</span></div>
+<div class="ttc" id="aclassmtc_1_1_match_config_property_adapter_html_a055f2058072a14d3d048c25ef37768f3"><div class="ttname"><a href="#a055f2058072a14d3d048c25ef37768f3">mtc::MatchConfigPropertyAdapter::MatchConfigPropertyAdapter</a></div><div class="ttdeci">MatchConfigPropertyAdapter(QtVariantPropertyManager *mgr, QObject *parent=nullptr)</div><div class="ttdoc">Constructs the adapter, connecting to mgr&#39;s valueChanged signal so edits made in the property browser...</div><div class="ttdef"><b>Definition</b> <a href="match__config__property__adapter_8cpp_source.html#l00096">match_config_property_adapter.cpp:96</a></div></div>
+</div><!-- fragment --><p>Extending — adding a new EdgeBased setting requires only two steps:</p><ol type="1">
+<li>Add the field to <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>.</li>
 <li>Add ONE entry to kEdgeSpecs[] in <a class="el" href="match__config__property__adapter_8cpp.html">match_config_property_adapter.cpp</a>. Nothing else changes.</li>
 </ol>
 <p>Extending — adding a new algorithm type:</p><ol type="1">
-<li>Implement <a class="el" href="classmtc_1_1_i_match_type_config.html">IMatchTypeConfig</a> + <a class="el" href="matching__types_8h.html">matching_types.h</a> as documented there.</li>
-<li>Add a <a class="el" href="struct_prop_spec.html">PropSpec</a> table for the new type in the .cpp.</li>
+<li>Implement <a class="el" href="classmtc_1_1_i_match_type_config.html" title="Abstract base for per-algorithm runtime/learn parameters.">IMatchTypeConfig</a> + <a class="el" href="matching__types_8h.html" title="MatchingType — algorithm-family discriminator shared by pattern/group configuration.">matching_types.h</a> as documented there.</li>
+<li>Add a <a class="el" href="struct_prop_spec.html" title="One row in a property spec table: a single editable parameter&#39;s identity, editor attributes (type/ran...">PropSpec</a> table for the new type in the .cpp.</li>
 <li>Add a branch in <a class="el" href="#ac0691748e859b3e0dc8b45d8203997a5">buildTypeGroup()</a> to use that table. </li>
 </ol>
 
-<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00041">41</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00050">50</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a055f2058072a14d3d048c25ef37768f3" name="a055f2058072a14d3d048c25ef37768f3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a055f2058072a14d3d048c25ef37768f3">&#9670;&#160;</a></span>MatchConfigPropertyAdapter()</h2>
@@ -211,10 +221,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the adapter, connecting to <span class="tt">mgr</span>'s valueChanged signal so edits made in the property browser are routed to <a class="el" href="#a796de115b115171219568c9abfb17b27">onPropertyValueChanged()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Constructs the adapter, connecting to <span class="tt">mgr</span>'s valueChanged signal so edits made in the property browser are routed to <a class="el" href="#a796de115b115171219568c9abfb17b27">onPropertyValueChanged()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mgr</td><td>shared QtVariantPropertyManager this adapter adds its properties to </td></tr>
-    <tr><td class="paramname">parent</td><td>optional QObject owner</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mgr</td><td>shared QtVariantPropertyManager this adapter adds its properties to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>optional QObject owner</td></tr>
   </table>
   </dd>
 </dl>
@@ -222,7 +234,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8cpp_source.html#l00096">96</a> of file <a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__config__property__adapter_8h_source.html#l00093">m_mgr</a>, and <a class="el" href="match__config__property__adapter_8cpp_source.html#l00202">onPropertyValueChanged()</a>.</p>
+<p class="reference">References <a class="el" href="match__config__property__adapter_8h_source.html#l00104">m_mgr</a>, and <a class="el" href="match__config__property__adapter_8cpp_source.html#l00202">onPropertyValueChanged()</a>.</p>
 
 </div>
 </div>
@@ -283,7 +295,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8cpp_source.html#l00114">114</a> of file <a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__config__property__adapter_8cpp_source.html#l00135">build()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00182">destroy()</a>, and <a class="el" href="match__config__property__adapter_8h_source.html#l00094">m_cfg</a>.</p>
+<p class="reference">References <a class="el" href="match__config__property__adapter_8cpp_source.html#l00135">build()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00182">destroy()</a>, and <a class="el" href="match__config__property__adapter_8h_source.html#l00105">m_cfg</a>.</p>
 
 </div>
 </div>
@@ -348,7 +360,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">144</a> of file <a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="prop__spec_8h_source.html#l00130">PropSpecHelper::buildGroup()</a>, <a class="el" href="matching__types_8h_source.html#l00021">mtc::EdgeBased</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00022">mtc::kEdgeSpecs</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00094">m_cfg</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00096">m_grpType</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00093">m_mgr</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00099">m_propKeys</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00098">m_props</a>, and <a class="el" href="matching__types_8h_source.html#l00026">mtc::matchingTypeName()</a>.</p>
+<p class="reference">References <a class="el" href="prop__spec_8h_source.html#l00134">PropSpecHelper::buildGroup()</a>, <a class="el" href="matching__types_8h_source.html#l00024">mtc::EdgeBased</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00022">mtc::kEdgeSpecs</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00105">m_cfg</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00107">m_grpType</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00104">m_mgr</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00110">m_propKeys</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00109">m_props</a>, and <a class="el" href="matching__types_8h_source.html#l00029">mtc::matchingTypeName()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00135">build()</a>.</p>
 
@@ -410,7 +422,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8cpp_source.html#l00182">182</a> of file <a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__config__property__adapter_8h_source.html#l00094">m_cfg</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00096">m_grpType</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00099">m_propKeys</a>, and <a class="el" href="match__config__property__adapter_8h_source.html#l00098">m_props</a>.</p>
+<p class="reference">References <a class="el" href="match__config__property__adapter_8h_source.html#l00105">m_cfg</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00107">m_grpType</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00110">m_propKeys</a>, and <a class="el" href="match__config__property__adapter_8h_source.html#l00109">m_props</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00114">bind()</a>, and <a class="el" href="match__config__property__adapter_8cpp_source.html#l00105">~MatchConfigPropertyAdapter()</a>.</p>
 
@@ -443,11 +455,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Handles a value change from the property browser: looks up the changed <span class="tt">prop</span>'s key and, if the bound config's matching type has a matching spec table, dispatches the new value into the config and emits <a class="el" href="#a07a21a6bd0cbcd2164072336fe3c2101" title="Emitted after a property edit has been committed to the bound config.">configModified()</a>.</p>
-<p>Slot: reacts to a browser edit on prop by looking up its spec key and writing val into the bound <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a> via <a class="el" href="namespace_prop_spec_helper.html#a83e48d5dc8593ed8b402447bf06bbca0">PropSpecHelper::dispatch</a>; emits <a class="el" href="#a07a21a6bd0cbcd2164072336fe3c2101" title="Emitted after a property edit has been committed to the bound config.">configModified()</a> on success. No-op if nothing is bound or prop isn't one of this adapter's tracked properties. </p>
+<p>Slot: reacts to a browser edit on prop by looking up its spec key and writing val into the bound <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a> via <a class="el" href="namespace_prop_spec_helper.html#a83e48d5dc8593ed8b402447bf06bbca0">PropSpecHelper::dispatch</a>; emits <a class="el" href="#a07a21a6bd0cbcd2164072336fe3c2101" title="Emitted after a property edit has been committed to the bound config.">configModified()</a> on success. No-op if nothing is bound or prop isn't one of this adapter's tracked properties. </p>
 
 <p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8cpp_source.html#l00202">202</a> of file <a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a07a21a6bd0cbcd2164072336fe3c2101">configModified()</a>, <a class="el" href="prop__spec_8h_source.html#l00197">PropSpecHelper::dispatch()</a>, <a class="el" href="matching__types_8h_source.html#l00021">mtc::EdgeBased</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00022">mtc::kEdgeSpecs</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00094">m_cfg</a>, and <a class="el" href="match__config__property__adapter_8h_source.html#l00099">m_propKeys</a>.</p>
+<p class="reference">References <a class="el" href="#a07a21a6bd0cbcd2164072336fe3c2101">configModified()</a>, <a class="el" href="prop__spec_8h_source.html#l00201">PropSpecHelper::dispatch()</a>, <a class="el" href="matching__types_8h_source.html#l00024">mtc::EdgeBased</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00022">mtc::kEdgeSpecs</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00105">m_cfg</a>, and <a class="el" href="match__config__property__adapter_8h_source.html#l00110">m_propKeys</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00096">MatchConfigPropertyAdapter()</a>.</p>
 
@@ -472,7 +484,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8cpp_source.html#l00167">167</a> of file <a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00021">mtc::EdgeBased</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00022">mtc::kEdgeSpecs</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00094">m_cfg</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00093">m_mgr</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00098">m_props</a>, and <a class="el" href="prop__spec_8h_source.html#l00170">PropSpecHelper::refresh()</a>.</p>
+<p class="reference">References <a class="el" href="matching__types_8h_source.html#l00024">mtc::EdgeBased</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00022">mtc::kEdgeSpecs</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00105">m_cfg</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00104">m_mgr</a>, <a class="el" href="match__config__property__adapter_8h_source.html#l00109">m_props</a>, and <a class="el" href="prop__spec_8h_source.html#l00174">PropSpecHelper::refresh()</a>.</p>
 
 </div>
 </div>
@@ -495,7 +507,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8cpp_source.html#l00125">125</a> of file <a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__config__property__adapter_8h_source.html#l00096">m_grpType</a>.</p>
+<p class="reference">References <a class="el" href="match__config__property__adapter_8h_source.html#l00107">m_grpType</a>.</p>
 
 </div>
 </div>
@@ -522,7 +534,7 @@ Private Attributes</h2></td></tr>
 
 <p>Currently bound group config; not owned. Null when unbound. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00094">94</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00105">105</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00114">bind()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">buildTypeGroup()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00182">destroy()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00202">onPropertyValueChanged()</a>, and <a class="el" href="match__config__property__adapter_8cpp_source.html#l00167">refresh()</a>.</p>
 
@@ -550,7 +562,7 @@ Private Attributes</h2></td></tr>
 
 <p>Top-level "Edge-Based" / "Correlation" algorithm-type group property. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00096">96</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00107">107</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">buildTypeGroup()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00182">destroy()</a>, and <a class="el" href="match__config__property__adapter_8cpp_source.html#l00125">rootProperties()</a>.</p>
 
@@ -578,7 +590,7 @@ Private Attributes</h2></td></tr>
 
 <p>Shared property manager this adapter adds properties to; not owned. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00093">93</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00104">104</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">buildTypeGroup()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00096">MatchConfigPropertyAdapter()</a>, and <a class="el" href="match__config__property__adapter_8cpp_source.html#l00167">refresh()</a>.</p>
 
@@ -606,7 +618,7 @@ Private Attributes</h2></td></tr>
 
 <p>Reverse map: property to spec key, for change dispatch. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00099">99</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00110">110</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">buildTypeGroup()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00182">destroy()</a>, and <a class="el" href="match__config__property__adapter_8cpp_source.html#l00202">onPropertyValueChanged()</a>.</p>
 
@@ -634,15 +646,15 @@ Private Attributes</h2></td></tr>
 
 <p>Maps spec key to its generated property. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00098">98</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__config__property__adapter_8h_source.html#l00109">109</a> of file <a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">buildTypeGroup()</a>, <a class="el" href="match__config__property__adapter_8cpp_source.html#l00182">destroy()</a>, and <a class="el" href="match__config__property__adapter_8cpp_source.html#l00167">refresh()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/<a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/<a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/<a class="el" href="match__config__property__adapter_8h_source.html">match_config_property_adapter.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/<a class="el" href="match__config__property__adapter_8cpp_source.html">match_config_property_adapter.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

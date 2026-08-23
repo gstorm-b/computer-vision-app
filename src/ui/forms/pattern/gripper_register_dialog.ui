@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GripperRegisterDialog</class>
+ <widget class="QDialog" name="GripperRegisterDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>620</width>
+    <height>420</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Gripper Types</string>
+  </property>
+  <layout class="QVBoxLayout" name="root">
+   <property name="leftMargin"><number>16</number></property>
+   <property name="topMargin"><number>16</number></property>
+   <property name="rightMargin"><number>16</number></property>
+   <property name="bottomMargin"><number>16</number></property>
+   <property name="spacing"><number>10</number></property>
+   <item>
+    <widget class="QLabel" name="lbl_hint">
+     <property name="objectName"><string notr="true">lbl_hint</string></property>
+     <property name="text">
+      <string>Register reusable gripper geometries. Applying a preset copies its values into the pattern, so editing or removing a preset later never changes patterns already created from it.</string>
+     </property>
+     <property name="wordWrap"><bool>true</bool></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTableWidget" name="tbl_presets">
+     <property name="alternatingRowColors"><bool>true</bool></property>
+     <property name="selectionBehavior"><enum>QAbstractItemView::SelectRows</enum></property>
+     <property name="selectionMode"><enum>QAbstractItemView::SingleSelection</enum></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lbl_message">
+     <property name="objectName"><string notr="true">lbl_message</string></property>
+     <property name="text"><string/></property>
+     <property name="wordWrap"><bool>true</bool></property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="buttons">
+     <property name="spacing"><number>8</number></property>
+     <item>
+      <widget class="QPushButton" name="btn_add">
+       <property name="text"><string>＋  Add</string></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_remove">
+       <property name="text"><string>✕  Remove</string></property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacer">
+       <property name="orientation"><enum>Qt::Horizontal</enum></property>
+       <property name="sizeHint" stdset="0">
+        <size><width>40</width><height>20</height></size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_cancel">
+       <property name="text"><string>Cancel</string></property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_save">
+       <property name="text"><string>Save</string></property>
+       <property name="default"><bool>true</bool></property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

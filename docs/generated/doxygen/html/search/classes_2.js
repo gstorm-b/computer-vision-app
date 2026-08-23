@@ -27,7 +27,7 @@ var searchData=
   ['collisionchecker_24',['CollisionChecker',['../class_robot_kinematics_1_1_collision_checker.html',1,'RobotKinematics']]],
   ['collisioncheckrequest_25',['CollisionCheckRequest',['../struct_robot_kinematics_1_1_collision_check_request.html',1,'RobotKinematics']]],
   ['collisioncheckresult_26',['CollisionCheckResult',['../struct_robot_kinematics_1_1_collision_check_result.html',1,'RobotKinematics']]],
-  ['collisiongeometry_27',['CollisionGeometry',['../struct_robot_kinematics_1_1_collision_geometry.html',1,'RobotKinematics']]],
+  ['collisiongeometry_27',['CollisionGeometry',['../structmtc_1_1_matched_object_1_1_collision_geometry.html',1,'mtc::MatchedObject::CollisionGeometry'],['../struct_robot_kinematics_1_1_collision_geometry.html',1,'RobotKinematics::CollisionGeometry']]],
   ['collisionpairresult_28',['CollisionPairResult',['../struct_robot_kinematics_1_1_collision_pair_result.html',1,'RobotKinematics']]],
   ['collisionprofile_29',['CollisionProfile',['../struct_robot_kinematics_1_1_collision_profile.html',1,'RobotKinematics']]],
   ['collisionprofilejsonloader_30',['CollisionProfileJsonLoader',['../class_robot_kinematics_1_1_collision_profile_json_loader.html',1,'RobotKinematics']]],

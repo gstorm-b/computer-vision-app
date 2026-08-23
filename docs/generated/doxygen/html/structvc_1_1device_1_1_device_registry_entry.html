@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1de
 </div><!--header-->
 <div class="contents">
 
+<p>One entry in the static device registry: identifies a concrete device sub-type (e.g. the "Basler GigE" camera or "Mitsubishi MC" PLC), how to recognize it in JSON, and how to construct an instance of it.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="device__registry_8h_source.html">device_registry.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::device::DeviceRegistryEntry:</div>
@@ -134,7 +137,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:af99a1fb2bf42c32bcf20307987a81daf" id="r_af99a1fb2bf42c32bcf20307987a81daf"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af99a1fb2bf42c32bcf20307987a81daf">configJsonKey</a></td></tr>
 <tr class="memdesc:af99a1fb2bf42c32bcf20307987a81daf"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key (top-level or nested under DeviceConfig) carrying the sub-type token for this entry.  <br /></td></tr>
 <tr class="memitem:a9f6c66debb84a7c6f135277b29d097ac" id="r_a9f6c66debb84a7c6f135277b29d097ac"><td class="memItemLeft">std::function&lt; <a class="el" href="class_i_device.html">IDevice</a> *(const QJsonObject &amp;, QObject *)&gt;&#160;</td><td class="memItemRight"><a class="el" href="#a9f6c66debb84a7c6f135277b29d097ac">creator</a></td></tr>
-<tr class="memdesc:a9f6c66debb84a7c6f135277b29d097ac"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> that builds a new heap-allocated device instance from a JSON object.  <br /></td></tr>
+<tr class="memdesc:a9f6c66debb84a7c6f135277b29d097ac"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> that builds a new heap-allocated device instance from a JSON object.  <br /></td></tr>
 <tr class="memitem:af978d0ebde301ca268674941cd0604da" id="r_af978d0ebde301ca268674941cd0604da"><td class="memItemLeft"><a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">DeviceType</a>&#160;</td><td class="memItemRight"><a class="el" href="#af978d0ebde301ca268674941cd0604da">deviceType</a> {<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6a101983c6128a66c80e7f3174a1bb64b7">DeviceType::UserType</a>}</td></tr>
 <tr class="memdesc:af978d0ebde301ca268674941cd0604da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top-level device family this entry belongs to.  <br /></td></tr>
 <tr class="memitem:a7921793d7712b7aa9c554ad723a4ab19" id="r_a7921793d7712b7aa9c554ad723a4ab19"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a7921793d7712b7aa9c554ad723a4ab19">displayName</a></td></tr>
@@ -145,7 +148,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>One entry in the static device registry: identifies a concrete device sub-type (e.g. the "Basler GigE" camera or "Mitsubishi MC" PLC), how to recognize it in JSON, and how to construct an instance of it. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00019">19</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00026">26</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a27ac9d817bc48e45d15fc7ee666d03b9" name="a27ac9d817bc48e45d15fc7ee666d03b9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a27ac9d817bc48e45d15fc7ee666d03b9">&#9670;&#160;</a></span>available</h2>
@@ -161,7 +164,7 @@ Public Attributes</h2></td></tr>
 
 <p>Whether this entry is offered by displayNamesFor() unless includeUnavailable is requested. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00025">25</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00032">32</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__factory_8cpp_source.html#l00016">vc::device::anonymous_namespace{device_factory.cpp}::createFromRegistryEntry()</a>.</p>
 
@@ -181,7 +184,7 @@ Public Attributes</h2></td></tr>
 
 <p>JSON key (top-level or nested under DeviceConfig) carrying the sub-type token for this entry. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00023">23</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00030">30</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
 
 </div>
 </div>
@@ -197,9 +200,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> that builds a new heap-allocated device instance from a JSON object. </p>
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> that builds a new heap-allocated device instance from a JSON object. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00024">24</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00031">31</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__factory_8cpp_source.html#l00016">vc::device::anonymous_namespace{device_factory.cpp}::createFromRegistryEntry()</a>.</p>
 
@@ -219,7 +222,7 @@ Public Attributes</h2></td></tr>
 
 <p>Top-level device family this entry belongs to. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00020">20</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00027">27</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
 
 </div>
 </div>
@@ -237,7 +240,7 @@ Public Attributes</h2></td></tr>
 
 <p>Human-readable label for this entry; currently write-only (not read by any lookup below). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00022">22</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00029">29</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
 
 </div>
 </div>
@@ -255,14 +258,14 @@ Public Attributes</h2></td></tr>
 
 <p>JSON sub-type token (e.g. "Basler_GigE"); matched by find() and returned by displayNamesFor(). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00021">21</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8h_source.html#l00028">28</a> of file <a class="el" href="device__registry_8h_source.html">device_registry.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__factory_8cpp_source.html#l00016">vc::device::anonymous_namespace{device_factory.cpp}::createFromRegistryEntry()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/<a class="el" href="device__registry_8h_source.html">device_registry.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/<a class="el" href="device__registry_8h_source.html">device_registry.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

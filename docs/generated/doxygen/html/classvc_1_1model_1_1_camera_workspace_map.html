@@ -137,6 +137,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a86753a40591dbccecb2160963059d2db" id="r_a86753a40591dbccecb2160963059d2db"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a86753a40591dbccecb2160963059d2db">contains</a> (const QString &amp;cameraId) const</td></tr>
 <tr class="memdesc:a86753a40591dbccecb2160963059d2db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if <span class="tt">cameraId</span> has a workspace entry.  <br /></td></tr>
 <tr class="memitem:ad64ffb542779e495c4e8e24e6b950a6f" id="r_ad64ffb542779e495c4e8e24e6b950a6f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ad64ffb542779e495c4e8e24e6b950a6f">fromJson</a> (const QJsonValue &amp;value)</td></tr>
+<tr class="memdesc:ad64ffb542779e495c4e8e24e6b950a6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rebuilds all workspaces (ROI + flags only) from a JSON array produced by <a class="el" href="#a54841e032a44ebfc55ee5310f8550b12">toJson()</a>; clears any existing entries first. Reference images are not restored by this call.  <br /></td></tr>
 <tr class="memitem:a46f91b0dbde83a8907463208b3f40ded" id="r_a46f91b0dbde83a8907463208b3f40ded"><td class="memItemLeft">QMap&lt; QString, cv::Mat &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a46f91b0dbde83a8907463208b3f40ded">getImageMap</a> () const</td></tr>
 <tr class="memitem:a73105a95fd27b2c4373c4a9c62b18e8c" id="r_a73105a95fd27b2c4373c4a9c62b18e8c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a73105a95fd27b2c4373c4a9c62b18e8c">isEmpty</a> () const</td></tr>
 <tr class="memdesc:a73105a95fd27b2c4373c4a9c62b18e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if no camera has a workspace entry.  <br /></td></tr>
@@ -152,6 +153,7 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ae6e097f0073b39deee817cf9b9fa89e4" id="r_ae6e097f0073b39deee817cf9b9fa89e4"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#ae6e097f0073b39deee817cf9b9fa89e4">imageKey</a> (const QString &amp;cameraId)</td></tr>
 <tr class="memitem:aee231716dbd51d3a3e7e8ce3372c8b89" id="r_aee231716dbd51d3a3e7e8ce3372c8b89"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#aee231716dbd51d3a3e7e8ce3372c8b89">parseImageKey</a> (const QString &amp;key, QString &amp;cameraId)</td></tr>
+<tr class="memdesc:aee231716dbd51d3a3e7e8ce3372c8b89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a BLOB key produced by <a class="el" href="#ae6e097f0073b39deee817cf9b9fa89e4">imageKey()</a> back into its camera id.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -161,7 +163,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Container of per-camera workspaces, keyed by camera device id. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00055">55</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00065">65</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="ae0b9d8e21d05300c6ef7f5a7ce770a1f" name="ae0b9d8e21d05300c6ef7f5a7ce770a1f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0b9d8e21d05300c6ef7f5a7ce770a1f">&#9670;&#160;</a></span>cameraIds()</h2>
@@ -188,9 +190,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the camera device ids that have a workspace entry. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00062">62</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00072">72</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>.</p>
 
 </div>
 </div>
@@ -219,9 +221,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns true if <span class="tt">cameraId</span> has a workspace entry. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00060">60</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00070">70</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>.</p>
 
 </div>
 </div>
@@ -247,17 +249,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Rebuilds all workspaces (ROI + flags only) from a JSON array produced by <a class="el" href="#a54841e032a44ebfc55ee5310f8550b12">toJson()</a>; clears any existing entries first. Reference images are not restored by this call. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Rebuilds all workspaces (ROI + flags only) from a JSON array produced by <a class="el" href="#a54841e032a44ebfc55ee5310f8550b12">toJson()</a>; clears any existing entries first. Reference images are not restored by this call. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>expected to be a JSON array, or null/undefined for "no workspaces" </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>expected to be a JSON array, or null/undefined for "no workspaces" </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true on success; false if <span class="tt">value</span> is neither null/undefined nor an array. Array entries with an empty "cameraId" are silently skipped. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00109">109</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00121">121</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00041">vc::model::CameraWorkspace::conditionRoi</a>, <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>, <a class="el" href="camera__workspace_8h_source.html#l00032">vc::model::CameraWorkspace::roi</a>, <a class="el" href="camera__workspace_8h_source.html#l00040">vc::model::CameraWorkspace::useConditionWorkspace</a>, and <a class="el" href="camera__workspace_8h_source.html#l00031">vc::model::CameraWorkspace::useWorkspace</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00048">vc::model::CameraWorkspace::conditionRoi</a>, <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>, <a class="el" href="camera__workspace_8h_source.html#l00039">vc::model::CameraWorkspace::roi</a>, <a class="el" href="camera__workspace_8h_source.html#l00047">vc::model::CameraWorkspace::useConditionWorkspace</a>, and <a class="el" href="camera__workspace_8h_source.html#l00038">vc::model::CameraWorkspace::useWorkspace</a>.</p>
 
 </div>
 </div>
@@ -285,9 +289,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Collects the in-memory reference image of every camera that has one, keyed by imageKey(cameraId), for persisting as project_images BLOBs. </p><dl class="section return"><dt>Returns</dt><dd>map of BLOB key -&gt; reference image; cameras with no reference image are omitted </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00164">164</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00178">178</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00144">imageKey()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00156">imageKey()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>.</p>
 
 </div>
 </div>
@@ -315,9 +319,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Builds the project_images BLOB key ("ws_{cameraId}") used to persist a workspace's reference image out-of-band from the JSON. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00144">144</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00156">156</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__workspace_8h_source.html#l00164">getImageMap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__workspace_8h_source.html#l00178">getImageMap()</a>.</p>
 
 </div>
 </div>
@@ -346,9 +350,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns true if no camera has a workspace entry. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00058">58</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00068">68</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>.</p>
 
 </div>
 </div>
@@ -378,18 +382,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Parses a BLOB key produced by <a class="el" href="#ae6e097f0073b39deee817cf9b9fa89e4">imageKey()</a> back into its camera id. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Parses a BLOB key produced by <a class="el" href="#ae6e097f0073b39deee817cf9b9fa89e4">imageKey()</a> back into its camera id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">key</td><td>candidate BLOB key </td></tr>
-    <tr><td class="paramname">cameraId</td><td>set to the extracted camera id on success </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">key</td><td>candidate BLOB key </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cameraId</td><td>set to the extracted camera id on success </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if <span class="tt">key</span> starts with the "ws_" prefix and the remainder is non-empty </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00153">153</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00167">167</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00290">vc::model::TaskLocalization::loadTaskImageMap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00287">vc::model::TaskLocalization::loadTaskImageMap()</a>.</p>
 
 </div>
 </div>
@@ -418,9 +424,9 @@ Private Attributes</h2></td></tr>
 
 <p>Removes the workspace entry for <span class="tt">cameraId</span>, if any. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00079">79</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00089">89</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>.</p>
 
 </div>
 </div>
@@ -452,9 +458,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets (or replaces) the in-memory reference image for <span class="tt">cameraId</span>; creates a default workspace entry if <span class="tt">cameraId</span> had none. A no-op if <span class="tt">cameraId</span> is empty. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00176">176</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00190">190</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>.</p>
 
 </div>
 </div>
@@ -487,9 +493,9 @@ Private Attributes</h2></td></tr>
 
 <p>Sets (or replaces) the workspace for <span class="tt">cameraId</span>; a no-op if <span class="tt">cameraId</span> is empty. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00072">72</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00082">82</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>.</p>
 
 </div>
 </div>
@@ -517,9 +523,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Serializes all workspaces to a JSON array — ROI + flag only; the reference image travels separately as a BLOB (see <a class="el" href="#a46f91b0dbde83a8907463208b3f40ded">getImageMap()</a>). </p><dl class="section return"><dt>Returns</dt><dd>one JSON object per camera with "cameraId", "useWorkspace", "roi", "useConditionWorkspace", and "conditionRoi" fields </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00085">85</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00095">95</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00041">vc::model::CameraWorkspace::conditionRoi</a>, <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>, <a class="el" href="camera__workspace_8h_source.html#l00032">vc::model::CameraWorkspace::roi</a>, <a class="el" href="camera__workspace_8h_source.html#l00040">vc::model::CameraWorkspace::useConditionWorkspace</a>, and <a class="el" href="camera__workspace_8h_source.html#l00031">vc::model::CameraWorkspace::useWorkspace</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00048">vc::model::CameraWorkspace::conditionRoi</a>, <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>, <a class="el" href="camera__workspace_8h_source.html#l00039">vc::model::CameraWorkspace::roi</a>, <a class="el" href="camera__workspace_8h_source.html#l00047">vc::model::CameraWorkspace::useConditionWorkspace</a>, and <a class="el" href="camera__workspace_8h_source.html#l00038">vc::model::CameraWorkspace::useWorkspace</a>.</p>
 
 </div>
 </div>
@@ -545,11 +551,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the workspace for <span class="tt">cameraId</span>, or a default-constructed <a class="el" href="structvc_1_1model_1_1_camera_workspace.html">CameraWorkspace</a> ("workspace off") if none is set. </p>
+<p>Returns the workspace for <span class="tt">cameraId</span>, or a default-constructed <a class="el" href="structvc_1_1model_1_1_camera_workspace.html" title="Per-camera workspace (ROI) used to crop the grabbed image before matching.">CameraWorkspace</a> ("workspace off") if none is set. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00066">66</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00076">76</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00183">m_workspaces</a>.</p>
+<p class="reference">References <a class="el" href="camera__workspace_8h_source.html#l00197">m_workspaces</a>.</p>
 
 </div>
 </div>
@@ -576,14 +582,14 @@ Private Attributes</h2></td></tr>
 
 <p>cameraId -&gt; workspace </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00183">183</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__workspace_8h_source.html#l00197">197</a> of file <a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__workspace_8h_source.html#l00062">cameraIds()</a>, <a class="el" href="camera__workspace_8h_source.html#l00060">contains()</a>, <a class="el" href="camera__workspace_8h_source.html#l00109">fromJson()</a>, <a class="el" href="camera__workspace_8h_source.html#l00164">getImageMap()</a>, <a class="el" href="camera__workspace_8h_source.html#l00058">isEmpty()</a>, <a class="el" href="camera__workspace_8h_source.html#l00079">remove()</a>, <a class="el" href="camera__workspace_8h_source.html#l00176">setReferenceImage()</a>, <a class="el" href="camera__workspace_8h_source.html#l00072">setWorkspace()</a>, <a class="el" href="camera__workspace_8h_source.html#l00085">toJson()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00066">workspace()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__workspace_8h_source.html#l00072">cameraIds()</a>, <a class="el" href="camera__workspace_8h_source.html#l00070">contains()</a>, <a class="el" href="camera__workspace_8h_source.html#l00121">fromJson()</a>, <a class="el" href="camera__workspace_8h_source.html#l00178">getImageMap()</a>, <a class="el" href="camera__workspace_8h_source.html#l00068">isEmpty()</a>, <a class="el" href="camera__workspace_8h_source.html#l00089">remove()</a>, <a class="el" href="camera__workspace_8h_source.html#l00190">setReferenceImage()</a>, <a class="el" href="camera__workspace_8h_source.html#l00082">setWorkspace()</a>, <a class="el" href="camera__workspace_8h_source.html#l00095">toJson()</a>, and <a class="el" href="camera__workspace_8h_source.html#l00076">workspace()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="camera__workspace_8h_source.html">camera_workspace.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

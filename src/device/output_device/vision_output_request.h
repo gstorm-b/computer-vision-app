@@ -1,42 +1,66 @@
 #ifndef VISION_OUTPUT_REQUEST_H
 #define VISION_OUTPUT_REQUEST_H
 
+/**
+ * @file vision_output_request.h
+ * @brief Request/payload types for the vision-output device family: matching-result positions
+ *        and the wire-format request sent down to the external system.
+ */
+
 #include "device/irequest.h"
 
 #include <QString>
 #include <QVector>
 #include <memory>
 
-/// Request/payload types for the vision-output device family: matching-result positions
-/// and the wire-format request sent down to the external system.
 namespace vc::device {
 
-/// A single matching position/pose expressed as 4 axes: x, y, z, r.
+/**
+ * @struct VisionOutputPosition
+ * @brief A single matching position/pose expressed as 6 axes: x, y, z, rx, ry, rz.
+ *
+ * `rz` is the rotation about Z that the pre-Phase-5 4-axis contract called `r` — the
+ * top-down pick rotation, now carrying the pattern's Z rotation offset as well. `rx`/`ry`
+ * are the two additional rotation axes introduced in Phase 5; they are 0.00 for a pattern
+ * with no rotation offset, which is the top-down pick the 4-axis contract always meant.
+ *
+ * @note Changing the axis count changes the wire frame. The downstream robot parser reads
+ *       a fixed number of fields per position and must be updated in step — see the
+ *       Result format note on VisionOutputRequest.
+ */
 struct VisionOutputPosition {
-    double x{0.0};  ///< X coordinate (mm).
-    double y{0.0};  ///< Y coordinate (mm).
-    double z{0.0};  ///< Z coordinate (mm).
-    double r{0.0};  ///< Rotation about Z (deg).
+    double x{0.0};   ///< X coordinate (mm).
+    double y{0.0};   ///< Y coordinate (mm).
+    double z{0.0};   ///< Z coordinate (mm).
+    double rx{0.0};  ///< Rotation about X (deg).
+    double ry{0.0};  ///< Rotation about Y (deg).
+    double rz{0.0};  ///< Rotation about Z (deg); the axis the 4-axis contract called `r`.
 
-    /// Formats this position as the wire-format "x,y,z,r" field group.
-    /// @return "%1,%2,%3,%4" with each axis fixed-width, zero-padded to 8 chars with 2
-    /// decimals (e.g. 1.0 -> "00001.00"); the downstream robot parser relies on this
-    /// exact field format.
+    /// Formats this position as the wire-format "x,y,z,rx,ry,rz" field group.
+    /// @return six comma-separated axes, each fixed-width and zero-padded to 8 chars
+    /// with 2 decimals (e.g. 1.0 -> "00001.00"); the downstream robot parser relies on
+    /// this exact field format and on the field count.
     QString toString() const {
-        return QString("%1,%2,%3,%4")
+        return QString("%1,%2,%3,%4,%5,%6")
             .arg(QString::asprintf("%08.2f", x),
                  QString::asprintf("%08.2f", y),
                  QString::asprintf("%08.2f", z),
-                 QString::asprintf("%08.2f", r));
+                 QString::asprintf("%08.2f", rx),
+                 QString::asprintf("%08.2f", ry),
+                 QString::asprintf("%08.2f", rz));
     }
 };
 
-/// Request sent to VisionOutputDevice. Comes in 2 kinds:
-///      - Result: the server pushes matching results down to the client on port 1.
-///      - Raw: raw bytes are sent straight down port 1 (used for test / extension).
-///
-/// Result format: "{detected number},{Position 1},{Position 2},...;" where each
-/// position is "x,y,z,r".
+/**
+ * @class VisionOutputRequest
+ * @brief Request sent to VisionOutputDevice. Comes in 2 kinds:
+ *        - Result: the server pushes matching results down to the client on port 1.
+ *        - Raw: raw bytes are sent straight down port 1 (used for test / extension).
+ *
+ *        Result format: "{detected number},{Position 1},{Position 2},...;" where each
+ *        position is "x,y,z,rx,ry,rz" (6 fields since Phase 5; it was 4 before, with the
+ *        old `r` now emitted as `rz`).
+ */
 class VisionOutputRequest : public IRequest {
 public:
     /// Discriminates which payload this request carries.

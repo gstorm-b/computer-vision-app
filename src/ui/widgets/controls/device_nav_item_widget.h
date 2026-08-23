@@ -13,16 +13,28 @@ class QLabel;
 class QMouseEvent;
 class DeviceNavDot;
 
-/// A single clickable device entry (icon + name + short type label + connect-status
-/// dot) in a device navigation list. Style properties ("deviceType", "navActive")
-/// and the indicator dot's "lampState" drive QSS; setDevice() keeps it in sync
-/// with an vc::device::IDevice snapshot.
+/**
+ * @file device_nav_item_widget.h
+ * @brief DeviceNavItemWidget — clickable device entry (icon + name + type + connect-status
+ *        dot) used in a device navigation list.
+ */
+
+/**
+ * @class DeviceNavItemWidget
+ * @brief A single clickable device entry (icon + name + short type label + connect-status
+ *        dot) in a device navigation list. Style properties ("deviceType", "navActive")
+ *        and the indicator dot's "lampState" drive QSS; setDevice() keeps it in sync
+ *        with an vc::device::IDevice snapshot.
+ */
 class DeviceNavItemWidget : public QFrame
 {
     Q_OBJECT
 public:
-    /// Builds the icon/name/type layout, applies default device type, unselected
-    /// state, and "off" indicator, and re-applies the current icon on theme changes.
+    /**
+     * @brief Builds the icon/name/type layout, applies default device type, unselected
+     *        state, and "off" indicator, and re-applies the current icon on theme changes.
+     * @param[in] parent Owning widget; standard Qt parent/child ownership.
+     */
     explicit DeviceNavItemWidget(QWidget *parent = nullptr);
 
     /// Sets the device id (mirrored into the "deviceId" property); no-op if unchanged.
@@ -47,12 +59,20 @@ public:
     /// Returns the current type-label text, or an empty string if the label doesn't exist.
     QString typeLabelText() const;
 
-    /// Sets the device icon rendered at `size` (falls back to 14x14 when invalid);
-    /// clears the icon label when `icon` is null.
+    /**
+     * @brief Sets the device icon rendered at `size` (falls back to 14x14 when invalid);
+     *        clears the icon label when `icon` is null.
+     * @param[in] icon Icon to display; a null icon clears the icon label.
+     * @param[in] size Render size; falls back to 14x14 when invalid.
+     */
     void setIcon(const QIcon &icon, const QSize &size = QSize(14, 14));
-    /// Loads an SVG icon from `iconPath` and applies it via setIcon(); remembers
-    /// `iconPath`/`size` so the icon can be re-rendered on theme changes. Clears
-    /// the icon when `iconPath` is empty.
+    /**
+     * @brief Loads an SVG icon from `iconPath` and applies it via setIcon(); remembers
+     *        `iconPath`/`size` so the icon can be re-rendered on theme changes. Clears
+     *        the icon when `iconPath` is empty.
+     * @param[in] iconPath Qt resource path to an SVG icon; empty clears the icon.
+     * @param[in] size     Render size; falls back to 14x14 when invalid.
+     */
     void setIconPath(const QString &iconPath, const QSize &size = QSize(14, 14));
 
     /// Sets the "navActive" style property used by QSS to highlight the

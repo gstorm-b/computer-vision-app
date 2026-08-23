@@ -23,4 +23,7 @@ lives UI-side in `src/ui/widgets/property_browser/match_config_property_adapter.
 
 **Verify.** `tests/architecture_contract_test`, root app build.
 
-**Build registration.** `src/matching/matching.pri` only.
+**Build registration.** `src/matching/matching.pri` only. That `.pri` is consumed
+by `src/src.pro`, which compiles every module **once** into the `ncr_shared`
+static library that both shells link. No shell `.pro` lists module sources, so a
+file added anywhere else is simply not built.

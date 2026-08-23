@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_item_roi
 </div><!--header-->
 <div class="contents">
 
+<p>Resizable, movable, axis-aligned rectangular region-of-interest item for a QGraphicsScene: renders a dashed bounding box with an optional center cross-hair, shows four corner resize handles when selected, and keeps its position/size clamped inside its parent item's bounding rect.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="item__roi_8h_source.html">item_roi.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ItemRoi:</div>
@@ -134,9 +137,9 @@ Collaboration diagram for ItemRoi:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a95f9dabaf3305a461f7c5b07637067da" id="r_a95f9dabaf3305a461f7c5b07637067da"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <a class="el" href="#a95f9dabaf3305a461f7c5b07637067daaf8db36571119cb09788e89972d3b1e26">Type</a> = UserType + 27
+<tr class="memitem:addb575702fc92f65d66f99ecb7464c73" id="r_addb575702fc92f65d66f99ecb7464c73"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <a class="el" href="#addb575702fc92f65d66f99ecb7464c73af8db36571119cb09788e89972d3b1e26">Type</a> = UserType + 27
  }</td></tr>
-<tr class="memdesc:a95f9dabaf3305a461f7c5b07637067da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom QGraphicsItem type id returned by <a class="el" href="#a8601426d451f7bfd6f78726258bb7d0d" title="Returns the custom item type id (Type) for qgraphicsitem_cast/type() dispatch.">type()</a>, for qgraphicsitem_cast&lt;ItemRoi*&gt;().  <a href="#a95f9dabaf3305a461f7c5b07637067da">More...</a><br /></td></tr>
+<tr class="memdesc:addb575702fc92f65d66f99ecb7464c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom QGraphicsItem type id returned by <a class="el" href="#a8601426d451f7bfd6f78726258bb7d0d" title="Returns the custom item type id (Type) for qgraphicsitem_cast/type() dispatch.">type()</a>, for qgraphicsitem_cast&lt;ItemRoi*&gt;().  <a href="#addb575702fc92f65d66f99ecb7464c73">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -177,6 +180,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7f8a987d02f065c8ab3bef9f56c22130" id="r_a7f8a987d02f065c8ab3bef9f56c22130"><td class="memItemLeft">QRectF&#160;</td><td class="memItemRight"><a class="el" href="#a7f8a987d02f065c8ab3bef9f56c22130">handleRect</a> (<a class="el" href="#a59fe0cb7bca7ede5bea98e7c9c58a7be">HandlePosition</a> pos) const</td></tr>
 <tr class="memitem:af1a8fc2ea9b7dabe747cff2317a26e3a" id="r_af1a8fc2ea9b7dabe747cff2317a26e3a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af1a8fc2ea9b7dabe747cff2317a26e3a">isInsideParent</a> (QRectF &amp;new_rect)</td></tr>
 <tr class="memitem:a8c3a17939e92f2d128090117e0515d24" id="r_a8c3a17939e92f2d128090117e0515d24"><td class="memItemLeft">QVariant&#160;</td><td class="memItemRight"><a class="el" href="#a8c3a17939e92f2d128090117e0515d24">itemChange</a> (QGraphicsItem::GraphicsItemChange change, const QVariant &amp;value) override</td></tr>
+<tr class="memdesc:a8c3a17939e92f2d128090117e0515d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays fully inside the parent item's bounding rect.  <br /></td></tr>
 <tr class="memitem:a43e0a297536d28cfd97402af8b876315" id="r_a43e0a297536d28cfd97402af8b876315"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a43e0a297536d28cfd97402af8b876315">mouseMoveEvent</a> (QGraphicsSceneMouseEvent *event) override</td></tr>
 <tr class="memitem:af7a3ac0f5708e44891a51fb4014a12a2" id="r_af7a3ac0f5708e44891a51fb4014a12a2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af7a3ac0f5708e44891a51fb4014a12a2">mousePressEvent</a> (QGraphicsSceneMouseEvent *event) override</td></tr>
 <tr class="memitem:add19fa1f665829a6b8e15f7e076b0ecd" id="r_add19fa1f665829a6b8e15f7e076b0ecd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#add19fa1f665829a6b8e15f7e076b0ecd">mouseReleaseEvent</a> (QGraphicsSceneMouseEvent *event) override</td></tr>
@@ -205,10 +209,10 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Resizable, movable, axis-aligned rectangular region-of-interest item for a QGraphicsScene: renders a dashed bounding box with an optional center cross-hair, shows four corner resize handles when selected, and keeps its position/size clamped inside its parent item's bounding rect. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00017">17</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00026">26</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
-<a id="a95f9dabaf3305a461f7c5b07637067da" name="a95f9dabaf3305a461f7c5b07637067da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95f9dabaf3305a461f7c5b07637067da">&#9670;&#160;</a></span>anonymous enum</h2>
+<a id="addb575702fc92f65d66f99ecb7464c73" name="addb575702fc92f65d66f99ecb7464c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addb575702fc92f65d66f99ecb7464c73">&#9670;&#160;</a></span>anonymous enum</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -221,10 +225,10 @@ Private Attributes</h2></td></tr>
 
 <p>Custom QGraphicsItem type id returned by <a class="el" href="#a8601426d451f7bfd6f78726258bb7d0d" title="Returns the custom item type id (Type) for qgraphicsitem_cast/type() dispatch.">type()</a>, for qgraphicsitem_cast&lt;ItemRoi*&gt;(). </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a95f9dabaf3305a461f7c5b07637067daaf8db36571119cb09788e89972d3b1e26" name="a95f9dabaf3305a461f7c5b07637067daaf8db36571119cb09788e89972d3b1e26"></a>Type&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="addb575702fc92f65d66f99ecb7464c73af8db36571119cb09788e89972d3b1e26" name="addb575702fc92f65d66f99ecb7464c73af8db36571119cb09788e89972d3b1e26"></a>Type&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00020">20</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00029">29</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 </div>
 </div>
@@ -262,7 +266,7 @@ Private Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00044">44</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00056">56</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 </div>
 </div>
@@ -295,7 +299,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00008">8</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00103">m_bounding_color_normal</a>, <a class="el" href="item__roi_8h_source.html#l00104">m_bounding_color_selected</a>, <a class="el" href="item__roi_8h_source.html#l00109">m_current_handle</a>, <a class="el" href="item__roi_8h_source.html#l00107">m_handle_size</a>, <a class="el" href="item__roi_8h_source.html#l00116">m_ignore</a>, <a class="el" href="item__roi_8h_source.html#l00102">m_is_draw_center</a>, and <a class="el" href="item__roi_8h_source.html#l00045">None</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00117">m_bounding_color_normal</a>, <a class="el" href="item__roi_8h_source.html#l00118">m_bounding_color_selected</a>, <a class="el" href="item__roi_8h_source.html#l00123">m_current_handle</a>, <a class="el" href="item__roi_8h_source.html#l00121">m_handle_size</a>, <a class="el" href="item__roi_8h_source.html#l00130">m_ignore</a>, <a class="el" href="item__roi_8h_source.html#l00116">m_is_draw_center</a>, and <a class="el" href="item__roi_8h_source.html#l00057">None</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="#a386da0d63aebd9a6f95f429bbf7d844b">getCroppedFromRoi()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00279">vision_canvas_detail::VisionRectRoiItem::VisionRectRoiItem()</a>.</p>
 
@@ -329,7 +333,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00108">108</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00048">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00049">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00179">handleRect()</a>, <a class="el" href="item__roi_8h_source.html#l00046">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00047">TopRight</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00060">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00061">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00179">handleRect()</a>, <a class="el" href="item__roi_8h_source.html#l00058">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00059">TopRight</a>.</p>
 
 </div>
 </div>
@@ -472,7 +476,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00206">206</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00048">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00049">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00179">handleRect()</a>, <a class="el" href="item__roi_8h_source.html#l00045">None</a>, <a class="el" href="item__roi_8h_source.html#l00046">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00047">TopRight</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00060">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00061">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00179">handleRect()</a>, <a class="el" href="item__roi_8h_source.html#l00057">None</a>, <a class="el" href="item__roi_8h_source.html#l00058">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00059">TopRight</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00252">mousePressEvent()</a>.</p>
 
@@ -527,7 +531,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00179">179</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00048">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00049">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00232">effectiveHandleSize()</a>, <a class="el" href="item__roi_8h_source.html#l00046">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00047">TopRight</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00060">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00061">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00232">effectiveHandleSize()</a>, <a class="el" href="item__roi_8h_source.html#l00058">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00059">TopRight</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00108">boundingRect()</a>, <a class="el" href="item__roi_8cpp_source.html#l00206">getHandleAt()</a>, <a class="el" href="item__roi_8cpp_source.html#l00054">paint()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00122">shape()</a>.</p>
 
@@ -589,6 +593,16 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays fully inside the parent item's bounding rect. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">change</td><td>the kind of item change being reported </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>the proposed new value (position, for the change handled here) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the (possibly corrected) value to apply</dd></dl>
 <p>Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays fully inside the parent item's bounding rect. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">change</td><td>the kind of item change being reported </td></tr>
@@ -630,7 +644,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00280">280</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00048">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00049">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00240">isInsideParent()</a>, <a class="el" href="item__roi_8h_source.html#l00109">m_current_handle</a>, <a class="el" href="item__roi_8h_source.html#l00107">m_handle_size</a>, <a class="el" href="item__roi_8h_source.html#l00116">m_ignore</a>, <a class="el" href="item__roi_8h_source.html#l00111">m_original_rect</a>, <a class="el" href="item__roi_8h_source.html#l00112">m_press_pos</a>, <a class="el" href="item__roi_8h_source.html#l00045">None</a>, <a class="el" href="item__roi_8h_source.html#l00046">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00047">TopRight</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00060">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00061">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00240">isInsideParent()</a>, <a class="el" href="item__roi_8h_source.html#l00123">m_current_handle</a>, <a class="el" href="item__roi_8h_source.html#l00121">m_handle_size</a>, <a class="el" href="item__roi_8h_source.html#l00130">m_ignore</a>, <a class="el" href="item__roi_8h_source.html#l00125">m_original_rect</a>, <a class="el" href="item__roi_8h_source.html#l00126">m_press_pos</a>, <a class="el" href="item__roi_8h_source.html#l00057">None</a>, <a class="el" href="item__roi_8h_source.html#l00058">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00059">TopRight</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00331">vision_canvas_detail::VisionRectRoiItem::mouseMoveEvent()</a>.</p>
 
@@ -662,7 +676,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00252">252</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8cpp_source.html#l00206">getHandleAt()</a>, <a class="el" href="item__roi_8h_source.html#l00109">m_current_handle</a>, <a class="el" href="item__roi_8h_source.html#l00116">m_ignore</a>, <a class="el" href="item__roi_8h_source.html#l00114">m_last_center</a>, <a class="el" href="item__roi_8h_source.html#l00111">m_original_rect</a>, <a class="el" href="item__roi_8h_source.html#l00112">m_press_pos</a>, and <a class="el" href="item__roi_8h_source.html#l00045">None</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8cpp_source.html#l00206">getHandleAt()</a>, <a class="el" href="item__roi_8h_source.html#l00123">m_current_handle</a>, <a class="el" href="item__roi_8h_source.html#l00130">m_ignore</a>, <a class="el" href="item__roi_8h_source.html#l00128">m_last_center</a>, <a class="el" href="item__roi_8h_source.html#l00125">m_original_rect</a>, <a class="el" href="item__roi_8h_source.html#l00126">m_press_pos</a>, and <a class="el" href="item__roi_8h_source.html#l00057">None</a>.</p>
 
 </div>
 </div>
@@ -692,7 +706,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00336">336</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00109">m_current_handle</a>, <a class="el" href="item__roi_8h_source.html#l00116">m_ignore</a>, and <a class="el" href="item__roi_8h_source.html#l00045">None</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00123">m_current_handle</a>, <a class="el" href="item__roi_8h_source.html#l00130">m_ignore</a>, and <a class="el" href="item__roi_8h_source.html#l00057">None</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00339">vision_canvas_detail::VisionRectRoiItem::mouseReleaseEvent()</a>.</p>
 
@@ -733,7 +747,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00054">54</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00048">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00049">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00179">handleRect()</a>, <a class="el" href="item__roi_8h_source.html#l00103">m_bounding_color_normal</a>, <a class="el" href="item__roi_8h_source.html#l00104">m_bounding_color_selected</a>, <a class="el" href="item__roi_8h_source.html#l00102">m_is_draw_center</a>, <a class="el" href="item__roi_8h_source.html#l00046">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00047">TopRight</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00060">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00061">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00179">handleRect()</a>, <a class="el" href="item__roi_8h_source.html#l00117">m_bounding_color_normal</a>, <a class="el" href="item__roi_8h_source.html#l00118">m_bounding_color_selected</a>, <a class="el" href="item__roi_8h_source.html#l00116">m_is_draw_center</a>, <a class="el" href="item__roi_8h_source.html#l00058">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00059">TopRight</a>.</p>
 
 </div>
 </div>
@@ -756,7 +770,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00034">34</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00103">m_bounding_color_normal</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00117">m_bounding_color_normal</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00264">WorkspaceSettingDialog::styleRoi()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00279">vision_canvas_detail::VisionRectRoiItem::VisionRectRoiItem()</a>.</p>
 
@@ -781,7 +795,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00041">41</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00104">m_bounding_color_selected</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00118">m_bounding_color_selected</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00264">WorkspaceSettingDialog::styleRoi()</a>.</p>
 
@@ -806,7 +820,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00048">48</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00102">m_is_draw_center</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00116">m_is_draw_center</a>.</p>
 
 </div>
 </div>
@@ -837,7 +851,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__roi_8cpp_source.html#l00122">122</a> of file <a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00048">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00049">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00179">handleRect()</a>, <a class="el" href="item__roi_8h_source.html#l00046">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00047">TopRight</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00060">BottomLeft</a>, <a class="el" href="item__roi_8h_source.html#l00061">BottomRight</a>, <a class="el" href="item__roi_8cpp_source.html#l00179">handleRect()</a>, <a class="el" href="item__roi_8h_source.html#l00058">TopLeft</a>, and <a class="el" href="item__roi_8h_source.html#l00059">TopRight</a>.</p>
 
 </div>
 </div>
@@ -866,9 +880,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the custom item type id (Type) for qgraphicsitem_cast/type() dispatch. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00029">29</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00038">38</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00020">Type</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8h_source.html#l00029">Type</a>.</p>
 
 </div>
 </div>
@@ -895,7 +909,7 @@ Private Attributes</h2></td></tr>
 
 <p>Dashed border color used when not selected. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00103">103</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00117">117</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00008">ItemRoi()</a>, <a class="el" href="item__roi_8cpp_source.html#l00054">paint()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00034">setBoundingColorNormal()</a>.</p>
 
@@ -922,7 +936,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Dashed border color used when selected. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00104">104</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00118">118</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00008">ItemRoi()</a>, <a class="el" href="item__roi_8cpp_source.html#l00054">paint()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00041">setBoundingColorSelected()</a>.</p>
 
@@ -950,7 +964,7 @@ Private Attributes</h2></td></tr>
 
 <p>Handle (if any) currently grabbed by the active mouse interaction; None when idle. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00109">109</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00123">123</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00008">ItemRoi()</a>, <a class="el" href="item__roi_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="item__roi_8cpp_source.html#l00252">mousePressEvent()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00336">mouseReleaseEvent()</a>.</p>
 
@@ -977,7 +991,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Minimum width/height allowed when resizing via a corner handle (not the on-screen handle draw size; see <a class="el" href="#a5c9967dbfeab703f44022dc09f7b7b75">effectiveHandleSize()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00107">107</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00121">121</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00008">ItemRoi()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00280">mouseMoveEvent()</a>.</p>
 
@@ -1005,7 +1019,7 @@ Private Attributes</h2></td></tr>
 
 <p>Optional external flag; mouse events are ignored while *m_ignore is true. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00116">116</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00130">130</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00008">ItemRoi()</a>, <a class="el" href="item__roi_8cpp_source.html#l00280">mouseMoveEvent()</a>, <a class="el" href="item__roi_8cpp_source.html#l00252">mousePressEvent()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00336">mouseReleaseEvent()</a>.</p>
 
@@ -1033,7 +1047,7 @@ Private Attributes</h2></td></tr>
 
 <p>Whether <a class="el" href="#aaf719599c62eeca5500d94e4532b70a2">paint()</a> draws the center cross-hair. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00102">102</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00116">116</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00008">ItemRoi()</a>, <a class="el" href="item__roi_8cpp_source.html#l00054">paint()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00048">setEnableDrawCenter()</a>.</p>
 
@@ -1061,7 +1075,7 @@ Private Attributes</h2></td></tr>
 
 <p>Transform origin captured at mousePressEvent; not read elsewhere. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00114">114</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00128">128</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00252">mousePressEvent()</a>.</p>
 
@@ -1089,7 +1103,7 @@ Private Attributes</h2></td></tr>
 
 <p>rect() captured at mousePressEvent, used as the base for handle-drag resizing. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00111">111</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00125">125</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00280">mouseMoveEvent()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00252">mousePressEvent()</a>.</p>
 
@@ -1117,15 +1131,15 @@ Private Attributes</h2></td></tr>
 
 <p>Mouse position (item coordinates) captured at mousePressEvent. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00112">112</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__roi_8h_source.html#l00126">126</a> of file <a class="el" href="item__roi_8h_source.html">item_roi.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__roi_8cpp_source.html#l00280">mouseMoveEvent()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00252">mousePressEvent()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="item__roi_8h_source.html">item_roi.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="item__roi_8h_source.html">item_roi.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="item__roi_8cpp_source.html">item_roi.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -245,14 +245,23 @@ void FooterItemWidget::setupUi()
     m_autoSortBtn->setCursor(Qt::PointingHandCursor);
     m_autoSortBtn->setFixedHeight(28);
 
+    m_gripperBtn = new QPushButton(QStringLiteral("⊓  Gripper"), this);
+    m_gripperBtn->setProperty("patternAction", QStringLiteral("gripper"));
+    m_gripperBtn->setCursor(Qt::PointingHandCursor);
+    m_gripperBtn->setFixedHeight(28);
+    m_gripperBtn->setToolTip(tr("Register reusable gripper geometries"));
+
     root->addWidget(m_addGroupBtn);
     root->addWidget(m_autoSortBtn);
+    root->addWidget(m_gripperBtn);
     root->addStretch();
 
     connect(m_addGroupBtn, &QPushButton::clicked,
             this, &FooterItemWidget::addGroupRequested);
     connect(m_autoSortBtn, &QPushButton::clicked,
             this, &FooterItemWidget::autoSortRequested);
+    connect(m_gripperBtn, &QPushButton::clicked,
+            this, &FooterItemWidget::gripperRequested);
 }
 
 
@@ -554,6 +563,8 @@ void PatternTreeWidget::appendFooterItem()
             this, &PatternTreeWidget::addGroupRequested);
     connect(w, &FooterItemWidget::autoSortRequested,
             this, &PatternTreeWidget::autoSort);
+    connect(w, &FooterItemWidget::gripperRequested,
+            this, &PatternTreeWidget::gripperRequested);
 }
 
 /// Maps a group's MatchGroupConfig::number to its current index in m_groups.

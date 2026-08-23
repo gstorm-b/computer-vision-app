@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1ru
 </div><!--header-->
 <div class="contents">
 
+<p>Outcome of dispatching a <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a>: echoes the originating command's identity plus a status/code/message describing what happened, and any result payload.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="device__command_8h_source.html">device_command.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::runtime::DeviceCommandResult:</div>
@@ -146,7 +149,7 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a4b780bd5eb2b305c96937c36c39f7e0f" id="r_a4b780bd5eb2b305c96937c36c39f7e0f"><td class="memItemLeft"><a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13">DeviceCommandResultCode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4b780bd5eb2b305c96937c36c39f7e0f">code</a> {<a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13a6adf97f83acf6453d4a6a4b1070f3754">DeviceCommandResultCode::None</a>}</td></tr>
 <tr class="memdesc:a4b780bd5eb2b305c96937c36c39f7e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reason code (set for non-success statuses).  <br /></td></tr>
 <tr class="memitem:a281557d808c41b7e6f5bcd10cd5e7af6" id="r_a281557d808c41b7e6f5bcd10cd5e7af6"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a281557d808c41b7e6f5bcd10cd5e7af6">commandId</a></td></tr>
-<tr class="memdesc:a281557d808c41b7e6f5bcd10cd5e7af6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of the <a class="el" href="structvc_1_1runtime_1_1_device_command.html">DeviceCommand</a> this result answers.  <br /></td></tr>
+<tr class="memdesc:a281557d808c41b7e6f5bcd10cd5e7af6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Id of the <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a> this result answers.  <br /></td></tr>
 <tr class="memitem:aeecf25a68fb852a08de036aeb3dbd00a" id="r_aeecf25a68fb852a08de036aeb3dbd00a"><td class="memItemLeft"><a class="el" href="namespacevc_1_1runtime.html#a84d5add00c3a68cf83759626ccba0208">DeviceCommandKind</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeecf25a68fb852a08de036aeb3dbd00a">kind</a> {<a class="el" href="namespacevc_1_1runtime.html#a84d5add00c3a68cf83759626ccba0208a88183b946cc5f0e8c96b2e66e1c74a7e">DeviceCommandKind::Unknown</a>}</td></tr>
 <tr class="memdesc:aeecf25a68fb852a08de036aeb3dbd00a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operation that was requested.  <br /></td></tr>
 <tr class="memitem:aae32eb7f093d2b4e5f4125d8f4ebdef2" id="r_aae32eb7f093d2b4e5f4125d8f4ebdef2"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aae32eb7f093d2b4e5f4125d8f4ebdef2">message</a></td></tr>
@@ -163,9 +166,9 @@ Static Private Member Functions</h2></td></tr>
 <tr class="memitem:aaa16948e0735dff45f3d05f2002753aa" id="r_aaa16948e0735dff45f3d05f2002753aa"><td class="memItemLeft">static <a class="el" href="structvc_1_1runtime_1_1_device_command_result.html">DeviceCommandResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaa16948e0735dff45f3d05f2002753aa">make</a> (const <a class="el" href="structvc_1_1runtime_1_1_device_command.html">DeviceCommand</a> &amp;command, <a class="el" href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5">DeviceCommandResultStatus</a> status, <a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13">DeviceCommandResultCode</a> code, QString message, QVariantMap payload={})</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Outcome of dispatching a <a class="el" href="structvc_1_1runtime_1_1_device_command.html">DeviceCommand</a>: echoes the originating command's identity plus a status/code/message describing what happened, and any result payload. </p>
+<div class="textblock"><p>Outcome of dispatching a <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a>: echoes the originating command's identity plus a status/code/message describing what happened, and any result payload. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00135">135</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00158">158</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="ab39304d76bb2eb691c4ff24b79404cc8" name="ab39304d76bb2eb691c4ff24b79404cc8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab39304d76bb2eb691c4ff24b79404cc8">&#9670;&#160;</a></span>accepted()</h2>
@@ -196,11 +199,11 @@ Static Private Member Functions</h2></td></tr>
 
 <p>Builds an Accepted result (code None) echoing <span class="tt">command</span>'s identity. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00158">158</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00181">181</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00141">message</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00164">message</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00088">vc::runtime::CameraRunner::submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00112">vc::runtime::CameraRunner::submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -242,11 +245,11 @@ Static Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Builds a Failed result echoing <span class="tt">command</span>'s identity, with the given reason code/message and optional result payload. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00193">193</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00216">216</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00140">code</a>, <a class="el" href="device__command_8h_source.html#l00141">message</a>, and <a class="el" href="device__command_8h_source.html#l00142">payload</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00163">code</a>, <a class="el" href="device__command_8h_source.html#l00164">message</a>, and <a class="el" href="device__command_8h_source.html#l00165">payload</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00297">vc::runtime::CameraRunner::onActiveCommandTimedOut()</a>, <a class="el" href="camera__runner_8h_source.html#l00233">vc::runtime::CameraRunner::onConnectionFailed()</a>, <a class="el" href="camera__runner_8h_source.html#l00200">vc::runtime::CameraRunner::onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00248">vc::runtime::CameraRunner::onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00276">vc::runtime::CameraRunner::onParametersApplied()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00333">vc::runtime::CameraRunner::onActiveCommandTimedOut()</a>, <a class="el" href="camera__runner_8h_source.html#l00265">vc::runtime::CameraRunner::onConnectionFailed()</a>, <a class="el" href="camera__runner_8h_source.html#l00232">vc::runtime::CameraRunner::onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00282">vc::runtime::CameraRunner::onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00312">vc::runtime::CameraRunner::onParametersApplied()</a>.</p>
 
 </div>
 </div>
@@ -274,9 +277,9 @@ Static Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if status is Accepted or Succeeded (i.e. not rejected/failed). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00145">145</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00168">168</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00026">vc::runtime::Accepted</a>, <a class="el" href="device__command_8h_source.html#l00139">status</a>, and <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Succeeded</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00038">vc::runtime::Accepted</a>, <a class="el" href="device__command_8h_source.html#l00162">status</a>, and <a class="el" href="device__command_8h_source.html#l00040">vc::runtime::Succeeded</a>.</p>
 
 </div>
 </div>
@@ -304,9 +307,9 @@ Static Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true only if status is Succeeded (the command fully completed). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00152">152</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00175">175</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00139">status</a>, and <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Succeeded</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00162">status</a>, and <a class="el" href="device__command_8h_source.html#l00040">vc::runtime::Succeeded</a>.</p>
 
 </div>
 </div>
@@ -353,11 +356,11 @@ Static Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Shared factory backing <a class="el" href="#ab39304d76bb2eb691c4ff24b79404cc8" title="Builds an Accepted result (code None) echoing command&#39;s identity.">accepted()</a>/rejected()/succeeded()/failed(): copies <span class="tt">command</span>'s identity fields (commandId, kind, targetDeviceId) into a new result with the given status/code/message/payload. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00209">209</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00232">232</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00140">code</a>, <a class="el" href="device__command_8h_source.html#l00141">message</a>, <a class="el" href="device__command_8h_source.html#l00142">payload</a>, and <a class="el" href="device__command_8h_source.html#l00139">status</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00163">code</a>, <a class="el" href="device__command_8h_source.html#l00164">message</a>, <a class="el" href="device__command_8h_source.html#l00165">payload</a>, and <a class="el" href="device__command_8h_source.html#l00162">status</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__command_8h_source.html#l00168">rejected()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__command_8h_source.html#l00191">rejected()</a>.</p>
 
 </div>
 </div>
@@ -395,11 +398,11 @@ Static Private Member Functions</h2></td></tr>
 
 <p>Builds a Rejected result (command was never executed) echoing <span class="tt">command</span>'s identity. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00168">168</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00191">191</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00140">code</a>, <a class="el" href="device__command_8h_source.html#l00209">make()</a>, <a class="el" href="device__command_8h_source.html#l00141">message</a>, and <a class="el" href="device__command_8h_source.html#l00027">vc::runtime::Rejected</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00163">code</a>, <a class="el" href="device__command_8h_source.html#l00232">make()</a>, <a class="el" href="device__command_8h_source.html#l00164">message</a>, and <a class="el" href="device__command_8h_source.html#l00039">vc::runtime::Rejected</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__command__queue_8h_source.html#l00047">vc::runtime::DeviceCommandQueue::enqueue()</a>, <a class="el" href="camera__runner_8h_source.html#l00360">vc::runtime::CameraRunner::runCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00088">vc::runtime::CameraRunner::submitCommand()</a>, and <a class="el" href="idevice__runner_8h_source.html#l00061">vc::runtime::IDeviceRunner::submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__command__queue_8h_source.html#l00064">vc::runtime::DeviceCommandQueue::enqueue()</a>, <a class="el" href="camera__runner_8h_source.html#l00396">vc::runtime::CameraRunner::runCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00112">vc::runtime::CameraRunner::submitCommand()</a>, and <a class="el" href="idevice__runner_8h_source.html#l00073">vc::runtime::IDeviceRunner::submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -436,11 +439,11 @@ Static Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Builds a Succeeded result (code None) echoing <span class="tt">command</span>'s identity, with an optional result payload. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00180">180</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00203">203</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00141">message</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00164">message</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00200">vc::runtime::CameraRunner::onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00248">vc::runtime::CameraRunner::onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00276">vc::runtime::CameraRunner::onParametersApplied()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00232">vc::runtime::CameraRunner::onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00282">vc::runtime::CameraRunner::onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00312">vc::runtime::CameraRunner::onParametersApplied()</a>.</p>
 
 </div>
 </div>
@@ -459,9 +462,9 @@ Static Private Member Functions</h2></td></tr>
 
 <p>Reason code (set for non-success statuses). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00140">140</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00163">163</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__command_8h_source.html#l00193">failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00425">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00410">vc::runtime::CameraRunner::finishRejectedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00209">make()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01285">vc::model::LocalizationRuntimeController::onCameraCommandFinished()</a>, and <a class="el" href="device__command_8h_source.html#l00168">rejected()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__command_8h_source.html#l00216">failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00446">vc::runtime::CameraRunner::finishRejectedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00232">make()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01285">vc::model::LocalizationRuntimeController::onCameraCommandFinished()</a>, and <a class="el" href="device__command_8h_source.html#l00191">rejected()</a>.</p>
 
 </div>
 </div>
@@ -477,11 +480,11 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Id of the <a class="el" href="structvc_1_1runtime_1_1_device_command.html">DeviceCommand</a> this result answers. </p>
+<p>Id of the <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a> this result answers. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00136">136</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00159">159</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00425">vc::runtime::CameraRunner::finishActiveCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00410">vc::runtime::CameraRunner::finishRejectedCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">vc::runtime::CameraRunner::finishActiveCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00446">vc::runtime::CameraRunner::finishRejectedCommand()</a>.</p>
 
 </div>
 </div>
@@ -499,9 +502,9 @@ Static Private Member Functions</h2></td></tr>
 
 <p>Operation that was requested. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00137">137</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00160">160</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00425">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00410">vc::runtime::CameraRunner::finishRejectedCommand()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01285">vc::model::LocalizationRuntimeController::onCameraCommandFinished()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00446">vc::runtime::CameraRunner::finishRejectedCommand()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01285">vc::model::LocalizationRuntimeController::onCameraCommandFinished()</a>.</p>
 
 </div>
 </div>
@@ -519,9 +522,9 @@ Static Private Member Functions</h2></td></tr>
 
 <p>Human-readable detail message. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00141">141</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00164">164</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__command_8h_source.html#l00158">accepted()</a>, <a class="el" href="device__command_8h_source.html#l00193">failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00425">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00410">vc::runtime::CameraRunner::finishRejectedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00209">make()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01285">vc::model::LocalizationRuntimeController::onCameraCommandFinished()</a>, <a class="el" href="device__command_8h_source.html#l00168">rejected()</a>, and <a class="el" href="device__command_8h_source.html#l00180">succeeded()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__command_8h_source.html#l00181">accepted()</a>, <a class="el" href="device__command_8h_source.html#l00216">failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00446">vc::runtime::CameraRunner::finishRejectedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00232">make()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01285">vc::model::LocalizationRuntimeController::onCameraCommandFinished()</a>, <a class="el" href="device__command_8h_source.html#l00191">rejected()</a>, and <a class="el" href="device__command_8h_source.html#l00203">succeeded()</a>.</p>
 
 </div>
 </div>
@@ -539,9 +542,9 @@ Static Private Member Functions</h2></td></tr>
 
 <p>Kind-specific result data (e.g. captured image info). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00142">142</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00165">165</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__command_8h_source.html#l00193">failed()</a>, and <a class="el" href="device__command_8h_source.html#l00209">make()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__command_8h_source.html#l00216">failed()</a>, and <a class="el" href="device__command_8h_source.html#l00232">make()</a>.</p>
 
 </div>
 </div>
@@ -559,9 +562,9 @@ Static Private Member Functions</h2></td></tr>
 
 <p>Outcome status. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00139">139</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00162">162</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00425">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00410">vc::runtime::CameraRunner::finishRejectedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00145">isAccepted()</a>, <a class="el" href="device__command_8h_source.html#l00152">isTerminalSuccess()</a>, <a class="el" href="device__command_8h_source.html#l00209">make()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01285">vc::model::LocalizationRuntimeController::onCameraCommandFinished()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">vc::runtime::CameraRunner::finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00446">vc::runtime::CameraRunner::finishRejectedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00168">isAccepted()</a>, <a class="el" href="device__command_8h_source.html#l00175">isTerminalSuccess()</a>, <a class="el" href="device__command_8h_source.html#l00232">make()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01285">vc::model::LocalizationRuntimeController::onCameraCommandFinished()</a>.</p>
 
 </div>
 </div>
@@ -579,14 +582,14 @@ Static Private Member Functions</h2></td></tr>
 
 <p>Id of the device that was targeted. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00138">138</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__command_8h_source.html#l00161">161</a> of file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00425">vc::runtime::CameraRunner::finishActiveCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00410">vc::runtime::CameraRunner::finishRejectedCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">vc::runtime::CameraRunner::finishActiveCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00446">vc::runtime::CameraRunner::finishRejectedCommand()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/runtime/<a class="el" href="device__command_8h_source.html">device_command.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/runtime/<a class="el" href="device__command_8h_source.html">device_command.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -9,13 +9,26 @@
 class QLabel;
 class NoWheelDoubleSpinBox;
 
-/// Form widget showing/editing a single VisionRoi's numeric fields (center X/Y, width,
-/// height, angle) via spin boxes; edits are clamped to the current image bounds and
-/// re-emitted through roiEdited().
+/**
+ * @file vision_numeric_inspector.h
+ * @brief VisionNumericInspector — form widget for editing a VisionRoi's numeric fields.
+ */
+
+/**
+ * @class VisionNumericInspector
+ * @brief Form widget showing/editing a single VisionRoi's numeric fields (center X/Y, width,
+ *        height, angle) via spin boxes; edits are clamped to the current image bounds and
+ *        re-emitted through roiEdited().
+ */
 class VisionNumericInspector : public QWidget {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Constructs the widget: builds the form layout with the title label and the
+     *        center/width/height/angle spin boxes, starting in the "no selection" state.
+     * @param[in] parent Optional owning widget; standard Qt parent/child ownership.
+     */
     explicit VisionNumericInspector(QWidget *parent = nullptr);
 
     /// Sets the image bounds used to clamp ROI edits and constrain the spin box ranges.

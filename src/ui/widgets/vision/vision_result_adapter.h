@@ -10,18 +10,33 @@
 #include "model/localization_runtime_controller.h"
 #include "ui/widgets/vision/vision_overlay_types.h"
 
-/// Stateless adapter that translates matcher/runtime result types (mtc::MatchResult,
-/// vc::model::LocalizationRuntimeController::CycleResult) into the UI-facing
-/// VisionResultOverlay used by the vision canvas and result viewer widget.
+/**
+ * @file vision_result_adapter.h
+ * @brief VisionResultAdapter — translates matcher/runtime result types into the
+ *        UI-facing VisionResultOverlay.
+ */
+
+/**
+ * @class VisionResultAdapter
+ * @brief Stateless adapter that translates matcher/runtime result types (mtc::MatchResult,
+ *        vc::model::LocalizationRuntimeController::CycleResult) into the UI-facing
+ *        VisionResultOverlay used by the vision canvas and result viewer widget.
+ */
 class VisionResultAdapter {
 public:
-    /// Converts a raw match result into a VisionResultOverlay: splits matched objects
-    /// into accepted/rejected sets (rejected = collision, outside condition ROI, or not
-    /// pickable), offsets all coordinates by `result.cropOffsetPoint`, assigns 1-based
-    /// display indices, and appends workspace/condition ROI overlays when `workspace`
-    /// is provided.
-    /// @param sourceImageSize size of the image the result was computed against
-    /// @param runtimeSignalValues optional signal values copied verbatim into the overlay
+    /**
+     * @brief Converts a raw match result into a VisionResultOverlay: splits matched objects
+     *        into accepted/rejected sets (rejected = collision, outside condition ROI, or not
+     *        pickable), offsets all coordinates by `result.cropOffsetPoint`, assigns 1-based
+     *        display indices, and appends workspace/condition ROI overlays when `workspace`
+     *        is provided.
+     * @param[in] result               raw matcher result to convert
+     * @param[in] sourceImageSize      size of the image the result was computed against
+     * @param[in] workspace            optional workspace providing the condition/workspace ROI
+     *                                 overlays; omitted if null
+     * @param[in] runtimeSignalValues  optional signal values copied verbatim into the overlay
+     * @return the converted UI-facing overlay
+     */
     static VisionResultOverlay fromMatchResult(
         const mtc::MatchResult &result,
         const QSize &sourceImageSize,

@@ -8,36 +8,49 @@
 #include <QPixmap>
 #include <opencv2/core.hpp>
 
-/// Shared canvas widget used by AddPatternWizard / EditPatternWizard to edit the crop, pick, and
-/// box geometry over a displayed image.
-///
-/// Coordinate model: all geometry the host gets/sets (crop, pick, box) is in source-image pixel
-/// coordinates. The widget maintains its own view transform (zoom + pan) and renders through it,
-/// so geometry stays stable across resizes and zooms.
-///
-/// View interaction (active in every mode): mouse wheel zooms around the cursor, middle-button
-/// drag pans, middle-button double-click resets the view (fits the image to the widget and
-/// recentres it), and the image is refit on every setImage() call.
-///
-/// Modes:
-/// - None: image only, no overlay.
-/// - Crop: body drag translates the crop rect, four corner handles resize it; drawn with a
-///   rule-of-thirds grid and a dim scrim outside the crop.
-/// - Pick: click sets the pick point; if a non-empty crop is set, it is drawn read-only so the
-///   user can see the crop region.
-/// - Box: symmetric jaw pair around the pick point. Box A is interactive (body drag moves it,
-///   changing dist + angle; corner handles resize W/H, mirrored onto box B; the rotation handle
-///   rotates it), and the pick crosshair itself is draggable -- both jaws follow it rigidly.
-///   Boxes may extend beyond the image bounds.
-/// - Finish: read-only review of the pick crosshair and jaw pair.
-///
-/// @note Emits cropChanged(QRect), pickChanged(QPoint, QPoint), and
-/// boxChanged(w, h, dist, angleDeg) while the user edits the corresponding geometry.
+/**
+ * @file pattern_canvas.h
+ * @brief AddPatternImageCanvas — shared canvas widget for editing crop/pick/box geometry.
+ */
+
+/**
+ * @class AddPatternImageCanvas
+ * @brief Shared canvas widget used by AddPatternWizard / EditPatternWizard to edit the crop,
+ *        pick, and box geometry over a displayed image.
+ *
+ * Coordinate model: all geometry the host gets/sets (crop, pick, box) is in source-image pixel
+ * coordinates. The widget maintains its own view transform (zoom + pan) and renders through it,
+ * so geometry stays stable across resizes and zooms.
+ *
+ * View interaction (active in every mode): mouse wheel zooms around the cursor, middle-button
+ * drag pans, middle-button double-click resets the view (fits the image to the widget and
+ * recentres it), and the image is refit on every setImage() call.
+ *
+ * Modes:
+ * - None: image only, no overlay.
+ * - Crop: body drag translates the crop rect, four corner handles resize it; drawn with a
+ *   rule-of-thirds grid and a dim scrim outside the crop.
+ * - Pick: click or drag sets the pick point; if a non-empty crop is set, it is drawn read-only
+ *   so the user can see the crop region. An X/Y orientation gizmo is drawn through the pick
+ *   point and its knob can be dragged to set the picking angle -- the knob takes priority over
+ *   placing the pick point, so grabbing it does not also move the pick.
+ * - Box: symmetric jaw pair around the pick point. Box A is interactive (body drag moves it,
+ *   changing dist + angle; corner handles resize W/H, mirrored onto box B; the rotation handle
+ *   rotates it), and the pick crosshair itself is draggable -- both jaws follow it rigidly.
+ *   Boxes may extend beyond the image bounds.
+ * - Finish: read-only review of the pick crosshair and jaw pair.
+ *
+ * @note Emits cropChanged(QRect), pickChanged(QPoint, QPoint), pickAngleChanged(angleDeg), and
+ *       boxChanged(w, h, dist, angleDeg) while the user edits the corresponding geometry.
+ */
 class AddPatternImageCanvas : public QWidget {
     Q_OBJECT
 public:
-    /// Active interaction mode; selects which overlay is drawn and which mouse gestures are
-    /// enabled (see class-level docs for the behavior of each mode).
+    /**
+     * @enum Mode
+     * @brief Active interaction mode; selects which overlay is drawn and which mouse gestures
+     *        are enabled (see class-level docs for the behavior of each mode).
+     */
     enum Mode { None, Crop, Pick, Box, Finish };
 
     /// Constructs an empty canvas (no image, 400x280 minimum size) with mouse tracking and strong
@@ -58,17 +71,21 @@ public:
     QSize imageSize() const { return m_pix.size(); }
 
     // ── Mode ─────────────────────────────────────────────────────────────
-    /// Switches the active interaction mode and repaints; does not alter any stored crop/pick/box
-    /// geometry.
-    /// @param m mode to activate
+    /**
+     * @brief Switches the active interaction mode and repaints; does not alter any stored
+     *        crop/pick/box geometry.
+     * @param[in] m mode to activate
+     */
     void setMode(Mode m);
     /// Returns the current interaction mode.
     Mode mode() const { return m_mode; }
 
     // ── Crop (image pixels) ──────────────────────────────────────────────
-    /// Sets the crop rectangle in source-image pixels and repaints.
-    /// @param r new crop rect; an empty rect disables the crop overlay (useful when keepOriginal
-    /// is on)
+    /**
+     * @brief Sets the crop rectangle in source-image pixels and repaints.
+     * @param[in] r new crop rect; an empty rect disables the crop overlay (useful when
+     *        keepOriginal is on)
+     */
     void  setCrop(const QRect &r);
     /// Returns the current crop rectangle in source-image pixels (empty if no crop is set).
     QRect crop() const { return m_crop; }
@@ -89,19 +106,36 @@ public:
     }
 
 
+    /**
+     * @brief Sets the picking ORIENTATION drawn as an X/Y axis pair through the pick point.
+     *
+     * Rendered as a two-arrow frame gizmo: the X arrow lies along `angleDeg`, the Y arrow
+     * 90 degrees clockwise from it (image convention — Y grows downward). In Pick mode the
+     * gizmo carries a drag knob past the X tip, so the angle can be set on the image
+     * instead of only through a spin box; dragging it emits pickAngleChanged().
+     * @param[in] angleDeg picking angle in degrees, measured like the box angle
+     */
+    void setPickAngle(double angleDeg);
+    /// Returns the current picking orientation, in degrees.
+    double pickAngle() const { return m_pickAngle; }
+
     // ── Box config (image-pixel sizes, degrees) ──────────────────────────
-    /// Sets box A's width, height, distance from the pick point, and rotation angle; box B is
-    /// derived automatically (mirrored 180 degrees) when painted.
-    /// @param w box width, in image pixels
-    /// @param h box height, in image pixels
-    /// @param dist distance from the pick point to box A's centre, in image pixels
-    /// @param angleDeg rotation angle of box A, in degrees
+    /**
+     * @brief Sets box A's width, height, distance from the pick point, and rotation angle; box
+     *        B is derived automatically (mirrored 180 degrees) when painted.
+     * @param[in] w box width, in image pixels
+     * @param[in] h box height, in image pixels
+     * @param[in] dist distance from the pick point to box A's centre, in image pixels
+     * @param[in] angleDeg rotation angle of box A, in degrees
+     */
     void setBoxConfig(double w, double h, double dist, double angleDeg);
 
     // ── Locked overlay (Edit wizard step 1 — purple scrim + lock badge) ──
-    /// Shows or hides the locked overlay (dim scrim plus a "LOCKED" badge) and disables all
-    /// crop/pick/box editing gestures while locked (middle-button panning still works).
-    /// @param locked true to lock the canvas against edits
+    /**
+     * @brief Shows or hides the locked overlay (dim scrim plus a "LOCKED" badge) and disables
+     *        all crop/pick/box editing gestures while locked (middle-button panning still works).
+     * @param[in] locked true to lock the canvas against edits
+     */
     void setLocked(bool locked);
 
     // ── View transform ───────────────────────────────────────────────────
@@ -115,11 +149,16 @@ signals:
     // canonical geometry without any inverse transform.
     /// Emitted while the user drags a crop corner handle or the crop body, with the updated rect.
     void cropChanged(const QRect &r);                                       // image-pixel rect
-    /// Emitted while the user sets or drags the pick point (Pick mode click/drag, or the Box
-    /// mode pick handle).
-    /// @param p pick point in absolute source-image pixels (clamped to the crop or image bounds)
-    /// @param imgp crop-relative pick point when a crop is set
+    /**
+     * @brief Emitted while the user sets or drags the pick point (Pick mode click/drag, or the
+     *        Box mode pick handle).
+     * @param[in] p pick point in absolute source-image pixels (clamped to the crop or image bounds)
+     * @param[in] imgp crop-relative pick point when a crop is set
+     */
     void pickChanged(const QPoint &p, const QPoint &imgp);                  // image-pixel point
+    /// Emitted while the user drags the picking-orientation knob in Pick mode, with the new
+    /// angle in degrees. Never emitted by setPickAngle() — that is a host-driven update.
+    void pickAngleChanged(double angleDeg);
     /// Emitted while the user drags a box A handle (resize, move, or rotate); box B mirrors box A
     /// automatically.
     void boxChanged (double w, double h, double dist, double angleDeg);     // image-pixel sizes
@@ -188,18 +227,54 @@ private:
     /// Returns the rotation handle's position, in image pixels: offset from box A's centre,
     /// perpendicular to the pick-to-centre connector, by `m_boxH / 2 + kRotateHandleStandoff`.
     QPointF boxRotationHandle() const;
-    /// Computes the four corners of box A, in image pixels and rotated by `m_boxAngle`.
-    /// @param out destination array of 4 points (order TL, TR, BL, BR); overwritten
+    /**
+     * @brief Computes the four corners of box A, in image pixels and rotated by `m_boxAngle`.
+     * @param[out] out destination array of 4 points (order TL, TR, BL, BR); overwritten
+     */
     void    boxACorners(QPointF out[4]) const;
     /// Returns which box A handle is under `widgetPos` (checked in priority order: pick crosshair,
     /// rotation knob, corners, then body), or BH_None if none is hit.
     BoxHandle hitBoxHandle(const QPoint &widgetPos) const;
+
+    // ── Pick point ───────────────────────────────────────────────────────
+    /**
+     * @brief Clamps an image-space point to the pick's legal area and stores it as the
+     *        pick, updating both `m_pick` and the crop-relative `m_pickCurrentPoint`.
+     * @param[in] imgPt candidate pick position, in image coordinates
+     * @note The legal area is the crop when a non-empty one is set, otherwise the image
+     *       bounds. Shared by the Pick-mode click, the Pick-mode drag and the Box-mode
+     *       pick handle so the three cannot drift apart.
+     */
+    void setPickClamped(const QPointF &imgPt);
+
+    // ── Picking-orientation gizmo ────────────────────────────────────────
+    /// Returns the picking-orientation drag knob's centre, in WIDGET pixels: offset from the
+    /// pick point at `m_pickAngle + kPickHandleBearing` so it sits between the two arrows
+    /// rather than on top of either. Widget-space because the gizmo is drawn at a fixed
+    /// on-screen size — it shows a direction, not a measurable distance, so it must not
+    /// scale with zoom.
+    QPointF pickRotationHandle() const;
+    /// Returns true when `widgetPos` is within grab range of the picking-orientation knob.
+    bool    hitPickRotationHandle(const QPoint &widgetPos) const;
+    /**
+     * @brief Draws the picking-orientation gizmo: the X/Y axis pair and, when interactive,
+     *        the rotation knob.
+     *
+     * Each axis is a full line through the pick point — arrowhead on the positive end only,
+     * so the direction stays readable. Call this BEFORE the pick crosshair ring, which is
+     * meant to sit on top of where the two lines cross.
+     * @param[in,out] p painter to draw with, in widget coordinates
+     * @param[in] pickWidget the pick point already mapped to widget coordinates
+     * @param[in] interactive true in Pick mode, where the drag knob is shown
+     */
+    void    drawPickOrientation(QPainter &p, const QPointF &pickWidget, bool interactive) const;
 
     // ── State ────────────────────────────────────────────────────────────
     Mode    m_mode{None};           ///< Current interaction mode.
     QPixmap m_pix;                  ///< Currently displayed image, at source resolution.
     QRect   m_crop{};               ///< Crop rectangle, in image pixels; empty means no crop.
     QPoint  m_pick{0, 0};           ///< Pick point, in absolute image pixels.
+    double  m_pickAngle{0.0};       ///< Picking orientation drawn through the pick point, in degrees.
 
     double  m_boxW{120}, m_boxH{80};        ///< Box A width/height, in image pixels.
     double  m_boxDist{90}, m_boxAngle{0};   ///< Box A distance from the pick point (image px) and rotation angle (degrees).
@@ -220,6 +295,11 @@ private:
     CropHandle m_cropHandle{CH_None};  ///< Which crop handle is being dragged.
     QPointF    m_cropDragStartImg;   ///< Image-pixel cursor position where the current crop drag began.
     QRect      m_cropDragStartRect;    ///< `m_crop` value captured when the current crop drag began.
+
+    // Pick drag
+    bool      m_pickDragging{false};        ///< True while the pick point is being dragged in Pick mode.
+    // Picking-orientation drag
+    bool      m_pickAngleDragging{false};  ///< True while the picking-orientation knob is being dragged.
 
     // Box drag
     bool      m_boxDragging{false};    ///< True while a box A handle drag is in progress.

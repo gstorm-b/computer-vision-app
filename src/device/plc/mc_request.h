@@ -1,19 +1,24 @@
 #ifndef MC_REQUEST_H
 #define MC_REQUEST_H
 
+/**
+ * @file mc_request.h
+ * @brief MC-protocol request object, register-value builders, and the McResult payload.
+ */
+
 #include <memory>
 #include <QString>
 #include <QList>
 #include "device/irequest.h"
 #include "device/plc/memory_utils.h"
 
-/// PLC/MC device-layer request types: the MC-protocol request object, its
-/// register-value builders, and the result payload returned once a request
-/// completes.
 namespace vc::device {
 
-/// Outcome of a single MC-protocol read/write request, as reported to
-/// listeners of MCProtocolDevice::requestFinished.
+/**
+ * @struct McResult
+ * @brief Outcome of a single MC-protocol read/write request, as reported to
+ *        listeners of MCProtocolDevice::requestFinished.
+ */
 struct McResult {
     bool isOk;                ///< True when the request completed successfully.
     int startAddress;         ///< Starting register address the result corresponds to.
@@ -23,12 +28,18 @@ struct McResult {
     QByteArray data;           ///< Raw response payload bytes.
 };
 
-/// Concrete IRequest for the Mitsubishi MC protocol: describes a single bit or
-/// word read/write against a PLC device (device-type letter + start address +
-/// amount) and can encode the write payload into `m_value`.
+/**
+ * @class MCRequest
+ * @brief Concrete IRequest for the Mitsubishi MC protocol: describes a single bit or
+ *        word read/write against a PLC device (device-type letter + start address +
+ *        amount) and can encode the write payload into `m_value`.
+ */
 class MCRequest : public IRequest {
 public:
-    /// Kind of MC-protocol operation this request performs.
+    /**
+     * @enum RqType
+     * @brief Kind of MC-protocol operation this request performs.
+     */
     enum RqType {
         ReadBit,
         WriteBit,

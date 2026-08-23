@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract MC-protocol frame codec: builds outgoing request frames and parses incoming response frames for a specific MC frame variant (1E/3E/1C/3C). Concrete subclasses (e.g. <a class="el" href="classvc_1_1device_1_1_frame3_e.html" title="Concrete MC-protocol frame codec for the 3E frame: builds/parses the binary 3E read/write (bit and wo...">Frame3E</a>) implement the actual binary/ASCII encoding.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="mc__frame__abstract_8h_source.html">mc_frame_abstract.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::MCFrameAbstract:</div>
@@ -145,21 +148,23 @@ Public Types</h2></td></tr>
 , <a class="el" href="#a67740ee556badfc697fb521695062721ae6e8eff3bb8bbba87c0a6f5370f9134c">ObjectError</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a67740ee556badfc697fb521695062721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outcome of a <a class="el" href="#a50356b337fd022d40efc081b955c8db1">makeSendFrame()</a>/parseReceiveFrame() call.  <a href="#a67740ee556badfc697fb521695062721">More...</a><br /></td></tr>
+<tr class="memdesc:a67740ee556badfc697fb521695062721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outcome of a <a class="el" href="#a50356b337fd022d40efc081b955c8db1" title="Builds the outgoing request frame for request into byte.">makeSendFrame()</a>/parseReceiveFrame() call.  <a href="#a67740ee556badfc697fb521695062721">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0152369bb7281a88bb2d2210a1fc636c" id="r_a0152369bb7281a88bb2d2210a1fc636c"><td class="memItemLeft">virtual QString&#160;</td><td class="memItemRight"><a class="el" href="#a0152369bb7281a88bb2d2210a1fc636c">lastErrorDescription</a> ()=0</td></tr>
 <tr class="memdesc:a0152369bb7281a88bb2d2210a1fc636c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a human-readable description of the most recent build/parse failure.  <br /></td></tr>
 <tr class="memitem:a50356b337fd022d40efc081b955c8db1" id="r_a50356b337fd022d40efc081b955c8db1"><td class="memItemLeft">virtual <a class="el" href="#a67740ee556badfc697fb521695062721">FrameReturnCode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a50356b337fd022d40efc081b955c8db1">makeSendFrame</a> (<a class="el" href="classvc_1_1device_1_1_m_c_request.html">vc::device::MCRequest</a> *request, <a class="el" href="classvc_1_1device_1_1_mc_context.html">McContext</a> *ctx, QByteArray &amp;byte)=0</td></tr>
+<tr class="memdesc:a50356b337fd022d40efc081b955c8db1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the outgoing request frame for <span class="tt">request</span> into <span class="tt">byte</span>.  <br /></td></tr>
 <tr class="memitem:ab75fe404a425362ac13292b2a06a8946" id="r_ab75fe404a425362ac13292b2a06a8946"><td class="memItemLeft">virtual <a class="el" href="#a67740ee556badfc697fb521695062721">FrameReturnCode</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab75fe404a425362ac13292b2a06a8946">parseReceiveFrame</a> (<a class="el" href="classvc_1_1device_1_1_m_c_request.html">vc::device::MCRequest</a> *request, <a class="el" href="classvc_1_1device_1_1_mc_context.html">McContext</a> *ctx, QByteArray &amp;byte)=0</td></tr>
+<tr class="memdesc:ab75fe404a425362ac13292b2a06a8946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a received response frame in <span class="tt">byte</span> against the outstanding <span class="tt">request</span>.  <br /></td></tr>
 <tr class="memitem:a8a409a1ea4f29480cfec6cbf27afbd64" id="r_a8a409a1ea4f29480cfec6cbf27afbd64"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#a8a409a1ea4f29480cfec6cbf27afbd64">~MCFrameAbstract</a> ()=default</td></tr>
-<tr class="memdesc:a8a409a1ea4f29480cfec6cbf27afbd64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor so concrete frame codecs can be destroyed through a <a class="el" href="classvc_1_1device_1_1_m_c_frame_abstract.html">MCFrameAbstract</a> pointer.  <br /></td></tr>
+<tr class="memdesc:a8a409a1ea4f29480cfec6cbf27afbd64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor so concrete frame codecs can be destroyed through a <a class="el" href="classvc_1_1device_1_1_m_c_frame_abstract.html" title="Abstract MC-protocol frame codec: builds outgoing request frames and parses incoming response frames ...">MCFrameAbstract</a> pointer.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract MC-protocol frame codec: builds outgoing request frames and parses incoming response frames for a specific MC frame variant (1E/3E/1C/3C). Concrete subclasses (e.g. <a class="el" href="classvc_1_1device_1_1_frame3_e.html">Frame3E</a>) implement the actual binary/ASCII encoding. </p>
+<div class="textblock"><p>Abstract MC-protocol frame codec: builds outgoing request frames and parses incoming response frames for a specific MC frame variant (1E/3E/1C/3C). Concrete subclasses (e.g. <a class="el" href="classvc_1_1device_1_1_frame3_e.html" title="Concrete MC-protocol frame codec for the 3E frame: builds/parses the binary 3E read/write (bit and wo...">Frame3E</a>) implement the actual binary/ASCII encoding. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__frame__abstract_8h_source.html#l00014">14</a> of file <a class="el" href="mc__frame__abstract_8h_source.html">mc_frame_abstract.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__frame__abstract_8h_source.html#l00021">21</a> of file <a class="el" href="mc__frame__abstract_8h_source.html">mc_frame_abstract.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a67740ee556badfc697fb521695062721" name="a67740ee556badfc697fb521695062721"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a67740ee556badfc697fb521695062721">&#9670;&#160;</a></span>FrameReturnCode</h2>
@@ -173,25 +178,25 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Outcome of a <a class="el" href="#a50356b337fd022d40efc081b955c8db1">makeSendFrame()</a>/parseReceiveFrame() call. </p>
+<p>Outcome of a <a class="el" href="#a50356b337fd022d40efc081b955c8db1" title="Builds the outgoing request frame for request into byte.">makeSendFrame()</a>/parseReceiveFrame() call. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721afd16c00e3fab1ba7e5143c49e3a01e5b" name="a67740ee556badfc697fb521695062721afd16c00e3fab1ba7e5143c49e3a01e5b"></a>RequestFrameOK&#160;</td><td class="fielddoc"><p><a class="el" href="#a50356b337fd022d40efc081b955c8db1">makeSendFrame()</a> built the request frame successfully. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721afd16c00e3fab1ba7e5143c49e3a01e5b" name="a67740ee556badfc697fb521695062721afd16c00e3fab1ba7e5143c49e3a01e5b"></a>RequestFrameOK&#160;</td><td class="fielddoc"><p><a class="el" href="#a50356b337fd022d40efc081b955c8db1" title="Builds the outgoing request frame for request into byte.">makeSendFrame()</a> built the request frame successfully. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721a850d99c01269b542fb6722d36e1ecc38" name="a67740ee556badfc697fb521695062721a850d99c01269b542fb6722d36e1ecc38"></a>RequestFrameError&#160;</td><td class="fielddoc"><p><a class="el" href="#a50356b337fd022d40efc081b955c8db1">makeSendFrame()</a> failed to build the request frame. </p>
+<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721a850d99c01269b542fb6722d36e1ecc38" name="a67740ee556badfc697fb521695062721a850d99c01269b542fb6722d36e1ecc38"></a>RequestFrameError&#160;</td><td class="fielddoc"><p><a class="el" href="#a50356b337fd022d40efc081b955c8db1" title="Builds the outgoing request frame for request into byte.">makeSendFrame()</a> failed to build the request frame. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721a11f5b254e64246fb67b210c85db68f01" name="a67740ee556badfc697fb521695062721a11f5b254e64246fb67b210c85db68f01"></a>WaitingReceive&#160;</td><td class="fielddoc"><p><a class="el" href="#ab75fe404a425362ac13292b2a06a8946">parseReceiveFrame()</a> needs more bytes; the frame is not yet complete. </p>
+<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721a11f5b254e64246fb67b210c85db68f01" name="a67740ee556badfc697fb521695062721a11f5b254e64246fb67b210c85db68f01"></a>WaitingReceive&#160;</td><td class="fielddoc"><p><a class="el" href="#ab75fe404a425362ac13292b2a06a8946" title="Parses a received response frame in byte against the outstanding request.">parseReceiveFrame()</a> needs more bytes; the frame is not yet complete. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721ae6cac1d19f5762e37a228095d14a2da3" name="a67740ee556badfc697fb521695062721ae6cac1d19f5762e37a228095d14a2da3"></a>ResponseOk&#160;</td><td class="fielddoc"><p><a class="el" href="#ab75fe404a425362ac13292b2a06a8946">parseReceiveFrame()</a> parsed a valid, successful response frame. </p>
+<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721ae6cac1d19f5762e37a228095d14a2da3" name="a67740ee556badfc697fb521695062721ae6cac1d19f5762e37a228095d14a2da3"></a>ResponseOk&#160;</td><td class="fielddoc"><p><a class="el" href="#ab75fe404a425362ac13292b2a06a8946" title="Parses a received response frame in byte against the outstanding request.">parseReceiveFrame()</a> parsed a valid, successful response frame. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721a411ab63602f2288a9ee3632897a1504c" name="a67740ee556badfc697fb521695062721a411ab63602f2288a9ee3632897a1504c"></a>ResponseError&#160;</td><td class="fielddoc"><p><a class="el" href="#ab75fe404a425362ac13292b2a06a8946">parseReceiveFrame()</a> parsed a response frame reporting an error end-code. </p>
+<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721a411ab63602f2288a9ee3632897a1504c" name="a67740ee556badfc697fb521695062721a411ab63602f2288a9ee3632897a1504c"></a>ResponseError&#160;</td><td class="fielddoc"><p><a class="el" href="#ab75fe404a425362ac13292b2a06a8946" title="Parses a received response frame in byte against the outstanding request.">parseReceiveFrame()</a> parsed a response frame reporting an error end-code. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721ad9dd80fb63bcfaef1ee8d38a8f489f50" name="a67740ee556badfc697fb521695062721ad9dd80fb63bcfaef1ee8d38a8f489f50"></a>ResponseInvalid&#160;</td><td class="fielddoc"><p><a class="el" href="#ab75fe404a425362ac13292b2a06a8946">parseReceiveFrame()</a> found the response frame malformed/unrecognized. </p>
+<tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721ad9dd80fb63bcfaef1ee8d38a8f489f50" name="a67740ee556badfc697fb521695062721ad9dd80fb63bcfaef1ee8d38a8f489f50"></a>ResponseInvalid&#160;</td><td class="fielddoc"><p><a class="el" href="#ab75fe404a425362ac13292b2a06a8946" title="Parses a received response frame in byte against the outstanding request.">parseReceiveFrame()</a> found the response frame malformed/unrecognized. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a67740ee556badfc697fb521695062721ae6e8eff3bb8bbba87c0a6f5370f9134c" name="a67740ee556badfc697fb521695062721ae6e8eff3bb8bbba87c0a6f5370f9134c"></a>ObjectError&#160;</td><td class="fielddoc"><p>The request/context passed in was null or otherwise unusable. </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="mc__frame__abstract_8h_source.html#l00017">17</a> of file <a class="el" href="mc__frame__abstract_8h_source.html">mc_frame_abstract.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__frame__abstract_8h_source.html#l00027">27</a> of file <a class="el" href="mc__frame__abstract_8h_source.html">mc_frame_abstract.h</a>.</p>
 
 </div>
 </div>
@@ -219,7 +224,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Virtual destructor so concrete frame codecs can be destroyed through a <a class="el" href="classvc_1_1device_1_1_m_c_frame_abstract.html">MCFrameAbstract</a> pointer. </p>
+<p>Virtual destructor so concrete frame codecs can be destroyed through a <a class="el" href="classvc_1_1device_1_1_m_c_frame_abstract.html" title="Abstract MC-protocol frame codec: builds outgoing request frames and parses incoming response frames ...">MCFrameAbstract</a> pointer. </p>
 
 </div>
 </div>
@@ -284,11 +289,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds the outgoing request frame for <span class="tt">request</span> into <span class="tt">byte</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Builds the outgoing request frame for <span class="tt">request</span> into <span class="tt">byte</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">request</td><td>the read/write request to encode </td></tr>
-    <tr><td class="paramname">ctx</td><td>the frame context (addressing + timing parameters) for the target frame type </td></tr>
-    <tr><td class="paramname">byte</td><td>output buffer; overwritten with the encoded frame on success </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">request</td><td>the read/write request to encode </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>the frame context (addressing + timing parameters) for the target frame type </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">byte</td><td>output buffer; overwritten with the encoded frame on success </td></tr>
   </table>
   </dd>
 </dl>
@@ -329,11 +336,13 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Parses a received response frame in <span class="tt">byte</span> against the outstanding <span class="tt">request</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Parses a received response frame in <span class="tt">byte</span> against the outstanding <span class="tt">request</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">request</td><td>the request the response is expected to answer </td></tr>
-    <tr><td class="paramname">ctx</td><td>the frame context (addressing + timing parameters) for the target frame type </td></tr>
-    <tr><td class="paramname">byte</td><td>input buffer of bytes received so far; implementations may accumulate partial reads across calls until a full frame is available </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">request</td><td>the request the response is expected to answer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>the frame context (addressing + timing parameters) for the target frame type </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">byte</td><td>input buffer of bytes received so far; implementations may accumulate partial reads across calls until a full frame is available </td></tr>
   </table>
   </dd>
 </dl>
@@ -344,7 +353,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__frame__abstract_8h_source.html">mc_frame_abstract.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__frame__abstract_8h_source.html">mc_frame_abstract.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

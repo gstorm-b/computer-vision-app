@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_add_patt
 </div><!--header-->
 <div class="contents">
 
+<p>Modal dialog for building a single pattern image: the user either triggers a camera capture (<a class="el" href="#adfd106a86c8d86e91c50a3d783371db9" title="Emitted by btn_trigger_clicked() to request an externally-supplied image for id.">requestImage()</a>/setMainViewImage()) or picks a file from disk, then optionally draws an ROI and crops it; the resulting image is retrieved via <a class="el" href="#a99a8fd55f13769c8e63f4f4771a26e28">getFinalImage()</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AddPatternImageDialog:</div>
@@ -160,6 +163,7 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:ae8909d18491a2dc974dbd028420ebc43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rejects the dialog.  <br /></td></tr>
 <tr class="memitem:a1d30b929af6bfd0a2afc067cefd4e9f5" id="r_a1d30b929af6bfd0a2afc067cefd4e9f5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1d30b929af6bfd0a2afc067cefd4e9f5">btn_choose_image_clicked</a> ()</td></tr>
 <tr class="memitem:ac71d343ec4419818b7119f15e6417215" id="r_ac71d343ec4419818b7119f15e6417215"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac71d343ec4419818b7119f15e6417215">btn_crop_clicked</a> ()</td></tr>
+<tr class="memdesc:ac71d343ec4419818b7119f15e6417215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggles between previewing and finalizing a crop. If already in the cropped state, accepts the dialog with the previously cropped pixmap as the final image. Does nothing further if the main view has no image; otherwise (re-)derives the cropped pixmap from the current ROI, loads it into the crop view, switches the stack to it, marks the dialog as cropped, and updates button states/label to "Apply".  <br /></td></tr>
 <tr class="memitem:ab38b43ce45090a8db222ac29cb8953ad" id="r_ab38b43ce45090a8db222ac29cb8953ad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab38b43ce45090a8db222ac29cb8953ad">btn_no_crop_clicked</a> ()</td></tr>
 <tr class="memitem:a22370461767eb3332baba840ea0340ac" id="r_a22370461767eb3332baba840ea0340ac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a22370461767eb3332baba840ea0340ac">btn_set_roi_clicked</a> ()</td></tr>
 <tr class="memitem:a33d3d998cb6b0d3769c92a035c333089" id="r_a33d3d998cb6b0d3769c92a035c333089"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a33d3d998cb6b0d3769c92a035c333089">btn_trigger_clicked</a> ()</td></tr>
@@ -189,7 +193,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Modal dialog for building a single pattern image: the user either triggers a camera capture (<a class="el" href="#adfd106a86c8d86e91c50a3d783371db9" title="Emitted by btn_trigger_clicked() to request an externally-supplied image for id.">requestImage()</a>/setMainViewImage()) or picks a file from disk, then optionally draws an ROI and crops it; the resulting image is retrieved via <a class="el" href="#a99a8fd55f13769c8e63f4f4771a26e28">getFinalImage()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00016">16</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00025">25</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad4b5d0c3e14fed33024c3484837e1147" name="ad4b5d0c3e14fed33024c3484837e1147"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad4b5d0c3e14fed33024c3484837e1147">&#9670;&#160;</a></span>AddPatternImageDialog()</h2>
@@ -213,12 +217,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds the dialog UI, wires all button handlers, creates the main/crop <a class="el" href="class_image_widget.html">ImageWidget</a> pages and adds them to the stacked widget, and initializes the last-selected path to the current working directory.</p>
-<p>Sets up the generated UI, connects all button handlers, creates the main/crop <a class="el" href="class_image_widget.html">ImageWidget</a> pages (mouse menu disabled) and adds them to the stacked widget, wires the main view's ROI signal, and seeds m_last_selected_path with the current working directory. </p>
+<p>Builds the dialog UI, wires all button handlers, creates the main/crop <a class="el" href="class_image_widget.html" title="QGraphicsView-based image viewer that shows a loaded pixmap and lets the user pan/zoom it and draw/ma...">ImageWidget</a> pages and adds them to the stacked widget, and initializes the last-selected path to the current working directory.</p>
+<p>Sets up the generated UI, connects all button handlers, creates the main/crop <a class="el" href="class_image_widget.html" title="QGraphicsView-based image viewer that shows a loaded pixmap and lets the user pan/zoom it and draw/ma...">ImageWidget</a> pages (mouse menu disabled) and adds them to the stacked widget, wires the main view's ROI signal, and seeds m_last_selected_path with the current working directory. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">62</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00209">btn_back_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00193">btn_cancel_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00152">btn_choose_image_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00199">btn_no_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00179">btn_set_roi_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00144">btn_trigger_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00254">form_draw_crop_roi_finished()</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00094">m_image_crop_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00091">m_last_selected_path</a>, <a class="el" href="class_image_widget.html#a1afe5310dc189ca35103a32c4bde2bab">ImageWidget::signal_draw_roi_finished()</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00209">btn_back_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00193">btn_cancel_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00152">btn_choose_image_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00199">btn_no_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00179">btn_set_roi_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00144">btn_trigger_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00254">form_draw_crop_roi_finished()</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00107">m_image_crop_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00104">m_last_selected_path</a>, <a class="el" href="class_image_widget.html#a1afe5310dc189ca35103a32c4bde2bab">ImageWidget::signal_draw_roi_finished()</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>.</p>
 
@@ -244,7 +248,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00098">98</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">ui</a>.</p>
 
 </div>
 </div>
@@ -276,7 +280,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00209">209</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00100">m_cropped</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">m_image_main_view</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00113">m_cropped</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">m_image_main_view</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>.</p>
 
@@ -341,7 +345,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00152">152</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00096">m_item_crop_roi</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00091">m_last_selected_path</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00109">m_item_crop_roi</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00104">m_last_selected_path</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>.</p>
 
@@ -369,12 +373,14 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Toggles between previewing and finalizing a crop. If already in the cropped state, accepts the dialog with the previously cropped pixmap as the final image. Does nothing further if the main view has no image; otherwise (re-)derives the cropped pixmap from the current ROI, loads it into the crop view, switches the stack to it, marks the dialog as cropped, and updates button states/label to "Apply". </p><dl class="section note"><dt>Note</dt><dd>when already cropped, execution falls through past accept() into the re-crop/preview logic below rather than returning immediately.</dd></dl>
+
+<p>Toggles between previewing and finalizing a crop. If already in the cropped state, accepts the dialog with the previously cropped pixmap as the final image. Does nothing further if the main view has no image; otherwise (re-)derives the cropped pixmap from the current ROI, loads it into the crop view, switches the stack to it, marks the dialog as cropped, and updates button states/label to "Apply". </p>
+<dl class="section note"><dt>Note</dt><dd>When already cropped, execution falls through past accept() into the re-crop/preview logic below rather than returning immediately.</dd></dl>
 <p>Toggles between previewing and finalizing a crop. If already in the cropped state, sets the final image to the previously computed cropped pixmap and accepts the dialog. Then, if the main view has no image, returns; otherwise (re-)derives the cropped pixmap from the current ROI, loads it into the crop view and fits the view to it, switches the stack to the crop view, marks the dialog as cropped, updates the crop button label to "Apply", shows the back button (hiding no-crop), and disables choose-image/trigger/set-ROI. </p><dl class="section note"><dt>Note</dt><dd>when already cropped, execution falls through past accept() into the recompute/ preview logic below instead of returning immediately. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">228</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00100">m_cropped</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00098">m_final_pixmap</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00094">m_image_crop_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00096">m_item_crop_roi</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00097">m_item_cropped_pixmap</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00113">m_cropped</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00111">m_final_pixmap</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00107">m_image_crop_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00109">m_item_crop_roi</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00110">m_item_cropped_pixmap</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>.</p>
 
@@ -407,7 +413,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00199">199</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00100">m_cropped</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00098">m_final_pixmap</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">m_image_main_view</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00113">m_cropped</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00111">m_final_pixmap</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">m_image_main_view</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>.</p>
 
@@ -440,7 +446,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00179">179</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00096">m_item_crop_roi</a>, and <a class="el" href="image__widget_8h_source.html#l00045">ImageWidget::NormalROI</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00109">m_item_crop_roi</a>, and <a class="el" href="image__widget_8h_source.html#l00060">ImageWidget::NormalROI</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>.</p>
 
@@ -511,7 +517,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00254">254</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00096">m_item_crop_roi</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00109">m_item_crop_roi</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>.</p>
 
@@ -537,7 +543,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00114">114</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00098">m_final_pixmap</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00013">QPixmapToCvMat()</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00111">m_final_pixmap</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00013">QPixmapToCvMat()</a>.</p>
 
 </div>
 </div>
@@ -597,7 +603,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00267">267</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00100">m_cropped</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00096">m_item_crop_roi</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00113">m_cropped</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00109">m_item_crop_roi</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00105">showAddPatternDialog()</a>.</p>
 
@@ -659,7 +665,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00120">120</a> of file <a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00096">m_item_crop_roi</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">m_image_main_view</a>, <a class="el" href="add__pattern__image__dialog_8h_source.html#l00109">m_item_crop_roi</a>, and <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">ui</a>.</p>
 
 </div>
 </div>
@@ -709,7 +715,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p>True while the crop preview is being shown (crop button reads "Apply"). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00100">100</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00113">113</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00209">btn_back_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00199">btn_no_crop_clicked()</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00267">prepareShowDialog()</a>.</p>
 
@@ -737,7 +743,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p>Image the dialog will return via <a class="el" href="#a99a8fd55f13769c8e63f4f4771a26e28">getFinalImage()</a> once accepted. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00098">98</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00111">111</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00199">btn_no_crop_clicked()</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00114">getFinalImage()</a>.</p>
 
@@ -765,7 +771,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p>Page showing the cropped preview image. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00094">94</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00107">107</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>.</p>
 
@@ -793,7 +799,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p>Page showing the source (uncropped) image and its ROI. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00093">93</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00106">106</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00209">btn_back_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00152">btn_choose_image_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00199">btn_no_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00179">btn_set_roi_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00267">prepareShowDialog()</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00120">setMainViewImage()</a>.</p>
 
@@ -821,7 +827,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p>Currently drawn crop ROI on the main view, or nullptr if none. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00096">96</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00109">109</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00152">btn_choose_image_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00179">btn_set_roi_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00254">form_draw_crop_roi_finished()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00267">prepareShowDialog()</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00120">setMainViewImage()</a>.</p>
 
@@ -849,7 +855,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p>Most recently computed crop result. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00097">97</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00110">110</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>.</p>
 
@@ -877,7 +883,7 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p>Directory used to seed the next choose-image file dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00091">91</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00104">104</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00152">btn_choose_image_clicked()</a>.</p>
 
@@ -905,15 +911,15 @@ m_final_pixmap converted to a cv::Mat via <a class="el" href="add__pattern__imag
 
 <p>Generated UI form for this dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00090">90</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__pattern__image__dialog_8h_source.html#l00103">103</a> of file <a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00062">AddPatternImageDialog()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00209">btn_back_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00152">btn_choose_image_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00228">btn_crop_clicked()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00254">form_draw_crop_roi_finished()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00267">prepareShowDialog()</a>, <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00120">setMainViewImage()</a>, and <a class="el" href="add__pattern__image__dialog_8cpp_source.html#l00098">~AddPatternImageDialog()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="add__pattern__image__dialog_8h_source.html">add_pattern_image_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="add__pattern__image__dialog_8cpp_source.html">add_pattern_image_dialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

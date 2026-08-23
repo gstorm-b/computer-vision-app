@@ -17,22 +17,32 @@ namespace Ui {
 class MitsubishiMcDeviceWidget;
 }
 
-/// Device widget for a Mitsubishi MC-protocol PLC: hosts the connection card
-/// (IP/port/timeouts), a property browser for the MC context and message-interface
-/// config, and two DevicesMonitorWidget instances (bit "M" registers and word "D"
-/// registers) driven by polling updates forwarded from the PlcRunner.
+/**
+ * @file mitsubishi_mc_device_widget.h
+ * @brief MitsubishiMcDeviceWidget — device widget for a Mitsubishi MC-protocol PLC.
+ */
+
+/**
+ * @class MitsubishiMcDeviceWidget
+ * @brief Device widget for a Mitsubishi MC-protocol PLC: hosts the connection card
+ *        (IP/port/timeouts), a property browser for the MC context and message-interface
+ *        config, and two DevicesMonitorWidget instances (bit "M" registers and word "D"
+ *        registers) driven by polling updates forwarded from the PlcRunner.
+ */
 class MitsubishiMcDeviceWidget : public IDeviceWidget {
     Q_OBJECT
 
 public:
-    /// Builds the widget for `dv` and wires it to `runner` for connect/disconnect
-    /// requests and polling updates.
-    /// @param dv the MC-protocol device (expected to wrap a vc::device::McProtocolDevice)
-    /// @param runner the PLC runner used to (dis)connect and receive polling updates;
-    ///        the runner is owned by TaskRunner, not by this widget (see the header
-    ///        comment in BaslerCameraWidget for the same rationale)
-    /// @param dock optional dock widget hosting this widget
-    /// @param parent optional parent widget
+    /**
+     * @brief Builds the widget for @p dv and wires it to @p runner for connect/disconnect
+     *        requests and polling updates.
+     * @param[in] dv the MC-protocol device (expected to wrap a vc::device::McProtocolDevice)
+     * @param[in] runner the PLC runner used to (dis)connect and receive polling updates;
+     *        the runner is owned by TaskRunner, not by this widget (see the header
+     *        comment in BaslerCameraWidget for the same rationale)
+     * @param[in] dock optional dock widget hosting this widget
+     * @param[in] parent optional parent widget
+     */
     explicit MitsubishiMcDeviceWidget(std::shared_ptr<vc::device::IDevice> dv,
                                       vc::runtime::PlcRunner *runner,
                                       ads::CDockWidget *dock = nullptr,
@@ -51,12 +61,14 @@ public:
     void loadConfigToWidget() override;
 
 private slots:
-    /// Applies an edited property-browser value to whichever backing object owns that
-    /// property name (the device itself, the MC context, or its message-interface
-    /// config), then persists and refreshes the dependent UI; ignored while
-    /// m_populating_browser is true to avoid feedback loops from populateBrowser().
-    /// @param property the edited property (looked up by name on each candidate object)
-    /// @param variant the new value
+    /**
+     * @brief Applies an edited property-browser value to whichever backing object owns that
+     *        property name (the device itself, the MC context, or its message-interface
+     *        config), then persists and refreshes the dependent UI; ignored while
+     *        m_populating_browser is true to avoid feedback loops from populateBrowser().
+     * @param[in] property the edited property (looked up by name on each candidate object)
+     * @param[in] variant the new value
+     */
     void onPropertyValueChanged(QtProperty *property, const QVariant &variant);
 
     /// Requests connect or disconnect via m_runner depending on the device's current
@@ -69,9 +81,12 @@ private slots:
     void refreshConfig();
 
     // Per-row write requests forwarded from the monitor widgets.
-    /// Bit ("M") write request forwarded from m_monitor_m; builds and pushes a WriteBit
-    /// MCRequest for `address`, ignored while the device is not connected.
-    /// @param value non-zero writes bit 0x01, zero writes 0x00
+    /**
+     * @brief Bit ("M") write request forwarded from m_monitor_m; builds and pushes a
+     *        WriteBit MCRequest for @p address, ignored while the device is not connected.
+     * @param[in] address the "M" register address to write
+     * @param[in] value non-zero writes bit 0x01, zero writes 0x00
+     */
     void onBitWriteRequested(int address, quint8 value);
     /// Word ("D") write request forwarded from m_monitor_d; builds and pushes a
     /// WriteWord MCRequest for `address`, ignored while the device is not connected.
@@ -89,12 +104,16 @@ private slots:
     /// Applies a changed response timeout to the interface config and saves.
     void onResponseTimeoutEditFinished();
 
-    /// Updates the connection indicator/button and, on a lost/closed/failed link, clears
-    /// the cached values shown in both monitor widgets.
-    /// @param state the new connection state reported by the runner
+    /**
+     * @brief Updates the connection indicator/button and, on a lost/closed/failed link,
+     *        clears the cached values shown in both monitor widgets.
+     * @param[in] state the new connection state reported by the runner
+     */
     void onConnectionStateChanged(vc::device::ConnectStatus state);
-    /// Applies a freshly polled device map to the bit and word monitor widgets.
-    /// @param device_map the latest PlcValueMap, downcast to McDeviceMap
+    /**
+     * @brief Applies a freshly polled device map to the bit and word monitor widgets.
+     * @param[in] device_map the latest PlcValueMap, downcast to McDeviceMap
+     */
     void onPollingUpdateValue(std::shared_ptr<vc::device::PlcValueMap> device_map);
 
 private:
@@ -118,10 +137,12 @@ private:
     /// config, guarded by m_populating_browser so the resulting valueChanged signals are
     /// not treated as user edits.
     void populateBrowser();
-    /// Updates the connection dot/label/button text and "connectionState" dynamic
-    /// property (repolishing each widget) to reflect the given connection state.
-    /// @param status only Connected is treated as "connected"; all other values render
-    ///        as disconnected
+    /**
+     * @brief Updates the connection dot/label/button text and "connectionState" dynamic
+     *        property (repolishing each widget) to reflect the given connection state.
+     * @param[in] status only Connected is treated as "connected"; all other values render
+     *        as disconnected
+     */
     void updateConnectionVisual(vc::device::ConnectStatus status);
 
 private:

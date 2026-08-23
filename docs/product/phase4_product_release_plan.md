@@ -1,9 +1,36 @@
 # Phase 4 Product Release Plan
 
-**Date:** 2026-06-24  
-**Status:** Product/packaging plan defined; customer installer implementation pending
+**Date:** 2026-06-24 (status revised 2026-07-28)  
+**Status:** ON HOLD - plan defined, execution deferred
+
+## Hold Notice (2026-07-28)
+
+Phase 4 is deferred. The product needs further development before a first
+release is meaningful, so none of the packaging or release-gate work in this
+document is being executed.
+
+Read this document as a recorded plan, not as active work:
+
+- The release shape decision below still stands and should not be re-litigated.
+- The packaging work items and the release gate are not current targets. Do not
+  block other work on them, and do not treat the gate as acceptance criteria.
+- Resuming Phase 4 is a product decision by the user. An agent should not start
+  installer or release-candidate work because the rest of the backlog looks
+  clear.
+
+Backlog counterpart: `../backlog/technical_debt_and_next_steps.md` →
+"Release Track Status - Phase 4 On Hold".
 
 ## Release Shape Decision
+
+> ⚠️ **Superseded on 2026-08-19 by the project owner's Phase 6 decision.** The
+> two-executable split described below as "a later product decision" was taken:
+> `ncr_picking.exe` (commissioning) and `ncr_runtime.exe` (operator runtime) now
+> both build from the same `src/` modules via `qmake/app_common.pri`. The section
+> is kept because its reasoning still explains what the split costs, and the costs
+> it names are now real obligations rather than hypotheticals. See
+> [../domains/runtime_app/runtime_shell.md](../domains/runtime_app/runtime_shell.md)
+> and `docs/history/plan/phase_6_implementation_plan.md` → Phase D.
 
 The first commercial release should ship as **one Qt application with explicit
 Commission and Runtime modes**.
@@ -78,7 +105,8 @@ payload checklist. The next implementation slice should:
 
 ## Release Gate
 
-Do not mark Phase 4 complete for shipment until:
+Deferred as of 2026-07-28 — see the hold notice above. Kept for whenever the
+release track resumes. Do not mark Phase 4 complete for shipment until:
 
 - Full Debug or Release build succeeds from the documented qmake flow.
 - Architecture contract test suite passes.

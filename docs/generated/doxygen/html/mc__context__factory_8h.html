@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/plc/mc_context_factory.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/plc/mc_context_factory.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('mc__context__f
   <div class="headertitle"><div class="title">mc_context_factory.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Factory helpers for allocating MC-protocol frame context instances.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="mc__context__3e_8h_source.html">mc_context_3e.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for mc_context_factory.h:</div>
@@ -137,15 +140,19 @@ This graph shows which files directly or indirectly include this file:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AFactory" id="r_vc_3A_3Adevice_3A_3AFactory"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device_1_1_factory.html">vc::device::Factory</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device_1_1_factory"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> helpers for allocating MC-protocol frame context instances. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a86b1cd4a6e1587aef9dfb6ccc481fcf0" id="r_a86b1cd4a6e1587aef9dfb6ccc481fcf0"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_mc_context.html">McContext</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device_1_1_factory.html#a86b1cd4a6e1587aef9dfb6ccc481fcf0">vc::device::Factory::contextFactory</a> (<a class="el" href="namespacevc_1_1device_1_1mc.html#a0d6895c4d48891d0fdbda5e69c6c997c">McFrameType</a> frame_type, <a class="el" href="namespacevc_1_1device_1_1mc.html#a67328b18acd39ab07ad908e6d3b58b1c">McDataCode</a> data_code=McDataCode::Binary)</td></tr>
+<tr class="memdesc:a86b1cd4a6e1587aef9dfb6ccc481fcf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="classvc_1_1device_1_1_mc_context.html" title="Abstract base context for an MC-protocol PLC connection: holds the frame-independent addressing/refre...">McContext</a> subclass matching <span class="tt">frame_type</span> (only Frame_3E is currently implemented; other frame types return nullptr).  <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Factory helpers for allocating MC-protocol frame context instances. </p>
+
+<p class="definition">Definition in file <a class="el" href="mc__context__factory_8h_source.html">mc_context_factory.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

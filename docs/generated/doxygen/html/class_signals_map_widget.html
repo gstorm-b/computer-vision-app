@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_signals_
 </div><!--header-->
 <div class="contents">
 
+<p>3-column table that maps "task signals" (logical names declared by a task, e.g. "Camera selection", "Pattern selection") to "communication tags" (PLC addresses or named tags, e.g. "M100", "D200") provided by the assigned communication device.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SignalsMapWidget:</div>
@@ -135,12 +138,14 @@ Collaboration diagram for SignalsMapWidget:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:RowState" id="r_RowState"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_signals_map_widget_1_1_row_state.html">RowState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-row state backing one line of the table: identity, display text, value kind, current tag selection, and orphan-warning flag.  <a href="struct_signals_map_widget_1_1_row_state.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a119c86d6902fec8a6216cc9c6115266f" id="r_a119c86d6902fec8a6216cc9c6115266f"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a119c86d6902fec8a6216cc9c6115266f">Type</a> { <a class="el" href="#a119c86d6902fec8a6216cc9c6115266fab2ee912b91d69b435159c7c3f6df7f5f">Number</a>
 , <a class="el" href="#a119c86d6902fec8a6216cc9c6115266fac26f15e86e3de4c398a8273272aba034">Bool</a>
  }</td></tr>
+<tr class="memdesc:a119c86d6902fec8a6216cc9c6115266f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal value kind: numeric (word) or boolean (bit); drives which tag list (m_numberTags / m_boolTags) a row's combobox is populated from.  <a href="#a119c86d6902fec8a6216cc9c6115266f">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
@@ -149,15 +154,19 @@ Signals</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a866376a5f9e9bfcc9b6123ee32a5f7bb" id="r_a866376a5f9e9bfcc9b6123ee32a5f7bb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a866376a5f9e9bfcc9b6123ee32a5f7bb">appendRow</a> (const QString &amp;internalName, const QString &amp;displayName, <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f">Type</a> type)</td></tr>
+<tr class="memdesc:a866376a5f9e9bfcc9b6123ee32a5f7bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a new row for <span class="tt">internalName</span> at the end of the table.  <br /></td></tr>
 <tr class="memitem:a4410765de523a9aaa67e38e0c51ca94a" id="r_a4410765de523a9aaa67e38e0c51ca94a"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a4410765de523a9aaa67e38e0c51ca94a">checkEmpty</a> ()</td></tr>
 <tr class="memitem:a79137d39c093b27825c312df7844c62e" id="r_a79137d39c093b27825c312df7844c62e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a79137d39c093b27825c312df7844c62e">clearRows</a> ()</td></tr>
 <tr class="memdesc:a79137d39c093b27825c312df7844c62e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes every row from the table.  <br /></td></tr>
 <tr class="memitem:ab29616fdc18a39da07efcaf47dba184b" id="r_ab29616fdc18a39da07efcaf47dba184b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab29616fdc18a39da07efcaf47dba184b">insertRowAt</a> (int row, const QString &amp;internalName, const QString &amp;displayName, <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f">Type</a> type)</td></tr>
+<tr class="memdesc:ab29616fdc18a39da07efcaf47dba184b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a new row for <span class="tt">internalName</span> at <span class="tt">row</span> (clamped to the valid range), with its tag editor populated from the current per-type tag list.  <br /></td></tr>
 <tr class="memitem:a671b975d5bfd51714ad627a948ea8e00" id="r_a671b975d5bfd51714ad627a948ea8e00"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a671b975d5bfd51714ad627a948ea8e00">removeRow</a> (const QString &amp;internalName)</td></tr>
 <tr class="memdesc:a671b975d5bfd51714ad627a948ea8e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the row identified by <span class="tt">internalName</span>, if one exists.  <br /></td></tr>
 <tr class="memitem:af66839d4650cd122304119142391cd90" id="r_af66839d4650cd122304119142391cd90"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af66839d4650cd122304119142391cd90">rowValue</a> (const QString &amp;internalName) const</td></tr>
 <tr class="memitem:a54d5168aefa44384bab4769ef0b4995f" id="r_a54d5168aefa44384bab4769ef0b4995f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a54d5168aefa44384bab4769ef0b4995f">setBoolTags</a> (const QStringList &amp;tags)</td></tr>
+<tr class="memdesc:a54d5168aefa44384bab4769ef0b4995f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the selectable tag list for Bool-type rows and re-populates every Bool row's editor from it.  <br /></td></tr>
 <tr class="memitem:af2f99ae0b334bad9a5ac52348ebb7028" id="r_af2f99ae0b334bad9a5ac52348ebb7028"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af2f99ae0b334bad9a5ac52348ebb7028">setNumberTags</a> (const QStringList &amp;tags)</td></tr>
+<tr class="memdesc:af2f99ae0b334bad9a5ac52348ebb7028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the selectable tag list for Number-type rows and re-populates every Number row's editor from it.  <br /></td></tr>
 <tr class="memitem:acffd740b9b4f78e92eba848662f71c11" id="r_acffd740b9b4f78e92eba848662f71c11"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acffd740b9b4f78e92eba848662f71c11">setRowValue</a> (const QString &amp;internalName, const QString &amp;tag)</td></tr>
 <tr class="memitem:a4aca25da24e5925cc56cddd7b8fd81af" id="r_a4aca25da24e5925cc56cddd7b8fd81af"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4aca25da24e5925cc56cddd7b8fd81af">SignalsMapWidget</a> (QWidget *parent=nullptr)</td></tr>
 <tr class="memitem:aa6eacd08bd747e8cb3a91d938b3cae83" id="r_aa6eacd08bd747e8cb3a91d938b3cae83"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa6eacd08bd747e8cb3a91d938b3cae83">tagOwnerDisplay</a> (const QString &amp;tag, int excludeRow) const</td></tr>
@@ -165,6 +174,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-slots" class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr class="memitem:a859a7365da76bd2006024de0a68a2e8d" id="r_a859a7365da76bd2006024de0a68a2e8d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a859a7365da76bd2006024de0a68a2e8d">onLineEditingFinished</a> ()</td></tr>
+<tr class="memdesc:a859a7365da76bd2006024de0a68a2e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles QLineEdit::editingFinished for a row's tag editor: detects conflicts with tags already owned by another row (prompting a Yes/No reassignment dialog), reverts on "No", clears the losing row on "Yes", updates orphan-warning state, and emits <a class="el" href="#a460768461907c29dc315e067d03d2a54">signalMappingChanged()</a>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -188,14 +198,14 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a90de5eb2cde359e4a6781c405205b651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guards re-entrant editingFinished when we revert a QLineEdit value.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>3-column table that maps "task signals" (logical names declared by a task, e.g. "Camera selection", "Pattern selection") to "communication tags" (PLC addresses or named tags, e.g. "M100", "D200") provided by the assigned communication device.</p>
-<p>Signal | <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f">Type</a> | Mapped to ------&mdash; + ------------&mdash; + ---------------&mdash; <span class="tt">&lt;display&gt;</span> | Number | Bool | <span class="tt">&lt;combobox tag&gt;</span></p>
+<div class="textblock"><p>3-column table that maps "task signals" (logical names declared by a task, e.g. "Camera selection", "Pattern selection") to "communication tags" (PLC addresses or named tags, e.g. "M100", "D200") provided by the assigned communication device. </p>
+<p>Signal | <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f" title="Signal value kind: numeric (word) or boolean (bit); drives which tag list (m_numberTags / m_boolTags)...">Type</a> | Mapped to ------&mdash; + ------------&mdash; + ---------------&mdash; <span class="tt">&lt;display&gt;</span> | Number | Bool | <span class="tt">&lt;combobox tag&gt;</span></p>
 <dl class="section user"><dt>Internal vs display name</dt><dd>Every row carries an internalName (the field key in the owning config, e.g. "nActiveCamera") that the owner uses to write back into the model, AND a displayName (the user-facing label) shown in column 1. The change signal carries the internalName so the owner can route it without parsing human text.</dd></dl>
-<dl class="section user"><dt>Tag list ownership</dt><dd>The widget never queries devices itself. The owning page is expected to push the per-type tag lists via <a class="el" href="#a54d5168aefa44384bab4769ef0b4995f">setBoolTags()</a> / <a class="el" href="#af2f99ae0b334bad9a5ac52348ebb7028">setNumberTags()</a> whenever the assigned comm device (or its configuration) changes. The combobox is non-editable: users can only pick from the supplied list.</dd></dl>
+<dl class="section user"><dt>Tag list ownership</dt><dd>The widget never queries devices itself. The owning page is expected to push the per-type tag lists via <a class="el" href="#a54d5168aefa44384bab4769ef0b4995f" title="Replaces the selectable tag list for Bool-type rows and re-populates every Bool row&#39;s editor from it.">setBoolTags()</a> / <a class="el" href="#af2f99ae0b334bad9a5ac52348ebb7028" title="Replaces the selectable tag list for Number-type rows and re-populates every Number row&#39;s editor from...">setNumberTags()</a> whenever the assigned comm device (or its configuration) changes. The combobox is non-editable: users can only pick from the supplied list.</dd></dl>
 <dl class="section user"><dt>Orphan handling</dt><dd>When a tag list is replaced, any currently-selected tag that is not in the new list is kept visible (so the user sees what was there) but the row is flagged as a warning (background tint + tooltip). The orphan is not auto-cleared. <a class="el" href="#a4410765de523a9aaa67e38e0c51ca94a">checkEmpty()</a> is the explicit point where orphans get purged to "" so the caller can report which signals need re-mapping.</dd></dl>
 <dl class="section user"><dt>Conflict handling</dt><dd>Tags already chosen by other rows are rendered in the dropdown with a grey colour and a "(used by …)" suffix. The user can still pick them; doing so opens a Yes/No confirmation. On Yes, the previous owning row is cleared to "" and flagged as warning; on No, the picked combobox reverts to its previous value. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00045">45</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00053">53</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a119c86d6902fec8a6216cc9c6115266f" name="a119c86d6902fec8a6216cc9c6115266f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a119c86d6902fec8a6216cc9c6115266f">&#9670;&#160;</a></span>Type</h2>
@@ -216,13 +226,14 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
 <p>Signal value kind: numeric (word) or boolean (bit); drives which tag list (m_numberTags / m_boolTags) a row's combobox is populated from. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a119c86d6902fec8a6216cc9c6115266fab2ee912b91d69b435159c7c3f6df7f5f" name="a119c86d6902fec8a6216cc9c6115266fab2ee912b91d69b435159c7c3f6df7f5f"></a>Number&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a119c86d6902fec8a6216cc9c6115266fac26f15e86e3de4c398a8273272aba034" name="a119c86d6902fec8a6216cc9c6115266fac26f15e86e3de4c398a8273272aba034"></a>Bool&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00052">52</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00063">63</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
 
 </div>
 </div>
@@ -249,7 +260,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the widget and sets up the 3-column header (Signal / <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f">Type</a> / Mapped to) with no rows.</p>
+<p>Constructs the widget and sets up the 3-column header (Signal / <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f" title="Signal value kind: numeric (word) or boolean (bit); drives which tag list (m_numberTags / m_boolTags)...">Type</a> / Mapped to) with no rows.</p>
 <p>Constructs the table with no rows and applies the 3-column header layout via <a class="el" href="#adcb9f6999f6d855d02692955adb3420d">initHeader()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00088">88</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
@@ -282,12 +293,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Appends a new row for <span class="tt">internalName</span> at the end of the table. </p><dl class="section note"><dt>Note</dt><dd>internalName is the unique row key; this is a no-op (with a logged warning) if a row for internalName already exists.</dd></dl>
-<p>Appends a new row for <span class="tt">internalName</span> at the end of the table by delegating to <a class="el" href="#ab29616fdc18a39da07efcaf47dba184b">insertRowAt()</a>. </p>
+
+<p>Appends a new row for <span class="tt">internalName</span> at the end of the table. </p>
+<dl class="section note"><dt>Note</dt><dd>internalName is the unique row key; this is a no-op (with a logged warning) if a row for internalName already exists.</dd></dl>
+<p>Appends a new row for <span class="tt">internalName</span> at the end of the table by delegating to <a class="el" href="#ab29616fdc18a39da07efcaf47dba184b" title="Inserts a new row for internalName at row (clamped to the valid range), with its tag editor populated...">insertRowAt()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00165">165</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8cpp_source.html#l00176">insertRowAt()</a>, and <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8cpp_source.html#l00176">insertRowAt()</a>, and <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>.</p>
 
 </div>
 </div>
@@ -322,7 +335,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00151">151</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>.</p>
 
@@ -347,7 +360,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00279">279</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, and <a class="el" href="#a460768461907c29dc315e067d03d2a54">signalMappingChanged()</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, and <a class="el" href="#a460768461907c29dc315e067d03d2a54">signalMappingChanged()</a>.</p>
 
 </div>
 </div>
@@ -367,11 +380,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes every row from the table. </p>
-<p>Removes every row (and backing <a class="el" href="struct_signals_map_widget_1_1_row_state.html">RowState</a>) from the table. </p>
+<p>Removes every row (and backing <a class="el" href="struct_signals_map_widget_1_1_row_state.html" title="Per-row state backing one line of the table: identity, display text, value kind, current tag selectio...">RowState</a>) from the table. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00232">232</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>.</p>
 
 </div>
 </div>
@@ -398,7 +411,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Sets the table's column count/labels, header resize modes, and selection/edit-trigger behaviour (whole-row select, no direct editing).</p>
-<p>Sets the 3-column header (Signal / <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f">Type</a> / Mapped to), hides the vertical header, sets per-column resize modes (Signal and Mapped-to stretch, <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f">Type</a> sized to contents), and configures whole-row selection with no direct cell editing. </p>
+<p>Sets the 3-column header (Signal / <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f" title="Signal value kind: numeric (word) or boolean (bit); drives which tag list (m_numberTags / m_boolTags)...">Type</a> / Mapped to), hides the vertical header, sets per-column resize modes (Signal and Mapped-to stretch, <a class="el" href="#a119c86d6902fec8a6216cc9c6115266f" title="Signal value kind: numeric (word) or boolean (bit); drives which tag list (m_numberTags / m_boolTags)...">Type</a> sized to contents), and configures whole-row selection with no direct cell editing. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00097">97</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
@@ -434,12 +447,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Inserts a new row for <span class="tt">internalName</span> at <span class="tt">row</span> (clamped to the valid range), with its tag editor populated from the current per-type tag list. </p><dl class="section note"><dt>Note</dt><dd>internalName is the unique row key; this is a no-op (with a logged warning) if a row for internalName already exists.</dd></dl>
+
+<p>Inserts a new row for <span class="tt">internalName</span> at <span class="tt">row</span> (clamped to the valid range), with its tag editor populated from the current per-type tag list. </p>
+<dl class="section note"><dt>Note</dt><dd>internalName is the unique row key; this is a no-op (with a logged warning) if a row for internalName already exists.</dd></dl>
 <p>Inserts a new row for <span class="tt">internalName</span> at <span class="tt">row</span> (clamped to the valid range): creates the read-only Signal/Type cells, builds a TagLineEdit with a case-insensitive contains-filter QCompleter (using UsedTagDelegate for its popup), and populates it from the current per-type tag list. </p><dl class="section note"><dt>Note</dt><dd>No-op (with a logged warning) if a row for internalName already exists. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00176">176</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00052">Bool</a>, <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00120">tagsFor()</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00063">Bool</a>, <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00120">tagsFor()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00165">appendRow()</a>.</p>
 
@@ -467,12 +482,14 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Handles QLineEdit::editingFinished for a row's tag editor: detects conflicts with tags already owned by another row (prompting a Yes/No reassignment dialog), reverts on "No", clears the losing row on "Yes", updates orphan-warning state, and emits <a class="el" href="#a460768461907c29dc315e067d03d2a54">signalMappingChanged()</a>. </p><dl class="section note"><dt>Note</dt><dd>No-op while m_suppressEdit guards a programmatic text revert.</dd></dl>
+
+<p>Handles QLineEdit::editingFinished for a row's tag editor: detects conflicts with tags already owned by another row (prompting a Yes/No reassignment dialog), reverts on "No", clears the losing row on "Yes", updates orphan-warning state, and emits <a class="el" href="#a460768461907c29dc315e067d03d2a54">signalMappingChanged()</a>. </p>
+<dl class="section note"><dt>Note</dt><dd>No-op while m_suppressEdit guards a programmatic text revert.</dd></dl>
 <p>Handles a tag editor's editingFinished: if the new tag is already owned by another row, prompts a Yes/No reassignment dialog (reverting the text on "No", or clearing/warning the losing row on "Yes"); otherwise commits the new tag, updates orphan-warning state, and emits <a class="el" href="#a460768461907c29dc315e067d03d2a54">signalMappingChanged()</a>. </p><dl class="section note"><dt>Note</dt><dd>No-op while m_suppressEdit guards a programmatic text revert. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00299">299</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8cpp_source.html#l00151">applyWarning()</a>, <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, <a class="el" href="signals__map__widget_8h_source.html#l00158">m_suppressEdit</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>, <a class="el" href="#a460768461907c29dc315e067d03d2a54">signalMappingChanged()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00353">tagOwnerDisplay()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00120">tagsFor()</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8cpp_source.html#l00151">applyWarning()</a>, <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, <a class="el" href="signals__map__widget_8h_source.html#l00182">m_suppressEdit</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>, <a class="el" href="#a460768461907c29dc315e067d03d2a54">signalMappingChanged()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00353">tagOwnerDisplay()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00120">tagsFor()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00176">insertRowAt()</a>.</p>
 
@@ -505,7 +522,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00127">127</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8cpp_source.html#l00151">applyWarning()</a>, <a class="el" href="signals__map__widget_8h_source.html#l00130">SignalsMapWidget::RowState::currentTag</a>, <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00120">tagsFor()</a>, and <a class="el" href="signals__map__widget_8h_source.html#l00129">SignalsMapWidget::RowState::type</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8cpp_source.html#l00151">applyWarning()</a>, <a class="el" href="signals__map__widget_8h_source.html#l00154">SignalsMapWidget::RowState::currentTag</a>, <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00120">tagsFor()</a>, and <a class="el" href="signals__map__widget_8h_source.html#l00153">SignalsMapWidget::RowState::type</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00279">checkEmpty()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00176">insertRowAt()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00267">setBoolTags()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00257">setNumberTags()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00239">setRowValue()</a>.</p>
 
@@ -538,7 +555,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00365">365</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00267">setBoolTags()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00257">setNumberTags()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00239">setRowValue()</a>.</p>
 
@@ -560,11 +577,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Removes the row identified by <span class="tt">internalName</span>, if one exists. </p>
-<p>Removes the row identified by <span class="tt">internalName</span> (and its backing <a class="el" href="struct_signals_map_widget_1_1_row_state.html">RowState</a>), if one exists. </p>
+<p>Removes the row identified by <span class="tt">internalName</span> (and its backing <a class="el" href="struct_signals_map_widget_1_1_row_state.html" title="Per-row state backing one line of the table: identity, display text, value kind, current tag selectio...">RowState</a>), if one exists. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00224">224</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>.</p>
 
 </div>
 </div>
@@ -595,7 +612,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00111">111</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00176">insertRowAt()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00224">removeRow()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00250">rowValue()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00239">setRowValue()</a>.</p>
 
@@ -619,7 +636,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00250">250</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>.</p>
 
 </div>
 </div>
@@ -637,12 +654,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Replaces the selectable tag list for Bool-type rows and re-populates every Bool row's editor from it. </p><dl class="section note"><dt>Note</dt><dd>Rows whose current tag is not in <span class="tt">tags</span> become warning-flagged (orphaned) but keep their displayed text.</dd></dl>
+
+<p>Replaces the selectable tag list for Bool-type rows and re-populates every Bool row's editor from it. </p>
+<dl class="section note"><dt>Note</dt><dd>Rows whose current tag is not in <span class="tt">tags</span> become warning-flagged (orphaned) but keep their displayed text.</dd></dl>
 <p>Replaces the selectable tag list for Bool-type rows and repopulates every Bool row's editor (which recomputes each row's orphan state). </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00267">267</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00052">Bool</a>, <a class="el" href="signals__map__widget_8h_source.html#l00156">m_boolTags</a>, <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00063">Bool</a>, <a class="el" href="signals__map__widget_8h_source.html#l00180">m_boolTags</a>, <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>.</p>
 
 </div>
 </div>
@@ -660,12 +679,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Replaces the selectable tag list for Number-type rows and re-populates every Number row's editor from it. </p><dl class="section note"><dt>Note</dt><dd>Rows whose current tag is not in <span class="tt">tags</span> become warning-flagged (orphaned) but keep their displayed text.</dd></dl>
+
+<p>Replaces the selectable tag list for Number-type rows and re-populates every Number row's editor from it. </p>
+<dl class="section note"><dt>Note</dt><dd>Rows whose current tag is not in <span class="tt">tags</span> become warning-flagged (orphaned) but keep their displayed text.</dd></dl>
 <p>Replaces the selectable tag list for Number-type rows and repopulates every Number row's editor (which recomputes each row's orphan state). </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00257">257</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00155">m_numberTags</a>, <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, <a class="el" href="signals__map__widget_8h_source.html#l00052">Number</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00179">m_numberTags</a>, <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, <a class="el" href="signals__map__widget_8h_source.html#l00063">Number</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>.</p>
 
 </div>
 </div>
@@ -692,7 +713,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00239">239</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>.</p>
 
 </div>
 </div>
@@ -722,7 +743,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Emitted after the user successfully changes a row's tag (via <a class="el" href="#a859a7365da76bd2006024de0a68a2e8d">onLineEditingFinished()</a>, after any reassignment conflict is resolved). </p>
+<p>Emitted after the user successfully changes a row's tag (via <a class="el" href="#a859a7365da76bd2006024de0a68a2e8d" title="Handles QLineEdit::editingFinished for a row&#39;s tag editor: detects conflicts with tags already owned ...">onLineEditingFinished()</a>, after any reassignment conflict is resolved). </p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00279">checkEmpty()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00179">LocalizationSettingWidget::initWidget()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>.</p>
 
@@ -751,7 +772,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00353">353</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00154">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00178">m_rows</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>.</p>
 
@@ -784,7 +805,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__map__widget_8cpp_source.html#l00120">120</a> of file <a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00052">Bool</a>, <a class="el" href="signals__map__widget_8h_source.html#l00156">m_boolTags</a>, and <a class="el" href="signals__map__widget_8h_source.html#l00155">m_numberTags</a>.</p>
+<p class="reference">References <a class="el" href="signals__map__widget_8h_source.html#l00063">Bool</a>, <a class="el" href="signals__map__widget_8h_source.html#l00180">m_boolTags</a>, and <a class="el" href="signals__map__widget_8h_source.html#l00179">m_numberTags</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00176">insertRowAt()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>.</p>
 
@@ -813,7 +834,7 @@ Private Attributes</h2></td></tr>
 
 <p>Selectable tags for Bool-type rows. </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00156">156</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00180">180</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00267">setBoolTags()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00120">tagsFor()</a>.</p>
 
@@ -841,7 +862,7 @@ Private Attributes</h2></td></tr>
 
 <p>Selectable tags for Number-type rows. </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00155">155</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00179">179</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00257">setNumberTags()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00120">tagsFor()</a>.</p>
 
@@ -869,7 +890,7 @@ Private Attributes</h2></td></tr>
 
 <p>One entry per table row, in display order. </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00154">154</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00178">178</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00165">appendRow()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00151">applyWarning()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00279">checkEmpty()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00232">clearRows()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00176">insertRowAt()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00127">populateEditor()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00365">refreshEditorDelegates()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00224">removeRow()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00111">rowIndexOf()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00250">rowValue()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00267">setBoolTags()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00257">setNumberTags()</a>, <a class="el" href="signals__map__widget_8cpp_source.html#l00239">setRowValue()</a>, and <a class="el" href="signals__map__widget_8cpp_source.html#l00353">tagOwnerDisplay()</a>.</p>
 
@@ -897,15 +918,15 @@ Private Attributes</h2></td></tr>
 
 <p>Guards re-entrant editingFinished when we revert a QLineEdit value. </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00158">158</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__map__widget_8h_source.html#l00182">182</a> of file <a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__map__widget_8cpp_source.html#l00299">onLineEditingFinished()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="signals__map__widget_8h_source.html">signals_map_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="signals__map__widget_8cpp_source.html">signals_map_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

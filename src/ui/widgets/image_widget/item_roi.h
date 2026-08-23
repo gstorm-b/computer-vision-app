@@ -10,10 +10,19 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QtMath>
 
-/// Resizable, movable, axis-aligned rectangular region-of-interest item for a
-/// QGraphicsScene: renders a dashed bounding box with an optional center cross-hair,
-/// shows four corner resize handles when selected, and keeps its position/size clamped
-/// inside its parent item's bounding rect.
+/**
+ * @file item_roi.h
+ * @brief ItemRoi — resizable, movable, axis-aligned rectangular ROI item for a
+ *        QGraphicsScene.
+ */
+
+/**
+ * @class ItemRoi
+ * @brief Resizable, movable, axis-aligned rectangular region-of-interest item for a
+ *        QGraphicsScene: renders a dashed bounding box with an optional center cross-hair,
+ *        shows four corner resize handles when selected, and keeps its position/size clamped
+ *        inside its parent item's bounding rect.
+ */
 class ItemRoi : public QGraphicsRectItem {
 public:
   /// Custom QGraphicsItem type id returned by type(), for qgraphicsitem_cast<ItemRoi*>().
@@ -40,7 +49,10 @@ public:
   void setEnableDrawCenter(bool enable);
 
 protected:
-  /// Identifies which corner resize handle (or none) is being hit-tested/dragged.
+  /**
+   * @enum HandlePosition
+   * @brief Identifies which corner resize handle (or none) is being hit-tested/dragged.
+   */
   enum HandlePosition {
     None,        ///< No handle is active/hit.
     TopLeft,     ///< Top-left corner resize handle.
@@ -60,11 +72,13 @@ protected:
   /// Returns the precise mouse-hit area: the ROI rect, plus the four corner handle rects
   /// when the item is selected.
   QPainterPath shape() const override;
-  /// Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays
-  /// fully inside the parent item's bounding rect.
-  /// @param change the kind of item change being reported
-  /// @param value the proposed new value (position, for the change handled here)
-  /// @return the (possibly corrected) value to apply
+  /**
+   * @brief Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays
+   *        fully inside the parent item's bounding rect.
+   * @param[in] change the kind of item change being reported
+   * @param[in] value  the proposed new value (position, for the change handled here)
+   * @return the (possibly corrected) value to apply
+   */
   QVariant itemChange(QGraphicsItem::GraphicsItemChange change,
                       const QVariant &value) override;
   /// Returns the square hit/paint rect for corner `pos`, sized by effectiveHandleSize()

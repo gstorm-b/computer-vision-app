@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/core/utils/theme_manager.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/core/utils/theme_manager.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('theme__manager
   <div class="headertitle"><div class="title">theme_manager.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> — application-wide theme/style manager; and <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a>, the descriptor for a named visual style.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;QObject&gt;</code><br />
 <code>#include &lt;QPalette&gt;</code><br />
@@ -140,9 +143,17 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:ThemeManager" id="r_ThemeManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_theme_manager.html">ThemeManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application-wide theme/style manager: owns the registry of <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a> entries, applies the active style's QPalette and stylesheet to the QApplication, and resolves §5 design-token placeholders used in the project's QSS files.  <a href="class_theme_manager.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ThemeStyle" id="r_ThemeStyle"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_theme_style.html">ThemeStyle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes a named visual style that can be registered with <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a>. Built-in styles "light" and "dark" are always pre-registered; additional styles can be registered at runtime via <a class="el" href="class_theme_manager.html#a19d2773097f4a2f17289bc1c7fca081a">ThemeManager::registerStyle()</a>.  <a href="struct_theme_style.html#details">More...</a><br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> — application-wide theme/style manager; and <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a>, the descriptor for a named visual style. </p>
+<p><a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> owns the registry of <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a> entries (built-in "light"/"dark" plus any registered at runtime), applies the active style's QPalette and stylesheet to the QApplication, and resolves the §5 design-token placeholders used in the project's QSS files. Singleton, accessed via instance(); the instance is parented to qApp.</p>
+<p>Qt has no native QSS variables, so stylesheets reference design tokens by name through the placeholder syntax "@{group.token}" (e.g. "@{accent.primary}", "@{bg.surface}"). resolveTokens() substitutes every placeholder with the hex/rgba value the §5 token table (ui_design_rules.md) assigns it for the given theme. This is the one place tokens turn into literals; renaming a token is a single-table edit. Unknown tokens are left untouched (and logged once). </p>
+
+<p class="definition">Definition in file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

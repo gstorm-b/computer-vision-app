@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_task_eve
 </div><!--header-->
 <div class="contents">
 
+<p>Operator-facing task event log (read-only).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for TaskEventLogWidget:</div>
@@ -154,11 +157,20 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:abbf98ba9c5d8f0a2ebd44fee4f9e73f8" id="r_abbf98ba9c5d8f0a2ebd44fee4f9e73f8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#abbf98ba9c5d8f0a2ebd44fee4f9e73f8">m_maxEvents</a> = 500</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Operator-facing task event log (read-only).</p>
+<div class="textblock"><p>Operator-facing task event log (read-only). </p>
 <p>Designed for operator dashboards: shows discrete task events (ready, cycle start, fault, recovery ...) as a timestamped, severity-coded list. NOT a replacement for the global SystemLog &ndash; scope is the active task only.</p>
-<p>Usage: <a class="el" href="struct_task_event.html" title="Data record for one row of TaskEventLogWidget.">TaskEvent</a> ev; ev.level = <a class="el" href="task__event__log__widget_8h.html#ae51ae63dbc3c329dfbd2bc2abbf68c86a902b0d55fddef6f8d651fe1035b7d4bd" title="Fault / failed operation.">TaskEventLevel::Error</a>; ev.message = "Camera grab timeout - fault code 102."; ev.source = "Camera"; m_eventLog-&gt;appendEvent(ev); </p>
-
-<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00077">77</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
+<div class="fragment"><div class="line"><a class="code hl_struct" href="struct_task_event.html">TaskEvent</a> ev;</div>
+<div class="line">ev.<a class="code hl_variable" href="struct_task_event.html#a4453c3507e260a403744b7f78e653442">level</a>   = <a class="code hl_enumvalue" href="task__event__log__widget_8h.html#ae51ae63dbc3c329dfbd2bc2abbf68c86a902b0d55fddef6f8d651fe1035b7d4bd">TaskEventLevel::Error</a>;</div>
+<div class="line">ev.<a class="code hl_variable" href="struct_task_event.html#a9e112f02cc64987b6a4ab1308de42b83">message</a> = <span class="stringliteral">&quot;Camera grab timeout - fault code 102.&quot;</span>;</div>
+<div class="line">ev.<a class="code hl_variable" href="struct_task_event.html#a0f438ba988a7c97feba177467decbf7d">source</a>  = <span class="stringliteral">&quot;Camera&quot;</span>;</div>
+<div class="line">m_eventLog-&gt;appendEvent(ev);</div>
+<div class="ttc" id="astruct_task_event_html"><div class="ttname"><a href="struct_task_event.html">TaskEvent</a></div><div class="ttdoc">Data record for one row of TaskEventLogWidget.</div><div class="ttdef"><b>Definition</b> <a href="task__event__log__widget_8h_source.html#l00032">task_event_log_widget.h:32</a></div></div>
+<div class="ttc" id="astruct_task_event_html_a0f438ba988a7c97feba177467decbf7d"><div class="ttname"><a href="struct_task_event.html#a0f438ba988a7c97feba177467decbf7d">TaskEvent::source</a></div><div class="ttdeci">QString source</div><div class="ttdef"><b>Definition</b> <a href="task__event__log__widget_8h_source.html#l00038">task_event_log_widget.h:38</a></div></div>
+<div class="ttc" id="astruct_task_event_html_a4453c3507e260a403744b7f78e653442"><div class="ttname"><a href="struct_task_event.html#a4453c3507e260a403744b7f78e653442">TaskEvent::level</a></div><div class="ttdeci">TaskEventLevel level</div><div class="ttdoc">Severity shown as the LEVEL badge.</div><div class="ttdef"><b>Definition</b> <a href="task__event__log__widget_8h_source.html#l00034">task_event_log_widget.h:34</a></div></div>
+<div class="ttc" id="astruct_task_event_html_a9e112f02cc64987b6a4ab1308de42b83"><div class="ttname"><a href="struct_task_event.html#a9e112f02cc64987b6a4ab1308de42b83">TaskEvent::message</a></div><div class="ttdeci">QString message</div><div class="ttdef"><b>Definition</b> <a href="task__event__log__widget_8h_source.html#l00035">task_event_log_widget.h:35</a></div></div>
+<div class="ttc" id="atask__event__log__widget_8h_html_ae51ae63dbc3c329dfbd2bc2abbf68c86a902b0d55fddef6f8d651fe1035b7d4bd"><div class="ttname"><a href="task__event__log__widget_8h.html#ae51ae63dbc3c329dfbd2bc2abbf68c86a902b0d55fddef6f8d651fe1035b7d4bd">TaskEventLevel::Error</a></div><div class="ttdeci">@ Error</div><div class="ttdoc">Fault / failed operation.</div><div class="ttdef"><b>Definition</b> <a href="task__event__log__widget_8h_source.html#l00024">task_event_log_widget.h:24</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00098">98</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6ea243613551d3536847bb952232461f" name="a6ea243613551d3536847bb952232461f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6ea243613551d3536847bb952232461f">&#9670;&#160;</a></span>TaskEventLogWidget()</h2>
@@ -213,7 +225,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__event__log__widget_8cpp_source.html#l00136">136</a> of file <a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00098">m_maxEvents</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00119">m_maxEvents</a>.</p>
 
 </div>
 </div>
@@ -264,9 +276,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the configured maximum row count (0 = unlimited). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00095">95</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00116">116</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00098">m_maxEvents</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00119">m_maxEvents</a>.</p>
 
 </div>
 </div>
@@ -290,7 +302,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__event__log__widget_8cpp_source.html#l00161">161</a> of file <a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00098">m_maxEvents</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00119">m_maxEvents</a>.</p>
 
 </div>
 </div>
@@ -347,15 +359,15 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Oldest row is discarded once count() reaches this (0 = unlimited). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00098">98</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00119">119</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__event__log__widget_8cpp_source.html#l00136">appendEvent()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00095">maxEvents()</a>, and <a class="el" href="task__event__log__widget_8cpp_source.html#l00161">setMaxEvents()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__event__log__widget_8cpp_source.html#l00136">appendEvent()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00116">maxEvents()</a>, and <a class="el" href="task__event__log__widget_8cpp_source.html#l00161">setMaxEvents()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

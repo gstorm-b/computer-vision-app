@@ -1,0 +1,58 @@
+/* Operator runtime shell — project-select page.
+ *
+ * ONE file, not the usual _light/_dark pair. Every colour here is a @{token}, and tokens
+ * already resolve per theme — so a light and a dark copy would be byte-identical, and two
+ * identical files are a trap: someone edits one and the other silently stops matching.
+ * The window still re-applies this sheet on themeChanged, because the RESOLVED output
+ * differs even though the source does not. Split it into a pair the day a rule genuinely
+ * needs to differ between themes.
+ *
+ * Only the project-select page is styled here. The runtime page is a bare host for the
+ * ADS dock manager, and the dashboards inside it carry their own stylesheets.
+ *
+ * This page is what an operator meets when something is wrong at the start of a shift, so
+ * the hierarchy is deliberate: the heading says what to do, the reason says why they are
+ * looking at it, and the remembered path is secondary detail rather than the main event.
+ */
+
+QWidget#page_project_select {
+    background-color: @{bg.window};
+}
+
+QLabel#lbl_title {
+    color: @{text.primary};
+    font: 700 16pt "Segoe UI";
+}
+
+QLabel#lbl_reason {
+    color: @{text.primary};
+    font: 10pt "Segoe UI";
+}
+
+QLabel#lbl_last_path {
+    color: @{text.muted};
+    font: 9pt "Segoe UI";
+}
+
+/* Version, bottom-left. Muted because it is reference information, not something to act
+ * on — but present, because a version mismatch between the two executables in the install
+ * folder is diagnosed from this page. */
+QLabel#lbl_version {
+    color: @{text.muted};
+    font: 8pt "Segoe UI";
+}
+
+QPushButton#btn_browse {
+    background-color: @{accent.primary};
+    color: @{text.on-accent};
+    border: none;
+    border-radius: 5px;
+    padding: 9px 22px;
+    font: 700 10pt "Segoe UI";
+}
+QPushButton#btn_browse:hover {
+    background-color: @{accent.bright};
+}
+QPushButton#btn_browse:pressed {
+    background-color: @{accent.pressed};
+}

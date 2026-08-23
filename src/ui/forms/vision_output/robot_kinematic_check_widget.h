@@ -11,29 +11,39 @@ namespace Ui {
 class RobotKinematicCheckWidget;
 }
 
-/// Reusable editor widget for a RobotKinematicCheckConfig.
-///
-/// Lets the operator enable/disable the robot kinematic reachability check,
-/// optionally enable the mesh self-collision check, pick a built-in robot preset
-/// (Nachi MZ04D; no custom-preset authoring yet), and set the TCP (flange -> tool
-/// point) offset. Model-free: the owner feeds a config via setConfig() and reacts
-/// to edits through configChanged(). Structure lives in
-/// robot_kinematic_check_widget.ui; this class only wires behaviour. Embedded by
-/// the vision-output device widgets. Backed by the RobotKinematics component.
+/**
+ * @file robot_kinematic_check_widget.h
+ * @brief RobotKinematicCheckWidget — reusable editor widget for a RobotKinematicCheckConfig.
+ */
+
+/**
+ * @class RobotKinematicCheckWidget
+ * @brief Reusable editor widget for a RobotKinematicCheckConfig.
+ *
+ * Lets the operator enable/disable the robot kinematic reachability check, optionally
+ * enable the mesh self-collision check, pick a built-in robot preset (Nachi MZ04D; no
+ * custom-preset authoring yet), and set the TCP (flange -> tool point) offset. Model-free:
+ * the owner feeds a config via setConfig() and reacts to edits through configChanged().
+ * Structure lives in robot_kinematic_check_widget.ui; this class only wires behaviour.
+ * Embedded by the vision-output device widgets. Backed by the RobotKinematics component.
+ */
 class RobotKinematicCheckWidget : public QWidget {
     Q_OBJECT
 
 public:
-    /// Constructs the widget and loads its .ui layout.
-    /// @param parent optional owning widget
+    /**
+     * @brief Constructs the widget and loads its .ui layout.
+     * @param[in] parent optional owning widget
+     */
     explicit RobotKinematicCheckWidget(QWidget *parent = nullptr);
     /// Destroys the widget and releases its `ui` layout instance.
     ~RobotKinematicCheckWidget() override;
 
-    /// Populates the widget's controls (enable toggle, collision toggle, preset,
-    /// TCP fields, pick-path table) from `cfg`, suppressing configChanged() while
-    /// loading.
-    /// @param cfg the config to display/edit
+    /**
+     * @brief Populates the widget's controls (enable toggle, collision toggle, preset, TCP
+     *        fields, pick-path table) from @p cfg, suppressing configChanged() while loading.
+     * @param[in] cfg the config to display/edit
+     */
     void setConfig(const vc::device::RobotKinematicCheckConfig &cfg);
     /// Reads the widget's current controls back into a RobotKinematicCheckConfig
     /// (preset, TCP offset, collision toggle, pick path).
@@ -61,24 +71,30 @@ private slots:
     void onAddPathRow();
     /// Removes the currently selected row from the pick-path table.
     void onRemovePathRow();
-    /// Confirms before switching preset, since posture labels are preset-specific
-    /// and switching clears the pick-path; reverts the combo box selection if the
-    /// user declines.
-    /// @param preset the newly selected preset name
+    /**
+     * @brief Confirms before switching preset, since posture labels are preset-specific
+     *        and switching clears the pick-path; reverts the combo box selection if the
+     *        user declines.
+     * @param[in] preset the newly selected preset name
+     */
     void onPresetChanged(const QString &preset);
 
 private:
     /// Emits configChanged(), unless suppressed by an in-progress setConfig()
     /// load (m_loading).
     void notifyConfigChanged();
-    /// Appends a pick-path table row prefilled from `point`.
-    /// @param point the path point (offset + posture labels) to display in the new row
+    /**
+     * @brief Appends a pick-path table row prefilled from @p point.
+     * @param[in] point the path point (offset + posture labels) to display in the new row
+     */
     void addPathRow(const vc::device::PickPathPoint &point);
-    /// Fills `combo` with the posture labels the current preset defines for
-    /// `axis`, selecting `current` if it is among them.
-    /// @param combo the combo box to populate
-    /// @param axis posture axis name (e.g. "shoulder", "elbow", "wrist")
-    /// @param current label to preselect, if present among the preset's labels
+    /**
+     * @brief Fills @p combo with the posture labels the current preset defines for
+     *        @p axis, selecting @p current if it is among them.
+     * @param[in,out] combo the combo box to populate
+     * @param[in] axis posture axis name (e.g. "shoulder", "elbow", "wrist")
+     * @param[in] current label to preselect, if present among the preset's labels
+     */
     void populatePostureCombo(QComboBox *combo, const QString &axis, const QString &current);
     /// Renumbers the pick-path table rows after an add/remove so they stay
     /// sequential.

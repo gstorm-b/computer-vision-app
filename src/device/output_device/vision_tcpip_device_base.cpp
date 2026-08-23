@@ -249,7 +249,19 @@ void VisionTcpipDeviceBase::runKinematicCheck(const QVector<VisionOutputPosition
     int colliding = 0;
     for (const VisionOutputPosition &p : positions) {
         RobotKinematics::IKRequest req;
-        req.targetPose = RobotKinematics::Pose::fromXYZRPY_mm_deg(p.x, p.y, p.z, 180.0, 0.0, p.r);
+        // The emitted rx/ry/rz are the fixed-axis RPY of the orientation the runtime
+        // commands: LocalizationRuntimeController composes pick * offset, and because
+        // fromXYZRPY builds Rz(yaw)*Ry(pitch)*Rx(roll) with the pick contributing only a
+        // Z rotation, that product is exactly Rz(rz)*Ry(ry)*Rx(rx).
+        //
+        // This check adds the top-down tool flip on top, as it always has. Rotations
+        // about a shared axis commute, so
+        //     Rz(rz)*Ry(ry)*Rx(rx) * Rx(180) == Rz(rz)*Ry(ry)*Rx(180 + rx)
+        // i.e. folding the flip into the roll term is the same pose. With rx = ry = 0
+        // this reduces to the previous `180.0, 0.0, rz` form, so the 4-axis behaviour is
+        // unchanged.
+        req.targetPose = RobotKinematics::Pose::fromXYZRPY_mm_deg(
+            p.x, p.y, p.z, 180.0 + p.rx, p.ry, p.rz);
         req.tool = RobotKinematics::ToolId{kPickingToolId};
 
         const RobotKinematics::IKResult ik = solver.solve(req);

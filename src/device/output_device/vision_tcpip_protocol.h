@@ -1,30 +1,25 @@
 #ifndef VISION_TCPIP_PROTOCOL_H
 #define VISION_TCPIP_PROTOCOL_H
 
+/**
+ * @file vision_tcpip_protocol.h
+ * @brief Shared wire-format constants and Q_GADGET state/diagnostics structs for the
+ *        vision-output TCP/IP protocol (server + client transports).
+ *
+ *        Both transports speak the same two-channel protocol:
+ *          - Main channel: "{detected},{x,y,z,r},...;" (delimiter ';'; each axis "%08.2f")
+ *          - Heartbeat:    probe "connection_check.", reply "ack,{count}." (delimiter '.')
+ *
+ *        The software is always the heartbeat master. On intentional disconnect a one-shot
+ *        "disconnect." notice is written on the heartbeat channel before teardown.
+ */
+
 #include <QtGlobal>
 #include <QMetaType>
 #include <QString>
 
-/// Shared wire-format constants and Q_GADGET state/diagnostics structs for the
-/// vision-output TCP/IP protocol (server + client transports).
 namespace vc::device {
 
-/// Vision TCP/IP protocol constants (shared by server + client transports).
-///
-/// Both transports speak the same two-channel protocol:
-///   - Main channel : "{detected},{x,y,z,r},...;"  (delimiter ';';
-///                    each axis is fixed-width "%08.2f", e.g. 1.0 -> "00001.00")
-///   - Heartbeat    : probe "connection_check.", reply "ack,{count}."
-///                    (delimiter '.', count wraps at 2^16)
-///
-/// The software is always the heartbeat master: it sends the probe and
-/// expects the ack, regardless of which side opened the TCP connection.
-///
-/// Graceful shutdown: on an intentional deviceDisconnect() the software sends
-/// a one-shot "disconnect." notice on the heartbeat channel just before tearing
-/// the link down, so the peer can distinguish a planned close from a fault
-/// (timeout / bad format). It is NOT sent on the lost-connection path.
-///
 /// Heartbeat probe message sent by the software (always the heartbeat master).
 #define VISION_OUTPUT_HB_MESSAGE        "connection_check."
 /// Prefix of a valid heartbeat ack reply, of the form "ack,{count}.".
@@ -38,11 +33,13 @@ namespace vc::device {
 /// Exclusive upper bound the heartbeat msg_count wraps at.
 #define VISION_OUTPUT_MSG_COUNT_LIMIT   (1 << 16)
 
-/// VisionTcpipRuntimeState — live link/heartbeat state, read-only for UI.
-///
-/// Field names are transport-neutral: "mainClientConnected" /
-/// "heartbeatClientConnected" mean "the main / heartbeat link is up",
-/// whether this device accepted the link (server) or dialled it (client).
+/**
+ * @struct VisionTcpipRuntimeState
+ * @brief Live link/heartbeat state snapshot exposed to the UI (read-only).
+ *        Field names are transport-neutral: "mainClientConnected" /
+ *        "heartbeatClientConnected" mean "the main / heartbeat link is up",
+ *        whether this device accepted the link (server) or dialled it (client).
+ */
 struct VisionTcpipRuntimeState {
     Q_GADGET
 
@@ -60,7 +57,10 @@ public:
     quint16 lastAckCount{0};                     ///< msg_count of the last accepted heartbeat ack.
 };
 
-/// VisionTcpipDiagnostics — cumulative counters + last error, read-only.
+/**
+ * @struct VisionTcpipDiagnostics
+ * @brief Cumulative diagnostic counters and last error string exposed to the UI (read-only).
+ */
 struct VisionTcpipDiagnostics {
     Q_GADGET
 

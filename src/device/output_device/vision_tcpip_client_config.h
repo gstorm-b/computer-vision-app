@@ -1,6 +1,11 @@
 #ifndef VISION_TCPIP_CLIENT_CONFIG_H
 #define VISION_TCPIP_CLIENT_CONFIG_H
 
+/**
+ * @file vision_tcpip_client_config.h
+ * @brief Concrete config for the TCP/IP client transport of VisionOutput (VisionTcpipClientDeviceCfg).
+ */
+
 #include "device/output_device/vision_output_device.h"
 #include "core/qgadget_macro.h"
 
@@ -9,16 +14,13 @@
 
 namespace vc::device {
 
-/// Concrete config for the TCP/IP **client** transport of VisionOutput. Same protocol as the
-/// server transport, but the software dials OUT to a remote endpoint that acts as the TCP
-/// server (e.g. a robot controller).
-///  - serverAddress: remote host to connect to.
-///  - mainPort: Port 1 — matching request / result channel.
-///  - heartbeatPort: Port 2 — heartbeat channel. Software stays the heartbeat master
-///    ("connection_check." -> "ack,N.").
-///  - reconnectIntervalMs: delay before retrying a dropped/failed link.
-/// On heartbeat timeout / lost connection the device drops both links and retries the
-/// outbound connection every `reconnectIntervalMs`.
+/**
+ * @class VisionTcpipClientDeviceCfg
+ * @brief Concrete config for the TCP/IP client transport of VisionOutput. Same protocol as the
+ *        server transport, but the software dials OUT to a remote endpoint that acts as the TCP
+ *        server (e.g. a robot controller). On heartbeat timeout / lost connection the device drops
+ *        both links and retries the outbound connection every `reconnectIntervalMs`.
+ */
 class VisionTcpipClientDeviceCfg : public VisionOutputDeviceCfg {
     Q_GADGET
 
@@ -71,11 +73,12 @@ public:
         return obj;
     }
 
-    /// Populates this config from JSON written by toJson(), delegating the shared fields
-    /// to VisionOutputDeviceCfg::fromJson() first and defaulting any missing key (see the
-    /// per-field fallback literals below, matching the constructor's defaults).
-    /// @param obj JSON object in the VisionTcpipClientDeviceCfg schema
-    /// @return false if the base fromJson() fails; true otherwise
+    /**
+     * @brief Populates this config from JSON written by toJson(), delegating the shared fields
+     *        to VisionOutputDeviceCfg::fromJson() first and defaulting any missing key.
+     * @param[in] obj JSON object in the VisionTcpipClientDeviceCfg schema
+     * @return false if the base fromJson() fails; true otherwise
+     */
     bool fromJson(const QJsonObject &obj) override {
         if (!VisionOutputDeviceCfg::fromJson(obj)) return false;
         m_serverAddress       = obj[DEVICE_JSK_VOUT_SERVER_ADDR].toString("127.0.0.1");

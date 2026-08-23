@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structmtc_1_1_
 </div><!--header-->
 <div class="contents">
 
+<p>Snapshot of one <a class="el" href="classmtc_1_1_image_matcher.html#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">ImageMatcher::matching()</a> run: the matched objects, the annotated output image, timing, and picking-availability stats.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::MatchResult:</div>
@@ -149,9 +152,9 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:aaad3ce4078ace7fa63c650307f868a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Count of matched objects that are collision-free, inside the condition ROI, and robot-pickable.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Snapshot of one <a class="el" href="classmtc_1_1_image_matcher.html#ac4fb12785dc2d4e6a8a5a7147cdd5f7d">ImageMatcher::matching()</a> run: the matched objects, the annotated output image, timing, and picking-availability stats. </p>
+<div class="textblock"><p>Snapshot of one <a class="el" href="classmtc_1_1_image_matcher.html#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">ImageMatcher::matching()</a> run: the matched objects, the annotated output image, timing, and picking-availability stats. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00019">19</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00026">26</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="ac48d6d8bf64771cae0b73a211bc3cc28" name="ac48d6d8bf64771cae0b73a211bc3cc28"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac48d6d8bf64771cae0b73a211bc3cc28">&#9670;&#160;</a></span>cropOffsetPoint</h2>
@@ -167,7 +170,7 @@ Public Attributes</h2></td></tr>
 
 <p>Origin of the matching crop in the original source image (ROI_tl if usingRoi, else (0,0)). </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00021">21</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00028">28</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00765">vc::model::LocalizationRuntimeController::buildVisionOutputPositions()</a>, and <a class="el" href="vision__result__adapter_8cpp_source.html#l00118">VisionResultAdapter::fromMatchResult()</a>.</p>
 
@@ -187,7 +190,7 @@ Public Attributes</h2></td></tr>
 
 <p>Wall-clock duration of the matching() call, in milliseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00022">22</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00029">29</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01996">LocalizationPatternsWidget::applyKpis()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01917">LocalizationPatternsWidget::onMatchingCommissionDone()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01235">vc::model::LocalizationRuntimeController::onRuntimeMatchingFinished()</a>.</p>
 
@@ -207,7 +210,7 @@ Public Attributes</h2></td></tr>
 
 <p>Annotated copy of the (possibly cropped) source image with matched masks and gripper boxes drawn in. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00023">23</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00030">30</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l02032">LocalizationPatternsWidget::displayResultOverlay()</a>, <a class="el" href="vision__result__adapter_8cpp_source.html#l00147">VisionResultAdapter::fromCycleResult()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01235">vc::model::LocalizationRuntimeController::onRuntimeMatchingFinished()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
@@ -227,7 +230,7 @@ Public Attributes</h2></td></tr>
 
 <p>Column count of Image / the matching region. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00024">24</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00031">31</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 </div>
 </div>
@@ -245,7 +248,7 @@ Public Attributes</h2></td></tr>
 
 <p>Row count of Image / the matching region. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00025">25</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00032">32</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 </div>
 </div>
@@ -263,7 +266,7 @@ Public Attributes</h2></td></tr>
 
 <p>True when total non-noise contour area is below (max model contour area x lowWorkpieceRatio) — a low-material/empty-tray signal. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00028">28</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00035">35</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01996">LocalizationPatternsWidget::applyKpis()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01917">LocalizationPatternsWidget::onMatchingCommissionDone()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01235">vc::model::LocalizationRuntimeController::onRuntimeMatchingFinished()</a>.</p>
 
@@ -283,7 +286,7 @@ Public Attributes</h2></td></tr>
 
 <p>True when at least one object was matched. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00026">26</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00033">33</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01917">LocalizationPatternsWidget::onMatchingCommissionDone()</a>.</p>
 
@@ -303,7 +306,7 @@ Public Attributes</h2></td></tr>
 
 <p>Matched objects, sorted by pick priority (see sortMatchedObjects). </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00020">20</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00027">27</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01996">LocalizationPatternsWidget::applyKpis()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00765">vc::model::LocalizationRuntimeController::buildVisionOutputPositions()</a>, <a class="el" href="vision__result__adapter_8cpp_source.html#l00118">VisionResultAdapter::fromMatchResult()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l02237">LocalizationPatternsWidget::populateResultTable()</a>.</p>
 
@@ -323,14 +326,14 @@ Public Attributes</h2></td></tr>
 
 <p>Count of matched objects that are collision-free, inside the condition ROI, and robot-pickable. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00027">27</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00034">34</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01996">LocalizationPatternsWidget::applyKpis()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01917">LocalizationPatternsWidget::onMatchingCommissionDone()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01235">vc::model::LocalizationRuntimeController::onRuntimeMatchingFinished()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="image__matcher_8h_source.html">image_matcher.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="image__matcher_8h_source.html">image_matcher.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

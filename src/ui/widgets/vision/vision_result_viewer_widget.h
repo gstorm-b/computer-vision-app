@@ -10,13 +10,26 @@ class QAction;
 class QToolButton;
 class VisionCanvas;
 
-/// Composite widget presenting a VisionCanvas with a toolbar of view/overlay controls
-/// (fit-to-view button and an overlay-visibility menu with per-element toggles); wraps
-/// the canvas's image/overlay/selection API and forwards its selection signal.
+/**
+ * @file vision_result_viewer_widget.h
+ * @brief VisionResultViewerWidget — VisionCanvas plus a toolbar of view/overlay controls.
+ */
+
+/**
+ * @class VisionResultViewerWidget
+ * @brief Composite widget presenting a VisionCanvas with a toolbar of view/overlay controls
+ *        (fit-to-view button and an overlay-visibility menu with per-element toggles); wraps
+ *        the canvas's image/overlay/selection API and forwards its selection signal.
+ */
 class VisionResultViewerWidget : public QWidget {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Constructs the widget: builds the toolbar (fit button and overlay-visibility
+     *        menu with one toggle action per overlay element) above a read-only VisionCanvas.
+     * @param[in] parent Optional owning widget; standard Qt parent/child ownership.
+     */
     explicit VisionResultViewerWidget(QWidget *parent = nullptr);
 
     /// Displays `image` on the canvas (read-only, pan tool mode).

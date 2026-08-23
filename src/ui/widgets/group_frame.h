@@ -7,10 +7,20 @@
 #include <QVBoxLayout>
 #include <QStyleOption>
 
-/// QFrame subclass that paints a colored header bar with a title across the top of the
-/// widget. The addWidget()/child-layout support present in the sibling GroupFrameWidget
-/// class is currently disabled here (commented out), so this widget only renders the
-/// header decoration and does not manage a body layout.
+/**
+ * @file group_frame.h
+ * @brief GroupFrame — QFrame subclass painting a colored, titled header bar.
+ */
+
+/**
+ * @class GroupFrame
+ * @brief QFrame subclass that paints a colored header bar with a title across the top of the
+ *        widget.
+ *
+ * The addWidget()/child-layout support present in the sibling GroupFrameWidget class is
+ * currently disabled here (commented out), so this widget only renders the header
+ * decoration and does not manage a body layout.
+ */
 class GroupFrame : public QFrame {
     Q_OBJECT
     Q_PROPERTY(QColor headerBackground READ headerBackground WRITE setHeaderBackground NOTIFY headerBackGroundColorChanged)
@@ -28,28 +38,38 @@ public:
 
     /// Returns the header bar's fill color.
     QColor headerBackground() const;
-    /// Sets the header bar's fill color and repaints.
-    /// @note emits headerBackGroundColorChanged()
+    /**
+     * @brief Sets the header bar's fill color and repaints.
+     * @note Emits headerBackGroundColorChanged().
+     */
     void setHeaderBackground(const QColor& color);
 
-    /// Returns the font used to draw the header title text.
-    /// @note the constructor's custom font initialization is currently commented out, so
-    /// this returns a default-constructed QFont until setHeaderFont() is called.
+    /**
+     * @brief Returns the font used to draw the header title text.
+     * @note The constructor's custom font initialization is currently commented out, so
+     *       this returns a default-constructed QFont until setHeaderFont() is called.
+     */
     QFont headerFont() const;
-    /// Sets the font used to draw the header title text and repaints.
-    /// @note emits headerFontChanged()
+    /**
+     * @brief Sets the font used to draw the header title text and repaints.
+     * @note Emits headerFontChanged().
+     */
     void setHeaderFont(const QFont& font);
 
     /// Returns the color used to draw the header title text.
     QColor headerColor() const;
-    /// Sets the color used to draw the header title text and repaints.
-    /// @note emits headerColorChanged()
+    /**
+     * @brief Sets the color used to draw the header title text and repaints.
+     * @note Emits headerColorChanged().
+     */
     void setHeaderColor(const QColor& color);
 
     /// Returns the current header title text.
     QString title() const;
-    /// Sets the header title text and repaints.
-    /// @note emits titleChanged()
+    /**
+     * @brief Sets the header title text and repaints.
+     * @note Emits titleChanged().
+     */
     void setTitle(const QString& t);
 
 protected:

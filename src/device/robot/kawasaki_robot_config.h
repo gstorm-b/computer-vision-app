@@ -1,6 +1,11 @@
 #ifndef KAWASAKI_ROBOT_CONFIG_H
 #define KAWASAKI_ROBOT_CONFIG_H
 
+/**
+ * @file kawasaki_robot_config.h
+ * @brief Kawasaki robot configuration stub (KawasakiRobotCfg).
+ */
+
 #include "device/robot/robot_device.h"
 #include "core/qgadget_macro.h"
 
@@ -8,9 +13,12 @@
 
 namespace vc::device {
 
-/// Minimum config skeleton for a Kawasaki robot. Fields will be added when
-/// the vendor integration starts; for now the class only carries the
-/// family/sub-type dispatch so it round-trips through JSON.
+/**
+ * @class KawasakiRobotCfg
+ * @brief Minimum config skeleton for a Kawasaki robot. Carries only the family/sub-type
+ *        dispatch so it round-trips through JSON; vendor-specific fields will be added when
+ *        integration starts.
+ */
 class KawasakiRobotCfg : public RobotCfg {
     Q_GADGET
 
@@ -34,9 +42,11 @@ public:
         return RobotCfg::toJson();
     }
 
-    /// Populates the config from JSON by delegating to RobotCfg::fromJson().
-    /// @param obj JSON object expected to carry the RobotType dispatch key
-    /// @return true if the base parse succeeds and the robot type matches
+    /**
+     * @brief Populates the config from JSON by delegating to RobotCfg::fromJson().
+     * @param[in] obj JSON object expected to carry the RobotType dispatch key
+     * @return true if the base parse succeeds and the robot type matches
+     */
     bool fromJson(const QJsonObject &obj) override {
         return RobotCfg::fromJson(obj);
     }

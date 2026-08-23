@@ -18,6 +18,7 @@ namespace mtc {
 //  PatternGroupManager::toJson):
 //
 //    {
+//      "version": <int>,                 // kSchemaVersion; absent => legacy (0)
 //      "groups": [
 //        { "name", "number",
 //          "matchingType": "Edge-Based" | "Correlation",
@@ -26,14 +27,39 @@ namespace mtc {
 //            { "name", "number",
 //              "minScore", "angle", "toleranceAngle", "maxOverlap",
 //              "pickPosition": { "x", "y" },
-//              "pickingBoxSize":  { "w", "h" },
-//              "pickingBoxDistance", "pickingBoxAngle",
-//              "pickingOffset":   { "x", "y", "z" }
+//              "gripperBoxes": { "w", "h", "distance" },
+//              "pickingBoxAngle": <double>,
+//              "usePickingBox": <bool>,
+//              "pickingOffset":   { "x", "y", "z" },
+//              "pickingRotationOffset": { "rx", "ry", "rz" }
 //            }, …
 //          ]
 //        }, …
 //      ]
 //    }
+//
+//  Schema history:
+//    v0 (legacy, no "version" key) — gripper geometry was three flat pattern keys:
+//       "pickingBoxSize": { "w", "h" }, "pickingBoxDistance", "pickingBoxAngle".
+//    v1 — those three collapse into the nested "gripperBoxes" object, which carried
+//       { "w", "h", "distance", "angle" }, and "usePickingBox" /
+//       "pickingRotationOffset" are added. Both are optional on read: "usePickingBox"
+//       defaults to true (v0 always ran the collision check) and
+//       "pickingRotationOffset" defaults to zero (v0 had no rotation offset), so a v0
+//       document keeps its exact behaviour.
+//    v2 (current) — the jaw ANGLE moves back out of "gripperBoxes" to the flat
+//       "pickingBoxAngle" key, because it is per-pattern while size/distance describe
+//       the gripper and are shared through presets. "gripperBoxes" keeps
+//       { "w", "h", "distance" }.
+//
+//  One read rule covers all three versions: take the angle from "gripperBoxes.angle"
+//  when that nested key is present (v1 only), otherwise from the flat "pickingBoxAngle"
+//  key — which v0 and v2 conveniently share.
+//
+//  patternConfigFromJson() still reads the v0 flat keys and the v1 nested angle so
+//  projects authored before Phase 5, or during it, keep their tested picking geometry.
+//  This back-compatible READ is a deliberate exception to the no-compat-shims rule in
+//  AGENT.md, agreed with the project owner; writes always emit the current schema.
 //
 //  Training images (m_rawImage) are NOT in JSON — they travel through the
 //  project_images BLOB table.
@@ -104,8 +130,9 @@ void edgeConfigFromJson(const QJsonObject &o, EdgeMatchConfig &c) {
 // ── MatchPatternConfig ↔ JSON ────────────────────────────────────────────────
 
 /// Serialises identity, matching, and picking-geometry fields of a
-/// MatchPatternConfig to JSON (pickPosition/pickingBoxSize/pickingOffset as
-/// nested x/y[/z] objects).
+/// MatchPatternConfig to JSON (pickPosition/gripperBoxes/pickingOffset as
+/// nested objects). Always writes the current schema; see the schema-history
+/// block above for the legacy shape that patternConfigFromJson() still accepts.
 QJsonObject patternConfigToJson(const MatchPatternConfig &c) {
     QJsonObject o;
     o["name"]           = QString::fromStdWString(c.m_patternName);
@@ -120,19 +147,26 @@ QJsonObject patternConfigToJson(const MatchPatternConfig &c) {
     pick["y"] = c.m_pickPosition.y;
     o["pickPosition"] = pick;
 
-    o["pickingBoxSize"]     = QJsonObject{{ "w", c.m_pickingBoxSize.width  },
-                                          { "h", c.m_pickingBoxSize.height }};
-    o["pickingBoxDistance"] = c.m_pickingBoxDistance;
+    o["gripperBoxes"]       = QJsonObject{{ "w",        c.m_gripperBoxes.size.width  },
+                                          { "h",        c.m_gripperBoxes.size.height },
+                                          { "distance", c.m_gripperBoxes.distance    }};
     o["pickingBoxAngle"]    = c.m_pickingBoxAngle;
+    o["usePickingBox"]      = c.m_usePickingBox;
     o["pickingOffset"]      = QJsonObject{{ "x", c.m_pickingOffset.x },
                                           { "y", c.m_pickingOffset.y },
                                           { "z", c.m_pickingOffset.z }};
+    o["pickingRotationOffset"] = QJsonObject{{ "rx", c.m_pickingRotationOffset.x },
+                                             { "ry", c.m_pickingRotationOffset.y },
+                                             { "rz", c.m_pickingRotationOffset.z }};
 
     return o;
 }
 
 /// Reconstructs a MatchPatternConfig from JSON produced by
-/// patternConfigToJson(); missing numeric fields default to 0/0.0.
+/// patternConfigToJson(); missing numeric fields default to 0/0.0. Accepts all three
+/// gripper-geometry shapes — the current v2 layout, the v1 nested angle, and the legacy
+/// v0 flat keys ("pickingBoxSize"/"pickingBoxDistance"/"pickingBoxAngle") — so projects
+/// authored before or during Phase 5 load with their picking geometry intact.
 MatchPatternConfig patternConfigFromJson(const QJsonObject &o) {
     MatchPatternConfig c;
     c.m_patternName    = o["name"].toString().toStdWString();
@@ -146,16 +180,39 @@ MatchPatternConfig patternConfigFromJson(const QJsonObject &o) {
     c.m_pickPosition.x = static_cast<float>(pick["x"].toDouble(0.0));
     c.m_pickPosition.y = static_cast<float>(pick["y"].toDouble(0.0));
 
-    const QJsonObject sz = o["pickingBoxSize"].toObject();
-    c.m_pickingBoxSize = cv::Size2f(static_cast<float>(sz["w"].toDouble(0.0)),
-                                    static_cast<float>(sz["h"].toDouble(0.0)));
-    c.m_pickingBoxDistance = o["pickingBoxDistance"].toDouble(0.0);
-    c.m_pickingBoxAngle    = o["pickingBoxAngle"]   .toDouble(0.0);
+    if (o.contains("gripperBoxes")) {
+        // v1 or v2: jaw size and distance live in the nested object.
+        const QJsonObject gb = o["gripperBoxes"].toObject();
+        c.m_gripperBoxes.size     = cv::Size2f(static_cast<float>(gb["w"].toDouble(0.0)),
+                                               static_cast<float>(gb["h"].toDouble(0.0)));
+        c.m_gripperBoxes.distance = gb["distance"].toDouble(0.0);
+        // A nested "angle" identifies a v1 document, where the jaw angle had not yet
+        // moved back onto the pattern; v2 writes the flat key instead.
+        c.m_pickingBoxAngle       = gb.contains("angle") ? gb["angle"].toDouble(0.0)
+                                                         : o["pickingBoxAngle"].toDouble(0.0);
+    } else {
+        // Legacy v0 layout: three flat keys instead of one nested object. Its angle key
+        // is the same one v2 writes, so it is read by the shared line below.
+        const QJsonObject sz = o["pickingBoxSize"].toObject();
+        c.m_gripperBoxes.size     = cv::Size2f(static_cast<float>(sz["w"].toDouble(0.0)),
+                                               static_cast<float>(sz["h"].toDouble(0.0)));
+        c.m_gripperBoxes.distance = o["pickingBoxDistance"].toDouble(0.0);
+        c.m_pickingBoxAngle       = o["pickingBoxAngle"]   .toDouble(0.0);
+    }
+
+    // Absent in v0 documents, where the collision check always ran.
+    c.m_usePickingBox = o["usePickingBox"].toBool(true);
 
     const QJsonObject off = o["pickingOffset"].toObject();
     c.m_pickingOffset = cv::Point3f(static_cast<float>(off["x"].toDouble(0.0)),
                                     static_cast<float>(off["y"].toDouble(0.0)),
                                     static_cast<float>(off["z"].toDouble(0.0)));
+
+    // Absent in v0 documents, where there was no rotation offset (zero == no-op).
+    const QJsonObject rot = o["pickingRotationOffset"].toObject();
+    c.m_pickingRotationOffset = cv::Point3f(static_cast<float>(rot["rx"].toDouble(0.0)),
+                                            static_cast<float>(rot["ry"].toDouble(0.0)),
+                                            static_cast<float>(rot["rz"].toDouble(0.0)));
 
     return c;
 }
@@ -553,7 +610,7 @@ ManagerResult PatternGroupManager::validateGroupConfig(
     return ManagerResult::success();
 }
 
-/// Builds the `{ "groups": [...] }` document for the whole library by
+/// Builds the `{ "version", "groups": [...] }` document for the whole library by
 /// mapping groupToJson() over every group in m_groups.
 QJsonObject PatternGroupManager::toJson() const {
     QJsonArray groupsArr;
@@ -561,7 +618,8 @@ QJsonObject PatternGroupManager::toJson() const {
         if (group) groupsArr.append(groupToJson(*group));
 
     QJsonObject o;
-    o["groups"] = groupsArr;
+    o["version"] = kSchemaVersion;
+    o["groups"]  = groupsArr;
     return o;
 }
 
@@ -572,6 +630,20 @@ QJsonObject PatternGroupManager::toJson() const {
 /// whole load.
 /// @return true only if every group and pattern loaded without error.
 bool PatternGroupManager::fromJson(const QJsonObject &obj) {
+    // A document written by a newer build may use keys or a shape this build cannot
+    // represent, so it is refused rather than silently loaded with partial-default
+    // state. A missing "version" key is the legacy pre-versioning baseline (v0) and is
+    // accepted — patternConfigFromJson() reads its flat gripper-geometry keys.
+    const int version = obj.value("version").toInt(0);
+    if (version > kSchemaVersion) {
+        LOG_USER_ERR << QStringLiteral(
+                            "PatternGroupManager: document schema version %1 is newer "
+                            "than supported %2; refusing to load.")
+                            .arg(version)
+                            .arg(kSchemaVersion);
+        return false;
+    }
+
     // Reset to empty state.  No clearAll() exists, so iterate by number;
     // groups() returns a snapshot copy, so removing during iteration is safe.
     const auto existing = m_groups;

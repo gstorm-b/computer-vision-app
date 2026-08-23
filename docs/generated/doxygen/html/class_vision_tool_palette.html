@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_vision_t
 </div><!--header-->
 <div class="contents">
 
+<p>Toolbar of mode/action buttons (select, pan, draw rect, draw rotated rect, delete, fit, undo, redo) for the ROI editor; the four mode buttons are mutually exclusive via a QButtonGroup and emit toolModeRequested, while the action buttons each emit their own one-shot signal.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for VisionToolPalette:</div>
@@ -164,6 +167,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0114a1fd87844e94c1ed46d63ed0fa8d" id="r_a0114a1fd87844e94c1ed46d63ed0fa8d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0114a1fd87844e94c1ed46d63ed0fa8d">setUndoAvailable</a> (bool enabled)</td></tr>
 <tr class="memdesc:a0114a1fd87844e94c1ed46d63ed0fa8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables the undo button.  <br /></td></tr>
 <tr class="memitem:a757fc2c9dab686c58323805a66488da7" id="r_a757fc2c9dab686c58323805a66488da7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a757fc2c9dab686c58323805a66488da7">VisionToolPalette</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a757fc2c9dab686c58323805a66488da7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the palette: builds the select/pan/rect/rotated mode buttons (grouped exclusively) plus the delete/fit/undo/redo action buttons.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-slots" class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
@@ -197,7 +201,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Toolbar of mode/action buttons (select, pan, draw rect, draw rotated rect, delete, fit, undo, redo) for the ROI editor; the four mode buttons are mutually exclusive via a QButtonGroup and emit toolModeRequested, while the action buttons each emit their own one-shot signal. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00014">14</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00022">22</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a688ca3c7a6ef016e6848d04e0ac1dbda" name="a688ca3c7a6ef016e6848d04e0ac1dbda"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a688ca3c7a6ef016e6848d04e0ac1dbda">&#9670;&#160;</a></span>ToolMode</h2>
@@ -231,7 +235,7 @@ Private Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00019">19</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00030">30</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 </div>
 </div>
@@ -258,11 +262,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Constructs the palette: builds the select/pan/rect/rotated mode buttons (grouped exclusively) plus the delete/fit/undo/redo action buttons. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Optional owning widget; standard Qt parent/child ownership.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Builds the eight tool buttons, registers the four mode buttons in an exclusive QButtonGroup keyed by their <a class="el" href="#a688ca3c7a6ef016e6848d04e0ac1dbda" title="Interaction mode for the ROI canvas, selected by the mutually-exclusive mode buttons.">ToolMode</a> value, lays them out horizontally (mode buttons, delete/fit, a stretch, then undo/redo), wires each button's signal to the corresponding palette signal/slot, and defaults the active mode to <a class="el" href="#a688ca3c7a6ef016e6848d04e0ac1dbdaa1d8309868384755ac57e5dfa2927d8c2" title="Select and move/resize existing ROIs.">ToolMode::SelectMove</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">33</a> of file <a class="el" href="vision__tool__palette_8cpp_source.html">vision_tool_palette.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a9f1eaeb5dcd986bade88247f77848467">deleteRequested()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00022">DrawAxisAlignedRect</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00023">DrawRotatedRect</a>, <a class="el" href="#ad58bce89540585b25f00d08ea10f3c69">fitRequested()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00061">m_deleteButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00062">m_fitButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00056">m_modeGroup</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00058">m_panButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00059">m_rectButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00064">m_redoButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00060">m_rotatedButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00057">m_selectButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00063">m_undoButton</a>, <a class="el" href="vision__tool__palette_8cpp_source.html#l00110">onToolButtonClicked()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00021">Pan</a>, <a class="el" href="#ad1ccf6816e10dbd97d17f7f1a89fe56a">redoRequested()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00020">SelectMove</a>, <a class="el" href="vision__tool__palette_8cpp_source.html#l00079">setActiveMode()</a>, and <a class="el" href="#abbdadf0a5f7d2d3dc630685513fefa0a">undoRequested()</a>.</p>
+<p class="reference">References <a class="el" href="#a9f1eaeb5dcd986bade88247f77848467">deleteRequested()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00033">DrawAxisAlignedRect</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00034">DrawRotatedRect</a>, <a class="el" href="#ad58bce89540585b25f00d08ea10f3c69">fitRequested()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00077">m_deleteButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00078">m_fitButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00072">m_modeGroup</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00074">m_panButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00075">m_rectButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00080">m_redoButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00076">m_rotatedButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00073">m_selectButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00079">m_undoButton</a>, <a class="el" href="vision__tool__palette_8cpp_source.html#l00110">onToolButtonClicked()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00032">Pan</a>, <a class="el" href="#ad1ccf6816e10dbd97d17f7f1a89fe56a">redoRequested()</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00031">SelectMove</a>, <a class="el" href="vision__tool__palette_8cpp_source.html#l00079">setActiveMode()</a>, and <a class="el" href="#abbdadf0a5f7d2d3dc630685513fefa0a">undoRequested()</a>.</p>
 
 </div>
 </div>
@@ -295,7 +307,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p class="definition">Definition at line <a class="el" href="vision__tool__palette_8cpp_source.html#l00118">118</a> of file <a class="el" href="vision__tool__palette_8cpp_source.html">vision_tool_palette.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00056">m_modeGroup</a>.</p>
+<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00072">m_modeGroup</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00079">setActiveMode()</a>.</p>
 
@@ -390,7 +402,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p class="definition">Definition at line <a class="el" href="vision__tool__palette_8cpp_source.html#l00110">110</a> of file <a class="el" href="vision__tool__palette_8cpp_source.html">vision_tool_palette.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00056">m_modeGroup</a>, and <a class="el" href="#ab8d6d39a5a8ce1fe86739846d2a8551c">toolModeRequested()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00072">m_modeGroup</a>, and <a class="el" href="#ab8d6d39a5a8ce1fe86739846d2a8551c">toolModeRequested()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -470,7 +482,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p class="definition">Definition at line <a class="el" href="vision__tool__palette_8cpp_source.html#l00088">88</a> of file <a class="el" href="vision__tool__palette_8cpp_source.html">vision_tool_palette.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00061">m_deleteButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00059">m_rectButton</a>, and <a class="el" href="vision__tool__palette_8h_source.html#l00060">m_rotatedButton</a>.</p>
+<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00077">m_deleteButton</a>, <a class="el" href="vision__tool__palette_8h_source.html#l00075">m_rectButton</a>, and <a class="el" href="vision__tool__palette_8h_source.html#l00076">m_rotatedButton</a>.</p>
 
 </div>
 </div>
@@ -493,7 +505,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p class="definition">Definition at line <a class="el" href="vision__tool__palette_8cpp_source.html#l00102">102</a> of file <a class="el" href="vision__tool__palette_8cpp_source.html">vision_tool_palette.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00064">m_redoButton</a>.</p>
+<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00080">m_redoButton</a>.</p>
 
 </div>
 </div>
@@ -516,7 +528,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p class="definition">Definition at line <a class="el" href="vision__tool__palette_8cpp_source.html#l00096">96</a> of file <a class="el" href="vision__tool__palette_8cpp_source.html">vision_tool_palette.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00063">m_undoButton</a>.</p>
+<p class="reference">References <a class="el" href="vision__tool__palette_8h_source.html#l00079">m_undoButton</a>.</p>
 
 </div>
 </div>
@@ -601,7 +613,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>"Del" action button; disabled when read-only. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00061">61</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00077">77</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00088">setReadOnly()</a>, and <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -629,7 +641,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>"Fit" action button; fits the image to the view. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00062">62</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00078">78</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -657,7 +669,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>Exclusive group tying the four mode buttons together, keyed by <a class="el" href="#a688ca3c7a6ef016e6848d04e0ac1dbda" title="Interaction mode for the ROI canvas, selected by the mutually-exclusive mode buttons.">ToolMode</a> value. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00056">56</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00072">72</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00118">buttonForMode()</a>, <a class="el" href="vision__tool__palette_8cpp_source.html#l00110">onToolButtonClicked()</a>, and <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -685,7 +697,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>"Pan" button for <a class="el" href="#a688ca3c7a6ef016e6848d04e0ac1dbdaaf6d4a17b27da35c2d90ce13801f36782" title="Pan the image instead of editing ROIs.">ToolMode::Pan</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00058">58</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00074">74</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -713,7 +725,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>"Rect" button for <a class="el" href="#a688ca3c7a6ef016e6848d04e0ac1dbdaaece71239bbda44b1cf9dca9688f95d52" title="Draw a new axis-aligned rectangular ROI.">ToolMode::DrawAxisAlignedRect</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00059">59</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00075">75</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00088">setReadOnly()</a>, and <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -741,7 +753,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>"Redo" action button; enabled via setRedoAvailable. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00064">64</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00080">80</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00102">setRedoAvailable()</a>, and <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -769,7 +781,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>"Rot" button for <a class="el" href="#a688ca3c7a6ef016e6848d04e0ac1dbdaac0c7f384d09ef2070de3ee9bfa7a3c9c" title="Draw a new rotated rectangular ROI.">ToolMode::DrawRotatedRect</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00060">60</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00076">76</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00088">setReadOnly()</a>, and <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -797,7 +809,7 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>"Sel" button for <a class="el" href="#a688ca3c7a6ef016e6848d04e0ac1dbdaa1d8309868384755ac57e5dfa2927d8c2" title="Select and move/resize existing ROIs.">ToolMode::SelectMove</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00057">57</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00073">73</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
@@ -825,15 +837,15 @@ the QToolButton registered in m_modeGroup under <span class="tt">mode</span>'s i
 
 <p>"Undo" action button; enabled via setUndoAvailable. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00063">63</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tool__palette_8h_source.html#l00079">79</a> of file <a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tool__palette_8cpp_source.html#l00096">setUndoAvailable()</a>, and <a class="el" href="vision__tool__palette_8cpp_source.html#l00033">VisionToolPalette()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__tool__palette_8cpp_source.html">vision_tool_palette.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__tool__palette_8h_source.html">vision_tool_palette.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__tool__palette_8cpp_source.html">vision_tool_palette.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

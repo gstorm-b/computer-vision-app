@@ -4,12 +4,23 @@
 #include <QPushButton>
 #include <QStyle>
 
-/// Push button that acts as a status "lamp": exposes a Status enum and reflects it as a
-/// dynamic "status" property so a stylesheet can color/decorate the button per state.
+/**
+ * @file lamp_button.h
+ * @brief LampButton — push button that reflects a Status enum as a "status" dynamic property.
+ */
+
+/**
+ * @class LampButton
+ * @brief Push button that acts as a status "lamp": exposes a Status enum and reflects it as a
+ *        dynamic "status" property so a stylesheet can color/decorate the button per state.
+ */
 class LampButton : public QPushButton {
     Q_OBJECT
 public:
-    /// Connection/operation states the lamp can display.
+    /**
+     * @enum Status
+     * @brief Connection/operation states the lamp can display.
+     */
     enum Status {
         Disconnected,  ///< No connection established.
         Connected,     ///< Successfully connected.

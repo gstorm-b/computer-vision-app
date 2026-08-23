@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/task_device_binding.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/task_device_binding.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('task__device__
   <div class="headertitle"><div class="title">task_device_binding.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Application data-model types: tasks, device bindings, and localization signal mapping (TaskDeviceRole, TaskDeviceBinding, TaskDeviceBindings).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QJsonArray&gt;</code><br />
 <code>#include &lt;QJsonObject&gt;</code><br />
 <code>#include &lt;QJsonValue&gt;</code><br />
@@ -134,7 +137,7 @@ Include dependency graph for task_device_binding.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="task__device__binding_8h__dep__incl.svg" width="654" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="task__device__binding_8h__dep__incl.svg" width="616" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="task__device__binding_8h_source.html">Go to the source code of this file.</a></p>
@@ -142,13 +145,15 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ATaskDeviceBinding" id="r_vc_3A_3Amodel_3A_3ATaskDeviceBinding"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1model_1_1_task_device_binding.html">vc::model::TaskDeviceBinding</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single role-&gt;device assignment (optionally with a camera slot number) for a task; the building block that <a class="el" href="classvc_1_1model_1_1_task_device_bindings.html" title="Ordered collection of a task&#39;s TaskDeviceBinding entries, with role-keyed convenience accessors for t...">TaskDeviceBindings</a> stores a list of.  <a href="classvc_1_1model_1_1_task_device_binding.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ATaskDeviceBindings" id="r_vc_3A_3Amodel_3A_3ATaskDeviceBindings"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1model_1_1_task_device_bindings.html">vc::model::TaskDeviceBindings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ordered collection of a task's <a class="el" href="classvc_1_1model_1_1_task_device_binding.html" title="A single role-&gt;device assignment (optionally with a camera slot number) for a task; the building bloc...">TaskDeviceBinding</a> entries, with role-keyed convenience accessors for the single-valued roles (PrimaryPlc, VisionOutput) and the multi-valued CameraNumber role.  <a href="classvc_1_1model_1_1_task_device_bindings.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -164,7 +169,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a80382a8f481bf6c02318d2e9af14e85d" id="r_a80382a8f481bf6c02318d2e9af14e85d"><td class="memItemLeft"><a class="el" href="namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0">TaskDeviceRole</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#a80382a8f481bf6c02318d2e9af14e85d">vc::model::taskDeviceRoleFromString</a> (const QString &amp;value)</td></tr>
 <tr class="memitem:ada2678a70778fe4e5c62b30535ce1533" id="r_ada2678a70778fe4e5c62b30535ce1533"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#ada2678a70778fe4e5c62b30535ce1533">vc::model::taskDeviceRoleToString</a> (<a class="el" href="namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0">TaskDeviceRole</a> role)</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Application data-model types: tasks, device bindings, and localization signal mapping (TaskDeviceRole, TaskDeviceBinding, TaskDeviceBindings). </p>
+
+<p class="definition">Definition in file <a class="el" href="task__device__binding_8h_source.html">task_device_binding.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -7,8 +7,17 @@ namespace Ui {
 class NewProjectDialog;
 }
 
-/// Modal dialog that collects a name and description for a new project; on success the
-/// values are read back via getName()/getDescription().
+/**
+ * @file new_project_dialog.h
+ * @brief NewProjectDialog — modal dialog that collects a name and description for a new
+ *        project.
+ */
+
+/**
+ * @class NewProjectDialog
+ * @brief Modal dialog that collects a name and description for a new project; on success the
+ *        values are read back via getName()/getDescription().
+ */
 class NewProjectDialog : public QDialog
 {
     Q_OBJECT

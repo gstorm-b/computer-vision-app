@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_image_wi
 </div><!--header-->
 <div class="contents">
 
+<p>QGraphicsView-based image viewer that shows a loaded pixmap and lets the user pan/zoom it and draw/manage ROI (region of interest) and picking-position overlay items on top of it, optionally via a right-click context menu.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="image__widget_8h_source.html">image_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ImageWidget:</div>
@@ -175,6 +178,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0c69802c60bb26f0153c2322762cfb2a" id="r_a0c69802c60bb26f0153c2322762cfb2a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0c69802c60bb26f0153c2322762cfb2a">hadImage</a> ()</td></tr>
 <tr class="memdesc:a0c69802c60bb26f0153c2322762cfb2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if an image pixmap is currently loaded into the scene.  <br /></td></tr>
 <tr class="memitem:aee9964454921e094b3d67d62f5907e91" id="r_aee9964454921e094b3d67d62f5907e91"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aee9964454921e094b3d67d62f5907e91">ImageWidget</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:aee9964454921e094b3d67d62f5907e91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the widget: creates the backing QGraphicsScene, sets a tan background brush, full-viewport update mode, disables smooth pixmap transform to avoid blur when zoomed in, and builds the right-click menus.  <br /></td></tr>
 <tr class="memitem:a5cfb18cb0e0aa66580f50ad36a4b4893" id="r_a5cfb18cb0e0aa66580f50ad36a4b4893"><td class="memItemLeft">const bool&#160;</td><td class="memItemRight"><a class="el" href="#a5cfb18cb0e0aa66580f50ad36a4b4893">isUseMouseMenu</a> ()</td></tr>
 <tr class="memdesc:a5cfb18cb0e0aa66580f50ad36a4b4893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the right-click context menu is currently enabled.  <br /></td></tr>
 <tr class="memitem:ad844a9c921a3ad5c6f371e547564242c" id="r_ad844a9c921a3ad5c6f371e547564242c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad844a9c921a3ad5c6f371e547564242c">removeAllRoi</a> ()</td></tr>
@@ -188,6 +192,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a196a44db20caa9197e8c4517425d8542" id="r_a196a44db20caa9197e8c4517425d8542"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a196a44db20caa9197e8c4517425d8542">setSettings</a> (QSettings *setting)</td></tr>
 <tr class="memitem:aba946435af6022a8b3eb46519d574593" id="r_aba946435af6022a8b3eb46519d574593"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aba946435af6022a8b3eb46519d574593">showChooseImageDialog</a> ()</td></tr>
 <tr class="memitem:ad7ce3e83b4756c1cadb25d27439eea9b" id="r_ad7ce3e83b4756c1cadb25d27439eea9b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad7ce3e83b4756c1cadb25d27439eea9b">~ImageWidget</a> ()</td></tr>
+<tr class="memdesc:ad7ce3e83b4756c1cadb25d27439eea9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor; the scene and its items are owned (parented) by the view.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -276,7 +281,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>QGraphicsView-based image viewer that shows a loaded pixmap and lets the user pan/zoom it and draw/manage ROI (region of interest) and picking-position overlay items on top of it, optionally via a right-click context menu. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00031">31</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00040">40</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="aa3a80f53b06b4ebda52e077626def03a" name="aa3a80f53b06b4ebda52e077626def03a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa3a80f53b06b4ebda52e077626def03a">&#9670;&#160;</a></span>InteractMode</h2>
@@ -302,7 +307,7 @@ Private Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00036">36</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00048">48</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 </div>
 </div>
@@ -320,15 +325,15 @@ Private Attributes</h2></td></tr>
 
 <p>Kind of overlay item being added to the scene. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a96e405dda596e60827c1048577429a9da7efe946d0253d5da908725e28316b611" name="a96e405dda596e60827c1048577429a9da7efe946d0253d5da908725e28316b611"></a>NormalROI&#160;</td><td class="fielddoc"><p>Axis-aligned rectangular ROI (<a class="el" href="class_item_roi.html">ItemRoi</a>). </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a96e405dda596e60827c1048577429a9da7efe946d0253d5da908725e28316b611" name="a96e405dda596e60827c1048577429a9da7efe946d0253d5da908725e28316b611"></a>NormalROI&#160;</td><td class="fielddoc"><p>Axis-aligned rectangular ROI (<a class="el" href="class_item_roi.html" title="Resizable, movable, axis-aligned rectangular region-of-interest item for a QGraphicsScene: renders a ...">ItemRoi</a>). </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a96e405dda596e60827c1048577429a9daca3cf8e68d91bc007feff8452ba4a3c3" name="a96e405dda596e60827c1048577429a9daca3cf8e68d91bc007feff8452ba4a3c3"></a>RotatedROI&#160;</td><td class="fielddoc"><p>Rotatable rectangular ROI (<a class="el" href="class_item_roi_rotated.html">ItemRoiRotated</a>). </p>
+<tr><td class="fieldname"><a id="a96e405dda596e60827c1048577429a9daca3cf8e68d91bc007feff8452ba4a3c3" name="a96e405dda596e60827c1048577429a9daca3cf8e68d91bc007feff8452ba4a3c3"></a>RotatedROI&#160;</td><td class="fielddoc"><p>Rotatable rectangular ROI (<a class="el" href="class_item_roi_rotated.html" title="Resizable, movable, and rotatable rectangular region-of-interest item for a QGraphicsScene: renders a...">ItemRoiRotated</a>). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a96e405dda596e60827c1048577429a9da4cee75e52a913eb004617e38279f7989" name="a96e405dda596e60827c1048577429a9da4cee75e52a913eb004617e38279f7989"></a>PickingPosition&#160;</td><td class="fielddoc"><p>Picking-position marker item. </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00044">44</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00059">59</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 </div>
 </div>
@@ -355,11 +360,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Constructs the widget: creates the backing QGraphicsScene, sets a tan background brush, full-viewport update mode, disables smooth pixmap transform to avoid blur when zoomed in, and builds the right-click menus. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Optional owning widget; standard Qt parent/child ownership.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Constructs the image view: creates the backing QGraphicsScene, initializes all ROI/pan/mode state to its defaults, sets the background brush, configures the viewport to fully repaint on every update (avoids ghosting), disables smooth pixmap transform (avoids blur when zoomed in), and builds the right-click context menus via <a class="el" href="#aaf1f98e0c34d7853b014c531a3159fef">init_mouse_menu()</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00022">22</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00199">m_has_panned</a>, <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00196">m_previous_mode</a>, <a class="el" href="image__widget_8h_source.html#l00202">m_roi_started</a>, <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>, <a class="el" href="image__widget_8h_source.html#l00197">m_scene_interacting</a>, <a class="el" href="image__widget_8h_source.html#l00190">m_setting</a>, <a class="el" href="image__widget_8h_source.html#l00193">m_using_mouse_menu</a>, and <a class="el" href="image__widget_8h_source.html#l00191">m_using_user_setting</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00221">m_has_panned</a>, <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00218">m_previous_mode</a>, <a class="el" href="image__widget_8h_source.html#l00224">m_roi_started</a>, <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>, <a class="el" href="image__widget_8h_source.html#l00219">m_scene_interacting</a>, <a class="el" href="image__widget_8h_source.html#l00212">m_setting</a>, <a class="el" href="image__widget_8h_source.html#l00215">m_using_mouse_menu</a>, and <a class="el" href="image__widget_8h_source.html#l00213">m_using_user_setting</a>.</p>
 
 </div>
 </div>
@@ -377,6 +390,8 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Default destructor; the scene and its items are owned (parented) by the view. </p>
 <p>Destructor. Currently a no-op: explicit deletion of m_pixmapItem is left commented out since it is owned by m_scene and is cleaned up when the scene is destroyed. </p>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00050">50</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
@@ -405,7 +420,7 @@ Private Attributes</h2></td></tr>
 <p>Creates a new ROI item of type <span class="tt">rtype</span> at <span class="tt">rect</span>, parented to the pixmap item, and emits <a class="el" href="#a9e1f7fd08b67132745d23824c31146a1" title="Emitted when a new ROI/picking-position item of type is added via addRoi().">signal_new_roi_added()</a>. Rejected (and deleted) if the resulting ROI would be smaller than 10x10, or if no image is loaded.</p>
 <p>Creates and adds a new ROI graphics item to the scene, anchored to the current pixmap item. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rtype</td><td>ROI shape to create: NormalROI builds an <a class="el" href="class_item_roi.html">ItemRoi</a> from <span class="tt">rect</span>; RotatedROI builds an <a class="el" href="class_item_roi_rotated.html">ItemRoiRotated</a> from m_temp_roi's current rect instead (the <span class="tt">rect</span> parameter is unused in that branch); any other value (e.g. PickingPosition) is a no-op </td></tr>
+    <tr><td class="paramname">rtype</td><td>ROI shape to create: NormalROI builds an <a class="el" href="class_item_roi.html" title="Resizable, movable, axis-aligned rectangular region-of-interest item for a QGraphicsScene: renders a ...">ItemRoi</a> from <span class="tt">rect</span>; RotatedROI builds an <a class="el" href="class_item_roi_rotated.html" title="Resizable, movable, and rotatable rectangular region-of-interest item for a QGraphicsScene: renders a...">ItemRoiRotated</a> from m_temp_roi's current rect instead (the <span class="tt">rect</span> parameter is unused in that branch); any other value (e.g. PickingPosition) is a no-op </td></tr>
     <tr><td class="paramname">rect</td><td>rectangle to use for the NormalROI case </td></tr>
   </table>
   </dd>
@@ -414,7 +429,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00493">493</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00206">m_draw_roi_type</a>, <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00197">m_scene_interacting</a>, <a class="el" href="image__widget_8h_source.html#l00203">m_temp_roi</a>, <a class="el" href="image__widget_8h_source.html#l00045">NormalROI</a>, <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>, <a class="el" href="image__widget_8h_source.html#l00046">RotatedROI</a>, and <a class="el" href="#a9e1f7fd08b67132745d23824c31146a1">signal_new_roi_added()</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00228">m_draw_roi_type</a>, <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00219">m_scene_interacting</a>, <a class="el" href="image__widget_8h_source.html#l00225">m_temp_roi</a>, <a class="el" href="image__widget_8h_source.html#l00060">NormalROI</a>, <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>, <a class="el" href="image__widget_8h_source.html#l00061">RotatedROI</a>, and <a class="el" href="#a9e1f7fd08b67132745d23824c31146a1">signal_new_roi_added()</a>.</p>
 
 </div>
 </div>
@@ -445,7 +460,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00389">389</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00408">changeCursor()</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00196">m_previous_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00197">m_scene_interacting</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00408">changeCursor()</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00218">m_previous_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00219">m_scene_interacting</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00628">leftMouseButtonReleased()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00309">wheelEvent()</a>.</p>
 
@@ -479,7 +494,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00408">408</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00040">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00039">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00038">IModeZoom</a>, and <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00052">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00051">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00050">IModeZoom</a>, and <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00389">backToPreviousMode()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>.</p>
 
@@ -517,7 +532,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00373">373</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00408">changeCursor()</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00196">m_previous_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00197">m_scene_interacting</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00408">changeCursor()</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00218">m_previous_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00219">m_scene_interacting</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00325">keyPressEvent()</a>, <a class="el" href="image__widget_8cpp_source.html#l00357">keyReleaseEvent()</a>, <a class="el" href="image__widget_8cpp_source.html#l00591">leftMouseButtonPressed()</a>, <a class="el" href="image__widget_8cpp_source.html#l00184">startDrawROI()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00309">wheelEvent()</a>.</p>
 
@@ -556,7 +571,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00452">452</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, and <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, and <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00125">loadImage()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00151">loadImage()</a>.</p>
 
@@ -590,7 +605,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00195">195</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00325">keyPressEvent()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -623,7 +638,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00898">898</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00202">m_roi_started</a>, and <a class="el" href="image__widget_8h_source.html#l00203">m_temp_roi</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00224">m_roi_started</a>, and <a class="el" href="image__widget_8h_source.html#l00225">m_temp_roi</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00325">keyPressEvent()</a>.</p>
 
@@ -652,11 +667,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Finishes interactive ROI drawing: discards a zero-size drag, otherwise creates the real ROI item from the temporary rectangle, emits <a class="el" href="#a1afe5310dc189ca35103a32c4bde2bab">signal_draw_roi_finished()</a>, and returns to IModeNone. </p><dl class="section return"><dt>Returns</dt><dd>false if the click was outside the image</dd></dl>
-<p>Finishes the in-progress ROI drag at the event's scene position: if the release is at the same point as the start (no actual drag), the temporary rectangle is discarded; otherwise a real <a class="el" href="class_item_roi.html">ItemRoi</a> or <a class="el" href="class_item_roi_rotated.html">ItemRoiRotated</a> (matching m_draw_roi_type) is created from the temporary rectangle, discarded if smaller than 10x10, and otherwise kept and reported via <a class="el" href="#a1afe5310dc189ca35103a32c4bde2bab">signal_draw_roi_finished()</a>. Leaves interaction mode at IModeNone on completion. </p><dl class="section return"><dt>Returns</dt><dd>false if the release point is outside the pixmap (drag left unresolved); true otherwise, including when the resulting ROI was rejected for being too small </dd></dl>
+<p>Finishes the in-progress ROI drag at the event's scene position: if the release is at the same point as the start (no actual drag), the temporary rectangle is discarded; otherwise a real <a class="el" href="class_item_roi.html" title="Resizable, movable, axis-aligned rectangular region-of-interest item for a QGraphicsScene: renders a ...">ItemRoi</a> or <a class="el" href="class_item_roi_rotated.html" title="Resizable, movable, and rotatable rectangular region-of-interest item for a QGraphicsScene: renders a...">ItemRoiRotated</a> (matching m_draw_roi_type) is created from the temporary rectangle, discarded if smaller than 10x10, and otherwise kept and reported via <a class="el" href="#a1afe5310dc189ca35103a32c4bde2bab">signal_draw_roi_finished()</a>. Leaves interaction mode at IModeNone on completion. </p><dl class="section return"><dt>Returns</dt><dd>false if the release point is outside the pixmap (drag left unresolved); true otherwise, including when the resulting ROI was rejected for being too small </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00807">807</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00206">m_draw_roi_type</a>, <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00204">m_roi_start_point</a>, <a class="el" href="image__widget_8h_source.html#l00202">m_roi_started</a>, <a class="el" href="image__widget_8h_source.html#l00197">m_scene_interacting</a>, <a class="el" href="image__widget_8h_source.html#l00203">m_temp_roi</a>, <a class="el" href="image__widget_8h_source.html#l00045">NormalROI</a>, <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>, <a class="el" href="image__widget_8h_source.html#l00046">RotatedROI</a>, and <a class="el" href="#a1afe5310dc189ca35103a32c4bde2bab">signal_draw_roi_finished()</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00228">m_draw_roi_type</a>, <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00226">m_roi_start_point</a>, <a class="el" href="image__widget_8h_source.html#l00224">m_roi_started</a>, <a class="el" href="image__widget_8h_source.html#l00219">m_scene_interacting</a>, <a class="el" href="image__widget_8h_source.html#l00225">m_temp_roi</a>, <a class="el" href="image__widget_8h_source.html#l00060">NormalROI</a>, <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>, <a class="el" href="image__widget_8h_source.html#l00061">RotatedROI</a>, and <a class="el" href="#a1afe5310dc189ca35103a32c4bde2bab">signal_draw_roi_finished()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00591">leftMouseButtonPressed()</a>.</p>
 
@@ -689,7 +704,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00775">775</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00204">m_roi_start_point</a>, <a class="el" href="image__widget_8h_source.html#l00202">m_roi_started</a>, <a class="el" href="image__widget_8h_source.html#l00203">m_temp_roi</a>, and <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00226">m_roi_start_point</a>, <a class="el" href="image__widget_8h_source.html#l00224">m_roi_started</a>, <a class="el" href="image__widget_8h_source.html#l00225">m_temp_roi</a>, and <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00591">leftMouseButtonPressed()</a>.</p>
 
@@ -722,7 +737,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00883">883</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00204">m_roi_start_point</a>, <a class="el" href="image__widget_8h_source.html#l00203">m_temp_roi</a>, and <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00226">m_roi_start_point</a>, <a class="el" href="image__widget_8h_source.html#l00225">m_temp_roi</a>, and <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00235">mouseMoveEvent()</a>.</p>
 
@@ -748,7 +763,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00552">552</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00188">m_pixmap_bounding_rect</a>, and <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00210">m_pixmap_bounding_rect</a>, and <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>.</p>
 
 </div>
 </div>
@@ -777,7 +792,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00093">93</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__roi_8cpp_source.html#l00029">ItemRoi::getRoi()</a>, and <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>.</p>
+<p class="reference">References <a class="el" href="item__roi_8cpp_source.html#l00029">ItemRoi::getRoi()</a>, and <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>.</p>
 
 </div>
 </div>
@@ -801,7 +816,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00084">84</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>.</p>
 
 </div>
 </div>
@@ -825,7 +840,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00546">546</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>.</p>
 
 </div>
 </div>
@@ -849,7 +864,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00461">461</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00168">removeImage()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -882,7 +897,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00427">427</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00212">action_add_roi</a>, <a class="el" href="image__widget_8h_source.html#l00213">action_delete_roi</a>, <a class="el" href="image__widget_8h_source.html#l00215">action_load_img</a>, <a class="el" href="image__widget_8h_source.html#l00216">action_remove_img</a>, <a class="el" href="image__widget_8h_source.html#l00217">action_reset_img</a>, <a class="el" href="image__widget_8h_source.html#l00214">action_save_roi</a>, <a class="el" href="image__widget_8h_source.html#l00209">menu_right_mouse</a>, <a class="el" href="image__widget_8h_source.html#l00210">menu_right_mouse_full</a>, and <a class="el" href="image__widget_8h_source.html#l00211">menu_right_mouse_roi</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00234">action_add_roi</a>, <a class="el" href="image__widget_8h_source.html#l00235">action_delete_roi</a>, <a class="el" href="image__widget_8h_source.html#l00237">action_load_img</a>, <a class="el" href="image__widget_8h_source.html#l00238">action_remove_img</a>, <a class="el" href="image__widget_8h_source.html#l00239">action_reset_img</a>, <a class="el" href="image__widget_8h_source.html#l00236">action_save_roi</a>, <a class="el" href="image__widget_8h_source.html#l00231">menu_right_mouse</a>, <a class="el" href="image__widget_8h_source.html#l00232">menu_right_mouse_full</a>, and <a class="el" href="image__widget_8h_source.html#l00233">menu_right_mouse_roi</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>.</p>
 
@@ -922,7 +937,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00563">563</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00040">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00039">IModePan</a>, and <a class="el" href="image__widget_8h_source.html#l00038">IModeZoom</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00052">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00051">IModePan</a>, and <a class="el" href="image__widget_8h_source.html#l00050">IModeZoom</a>.</p>
 
 </div>
 </div>
@@ -945,7 +960,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00117">117</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00193">m_using_mouse_menu</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00215">m_using_mouse_menu</a>.</p>
 
 </div>
 </div>
@@ -976,7 +991,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00325">325</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00195">deletedSelectedItems()</a>, <a class="el" href="image__widget_8cpp_source.html#l00898">draw_cancelROI()</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00202">m_roi_started</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00195">deletedSelectedItems()</a>, <a class="el" href="image__widget_8cpp_source.html#l00898">draw_cancelROI()</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00224">m_roi_started</a>.</p>
 
 </div>
 </div>
@@ -1008,7 +1023,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00357">357</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00039">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00200">m_last_pan_point</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00051">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00222">m_last_pan_point</a>.</p>
 
 </div>
 </div>
@@ -1039,7 +1054,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00591">591</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00775">draw_startROI()</a>, <a class="el" href="image__widget_8h_source.html#l00040">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00039">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00199">m_has_panned</a>, <a class="el" href="image__widget_8h_source.html#l00200">m_last_pan_point</a>, and <a class="el" href="image__widget_8h_source.html#l00202">m_roi_started</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00775">draw_startROI()</a>, <a class="el" href="image__widget_8h_source.html#l00052">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00051">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00221">m_has_panned</a>, <a class="el" href="image__widget_8h_source.html#l00222">m_last_pan_point</a>, and <a class="el" href="image__widget_8h_source.html#l00224">m_roi_started</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00211">mousePressEvent()</a>.</p>
 
@@ -1072,7 +1087,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00628">628</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00389">backToPreviousMode()</a>, <a class="el" href="image__widget_8h_source.html#l00040">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00039">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00038">IModeZoom</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00199">m_has_panned</a>, and <a class="el" href="image__widget_8h_source.html#l00200">m_last_pan_point</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00389">backToPreviousMode()</a>, <a class="el" href="image__widget_8h_source.html#l00052">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00051">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00050">IModeZoom</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00221">m_has_panned</a>, and <a class="el" href="image__widget_8h_source.html#l00222">m_last_pan_point</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00268">mouseReleaseEvent()</a>.</p>
 
@@ -1110,7 +1125,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00125">125</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00452">createPixmapItem()</a>, <a class="el" href="image__widget_8h_source.html#l00188">m_pixmap_bounding_rect</a>, <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>, and <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00452">createPixmapItem()</a>, <a class="el" href="image__widget_8h_source.html#l00210">m_pixmap_bounding_rect</a>, <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>, and <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00751">showChooseImageDialog()</a>.</p>
 
@@ -1148,7 +1163,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00151">151</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00452">createPixmapItem()</a>, <a class="el" href="image__widget_8h_source.html#l00188">m_pixmap_bounding_rect</a>, <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, and <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00452">createPixmapItem()</a>, <a class="el" href="image__widget_8h_source.html#l00210">m_pixmap_bounding_rect</a>, <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, and <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>.</p>
 
 </div>
 </div>
@@ -1179,7 +1194,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00291">291</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00188">m_pixmap_bounding_rect</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, and <a class="el" href="image__widget_8h_source.html#l00210">m_pixmap_bounding_rect</a>.</p>
 
 </div>
 </div>
@@ -1210,7 +1225,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00235">235</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00883">draw_updateROI()</a>, <a class="el" href="image__widget_8h_source.html#l00040">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00039">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00038">IModeZoom</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00199">m_has_panned</a>, and <a class="el" href="image__widget_8h_source.html#l00200">m_last_pan_point</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00883">draw_updateROI()</a>, <a class="el" href="image__widget_8h_source.html#l00052">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00051">IModePan</a>, <a class="el" href="image__widget_8h_source.html#l00050">IModeZoom</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00221">m_has_panned</a>, and <a class="el" href="image__widget_8h_source.html#l00222">m_last_pan_point</a>.</p>
 
 </div>
 </div>
@@ -1292,11 +1307,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Deletes every ItemRoi/ItemRoiRotated currently in the scene. </p>
-<p>Deletes every ROI item (<a class="el" href="class_item_roi.html">ItemRoi</a> or <a class="el" href="class_item_roi_rotated.html">ItemRoiRotated</a>) currently in the scene. No-op if the scene doesn't exist. </p>
+<p>Deletes every ROI item (<a class="el" href="class_item_roi.html" title="Resizable, movable, axis-aligned rectangular region-of-interest item for a QGraphicsScene: renders a ...">ItemRoi</a> or <a class="el" href="class_item_roi_rotated.html" title="Resizable, movable, and rotatable rectangular region-of-interest item for a QGraphicsScene: renders a...">ItemRoiRotated</a>) currently in the scene. No-op if the scene doesn't exist. </p>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00467">467</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>.</p>
 
 </div>
 </div>
@@ -1328,7 +1343,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00168">168</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00461">hadImage()</a>, <a class="el" href="image__widget_8h_source.html#l00188">m_pixmap_bounding_rect</a>, <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>, and <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00461">hadImage()</a>, <a class="el" href="image__widget_8h_source.html#l00210">m_pixmap_bounding_rect</a>, <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>, and <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1359,7 +1374,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00482">482</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>.</p>
 
 </div>
 </div>
@@ -1383,7 +1398,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00074">74</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00190">m_setting</a>, and <a class="el" href="image__widget_8h_source.html#l00191">m_using_user_setting</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00212">m_setting</a>, and <a class="el" href="image__widget_8h_source.html#l00213">m_using_user_setting</a>.</p>
 
 </div>
 </div>
@@ -1446,7 +1461,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00617">617</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00193">m_using_mouse_menu</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00215">m_using_mouse_menu</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00268">mouseReleaseEvent()</a>.</p>
 
@@ -1472,7 +1487,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00112">112</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00193">m_using_mouse_menu</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00215">m_using_mouse_menu</a>.</p>
 
 </div>
 </div>
@@ -1500,7 +1515,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00059">59</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00190">m_setting</a>, and <a class="el" href="image__widget_8h_source.html#l00191">m_using_user_setting</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00212">m_setting</a>, and <a class="el" href="image__widget_8h_source.html#l00213">m_using_user_setting</a>.</p>
 
 </div>
 </div>
@@ -1523,7 +1538,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00751">751</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00125">loadImage()</a>, and <a class="el" href="image__widget_8h_source.html#l00190">m_setting</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00125">loadImage()</a>, and <a class="el" href="image__widget_8h_source.html#l00212">m_setting</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1561,7 +1576,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00665">665</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00212">action_add_roi</a>, <a class="el" href="image__widget_8h_source.html#l00213">action_delete_roi</a>, <a class="el" href="image__widget_8h_source.html#l00215">action_load_img</a>, <a class="el" href="image__widget_8h_source.html#l00216">action_remove_img</a>, <a class="el" href="image__widget_8h_source.html#l00217">action_reset_img</a>, <a class="el" href="image__widget_8h_source.html#l00214">action_save_roi</a>, <a class="el" href="image__widget_8cpp_source.html#l00195">deletedSelectedItems()</a>, <a class="el" href="item__roi_8cpp_source.html#l00029">ItemRoi::getRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00461">hadImage()</a>, <a class="el" href="image__widget_8h_source.html#l00188">m_pixmap_bounding_rect</a>, <a class="el" href="image__widget_8h_source.html#l00187">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>, <a class="el" href="image__widget_8h_source.html#l00190">m_setting</a>, <a class="el" href="image__widget_8h_source.html#l00209">menu_right_mouse</a>, <a class="el" href="image__widget_8h_source.html#l00210">menu_right_mouse_full</a>, <a class="el" href="image__widget_8h_source.html#l00211">menu_right_mouse_roi</a>, <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>, <a class="el" href="image__widget_8cpp_source.html#l00168">removeImage()</a>, <a class="el" href="image__widget_8h_source.html#l00046">RotatedROI</a>, <a class="el" href="image__widget_8cpp_source.html#l00751">showChooseImageDialog()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00184">startDrawROI()</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8h_source.html#l00234">action_add_roi</a>, <a class="el" href="image__widget_8h_source.html#l00235">action_delete_roi</a>, <a class="el" href="image__widget_8h_source.html#l00237">action_load_img</a>, <a class="el" href="image__widget_8h_source.html#l00238">action_remove_img</a>, <a class="el" href="image__widget_8h_source.html#l00239">action_reset_img</a>, <a class="el" href="image__widget_8h_source.html#l00236">action_save_roi</a>, <a class="el" href="image__widget_8cpp_source.html#l00195">deletedSelectedItems()</a>, <a class="el" href="item__roi_8cpp_source.html#l00029">ItemRoi::getRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00461">hadImage()</a>, <a class="el" href="image__widget_8h_source.html#l00210">m_pixmap_bounding_rect</a>, <a class="el" href="image__widget_8h_source.html#l00209">m_pixmapItem</a>, <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>, <a class="el" href="image__widget_8h_source.html#l00212">m_setting</a>, <a class="el" href="image__widget_8h_source.html#l00231">menu_right_mouse</a>, <a class="el" href="image__widget_8h_source.html#l00232">menu_right_mouse_full</a>, <a class="el" href="image__widget_8h_source.html#l00233">menu_right_mouse_roi</a>, <a class="el" href="image__widget_8cpp_source.html#l00015">PRINT_DEBUG_INFO</a>, <a class="el" href="image__widget_8cpp_source.html#l00168">removeImage()</a>, <a class="el" href="image__widget_8h_source.html#l00061">RotatedROI</a>, <a class="el" href="image__widget_8cpp_source.html#l00751">showChooseImageDialog()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00184">startDrawROI()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00617">rightMouseButtonReleased()</a>.</p>
 
@@ -1664,7 +1679,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00184">184</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8h_source.html#l00040">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00037">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00195">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00206">m_draw_roi_type</a>, and <a class="el" href="image__widget_8h_source.html#l00186">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8h_source.html#l00052">IModeDrawing</a>, <a class="el" href="image__widget_8h_source.html#l00049">IModeNone</a>, <a class="el" href="image__widget_8h_source.html#l00217">m_current_mode</a>, <a class="el" href="image__widget_8h_source.html#l00228">m_draw_roi_type</a>, and <a class="el" href="image__widget_8h_source.html#l00208">m_scene</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1697,7 +1712,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__widget_8cpp_source.html#l00309">309</a> of file <a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00389">backToPreviousMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, and <a class="el" href="image__widget_8h_source.html#l00038">IModeZoom</a>.</p>
+<p class="reference">References <a class="el" href="image__widget_8cpp_source.html#l00389">backToPreviousMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, and <a class="el" href="image__widget_8h_source.html#l00050">IModeZoom</a>.</p>
 
 </div>
 </div>
@@ -1724,7 +1739,7 @@ Private Attributes</h2></td></tr>
 
 <p>Menu action to start drawing a new ROI. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00212">212</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00234">234</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1752,7 +1767,7 @@ Private Attributes</h2></td></tr>
 
 <p>Menu action to delete the selected ROI(s). </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00213">213</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00235">235</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1780,7 +1795,7 @@ Private Attributes</h2></td></tr>
 
 <p>Menu action to open the image-choose dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00215">215</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00237">237</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1808,7 +1823,7 @@ Private Attributes</h2></td></tr>
 
 <p>Menu action to remove the currently loaded image. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00216">216</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00238">238</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1836,7 +1851,7 @@ Private Attributes</h2></td></tr>
 
 <p>Menu action to refit the view to the loaded image. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00217">217</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00239">239</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1864,7 +1879,7 @@ Private Attributes</h2></td></tr>
 
 <p>Menu action to crop and save the selected ROI's image region to disk. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00214">214</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00236">236</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -1892,7 +1907,7 @@ Private Attributes</h2></td></tr>
 
 <p>Active interaction mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00195">195</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00217">217</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00389">backToPreviousMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00408">changeCursor()</a>, <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>, <a class="el" href="image__widget_8cpp_source.html#l00325">keyPressEvent()</a>, <a class="el" href="image__widget_8cpp_source.html#l00357">keyReleaseEvent()</a>, <a class="el" href="image__widget_8cpp_source.html#l00591">leftMouseButtonPressed()</a>, <a class="el" href="image__widget_8cpp_source.html#l00628">leftMouseButtonReleased()</a>, <a class="el" href="image__widget_8cpp_source.html#l00291">mouseDoubleClickEvent()</a>, <a class="el" href="image__widget_8cpp_source.html#l00235">mouseMoveEvent()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00184">startDrawROI()</a>.</p>
 
@@ -1920,7 +1935,7 @@ Private Attributes</h2></td></tr>
 
 <p>Item type requested for the ROI currently being drawn. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00206">206</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00228">228</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00493">addRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00184">startDrawROI()</a>.</p>
 
@@ -1948,7 +1963,7 @@ Private Attributes</h2></td></tr>
 
 <p>Set once an actual pan movement occurs during IModePan. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00199">199</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00221">221</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>, <a class="el" href="image__widget_8cpp_source.html#l00591">leftMouseButtonPressed()</a>, <a class="el" href="image__widget_8cpp_source.html#l00628">leftMouseButtonReleased()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00235">mouseMoveEvent()</a>.</p>
 
@@ -1976,7 +1991,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last mouse position seen while panning, in viewport coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00200">200</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00222">222</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00357">keyReleaseEvent()</a>, <a class="el" href="image__widget_8cpp_source.html#l00591">leftMouseButtonPressed()</a>, <a class="el" href="image__widget_8cpp_source.html#l00628">leftMouseButtonReleased()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00235">mouseMoveEvent()</a>.</p>
 
@@ -2004,7 +2019,7 @@ Private Attributes</h2></td></tr>
 
 <p>Cached bounding rect of m_pixmapItem, used by fit/reset view calls. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00188">188</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00210">210</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00552">fitImageView()</a>, <a class="el" href="image__widget_8cpp_source.html#l00125">loadImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00151">loadImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00291">mouseDoubleClickEvent()</a>, <a class="el" href="image__widget_8cpp_source.html#l00168">removeImage()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -2032,7 +2047,7 @@ Private Attributes</h2></td></tr>
 
 <p>Currently loaded image item, or nullptr if no image is loaded. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00187">187</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00209">209</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00493">addRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00452">createPixmapItem()</a>, <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00775">draw_startROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00883">draw_updateROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00552">fitImageView()</a>, <a class="el" href="image__widget_8cpp_source.html#l00093">getCroppedFromRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00084">getImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00546">getPixmapItem()</a>, <a class="el" href="image__widget_8cpp_source.html#l00461">hadImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>, <a class="el" href="image__widget_8cpp_source.html#l00125">loadImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00151">loadImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00168">removeImage()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -2060,7 +2075,7 @@ Private Attributes</h2></td></tr>
 
 <p>Mode to restore via <a class="el" href="#af5f232c3c8a016dcaedf14c98a2b4233">backToPreviousMode()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00196">196</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00218">218</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00389">backToPreviousMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>.</p>
 
@@ -2088,7 +2103,7 @@ Private Attributes</h2></td></tr>
 
 <p>Scene-coordinate anchor point where the current ROI draw began. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00204">204</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00226">226</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00775">draw_startROI()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00883">draw_updateROI()</a>.</p>
 
@@ -2116,7 +2131,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while an interactive ROI draw is in progress. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00202">202</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00224">224</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00898">draw_cancelROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00775">draw_startROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>, <a class="el" href="image__widget_8cpp_source.html#l00325">keyPressEvent()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00591">leftMouseButtonPressed()</a>.</p>
 
@@ -2144,7 +2159,7 @@ Private Attributes</h2></td></tr>
 
 <p>Scene owning the pixmap item and all ROI/overlay items. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00186">186</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00208">208</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00452">createPixmapItem()</a>, <a class="el" href="image__widget_8cpp_source.html#l00195">deletedSelectedItems()</a>, <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>, <a class="el" href="image__widget_8cpp_source.html#l00125">loadImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00151">loadImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00467">removeAllRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00168">removeImage()</a>, <a class="el" href="image__widget_8cpp_source.html#l00482">removeRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00184">startDrawROI()</a>.</p>
 
@@ -2172,7 +2187,7 @@ Private Attributes</h2></td></tr>
 
 <p>True whenever m_current_mode is not IModeNone. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00197">197</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00219">219</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00493">addRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00389">backToPreviousMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00373">changeInteractMode()</a>, <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>.</p>
 
@@ -2200,7 +2215,7 @@ Private Attributes</h2></td></tr>
 
 <p>Settings used to persist the last save/open directory. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00190">190</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00212">212</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>, <a class="el" href="image__widget_8cpp_source.html#l00074">removeSettings()</a>, <a class="el" href="image__widget_8cpp_source.html#l00059">setSettings()</a>, <a class="el" href="image__widget_8cpp_source.html#l00751">showChooseImageDialog()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -2228,7 +2243,7 @@ Private Attributes</h2></td></tr>
 
 <p>Temporary dashed preview rectangle shown while drawing a ROI. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00203">203</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00225">225</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00493">addRoi()</a>, <a class="el" href="image__widget_8cpp_source.html#l00898">draw_cancelROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00807">draw_endROI()</a>, <a class="el" href="image__widget_8cpp_source.html#l00775">draw_startROI()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00883">draw_updateROI()</a>.</p>
 
@@ -2256,7 +2271,7 @@ Private Attributes</h2></td></tr>
 
 <p>Whether the right-click context menu is enabled. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00193">193</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00215">215</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>, <a class="el" href="image__widget_8cpp_source.html#l00117">isUseMouseMenu()</a>, <a class="el" href="image__widget_8cpp_source.html#l00617">rightMouseButtonReleased()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00112">setEnableMouseMenu()</a>.</p>
 
@@ -2284,7 +2299,7 @@ Private Attributes</h2></td></tr>
 
 <p>True if m_setting was supplied via <a class="el" href="#a196a44db20caa9197e8c4517425d8542">setSettings()</a> rather than auto-created. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00191">191</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00213">213</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00022">ImageWidget()</a>, <a class="el" href="image__widget_8cpp_source.html#l00074">removeSettings()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00059">setSettings()</a>.</p>
 
@@ -2313,7 +2328,7 @@ Private Attributes</h2></td></tr>
 <p>Right Click Menu. </p>
 <p>Context menu shown when no image is loaded. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00209">209</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00231">231</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -2341,7 +2356,7 @@ Private Attributes</h2></td></tr>
 
 <p>Context menu shown when an image is loaded and nothing is selected. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00210">210</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00232">232</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
@@ -2369,15 +2384,15 @@ Private Attributes</h2></td></tr>
 
 <p>Context menu shown when a ROI item is selected. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00211">211</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__widget_8h_source.html#l00233">233</a> of file <a class="el" href="image__widget_8h_source.html">image_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__widget_8cpp_source.html#l00427">init_mouse_menu()</a>, and <a class="el" href="image__widget_8cpp_source.html#l00665">showRightMouseClickMenu()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="image__widget_8h_source.html">image_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="image__widget_8h_source.html">image_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="image__widget_8cpp_source.html">image_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

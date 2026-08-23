@@ -24,14 +24,26 @@
 /// Maximum allowed value for a pattern activation index.
 #define PT_PATTERN_INDEX_MAX  4
 
-/// Modal dialog for creating/editing a pattern group's name and activation index (1-32),
-/// validating both fields before accepting.
+/**
+ * @file pattern_manager_dialog.h
+ * @brief AddGroupDialog and AddPatternDialog — small modal dialogs for naming/indexing a
+ *        pattern group or pattern.
+ */
+
+/**
+ * @class AddGroupDialog
+ * @brief Modal dialog for creating/editing a pattern group's name and activation index (1-32),
+ *        validating both fields before accepting.
+ */
 class AddGroupDialog : public QDialog {
     Q_OBJECT
 public:
-    /// Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to
-    /// validateAndAccept().
-    /// @param dialog_title window title shown on the dialog
+    /**
+     * @brief Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button
+     *        to validateAndAccept().
+     * @param[in] dialog_title window title shown on the dialog
+     * @param[in] parent parent widget
+     */
     explicit AddGroupDialog(QString &dialog_title, QWidget *parent = nullptr) : QDialog(parent) {
         this->setWindowTitle(dialog_title);
 
@@ -106,14 +118,20 @@ private:
     QLineEdit *groupIndexEdit;  ///< Input field (int-validated) for the group's activation index.
 };
 
-/// Modal dialog for creating/editing a pattern's name and activation index (1-4), validating
-/// both fields before accepting.
+/**
+ * @class AddPatternDialog
+ * @brief Modal dialog for creating/editing a pattern's name and activation index (1-4),
+ *        validating both fields before accepting.
+ */
 class AddPatternDialog : public QDialog {
     Q_OBJECT
 public:
-    /// Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to
-    /// validateAndAccept().
-    /// @param dialog_title window title shown on the dialog
+    /**
+     * @brief Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button
+     *        to validateAndAccept().
+     * @param[in] dialog_title window title shown on the dialog
+     * @param[in] parent parent widget
+     */
     explicit AddPatternDialog(QString &dialog_title, QWidget *parent = nullptr) : QDialog(parent) {
         this->setWindowTitle(dialog_title);
 

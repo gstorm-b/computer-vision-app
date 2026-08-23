@@ -14,18 +14,27 @@ namespace Ui {
 class WorkspaceSettingDialog;
 }
 
-/// Dialog for defining up to two axis-aligned ROIs on one reference image: the working ROI
-/// (crop region, drawn green) and the condition ROI (task-dependent region, drawn orange).
-/// Both are optional and live in the same image's pixel coordinates.
-///
-/// The image comes from a file ("Choose image") or a camera grab ("Grab", which the owner
-/// serves by handling requestGrab() and calling setMainViewImage()). On accept, resultImage()
-/// holds the image the ROIs were drawn on, resultRoi() holds the working ROI and
-/// resultConditionRoi() the condition ROI (each empty when not drawn), all in image-pixel
-/// coordinates.
-///
-/// @note Mirrors AddPatternImageDialog: the ImageWidget is embedded in code; the .ui
-/// only carries the buttons + the host stack.
+/**
+ * @file workspace_setting_dialog.h
+ * @brief WorkspaceSettingDialog — dialog for defining working/condition ROIs on a reference
+ *        image.
+ */
+
+/**
+ * @class WorkspaceSettingDialog
+ * @brief Dialog for defining up to two axis-aligned ROIs on one reference image: the working
+ *        ROI (crop region, drawn green) and the condition ROI (task-dependent region, drawn
+ *        orange). Both are optional and live in the same image's pixel coordinates.
+ *
+ * The image comes from a file ("Choose image") or a camera grab ("Grab", which the owner
+ * serves by handling requestGrab() and calling setMainViewImage()). On accept, resultImage()
+ * holds the image the ROIs were drawn on, resultRoi() holds the working ROI and
+ * resultConditionRoi() the condition ROI (each empty when not drawn), all in image-pixel
+ * coordinates.
+ *
+ * @note Mirrors AddPatternImageDialog: the ImageWidget is embedded in code; the .ui
+ *       only carries the buttons + the host stack.
+ */
 class WorkspaceSettingDialog : public QDialog {
     Q_OBJECT
 
@@ -39,11 +48,13 @@ public:
     /// Sets the text shown in the dialog's title label.
     void setTitleText(const QString &title);
 
-    /// Preloads an existing workspace: loads `image` into the view and draws `workingRoi`/
-    /// `conditionRoi` if non-empty.
-    /// @param image reference image to display; ignored if null
-    /// @param workingRoi initial working ROI in image-pixel coordinates; skipped if empty
-    /// @param conditionRoi initial condition ROI in image-pixel coordinates; skipped if empty
+    /**
+     * @brief Preloads an existing workspace: loads @p image into the view and draws
+     *        @p workingRoi / @p conditionRoi if non-empty.
+     * @param[in] image reference image to display; ignored if null
+     * @param[in] workingRoi initial working ROI in image-pixel coordinates; skipped if empty
+     * @param[in] conditionRoi initial condition ROI in image-pixel coordinates; skipped if empty
+     */
     void setInitial(const QPixmap &image, const QRectF &workingRoi,
                     const QRectF &conditionRoi);
 
@@ -66,7 +77,10 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private:
-    /// Which ROI kind an about-to-be-created ROI item should be assigned to.
+    /**
+     * @enum RoiKind
+     * @brief Which ROI kind an about-to-be-created ROI item should be assigned to.
+     */
     enum class RoiKind { None, Working, Condition };
 
     /// Opens a file dialog and loads the chosen image as the reference image, resetting ROIs.

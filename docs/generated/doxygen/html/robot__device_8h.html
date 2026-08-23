@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/robot/robot_device.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/robot/robot_device.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('robot__device_
   <div class="headertitle"><div class="title">robot_device.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Abstract robot device family: sub-type dispatch, the family-level config and device base classes.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="idevice_8h_source.html">device/idevice.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for robot_device.h:</div>
@@ -128,7 +131,7 @@ Include dependency graph for robot_device.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="robot__device_8h__dep__incl.svg" width="100%" height="592"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="robot__device_8h__dep__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="robot__device_8h_source.html">Go to the source code of this file.</a></p>
@@ -136,13 +139,15 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3ARobotCfg" id="r_vc_3A_3Adevice_3A_3ARobotCfg"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_robot_cfg.html">vc::device::RobotCfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract config for the robot family. Carries only the family-level dispatch (<a class="el" href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9" title="Top-level dispatch handle for the robot family. Each vendor implementation registers a value here; De...">RobotType</a>) and the family-level JSON header. Vendor-specific fields live in the concrete subclass.  <a href="classvc_1_1device_1_1_robot_cfg.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3ARobotDevice" id="r_vc_3A_3Adevice_3A_3ARobotDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_robot_device.html">vc::device::RobotDevice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for the robot device family. Carries only the minimum <a class="el" href="classvc_1_1device_1_1_i_device.html" title="Abstract base for every device family (camera/PLC/vision-output/robot): owns the device&#39;s id/name/tas...">IDevice</a> surface area; vendor-specific motion/IO APIs are added in concrete subclasses.  <a href="classvc_1_1device_1_1_robot_device.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -157,13 +162,20 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9ac9062d946c745c564c6cfcaa1c5771d1">vc::device::Nachi</a>
 , <a class="el" href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9ad64cd5bcc676d103ce94bd7ef2211687">vc::device::Huayan</a>
  }</td></tr>
+<tr class="memdesc:ab2aaf4bdb5e7bf24d44ea43dcefaccc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top-level dispatch handle for the robot family. Each vendor implementation registers a value here; <a class="el" href="classvc_1_1device_1_1_device_factory.html#a79bd9f4d20929c3d1772e077911c7279" title="Creates a robot device from the registry entry matching obj&#39;s sub-type.">DeviceFactory::createRobotDevice()</a> switches on this enum to pick the concrete subclass.  <a href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:af48b6e14bb820e0aeeb0f7e231f0ad55" id="r_af48b6e14bb820e0aeeb0f7e231f0ad55"><td class="memItemLeft">static <a class="el" href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9">RobotType</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#af48b6e14bb820e0aeeb0f7e231f0ad55">vc::device::RobotTypeFromString</a> (QString t)</td></tr>
+<tr class="memdesc:af48b6e14bb820e0aeeb0f7e231f0ad55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a JSON/display string back to a <a class="el" href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9" title="Top-level dispatch handle for the robot family. Each vendor implementation registers a value here; De...">RobotType</a>.  <br /></td></tr>
 <tr class="memitem:ad531ab01419901e4cfe7ca5a11bc3e7e" id="r_ad531ab01419901e4cfe7ca5a11bc3e7e"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#ad531ab01419901e4cfe7ca5a11bc3e7e">vc::device::RobotTypeToString</a> (<a class="el" href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9">RobotType</a> t)</td></tr>
+<tr class="memdesc:ad531ab01419901e4cfe7ca5a11bc3e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <a class="el" href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9" title="Top-level dispatch handle for the robot family. Each vendor implementation registers a value here; De...">RobotType</a> to its JSON/display string (e.g. "Kawasaki").  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract robot device family: sub-type dispatch, the family-level config and device base classes. </p>
+
+<p class="definition">Definition in file <a class="el" href="robot__device_8h_source.html">robot_device.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="ac99b2575fe55a822d898752dba2de5b3" name="ac99b2575fe55a822d898752dba2de5b3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac99b2575fe55a822d898752dba2de5b3">&#9670;&#160;</a></span>ROBOT_TYPE_HUAYAN</h2>
 
@@ -176,9 +188,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__device_8h_source.html#l00010">10</a> of file <a class="el" href="robot__device_8h_source.html">robot_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__device_8h_source.html#l00016">16</a> of file <a class="el" href="robot__device_8h_source.html">robot_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__device_8h_source.html#l00042">vc::device::RobotTypeFromString()</a>, and <a class="el" href="robot__device_8h_source.html#l00028">vc::device::RobotTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__device_8h_source.html#l00054">vc::device::RobotTypeFromString()</a>, and <a class="el" href="robot__device_8h_source.html#l00038">vc::device::RobotTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -195,9 +207,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>JSON/display-string values for each RobotType, used by RobotTypeToString()/ RobotTypeFromString() below. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__device_8h_source.html#l00008">8</a> of file <a class="el" href="robot__device_8h_source.html">robot_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__device_8h_source.html#l00014">14</a> of file <a class="el" href="robot__device_8h_source.html">robot_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__device_8h_source.html#l00042">vc::device::RobotTypeFromString()</a>, and <a class="el" href="robot__device_8h_source.html#l00028">vc::device::RobotTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__device_8h_source.html#l00054">vc::device::RobotTypeFromString()</a>, and <a class="el" href="robot__device_8h_source.html#l00038">vc::device::RobotTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -213,9 +225,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__device_8h_source.html#l00009">9</a> of file <a class="el" href="robot__device_8h_source.html">robot_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__device_8h_source.html#l00015">15</a> of file <a class="el" href="robot__device_8h_source.html">robot_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__device_8h_source.html#l00042">vc::device::RobotTypeFromString()</a>, and <a class="el" href="robot__device_8h_source.html#l00028">vc::device::RobotTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__device_8h_source.html#l00054">vc::device::RobotTypeFromString()</a>, and <a class="el" href="robot__device_8h_source.html#l00038">vc::device::RobotTypeToString()</a>.</p>
 
 </div>
 </div>

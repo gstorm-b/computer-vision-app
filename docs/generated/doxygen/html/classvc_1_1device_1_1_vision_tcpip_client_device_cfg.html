@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Concrete config for the TCP/IP client transport of VisionOutput. Same protocol as the server transport, but the software dials OUT to a remote endpoint that acts as the TCP server (e.g. a robot controller). On heartbeat timeout / lost connection the device drops both links and retries the outbound connection every <span class="tt">reconnectIntervalMs</span>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::VisionTcpipClientDeviceCfg:</div>
@@ -136,6 +139,7 @@ Collaboration diagram for vc::device::VisionTcpipClientDeviceCfg:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac23cdf971125bbae4c35e1bb4e2b38fb" id="r_ac23cdf971125bbae4c35e1bb4e2b38fb"><td class="memItemLeft"><a class="el" href="classvc_1_1device_1_1_i_device_cfg.html">IDeviceCfg</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac23cdf971125bbae4c35e1bb4e2b38fb">clone</a> () override</td></tr>
 <tr class="memitem:a639d7f36bd749b6975f19d3ab4722e12" id="r_a639d7f36bd749b6975f19d3ab4722e12"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a639d7f36bd749b6975f19d3ab4722e12">fromJson</a> (const QJsonObject &amp;obj) override</td></tr>
+<tr class="memdesc:a639d7f36bd749b6975f19d3ab4722e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates this config from JSON written by <a class="el" href="#a65b179398086049e9140a285b97b9c13">toJson()</a>, delegating the shared fields to <a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#abbf1081b7e95d6914b28c1ce11737798">VisionOutputDeviceCfg::fromJson()</a> first and defaulting any missing key.  <br /></td></tr>
 <tr class="memitem:a7bb76bac0ea724f8c3971a84427871ce" id="r_a7bb76bac0ea724f8c3971a84427871ce"><td class="memItemLeft">const QMetaObject &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7bb76bac0ea724f8c3971a84427871ce">getMetaObject</a> () const override</td></tr>
 <tr class="memitem:a65b179398086049e9140a285b97b9c13" id="r_a65b179398086049e9140a285b97b9c13"><td class="memItemLeft">QJsonObject&#160;</td><td class="memItemRight"><a class="el" href="#a65b179398086049e9140a285b97b9c13">toJson</a> () const override</td></tr>
 <tr class="memitem:a8e52f90d1d6fc2a6101b7e3d398b3fb7" id="r_a8e52f90d1d6fc2a6101b7e3d398b3fb7"><td class="memItemLeft"><a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190">VisionOutputType</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8e52f90d1d6fc2a6101b7e3d398b3fb7">visionOutputType</a> () const override</td></tr>
@@ -165,14 +169,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aac9f354d92833247d7b5f12cf018f17c pub_attribs_classvc_1_1device_1_1_vision_output_device_cfg" id="r_aac9f354d92833247d7b5f12cf018f17c"><td class="memItemLeft"><a class="el" href="structvc_1_1device_1_1_robot_kinematic_check_config.html">RobotKinematicCheckConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#aac9f354d92833247d7b5f12cf018f17c">m_kinematicCheck</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Concrete config for the TCP/IP <b>client</b> transport of VisionOutput. Same protocol as the server transport, but the software dials OUT to a remote endpoint that acts as the TCP server (e.g. a robot controller).</p><ul>
-<li>serverAddress: remote host to connect to.</li>
-<li>mainPort: Port 1 — matching request / result channel.</li>
-<li>heartbeatPort: Port 2 — heartbeat channel. Software stays the heartbeat master ("connection_check." -&gt; "ack,N.").</li>
-<li>reconnectIntervalMs: delay before retrying a dropped/failed link. On heartbeat timeout / lost connection the device drops both links and retries the outbound connection every <span class="tt">reconnectIntervalMs</span>. </li>
-</ul>
+<div class="textblock"><p>Concrete config for the TCP/IP client transport of VisionOutput. Same protocol as the server transport, but the software dials OUT to a remote endpoint that acts as the TCP server (e.g. a robot controller). On heartbeat timeout / lost connection the device drops both links and retries the outbound connection every <span class="tt">reconnectIntervalMs</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00022">22</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00024">24</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2da2657b9b2cf5828d76e6aa29a8f3c0" name="a2da2657b9b2cf5828d76e6aa29a8f3c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2da2657b9b2cf5828d76e6aa29a8f3c0">&#9670;&#160;</a></span>VisionTcpipClientDeviceCfg()</h2>
@@ -198,9 +197,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>&lt; Q_GADGET property backed by m_serverAddress; remote host to dial. Q_GADGET property backed by m_mainPort; Port 1 matching request/result channel. Q_GADGET property backed by m_heartbeatPort; Port 2 heartbeat channel. Q_GADGET property backed by m_heartbeatIntervalMs; heartbeat probe interval. Q_GADGET property backed by m_heartbeatTimeoutMs; heartbeat reply timeout. Q_GADGET property backed by m_reconnectIntervalMs; retry delay after a dropped link. Default-constructs the config with the client-transport defaults given by the member initializers below (127.0.0.1, ports 5000/5001, 1s/3s heartbeat, 2s reconnect). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00035">35</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00037">37</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00092">clone()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00095">clone()</a>.</p>
 
 </div>
 </div>
@@ -227,13 +226,13 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Heap-allocates a copy of this config via the copy constructor. </p><dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html">VisionTcpipClientDeviceCfg</a>; ownership passes to the caller </dd></dl>
+<p>Heap-allocates a copy of this config via the copy constructor. </p><dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html" title="Concrete config for the TCP/IP client transport of VisionOutput. Same protocol as the server transpor...">VisionTcpipClientDeviceCfg</a>; ownership passes to the caller </dd></dl>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#a3f68f42a59b6720550f19bf790389584">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00092">92</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00095">95</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__client__config_8h_source.html#l00035">VisionTcpipClientDeviceCfg()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__client__config_8h_source.html#l00037">VisionTcpipClientDeviceCfg()</a>.</p>
 
 </div>
 </div>
@@ -259,19 +258,21 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Populates this config from JSON written by <a class="el" href="#a65b179398086049e9140a285b97b9c13">toJson()</a>, delegating the shared fields to <a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#abbf1081b7e95d6914b28c1ce11737798">VisionOutputDeviceCfg::fromJson()</a> first and defaulting any missing key (see the per-field fallback literals below, matching the constructor's defaults). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Populates this config from JSON written by <a class="el" href="#a65b179398086049e9140a285b97b9c13">toJson()</a>, delegating the shared fields to <a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#abbf1081b7e95d6914b28c1ce11737798">VisionOutputDeviceCfg::fromJson()</a> first and defaulting any missing key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>JSON object in the <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html">VisionTcpipClientDeviceCfg</a> schema </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>JSON object in the <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html" title="Concrete config for the TCP/IP client transport of VisionOutput. Same protocol as the server transpor...">VisionTcpipClientDeviceCfg</a> schema </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>false if the base <a class="el" href="#a639d7f36bd749b6975f19d3ab4722e12">fromJson()</a> fails; true otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>false if the base <a class="el" href="#a639d7f36bd749b6975f19d3ab4722e12" title="Populates this config from JSON written by toJson(), delegating the shared fields to VisionOutputDevi...">fromJson()</a> fails; true otherwise </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#abbf1081b7e95d6914b28c1ce11737798">vc::device::VisionOutputDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">79</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">82</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00039">DEVICE_JSK_VOUT_HB_INTERVAL</a>, <a class="el" href="idevice__config_8h_source.html#l00038">DEVICE_JSK_VOUT_HB_PORT</a>, <a class="el" href="idevice__config_8h_source.html#l00040">DEVICE_JSK_VOUT_HB_TIMEOUT</a>, <a class="el" href="idevice__config_8h_source.html#l00037">DEVICE_JSK_VOUT_MAIN_PORT</a>, <a class="el" href="idevice__config_8h_source.html#l00041">DEVICE_JSK_VOUT_RECONNECT</a>, <a class="el" href="idevice__config_8h_source.html#l00036">DEVICE_JSK_VOUT_SERVER_ADDR</a>, <a class="el" href="vision__output__config_8h_source.html#l00172">vc::device::VisionOutputDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00100">m_heartbeatIntervalMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00099">m_heartbeatPort</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00101">m_heartbeatTimeoutMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00098">m_mainPort</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00102">m_reconnectIntervalMs</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00097">m_serverAddress</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00045">DEVICE_JSK_VOUT_HB_INTERVAL</a>, <a class="el" href="idevice__config_8h_source.html#l00044">DEVICE_JSK_VOUT_HB_PORT</a>, <a class="el" href="idevice__config_8h_source.html#l00046">DEVICE_JSK_VOUT_HB_TIMEOUT</a>, <a class="el" href="idevice__config_8h_source.html#l00043">DEVICE_JSK_VOUT_MAIN_PORT</a>, <a class="el" href="idevice__config_8h_source.html#l00047">DEVICE_JSK_VOUT_RECONNECT</a>, <a class="el" href="idevice__config_8h_source.html#l00042">DEVICE_JSK_VOUT_SERVER_ADDR</a>, <a class="el" href="vision__output__config_8h_source.html#l00188">vc::device::VisionOutputDeviceCfg::fromJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00103">m_heartbeatIntervalMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00102">m_heartbeatPort</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00104">m_heartbeatTimeoutMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00101">m_mainPort</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00105">m_reconnectIntervalMs</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00100">m_serverAddress</a>.</p>
 
 </div>
 </div>
@@ -301,7 +302,7 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ad1351944ee1dabb3bfc194f2b7025c2d">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00039">39</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00041">41</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__client__device__widget_8cpp_source.html#l00112">populateBrowser_VisionOutput()</a>.</p>
 
@@ -329,13 +330,13 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Serializes this config to JSON, extending the base <a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#a73c9c4e2c957f540fa5787fafb76b427">VisionOutputDeviceCfg::toJson()</a> object with the <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html">VisionTcpipClientDeviceCfg</a> schema: { "VisionOutputType": "VisionTcpipClient", "ServerAddress": string, // remote host to dial "MainPort": int, // Port 1 — matching channel "HeartbeatPort": int, // Port 2 — heartbeat channel "HeartbeatIntervalMs": int, // probe interval (ms) "HeartbeatTimeoutMs": int, // reply timeout (ms) "ReconnectIntervalMs": int // retry delay after a dropped link (ms) } Key constants: DEVICE_JSK_VOUT_* in <a class="el" href="idevice__config_8h.html">idevice_config.h</a>. <a class="el" href="#a639d7f36bd749b6975f19d3ab4722e12">fromJson()</a> reads the same schema, default-filling when a key is missing. </p><dl class="section return"><dt>Returns</dt><dd>the populated JSON object </dd></dl>
+<p>Serializes this config to JSON, extending the base <a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#a73c9c4e2c957f540fa5787fafb76b427">VisionOutputDeviceCfg::toJson()</a> object with the <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html" title="Concrete config for the TCP/IP client transport of VisionOutput. Same protocol as the server transpor...">VisionTcpipClientDeviceCfg</a> schema: { "VisionOutputType": "VisionTcpipClient", "ServerAddress": string, // remote host to dial "MainPort": int, // Port 1 — matching channel "HeartbeatPort": int, // Port 2 — heartbeat channel "HeartbeatIntervalMs": int, // probe interval (ms) "HeartbeatTimeoutMs": int, // reply timeout (ms) "ReconnectIntervalMs": int // retry delay after a dropped link (ms) } Key constants: DEVICE_JSK_VOUT_* in <a class="el" href="idevice__config_8h.html" title="Device abstraction layer: device-family/type identification and the IDeviceCfg contract shared by eve...">idevice_config.h</a>. <a class="el" href="#a639d7f36bd749b6975f19d3ab4722e12" title="Populates this config from JSON written by toJson(), delegating the shared fields to VisionOutputDevi...">fromJson()</a> reads the same schema, default-filling when a key is missing. </p><dl class="section return"><dt>Returns</dt><dd>the populated JSON object </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#a73c9c4e2c957f540fa5787fafb76b427">vc::device::VisionOutputDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">63</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">65</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00039">DEVICE_JSK_VOUT_HB_INTERVAL</a>, <a class="el" href="idevice__config_8h_source.html#l00038">DEVICE_JSK_VOUT_HB_PORT</a>, <a class="el" href="idevice__config_8h_source.html#l00040">DEVICE_JSK_VOUT_HB_TIMEOUT</a>, <a class="el" href="idevice__config_8h_source.html#l00037">DEVICE_JSK_VOUT_MAIN_PORT</a>, <a class="el" href="idevice__config_8h_source.html#l00041">DEVICE_JSK_VOUT_RECONNECT</a>, <a class="el" href="idevice__config_8h_source.html#l00036">DEVICE_JSK_VOUT_SERVER_ADDR</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00100">m_heartbeatIntervalMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00099">m_heartbeatPort</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00101">m_heartbeatTimeoutMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00098">m_mainPort</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00102">m_reconnectIntervalMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00097">m_serverAddress</a>, and <a class="el" href="vision__output__config_8h_source.html#l00160">vc::device::VisionOutputDeviceCfg::toJson()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00045">DEVICE_JSK_VOUT_HB_INTERVAL</a>, <a class="el" href="idevice__config_8h_source.html#l00044">DEVICE_JSK_VOUT_HB_PORT</a>, <a class="el" href="idevice__config_8h_source.html#l00046">DEVICE_JSK_VOUT_HB_TIMEOUT</a>, <a class="el" href="idevice__config_8h_source.html#l00043">DEVICE_JSK_VOUT_MAIN_PORT</a>, <a class="el" href="idevice__config_8h_source.html#l00047">DEVICE_JSK_VOUT_RECONNECT</a>, <a class="el" href="idevice__config_8h_source.html#l00042">DEVICE_JSK_VOUT_SERVER_ADDR</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00103">m_heartbeatIntervalMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00102">m_heartbeatPort</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00104">m_heartbeatTimeoutMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00101">m_mainPort</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00105">m_reconnectIntervalMs</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00100">m_serverAddress</a>, and <a class="el" href="vision__output__config_8h_source.html#l00176">vc::device::VisionOutputDeviceCfg::toJson()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00269">AddDeviceWizard::buildDeviceJson()</a>.</p>
 
@@ -367,9 +368,9 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_vision_output_device_cfg.html#ac4a319fa66f72bbc03ddcbee7c663d43">vc::device::VisionOutputDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00045">45</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00047">47</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__config_8h_source.html#l00022">vc::device::VisionTcpipClient</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__config_8h_source.html#l00029">vc::device::VisionTcpipClient</a>.</p>
 
 </div>
 </div>
@@ -388,9 +389,9 @@ Public Attributes</h2></td></tr>
 
 <p>Heartbeat probe interval, in milliseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00100">100</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00103">103</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">toJson()</a>.</p>
 
 </div>
 </div>
@@ -408,9 +409,9 @@ Public Attributes</h2></td></tr>
 
 <p>Port 2 — heartbeat channel. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00099">99</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00102">102</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">toJson()</a>.</p>
 
 </div>
 </div>
@@ -428,9 +429,9 @@ Public Attributes</h2></td></tr>
 
 <p>Heartbeat reply timeout, in milliseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00101">101</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00104">104</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">toJson()</a>.</p>
 
 </div>
 </div>
@@ -448,9 +449,9 @@ Public Attributes</h2></td></tr>
 
 <p>Port 1 — matching request/result channel. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00098">98</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00101">101</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">toJson()</a>.</p>
 
 </div>
 </div>
@@ -468,9 +469,9 @@ Public Attributes</h2></td></tr>
 
 <p>Delay before retrying a dropped/failed outbound link, in milliseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00102">102</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00105">105</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">toJson()</a>.</p>
 
 </div>
 </div>
@@ -488,14 +489,14 @@ Public Attributes</h2></td></tr>
 
 <p>Remote host to dial (defaults to loopback). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00097">97</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__client__config_8h_source.html#l00100">100</a> of file <a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">fromJson()</a>, and <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/output_device/<a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/output_device/<a class="el" href="vision__tcpip__client__config_8h_source.html">vision_tcpip_client_config.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

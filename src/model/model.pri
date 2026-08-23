@@ -4,6 +4,7 @@
 # Must not include UI (ui/).
 
 SOURCES += \
+    $$PWD/gripper_preset_store.cpp \
     $$PWD/itask.cpp \
     $$PWD/localization_pipeline.cpp \
     $$PWD/localization_runtime_controller.cpp \
@@ -16,6 +17,7 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/camera_map_entry.h \
+    $$PWD/gripper_preset_store.h \
     $$PWD/isignal_group.h \
     $$PWD/itask.h \
     $$PWD/itask_config.h \

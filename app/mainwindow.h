@@ -12,7 +12,7 @@
 #include "core/utils/theme_manager.h"
 
 #include "DockManager.h"
-#include "system_log_form.h"
+#include "ui/forms/system_log_form.h"
 
 #include "model/project_repository.h"
 #include "model/project.h"
@@ -118,6 +118,9 @@ private slots:
     void onSaveAsProject();
     /// Clears the project tree, releases m_project, and tears down its docks.
     void onCloseProject();
+    /// Closes this application and starts the operator runtime in its place, after
+    /// confirming and after any unsaved project has been dealt with.
+    void onOpenRuntime();
     /// Marks the project dirty, refreshes the window title, and updates the tree's project name.
     void onProjectModified();
 
@@ -128,11 +131,9 @@ private slots:
     /// Sets the access level label to "Admin".
     void onPrivilegeAdmin();
 
-    /// Syncs the Theme menu's checked action to `styleId` and refreshes the tree if a project
-    /// is open (theme-dependent icons/colors need repainting).
+    /// Syncs the Theme menu's checked action to `styleId` and refreshes the tree if a
+    /// project is open (theme-dependent icons need repainting).
     void onThemeChanged(const QString &styleId, bool isDark);
-    /// Adds a menu entry/action for a newly registered theme style, if not already present.
-    void onThemeStyleRegistered(ThemeStyle style);
     /// Persists the chosen language and informs the user the change applies on next launch.
     void onLanguageAction(QAction *act);
 
@@ -183,11 +184,10 @@ private:
     QAction *m_actCloseProject{nullptr};  ///< File toolbar action: close the current project.
     QAction *m_actCaptureImage{nullptr};  ///< Task toolbar action: capture image (icon-only).
 
-    // View menu
-    QMenu        *m_menuTheme{nullptr};       ///< "Theme" submenu under View, populated from ThemeManager styles.
-    QActionGroup *m_actGrpTheme{nullptr};     ///< Exclusive action group backing the theme radio-selection in m_menuTheme.
-    QMenu        *m_menuLanguage{nullptr};    ///< "Language" submenu under View.
-    QActionGroup *m_actGrpLanguage{nullptr};  ///< Exclusive action group backing the language radio-selection in m_menuLanguage.
+    // View menu — the menus and actions are declared in mainwindow.ui; these groups add
+    // the exclusivity Designer cannot express.
+    QActionGroup *m_actGrpTheme{nullptr};     ///< Exclusive group over the Theme actions.
+    QActionGroup *m_actGrpLanguage{nullptr};  ///< Exclusive group over the Language actions.
 
     // Core objects
     std::shared_ptr<vc::model::Project> m_project;         ///< The currently open project, or null when none is open.

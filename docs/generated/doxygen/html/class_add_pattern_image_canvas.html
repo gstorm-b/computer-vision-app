@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_add_patt
 </div><!--header-->
 <div class="contents">
 
+<p>Shared canvas widget used by <a class="el" href="class_add_pattern_wizard.html" title="5-step modal dialog reimplementation of PatternWizard.jsx: Image (capture from camera or open file + ...">AddPatternWizard</a> / <a class="el" href="class_edit_pattern_wizard.html" title="4-step modal dialog reimplementation of EditPatternWizard.jsx for editing an already-learned pattern.">EditPatternWizard</a> to edit the crop, pick, and box geometry over a displayed image.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AddPatternImageCanvas:</div>
@@ -143,6 +146,7 @@ Public Types</h2></td></tr>
 &#160;&#160;<a class="el" href="#ac7c41f6b171f5fff0b533ac0b75f623fa9f834eae3c9dd3947439b286f51db372">Finish</a>
 <br />
  }</td></tr>
+<tr class="memdesc:ac7c41f6b171f5fff0b533ac0b75f623f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active interaction mode; selects which overlay is drawn and which mouse gestures are enabled (see class-level docs for the behavior of each mode).  <a href="#ac7c41f6b171f5fff0b533ac0b75f623f">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
@@ -150,6 +154,7 @@ Signals</h2></td></tr>
 <tr class="memitem:a95f4f5b1a6a93a160d1c2ea98c228bcf" id="r_a95f4f5b1a6a93a160d1c2ea98c228bcf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a95f4f5b1a6a93a160d1c2ea98c228bcf">cropChanged</a> (const QRect &amp;r)</td></tr>
 <tr class="memdesc:a95f4f5b1a6a93a160d1c2ea98c228bcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted while the user drags a crop corner handle or the crop body, with the updated rect.  <br /></td></tr>
 <tr class="memitem:a78594f7c5d66d2b55cd13eb8f6ed1910" id="r_a78594f7c5d66d2b55cd13eb8f6ed1910"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910">pickChanged</a> (const QPoint &amp;p, const QPoint &amp;imgp)</td></tr>
+<tr class="memdesc:a78594f7c5d66d2b55cd13eb8f6ed1910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted while the user sets or drags the pick point (Pick mode click/drag, or the Box mode pick handle).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -167,14 +172,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1bd4c270ee580550862336e02124cb41" id="r_a1bd4c270ee580550862336e02124cb41"><td class="memItemLeft">QPoint&#160;</td><td class="memItemRight"><a class="el" href="#a1bd4c270ee580550862336e02124cb41">pick</a> () const</td></tr>
 <tr class="memitem:a8b048769d729512c40ad0b5ef4df195b" id="r_a8b048769d729512c40ad0b5ef4df195b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8b048769d729512c40ad0b5ef4df195b">resetView</a> ()</td></tr>
 <tr class="memitem:a080059df9e2046f57ca27f0c54e24f86" id="r_a080059df9e2046f57ca27f0c54e24f86"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a080059df9e2046f57ca27f0c54e24f86">setBoxConfig</a> (double w, double h, double dist, double angleDeg)</td></tr>
-<tr class="memdesc:a080059df9e2046f57ca27f0c54e24f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the picking-box width, height, jaw-pair distance, and angle, then repaints.  <br /></td></tr>
+<tr class="memdesc:a080059df9e2046f57ca27f0c54e24f86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets box A's width, height, distance from the pick point, and rotation angle; box B is derived automatically (mirrored 180 degrees) when painted.  <br /></td></tr>
 <tr class="memitem:a87d1857451ef8709232b16787c8f8388" id="r_a87d1857451ef8709232b16787c8f8388"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a87d1857451ef8709232b16787c8f8388">setCrop</a> (const QRect &amp;r)</td></tr>
-<tr class="memdesc:a87d1857451ef8709232b16787c8f8388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the crop-rectangle overlay, in source-image pixel coordinates, and repaints.  <br /></td></tr>
+<tr class="memdesc:a87d1857451ef8709232b16787c8f8388"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the crop rectangle in source-image pixels and repaints.  <br /></td></tr>
 <tr class="memitem:a09f9af2bde2aa0fcb8eafac6d3184a31" id="r_a09f9af2bde2aa0fcb8eafac6d3184a31"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a09f9af2bde2aa0fcb8eafac6d3184a31">setImage</a> (const cv::Mat &amp;mat)</td></tr>
 <tr class="memitem:a9e87210c950f28176669e9a724760832" id="r_a9e87210c950f28176669e9a724760832"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9e87210c950f28176669e9a724760832">setImage</a> (const QPixmap &amp;pix)</td></tr>
 <tr class="memdesc:a9e87210c950f28176669e9a724760832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the source image from a QPixmap and resets the view (zoom/pan) so it fits the widget.  <br /></td></tr>
 <tr class="memitem:af4115c1b09ba06486c93b639df128eb3" id="r_af4115c1b09ba06486c93b639df128eb3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af4115c1b09ba06486c93b639df128eb3">setLocked</a> (bool locked)</td></tr>
+<tr class="memdesc:af4115c1b09ba06486c93b639df128eb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows or hides the locked overlay (dim scrim plus a "LOCKED" badge) and disables all crop/pick/box editing gestures while locked (middle-button panning still works).  <br /></td></tr>
 <tr class="memitem:afd07b8b8c58f9ffdf4f299c2458193f5" id="r_afd07b8b8c58f9ffdf4f299c2458193f5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#afd07b8b8c58f9ffdf4f299c2458193f5">setMode</a> (<a class="el" href="#ac7c41f6b171f5fff0b533ac0b75f623f">Mode</a> m)</td></tr>
+<tr class="memdesc:afd07b8b8c58f9ffdf4f299c2458193f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches the active interaction mode and repaints; does not alter any stored crop/pick/box geometry.  <br /></td></tr>
 <tr class="memitem:af901b7a1851635510dcefab9ffe9973d" id="r_af901b7a1851635510dcefab9ffe9973d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af901b7a1851635510dcefab9ffe9973d">setPick</a> (const QPoint &amp;p)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
@@ -218,6 +225,7 @@ Private Types</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:ace90d29bc48a87a655d520f519b0ccd1" id="r_ace90d29bc48a87a655d520f519b0ccd1"><td class="memItemLeft">QPointF&#160;</td><td class="memItemRight"><a class="el" href="#ace90d29bc48a87a655d520f519b0ccd1">boxACentre</a> () const</td></tr>
 <tr class="memitem:a2793c2764617efad8852bca333d74c44" id="r_a2793c2764617efad8852bca333d74c44"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2793c2764617efad8852bca333d74c44">boxACorners</a> (QPointF out[4]) const</td></tr>
+<tr class="memdesc:a2793c2764617efad8852bca333d74c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the four corners of box A, in image pixels and rotated by <span class="tt"><a class="el" href="#ae24c1b6750ee13a21632f206875ae87e" title="Box A distance from the pick point (image px) and rotation angle (degrees).">m_boxAngle</a></span>.  <br /></td></tr>
 <tr class="memitem:aca46ef94238cb66a72d7a00a5d19d074" id="r_aca46ef94238cb66a72d7a00a5d19d074"><td class="memItemLeft">QPointF&#160;</td><td class="memItemRight"><a class="el" href="#aca46ef94238cb66a72d7a00a5d19d074">boxRotationHandle</a> () const</td></tr>
 <tr class="memitem:a38d451c919c38fed13ad31edd167f990" id="r_a38d451c919c38fed13ad31edd167f990"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a38d451c919c38fed13ad31edd167f990">fitZoom</a> () const</td></tr>
 <tr class="memitem:aec89a595dfa126e648b450894bcbd4ea" id="r_aec89a595dfa126e648b450894bcbd4ea"><td class="memItemLeft"><a class="el" href="#a868a43b27eef499b61cddc30bb83235b">BoxHandle</a>&#160;</td><td class="memItemRight"><a class="el" href="#aec89a595dfa126e648b450894bcbd4ea">hitBoxHandle</a> (const QPoint &amp;widgetPos) const</td></tr>
@@ -279,7 +287,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a1039db3e85e264b16cf57fe96db53498"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current zoom factor (image pixels -&gt; widget pixels).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Shared canvas widget used by <a class="el" href="class_add_pattern_wizard.html">AddPatternWizard</a> / <a class="el" href="class_edit_pattern_wizard.html">EditPatternWizard</a> to edit the crop, pick, and box geometry over a displayed image.</p>
+<div class="textblock"><p>Shared canvas widget used by <a class="el" href="class_add_pattern_wizard.html" title="5-step modal dialog reimplementation of PatternWizard.jsx: Image (capture from camera or open file + ...">AddPatternWizard</a> / <a class="el" href="class_edit_pattern_wizard.html" title="4-step modal dialog reimplementation of EditPatternWizard.jsx for editing an already-learned pattern.">EditPatternWizard</a> to edit the crop, pick, and box geometry over a displayed image. </p>
 <p>Coordinate model: all geometry the host gets/sets (crop, pick, box) is in source-image pixel coordinates. The widget maintains its own view transform (zoom + pan) and renders through it, so geometry stays stable across resizes and zooms.</p>
 <p>View interaction (active in every mode): mouse wheel zooms around the cursor, middle-button drag pans, middle-button double-click resets the view (fits the image to the widget and recentres it), and the image is refit on every <a class="el" href="#a9e87210c950f28176669e9a724760832" title="Sets the source image from a QPixmap and resets the view (zoom/pan) so it fits the widget.">setImage()</a> call.</p>
 <p>Modes:</p><ul>
@@ -291,7 +299,7 @@ Private Attributes</h2></td></tr>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Emits cropChanged(QRect), pickChanged(QPoint, QPoint), and boxChanged(w, h, dist, angleDeg) while the user edits the corresponding geometry. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00036">36</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00044">44</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a868a43b27eef499b61cddc30bb83235b" name="a868a43b27eef499b61cddc30bb83235b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a868a43b27eef499b61cddc30bb83235b">&#9670;&#160;</a></span>BoxHandle</h2>
@@ -324,7 +332,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="a868a43b27eef499b61cddc30bb83235ba04666be3769ff6969c32fb2a04ec70c3" name="a868a43b27eef499b61cddc30bb83235ba04666be3769ff6969c32fb2a04ec70c3"></a>BH_Pick&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00157">157</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00178">178</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 </div>
 </div>
@@ -357,7 +365,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="a6e55f103bd69d26c9f8335811b1d24b3a248e212cae3e7a5401ed0c831d405f29" name="a6e55f103bd69d26c9f8335811b1d24b3a248e212cae3e7a5401ed0c831d405f29"></a>CH_Body&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00153">153</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00174">174</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 </div>
 </div>
@@ -372,6 +380,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>Active interaction mode; selects which overlay is drawn and which mouse gestures are enabled (see class-level docs for the behavior of each mode). </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac7c41f6b171f5fff0b533ac0b75f623fa578cc33f82fbda86ee5b159d80e8fcf5" name="ac7c41f6b171f5fff0b533ac0b75f623fa578cc33f82fbda86ee5b159d80e8fcf5"></a>None&#160;</td><td class="fielddoc"></td></tr>
@@ -381,7 +390,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="ac7c41f6b171f5fff0b533ac0b75f623fa9f834eae3c9dd3947439b286f51db372" name="ac7c41f6b171f5fff0b533ac0b75f623fa9f834eae3c9dd3947439b286f51db372"></a>Finish&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00041">41</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00052">52</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 </div>
 </div>
@@ -443,7 +452,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00399">399</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxDist</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00202">m_pick</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxDist</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00225">m_pick</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00419">boxACorners()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00408">boxRotationHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>.</p>
 
@@ -471,9 +480,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Computes the four corners of box A, in image pixels and rotated by <span class="tt"><a class="el" href="#ae24c1b6750ee13a21632f206875ae87e" title="Box A distance from the pick point (image px) and rotation angle (degrees).">m_boxAngle</a></span>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Computes the four corners of box A, in image pixels and rotated by <span class="tt"><a class="el" href="#ae24c1b6750ee13a21632f206875ae87e" title="Box A distance from the pick point (image px) and rotation angle (degrees).">m_boxAngle</a></span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">out</td><td>destination array of 4 points (order TL, TR, BL, BR); overwritten</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>destination array of 4 points (order TL, TR, BL, BR); overwritten</td></tr>
   </table>
   </dd>
 </dl>
@@ -481,7 +492,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00419">419</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxH</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxW</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxH</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxW</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>.</p>
 
@@ -556,7 +567,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00408">408</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxAngle</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxH</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxAngle</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxH</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>.</p>
 
@@ -582,7 +593,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00089">89</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>.</p>
 
 </div>
 </div>
@@ -611,9 +622,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the current crop rectangle in source-image pixels (empty if no crop is set). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00074">74</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00089">89</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00201">m_crop</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00224">m_crop</a>.</p>
 
 </div>
 </div>
@@ -673,7 +684,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00127">127</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>.</p>
 
@@ -704,9 +715,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns true if a source image is currently set. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00056">56</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00067">67</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>.</p>
 
 </div>
 </div>
@@ -743,7 +754,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00470">470</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00158">BH_Body</a>, <a class="el" href="pattern__canvas_8h_source.html#l00157">BH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00158">BH_Pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00158">BH_Rotate</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00419">boxACorners()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00408">boxRotationHandle()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00163">imageToWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00202">m_pick</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00169">widgetToImage()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00179">BH_Body</a>, <a class="el" href="pattern__canvas_8h_source.html#l00178">BH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00179">BH_Pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00179">BH_Rotate</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00419">boxACorners()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00408">boxRotationHandle()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00184">imageToWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_pick</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00190">widgetToImage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -782,7 +793,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00442">442</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_Body</a>, <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00163">imageToWidget()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00201">m_crop</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_Body</a>, <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00184">imageToWidget()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00224">m_crop</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -816,7 +827,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00136">136</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00211">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00210">m_zoom</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00234">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00233">m_zoom</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>.</p>
 
@@ -847,9 +858,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the source image size in pixels (empty if no image is set). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00058">58</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00069">69</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>.</p>
 
 </div>
 </div>
@@ -877,9 +888,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Converts a source-image pixel coordinate to widget-pixel coordinates using the current zoom/pan (<span class="tt"><a class="el" href="#a1039db3e85e264b16cf57fe96db53498" title="Current zoom factor (image pixels -&gt; widget pixels).">m_zoom</a></span>, <span class="tt"><a class="el" href="#ad0deb557c5f02d69d7b7bcffc87bdd46" title="Widget-pixel position of the image origin (pan offset).">m_offset</a></span>). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00163">163</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00184">184</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00211">m_offset</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00210">m_zoom</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00234">m_offset</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00233">m_zoom</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00442">hitCropHandle()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>.</p>
 
@@ -910,9 +921,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the current interaction mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00066">66</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00079">79</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00199">m_mode</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00222">m_mode</a>.</p>
 
 </div>
 </div>
@@ -971,11 +982,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Continues an in-progress pan / crop-drag / box-drag, or updates the hover cursor to match the handle under the pointer; emits cropChanged/pickChanged/boxChanged as geometry changes.</p>
-<p>Continues the active drag (pan / crop resize-or-move / box resize-rotate-drag) and emits <a class="el" href="#a95f4f5b1a6a93a160d1c2ea98c228bcf" title="Emitted while the user drags a crop corner handle or the crop body, with the updated rect.">cropChanged()</a>, <a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910">pickChanged()</a>, or <a class="el" href="#a4b68cd0099a090359b28369b62505da9">boxChanged()</a> as state updates; otherwise just updates the hover cursor to match the current mode and the handle under the cursor. No-op when no image is loaded; ignored (except panning) when the canvas is locked. </p>
+<p>Continues the active drag (pan / crop resize-or-move / box resize-rotate-drag) and emits <a class="el" href="#a95f4f5b1a6a93a160d1c2ea98c228bcf" title="Emitted while the user drags a crop corner handle or the crop body, with the updated rect.">cropChanged()</a>, <a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910" title="Emitted while the user sets or drags the pick point (Pick mode click/drag, or the Box mode pick handl...">pickChanged()</a>, or <a class="el" href="#a4b68cd0099a090359b28369b62505da9">boxChanged()</a> as state updates; otherwise just updates the hover cursor to match the current mode and the handle under the cursor. No-op when no image is loaded; ignored (except panning) when the canvas is locked. </p>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00571">571</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00157">BH_BL</a>, <a class="el" href="pattern__canvas_8h_source.html#l00158">BH_Body</a>, <a class="el" href="pattern__canvas_8h_source.html#l00157">BH_BR</a>, <a class="el" href="pattern__canvas_8h_source.html#l00158">BH_Pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00158">BH_Rotate</a>, <a class="el" href="pattern__canvas_8h_source.html#l00157">BH_TL</a>, <a class="el" href="pattern__canvas_8h_source.html#l00157">BH_TR</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Box</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="#a4b68cd0099a090359b28369b62505da9">boxChanged()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_BL</a>, <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_Body</a>, <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_BR</a>, <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_TL</a>, <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_TR</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Crop</a>, <a class="el" href="#a95f4f5b1a6a93a160d1c2ea98c228bcf">cropChanged()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00442">hitCropHandle()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_boxDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00226">m_boxHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00201">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00219">m_cropDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00221">m_cropDragStartImg</a>, <a class="el" href="pattern__canvas_8h_source.html#l00222">m_cropDragStartRect</a>, <a class="el" href="pattern__canvas_8h_source.html#l00220">m_cropHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00207">m_locked</a>, <a class="el" href="pattern__canvas_8h_source.html#l00199">m_mode</a>, <a class="el" href="pattern__canvas_8h_source.html#l00211">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00214">m_panning</a>, <a class="el" href="pattern__canvas_8h_source.html#l00215">m_panStart</a>, <a class="el" href="pattern__canvas_8h_source.html#l00216">m_panStartOffset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00202">m_pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00232">m_pickCurrentPoint</a>, <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Pick</a>, <a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910">pickChanged()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00169">widgetToImage()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00178">BH_BL</a>, <a class="el" href="pattern__canvas_8h_source.html#l00179">BH_Body</a>, <a class="el" href="pattern__canvas_8h_source.html#l00178">BH_BR</a>, <a class="el" href="pattern__canvas_8h_source.html#l00179">BH_Pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00179">BH_Rotate</a>, <a class="el" href="pattern__canvas_8h_source.html#l00178">BH_TL</a>, <a class="el" href="pattern__canvas_8h_source.html#l00178">BH_TR</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Box</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="#a4b68cd0099a090359b28369b62505da9">boxChanged()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_BL</a>, <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_Body</a>, <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_BR</a>, <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_TL</a>, <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_TR</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Crop</a>, <a class="el" href="#a95f4f5b1a6a93a160d1c2ea98c228bcf">cropChanged()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00442">hitCropHandle()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00248">m_boxDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00249">m_boxHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00224">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00242">m_cropDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00244">m_cropDragStartImg</a>, <a class="el" href="pattern__canvas_8h_source.html#l00245">m_cropDragStartRect</a>, <a class="el" href="pattern__canvas_8h_source.html#l00243">m_cropHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00230">m_locked</a>, <a class="el" href="pattern__canvas_8h_source.html#l00222">m_mode</a>, <a class="el" href="pattern__canvas_8h_source.html#l00234">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00237">m_panning</a>, <a class="el" href="pattern__canvas_8h_source.html#l00238">m_panStart</a>, <a class="el" href="pattern__canvas_8h_source.html#l00239">m_panStartOffset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00255">m_pickCurrentPoint</a>, <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Pick</a>, <a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910">pickChanged()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00190">widgetToImage()</a>.</p>
 
 </div>
 </div>
@@ -1002,11 +1013,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Starts middle-button panning (any mode), or &ndash; depending on the active mode &ndash; begins a crop-handle drag, sets the pick point immediately, or begins a box-handle drag. Only panning is honoured while locked.</p>
-<p>Starts an interaction on button press: the middle button begins panning (in any mode, even locked); the left button begins crop-handle dragging in Crop mode, moves the pick point (clamped to the crop or image bounds) and emits <a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910">pickChanged()</a> in Pick mode, or begins box-handle dragging in Box mode. No-op when no image is loaded, and (aside from panning) when the canvas is locked. </p>
+<p>Starts an interaction on button press: the middle button begins panning (in any mode, even locked); the left button begins crop-handle dragging in Crop mode, moves the pick point (clamped to the crop or image bounds) and emits <a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910" title="Emitted while the user sets or drags the pick point (Pick mode click/drag, or the Box mode pick handl...">pickChanged()</a> in Pick mode, or begins box-handle dragging in Box mode. No-op when no image is loaded, and (aside from panning) when the canvas is locked. </p>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00516">516</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00157">BH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Box</a>, <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Crop</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00442">hitCropHandle()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_boxDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00229">m_boxDragStartAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00229">m_boxDragStartDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxDragStartH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxDragStartImg</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxDragStartW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00226">m_boxHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00201">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00219">m_cropDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00221">m_cropDragStartImg</a>, <a class="el" href="pattern__canvas_8h_source.html#l00222">m_cropDragStartRect</a>, <a class="el" href="pattern__canvas_8h_source.html#l00220">m_cropHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00207">m_locked</a>, <a class="el" href="pattern__canvas_8h_source.html#l00199">m_mode</a>, <a class="el" href="pattern__canvas_8h_source.html#l00211">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00214">m_panning</a>, <a class="el" href="pattern__canvas_8h_source.html#l00215">m_panStart</a>, <a class="el" href="pattern__canvas_8h_source.html#l00216">m_panStartOffset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00202">m_pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00232">m_pickCurrentPoint</a>, <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Pick</a>, <a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910">pickChanged()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00169">widgetToImage()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00178">BH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Box</a>, <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Crop</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00442">hitCropHandle()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00248">m_boxDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00252">m_boxDragStartAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00252">m_boxDragStartDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00251">m_boxDragStartH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00250">m_boxDragStartImg</a>, <a class="el" href="pattern__canvas_8h_source.html#l00251">m_boxDragStartW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00249">m_boxHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00224">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00242">m_cropDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00244">m_cropDragStartImg</a>, <a class="el" href="pattern__canvas_8h_source.html#l00245">m_cropDragStartRect</a>, <a class="el" href="pattern__canvas_8h_source.html#l00243">m_cropHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00230">m_locked</a>, <a class="el" href="pattern__canvas_8h_source.html#l00222">m_mode</a>, <a class="el" href="pattern__canvas_8h_source.html#l00234">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00237">m_panning</a>, <a class="el" href="pattern__canvas_8h_source.html#l00238">m_panStart</a>, <a class="el" href="pattern__canvas_8h_source.html#l00239">m_panStartOffset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00255">m_pickCurrentPoint</a>, <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Pick</a>, <a class="el" href="#a78594f7c5d66d2b55cd13eb8f6ed1910">pickChanged()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00190">widgetToImage()</a>.</p>
 
 </div>
 </div>
@@ -1038,7 +1049,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00716">716</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00157">BH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00153">CH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_boxDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00226">m_boxHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00219">m_cropDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00220">m_cropHandle</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00214">m_panning</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00178">BH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00174">CH_None</a>, <a class="el" href="pattern__canvas_8h_source.html#l00248">m_boxDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00249">m_boxHandle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00242">m_cropDragging</a>, <a class="el" href="pattern__canvas_8h_source.html#l00243">m_cropHandle</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00237">m_panning</a>.</p>
 
 </div>
 </div>
@@ -1069,7 +1080,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00174">174</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00039">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00028">ptn::BD</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Box</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00408">boxRotationHandle()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Finish</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00136">imageRectInWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00163">imageToWidget()</a>, <a class="el" href="pattern__theme_8h_source.html#l00046">ptn::LOCK</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00201">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00207">m_locked</a>, <a class="el" href="pattern__canvas_8h_source.html#l00199">m_mode</a>, <a class="el" href="pattern__canvas_8h_source.html#l00202">m_pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>, <a class="el" href="pattern__canvas_8h_source.html#l00210">m_zoom</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">None</a>, <a class="el" href="pattern__theme_8h_source.html#l00040">ptn::OK</a>, <a class="el" href="pattern__canvas_8h_source.html#l00041">Pick</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT3</a>, and <a class="el" href="pattern__theme_8h_source.html#l00041">ptn::WARN</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00040">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Box</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00408">boxRotationHandle()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Finish</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00136">imageRectInWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00184">imageToWidget()</a>, <a class="el" href="pattern__theme_8h_source.html#l00047">ptn::LOCK</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxH</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxW</a>, <a class="el" href="pattern__canvas_8h_source.html#l00224">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00230">m_locked</a>, <a class="el" href="pattern__canvas_8h_source.html#l00222">m_mode</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_pick</a>, <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>, <a class="el" href="pattern__canvas_8h_source.html#l00233">m_zoom</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">None</a>, <a class="el" href="pattern__theme_8h_source.html#l00041">ptn::OK</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">Pick</a>, <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>, and <a class="el" href="pattern__theme_8h_source.html#l00042">ptn::WARN</a>.</p>
 
 </div>
 </div>
@@ -1097,9 +1108,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the current pick point. </p><dl class="section return"><dt>Returns</dt><dd><span class="tt"><a class="el" href="#a037ede1d601e203a66c7e90d97b15163" title="Crop-relative pick point (see pick()).">m_pickCurrentPoint</a></span> (crop-relative) when a non-empty crop is set, otherwise <span class="tt"><a class="el" href="#ad309b92fcef9951170345af5796e1c64" title="Pick point, in absolute image pixels.">m_pick</a></span> (absolute image pixels). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00084">84</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00099">99</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00201">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00202">m_pick</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00232">m_pickCurrentPoint</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00224">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_pick</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00255">m_pickCurrentPoint</a>.</p>
 
 </div>
 </div>
@@ -1129,10 +1140,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Emitted while the user sets or drags the pick point (Pick mode click/drag, or the Box mode pick handle). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Emitted while the user sets or drags the pick point (Pick mode click/drag, or the Box mode pick handle). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td>pick point in absolute source-image pixels (clamped to the crop or image bounds) </td></tr>
-    <tr><td class="paramname">imgp</td><td>crop-relative pick point when a crop is set </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">p</td><td>pick point in absolute source-image pixels (clamped to the crop or image bounds) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">imgp</td><td>crop-relative pick point when a crop is set </td></tr>
   </table>
   </dd>
 </dl>
@@ -1160,7 +1173,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00143">143</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8cpp_source.html#l00127">fitZoom()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00211">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00210">m_zoom</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8cpp_source.html#l00127">fitZoom()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00234">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00233">m_zoom</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00730">mouseDoubleClickEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00062">setImage()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00052">setImage()</a>.</p>
 
@@ -1224,20 +1237,21 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the picking-box width, height, jaw-pair distance, and angle, then repaints. </p>
-<p>Sets box A's width, height, distance from the pick point, and rotation angle; box B is derived automatically (mirrored 180 degrees) when painted. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets box A's width, height, distance from the pick point, and rotation angle; box B is derived automatically (mirrored 180 degrees) when painted. </p>
+<p>Sets the picking-box width, height, jaw-pair distance, and angle, then repaints.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">w</td><td>box width, in image pixels </td></tr>
-    <tr><td class="paramname">h</td><td>box height, in image pixels </td></tr>
-    <tr><td class="paramname">dist</td><td>distance from the pick point to box A's centre, in image pixels </td></tr>
-    <tr><td class="paramname">angleDeg</td><td>rotation angle of box A, in degrees </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">w</td><td>box width, in image pixels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">h</td><td>box height, in image pixels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dist</td><td>distance from the pick point to box A's centre, in image pixels </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">angleDeg</td><td>rotation angle of box A, in degrees </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00112">112</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00205">m_boxDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxH</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00204">m_boxW</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxAngle</a>, <a class="el" href="pattern__canvas_8h_source.html#l00228">m_boxDist</a>, <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxH</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00227">m_boxW</a>.</p>
 
 </div>
 </div>
@@ -1256,17 +1270,18 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the crop-rectangle overlay, in source-image pixel coordinates, and repaints. </p>
-<p>Sets the crop rectangle in source-image pixels and repaints. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets the crop rectangle in source-image pixels and repaints. </p>
+<p>Sets the crop-rectangle overlay, in source-image pixel coordinates, and repaints.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">r</td><td>new crop rect; an empty rect disables the crop overlay (useful when keepOriginal is on) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">r</td><td>new crop rect; an empty rect disables the crop overlay (useful when keepOriginal is on) </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00095">95</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00201">m_crop</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00224">m_crop</a>.</p>
 
 </div>
 </div>
@@ -1294,7 +1309,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00062">62</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>.</p>
 
 </div>
 </div>
@@ -1318,7 +1333,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00052">52</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>.</p>
 
 </div>
 </div>
@@ -1336,9 +1351,11 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Shows or hides the locked overlay (dim scrim plus a "LOCKED" badge) and disables all crop/pick/box editing gestures while locked (middle-button panning still works). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Shows or hides the locked overlay (dim scrim plus a "LOCKED" badge) and disables all crop/pick/box editing gestures while locked (middle-button panning still works). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">locked</td><td>true to lock the canvas against edits</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">locked</td><td>true to lock the canvas against edits</td></tr>
   </table>
   </dd>
 </dl>
@@ -1346,7 +1363,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00118">118</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00207">m_locked</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00230">m_locked</a>.</p>
 
 </div>
 </div>
@@ -1364,9 +1381,11 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Switches the active interaction mode and repaints; does not alter any stored crop/pick/box geometry. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Switches the active interaction mode and repaints; does not alter any stored crop/pick/box geometry. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">m</td><td>mode to activate</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>mode to activate</td></tr>
   </table>
   </dd>
 </dl>
@@ -1374,7 +1393,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00093">93</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00199">m_mode</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00222">m_mode</a>.</p>
 
 </div>
 </div>
@@ -1402,7 +1421,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00102">102</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00201">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00202">m_pick</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00232">m_pickCurrentPoint</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00224">m_crop</a>, <a class="el" href="pattern__canvas_8h_source.html#l00225">m_pick</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00255">m_pickCurrentPoint</a>.</p>
 
 </div>
 </div>
@@ -1433,7 +1452,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="pattern__canvas_8cpp_source.html#l00741">741</a> of file <a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00211">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00200">m_pix</a>, <a class="el" href="pattern__canvas_8h_source.html#l00210">m_zoom</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00169">widgetToImage()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00234">m_offset</a>, <a class="el" href="pattern__canvas_8h_source.html#l00223">m_pix</a>, <a class="el" href="pattern__canvas_8h_source.html#l00233">m_zoom</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00190">widgetToImage()</a>.</p>
 
 </div>
 </div>
@@ -1461,9 +1480,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Converts a widget-pixel coordinate back to source-image pixel coordinates; inverse of <a class="el" href="#a38e137caeeef9a05ad7fd5bfba9daf73">imageToWidget()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00169">169</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00190">190</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00211">m_offset</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00210">m_zoom</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00234">m_offset</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00233">m_zoom</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00741">wheelEvent()</a>.</p>
 
@@ -1492,7 +1511,7 @@ Private Attributes</h2></td></tr>
 
 <p>Box A distance from the pick point (image px) and rotation angle (degrees). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00205">205</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00228">228</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00419">boxACorners()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00408">boxRotationHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00112">setBoxConfig()</a>.</p>
 
@@ -1518,7 +1537,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00205">205</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00228">228</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00112">setBoxConfig()</a>.</p>
 
@@ -1546,7 +1565,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while a box A handle drag is in progress. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00225">225</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00248">248</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00716">mouseReleaseEvent()</a>.</p>
 
@@ -1574,7 +1593,7 @@ Private Attributes</h2></td></tr>
 
 <p>Box A distance/angle captured when the current drag began. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00229">229</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00252">252</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -1600,7 +1619,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00229">229</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00252">252</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -1628,7 +1647,7 @@ Private Attributes</h2></td></tr>
 
 <p>Box A width/height captured when the current drag began. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00228">228</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00251">251</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -1656,7 +1675,7 @@ Private Attributes</h2></td></tr>
 
 <p>Image-pixel cursor position where the current box drag began. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00227">227</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00250">250</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -1682,7 +1701,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00228">228</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00251">251</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -1710,7 +1729,7 @@ Private Attributes</h2></td></tr>
 
 <p>Box A width/height, in image pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00204">204</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00227">227</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00419">boxACorners()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00408">boxRotationHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00112">setBoxConfig()</a>.</p>
 
@@ -1738,7 +1757,7 @@ Private Attributes</h2></td></tr>
 
 <p>Which box A handle is being dragged. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00226">226</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00249">249</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00716">mouseReleaseEvent()</a>.</p>
 
@@ -1764,7 +1783,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00204">204</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00227">227</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00419">boxACorners()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00112">setBoxConfig()</a>.</p>
 
@@ -1792,9 +1811,9 @@ Private Attributes</h2></td></tr>
 
 <p>Crop rectangle, in image pixels; empty means no crop. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00201">201</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00224">224</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__canvas_8h_source.html#l00074">crop()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00442">hitCropHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00084">pick()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00095">setCrop()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00102">setPick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__canvas_8h_source.html#l00089">crop()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00442">hitCropHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00099">pick()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00095">setCrop()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00102">setPick()</a>.</p>
 
 </div>
 </div>
@@ -1820,7 +1839,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while a crop handle/body drag is in progress. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00219">219</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00242">242</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00716">mouseReleaseEvent()</a>.</p>
 
@@ -1848,7 +1867,7 @@ Private Attributes</h2></td></tr>
 
 <p>Image-pixel cursor position where the current crop drag began. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00221">221</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00244">244</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -1876,7 +1895,7 @@ Private Attributes</h2></td></tr>
 
 <p><span class="tt"><a class="el" href="#a0f73e774959877ee7cdd28206d2dd985" title="Crop rectangle, in image pixels; empty means no crop.">m_crop</a></span> value captured when the current crop drag began. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00222">222</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00245">245</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -1904,7 +1923,7 @@ Private Attributes</h2></td></tr>
 
 <p>Which crop handle is being dragged. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00220">220</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00243">243</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00716">mouseReleaseEvent()</a>.</p>
 
@@ -1932,7 +1951,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while the locked overlay is shown and edits are disabled. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00207">207</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00230">230</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00118">setLocked()</a>.</p>
 
@@ -1960,9 +1979,9 @@ Private Attributes</h2></td></tr>
 
 <p>Current interaction mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00199">199</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00222">222</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__canvas_8h_source.html#l00066">mode()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00093">setMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__canvas_8h_source.html#l00079">mode()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00093">setMode()</a>.</p>
 
 </div>
 </div>
@@ -1988,9 +2007,9 @@ Private Attributes</h2></td></tr>
 
 <p>Widget-pixel position of the image origin (pan offset). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00211">211</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00234">234</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00136">imageRectInWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00163">imageToWidget()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00741">wheelEvent()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00169">widgetToImage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00136">imageRectInWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00184">imageToWidget()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00741">wheelEvent()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00190">widgetToImage()</a>.</p>
 
 </div>
 </div>
@@ -2016,7 +2035,7 @@ Private Attributes</h2></td></tr>
 
 <p>True while a middle-button pan drag is in progress. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00214">214</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00237">237</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00716">mouseReleaseEvent()</a>.</p>
 
@@ -2044,7 +2063,7 @@ Private Attributes</h2></td></tr>
 
 <p>Widget-pixel cursor position where the current pan began. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00215">215</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00238">238</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -2072,7 +2091,7 @@ Private Attributes</h2></td></tr>
 
 <p><span class="tt"><a class="el" href="#ad0deb557c5f02d69d7b7bcffc87bdd46" title="Widget-pixel position of the image origin (pan offset).">m_offset</a></span> value captured when the current pan began. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00216">216</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00239">239</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>.</p>
 
@@ -2100,9 +2119,9 @@ Private Attributes</h2></td></tr>
 
 <p>Pick point, in absolute image pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00202">202</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00225">225</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00084">pick()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00102">setPick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00399">boxACentre()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00470">hitBoxHandle()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00099">pick()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00102">setPick()</a>.</p>
 
 </div>
 </div>
@@ -2128,9 +2147,9 @@ Private Attributes</h2></td></tr>
 
 <p>Crop-relative pick point (see <a class="el" href="#a1bd4c270ee580550862336e02124cb41">pick()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00232">232</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00255">255</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00084">pick()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00102">setPick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00099">pick()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00102">setPick()</a>.</p>
 
 </div>
 </div>
@@ -2156,9 +2175,9 @@ Private Attributes</h2></td></tr>
 
 <p>Currently displayed image, at source resolution. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00200">200</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00223">223</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00089">clearImage()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00127">fitZoom()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00056">hasImage()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00136">imageRectInWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00058">imageSize()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00062">setImage()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00052">setImage()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00741">wheelEvent()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00089">clearImage()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00127">fitZoom()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00067">hasImage()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00136">imageRectInWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00069">imageSize()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00571">mouseMoveEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00516">mousePressEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00062">setImage()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00052">setImage()</a>, and <a class="el" href="pattern__canvas_8cpp_source.html#l00741">wheelEvent()</a>.</p>
 
 </div>
 </div>
@@ -2184,15 +2203,15 @@ Private Attributes</h2></td></tr>
 
 <p>Current zoom factor (image pixels -&gt; widget pixels). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00210">210</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__canvas_8h_source.html#l00233">233</a> of file <a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00136">imageRectInWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00163">imageToWidget()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00741">wheelEvent()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00169">widgetToImage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__canvas_8cpp_source.html#l00136">imageRectInWidget()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00184">imageToWidget()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00174">paintEvent()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00143">resetView()</a>, <a class="el" href="pattern__canvas_8cpp_source.html#l00741">wheelEvent()</a>, and <a class="el" href="pattern__canvas_8h_source.html#l00190">widgetToImage()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="pattern__canvas_8h_source.html">pattern_canvas.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="pattern__canvas_8cpp_source.html">pattern_canvas.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

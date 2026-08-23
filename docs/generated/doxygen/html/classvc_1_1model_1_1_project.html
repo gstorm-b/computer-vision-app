@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1mod
 </div><!--header-->
 <div class="contents">
 
+<p>Aggregate root of a picking-configuration project.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="project_8h_source.html">project.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::model::Project:</div>
@@ -142,8 +145,11 @@ Signals</h2></td></tr>
 <tr class="memdesc:a45aa3f65aa2eed6b038407efa167798c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when the project name changes.  <br /></td></tr>
 <tr class="memitem:a51e3f6415c28b5f3b7310cdff67641fa" id="r_a51e3f6415c28b5f3b7310cdff67641fa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred</a> ()</td></tr>
 <tr class="memitem:a6b0d456168b1414861c1825a6d09a0d5" id="r_a6b0d456168b1414861c1825a6d09a0d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6b0d456168b1414861c1825a6d09a0d5">taskCreated</a> (QString id)</td></tr>
+<tr class="memdesc:a6b0d456168b1414861c1825a6d09a0d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after a task has been added to the project.  <br /></td></tr>
 <tr class="memitem:ae457e3a357022220e9f3b8ee0a7f6c73" id="r_ae457e3a357022220e9f3b8ee0a7f6c73"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae457e3a357022220e9f3b8ee0a7f6c73">taskDeleted</a> (QString id)</td></tr>
+<tr class="memdesc:ae457e3a357022220e9f3b8ee0a7f6c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after a task has been removed from the project.  <br /></td></tr>
 <tr class="memitem:a81e3330a59c71922b165ec6cebc6c364" id="r_a81e3330a59c71922b165ec6cebc6c364"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a81e3330a59c71922b165ec6cebc6c364">taskModified</a> (QString id)</td></tr>
+<tr class="memdesc:a81e3330a59c71922b165ec6cebc6c364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when a task's configuration changes.  <br /></td></tr>
 <tr class="memitem:adc37651a09e0dfa5a33d3efb1bd40419" id="r_adc37651a09e0dfa5a33d3efb1bd40419"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419">tasksChanged</a> ()</td></tr>
 <tr class="memdesc:adc37651a09e0dfa5a33d3efb1bd40419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted whenever the task list changes (add or remove).  <br /></td></tr>
 <tr class="memitem:ab20ba367145f56b4a089e8f277a96e76" id="r_ab20ba367145f56b4a089e8f277a96e76"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ab20ba367145f56b4a089e8f277a96e76">updatedAtChanged</a> ()</td></tr>
@@ -154,10 +160,12 @@ Signals</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a6b29a0bc13199f09976b164905a46a0d" id="r_a6b29a0bc13199f09976b164905a46a0d"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6b29a0bc13199f09976b164905a46a0d">addTask</a> (<a class="el" href="classvc_1_1model_1_1_i_task.html">ITask</a> *task)</td></tr>
+<tr class="memdesc:a6b29a0bc13199f09976b164905a46a0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes ownership of <span class="tt">task</span> (wrapped into a shared_ptr) and adds it to the project. Fails if <span class="tt">task</span> is null or its name is already occupied. On success, assigns this project onto the task, registers its name as occupied, connects the task's configChanged signal to emit taskModified(id) and <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, and emits <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419" title="Emitted whenever the task list changes (add or remove).">tasksChanged()</a> and taskCreated(id).  <br /></td></tr>
 <tr class="memitem:a23bb66d043135bda8d7e1ce2610b61ee" id="r_a23bb66d043135bda8d7e1ce2610b61ee"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a23bb66d043135bda8d7e1ce2610b61ee">assignDeviceToTask</a> (const QString &amp;deviceId, const QString &amp;taskId)</td></tr>
 <tr class="memitem:a5c842c9905691c03fbc401ae9a1f5600" id="r_a5c842c9905691c03fbc401ae9a1f5600"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5c842c9905691c03fbc401ae9a1f5600">author</a> () const</td></tr>
 <tr class="memdesc:a5c842c9905691c03fbc401ae9a1f5600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the project author.  <br /></td></tr>
 <tr class="memitem:ab597fa56599606cf090cbc2e8a0739de" id="r_ab597fa56599606cf090cbc2e8a0739de"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab597fa56599606cf090cbc2e8a0739de">changeTaskName</a> (const QString &amp;id, const QString &amp;name)</td></tr>
+<tr class="memdesc:ab597fa56599606cf090cbc2e8a0739de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renames the task with the given id to <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span>, unless <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span> is already occupied.  <br /></td></tr>
 <tr class="memitem:aa88258bfc2690a637dcaea300ae5efc2" id="r_aa88258bfc2690a637dcaea300ae5efc2"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#aa88258bfc2690a637dcaea300ae5efc2">createdAt</a> () const</td></tr>
 <tr class="memdesc:aa88258bfc2690a637dcaea300ae5efc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the creation timestamp string previously set via <a class="el" href="#a7e29a79041bb188707dc690a799b5236" title="Sets the creation timestamp and unconditionally emits createdAtChanged().">setCreatedAt()</a>.  <br /></td></tr>
 <tr class="memitem:a82ab73ff9ef4713e500b69270a8f99c9" id="r_a82ab73ff9ef4713e500b69270a8f99c9"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a82ab73ff9ef4713e500b69270a8f99c9">description</a> () const</td></tr>
@@ -166,6 +174,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a979f24ea72244da126ef3ff94675eabc" id="r_a979f24ea72244da126ef3ff94675eabc"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_device_manager.html">device::DeviceManager</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a979f24ea72244da126ef3ff94675eabc">deviceManager</a> ()</td></tr>
 <tr class="memdesc:a979f24ea72244da126ef3ff94675eabc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the project's owned DeviceManager.  <br /></td></tr>
 <tr class="memitem:a2397aa99c3649418d038cba896a04a83" id="r_a2397aa99c3649418d038cba896a04a83"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2397aa99c3649418d038cba896a04a83">fromJson</a> (const QJsonObject &amp;json)</td></tr>
+<tr class="memdesc:a2397aa99c3649418d038cba896a04a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores project state from JSON produced by <a class="el" href="#a413e115418c9ec0d092f2015d198bbd0" title="Serializes the project to JSON: name, version, all registered devices (via IDevice::toJson()),...">toJson()</a>: sets name/version, reconstructs devices via DeviceFactory and reserves them on the DeviceManager, reconstructs tasks via <a class="el" href="classvc_1_1model_1_1_task_factory.html" title="Static, non-instantiable factory that builds concrete ITask instances (currently LocalizationTask) fr...">TaskFactory</a> and adds them via <a class="el" href="#a6b29a0bc13199f09976b164905a46a0d" title="Takes ownership of task (wrapped into a shared_ptr) and adds it to the project. Fails if task is null...">addTask()</a>, then re-assigns each device to its recorded task (releasing any device with no assigned task).  <br /></td></tr>
 <tr class="memitem:a2d8d8404bd950cb9a537116350471d1f" id="r_a2d8d8404bd950cb9a537116350471d1f"><td class="memItemLeft">const QMap&lt; QString, std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_i_task.html">vc::model::ITask</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a2d8d8404bd950cb9a537116350471d1f">getCurrentTasks</a> () const</td></tr>
 <tr class="memdesc:a2d8d8404bd950cb9a537116350471d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the project's tasks, keyed by task id.  <br /></td></tr>
 <tr class="memitem:afe4df0930db409a7d018ec373f8893cd" id="r_afe4df0930db409a7d018ec373f8893cd"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afe4df0930db409a7d018ec373f8893cd">isTaskNameOccupied</a> (const QString &amp;name) const</td></tr>
@@ -190,6 +199,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a50b9517f9c0d6f9d90ea6f8fe6b0fa04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the project version. No-op if unchanged; otherwise emits <a class="el" href="#ad8760eef843ba612dae5d23db419760a" title="Emitted when the project version changes.">versionChanged()</a>.  <br /></td></tr>
 <tr class="memitem:a490404a19c09aa6135e2baf8a33d45ce" id="r_a490404a19c09aa6135e2baf8a33d45ce"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_i_task.html">vc::model::ITask</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a490404a19c09aa6135e2baf8a33d45ce">taskById</a> (const QString &amp;id) const</td></tr>
 <tr class="memitem:a413e115418c9ec0d092f2015d198bbd0" id="r_a413e115418c9ec0d092f2015d198bbd0"><td class="memItemLeft">QJsonObject&#160;</td><td class="memItemRight"><a class="el" href="#a413e115418c9ec0d092f2015d198bbd0">toJson</a> () const</td></tr>
+<tr class="memdesc:a413e115418c9ec0d092f2015d198bbd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the project to JSON: name, version, all registered devices (via <a class="el" href="class_i_device.html#a85f6299b65727195fb760f96ad1e99ff">IDevice::toJson()</a>), and all tasks (via <a class="el" href="classvc_1_1model_1_1_i_task.html#a0870d86c987735869492588c652049d9">ITask::toJson()</a>).  <br /></td></tr>
 <tr class="memitem:ae18a36a73fbcf485fe2ddf34ccfaffa4" id="r_ae18a36a73fbcf485fe2ddf34ccfaffa4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae18a36a73fbcf485fe2ddf34ccfaffa4">unassignDeviceFromTask</a> (const QString &amp;deviceId, const QString &amp;taskId)</td></tr>
 <tr class="memitem:acaa6ca86049e4bd9fa4e8666181d3bd4" id="r_acaa6ca86049e4bd9fa4e8666181d3bd4"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#acaa6ca86049e4bd9fa4e8666181d3bd4">updatedAt</a> () const</td></tr>
 <tr class="memdesc:acaa6ca86049e4bd9fa4e8666181d3bd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last-updated timestamp string previously set via <a class="el" href="#a460a15511385595d283ca63b04527193" title="Sets the last-updated timestamp and unconditionally emits updatedAtChanged().">setUpdatedAt()</a>.  <br /></td></tr>
@@ -208,15 +218,15 @@ Properties</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a259fec23b7665438cf7ddaa54b85167b" id="r_a259fec23b7665438cf7ddaa54b85167b"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a259fec23b7665438cf7ddaa54b85167b">m_author</a></td></tr>
-<tr class="memdesc:a259fec23b7665438cf7ddaa54b85167b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvc_1_1model_1_1_project.html">Project</a> author.  <br /></td></tr>
+<tr class="memdesc:a259fec23b7665438cf7ddaa54b85167b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a> author.  <br /></td></tr>
 <tr class="memitem:a5f5a7661f816bf2ac16954efefe9a0f5" id="r_a5f5a7661f816bf2ac16954efefe9a0f5"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5f5a7661f816bf2ac16954efefe9a0f5">m_createdAt</a></td></tr>
 <tr class="memdesc:a5f5a7661f816bf2ac16954efefe9a0f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creation timestamp, as set by <a class="el" href="#a7e29a79041bb188707dc690a799b5236" title="Sets the creation timestamp and unconditionally emits createdAtChanged().">setCreatedAt()</a>.  <br /></td></tr>
 <tr class="memitem:af86255c18fc9b36959126d607447a4a0" id="r_af86255c18fc9b36959126d607447a4a0"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#af86255c18fc9b36959126d607447a4a0">m_description</a></td></tr>
-<tr class="memdesc:af86255c18fc9b36959126d607447a4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvc_1_1model_1_1_project.html">Project</a> description.  <br /></td></tr>
+<tr class="memdesc:af86255c18fc9b36959126d607447a4a0"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a> description.  <br /></td></tr>
 <tr class="memitem:afd57a843d0a09982244962c32aea7769" id="r_afd57a843d0a09982244962c32aea7769"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_device_manager.html">device::DeviceManager</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#afd57a843d0a09982244962c32aea7769">m_deviceManager</a></td></tr>
 <tr class="memdesc:afd57a843d0a09982244962c32aea7769"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owned manager for all registered devices.  <br /></td></tr>
 <tr class="memitem:acb947a5bcaa7b894b64eaa656703daae" id="r_acb947a5bcaa7b894b64eaa656703daae"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#acb947a5bcaa7b894b64eaa656703daae">m_name</a></td></tr>
-<tr class="memdesc:acb947a5bcaa7b894b64eaa656703daae"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvc_1_1model_1_1_project.html">Project</a> name.  <br /></td></tr>
+<tr class="memdesc:acb947a5bcaa7b894b64eaa656703daae"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a> name.  <br /></td></tr>
 <tr class="memitem:af5765e7927990fa6ed70779e9fa41490" id="r_af5765e7927990fa6ed70779e9fa41490"><td class="memItemLeft">QSet&lt; QString &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af5765e7927990fa6ed70779e9fa41490">m_occupiedTaskNames</a></td></tr>
 <tr class="memdesc:af5765e7927990fa6ed70779e9fa41490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Task names currently in use in this project.  <br /></td></tr>
 <tr class="memitem:abba08c9dd389cbda9bae5626a6845467" id="r_abba08c9dd389cbda9bae5626a6845467"><td class="memItemLeft">QMap&lt; QString, std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_i_task.html">vc::model::ITask</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="#abba08c9dd389cbda9bae5626a6845467">m_tasks</a></td></tr>
@@ -227,9 +237,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a37388401a2b60bea7bf907d8db65bfbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project/schema version string; defaults to "0.1".  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Aggregate root of a picking-configuration project: owns the task map, the shared DeviceManager, and project metadata (name/author/version/timestamps), and provides the JSON (de)serialization used by <a class="el" href="classvc_1_1model_1_1_project_repository.html">ProjectRepository</a>. </p>
+<div class="textblock"><p>Aggregate root of a picking-configuration project. </p>
+<p>Owns the task map, the shared DeviceManager, and project metadata (name/author/version/ timestamps), and provides the JSON (de)serialization used by <a class="el" href="classvc_1_1model_1_1_project_repository.html" title="Static repository that persists a Project to/from a SQLite project file: creates the schema for new p...">ProjectRepository</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00019">19</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00027">27</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0847e803903db42ebefbb7066eb842df" name="a0847e803903db42ebefbb7066eb842df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0847e803903db42ebefbb7066eb842df">&#9670;&#160;</a></span>Project()</h2>
@@ -263,9 +274,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00015">15</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classvc_1_1device_1_1_device_manager.html#a982ab3b6f13e61cfbbb5d5880f78fc1e">vc::device::DeviceManager::deviceModified()</a>, <a class="el" href="classvc_1_1device_1_1_device_manager.html#ab14ff3fe588daa738e9eabd90370529f">vc::device::DeviceManager::devicesChanged()</a>, <a class="el" href="project_8h_source.html#l00175">m_deviceManager</a>, <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, and <a class="el" href="#a81e3330a59c71922b165ec6cebc6c364">taskModified()</a>.</p>
+<p class="reference">References <a class="el" href="classvc_1_1device_1_1_device_manager.html#a982ab3b6f13e61cfbbb5d5880f78fc1e">vc::device::DeviceManager::deviceModified()</a>, <a class="el" href="classvc_1_1device_1_1_device_manager.html#ab14ff3fe588daa738e9eabd90370529f">vc::device::DeviceManager::devicesChanged()</a>, <a class="el" href="project_8h_source.html#l00202">m_deviceManager</a>, <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, and <a class="el" href="#a81e3330a59c71922b165ec6cebc6c364">taskModified()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8h_source.html#l00040">author()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8h_source.html#l00048">author()</a>.</p>
 
 </div>
 </div>
@@ -306,20 +317,22 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Takes ownership of <span class="tt">task</span> (wrapped into a shared_ptr) and adds it to the project. Fails if <span class="tt">task</span> is null or its name is already occupied. On success, assigns this project onto the task, registers its name as occupied, connects the task's configChanged signal to emit taskModified(id) and <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, and emits <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419" title="Emitted whenever the task list changes (add or remove).">tasksChanged()</a> and taskCreated(id). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Takes ownership of <span class="tt">task</span> (wrapped into a shared_ptr) and adds it to the project. Fails if <span class="tt">task</span> is null or its name is already occupied. On success, assigns this project onto the task, registers its name as occupied, connects the task's configChanged signal to emit taskModified(id) and <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, and emits <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419" title="Emitted whenever the task list changes (add or remove).">tasksChanged()</a> and taskCreated(id). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">task</td><td>task instance to adopt; ownership transfers to the project on success </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">task</td><td>task instance to adopt; ownership transfers to the project on success </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the task was added, false if <span class="tt">task</span> is null or its name is taken</dd></dl>
-<p>Takes ownership of <span class="tt">task</span> (wraps it in a shared_ptr), registers it under its id, links it to this project (setProject()), and connects its configChanged() signal to re-emit <a class="el" href="#a81e3330a59c71922b165ec6cebc6c364">taskModified()</a>/projectModificationOccurred(). Rejects the task if its name is already occupied. </p>
+<p>Takes ownership of <span class="tt">task</span> (wraps it in a shared_ptr), registers it under its id, links it to this project (setProject()), and connects its configChanged() signal to re-emit <a class="el" href="#a81e3330a59c71922b165ec6cebc6c364" title="Emitted when a task&#39;s configuration changes.">taskModified()</a>/projectModificationOccurred(). Rejects the task if its name is already occupied. </p>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00083">83</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classvc_1_1model_1_1_i_task.html#a1c326dd6527ebb8f677f770eeb74fb35">vc::model::ITask::configChanged()</a>, <a class="el" href="project_8h_source.html#l00179">m_occupiedTaskNames</a>, <a class="el" href="project_8h_source.html#l00177">m_tasks</a>, <a class="el" href="itask_8h_source.html#l00035">vc::model::ITask::name</a>, <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, <a class="el" href="#a6b0d456168b1414861c1825a6d09a0d5">taskCreated()</a>, and <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419">tasksChanged()</a>.</p>
+<p class="reference">References <a class="el" href="classvc_1_1model_1_1_i_task.html#a1c326dd6527ebb8f677f770eeb74fb35">vc::model::ITask::configChanged()</a>, <a class="el" href="project_8h_source.html#l00206">m_occupiedTaskNames</a>, <a class="el" href="project_8h_source.html#l00204">m_tasks</a>, <a class="el" href="itask_8h_source.html#l00043">vc::model::ITask::name</a>, <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, <a class="el" href="#a6b0d456168b1414861c1825a6d09a0d5">taskCreated()</a>, and <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419">tasksChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00247">fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00236">fromJson()</a>.</p>
 
 </div>
 </div>
@@ -341,7 +354,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Assigns the given device to the given task: looks up both by id, then calls <a class="el" href="classvc_1_1model_1_1_i_task.html#a25da3fe7eb75d1ae31c95866f96d339c">ITask::assignDevice()</a> and <a class="el" href="class_i_device.html#a97387c4b1c21ef3d6bdd6c7fddaf37e8" title="Records the id of the task this device is assigned to.">IDevice::setAssignedTaskId()</a>. </p><dl class="section return"><dt>Returns</dt><dd>false if either the task or the device cannot be found</dd></dl>
+<p>Assigns the given device to the given task: looks up both by id, then calls <a class="el" href="classvc_1_1model_1_1_i_task.html#a25da3fe7eb75d1ae31c95866f96d339c" title="Adds deviceId to the set of devices assigned to this task; no-op (and no signal) if already assigned....">ITask::assignDevice()</a> and <a class="el" href="class_i_device.html#a97387c4b1c21ef3d6bdd6c7fddaf37e8" title="Records the id of the task this device is assigned to.">IDevice::setAssignedTaskId()</a>. </p><dl class="section return"><dt>Returns</dt><dd>false if either the task or the device cannot be found</dd></dl>
 <p>Assigns a device to a task: adds the device id to the task's assigned-device set and records the task id on the device (<a class="el" href="classvc_1_1device_1_1_i_device.html#a97387c4b1c21ef3d6bdd6c7fddaf37e8" title="Records the id of the task this device is assigned to.">device::IDevice::setAssignedTaskId()</a>). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deviceId</td><td>id of the device to assign </td></tr>
@@ -352,7 +365,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00131">131</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8cpp_source.html#l00206">deviceById()</a>, and <a class="el" href="project_8cpp_source.html#l00161">taskById()</a>.</p>
+<p class="reference">References <a class="el" href="project_8cpp_source.html#l00195">deviceById()</a>, and <a class="el" href="project_8cpp_source.html#l00159">taskById()</a>.</p>
 
 </div>
 </div>
@@ -381,7 +394,7 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the project author. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00040">40</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00048">48</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 <p class="reference">References <a class="el" href="project_8cpp_source.html#l00015">Project()</a>.</p>
 
@@ -434,20 +447,23 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Renames the task with the given id to <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span>, unless <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span> is already occupied. </p><dl class="section note"><dt>Note</dt><dd>removes <span class="tt">task-&gt;id()</span> (not the task's previous name) from the occupied-names set, and always returns false regardless of whether the rename succeeded.</dd></dl>
-<p>Renames the task with the given id to <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span> and emits taskModified(id). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Renames the task with the given id to <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span>, unless <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span> is already occupied. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>id of the task to rename </td></tr>
-    <tr><td class="paramname">name</td><td>new name; rejected if already occupied by another task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>id of the task to rename </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>desired new name </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>false if <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span> is already occupied or <span class="tt">id</span> is not a known task; also returns false unconditionally after a successful rename (the <span class="tt">return false</span> below is reached even when the rename succeeded) </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>frees the <em>old</em> occupied-name entry using <span class="tt">task-&gt;id()</span> rather than the task's previous name, so m_occupiedTaskNames is only cleared correctly when the task's id happens to equal its prior name </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>intended to report success/failure; see </dd></dl>
+<dl class="section note"><dt>Note</dt><dd></dd>
+<dd>
+As implemented this always returns false regardless of whether the rename succeeded, and removes <span class="tt">task-&gt;id()</span> (not the task's previous name) from the occupied-names set. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00177">177</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00166">166</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00179">m_occupiedTaskNames</a>, <a class="el" href="project_8h_source.html#l00177">m_tasks</a>, <a class="el" href="project_8h_source.html#l00022">name</a>, and <a class="el" href="#a81e3330a59c71922b165ec6cebc6c364">taskModified()</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00206">m_occupiedTaskNames</a>, <a class="el" href="project_8h_source.html#l00204">m_tasks</a>, <a class="el" href="project_8h_source.html#l00030">name</a>, and <a class="el" href="#a81e3330a59c71922b165ec6cebc6c364">taskModified()</a>.</p>
 
 </div>
 </div>
@@ -476,9 +492,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the creation timestamp string previously set via <a class="el" href="#a7e29a79041bb188707dc690a799b5236" title="Sets the creation timestamp and unconditionally emits createdAtChanged().">setCreatedAt()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00046">46</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00054">54</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00169">m_author</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00196">m_author</a>.</p>
 
 </div>
 </div>
@@ -536,7 +552,7 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the project description. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00042">42</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00050">50</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>.</p>
 
@@ -564,11 +580,11 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00206">206</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00195">195</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00175">m_deviceManager</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00202">m_deviceManager</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00131">assignDeviceToTask()</a>, <a class="el" href="project_8cpp_source.html#l00350">moveDeviceToTask()</a>, and <a class="el" href="project_8cpp_source.html#l00147">unassignDeviceFromTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00131">assignDeviceToTask()</a>, <a class="el" href="project_8cpp_source.html#l00339">moveDeviceToTask()</a>, and <a class="el" href="project_8cpp_source.html#l00147">unassignDeviceFromTask()</a>.</p>
 
 </div>
 </div>
@@ -590,9 +606,9 @@ Private Attributes</h2></td></tr>
 <p>Returns the project's owned DeviceManager. </p>
 <p>Returns the project's shared DeviceManager, which owns and tracks all registered devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00200">200</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00189">189</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00175">m_deviceManager</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00202">m_deviceManager</a>.</p>
 
 </div>
 </div>
@@ -610,18 +626,20 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Restores project state from JSON produced by <a class="el" href="#a413e115418c9ec0d092f2015d198bbd0">toJson()</a>: sets name/version, reconstructs devices via DeviceFactory and reserves them on the DeviceManager, reconstructs tasks via <a class="el" href="classvc_1_1model_1_1_task_factory.html">TaskFactory</a> and adds them via <a class="el" href="#a6b29a0bc13199f09976b164905a46a0d">addTask()</a>, then re-assigns each device to its recorded task (releasing any device with no assigned task). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Restores project state from JSON produced by <a class="el" href="#a413e115418c9ec0d092f2015d198bbd0" title="Serializes the project to JSON: name, version, all registered devices (via IDevice::toJson()),...">toJson()</a>: sets name/version, reconstructs devices via DeviceFactory and reserves them on the DeviceManager, reconstructs tasks via <a class="el" href="classvc_1_1model_1_1_task_factory.html" title="Static, non-instantiable factory that builds concrete ITask instances (currently LocalizationTask) fr...">TaskFactory</a> and adds them via <a class="el" href="#a6b29a0bc13199f09976b164905a46a0d" title="Takes ownership of task (wrapped into a shared_ptr) and adds it to the project. Fails if task is null...">addTask()</a>, then re-assigns each device to its recorded task (releasing any device with no assigned task). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">json</td><td>JSON object as produced by <a class="el" href="#a413e115418c9ec0d092f2015d198bbd0">toJson()</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">json</td><td>JSON object as produced by <a class="el" href="#a413e115418c9ec0d092f2015d198bbd0" title="Serializes the project to JSON: name, version, all registered devices (via IDevice::toJson()),...">toJson()</a> </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>false if <span class="tt">json</span> is empty; true otherwise, including when individual malformed device/task entries were skipped</dd></dl>
-<p>Restores the project from JSON previously produced by <a class="el" href="#a413e115418c9ec0d092f2015d198bbd0">toJson()</a>: reads name and version, reconstructs devices via <a class="el" href="classvc_1_1device_1_1_device_factory.html#a88ece41fee2b6da0c700a94adffeb35e">device::DeviceFactory::fromJson()</a> and reserves them on the DeviceManager, reconstructs tasks via <a class="el" href="classvc_1_1model_1_1_task_factory.html#aa606c6f7a4b12310e1610f4311d3553d">model::TaskFactory::fromJson()</a> and adds them, then re-links each device to its assignedTaskId(). Devices with no assigned task are logged and released (deleted from the DeviceManager) rather than kept orphaned. </p>
+<p>Restores the project from JSON previously produced by <a class="el" href="#a413e115418c9ec0d092f2015d198bbd0" title="Serializes the project to JSON: name, version, all registered devices (via IDevice::toJson()),...">toJson()</a>: reads name and version, reconstructs devices via <a class="el" href="classvc_1_1device_1_1_device_factory.html#a88ece41fee2b6da0c700a94adffeb35e" title="Builds an IDevice from a JSON object, validating that the required top-level keys (id,...">device::DeviceFactory::fromJson()</a> and reserves them on the DeviceManager, reconstructs tasks via <a class="el" href="classvc_1_1model_1_1_task_factory.html#aa606c6f7a4b12310e1610f4311d3553d" title="Builds an ITask from a JSON object, validating that the required top-level keys (id,...">model::TaskFactory::fromJson()</a> and adds them, then re-links each device to its assignedTaskId(). Devices with no assigned task are logged and released (deleted from the DeviceManager) rather than kept orphaned. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00247">247</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00236">236</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8cpp_source.html#l00083">addTask()</a>, <a class="el" href="idevice__config_8h_source.html#l00015">DEVICE_JSK_ID</a>, <a class="el" href="idevice__config_8h_source.html#l00016">DEVICE_JSK_NAME</a>, <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="task__factory_8cpp_source.html#l00014">vc::model::TaskFactory::fromJson()</a>, <a class="el" href="itask_8h_source.html#l00067">vc::model::ITask::id()</a>, <a class="el" href="app__logger_8h_source.html#l00170">LOG_USER_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00166">LOG_USER_INFO</a>, <a class="el" href="project_8h_source.html#l00175">m_deviceManager</a>, <a class="el" href="project_8h_source.html#l00168">m_name</a>, <a class="el" href="project_8h_source.html#l00177">m_tasks</a>, <a class="el" href="project_8h_source.html#l00171">m_version</a>, <a class="el" href="itask_8h_source.html#l00035">vc::model::ITask::name</a>, <a class="el" href="project_8h_source.html#l00022">name</a>, and <a class="el" href="project_8cpp_source.html#l00161">taskById()</a>.</p>
+<p class="reference">References <a class="el" href="project_8cpp_source.html#l00083">addTask()</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>, <a class="el" href="device__factory_8cpp_source.html#l00040">vc::device::DeviceFactory::fromJson()</a>, <a class="el" href="task__factory_8cpp_source.html#l00012">vc::model::TaskFactory::fromJson()</a>, <a class="el" href="itask_8h_source.html#l00077">vc::model::ITask::id()</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="project_8h_source.html#l00202">m_deviceManager</a>, <a class="el" href="project_8h_source.html#l00195">m_name</a>, <a class="el" href="project_8h_source.html#l00204">m_tasks</a>, <a class="el" href="project_8h_source.html#l00198">m_version</a>, <a class="el" href="itask_8h_source.html#l00043">vc::model::ITask::name</a>, <a class="el" href="project_8h_source.html#l00030">name</a>, and <a class="el" href="project_8cpp_source.html#l00159">taskById()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00235">vc::model::ProjectRepository::load()</a>.</p>
 
@@ -652,9 +670,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the project's tasks, keyed by task id. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00096">96</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00112">112</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00177">m_tasks</a>, and <a class="el" href="project_8h_source.html#l00022">name</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00204">m_tasks</a>, and <a class="el" href="project_8h_source.html#l00030">name</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00235">vc::model::ProjectRepository::load()</a>, and <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>.</p>
 
@@ -678,9 +696,9 @@ Private Attributes</h2></td></tr>
 <p>Checks whether a task name is already in use in this project. </p>
 <p>Returns whether <span class="tt"><a class="el" href="#af07c02b066c9fa2df2bf632ec79d5685">name</a></span> is already in use by a registered task. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00195">195</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00184">184</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00179">m_occupiedTaskNames</a>, and <a class="el" href="project_8h_source.html#l00022">name</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00206">m_occupiedTaskNames</a>, and <a class="el" href="project_8h_source.html#l00030">name</a>.</p>
 
 </div>
 </div>
@@ -708,7 +726,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Checks whether the project is populated enough to be considered valid: has a non-empty name and at least one task. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00136">136</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00157">157</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 </div>
 </div>
@@ -745,9 +763,9 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00350">350</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00339">339</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8cpp_source.html#l00206">deviceById()</a>, <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, and <a class="el" href="project_8cpp_source.html#l00161">taskById()</a>.</p>
+<p class="reference">References <a class="el" href="project_8cpp_source.html#l00195">deviceById()</a>, <a class="el" href="#a51e3f6415c28b5f3b7310cdff67641fa">projectModificationOccurred()</a>, and <a class="el" href="project_8cpp_source.html#l00159">taskById()</a>.</p>
 
 </div>
 </div>
@@ -776,7 +794,7 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the project name. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00038">38</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00046">46</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 </div>
 </div>
@@ -805,7 +823,7 @@ Private Attributes</h2></td></tr>
 
 <p>Emitted when the project name changes. </p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00168">m_name</a>, and <a class="el" href="project_8h_source.html#l00177">m_tasks</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00195">m_name</a>, and <a class="el" href="project_8h_source.html#l00204">m_tasks</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00040">setName()</a>.</p>
 
@@ -835,7 +853,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted whenever the project's persisted state changes: name/author edits, a task's config, or the DeviceManager's device list/state. </p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">addTask()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00402">MainWindow::connectProjectSignals()</a>, <a class="el" href="project_8cpp_source.html#l00350">moveDeviceToTask()</a>, and <a class="el" href="project_8cpp_source.html#l00015">Project()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">addTask()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00402">MainWindow::connectProjectSignals()</a>, <a class="el" href="project_8cpp_source.html#l00339">moveDeviceToTask()</a>, and <a class="el" href="project_8cpp_source.html#l00015">Project()</a>.</p>
 
 </div>
 </div>
@@ -854,7 +872,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Removes the task with the given id, if present, emitting <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419" title="Emitted whenever the task list changes (add or remove).">tasksChanged()</a> and taskDeleted(id) on success. </p><dl class="section return"><dt>Returns</dt><dd>true if a task with <span class="tt">id</span> existed and was removed</dd></dl>
-<p>Removes the task with the given id from the project, emitting <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419" title="Emitted whenever the task list changes (add or remove).">tasksChanged()</a> and <a class="el" href="#ae457e3a357022220e9f3b8ee0a7f6c73">taskDeleted()</a> on success. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Removes the task with the given id from the project, emitting <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419" title="Emitted whenever the task list changes (add or remove).">tasksChanged()</a> and <a class="el" href="#ae457e3a357022220e9f3b8ee0a7f6c73" title="Emitted after a task has been removed from the project.">taskDeleted()</a> on success. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">id</td><td>id of the task to remove </td></tr>
   </table>
@@ -863,7 +881,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00117">117</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00177">m_tasks</a>, <a class="el" href="#ae457e3a357022220e9f3b8ee0a7f6c73">taskDeleted()</a>, and <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419">tasksChanged()</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00204">m_tasks</a>, <a class="el" href="#ae457e3a357022220e9f3b8ee0a7f6c73">taskDeleted()</a>, and <a class="el" href="#adc37651a09e0dfa5a33d3efb1bd40419">tasksChanged()</a>.</p>
 
 </div>
 </div>
@@ -892,7 +910,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00053">53</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a3da5a33c62f724653700945c42c14784">authorChanged()</a>, and <a class="el" href="project_8h_source.html#l00169">m_author</a>.</p>
+<p class="reference">References <a class="el" href="#a3da5a33c62f724653700945c42c14784">authorChanged()</a>, and <a class="el" href="project_8h_source.html#l00196">m_author</a>.</p>
 
 </div>
 </div>
@@ -921,7 +939,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00068">68</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#ab69207fc7b99432a8503ea8f7e7d7774">createdAtChanged()</a>, and <a class="el" href="project_8h_source.html#l00172">m_createdAt</a>.</p>
+<p class="reference">References <a class="el" href="#ab69207fc7b99432a8503ea8f7e7d7774">createdAtChanged()</a>, and <a class="el" href="project_8h_source.html#l00199">m_createdAt</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00235">vc::model::ProjectRepository::load()</a>.</p>
 
@@ -952,7 +970,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00047">47</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00170">m_description</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00197">m_description</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00235">vc::model::ProjectRepository::load()</a>.</p>
 
@@ -983,7 +1001,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00040">40</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00168">m_name</a>, and <a class="el" href="#a45aa3f65aa2eed6b038407efa167798c">nameChanged()</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00195">m_name</a>, and <a class="el" href="#a45aa3f65aa2eed6b038407efa167798c">nameChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00235">vc::model::ProjectRepository::load()</a>.</p>
 
@@ -1014,7 +1032,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00075">75</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00173">m_updatedAt</a>, and <a class="el" href="#ab20ba367145f56b4a089e8f277a96e76">updatedAtChanged()</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00200">m_updatedAt</a>, and <a class="el" href="#ab20ba367145f56b4a089e8f277a96e76">updatedAtChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00235">vc::model::ProjectRepository::load()</a>.</p>
 
@@ -1045,7 +1063,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00060">60</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00171">m_version</a>, and <a class="el" href="#ad8760eef843ba612dae5d23db419760a">versionChanged()</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00198">m_version</a>, and <a class="el" href="#ad8760eef843ba612dae5d23db419760a">versionChanged()</a>.</p>
 
 </div>
 </div>
@@ -1063,19 +1081,13 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Looks up a task by id. </p><dl class="section return"><dt>Returns</dt><dd>the matching task, or nullptr if no task has this id</dd></dl>
-<p>Looks up a task by id. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>task id to look up </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Looks up a task by id. </p><dl class="section return"><dt>Returns</dt><dd>the matching task, or nullptr if no task has this id </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00161">161</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00159">159</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00177">m_tasks</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00204">m_tasks</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00131">assignDeviceToTask()</a>, <a class="el" href="project_8cpp_source.html#l00247">fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00350">moveDeviceToTask()</a>, and <a class="el" href="project_8cpp_source.html#l00147">unassignDeviceFromTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00131">assignDeviceToTask()</a>, <a class="el" href="project_8cpp_source.html#l00236">fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00339">moveDeviceToTask()</a>, and <a class="el" href="project_8cpp_source.html#l00147">unassignDeviceFromTask()</a>.</p>
 
 </div>
 </div>
@@ -1101,9 +1113,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Emitted after a task has been added to the project. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Emitted after a task has been added to the project. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>id of the newly added task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>id of the newly added task </td></tr>
   </table>
   </dd>
 </dl>
@@ -1134,9 +1148,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Emitted after a task has been removed from the project. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Emitted after a task has been removed from the project. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>id of the removed task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>id of the removed task </td></tr>
   </table>
   </dd>
 </dl>
@@ -1167,14 +1183,16 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Emitted when a task's configuration changes. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Emitted when a task's configuration changes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>id of the modified task </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">id</td><td>id of the modified task </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00177">changeTaskName()</a>, and <a class="el" href="project_8cpp_source.html#l00015">Project()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00166">changeTaskName()</a>, and <a class="el" href="project_8cpp_source.html#l00015">Project()</a>.</p>
 
 </div>
 </div>
@@ -1221,12 +1239,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Serializes the project to JSON: name, version, all registered devices (via <a class="el" href="class_i_device.html#a85f6299b65727195fb760f96ad1e99ff">IDevice::toJson()</a>), and all tasks (via <a class="el" href="classvc_1_1model_1_1_i_task.html#a0870d86c987735869492588c652049d9">ITask::toJson()</a>). </p><dl class="section note"><dt>Note</dt><dd>image blobs associated with tasks are persisted separately by <a class="el" href="classvc_1_1model_1_1_project_repository.html">ProjectRepository</a> and are not included here.</dd></dl>
+
+<p>Serializes the project to JSON: name, version, all registered devices (via <a class="el" href="class_i_device.html#a85f6299b65727195fb760f96ad1e99ff">IDevice::toJson()</a>), and all tasks (via <a class="el" href="classvc_1_1model_1_1_i_task.html#a0870d86c987735869492588c652049d9">ITask::toJson()</a>). </p>
+<dl class="section return"><dt>Returns</dt><dd>the serialized project </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Image blobs associated with tasks are persisted separately by <a class="el" href="classvc_1_1model_1_1_project_repository.html" title="Static repository that persists a Project to/from a SQLite project file: creates the schema for new p...">ProjectRepository</a> and are not included here.</dd></dl>
 <p>Serializes the project to JSON: name, version, all devices (via the DeviceManager's current devices), and all tasks. </p><dl class="section return"><dt>Returns</dt><dd>the serialized project </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00213">213</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00202">202</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00175">m_deviceManager</a>, <a class="el" href="project_8h_source.html#l00168">m_name</a>, <a class="el" href="project_8h_source.html#l00177">m_tasks</a>, and <a class="el" href="project_8h_source.html#l00171">m_version</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00202">m_deviceManager</a>, <a class="el" href="project_8h_source.html#l00195">m_name</a>, <a class="el" href="project_8h_source.html#l00204">m_tasks</a>, and <a class="el" href="project_8h_source.html#l00198">m_version</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>.</p>
 
@@ -1250,7 +1271,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Unassigns the given device from the given task: looks up both by id, then calls <a class="el" href="classvc_1_1model_1_1_i_task.html#a23358c85d24b378c9dde00a7d42e8dca">ITask::unassignDevice()</a> and clears the device's assigned task id. </p><dl class="section return"><dt>Returns</dt><dd>false if either the task or the device cannot be found</dd></dl>
+<p>Unassigns the given device from the given task: looks up both by id, then calls <a class="el" href="classvc_1_1model_1_1_i_task.html#a23358c85d24b378c9dde00a7d42e8dca" title="Removes deviceId from the assigned-device set. Emits devicesChanged() only if the id was actually pre...">ITask::unassignDevice()</a> and clears the device's assigned task id. </p><dl class="section return"><dt>Returns</dt><dd>false if either the task or the device cannot be found</dd></dl>
 <p>Unassigns a device from a task: removes the device id from the task's assigned-device set and clears the device's recorded assigned task id. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">deviceId</td><td>id of the device to unassign </td></tr>
@@ -1261,7 +1282,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project_8cpp_source.html#l00147">147</a> of file <a class="el" href="project_8cpp_source.html">project.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8cpp_source.html#l00206">deviceById()</a>, and <a class="el" href="project_8cpp_source.html#l00161">taskById()</a>.</p>
+<p class="reference">References <a class="el" href="project_8cpp_source.html#l00195">deviceById()</a>, and <a class="el" href="project_8cpp_source.html#l00159">taskById()</a>.</p>
 
 </div>
 </div>
@@ -1290,9 +1311,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the last-updated timestamp string previously set via <a class="el" href="#a460a15511385595d283ca63b04527193" title="Sets the last-updated timestamp and unconditionally emits updatedAtChanged().">setUpdatedAt()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00048">48</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00056">56</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00170">m_description</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00197">m_description</a>.</p>
 
 </div>
 </div>
@@ -1350,9 +1371,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the project version string. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00044">44</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00052">52</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">References <a class="el" href="project_8h_source.html#l00168">m_name</a>, and <a class="el" href="project_8h_source.html#l00022">name</a>.</p>
+<p class="reference">References <a class="el" href="project_8h_source.html#l00195">m_name</a>, and <a class="el" href="project_8h_source.html#l00030">name</a>.</p>
 
 </div>
 </div>
@@ -1406,11 +1427,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classvc_1_1model_1_1_project.html">Project</a> author. </p>
+<p><a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a> author. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00169">169</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00196">196</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8h_source.html#l00046">createdAt()</a>, and <a class="el" href="project_8cpp_source.html#l00053">setAuthor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8h_source.html#l00054">createdAt()</a>, and <a class="el" href="project_8cpp_source.html#l00053">setAuthor()</a>.</p>
 
 </div>
 </div>
@@ -1436,7 +1457,7 @@ Private Attributes</h2></td></tr>
 
 <p>Creation timestamp, as set by <a class="el" href="#a7e29a79041bb188707dc690a799b5236" title="Sets the creation timestamp and unconditionally emits createdAtChanged().">setCreatedAt()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00172">172</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00199">199</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00068">setCreatedAt()</a>.</p>
 
@@ -1462,11 +1483,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classvc_1_1model_1_1_project.html">Project</a> description. </p>
+<p><a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a> description. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00170">170</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00197">197</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00047">setDescription()</a>, and <a class="el" href="project_8h_source.html#l00048">updatedAt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00047">setDescription()</a>, and <a class="el" href="project_8h_source.html#l00056">updatedAt()</a>.</p>
 
 </div>
 </div>
@@ -1492,9 +1513,9 @@ Private Attributes</h2></td></tr>
 
 <p>Owned manager for all registered devices. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00175">175</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00202">202</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00206">deviceById()</a>, <a class="el" href="project_8cpp_source.html#l00200">deviceManager()</a>, <a class="el" href="project_8cpp_source.html#l00247">fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00015">Project()</a>, and <a class="el" href="project_8cpp_source.html#l00213">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00195">deviceById()</a>, <a class="el" href="project_8cpp_source.html#l00189">deviceManager()</a>, <a class="el" href="project_8cpp_source.html#l00236">fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00015">Project()</a>, and <a class="el" href="project_8cpp_source.html#l00202">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1518,11 +1539,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classvc_1_1model_1_1_project.html">Project</a> name. </p>
+<p><a class="el" href="classvc_1_1model_1_1_project.html" title="Aggregate root of a picking-configuration project.">Project</a> name. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00168">168</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00195">195</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00247">fromJson()</a>, <a class="el" href="#a45aa3f65aa2eed6b038407efa167798c">nameChanged()</a>, <a class="el" href="project_8cpp_source.html#l00040">setName()</a>, <a class="el" href="project_8cpp_source.html#l00213">toJson()</a>, and <a class="el" href="project_8h_source.html#l00044">version()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00236">fromJson()</a>, <a class="el" href="#a45aa3f65aa2eed6b038407efa167798c">nameChanged()</a>, <a class="el" href="project_8cpp_source.html#l00040">setName()</a>, <a class="el" href="project_8cpp_source.html#l00202">toJson()</a>, and <a class="el" href="project_8h_source.html#l00052">version()</a>.</p>
 
 </div>
 </div>
@@ -1548,9 +1569,9 @@ Private Attributes</h2></td></tr>
 
 <p>Task names currently in use in this project. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00179">179</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00206">206</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">addTask()</a>, <a class="el" href="project_8cpp_source.html#l00177">changeTaskName()</a>, and <a class="el" href="project_8cpp_source.html#l00195">isTaskNameOccupied()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">addTask()</a>, <a class="el" href="project_8cpp_source.html#l00166">changeTaskName()</a>, and <a class="el" href="project_8cpp_source.html#l00184">isTaskNameOccupied()</a>.</p>
 
 </div>
 </div>
@@ -1576,9 +1597,9 @@ Private Attributes</h2></td></tr>
 
 <p>Tasks owned by this project, keyed by task id. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00177">177</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00204">204</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">addTask()</a>, <a class="el" href="project_8cpp_source.html#l00177">changeTaskName()</a>, <a class="el" href="project_8cpp_source.html#l00247">fromJson()</a>, <a class="el" href="project_8h_source.html#l00096">getCurrentTasks()</a>, <a class="el" href="#a45aa3f65aa2eed6b038407efa167798c">nameChanged()</a>, <a class="el" href="project_8cpp_source.html#l00117">removeTask()</a>, <a class="el" href="project_8cpp_source.html#l00161">taskById()</a>, and <a class="el" href="project_8cpp_source.html#l00213">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00083">addTask()</a>, <a class="el" href="project_8cpp_source.html#l00166">changeTaskName()</a>, <a class="el" href="project_8cpp_source.html#l00236">fromJson()</a>, <a class="el" href="project_8h_source.html#l00112">getCurrentTasks()</a>, <a class="el" href="#a45aa3f65aa2eed6b038407efa167798c">nameChanged()</a>, <a class="el" href="project_8cpp_source.html#l00117">removeTask()</a>, <a class="el" href="project_8cpp_source.html#l00159">taskById()</a>, and <a class="el" href="project_8cpp_source.html#l00202">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1604,7 +1625,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last-updated timestamp, as set by <a class="el" href="#a460a15511385595d283ca63b04527193" title="Sets the last-updated timestamp and unconditionally emits updatedAtChanged().">setUpdatedAt()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00173">173</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00200">200</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00075">setUpdatedAt()</a>.</p>
 
@@ -1632,9 +1653,9 @@ Private Attributes</h2></td></tr>
 
 <p>Project/schema version string; defaults to "0.1". </p>
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00171">171</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00198">198</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00247">fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00060">setVersion()</a>, and <a class="el" href="project_8cpp_source.html#l00213">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00236">fromJson()</a>, <a class="el" href="project_8cpp_source.html#l00060">setVersion()</a>, and <a class="el" href="project_8cpp_source.html#l00202">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1659,7 +1680,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00024">24</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00032">32</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 </div>
 </div>
@@ -1683,9 +1704,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00022">22</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00030">30</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00177">changeTaskName()</a>, <a class="el" href="project_8cpp_source.html#l00247">fromJson()</a>, <a class="el" href="project_8h_source.html#l00096">getCurrentTasks()</a>, <a class="el" href="project_8cpp_source.html#l00195">isTaskNameOccupied()</a>, <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>, and <a class="el" href="project_8h_source.html#l00044">version()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project_8cpp_source.html#l00166">changeTaskName()</a>, <a class="el" href="project_8cpp_source.html#l00236">fromJson()</a>, <a class="el" href="project_8h_source.html#l00112">getCurrentTasks()</a>, <a class="el" href="project_8cpp_source.html#l00184">isTaskNameOccupied()</a>, <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>, and <a class="el" href="project_8h_source.html#l00052">version()</a>.</p>
 
 </div>
 </div>
@@ -1709,7 +1730,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00025">25</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00033">33</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>.</p>
 
@@ -1735,15 +1756,15 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00023">23</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project_8h_source.html#l00031">31</a> of file <a class="el" href="project_8h_source.html">project.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__repository_8cpp_source.html#l00167">vc::model::ProjectRepository::save()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="project_8h_source.html">project.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="project_8cpp_source.html">project.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="project_8h_source.html">project.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="project_8cpp_source.html">project.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

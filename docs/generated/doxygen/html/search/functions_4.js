@@ -102,7 +102,7 @@ var searchData=
   ['draw_5fstartroi_99',['draw_startROI',['../class_image_widget.html#a664b2db1800b7bb565c2af1010501356',1,'ImageWidget']]],
   ['draw_5fupdateroi_100',['draw_updateROI',['../class_image_widget.html#a7302d1e19a0fc2eaa041e282dd18fc2b',1,'ImageWidget']]],
   ['drawaxes2img_101',['drawAxes2Img',['../classvsu.html#a8c568cfd105ce8a1fa8d0c27edcfda33',1,'vsu']]],
-  ['drawgripperboxtoimage_102',['drawGripperBoxToImage',['../classmtc_1_1_matched_object.html#a70ff0a4a76d7e0ed58c35256acd90157',1,'mtc::MatchedObject']]],
+  ['drawcollisiongeometrytoimage_102',['drawCollisionGeometryToImage',['../classmtc_1_1_matched_object.html#a1080a325f85fc107599bca04a682b42e',1,'mtc::MatchedObject']]],
   ['drawmaskintoimage_103',['drawMaskIntoImage',['../classmtc_1_1_matched_object.html#a767b07bb0cb0a101e8e2c2b284881ff0',1,'mtc::MatchedObject']]],
   ['drawmaskpatternintoimage_104',['drawMaskPatternIntoImage',['../classmtc_1_1_matched_object.html#ad642e727d3e34a8fc931e9a6f1e1fe25',1,'mtc::MatchedObject']]],
   ['drawmatchresult_105',['DrawMatchResult',['../classmtc_1_1_image_matcher.html#a2493ffd9c9a105130502a0f75fef588f',1,'mtc::ImageMatcher']]],

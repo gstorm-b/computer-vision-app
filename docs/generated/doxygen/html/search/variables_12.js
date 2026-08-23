@@ -43,5 +43,8 @@ var searchData=
   ['rows_40',['rows',['../structcalib_1_1_fanuc_i_rvision_board_1_1_params.html#a014ab222f627f5b233f8011299f2ee34',1,'calib::FanucIRvisionBoard::Params::rows'],['../structvc_1_1model_1_1_localization_runtime_controller_1_1_cycle_result.html#a8bb83712884b0b25213e617e8783bdcc',1,'vc::model::LocalizationRuntimeController::CycleResult::rows']]],
   ['rpy_5frad_41',['rpy_rad',['../struct_robot_kinematics_1_1anonymous__namespace_02_stl_primitive_authoring_helper_8cpp_03_1_1_proposed_geometry_data.html#a445e3239f2747a1d493eff9face76f83',1,'RobotKinematics::anonymous_namespace{StlPrimitiveAuthoringHelper.cpp}::ProposedGeometryData']]],
   ['runner_42',['runner',['../structvc_1_1model_1_1_localization_runtime_controller_1_1_role_recovery_context.html#ae79943662dd823e296fbc39125516a3d',1,'vc::model::LocalizationRuntimeController::RoleRecoveryContext']]],
-  ['runtimesignalvalues_43',['runtimeSignalValues',['../struct_vision_result_overlay.html#a15586e8a469983686613717adf87aa2d',1,'VisionResultOverlay']]]
+  ['runtimesignalvalues_43',['runtimeSignalValues',['../struct_vision_result_overlay.html#a15586e8a469983686613717adf87aa2d',1,'VisionResultOverlay']]],
+  ['rx_44',['rx',['../structvc_1_1device_1_1_vision_output_position.html#a88e07fa8f0e570924373b97f7955f1e2',1,'vc::device::VisionOutputPosition']]],
+  ['ry_45',['ry',['../structvc_1_1device_1_1_vision_output_position.html#a8bc55c0a010169ca7148e3d4a209ba4a',1,'vc::device::VisionOutputPosition']]],
+  ['rz_46',['rz',['../structvc_1_1device_1_1_vision_output_position.html#a6783587bf7b927b42037a42430c14e37',1,'vc::device::VisionOutputPosition']]]
 ];

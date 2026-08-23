@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_vision_n
 </div><!--header-->
 <div class="contents">
 
+<p>Form widget showing/editing a single <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a>'s numeric fields (center X/Y, width, height, angle) via spin boxes; edits are clamped to the current image bounds and re-emitted through <a class="el" href="#adba1dc7a9e54efe70be63b5d6aee48eb">roiEdited()</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for VisionNumericInspector:</div>
@@ -144,6 +147,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4def72d873c22f385c7af5299bd508cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the image bounds used to clamp ROI edits and constrain the spin box ranges.  <br /></td></tr>
 <tr class="memitem:a0b99d8484ac3c61e897b1cf6c98b79d1" id="r_a0b99d8484ac3c61e897b1cf6c98b79d1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0b99d8484ac3c61e897b1cf6c98b79d1">setSelectedRoi</a> (const <a class="el" href="struct_vision_roi.html">VisionRoi</a> &amp;roi)</td></tr>
 <tr class="memitem:a6e53660797e91862e75ce9ab7a97c282" id="r_a6e53660797e91862e75ce9ab7a97c282"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6e53660797e91862e75ce9ab7a97c282">VisionNumericInspector</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a6e53660797e91862e75ce9ab7a97c282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the widget: builds the form layout with the title label and the center/width/height/angle spin boxes, starting in the "no selection" state.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-slots" class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
@@ -177,9 +181,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a9b30ebfcef4e806d3948a435b52710ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Editor for the ROI width.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Form widget showing/editing a single <a class="el" href="struct_vision_roi.html">VisionRoi</a>'s numeric fields (center X/Y, width, height, angle) via spin boxes; edits are clamped to the current image bounds and re-emitted through <a class="el" href="#adba1dc7a9e54efe70be63b5d6aee48eb">roiEdited()</a>. </p>
+<div class="textblock"><p>Form widget showing/editing a single <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a>'s numeric fields (center X/Y, width, height, angle) via spin boxes; edits are clamped to the current image bounds and re-emitted through <a class="el" href="#adba1dc7a9e54efe70be63b5d6aee48eb">roiEdited()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00015">15</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00023">23</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6e53660797e91862e75ce9ab7a97c282" name="a6e53660797e91862e75ce9ab7a97c282"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e53660797e91862e75ce9ab7a97c282">&#9670;&#160;</a></span>VisionNumericInspector()</h2>
@@ -203,11 +207,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Constructs the widget: builds the form layout with the title label and the center/width/height/angle spin boxes, starting in the "no selection" state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Optional owning widget; standard Qt parent/child ownership.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Builds the form layout (title label plus center X/Y, width, height, and angle spin boxes), wires every spin box's valueChanged to <a class="el" href="#a70c3f906dc34ab5653a2168cb3ed4ec2">emitEditedRoi()</a>, and starts in the cleared/no-selection state. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">28</a> of file <a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00089">clearSelection()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00097">emitEditedRoi()</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00064">m_angleSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00060">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00061">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00063">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00059">m_titleLabel</a>, and <a class="el" href="vision__numeric__inspector_8h_source.html#l00062">m_widthSpin</a>.</p>
+<p class="reference">References <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00089">clearSelection()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00097">emitEditedRoi()</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00077">m_angleSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00073">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00074">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00076">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00072">m_titleLabel</a>, and <a class="el" href="vision__numeric__inspector_8h_source.html#l00075">m_widthSpin</a>.</p>
 
 </div>
 </div>
@@ -231,7 +243,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00089">89</a> of file <a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__numeric__inspector_8h_source.html#l00057">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00058">m_hasSelection</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00059">m_titleLabel</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>.</p>
+<p class="reference">References <a class="el" href="vision__numeric__inspector_8h_source.html#l00070">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00071">m_hasSelection</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00072">m_titleLabel</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">VisionNumericInspector()</a>.</p>
 
@@ -259,11 +271,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds a <a class="el" href="struct_vision_roi.html">VisionRoi</a> from m_currentRoi plus the current spin box values (angle is taken from the field only for RotatedRect, otherwise forced to 0). </p>
+<p>Builds a <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> from m_currentRoi plus the current spin box values (angle is taken from the field only for RotatedRect, otherwise forced to 0). </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">114</a> of file <a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00030">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00028">VisionRoi::center</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00064">m_angleSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00060">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00061">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00057">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00063">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00062">m_widthSpin</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00018">RotatedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">VisionRoi::shape</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00029">VisionRoi::size</a>.</p>
+<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00042">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00040">VisionRoi::center</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00077">m_angleSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00073">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00074">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00070">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00076">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00075">m_widthSpin</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">RotatedRect</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00039">VisionRoi::shape</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00041">VisionRoi::size</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00097">emitEditedRoi()</a>.</p>
 
@@ -295,7 +307,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00097">97</a> of file <a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00070">vision::clampRoiToImage()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">currentRoiFromFields()</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00057">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00058">m_hasSelection</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00056">m_imageSize</a>, and <a class="el" href="#adba1dc7a9e54efe70be63b5d6aee48eb">roiEdited()</a>.</p>
+<p class="reference">References <a class="el" href="vision__geometry_8cpp_source.html#l00070">vision::clampRoiToImage()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">currentRoiFromFields()</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00070">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00071">m_hasSelection</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00069">m_imageSize</a>, and <a class="el" href="#adba1dc7a9e54efe70be63b5d6aee48eb">roiEdited()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">VisionNumericInspector()</a>.</p>
 
@@ -355,7 +367,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">105</a> of file <a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__numeric__inspector_8h_source.html#l00064">m_angleSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00060">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00061">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00057">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00063">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00062">m_widthSpin</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00018">RotatedRect</a>.</p>
+<p class="reference">References <a class="el" href="vision__numeric__inspector_8h_source.html#l00077">m_angleSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00073">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00074">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00070">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00076">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00075">m_widthSpin</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00027">RotatedRect</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00089">clearSelection()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>.</p>
 
@@ -380,7 +392,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00058">58</a> of file <a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__numeric__inspector_8h_source.html#l00056">m_imageSize</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>.</p>
+<p class="reference">References <a class="el" href="vision__numeric__inspector_8h_source.html#l00069">m_imageSize</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>.</p>
 
 </div>
 </div>
@@ -398,11 +410,11 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Populates the fields from <span class="tt">roi</span> and enables editing; the angle field is enabled only when <span class="tt">roi.shape</span> is <a class="el" href="vision__overlay__types_8h.html#a841947179f71d7030aa9c94889d87da5abc06efdbca29d4bc6a8ae95a7b1d881e">VisionRoiShape::RotatedRect</a>. Selection is considered valid only if <span class="tt">roi.id</span> is non-empty and <span class="tt">roi.isValid()</span>. </p>
+<p>Populates the fields from <span class="tt">roi</span> and enables editing; the angle field is enabled only when <span class="tt">roi.shape</span> is <a class="el" href="vision__overlay__types_8h.html#a841947179f71d7030aa9c94889d87da5abc06efdbca29d4bc6a8ae95a7b1d881e" title="Rectangle that may carry a non-zero rotation angle.">VisionRoiShape::RotatedRect</a>. Selection is considered valid only if <span class="tt">roi.id</span> is non-empty and <span class="tt">roi.isValid()</span>. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">64</a> of file <a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00030">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00028">VisionRoi::center</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00025">VisionRoi::id</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00038">VisionRoi::isValid()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00026">VisionRoi::label</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00064">m_angleSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00060">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00061">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00057">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00058">m_hasSelection</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00063">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00059">m_titleLabel</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00062">m_widthSpin</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00018">RotatedRect</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">VisionRoi::shape</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00029">VisionRoi::size</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>.</p>
+<p class="reference">References <a class="el" href="vision__overlay__types_8h_source.html#l00042">VisionRoi::angleDeg</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00040">VisionRoi::center</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00037">VisionRoi::id</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00050">VisionRoi::isValid()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00038">VisionRoi::label</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00077">m_angleSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00073">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00074">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00070">m_currentRoi</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00071">m_hasSelection</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00076">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00072">m_titleLabel</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00075">m_widthSpin</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">RotatedRect</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00039">VisionRoi::shape</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00041">VisionRoi::size</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>.</p>
 
 </div>
 </div>
@@ -432,7 +444,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">125</a> of file <a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__numeric__inspector_8h_source.html#l00060">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00061">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00063">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00056">m_imageSize</a>, and <a class="el" href="vision__numeric__inspector_8h_source.html#l00062">m_widthSpin</a>.</p>
+<p class="reference">References <a class="el" href="vision__numeric__inspector_8h_source.html#l00073">m_centerXSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00074">m_centerYSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00076">m_heightSpin</a>, <a class="el" href="vision__numeric__inspector_8h_source.html#l00069">m_imageSize</a>, and <a class="el" href="vision__numeric__inspector_8h_source.html#l00075">m_widthSpin</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00058">setImageSize()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>.</p>
 
@@ -461,7 +473,7 @@ Private Attributes</h2></td></tr>
 
 <p>Editor for the ROI rotation angle; enabled only for RotatedRect ROIs. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00064">64</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00077">77</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">currentRoiFromFields()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">VisionNumericInspector()</a>.</p>
 
@@ -489,7 +501,7 @@ Private Attributes</h2></td></tr>
 
 <p>Editor for the ROI center X coordinate. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00060">60</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00073">73</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">currentRoiFromFields()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">VisionNumericInspector()</a>.</p>
 
@@ -517,7 +529,7 @@ Private Attributes</h2></td></tr>
 
 <p>Editor for the ROI center Y coordinate. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00061">61</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00074">74</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">currentRoiFromFields()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">VisionNumericInspector()</a>.</p>
 
@@ -545,7 +557,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last ROI set via <a class="el" href="#a0b99d8484ac3c61e897b1cf6c98b79d1">setSelectedRoi()</a>, used as the base for field edits. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00057">57</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00070">70</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00089">clearSelection()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">currentRoiFromFields()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00097">emitEditedRoi()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>.</p>
 
@@ -573,7 +585,7 @@ Private Attributes</h2></td></tr>
 
 <p>Whether a valid ROI is currently selected (controls field enablement and edit emission). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00058">58</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00071">71</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00089">clearSelection()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00097">emitEditedRoi()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>.</p>
 
@@ -601,7 +613,7 @@ Private Attributes</h2></td></tr>
 
 <p>Editor for the ROI height. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00063">63</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00076">76</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">currentRoiFromFields()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">VisionNumericInspector()</a>.</p>
 
@@ -629,7 +641,7 @@ Private Attributes</h2></td></tr>
 
 <p>Current image bounds used to clamp edits and size the spin box ranges. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00056">56</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00069">69</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00097">emitEditedRoi()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00058">setImageSize()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>.</p>
 
@@ -657,7 +669,7 @@ Private Attributes</h2></td></tr>
 
 <p>Label showing the selected ROI's name or "No ROI selected". </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00059">59</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00072">72</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00089">clearSelection()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">VisionNumericInspector()</a>.</p>
 
@@ -685,15 +697,15 @@ Private Attributes</h2></td></tr>
 
 <p>Editor for the ROI width. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00062">62</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__numeric__inspector_8h_source.html#l00075">75</a> of file <a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00114">currentRoiFromFields()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00105">setFieldsEnabled()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00064">setSelectedRoi()</a>, <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00125">updateRanges()</a>, and <a class="el" href="vision__numeric__inspector_8cpp_source.html#l00028">VisionNumericInspector()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__numeric__inspector_8h_source.html">vision_numeric_inspector.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__numeric__inspector_8cpp_source.html">vision_numeric_inspector.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

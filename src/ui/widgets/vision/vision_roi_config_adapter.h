@@ -8,10 +8,18 @@
 #include "matching/match_pattern_config.h"
 #include "ui/widgets/vision/vision_overlay_types.h"
 
-/// Adapter that holds per-pattern ROI overlays for the UI session, keyed by
-/// group/pattern number. `mtc::MatchPatternConfig` currently has no dedicated ROI
-/// field, so ROIs are kept in-memory only (`config` is accepted for future use but
-/// otherwise unused) and are lost when the session ends.
+/**
+ * @file vision_roi_config_adapter.h
+ * @brief VisionRoiConfigAdapter — in-session, per-pattern ROI overlay cache.
+ */
+
+/**
+ * @class VisionRoiConfigAdapter
+ * @brief Adapter that holds per-pattern ROI overlays for the UI session, keyed by
+ *        group/pattern number. `mtc::MatchPatternConfig` currently has no dedicated ROI
+ *        field, so ROIs are kept in-memory only (`config` is accepted for future use but
+ *        otherwise unused) and are lost when the session ends.
+ */
 class VisionRoiConfigAdapter {
 public:
     /// Returns the ROIs previously saved for (`groupNumber`, `patternNumber`) in this

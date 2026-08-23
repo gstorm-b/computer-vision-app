@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/output_device/vision_output_device.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/output_device/vision_output_device.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('vision__output
   <div class="headertitle"><div class="title">vision_output_device.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Abstract device classes for the vision-output device family (the software side that streams matching results / raw bytes out to an external system).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="idevice_8h_source.html">device/idevice.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="device__capabilities_8h_source.html">device/device_capabilities.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vision__output__config_8h_source.html">device/output_device/vision_output_config.h</a>&quot;</code><br />
@@ -139,19 +142,24 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AVisionOutputDevice" id="r_vc_3A_3Adevice_3A_3AVisionOutputDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_vision_output_device.html">vc::device::VisionOutputDevice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for the vision-output device family. Concrete vendors (<a class="el" href="classvc_1_1device_1_1_vision_tcpip_device.html" title="TCP/IP server transport of the vision-output family: listens on two ports (main + heartbeat),...">VisionTcpipDevice</a>, future VisionSerialDevice, …) inherit from this base. The base only carries the family-level dispatch (<a class="el" href="classvc_1_1device_1_1_vision_output_device.html#a76dcbf941f7c3a508788003aa7ad22f4">visionOutputType()</a>) and the family JSON header; transport-specific surface (TCP servers / serial port / heartbeat) lives entirely on the concrete subclass.  <a href="classvc_1_1device_1_1_vision_output_device.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:aa07aee37b7a23dfdb73eb5aa91ecb24d" id="r_aa07aee37b7a23dfdb73eb5aa91ecb24d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa07aee37b7a23dfdb73eb5aa91ecb24d">VISION_OUTPUT_TYPE_SERIAL</a>&#160;&#160;&#160;&quot;VisionSerial&quot;</td></tr>
 <tr class="memitem:ae9bc133eb0af143bff8bcce7acf8f711" id="r_ae9bc133eb0af143bff8bcce7acf8f711"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae9bc133eb0af143bff8bcce7acf8f711">VISION_OUTPUT_TYPE_TCPIP</a>&#160;&#160;&#160;&quot;VisionTCPIP&quot;</td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract device classes for the vision-output device family (the software side that streams matching results / raw bytes out to an external system). </p>
+
+<p class="definition">Definition in file <a class="el" href="vision__output__device_8h_source.html">vision_output_device.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="aa07aee37b7a23dfdb73eb5aa91ecb24d" name="aa07aee37b7a23dfdb73eb5aa91ecb24d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa07aee37b7a23dfdb73eb5aa91ecb24d">&#9670;&#160;</a></span>VISION_OUTPUT_TYPE_SERIAL</h2>
 
@@ -164,7 +172,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vision__output__device_8h_source.html#l00010">10</a> of file <a class="el" href="vision__output__device_8h_source.html">vision_output_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__device_8h_source.html#l00016">16</a> of file <a class="el" href="vision__output__device_8h_source.html">vision_output_device.h</a>.</p>
 
 </div>
 </div>
@@ -180,7 +188,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vision__output__device_8h_source.html#l00009">9</a> of file <a class="el" href="vision__output__device_8h_source.html">vision_output_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__device_8h_source.html#l00015">15</a> of file <a class="el" href="vision__output__device_8h_source.html">vision_output_device.h</a>.</p>
 
 </div>
 </div>

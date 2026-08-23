@@ -10,14 +10,29 @@ class VisionCanvas;
 class VisionNumericInspector;
 class VisionToolPalette;
 
-/// Composite ROI editing widget combining a VisionToolPalette (mode/undo/redo/delete
-/// controls), a VisionCanvas (image + interactive ROI overlay), and a VisionNumericInspector
-/// (numeric edit fields for the selected ROI) in a single vertical layout, and wiring the
-/// signal/slot connections between them.
+/**
+ * @file vision_roi_editor_widget.h
+ * @brief VisionRoiEditorWidget — composite tool palette + canvas + numeric inspector
+ *        ROI editing widget.
+ */
+
+/**
+ * @class VisionRoiEditorWidget
+ * @brief Composite ROI editing widget combining a VisionToolPalette (mode/undo/redo/delete
+ *        controls), a VisionCanvas (image + interactive ROI overlay), and a VisionNumericInspector
+ *        (numeric edit fields for the selected ROI) in a single vertical layout, and wiring the
+ *        signal/slot connections between them.
+ */
 class VisionRoiEditorWidget : public QWidget {
     Q_OBJECT
 
 public:
+    /**
+     * @brief Constructs the widget: creates the tool palette, canvas, and numeric
+     *        inspector (each parented to this widget), stacks them vertically, and
+     *        wires their signal/slot connections together.
+     * @param[in] parent Optional owning widget; standard Qt parent/child ownership.
+     */
     explicit VisionRoiEditorWidget(QWidget *parent = nullptr);
 
     /// Sets the background image to display from an OpenCV matrix and updates the numeric

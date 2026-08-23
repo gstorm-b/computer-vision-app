@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_signals_
 </div><!--header-->
 <div class="contents">
 
+<p>Read-only monitor of "task signals" already mapped via <a class="el" href="class_signals_map_widget.html" title="3-column table that maps &quot;task signals&quot; (logical names declared by a task, e.g. &quot;Camera selection&quot;,...">SignalsMapWidget</a>. One row per logical signal slot, four columns per row:  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SignalsMonitorWidget:</div>
@@ -137,17 +140,21 @@ Public Types</h2></td></tr>
 <tr class="memitem:aa47b88f9e86aef13ad714e13ac397444" id="r_aa47b88f9e86aef13ad714e13ac397444"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa47b88f9e86aef13ad714e13ac397444">Type</a> { <a class="el" href="#aa47b88f9e86aef13ad714e13ac397444ab2ee912b91d69b435159c7c3f6df7f5f">Number</a>
 , <a class="el" href="#aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034">Bool</a>
  }</td></tr>
+<tr class="memdesc:aa47b88f9e86aef13ad714e13ac397444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal value kind driving row rendering: a numeric readout or an ON/OFF pill with rising-edge detection.  <a href="#aa47b88f9e86aef13ad714e13ac397444">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a1d114bd960109d18a844bf479475fdd9" id="r_a1d114bd960109d18a844bf479475fdd9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1d114bd960109d18a844bf479475fdd9">requestWriteValue</a> (const QString &amp;internalName, const QVariant &amp;value)</td></tr>
+<tr class="memdesc:a1d114bd960109d18a844bf479475fdd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted after the user confirms a new value in the Modify dialog. The owner routes the write to the device runner; the widget does not self-update — call <a class="el" href="#ae2ee5dbdfa85035e3ab44c7800ecb3f3">refreshBool()</a>/refreshNumber() when the device echoes the new value.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5da6bbff480718fff05c3f1f83a5c4ac" id="r_a5da6bbff480718fff05c3f1f83a5c4ac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5da6bbff480718fff05c3f1f83a5c4ac">appendRow</a> (const QString &amp;internalName, const QString &amp;displayName, <a class="el" href="#aa47b88f9e86aef13ad714e13ac397444">Type</a> type)</td></tr>
+<tr class="memdesc:a5da6bbff480718fff05c3f1f83a5c4ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a new row for <span class="tt">internalName</span> to the end of the list. A no-op (with a logged warning) if <span class="tt">internalName</span> already exists.  <br /></td></tr>
 <tr class="memitem:a2b53ff0a9d83ad5e7dd8b90751b77535" id="r_a2b53ff0a9d83ad5e7dd8b90751b77535"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2b53ff0a9d83ad5e7dd8b90751b77535">clearRows</a> ()</td></tr>
 <tr class="memdesc:a2b53ff0a9d83ad5e7dd8b90751b77535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all rows from the monitor.  <br /></td></tr>
 <tr class="memitem:a1ce8b966c7ce404af06fc8e8349c97a5" id="r_a1ce8b966c7ce404af06fc8e8349c97a5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1ce8b966c7ce404af06fc8e8349c97a5">insertRowAt</a> (int row, const QString &amp;internalName, const QString &amp;displayName, <a class="el" href="#aa47b88f9e86aef13ad714e13ac397444">Type</a> type)</td></tr>
+<tr class="memdesc:a1ce8b966c7ce404af06fc8e8349c97a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a new row for <span class="tt">internalName</span> at position <span class="tt">row</span> (clamped to the current row count). A no-op (with a logged warning) if <span class="tt">internalName</span> already exists.  <br /></td></tr>
 <tr class="memitem:a5b802e0850b80048c65dc13db4562a09" id="r_a5b802e0850b80048c65dc13db4562a09"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5b802e0850b80048c65dc13db4562a09">isDeviceConnected</a> () const</td></tr>
 <tr class="memdesc:a5b802e0850b80048c65dc13db4562a09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the device is currently marked as connected.  <br /></td></tr>
 <tr class="memitem:ae2ee5dbdfa85035e3ab44c7800ecb3f3" id="r_ae2ee5dbdfa85035e3ab44c7800ecb3f3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae2ee5dbdfa85035e3ab44c7800ecb3f3">refreshBool</a> (const QString &amp;internalName, bool value)</td></tr>
@@ -179,19 +186,19 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a40b2b4e51a0671eadf774776e552b804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row widgets, in display order.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Read-only monitor of "task signals" already mapped via <a class="el" href="class_signals_map_widget.html">SignalsMapWidget</a>. One row per logical signal slot, four columns per row:</p>
+<div class="textblock"><p>Read-only monitor of "task signals" already mapped via <a class="el" href="class_signals_map_widget.html" title="3-column table that maps &quot;task signals&quot; (logical names declared by a task, e.g. &quot;Camera selection&quot;,...">SignalsMapWidget</a>. One row per logical signal slot, four columns per row: </p>
 <p><span class="tt">&lt;signal display name&gt; | &lt;type chip&gt; | &lt;current value&gt; | [Modify]</span></p>
 <p>The widget is task-agnostic and device-agnostic. The owner page is responsible for:</p><ul>
-<li><a class="el" href="#a5da6bbff480718fff05c3f1f83a5c4ac">appendRow()</a> the schema (mirrors <a class="el" href="class_signals_map_widget.html">SignalsMapWidget</a>'s setup).</li>
+<li><a class="el" href="#a5da6bbff480718fff05c3f1f83a5c4ac" title="Appends a new row for internalName to the end of the list. A no-op (with a logged warning) if interna...">appendRow()</a> the schema (mirrors <a class="el" href="class_signals_map_widget.html" title="3-column table that maps &quot;task signals&quot; (logical names declared by a task, e.g. &quot;Camera selection&quot;,...">SignalsMapWidget</a>'s setup).</li>
 <li><a class="el" href="#ada3c26b7c202c09e999684c01d6cf67e">setRowTag()</a> with the tag bound to each signal from the task config.</li>
 <li><a class="el" href="#ae2ee5dbdfa85035e3ab44c7800ecb3f3">refreshBool()</a> / <a class="el" href="#a1e0658ba8990d891e3646f6e45485998">refreshNumber()</a> with live values keyed by tag-name.</li>
 <li><a class="el" href="#a3cb0c176c4a31e406bacd6bbb1b65d2d">setDeviceConnected()</a> to gate the Modify button.</li>
-<li>Listening to <a class="el" href="#a1d114bd960109d18a844bf479475fdd9">requestWriteValue()</a> and routing to the device runner.</li>
+<li>Listening to <a class="el" href="#a1d114bd960109d18a844bf479475fdd9" title="Emitted after the user confirms a new value in the Modify dialog. The owner routes the write to the d...">requestWriteValue()</a> and routing to the device runner.</li>
 </ul>
 <p>Container is a QListWidget with one custom row widget per item. Column widths are auto-sized to the widest content of each column across all rows, so every column visually aligns even though each row is its own widget. See <a class="el" href="#ace7fd2de89814423a3b2a97666a68fba">relayoutColumns()</a>.</p>
 <p>Bool rows track OFF-&gt;ON-&gt;OFF transitions that complete inside 200 ms and surface a "Rising edge" chip next to the ON/OFF chip. The chip auto- hides after 2 s; a new rising-edge event while it is still visible triggers a single blink (hide 500 ms, then show again, hide timer restarts). </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00038">38</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00047">47</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="aa47b88f9e86aef13ad714e13ac397444" name="aa47b88f9e86aef13ad714e13ac397444"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa47b88f9e86aef13ad714e13ac397444">&#9670;&#160;</a></span>Type</h2>
@@ -212,13 +219,14 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
 <p>Signal value kind driving row rendering: a numeric readout or an ON/OFF pill with rising-edge detection. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa47b88f9e86aef13ad714e13ac397444ab2ee912b91d69b435159c7c3f6df7f5f" name="aa47b88f9e86aef13ad714e13ac397444ab2ee912b91d69b435159c7c3f6df7f5f"></a>Number&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034" name="aa47b88f9e86aef13ad714e13ac397444ac26f15e86e3de4c398a8273272aba034"></a>Bool&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00045">45</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00057">57</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
 
 </div>
 </div>
@@ -247,11 +255,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs an empty monitor (no rows) and loads the theme stylesheet. </p>
-<p>Builds the widget's layout: a single <a class="el" href="class_flat_list_widget.html">FlatListWidget</a> (no selection, no keyboard focus, per-pixel vertical scrolling) that will hold one <a class="el" href="class_row_widget.html">RowWidget</a> per signal, loads the theme-appropriate stylesheet, and reloads it whenever <a class="el" href="class_theme_manager.html">ThemeManager</a> reports a theme change. </p>
+<p>Builds the widget's layout: a single <a class="el" href="class_flat_list_widget.html" title="Thin QListWidget subclass giving flat (borderless, no hover/selection highlight) row-based lists a di...">FlatListWidget</a> (no selection, no keyboard focus, per-pixel vertical scrolling) that will hold one <a class="el" href="class_row_widget.html">RowWidget</a> per signal, loads the theme-appropriate stylesheet, and reloads it whenever <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> reports a theme change. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00490">490</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00124">m_list</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00514">reloadStyleSheet()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00142">m_list</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00514">reloadStyleSheet()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
 
 </div>
 </div>
@@ -307,11 +315,13 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Appends a new row for <span class="tt">internalName</span> to the end of the list. A no-op (with a logged warning) if <span class="tt">internalName</span> already exists. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Appends a new row for <span class="tt">internalName</span> to the end of the list. A no-op (with a logged warning) if <span class="tt">internalName</span> already exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">internalName</td><td>unique key identifying the row </td></tr>
-    <tr><td class="paramname">displayName</td><td>label shown in the name column </td></tr>
-    <tr><td class="paramname">type</td><td>value kind (Number or Bool), selects value-column rendering</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">internalName</td><td>unique key identifying the row </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">displayName</td><td>label shown in the name column </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>value kind (Number or Bool), selects value-column rendering</td></tr>
   </table>
   </dd>
 </dl>
@@ -319,7 +329,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00537">537</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">insertRowAt()</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">insertRowAt()</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>.</p>
 
 </div>
 </div>
@@ -343,7 +353,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00585">585</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00124">m_list</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00142">m_list</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>.</p>
 
 </div>
 </div>
@@ -375,12 +385,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Inserts a new row for <span class="tt">internalName</span> at position <span class="tt">row</span> (clamped to the current row count). A no-op (with a logged warning) if <span class="tt">internalName</span> already exists. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Inserts a new row for <span class="tt">internalName</span> at position <span class="tt">row</span> (clamped to the current row count). A no-op (with a logged warning) if <span class="tt">internalName</span> already exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">row</td><td>target index in the row list </td></tr>
-    <tr><td class="paramname">internalName</td><td>unique key identifying the row </td></tr>
-    <tr><td class="paramname">displayName</td><td>label shown in the name column </td></tr>
-    <tr><td class="paramname">type</td><td>value kind (Number or Bool), selects value-column rendering</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">row</td><td>target index in the row list </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">internalName</td><td>unique key identifying the row </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">displayName</td><td>label shown in the name column </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>value kind (Number or Bool), selects value-column rendering</td></tr>
   </table>
   </dd>
 </dl>
@@ -388,7 +400,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">548</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00127">m_deviceConnected</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00124">m_list</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>, <a class="el" href="classvc_1_1widgets_1_1sm__internal_1_1_row_widget.html#ab217b34df1286b18500de5b6ebc8f323">vc::widgets::sm_internal::RowWidget::modifyRequested()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00677">openModifyDialog()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00145">m_deviceConnected</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00142">m_list</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>, <a class="el" href="classvc_1_1widgets_1_1sm__internal_1_1_row_widget.html#ab217b34df1286b18500de5b6ebc8f323">vc::widgets::sm_internal::RowWidget::modifyRequested()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00677">openModifyDialog()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__monitor__widget_8cpp_source.html#l00537">appendRow()</a>.</p>
 
@@ -419,9 +431,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns whether the device is currently marked as connected. </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00099">99</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00115">115</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00127">m_deviceConnected</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00145">m_deviceConnected</a>.</p>
 
 </div>
 </div>
@@ -447,8 +459,8 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Opens the <a class="el" href="class_modify_value_dialog.html">ModifyValueDialog</a> seeded with <span class="tt">row</span>'s current value and, if accepted, emits <a class="el" href="#a1d114bd960109d18a844bf479475fdd9">requestWriteValue()</a> with the entered value.</p>
-<p>Opens the modal <a class="el" href="class_modify_value_dialog.html">ModifyValueDialog</a> seeded with <span class="tt">row</span>'s current value; on acceptance, emits <a class="el" href="#a1d114bd960109d18a844bf479475fdd9">requestWriteValue()</a> with the row's internalName and the chosen value (the widget does not apply the value itself). No-op if <span class="tt">row</span> is null or the dialog is cancelled. </p>
+<p>Opens the <a class="el" href="class_modify_value_dialog.html">ModifyValueDialog</a> seeded with <span class="tt">row</span>'s current value and, if accepted, emits <a class="el" href="#a1d114bd960109d18a844bf479475fdd9" title="Emitted after the user confirms a new value in the Modify dialog. The owner routes the write to the d...">requestWriteValue()</a> with the entered value.</p>
+<p>Opens the modal <a class="el" href="class_modify_value_dialog.html">ModifyValueDialog</a> seeded with <span class="tt">row</span>'s current value; on acceptance, emits <a class="el" href="#a1d114bd960109d18a844bf479475fdd9" title="Emitted after the user confirms a new value in the Modify dialog. The owner routes the write to the d...">requestWriteValue()</a> with the row's internalName and the chosen value (the widget does not apply the value itself). No-op if <span class="tt">row</span> is null or the dialog is cancelled. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00677">677</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
@@ -481,7 +493,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00611">611</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00045">Bool</a>, <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00057">Bool</a>, <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
 
 </div>
 </div>
@@ -508,7 +520,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00628">628</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00045">Number</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00057">Number</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
 
 </div>
 </div>
@@ -539,7 +551,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">653</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00124">m_list</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00142">m_list</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">insertRowAt()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00628">refreshNumber()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00576">removeRow()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00593">setRowTag()</a>.</p>
 
@@ -567,7 +579,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Reloads the dark/light QSS stylesheet from resources and applies it, resolving theme tokens via <a class="el" href="class_theme_manager.html">ThemeManager</a>.</p>
+<p>Reloads the dark/light QSS stylesheet from resources and applies it, resolving theme tokens via <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a>.</p>
 <p>Loads the dark or light QSS resource (per <a class="el" href="class_theme_manager.html#ad716928872f5da434bdd255a708dd718" title="Returns whether the currently active style is a dark theme.">ThemeManager::isDark()</a>), resolves its design-token placeholders, and applies it as the widget's stylesheet. No-op if the resource file cannot be opened. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00514">514</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
@@ -598,7 +610,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00576">576</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00124">m_list</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00142">m_list</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
 
 </div>
 </div>
@@ -628,10 +640,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Emitted after the user confirms a new value in the Modify dialog. The owner routes the write to the device runner; the widget does not self-update — call <a class="el" href="#ae2ee5dbdfa85035e3ab44c7800ecb3f3">refreshBool()</a>/refreshNumber() when the device echoes the new value. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Emitted after the user confirms a new value in the Modify dialog. The owner routes the write to the device runner; the widget does not self-update — call <a class="el" href="#ae2ee5dbdfa85035e3ab44c7800ecb3f3">refreshBool()</a>/refreshNumber() when the device echoes the new value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">internalName</td><td>row the new value applies to </td></tr>
-    <tr><td class="paramname">value</td><td>the confirmed value to write </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">internalName</td><td>row the new value applies to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>the confirmed value to write </td></tr>
   </table>
   </dd>
 </dl>
@@ -667,7 +681,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">527</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">insertRowAt()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00611">refreshBool()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00628">refreshNumber()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00576">removeRow()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00603">rowTag()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00593">setRowTag()</a>.</p>
 
@@ -692,7 +706,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00603">603</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
 
 </div>
 </div>
@@ -715,7 +729,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00644">644</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00127">m_deviceConnected</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00145">m_deviceConnected</a>, and <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>.</p>
 
 </div>
 </div>
@@ -737,12 +751,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Binds a PLC tag (from the task config / <a class="el" href="class_signals_map_widget.html">SignalsMapWidget</a> output) to the row identified by <span class="tt">internalName</span>. An empty tag makes the row render "(not mapped)" and disables its Modify button.</p>
+<p>Binds a PLC tag (from the task config / <a class="el" href="class_signals_map_widget.html" title="3-column table that maps &quot;task signals&quot; (logical names declared by a task, e.g. &quot;Camera selection&quot;,...">SignalsMapWidget</a> output) to the row identified by <span class="tt">internalName</span>. An empty tag makes the row render "(not mapped)" and disables its Modify button.</p>
 <p>Binds the row identified by <span class="tt">internalName</span> to <span class="tt">tag</span> (empty means unmapped) and reflows column widths, since the value cell's visible content changes. </p>
 
 <p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8cpp_source.html#l00593">593</a> of file <a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00125">m_rows</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
+<p class="reference">References <a class="el" href="signals__monitor__widget_8h_source.html#l00143">m_rows</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>.</p>
 
 </div>
 </div>
@@ -769,9 +783,9 @@ Private Attributes</h2></td></tr>
 
 <p>Gates every row's Modify button. </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00127">127</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00145">145</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">insertRowAt()</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00099">isDeviceConnected()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00644">setDeviceConnected()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">insertRowAt()</a>, <a class="el" href="signals__monitor__widget_8h_source.html#l00115">isDeviceConnected()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00644">setDeviceConnected()</a>.</p>
 
 </div>
 </div>
@@ -797,7 +811,7 @@ Private Attributes</h2></td></tr>
 
 <p>List container hosting one <a class="el" href="class_row_widget.html">RowWidget</a> per item. </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00124">124</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00142">142</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__monitor__widget_8cpp_source.html#l00585">clearRows()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">insertRowAt()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00576">removeRow()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00490">SignalsMonitorWidget()</a>.</p>
 
@@ -825,15 +839,15 @@ Private Attributes</h2></td></tr>
 
 <p>Row widgets, in display order. </p>
 
-<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00125">125</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signals__monitor__widget_8h_source.html#l00143">143</a> of file <a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signals__monitor__widget_8cpp_source.html#l00537">appendRow()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00585">clearRows()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00548">insertRowAt()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00611">refreshBool()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00628">refreshNumber()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00653">relayoutColumns()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00576">removeRow()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00527">rowIndexOf()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00603">rowTag()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00644">setDeviceConnected()</a>, and <a class="el" href="signals__monitor__widget_8cpp_source.html#l00593">setRowTag()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="signals__monitor__widget_8h_source.html">signals_monitor_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="signals__monitor__widget_8cpp_source.html">signals_monitor_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

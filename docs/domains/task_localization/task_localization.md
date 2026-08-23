@@ -22,8 +22,11 @@ aligned.
   valid detected object.
 - `bMatchingLowArea` mirrors the matcher low-area result for the finished cycle.
 - `bTaskFault` reports whether the task is faulted or whether the current
-  trigger cycle ended with an abnormal failure.
+  trigger cycle ended with an abnormal failure. It is a pulse, not a latched
+  state — see "Leaving A Cycle Fault".
 - `nFaultCode` reports the current fault reason as a stable numeric code.
+- `bErrorReset` acknowledges a latched fault on its rising edge. Optional: a
+  cycle fault also clears itself after 2000 ms.
 
 ## Phases And States
 
@@ -157,7 +160,7 @@ Fault code contract:
 | 0 | `None` | No active fault. |
 | 100 | `CameraLost` | The active camera lost connection. |
 | 101 | `CameraConnectFailed` | The active camera could not connect. |
-| 102 | `CameraGrabTimeout` | The single-shot grab timed out. |
+| 102 | `CameraGrabTimeout` | Every grab attempt failed. `CameraRunner` retries a failed single-shot up to 6 attempts first, so this code means the whole budget was exhausted — see "Camera Grab Retry". |
 | 200 | `VisionOutputLost` | The vision-output device lost connection. |
 | 201 | `VisionOutputSendFailed` | The result payload could not be sent. |
 | 300 | `PlcLost` | The primary PLC lost connection. |
@@ -179,6 +182,24 @@ Cycle-fault handshake:
 9. Set `nFaultCode` to the specific fault code.
 10. Move to recovery or `Faulted` depending on the recovery policy.
 
+### Leaving A Cycle Fault
+
+A latched cycle fault clears in one of two ways, both running the same recovery body:
+
+- a rising edge of `bErrorReset` (edge-triggered, and optional — the tag may be unbound);
+- automatically, after `LocalizationRuntimeController::kFaultAutoRecoverMs` (2000 ms),
+  when no acknowledge arrives. An acknowledge that arrives first cancels the countdown.
+
+Both clear `bTaskFault`/`nFaultCode` unconditionally and then *attempt* to re-arm. The
+re-arm still validates roles, pattern group and calibration, so a configuration fault
+clears its flags without returning to `bTaskReady = true`. Acknowledging a fault is not
+repairing it.
+
+Because of the automatic path, `bTaskFault` can be true for as little as 2 seconds.
+Sample it (and `nFaultCode`) on `bMatchingFinished`, which stays true until the trigger
+is reset. Full contract and rationale:
+[plc_signal_contract.md](plc_signal_contract.md) → "Fault Acknowledge And Auto-Recovery".
+
 If the PLC itself is disconnected, PLC outputs may not be writable. In that
 case, task state and application logs are the source of truth until the PLC
 reconnects. After PLC recovery, the task should publish the current fault state
@@ -187,6 +208,19 @@ instead of silently clearing it.
 Grab timeout is a camera fault, not a valid "zero detected" result. The task
 must not send a normal `0;` vision-output payload when no valid image was
 captured.
+
+### Camera Grab Retry
+
+A failed single-shot is retried inside `CameraRunner` — 6 attempts in total — before the
+cycle is faulted, so a single dropped frame does not interrupt automatic operation. The
+task never sees the intermediate failures: the runner re-emits `grabFinished` only for the
+outcome the cycle should act on.
+
+The practical reading for an operator: **fault 102 means the camera failed six times in a
+row.** Treat a repeating 102 as hardware, not as a flaky frame.
+
+Implementation detail and the two constants that must stay ordered:
+[runtime_controller_api.md](runtime_controller_api.md) → "Camera Grab Retry".
 
 ## Vision Output Payload
 
@@ -237,34 +271,34 @@ Runtime recovery is active only in runtime phase.
 
 Default policy:
 
-- Retry count: 10.
+- Retry count: **unlimited** — retrying continues until the device reconnects or
+  the runtime ends.
 - Retry interval: 5000 ms.
 - Recoverable statuses: `LostConnected`, `ConnectFailed`.
 
+The distinction that matters throughout this section: **losing a device is not a
+fault.** A lost role withdraws readiness and retries; only a cycle that was
+already accepted and then failed sets `bTaskFault`.
+
 Device-specific behavior:
 
-- Active camera lost while ready: set `bTaskReady = false`,
-  `bCameraValid = false`, set `bTaskFault = true`, set `nFaultCode = 100`,
-  enter `Recovering`, and retry the active camera.
+- Any role lost while ready: set `bTaskReady = false`, enter `Recovering`, and
+  retry that role. `bTaskFault` stays false — there is no fault to report, only
+  an outage in progress.
 - Active camera lost while running: abort the current cycle, clear busy output,
   set `bTaskFault = true`, set `nFaultCode = 100`, enter `Recovering`, and
   retry the active camera.
 - Active camera grab timeout while running: abort the current cycle, clear busy
   output, set `bTaskFault = true`, set `nFaultCode = 102`, enter
   `Recovering`, and retry/reconnect the active camera according to policy.
-- Vision-output lost while ready: set `bTaskReady = false`, enter
-  `Recovering`, set `bTaskFault = true`, set `nFaultCode = 200`, and retry the
-  vision-output device.
 - Vision-output lost while running: abort the current cycle, clear busy output,
   set `bTaskFault = true`, set `nFaultCode = 200`, enter `Recovering`, and
   retry the vision-output device.
 - Vision-output send failure while running: abort the current cycle, set
-  `bTaskFault = true`, set `nFaultCode = 201`, enter `Recovering` if the
-  device connection is unhealthy, otherwise transition to `Faulted`.
-- PLC lost while ready or running: enter `Recovering`. PLC outputs may not be
+  `bTaskFault = true`, set `nFaultCode = 201`, and enter `Recovering`.
+- PLC lost while ready or running: enter `Recovering`. PLC outputs are not
   writable while the PLC is disconnected, so task state/logs become the source
-  of truth until PLC recovery succeeds. When possible before loss is detected,
-  set `bTaskFault = true` and `nFaultCode = 300`.
+  of truth until PLC recovery succeeds.
 
 If recovery succeeds:
 
@@ -278,12 +312,11 @@ If recovery succeeds:
 5. Transition task state to `Ready`.
 6. Return to `ReadyForTrigger`.
 
-If recovery exceeds the retry policy:
-
-1. Transition task state to `Faulted`.
-2. Do not accept triggers.
-3. Keep enough diagnostic context in logs to identify the failed role and
-   device id.
+If recovery never succeeds, the task stays in `Recovering` and keeps retrying.
+It does not transition to `Faulted`, and it does not accept triggers, because
+`bTaskReady` is false for the whole outage. A PLC that needs a bounded outage
+must impose its own timeout — see
+[plc_signal_contract.md](plc_signal_contract.md) → "Recovery Behavior".
 
 ## Runtime Stop
 

@@ -1,24 +1,25 @@
 #ifndef VISION_TCPIP_CLIENT_DEVICE_H
 #define VISION_TCPIP_CLIENT_DEVICE_H
 
+/**
+ * @file vision_tcpip_client_device.h
+ * @brief TCP/IP client transport of the vision-output family (VisionTcpipClientDevice).
+ */
+
 #include "device/output_device/vision_tcpip_device_base.h"
 #include "device/output_device/vision_tcpip_client_config.h"
 
-/// Device-layer types: concrete IDevice/IDeviceCfg implementations (PLC,
-/// vision-output transports, etc.) and their supporting config/state types.
 namespace vc::device {
 
-/// TCP/IP **client** transport of the vision-output family.
-///
-/// Same protocol as VisionTcpipDevice, but the software dials OUT to a remote
-/// endpoint (which acts as the TCP server, e.g. a robot controller). It keeps
-/// the same data/heartbeat semantics: the software is still the heartbeat
-/// master ("connection_check." -> "ack,{count}.") and still pushes matching
-/// results out on the main channel. Only the connection direction differs:
-/// QTcpSocket::connectToHost + auto-reconnect instead of QTcpServer::listen.
-///
-/// When a link drops or the heartbeat times out, the device retries the
-/// outbound connection every `reconnectIntervalMs` while active.
+/**
+ * @class VisionTcpipClientDevice
+ * @brief TCP/IP client transport of the vision-output family. Same protocol as
+ *        VisionTcpipDevice, but the software dials OUT to a remote endpoint (which acts as
+ *        the TCP server, e.g. a robot controller). The software is still the heartbeat master
+ *        ("connection_check." -> "ack,{count}.") and still pushes matching results out on the
+ *        main channel. When a link drops or the heartbeat times out, the device retries the
+ *        outbound connection every `reconnectIntervalMs` while active.
+ */
 class VisionTcpipClientDevice : public VisionTcpipDeviceBase {
     Q_OBJECT
 
@@ -82,13 +83,17 @@ private slots:
     /// Handles the heartbeat connector's `connected` signal: hands the socket
     /// to the base as the live heartbeat link and re-evaluates connect state.
     void onHeartbeatConnected();
-    /// Handles a failed main-socket dial attempt: records the error and
-    /// schedules a reconnect if still active.
-    /// @param err unused; the error text is read from the connector itself
+    /**
+     * @brief Handles a failed main-socket dial attempt: records the error and
+     *        schedules a reconnect if still active.
+     * @param[in] err unused; the error text is read from the connector itself
+     */
     void onMainConnectError(QAbstractSocket::SocketError err);
-    /// Handles a failed heartbeat-socket dial attempt: records the error and
-    /// schedules a reconnect if still active.
-    /// @param err unused; the error text is read from the connector itself
+    /**
+     * @brief Handles a failed heartbeat-socket dial attempt: records the error and
+     *        schedules a reconnect if still active.
+     * @param[in] err unused; the error text is read from the connector itself
+     */
     void onHeartbeatConnectError(QAbstractSocket::SocketError err);
 
 private:

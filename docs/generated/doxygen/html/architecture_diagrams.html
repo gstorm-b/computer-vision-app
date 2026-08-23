@@ -120,138 +120,60 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('architecture_d
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>Rendered UML architecture diagrams (source: <span class="tt">uml/*.puml</span>), with pan/zoom.</p>
-<p>These diagrams are hand-authored PlantUML describing the code as it exists now (see <span class="tt">uml/README.md</span> for the full index and current-architecture notes). They are rendered to SVG by the docs build (docs/doxygen/build_docs.bat) and embedded below with a small pan/zoom viewer: scroll/pinch to zoom, drag to pan, and double-click or the toolbar to reset.</p>
-<p> 
-<link rel="stylesheet" href="uml_pan_zoom.css">
-</p>
+<p>These diagrams are hand-authored PlantUML describing the code as it exists now (see <span class="tt">uml/README.md</span> for the full index and current-architecture notes). They are rendered to SVG by the docs build (docs/doxygen/build_docs.bat), patched to use the same interactive-SVG pan/zoom mechanism Doxygen uses for its own class/collaboration graphs (see docs/doxygen/scripts/patch_uml_svg.ps1), and embedded below: drag to pan, hold Shift and scroll to zoom, or use the +/&minus;/reset buttons drawn in the corner of each diagram.</p>
 <h1 class="doxsection"><a class="anchor" id="diag_01"></a>
 01. Project Overview</h1>
 <p>High-level package/module structure and dependency direction.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="project_overview.svg" alt="Project Overview diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="project_overview.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </p>
 <h1 class="doxsection"><a class="anchor" id="diag_02"></a>
 02. Device Families</h1>
 <p>Device base classes, family sub-type dispatch, concrete devices, configs, factory, and manager.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="device_families.svg" alt="Device Families diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="device_families.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </p>
 <h1 class="doxsection"><a class="anchor" id="diag_03"></a>
 03. Runtime Threading</h1>
 <p>Task runner, per-device runners, QThread ownership, and runtime coordination relationships.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="runtime_threading.svg" alt="Runtime Threading diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="runtime_threading.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </p>
 <h1 class="doxsection"><a class="anchor" id="diag_04"></a>
 04. Localization Task</h1>
 <p>Localization task model, configuration, device assignment, signals, matcher, and pattern manager.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="localization_task.svg" alt="Localization Task diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="localization_task.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </p>
 <h1 class="doxsection"><a class="anchor" id="diag_05"></a>
 05. Matching &amp; Calibration</h1>
 <p>Matching library and calibration module relationships.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="matching_calibration.svg" alt="Matching &amp; Calibration diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="matching_calibration.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </p>
 <h1 class="doxsection"><a class="anchor" id="diag_06"></a>
 06. UI Widgets</h1>
 <p>Main task UI shell, task pages, device widgets, and reusable mapping widgets.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="ui_widgets.svg" alt="UI Widgets diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="ui_widgets.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </p>
 <h1 class="doxsection"><a class="anchor" id="diag_07"></a>
 07. Persistence Sequence</h1>
 <p><a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> save/load sequence through repository, task factory, device factory, JSON, and image BLOBs.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="persistence_sequence.svg" alt="Persistence Sequence diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="persistence_sequence.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </p>
 <h1 class="doxsection"><a class="anchor" id="diag_08"></a>
 08. Runtime State Machines</h1>
 <p>Task runner phase, localization task state, and localization runtime cycle state transitions.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="runtime_state_machines.svg" alt="Runtime State Machines diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="runtime_state_machines.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </p>
 <h1 class="doxsection"><a class="anchor" id="diag_09"></a>
 09. RobotKinematics Component</h1>
 <p>Current <code>components/RobotKinematics</code> component: solver hierarchy, config, results, collision backends, presets, and Vision Output integration.</p>
 <p> 
-<div class="uml-viewer" data-uml-viewer>
-  <div class="uml-toolbar">
-    <button type="button" data-uml-zoom-in title="Zoom in">+</button>
-    <button type="button" data-uml-zoom-out title="Zoom out">&minus;</button>
-    <button type="button" data-uml-reset title="Reset view">&#8634;</button>
-  </div>
-  <div class="uml-viewer-inner"><img src="robot_kinematics.svg" alt="RobotKinematics Component diagram"></div>
-  <div class="uml-hint">scroll = zoom &middot; drag = pan &middot; double-click = reset</div>
-</div>
-</p>
-<p> 
-<script src="uml_pan_zoom.js"></script>
+<iframe scrolling="no" loading="lazy" frameborder="0" src="robot_kinematics.svg" width="100%" height="640"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
  </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_vision_t
 </div><!--header-->
 <div class="contents">
 
+<p>Device configuration/monitoring widget for the TCP-transport Vision Output device: edits the listen address/ports, shows connection and runtime-state/diagnostics properties in the embedded property browser, hosts the robot kinematic-check sub-widget, and lets the operator build a position table and send it to the connected vision client.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for VisionTcpipDeviceWidget:</div>
@@ -199,6 +202,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a2a92161560cf346cea51bdda35c35d19 pro_methods_class_i_device_widget" id="r_a2a92161560cf346cea51bdda35c35d19"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_device_widget.html#a2a92161560cf346cea51bdda35c35d19">initPropertyBrowser</a> ()</td></tr>
 <tr class="memitem:accc3b82afe2f5c1a70a7ca0ffbf73f6a pro_methods_class_i_device_widget" id="r_accc3b82afe2f5c1a70a7ca0ffbf73f6a"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="class_i_device_widget.html#accc3b82afe2f5c1a70a7ca0ffbf73f6a">reloadStyleSheet</a> ()</td></tr>
 <tr class="memitem:aa6946b3c9964d210b58aeb58aa5f5381 pro_methods_class_i_device_widget" id="r_aa6946b3c9964d210b58aeb58aa5f5381"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_i_device_widget.html#aa6946b3c9964d210b58aeb58aa5f5381">setupThemeReload</a> (const QString &amp;darkPath, const QString &amp;lightPath)</td></tr>
+<tr class="memdesc:aa6946b3c9964d210b58aeb58aa5f5381 pro_methods_class_i_device_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths, triggers an initial load, and subscribes to <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> for subsequent switches.  <br /></td></tr>
 <tr class="inherit_header pro_attribs_class_i_device_widget"><td colspan="2">Protected Attributes inherited from <a class="el" href="class_i_device_widget.html">IDeviceWidget</a></td></tr>
 <tr class="memitem:a286c37d9ee3c0436972a7961e04cf8a9 pro_attribs_class_i_device_widget" id="r_a286c37d9ee3c0436972a7961e04cf8a9"><td class="memItemLeft"><a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="class_i_device_widget.html#a286c37d9ee3c0436972a7961e04cf8a9">m_propBrowser</a> {nullptr}</td></tr>
 <tr class="memdesc:a286c37d9ee3c0436972a7961e04cf8a9 pro_attribs_class_i_device_widget"><td class="mdescLeft">&#160;</td><td class="mdescRight">Property-browser wrapper; owns the objects below.  <br /></td></tr>
@@ -212,7 +216,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Device configuration/monitoring widget for the TCP-transport Vision Output device: edits the listen address/ports, shows connection and runtime-state/diagnostics properties in the embedded property browser, hosts the robot kinematic-check sub-widget, and lets the operator build a position table and send it to the connected vision client. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00028">28</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00038">38</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae8d719847c8f836719c0bd015f9e3d29" name="ae8d719847c8f836719c0bd015f9e3d29"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae8d719847c8f836719c0bd015f9e3d29">&#9670;&#160;</a></span>VisionTcpipDeviceWidget()</h2>
@@ -256,14 +260,14 @@ Additional Inherited Members</h2></td></tr>
     <tr><td class="paramname">dv</td><td>the device instance (expected to be a VisionTcpipDevice) </td></tr>
     <tr><td class="paramname">runner</td><td>the runner that forwards device signals onto the GUI thread </td></tr>
     <tr><td class="paramname">dock</td><td>the enclosing dock widget, if any </td></tr>
-    <tr><td class="paramname">parent</td><td>the parent widget, forwarded to <a class="el" href="class_i_device_widget.html">IDeviceWidget</a> </td></tr>
+    <tr><td class="paramname">parent</td><td>the parent widget, forwarded to <a class="el" href="class_i_device_widget.html" title="Abstract base for device-configuration widgets (one per connected device type, e.g....">IDeviceWidget</a> </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">167</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__widget_8h_source.html#l00020">IDeviceWidget::IDeviceWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00102">m_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00106">m_dock</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00110">m_runner</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">VisionTcpipDeviceWidget()</a>.</p>
+<p class="reference">References <a class="el" href="device__widget_8h_source.html#l00029">IDeviceWidget::IDeviceWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00116">m_dock</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00120">m_runner</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">VisionTcpipDeviceWidget()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">VisionTcpipDeviceWidget()</a>.</p>
 
@@ -288,7 +292,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00181">181</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>.</p>
 
 </div>
 </div>
@@ -334,7 +338,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00436">436</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00454">onAddRow()</a>.</p>
 
@@ -368,7 +372,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00187">187</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00102">m_device</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_device</a>.</p>
 
 </div>
 </div>
@@ -399,7 +403,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">218</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00436">addPositionRow()</a>, <a class="el" href="class_robot_kinematic_check_widget.html#a7594671721063f99da30c1f9c1eb881c">RobotKinematicCheckWidget::configChanged()</a>, <a class="el" href="idevice_8h_source.html#l00026">vc::device::Connected</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f">vc::runtime::IDeviceRunner::connectStatusChanged()</a>, <a class="el" href="idevice_8h_source.html#l00025">vc::device::Disconnected</a>, <a class="el" href="device__widget_8h_source.html#l00068">IDeviceWidget::initPropertyBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00201">loadConfigToWidget()</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00108">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00102">m_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_kcheckWidget</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00105">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00110">m_runner</a>, <a class="el" href="device__widget_8h_source.html#l00081">IDeviceWidget::m_variantManager</a>, <a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_base.html#ad2522c1ce28868c82e101dcf7e6f8c22">vc::device::VisionTcpipDeviceBase::mainClientStateChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00454">onAddRow()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00364">onConnectClicked()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00376">onConnectionStateChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00353">onFieldConfigChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00415">onMainClientStateChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00294">onPropertyValueChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00462">onRemoveRow()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00474">onSendResult()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">saveConfig()</a>, <a class="el" href="device__widget_8h_source.html#l00044">IDeviceWidget::setupThemeReload()</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00498">updateConnectionVisual()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00436">addPositionRow()</a>, <a class="el" href="class_robot_kinematic_check_widget.html#a7594671721063f99da30c1f9c1eb881c">RobotKinematicCheckWidget::configChanged()</a>, <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f">vc::runtime::IDeviceRunner::connectStatusChanged()</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="device__widget_8h_source.html#l00079">IDeviceWidget::initPropertyBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00201">loadConfigToWidget()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00118">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00122">m_kcheckWidget</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00115">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00120">m_runner</a>, <a class="el" href="device__widget_8h_source.html#l00092">IDeviceWidget::m_variantManager</a>, <a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_base.html#ad2522c1ce28868c82e101dcf7e6f8c22">vc::device::VisionTcpipDeviceBase::mainClientStateChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00454">onAddRow()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00364">onConnectClicked()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00376">onConnectionStateChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00353">onFieldConfigChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00415">onMainClientStateChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00294">onPropertyValueChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00462">onRemoveRow()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00474">onSendResult()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">saveConfig()</a>, <a class="el" href="device__widget_8h_source.html#l00055">IDeviceWidget::setupThemeReload()</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00498">updateConnectionVisual()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">VisionTcpipDeviceWidget()</a>.</p>
 
@@ -435,7 +439,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00193">193</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00108">m_config</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00105">m_output_device</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00118">m_config</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00115">m_output_device</a>.</p>
 
 </div>
 </div>
@@ -468,7 +472,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00201">201</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00108">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_kcheckWidget</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00105">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00114">m_populating_browser</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00118">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00122">m_kcheckWidget</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00115">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00124">m_populating_browser</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>.</p>
 
@@ -501,7 +505,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00454">454</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00436">addPositionRow()</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00436">addPositionRow()</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>.</p>
 
@@ -534,7 +538,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00364">364</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00102">m_device</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00110">m_runner</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_device</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00120">m_runner</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>.</p>
 
@@ -567,7 +571,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00376">376</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00105">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00498">updateConnectionVisual()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00422">updateSendSection()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00115">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00498">updateConnectionVisual()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00422">updateSendSection()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>.</p>
 
@@ -601,7 +605,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00353">353</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00108">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00114">m_populating_browser</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">saveConfig()</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00118">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00124">m_populating_browser</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">saveConfig()</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>.</p>
 
@@ -677,7 +681,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00294">294</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00108">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00102">m_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00114">m_populating_browser</a>, <a class="el" href="device__widget_8h_source.html#l00081">IDeviceWidget::m_variantManager</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">saveConfig()</a>, and <a class="el" href="qgadget__macro_8h_source.html#l00094">vc::gadget_meta::writeProperty()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00118">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00124">m_populating_browser</a>, <a class="el" href="device__widget_8h_source.html#l00092">IDeviceWidget::m_variantManager</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">saveConfig()</a>, and <a class="el" href="qgadget__macro_8h_source.html#l00101">vc::gadget_meta::writeProperty()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>.</p>
 
@@ -711,7 +715,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00462">462</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>.</p>
 
@@ -744,7 +748,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00474">474</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00105">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00110">m_runner</a>, <a class="el" href="vision__output__request_8h_source.html#l00019">vc::device::VisionOutputPosition::r</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>, <a class="el" href="vision__output__request_8h_source.html#l00016">vc::device::VisionOutputPosition::x</a>, <a class="el" href="vision__output__request_8h_source.html#l00017">vc::device::VisionOutputPosition::y</a>, and <a class="el" href="vision__output__request_8h_source.html#l00018">vc::device::VisionOutputPosition::z</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00115">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00120">m_runner</a>, <a class="el" href="vision__output__request_8h_source.html#l00034">vc::device::VisionOutputPosition::r</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>, <a class="el" href="vision__output__request_8h_source.html#l00031">vc::device::VisionOutputPosition::x</a>, <a class="el" href="vision__output__request_8h_source.html#l00032">vc::device::VisionOutputPosition::y</a>, and <a class="el" href="vision__output__request_8h_source.html#l00033">vc::device::VisionOutputPosition::z</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>.</p>
 
@@ -777,7 +781,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">387</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00108">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00102">m_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00105">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00114">m_populating_browser</a>, <a class="el" href="device__widget_8h_source.html#l00083">IDeviceWidget::m_variantEditor</a>, <a class="el" href="device__widget_8h_source.html#l00081">IDeviceWidget::m_variantManager</a>, <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00096">populateBrowser_Device()</a>, <a class="el" href="vision__tcpip__client__device__widget_8cpp_source.html#l00139">populateBrowser_Gadget()</a>, and <a class="el" href="vision__tcpip__client__device__widget_8cpp_source.html#l00112">populateBrowser_VisionOutput()</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00118">m_config</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00115">m_output_device</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00124">m_populating_browser</a>, <a class="el" href="device__widget_8h_source.html#l00094">IDeviceWidget::m_variantEditor</a>, <a class="el" href="device__widget_8h_source.html#l00092">IDeviceWidget::m_variantManager</a>, <a class="el" href="mitsubishi__mc__device__widget_8cpp_source.html#l00096">populateBrowser_Device()</a>, <a class="el" href="vision__tcpip__client__device__widget_8cpp_source.html#l00139">populateBrowser_Gadget()</a>, and <a class="el" href="vision__tcpip__client__device__widget_8cpp_source.html#l00112">populateBrowser_VisionOutput()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00376">onConnectionStateChanged()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00353">onFieldConfigChanged()</a>.</p>
 
@@ -810,7 +814,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00345">345</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00102">m_device</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">m_device</a>.</p>
 
 </div>
 </div>
@@ -841,7 +845,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">336</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00108">m_config</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00105">m_output_device</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00118">m_config</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00115">m_output_device</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00353">onFieldConfigChanged()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00294">onPropertyValueChanged()</a>.</p>
 
@@ -875,7 +879,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00498">498</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00026">vc::device::Connected</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, and <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00376">onConnectionStateChanged()</a>.</p>
 
@@ -908,7 +912,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00422">422</a> of file <a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">ui</a>.</p>
+<p class="reference">References <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00376">onConnectionStateChanged()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00415">onMainClientStateChanged()</a>.</p>
 
@@ -937,7 +941,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p>Editable copy of the device's output configuration. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00108">108</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00118">118</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00193">loadConfigToDevice()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00201">loadConfigToWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00353">onFieldConfigChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00294">onPropertyValueChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">saveConfig()</a>.</p>
 
@@ -965,7 +969,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p>The abstract device backing this widget. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00102">102</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">112</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00187">deviceId()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00364">onConnectClicked()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00294">onPropertyValueChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00345">refreshConfig()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">VisionTcpipDeviceWidget()</a>.</p>
 
@@ -993,7 +997,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p>Owning dock widget, if this widget is docked. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00106">106</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00116">116</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">VisionTcpipDeviceWidget()</a>.</p>
 
@@ -1021,7 +1025,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p>Embedded kinematic-check sub-widget (owned by the generated <span class="tt"><a class="el" href="#a298fc7e7333c44b5950115975dff8c26" title="Generated UI form; owned by this widget.">ui</a></span> form). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00112">112</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00122">122</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00201">loadConfigToWidget()</a>.</p>
 
@@ -1049,7 +1053,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p>m_device cast to its concrete TCP-transport type; null if the cast fails. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00105">105</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00115">115</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00193">loadConfigToDevice()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00201">loadConfigToWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00376">onConnectionStateChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00474">onSendResult()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00336">saveConfig()</a>.</p>
 
@@ -1077,7 +1081,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p>True while <a class="el" href="#a11107c9c0a545ce9426d0f21dacd7f14">populateBrowser()</a>/loadConfigToWidget() are updating fields, to suppress change feedback loops. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00114">114</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00124">124</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00201">loadConfigToWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00353">onFieldConfigChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00294">onPropertyValueChanged()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00387">populateBrowser()</a>.</p>
 
@@ -1105,7 +1109,7 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p>Runner used to marshal connect/disconnect/send requests onto the device's thread. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00110">110</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00120">120</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00364">onConnectClicked()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00474">onSendResult()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">VisionTcpipDeviceWidget()</a>.</p>
 
@@ -1133,15 +1137,15 @@ Listening") and "connectionState" style property ("connected"/"disconnected") fo
 
 <p>Generated UI form; owned by this widget. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00101">101</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__tcpip__device__widget_8h_source.html#l00111">111</a> of file <a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00436">addPositionRow()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00218">initWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00201">loadConfigToWidget()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00454">onAddRow()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00353">onFieldConfigChanged()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00462">onRemoveRow()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00474">onSendResult()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00498">updateConnectionVisual()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00422">updateSendSection()</a>, <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00167">VisionTcpipDeviceWidget()</a>, and <a class="el" href="vision__tcpip__device__widget_8cpp_source.html#l00181">~VisionTcpipDeviceWidget()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/vision_output/<a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/vision_output/<a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/vision_output/<a class="el" href="vision__tcpip__device__widget_8h_source.html">vision_tcpip_device_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/vision_output/<a class="el" href="vision__tcpip__device__widget_8cpp_source.html">vision_tcpip_device_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

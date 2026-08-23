@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_add_grou
 </div><!--header-->
 <div class="contents">
 
+<p>Modal dialog for creating/editing a pattern group's name and activation index (1-32), validating both fields before accepting.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AddGroupDialog:</div>
@@ -135,6 +138,7 @@ Collaboration diagram for AddGroupDialog:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad8e6469c1504475f6a84284414456c37" id="r_ad8e6469c1504475f6a84284414456c37"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad8e6469c1504475f6a84284414456c37">AddGroupDialog</a> (QString &amp;dialog_title, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:ad8e6469c1504475f6a84284414456c37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to <a class="el" href="#ae2296f6fe6daaf8b3dd89241c73b074d">validateAndAccept()</a>.  <br /></td></tr>
 <tr class="memitem:a5e0399685cc559c0538ab72cdd36c56f" id="r_a5e0399685cc559c0538ab72cdd36c56f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a5e0399685cc559c0538ab72cdd36c56f">getGroupIndex</a> () const</td></tr>
 <tr class="memdesc:a5e0399685cc559c0538ab72cdd36c56f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the group-index field's text parsed as an integer.  <br /></td></tr>
 <tr class="memitem:a3d4c194c3d67c3e953b068e4d1dc695e" id="r_a3d4c194c3d67c3e953b068e4d1dc695e"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3d4c194c3d67c3e953b068e4d1dc695e">getGroupName</a> () const</td></tr>
@@ -157,7 +161,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Modal dialog for creating/editing a pattern group's name and activation index (1-32), validating both fields before accepting. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00029">29</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00038">38</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad8e6469c1504475f6a84284414456c37" name="ad8e6469c1504475f6a84284414456c37"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8e6469c1504475f6a84284414456c37">&#9670;&#160;</a></span>AddGroupDialog()</h2>
@@ -185,16 +189,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to <a class="el" href="#ae2296f6fe6daaf8b3dd89241c73b074d">validateAndAccept()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Builds the form (name + index fields, OK/Cancel buttons) and wires the OK button to <a class="el" href="#ae2296f6fe6daaf8b3dd89241c73b074d">validateAndAccept()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dialog_title</td><td>window title shown on the dialog </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dialog_title</td><td>window title shown on the dialog </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>parent widget </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00035">35</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00047">47</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00106">groupIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00105">groupNameEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00020">PT_GROUP_INDEX_MAX</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00018">PT_GROUP_INDEX_MIN</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00083">validateAndAccept()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00118">groupIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00117">groupNameEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00020">PT_GROUP_INDEX_MAX</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00018">PT_GROUP_INDEX_MIN</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00095">validateAndAccept()</a>.</p>
 
 </div>
 </div>
@@ -224,9 +231,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the group-index field's text parsed as an integer. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00075">75</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00087">87</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00106">groupIndexEdit</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00118">groupIndexEdit</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01036">LocalizationPatternsWidget::onTreeAddGroupRequested()</a>.</p>
 
@@ -257,11 +264,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the current text of the group-name field. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00061">61</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00073">73</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00105">groupNameEdit</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00117">groupNameEdit</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01036">LocalizationPatternsWidget::onTreeAddGroupRequested()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00083">validateAndAccept()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01036">LocalizationPatternsWidget::onTreeAddGroupRequested()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00095">validateAndAccept()</a>.</p>
 
 </div>
 </div>
@@ -289,9 +296,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the group-index field to <span class="tt">index</span> (formatted as a number); no-op if the range check below fails. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00067">67</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00079">79</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00106">groupIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00020">PT_GROUP_INDEX_MAX</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00018">PT_GROUP_INDEX_MIN</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00118">groupIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00020">PT_GROUP_INDEX_MAX</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00018">PT_GROUP_INDEX_MIN</a>.</p>
 
 </div>
 </div>
@@ -320,9 +327,9 @@ Private Attributes</h2></td></tr>
 
 <p>Sets the text of the group-name field. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00056">56</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00068">68</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00105">groupNameEdit</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00117">groupNameEdit</a>.</p>
 
 </div>
 </div>
@@ -350,11 +357,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Validates that the name is non-empty and the index is a non-empty value within [PT_GROUP_INDEX_MIN, PT_GROUP_INDEX_MAX], showing a warning message box and returning early on failure; calls accept() once both checks pass. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00083">83</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00095">95</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00061">getGroupName()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00106">groupIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00020">PT_GROUP_INDEX_MAX</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00018">PT_GROUP_INDEX_MIN</a>.</p>
+<p class="reference">References <a class="el" href="pattern__manager__dialog_8h_source.html#l00073">getGroupName()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00118">groupIndexEdit</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00020">PT_GROUP_INDEX_MAX</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00018">PT_GROUP_INDEX_MIN</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00035">AddGroupDialog()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00047">AddGroupDialog()</a>.</p>
 
 </div>
 </div>
@@ -381,9 +388,9 @@ Private Attributes</h2></td></tr>
 
 <p>Input field (int-validated) for the group's activation index. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00106">106</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00118">118</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00035">AddGroupDialog()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00075">getGroupIndex()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00067">setGroupIndex()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00083">validateAndAccept()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00047">AddGroupDialog()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00087">getGroupIndex()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00079">setGroupIndex()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00095">validateAndAccept()</a>.</p>
 
 </div>
 </div>
@@ -409,14 +416,14 @@ Private Attributes</h2></td></tr>
 
 <p>Input field for the group's display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00105">105</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__manager__dialog_8h_source.html#l00117">117</a> of file <a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00035">AddGroupDialog()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00061">getGroupName()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00056">setGroupName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__manager__dialog_8h_source.html#l00047">AddGroupDialog()</a>, <a class="el" href="pattern__manager__dialog_8h_source.html#l00073">getGroupName()</a>, and <a class="el" href="pattern__manager__dialog_8h_source.html#l00068">setGroupName()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="pattern__manager__dialog_8h_source.html">pattern_manager_dialog.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

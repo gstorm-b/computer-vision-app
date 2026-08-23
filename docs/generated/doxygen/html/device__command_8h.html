@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/runtime/device_command.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/runtime/device_command.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('device__comman
   <div class="headertitle"><div class="title">device_command.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Value types for device commands and their results — DeviceCommand, DeviceCommandResult, and the DeviceCommandKind/DeviceCommandResultStatus/DeviceCommandResultCode enums used by the runtime layer's device runners and command queue to dispatch work to, and report outcomes from, per-device worker threads.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QMetaType&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
 <code>#include &lt;QUuid&gt;</code><br />
@@ -140,7 +143,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Aruntime_3A_3ADeviceCommand" id="r_vc_3A_3Aruntime_3A_3ADeviceCommand"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1runtime_1_1_device_command.html">vc::runtime::DeviceCommand</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single request submitted to a device runner (e.g. via <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a364d4cae549dca12e47387b04084fb39" title="Default command handler: rejects any command as unsupported. Concrete runners that support DeviceComm...">IDeviceRunner::submitCommand()</a>), identifying the operation, its target device, and an optional payload/timeout.  <a href="structvc_1_1runtime_1_1_device_command.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Aruntime_3A_3ADeviceCommandResult" id="r_vc_3A_3Aruntime_3A_3ADeviceCommandResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1runtime_1_1_device_command_result.html">vc::runtime::DeviceCommandResult</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outcome of dispatching a <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a>: echoes the originating command's identity plus a status/code/message describing what happened, and any result payload.  <a href="structvc_1_1runtime_1_1_device_command_result.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -158,7 +163,7 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="namespacevc_1_1runtime.html#a84d5add00c3a68cf83759626ccba0208ae6758901e2ec0279b5803687395c7cc0">vc::runtime::CameraApplyParams</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a84d5add00c3a68cf83759626ccba0208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kind of operation a <a class="el" href="structvc_1_1runtime_1_1_device_command.html">DeviceCommand</a> asks a device runner to perform.  <a href="namespacevc_1_1runtime.html#a84d5add00c3a68cf83759626ccba0208">More...</a><br /></td></tr>
+<tr class="memdesc:a84d5add00c3a68cf83759626ccba0208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Kind of operation a <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a> asks a device runner to perform.  <a href="namespacevc_1_1runtime.html#a84d5add00c3a68cf83759626ccba0208">More...</a><br /></td></tr>
 <tr class="memitem:ae06849a081be44a7aa2cca22c9448e13" id="r_ae06849a081be44a7aa2cca22c9448e13"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13">vc::runtime::DeviceCommandResultCode</a> { <br />
 &#160;&#160;<a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13a6adf97f83acf6453d4a6a4b1070f3754">vc::runtime::None</a>
 , <a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13ad8a942ef2b04672adfafef0ad817a407">vc::runtime::Busy</a>
@@ -170,13 +175,13 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13aa967b7eb0d83aab495dc3d940039ae38">vc::runtime::QueueFull</a>
 <br />
  }</td></tr>
-<tr class="memdesc:ae06849a081be44a7aa2cca22c9448e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reason code accompanying a non-successful <a class="el" href="structvc_1_1runtime_1_1_device_command_result.html">DeviceCommandResult</a>.  <a href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13">More...</a><br /></td></tr>
+<tr class="memdesc:ae06849a081be44a7aa2cca22c9448e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reason code accompanying a non-successful <a class="el" href="structvc_1_1runtime_1_1_device_command_result.html" title="Outcome of dispatching a DeviceCommand: echoes the originating command&#39;s identity plus a status/code/...">DeviceCommandResult</a>.  <a href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13">More...</a><br /></td></tr>
 <tr class="memitem:acee9411b3bfcdf3a6474d13a2bff34e5" id="r_acee9411b3bfcdf3a6474d13a2bff34e5"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5">vc::runtime::DeviceCommandResultStatus</a> { <a class="el" href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5a382ab522931673c11e398ead1b7b1678">vc::runtime::Accepted</a>
 , <a class="el" href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5ad37b1f6c0512e2118cee17fea015b699">vc::runtime::Rejected</a>
 , <a class="el" href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5a66d02c2f8a582446f8dd8752366002b5">vc::runtime::Succeeded</a>
 , <a class="el" href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5ad7c8c85bf79bbe1b7188497c32c3b0ca">vc::runtime::Failed</a>
  }</td></tr>
-<tr class="memdesc:acee9411b3bfcdf3a6474d13a2bff34e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lifecycle status of a <a class="el" href="structvc_1_1runtime_1_1_device_command_result.html">DeviceCommandResult</a>.  <a href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5">More...</a><br /></td></tr>
+<tr class="memdesc:acee9411b3bfcdf3a6474d13a2bff34e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lifecycle status of a <a class="el" href="structvc_1_1runtime_1_1_device_command_result.html" title="Outcome of dispatching a DeviceCommand: echoes the originating command&#39;s identity plus a status/code/...">DeviceCommandResult</a>.  <a href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -184,7 +189,11 @@ Functions</h2></td></tr>
 <tr class="memitem:a0eff91262bb5f1bfc49256751613f235" id="r_a0eff91262bb5f1bfc49256751613f235"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1runtime.html#a0eff91262bb5f1bfc49256751613f235">vc::runtime::deviceCommandResultCodeToString</a> (<a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13">DeviceCommandResultCode</a> code)</td></tr>
 <tr class="memitem:ab3a40b0ab2d4b5db179683dcd9003ddd" id="r_ab3a40b0ab2d4b5db179683dcd9003ddd"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1runtime.html#ab3a40b0ab2d4b5db179683dcd9003ddd">vc::runtime::deviceCommandResultStatusToString</a> (<a class="el" href="namespacevc_1_1runtime.html#acee9411b3bfcdf3a6474d13a2bff34e5">DeviceCommandResultStatus</a> status)</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Value types for device commands and their results — DeviceCommand, DeviceCommandResult, and the DeviceCommandKind/DeviceCommandResultStatus/DeviceCommandResultCode enums used by the runtime layer's device runners and command queue to dispatch work to, and report outcomes from, per-device worker threads. </p>
+
+<p class="definition">Definition in file <a class="el" href="device__command_8h_source.html">device_command.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

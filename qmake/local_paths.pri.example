@@ -1,0 +1,50 @@
+# Machine-local dependency paths — TEMPLATE.
+#
+# Copy this file to `qmake/local_paths.pri` and edit the values for this machine.
+# The copy is NOT tracked by git (see .gitignore): it holds absolute paths that are
+# true for one workstation and wrong for every other one.
+#
+# Why this file exists
+# ---------------------------------------------------------------------------------------
+# OpenCV and Basler Pylon live outside the repository, so qmake has to be told where. The
+# original mechanism is environment variables, and it still works — but it only works for
+# the shell that exported them. Qt Creator inherits the environment of whatever launched
+# it, so an agent building from a terminal and a developer building from the IDE could
+# easily be pointed at two different OpenCV installs without either of them noticing.
+#
+# This file is read by qmake itself, so BOTH paths through the toolchain resolve the same
+# dependencies with no per-session setup.
+#
+# Precedence (highest first) — this file is the FALLBACK, never an override:
+#
+#   1. qmake command line   qmake ... "OPENCV_LIB_DIR=..."
+#   2. environment variable OPENCV_LIB_DIR
+#   3. this file
+#
+# So `AGENT.md`'s rule still holds: local machine paths come from environment variables,
+# and nothing absolute is hard-coded into a tracked build file. This is the untracked
+# escape hatch for a machine that has not exported them.
+#
+# Every assignment below is guarded with isEmpty() to keep that order. Do not drop the
+# guards — an unguarded assignment would silently beat the command line.
+#
+# Read by qmake/opencv_dependency.pri and qmake/pylon_dependency.pri.
+
+# --- OpenCV -----------------------------------------------------------------------------
+# OPENCV_INCLUDE_DIR : the directory containing opencv2/
+# OPENCV_LIB_DIR     : import libraries (opencv_world*.lib)
+# OPENCV_BIN         : runtime DLLs, used by qmake/deploy_dependencies.pri
+# OPENCV_WORLD_*     : library base names, without the .lib extension
+isEmpty(OPENCV_INCLUDE_DIR):   OPENCV_INCLUDE_DIR   = "C:/opencv/build/include"
+isEmpty(OPENCV_LIB_DIR):       OPENCV_LIB_DIR       = "C:/opencv/build/x64/vc16/lib"
+isEmpty(OPENCV_BIN):           OPENCV_BIN           = "C:/opencv/build/x64/vc16/bin"
+isEmpty(OPENCV_WORLD_RELEASE): OPENCV_WORLD_RELEASE = opencv_world4120
+isEmpty(OPENCV_WORLD_DEBUG):   OPENCV_WORLD_DEBUG   = opencv_world4120d
+
+# --- Basler Pylon -----------------------------------------------------------------------
+# PYLON_RUNTIME_DIR is the Runtime tree, not the Development one: qmake/deploy_dependencies.pri
+# copies every top-level DLL from it next to the built executable.
+isEmpty(PYLON_INCLUDE_DIR): PYLON_INCLUDE_DIR = "C:/Program Files/Basler/pylon/Development/include"
+isEmpty(PYLON_LIB_DIR):     PYLON_LIB_DIR     = "C:/Program Files/Basler/pylon/Development/lib/x64"
+isEmpty(PYLON_RUNTIME_DIR): PYLON_RUNTIME_DIR = "C:/Program Files/Basler/pylon/Runtime/x64"
+isEmpty(PYLON_BASE_LIB):    PYLON_BASE_LIB    = PylonBase_v11

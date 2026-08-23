@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_calibrat
 </div><!--header-->
 <div class="contents">
 
+<p>6-column table used by camera calibration UI:  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="calibration__points__table_8h_source.html">calibration_points_table.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CalibrationPointsTable:</div>
@@ -143,6 +146,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aee9c56505f96c6be29b5c6a5087cfaa8" id="r_aee9c56505f96c6be29b5c6a5087cfaa8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aee9c56505f96c6be29b5c6a5087cfaa8">clearAll</a> ()</td></tr>
 <tr class="memitem:ad2ea636302e1d032c31aafa8c0bcf034" id="r_ad2ea636302e1d032c31aafa8c0bcf034"><td class="memItemLeft">std::vector&lt; cv::Point2f &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ad2ea636302e1d032c31aafa8c0bcf034">imagePoints</a> () const</td></tr>
 <tr class="memitem:a0bea32ad41332b4c46d2ceddb5b91d1f" id="r_a0bea32ad41332b4c46d2ceddb5b91d1f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0bea32ad41332b4c46d2ceddb5b91d1f">setImagePoints</a> (const std::vector&lt; cv::Point2f &gt; &amp;pts)</td></tr>
+<tr class="memdesc:a0bea32ad41332b4c46d2ceddb5b91d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the image (X, Y) columns from <span class="tt">pts</span>, one row per point.  <br /></td></tr>
 <tr class="memitem:af5b492f55c8eee20f0440724a0c6daf4" id="r_af5b492f55c8eee20f0440724a0c6daf4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af5b492f55c8eee20f0440724a0c6daf4">setRowCount</a> (int n)</td></tr>
 <tr class="memitem:a554a9f5b22db1330e3791198aedf57eb" id="r_a554a9f5b22db1330e3791198aedf57eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a554a9f5b22db1330e3791198aedf57eb">setWorldPoints</a> (const std::vector&lt; cv::Point3f &gt; &amp;pts)</td></tr>
 <tr class="memdesc:a554a9f5b22db1330e3791198aedf57eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the world X/Y/Z columns from <span class="tt">pts</span>, one row per point (clamped to rowCount()).  <br /></td></tr>
@@ -171,12 +175,11 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>6-column table used by camera calibration UI: </p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
-| Img X (px) | Img Y (px) | World X (mm) | World Y (mm) | World Z (mm)</h1>
-<p>Each row holds one 2D image -&gt; 3D world correspondence pair. Image columns are populated by the board detector and are read-only. World columns are user-editable (or filled programmatically from a robot teach pendant via <a class="el" href="#ab97c75ad691dac331cfee8b5827f6e2b">setWorldPointsFromRobot()</a>).</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#  |  Img X (px)  |  Img Y (px)  |  World X (mm)  |  World Y (mm)  |  World Z (mm)</span></div>
+</div><!-- fragment --><p>Each row holds one 2D image -&gt; 3D world correspondence pair. Image columns are populated by the board detector and are read-only. World columns are user-editable (or filled programmatically from a robot teach pendant via <a class="el" href="#ab97c75ad691dac331cfee8b5827f6e2b">setWorldPointsFromRobot()</a>).</p>
 <p>Emits <a class="el" href="#abb1051a117b0f84b1780e2ecda69e0ac">pointsEdited()</a> when any user edit lands in a world column. Programmatic fills (setImagePoints / setWorldPoints*) are guarded by a signal blocker and do not emit. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__points__table_8h_source.html#l00020">20</a> of file <a class="el" href="calibration__points__table_8h_source.html">calibration_points_table.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__points__table_8h_source.html#l00029">29</a> of file <a class="el" href="calibration__points__table_8h_source.html">calibration_points_table.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a69ee15cb961f4af2e201a515e0c8b411" name="a69ee15cb961f4af2e201a515e0c8b411"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a69ee15cb961f4af2e201a515e0c8b411">&#9670;&#160;</a></span>CalibrationPointsTable()</h2>
@@ -372,7 +375,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__points__table_8cpp_source.html#l00189">189</a> of file <a class="el" href="calibration__points__table_8cpp_source.html">calibration_points_table.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__points__table_8cpp_source.html#l00043">isWorldColumn()</a>, <a class="el" href="calibration__points__table_8h_source.html#l00082">m_blockEditSignal</a>, and <a class="el" href="#abb1051a117b0f84b1780e2ecda69e0ac">pointsEdited()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__points__table_8cpp_source.html#l00043">isWorldColumn()</a>, <a class="el" href="calibration__points__table_8h_source.html#l00093">m_blockEditSignal</a>, and <a class="el" href="#abb1051a117b0f84b1780e2ecda69e0ac">pointsEdited()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__points__table_8cpp_source.html#l00019">CalibrationPointsTable()</a>.</p>
 
@@ -420,7 +423,9 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Fills the image (X, Y) columns from <span class="tt">pts</span>, one row per point. </p><dl class="section note"><dt>Note</dt><dd>Rows past <span class="tt">pts.size()</span> (up to rowCount()) have their image cells cleared instead, so stale data from a previous fill isn't left showing.</dd></dl>
+
+<p>Fills the image (X, Y) columns from <span class="tt">pts</span>, one row per point. </p>
+<dl class="section note"><dt>Note</dt><dd>Rows past <span class="tt">pts.size()</span> (up to rowCount()) have their image cells cleared instead, so stale data from a previous fill isn't left showing.</dd></dl>
 <p>Fills the image (X, Y) columns from <span class="tt">pts</span>, one row per point, clamped to rowCount(). Any remaining rows beyond <span class="tt">pts.size()</span> have their image cells cleared instead, so stale data from a previous fill isn't left showing. Runs under a signal blocker. </p>
 
 <p class="definition">Definition at line <a class="el" href="calibration__points__table_8cpp_source.html#l00092">92</a> of file <a class="el" href="calibration__points__table_8cpp_source.html">calibration_points_table.cpp</a>.</p>
@@ -562,15 +567,15 @@ Private Attributes</h2></td></tr>
 
 <p>Checked in <a class="el" href="#a6b694a1ceab91ae7cb0accefb5236920">onItemChanged()</a> but never set to true elsewhere; QSignalBlocker is what actually suppresses itemChanged during programmatic fills. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__points__table_8h_source.html#l00082">82</a> of file <a class="el" href="calibration__points__table_8h_source.html">calibration_points_table.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__points__table_8h_source.html#l00093">93</a> of file <a class="el" href="calibration__points__table_8h_source.html">calibration_points_table.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__points__table_8cpp_source.html#l00189">onItemChanged()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/calibration/<a class="el" href="calibration__points__table_8h_source.html">calibration_points_table.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/calibration/<a class="el" href="calibration__points__table_8cpp_source.html">calibration_points_table.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/calibration/<a class="el" href="calibration__points__table_8h_source.html">calibration_points_table.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/calibration/<a class="el" href="calibration__points__table_8cpp_source.html">calibration_points_table.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

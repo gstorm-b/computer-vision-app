@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_add_devi
 </div><!--header-->
 <div class="contents">
 
+<p>Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for AddDeviceWizard:</div>
@@ -140,6 +143,7 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a857867c8ead673265e1a87db4b7ba3b5" id="r_a857867c8ead673265e1a87db4b7ba3b5"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a857867c8ead673265e1a87db4b7ba3b5">AddDeviceWizard</a> (std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_device_manager.html">vc::device::DeviceManager</a> &gt; mng, const QString &amp;taskName=QString(), QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a857867c8ead673265e1a87db4b7ba3b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the wizard, populates the per-type combo boxes from <code class="param">mng</code>, builds the device-type selector cards, and applies the current theme stylesheet.  <br /></td></tr>
 <tr class="memitem:a3ac95c57bae80670f2b74c0e877c6fc2" id="r_a3ac95c57bae80670f2b74c0e877c6fc2"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3ac95c57bae80670f2b74c0e877c6fc2">getDeviceId</a> () const</td></tr>
 <tr class="memdesc:a3ac95c57bae80670f2b74c0e877c6fc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the device id reserved for this wizard session (empty until <a class="el" href="#abb1e1c9094cf1eb9446c9ab7cbdf2ec3">showWizard()</a> runs).  <br /></td></tr>
 <tr class="memitem:ac9ebcf49c97c2f09477fd7715d3a157a" id="r_ac9ebcf49c97c2f09477fd7715d3a157a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac9ebcf49c97c2f09477fd7715d3a157a">getDeviceName</a> () const</td></tr>
@@ -154,24 +158,29 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a68b8d1f1816bbc3b95657e5c468e7268" id="r_a68b8d1f1816bbc3b95657e5c468e7268"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a68b8d1f1816bbc3b95657e5c468e7268">eventFilter</a> (QObject *obj, QEvent *ev) override</td></tr>
+<tr class="memdesc:a68b8d1f1816bbc3b95657e5c468e7268"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intercepts mouse-press events on the type-selector card frames and routes them to <a class="el" href="#a82ab7bd943562c48503f59e493dc40e2" title="Handles a card click by making type the active selection (see selectCard()).">onCardClicked()</a>; all other events fall through to the base class.  <br /></td></tr>
 <tr class="memitem:a305ca8b5929443d13f9d74ce1c60340a" id="r_a305ca8b5929443d13f9d74ce1c60340a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a305ca8b5929443d13f9d74ce1c60340a">keyPressEvent</a> (QKeyEvent *event) override</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-slots" class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr class="memitem:a1077917d079f9dd7df125f24b17abc10" id="r_a1077917d079f9dd7df125f24b17abc10"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1077917d079f9dd7df125f24b17abc10">onAddClicked</a> ()</td></tr>
 <tr class="memitem:a82ab7bd943562c48503f59e493dc40e2" id="r_a82ab7bd943562c48503f59e493dc40e2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a82ab7bd943562c48503f59e493dc40e2">onCardClicked</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">vc::device::DeviceType</a> type)</td></tr>
-<tr class="memdesc:a82ab7bd943562c48503f59e493dc40e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a card click by making <span class="tt">type</span> the active selection (see <a class="el" href="#af6338f5d205815357e762003eb75fea5">selectCard()</a>).  <br /></td></tr>
+<tr class="memdesc:a82ab7bd943562c48503f59e493dc40e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles a card click by making <span class="tt">type</span> the active selection (see <a class="el" href="#af6338f5d205815357e762003eb75fea5" title="Marks type&#39;s card/name as the active selection (repolishing their style), shows or hides the config s...">selectCard()</a>).  <br /></td></tr>
 <tr class="memitem:a4e3c583f7b27fc75ce6df4d3222a8018" id="r_a4e3c583f7b27fc75ce6df4d3222a8018"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4e3c583f7b27fc75ce6df4d3222a8018">onNameChanged</a> (const QString &amp;text)</td></tr>
+<tr class="memdesc:a4e3c583f7b27fc75ce6df4d3222a8018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables the Add button only while the trimmed name text is non-empty.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a13c212db2168abe7d5abe110f320eefc" id="r_a13c212db2168abe7d5abe110f320eefc"><td class="memItemLeft">QJsonObject&#160;</td><td class="memItemRight"><a class="el" href="#a13c212db2168abe7d5abe110f320eefc">buildDeviceJson</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">vc::device::DeviceType</a> type)</td></tr>
+<tr class="memdesc:a13c212db2168abe7d5abe110f320eefc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the type-specific "config" JSON payload (camera sub-type, MC protocol config, or vision-output config) for the selected device type.  <br /></td></tr>
 <tr class="memitem:a6eb7203a82c898e714b77c2fdf505888" id="r_a6eb7203a82c898e714b77c2fdf505888"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6eb7203a82c898e714b77c2fdf505888">initCards</a> ()</td></tr>
 <tr class="memitem:a25217337f2c9d584a9fcccd14bed1fc0" id="r_a25217337f2c9d584a9fcccd14bed1fc0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a25217337f2c9d584a9fcccd14bed1fc0">refreshCardIcons</a> ()</td></tr>
 <tr class="memdesc:a25217337f2c9d584a9fcccd14bed1fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Re-renders every card's icon pixmap via <a class="el" href="windows__helper_8h.html#a86fb894a153b167bcca2068f76fdfef3" title="Creates a QIcon backed by a ThemedSvgIconEngine for File, rendered at intent pixels.">svgIcon()</a>, e.g. after a theme change.  <br /></td></tr>
 <tr class="memitem:a605856133707d0a7dc8a8101fa26e137" id="r_a605856133707d0a7dc8a8101fa26e137"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a605856133707d0a7dc8a8101fa26e137">reloadStyleSheet</a> ()</td></tr>
 <tr class="memitem:adbbd58190108d9a71c7e6c1a6991298e" id="r_adbbd58190108d9a71c7e6c1a6991298e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adbbd58190108d9a71c7e6c1a6991298e">repolish</a> (QWidget *w)</td></tr>
+<tr class="memdesc:adbbd58190108d9a71c7e6c1a6991298e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forces Qt to re-evaluate stylesheet selectors on <code class="param">w</code> (unpolish, polish, update); used after changing a dynamic property such as "selected".  <br /></td></tr>
 <tr class="memitem:af6338f5d205815357e762003eb75fea5" id="r_af6338f5d205815357e762003eb75fea5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af6338f5d205815357e762003eb75fea5">selectCard</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">vc::device::DeviceType</a> type)</td></tr>
+<tr class="memdesc:af6338f5d205815357e762003eb75fea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks <code class="param">type's</code> card/name as the active selection (repolishing their style), shows or hides the config stack and switches to that type's page, and resets the name field to the type's default name.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -187,9 +196,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a72d72bcfd08c14bd3149a1402b62ac41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generated UI form for this dialog (owned; deleted in the destructor).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager: presents selectable type cards, a per-type configuration stack, and validates/commits the resulting device through the manager. </p>
+<div class="textblock"><p>Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager. </p>
+<p>Presents selectable type cards, a per-type configuration stack, and validates/commits the resulting device through the manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00018">18</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00029">29</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a857867c8ead673265e1a87db4b7ba3b5" name="a857867c8ead673265e1a87db4b7ba3b5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a857867c8ead673265e1a87db4b7ba3b5">&#9670;&#160;</a></span>AddDeviceWizard()</h2>
@@ -222,11 +232,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the wizard, populates the per-type combo boxes from <span class="tt">mng</span>, builds the device-type selector cards, and applies the current theme stylesheet. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Constructs the wizard, populates the per-type combo boxes from <code class="param">mng</code>, builds the device-type selector cards, and applies the current theme stylesheet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mng</td><td>device manager used to enumerate sub-device types and later commit the device </td></tr>
-    <tr><td class="paramname">taskName</td><td>optional task name shown as a subtitle; the subtitle is hidden when empty </td></tr>
-    <tr><td class="paramname">parent</td><td>parent widget</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mng</td><td>device manager used to enumerate sub-device types and later commit the device </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">taskName</td><td>optional task name shown as a subtitle; the subtitle is hidden when empty </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>parent widget; standard QWidget/QDialog ownership applies</td></tr>
   </table>
   </dd>
 </dl>
@@ -234,7 +246,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00030">30</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>, <a class="el" href="mc__define_8h_source.html#l00098">vc::device::mc::Binary</a>, <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="mc__define_8h_source.html#l00080">vc::device::mc::Frame_3E</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00084">initCards()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00110">m_manager</a>, <a class="el" href="mc__define_8h_source.html#l00173">vc::device::mc::McDataCodeToString()</a>, <a class="el" href="mc__define_8h_source.html#l00150">vc::device::mc::McFrameTypeToString()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00223">onNameChanged()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00117">refreshCardIcons()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00208">reject()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00162">reloadStyleSheet()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00130">selectCard()</a>, <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>, <a class="el" href="mc__define_8h_source.html#l00111">vc::device::mc::Binary</a>, <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="mc__define_8h_source.html#l00087">vc::device::mc::Frame_3E</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00084">initCards()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00138">m_manager</a>, <a class="el" href="mc__define_8h_source.html#l00188">vc::device::mc::McDataCodeToString()</a>, <a class="el" href="mc__define_8h_source.html#l00165">vc::device::mc::McFrameTypeToString()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00223">onNameChanged()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00117">refreshCardIcons()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00208">reject()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00162">reloadStyleSheet()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00130">selectCard()</a>, <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>.</p>
 
@@ -268,7 +280,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00076">76</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>.</p>
 
 </div>
 </div>
@@ -295,9 +307,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds the type-specific "config" JSON payload (camera sub-type, MC protocol config, or vision-output config) for the selected device type. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Builds the type-specific "config" JSON payload (camera sub-type, MC protocol config, or vision-output config) for the selected device type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>device type to build configuration for </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>device type to build configuration for </td></tr>
   </table>
   </dd>
 </dl>
@@ -306,7 +320,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00269">269</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00098">vc::device::mc::Binary</a>, <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00065">vc::device::McProtocolConfig::configMcProtocol()</a>, <a class="el" href="idevice__config_8h_source.html#l00020">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="idevice__config_8h_source.html#l00019">DEVICE_JSK_CONFIG</a>, <a class="el" href="mc__define_8h_source.html#l00080">vc::device::mc::Frame_3E</a>, <a class="el" href="mc__define_8h_source.html#l00179">vc::device::mc::McDataCodeFromString()</a>, <a class="el" href="mc__define_8h_source.html#l00156">vc::device::mc::McFrameTypeFromString()</a>, <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00077">vc::device::McProtocolConfig::toJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00064">vc::device::VisionTcpipDeviceCfg::toJson()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>, <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>, <a class="el" href="vision__output__config_8h_source.html#l00040">vc::device::VisionOutputTypeFromString()</a>, <a class="el" href="vision__output__config_8h_source.html#l00020">vc::device::VisionOutputTypeNone</a>, <a class="el" href="vision__output__config_8h_source.html#l00023">vc::device::VisionSerial</a>, <a class="el" href="vision__output__config_8h_source.html#l00021">vc::device::VisionTCPIP</a>, and <a class="el" href="vision__output__config_8h_source.html#l00022">vc::device::VisionTcpipClient</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00111">vc::device::mc::Binary</a>, <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00076">vc::device::McProtocolConfig::configMcProtocol()</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="mc__define_8h_source.html#l00087">vc::device::mc::Frame_3E</a>, <a class="el" href="mc__define_8h_source.html#l00194">vc::device::mc::McDataCodeFromString()</a>, <a class="el" href="mc__define_8h_source.html#l00171">vc::device::mc::McFrameTypeFromString()</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="mc__protocol__config_8h_source.html#l00088">vc::device::McProtocolConfig::toJson()</a>, <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, <a class="el" href="vision__tcpip__config_8h_source.html#l00065">vc::device::VisionTcpipDeviceCfg::toJson()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>, <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>, <a class="el" href="vision__output__config_8h_source.html#l00047">vc::device::VisionOutputTypeFromString()</a>, <a class="el" href="vision__output__config_8h_source.html#l00027">vc::device::VisionOutputTypeNone</a>, <a class="el" href="vision__output__config_8h_source.html#l00030">vc::device::VisionSerial</a>, <a class="el" href="vision__output__config_8h_source.html#l00028">vc::device::VisionTCPIP</a>, and <a class="el" href="vision__output__config_8h_source.html#l00029">vc::device::VisionTcpipClient</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>.</p>
 
@@ -338,10 +352,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Intercepts mouse-press events on the type-selector card frames and routes them to <a class="el" href="#a82ab7bd943562c48503f59e493dc40e2" title="Handles a card click by making type the active selection (see selectCard()).">onCardClicked()</a>; all other events fall through to the base class. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Intercepts mouse-press events on the type-selector card frames and routes them to <a class="el" href="#a82ab7bd943562c48503f59e493dc40e2" title="Handles a card click by making type the active selection (see selectCard()).">onCardClicked()</a>; all other events fall through to the base class. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>event source </td></tr>
-    <tr><td class="paramname">ev</td><td>event to filter </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>event source </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ev</td><td>event to filter </td></tr>
   </table>
   </dd>
 </dl>
@@ -350,7 +366,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00324">324</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00114">m_cards</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00217">onCardClicked()</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00142">m_cards</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00217">onCardClicked()</a>.</p>
 
 </div>
 </div>
@@ -379,9 +395,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the device id reserved for this wizard session (empty until <a class="el" href="#abb1e1c9094cf1eb9446c9ab7cbdf2ec3">showWizard()</a> runs). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00040">40</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00054">54</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00111">m_pendingDeviceId</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00139">m_pendingDeviceId</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00808">MainWindow::onAddDeviceToTaskRequested()</a>.</p>
 
@@ -406,7 +422,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00196">196</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>.</p>
 
 </div>
 </div>
@@ -426,11 +442,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the string name of the currently selected device type. </p>
-<p>Returns the string form of the currently selected device type (the card last chosen via <a class="el" href="#af6338f5d205815357e762003eb75fea5">selectCard()</a>/onCardClicked()). </p>
+<p>Returns the string form of the currently selected device type (the card last chosen via <a class="el" href="#af6338f5d205815357e762003eb75fea5" title="Marks type&#39;s card/name as the active selection (repolishing their style), shows or hides the config s...">selectCard()</a>/onCardClicked()). </p>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00202">202</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::DeviceTypeToString()</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00112">m_selectedType</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00068">vc::device::DeviceTypeToString()</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00140">m_selectedType</a>.</p>
 
 </div>
 </div>
@@ -461,7 +477,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00084">84</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="add__device__wizard_8h_source.html#l00114">m_cards</a>, <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00117">refreshCardIcons()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="add__device__wizard_8h_source.html#l00142">m_cards</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00117">refreshCardIcons()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>.</p>
 
@@ -494,7 +510,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00340">340</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>.</p>
 
 </div>
 </div>
@@ -521,11 +537,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Validates the entered device name (non-empty, unique), builds the type-specific config JSON, creates the device via DeviceFactory, and commits it through the manager; shows a warning/critical message box and returns without closing the dialog on failure.</p>
-<p>Slot for the Add button: validates the entered name (non-empty, not already used), builds the device's JSON config for the selected type via <a class="el" href="#a13c212db2168abe7d5abe110f320eefc">buildDeviceJson()</a>, constructs the device through DeviceFactory, and asks the manager to commit it under m_pendingDeviceId. Accepts the dialog on success; shows a warning/critical message box and keeps the dialog open on validation failure or commit failure. </p>
+<p>Slot for the Add button: validates the entered name (non-empty, not already used), builds the device's JSON config for the selected type via <a class="el" href="#a13c212db2168abe7d5abe110f320eefc" title="Builds the type-specific &quot;config&quot; JSON payload (camera sub-type, MC protocol config,...">buildDeviceJson()</a>, constructs the device through DeviceFactory, and asks the manager to commit it under m_pendingDeviceId. Accepts the dialog on success; shows a warning/critical message box and keeps the dialog open on validation failure or commit failure. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00233">233</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8cpp_source.html#l00269">buildDeviceJson()</a>, <a class="el" href="device__factory_8cpp_source.html#l00055">vc::device::DeviceFactory::create()</a>, <a class="el" href="idevice__config_8h_source.html#l00015">DEVICE_JSK_ID</a>, <a class="el" href="idevice__config_8h_source.html#l00016">DEVICE_JSK_NAME</a>, <a class="el" href="idevice__config_8h_source.html#l00018">DEVICE_JSK_TYPE</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::DeviceTypeToString()</a>, <a class="el" href="app__logger_8h_source.html#l00166">LOG_USER_INFO</a>, <a class="el" href="add__device__wizard_8h_source.html#l00110">m_manager</a>, <a class="el" href="add__device__wizard_8h_source.html#l00111">m_pendingDeviceId</a>, <a class="el" href="add__device__wizard_8h_source.html#l00112">m_selectedType</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8cpp_source.html#l00269">buildDeviceJson()</a>, <a class="el" href="device__factory_8cpp_source.html#l00055">vc::device::DeviceFactory::create()</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>, <a class="el" href="idevice__config_8h_source.html#l00024">DEVICE_JSK_TYPE</a>, <a class="el" href="idevice__config_8h_source.html#l00068">vc::device::DeviceTypeToString()</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="add__device__wizard_8h_source.html#l00138">m_manager</a>, <a class="el" href="add__device__wizard_8h_source.html#l00139">m_pendingDeviceId</a>, <a class="el" href="add__device__wizard_8h_source.html#l00140">m_selectedType</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00340">keyPressEvent()</a>.</p>
 
@@ -554,8 +570,8 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Handles a card click by making <span class="tt">type</span> the active selection (see <a class="el" href="#af6338f5d205815357e762003eb75fea5">selectCard()</a>). </p>
-<p>Slot for a card's click (via <a class="el" href="#a68b8d1f1816bbc3b95657e5c468e7268">eventFilter()</a>): makes <span class="tt">type</span>'s card the active selection. </p>
+<p>Handles a card click by making <span class="tt">type</span> the active selection (see <a class="el" href="#af6338f5d205815357e762003eb75fea5" title="Marks type&#39;s card/name as the active selection (repolishing their style), shows or hides the config s...">selectCard()</a>). </p>
+<p>Slot for a card's click (via <a class="el" href="#a68b8d1f1816bbc3b95657e5c468e7268" title="Intercepts mouse-press events on the type-selector card frames and routes them to onCardClicked(); al...">eventFilter()</a>): makes <span class="tt">type</span>'s card the active selection. </p>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00217">217</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
@@ -587,9 +603,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Enables the Add button only while the trimmed name text is non-empty. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Enables the Add button only while the trimmed name text is non-empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">text</td><td>current contents of the device-name edit field</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">text</td><td>current contents of the device-name edit field</td></tr>
   </table>
   </dd>
 </dl>
@@ -597,7 +615,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00223">223</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>.</p>
 
@@ -631,7 +649,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00117">117</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00076">AddDeviceWizard::CardRefs::icon</a>, <a class="el" href="add__device__wizard_8h_source.html#l00082">AddDeviceWizard::CardRefs::iconPath</a>, <a class="el" href="add__device__wizard_8h_source.html#l00114">m_cards</a>, and <a class="el" href="windows__helper_8h_source.html#l00179">svgIcon()</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00098">AddDeviceWizard::CardRefs::icon</a>, <a class="el" href="add__device__wizard_8h_source.html#l00104">AddDeviceWizard::CardRefs::iconPath</a>, <a class="el" href="add__device__wizard_8h_source.html#l00142">m_cards</a>, and <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00084">initCards()</a>.</p>
 
@@ -664,7 +682,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00208">208</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00110">m_manager</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00111">m_pendingDeviceId</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00138">m_manager</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00139">m_pendingDeviceId</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>.</p>
 
@@ -697,7 +715,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00162">162</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00075">ThemeManager::isDark()</a>, and <a class="el" href="app__logger_8h_source.html#l00168">LOG_USER_WARN</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00075">ThemeManager::isDark()</a>, and <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>.</p>
 
@@ -725,9 +743,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Forces Qt to re-evaluate stylesheet selectors on <span class="tt">w</span> (unpolish, polish, update); used after changing a dynamic property such as "selected". </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Forces Qt to re-evaluate stylesheet selectors on <code class="param">w</code> (unpolish, polish, update); used after changing a dynamic property such as "selected". </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">w</td><td>widget to repolish; no-op if null</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">w</td><td>widget to repolish; no-op if null</td></tr>
   </table>
   </dd>
 </dl>
@@ -761,9 +781,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Marks <span class="tt">type</span>'s card/name as the active selection (repolishing their style), shows or hides the config stack and switches to that type's page, and resets the name field to the type's default name. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Marks <code class="param">type's</code> card/name as the active selection (repolishing their style), shows or hides the config stack and switches to that type's page, and resets the name field to the type's default name. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>device type to make the active selection</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>device type to make the active selection</td></tr>
   </table>
   </dd>
 </dl>
@@ -771,7 +793,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00130">130</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00080">AddDeviceWizard::CardRefs::colorKey</a>, <a class="el" href="add__device__wizard_8h_source.html#l00081">AddDeviceWizard::CardRefs::defaultName</a>, <a class="el" href="add__device__wizard_8h_source.html#l00114">m_cards</a>, <a class="el" href="add__device__wizard_8h_source.html#l00112">m_selectedType</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00179">repolish()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00079">AddDeviceWizard::CardRefs::stackPage</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00102">AddDeviceWizard::CardRefs::colorKey</a>, <a class="el" href="add__device__wizard_8h_source.html#l00103">AddDeviceWizard::CardRefs::defaultName</a>, <a class="el" href="add__device__wizard_8h_source.html#l00142">m_cards</a>, <a class="el" href="add__device__wizard_8h_source.html#l00140">m_selectedType</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00179">repolish()</a>, <a class="el" href="add__device__wizard_8h_source.html#l00101">AddDeviceWizard::CardRefs::stackPage</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00217">onCardClicked()</a>.</p>
 
@@ -796,7 +818,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="add__device__wizard_8cpp_source.html#l00188">188</a> of file <a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00110">m_manager</a>, <a class="el" href="add__device__wizard_8h_source.html#l00111">m_pendingDeviceId</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00108">ui</a>.</p>
+<p class="reference">References <a class="el" href="add__device__wizard_8h_source.html#l00138">m_manager</a>, <a class="el" href="add__device__wizard_8h_source.html#l00139">m_pendingDeviceId</a>, and <a class="el" href="add__device__wizard_8h_source.html#l00136">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00808">MainWindow::onAddDeviceToTaskRequested()</a>.</p>
 
@@ -825,7 +847,7 @@ Private Attributes</h2></td></tr>
 
 <p>Selector card widgets/metadata keyed by device type. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00114">114</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00142">142</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00324">eventFilter()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00084">initCards()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00117">refreshCardIcons()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00130">selectCard()</a>.</p>
 
@@ -853,7 +875,7 @@ Private Attributes</h2></td></tr>
 
 <p>Device manager used to enumerate types and commit the finished device. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00110">110</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00138">138</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00208">reject()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00188">showWizard()</a>.</p>
 
@@ -881,9 +903,9 @@ Private Attributes</h2></td></tr>
 
 <p>Device id reserved via allocatePendingId() for the in-progress session; released on <a class="el" href="#ab4fa3c453269344af9b4a83e38f00095">reject()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00111">111</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00139">139</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__device__wizard_8h_source.html#l00040">getDeviceId()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00208">reject()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00188">showWizard()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__device__wizard_8h_source.html#l00054">getDeviceId()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00208">reject()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00188">showWizard()</a>.</p>
 
 </div>
 </div>
@@ -909,7 +931,7 @@ Private Attributes</h2></td></tr>
 
 <p>Currently selected device type. </p>
 
-<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00112">112</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00140">140</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00202">getDeviceType()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00130">selectCard()</a>.</p>
 
@@ -937,15 +959,15 @@ Private Attributes</h2></td></tr>
 
 <p>Generated UI form for this dialog (owned; deleted in the destructor). </p>
 
-<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00108">108</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="add__device__wizard_8h_source.html#l00136">136</a> of file <a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00269">buildDeviceJson()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00196">getDeviceName()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00084">initCards()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00340">keyPressEvent()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00233">onAddClicked()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00223">onNameChanged()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00130">selectCard()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00188">showWizard()</a>, and <a class="el" href="add__device__wizard_8cpp_source.html#l00076">~AddDeviceWizard()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="add__device__wizard_8h_source.html">add_device_wizard.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="add__device__wizard_8cpp_source.html">add_device_wizard.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

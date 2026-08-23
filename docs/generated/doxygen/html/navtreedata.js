@@ -26,14 +26,14 @@ var NAVTREE =
 [
   [ "ncr_picking", "index.html", [
     [ "ncr_picking Developer Reference", "index.html", "index" ],
-    [ "Module: calibration (level 1)", "md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2calibration_2_a_g_e_n_t_s.html", null ],
-    [ "Module: core (level 0)", "md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2core_2_a_g_e_n_t_s.html", null ],
-    [ "Module: device (level 1)", "md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2device_2_a_g_e_n_t_s.html", null ],
-    [ "Module: matching (level 1)", "md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2matching_2_a_g_e_n_t_s.html", null ],
-    [ "Module: model (level 2)", "md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2model_2_a_g_e_n_t_s.html", null ],
-    [ "Module: runtime (level 2)", "md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2runtime_2_a_g_e_n_t_s.html", null ],
-    [ "Module: ui (UI level)", "md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2ui_2_a_g_e_n_t_s.html", null ],
-    [ "Module: app (application shell)", "md__c_1_2_d_g_b_2_project_2computer-vision-app_2app_2_a_g_e_n_t_s.html", null ],
+    [ "Module: calibration (level 1)", "md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2calibration_2_a_g_e_n_t_s.html", null ],
+    [ "Module: core (level 0)", "md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2core_2_a_g_e_n_t_s.html", null ],
+    [ "Module: device (level 1)", "md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2device_2_a_g_e_n_t_s.html", null ],
+    [ "Module: matching (level 1)", "md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2matching_2_a_g_e_n_t_s.html", null ],
+    [ "Module: model (level 2)", "md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2model_2_a_g_e_n_t_s.html", null ],
+    [ "Module: runtime (level 2)", "md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2runtime_2_a_g_e_n_t_s.html", null ],
+    [ "Module: ui (UI level)", "md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2ui_2_a_g_e_n_t_s.html", null ],
+    [ "Module: app (application shell)", "md__c_1_2_d_g_b_2_project_2ncr__picking_2app_2_a_g_e_n_t_s.html", null ],
     [ "Architecture Diagrams", "architecture_diagrams.html", [
       [ "01. Project Overview", "architecture_diagrams.html#diag_01", null ],
       [ "02. Device Families", "architecture_diagrams.html#diag_02", null ],
@@ -101,7 +101,7 @@ var NAVTREEINDEX =
 "class_workspace_setting_dialog.html#a2466cfa2823615637b44b78efa23e4a1a9e2941b3c81256fac10392aaca4ccfde",
 "classmtc_1_1_block_max.html#ad0c7661db0e2098b70bfc642c9957efe",
 "classmtc_1_1_match_group.html#a7583ca0ee48edc6cd8fd477a68b5cb70",
-"classmtc_1_1_matched_object.html#a71a1f074cd3aaaca6b3366d69ce80908",
+"classmtc_1_1_matched_object.html#a73fdd4c1b37df6ed5f1000df71ffc4a0",
 "classvc_1_1device_1_1_basler_gige_cfg.html",
 "classvc_1_1device_1_1_device_manager.html#a16c119d19b3b73b571d23f6985065d70",
 "classvc_1_1device_1_1_i_word_io_provider.html#ac66cc3b05a259c247c7f3bf202b2d3e7",
@@ -125,8 +125,8 @@ var NAVTREEINDEX =
 "struct_robot_kinematics_1_1_solver_metadata.html#aba02df1eaa581ddb13cbb3bb9640abf7",
 "struct_task_event.html#ac258304de96329f4c327b4c7ed3c8751",
 "structvc_1_1device_1_1_mc_device_range_1_1_device_range.html",
-"structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#a56c5a8a3128831f2ace3822c83d4a1a7",
-"vision__utils_8h.html#a42b777394a998dbac99e0088babaa0a4"
+"structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html",
+"vision__utils_8cpp_source.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

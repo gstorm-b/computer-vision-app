@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/task_factory.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/task_factory.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('task__factory_
   <div class="headertitle"><div class="title">task_factory.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>TaskFactory — static, non-instantiable factory that builds concrete ITask instances from JSON.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="itask_8h_source.html">model/itask.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for task_factory.h:</div>
@@ -128,7 +131,7 @@ Include dependency graph for task_factory.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="task__factory_8h__dep__incl.svg" width="379" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="task__factory_8h__dep__incl.svg" width="392" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="task__factory_8h_source.html">Go to the source code of this file.</a></p>
@@ -136,14 +139,19 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ATaskFactory" id="r_vc_3A_3Amodel_3A_3ATaskFactory"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1model_1_1_task_factory.html">vc::model::TaskFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static, non-instantiable factory that builds concrete <a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">ITask</a> instances (currently LocalizationTask) from JSON, dispatching by <a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b" title="Identifies the kind of work a task performs.">TaskType</a>.  <a href="classvc_1_1model_1_1_task_factory.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>TaskFactory — static, non-instantiable factory that builds concrete ITask instances from JSON. </p>
+
+<p class="definition">Definition in file <a class="el" href="task__factory_8h_source.html">task_factory.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

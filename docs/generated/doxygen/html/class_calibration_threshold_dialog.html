@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_calibrat
 </div><!--header-->
 <div class="contents">
 
+<p>Modal dialog that tunes the calibration-board binarization threshold on a live camera frame. It drives the SAME binarize()/detect() routines the board uses at calibration time, so the preview matches reality.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CalibrationThresholdDialog:</div>
@@ -145,12 +148,14 @@ Signals</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a904961dfde9d98fef029b95071db9f77" id="r_a904961dfde9d98fef029b95071db9f77"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a904961dfde9d98fef029b95071db9f77">CalibrationThresholdDialog</a> (<a class="el" href="classcalib_1_1_calibration_board.html">calib::CalibrationBoard</a> *board, int initialThreshold, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a904961dfde9d98fef029b95071db9f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the dialog, wiring the preview panes and controls to <span class="tt">board</span> and seeding the initial slider/spin value and Auto checkbox from <span class="tt">initialThreshold</span>, then runs an initial <a class="el" href="#ac7397dfb6bc6c95621d34ea47424307b">recompute()</a> (previews stay blank until <a class="el" href="#acbf503a710ae1696cb771b89768a0c58" title="Clones image into m_image and recomputes both preview panes and the status line.">setImage()</a> delivers the first frame).  <br /></td></tr>
 <tr class="memitem:a22d6c86c228022c7f692b82d1e9c0c99" id="r_a22d6c86c228022c7f692b82d1e9c0c99"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a22d6c86c228022c7f692b82d1e9c0c99">threshold</a> () const</td></tr>
 <tr class="memdesc:a22d6c86c228022c7f692b82d1e9c0c99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the dialog's current threshold selection (delegates to <a class="el" href="#a830dee4be625abd4e2bb9b1d981cc7e4" title="Returns -1 when Auto (Otsu) is checked, otherwise the current slider value.">trialThreshold()</a>).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-slots" class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
 <tr class="memitem:a4d4458998ce2391bff4a8cf5a271036b" id="r_a4d4458998ce2391bff4a8cf5a271036b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4d4458998ce2391bff4a8cf5a271036b">onAutoToggled</a> (bool autoOtsu)</td></tr>
+<tr class="memdesc:a4d4458998ce2391bff4a8cf5a271036b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the "Auto (Otsu)" checkbox toggling: enables/disables the manual slider and spin box accordingly, then recomputes the previews.  <br /></td></tr>
 <tr class="memitem:a6a44e3e6857d242738bbf1bd1fabc241" id="r_a6a44e3e6857d242738bbf1bd1fabc241"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6a44e3e6857d242738bbf1bd1fabc241">onSliderChanged</a> (int value)</td></tr>
 <tr class="memitem:ac36e8acc3c24cd3e0bab2a7705329a76" id="r_ac36e8acc3c24cd3e0bab2a7705329a76"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac36e8acc3c24cd3e0bab2a7705329a76">onSpinChanged</a> (int value)</td></tr>
 <tr class="memitem:ac7397dfb6bc6c95621d34ea47424307b" id="r_ac7397dfb6bc6c95621d34ea47424307b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac7397dfb6bc6c95621d34ea47424307b">recompute</a> ()</td></tr>
@@ -185,16 +190,17 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a586761893d7df233e816b80d1de5da2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Status line: applied threshold, detected dot count, pass/fail.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Modal dialog that tunes the calibration-board binarization threshold on a live camera frame. It drives the SAME binarize()/detect() routines the board uses at calibration time, so the preview matches reality.</p><ul>
+<div class="textblock"><p>Modal dialog that tunes the calibration-board binarization threshold on a live camera frame. It drives the SAME binarize()/detect() routines the board uses at calibration time, so the preview matches reality. </p>
+<ul>
 <li>"Auto (Otsu)" checkbox: threshold == -1, Otsu picks the value.</li>
 <li>Slider / spin 0..255: fixed manual threshold.</li>
 <li>Left preview : binarized image (THRESH_BINARY_INV).</li>
 <li>Right preview: detection overlay (detected dots) when detect succeeds.</li>
-<li>Status line : applied threshold + detected dot count + pass/fail. <dl class="section note"><dt>Note</dt><dd>The board pointer is borrowed (not owned). The dialog temporarily applies the trial threshold to the board for previewing; the caller is responsible for committing the accepted value (<a class="el" href="#a22d6c86c228022c7f692b82d1e9c0c99" title="Returns the dialog&#39;s current threshold selection (delegates to trialThreshold()).">threshold()</a>) and/or restoring the previous one after exec(). </dd></dl>
-</li>
+<li>Status line : applied threshold + detected dot count + pass/fail.</li>
 </ul>
+<dl class="section note"><dt>Note</dt><dd>The board pointer is borrowed (not owned). The dialog temporarily applies the trial threshold to the board for previewing; the caller is responsible for committing the accepted value (<a class="el" href="#a22d6c86c228022c7f692b82d1e9c0c99" title="Returns the dialog&#39;s current threshold selection (delegates to trialThreshold()).">threshold()</a>) and/or restoring the previous one after exec(). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00031">31</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00042">42</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a904961dfde9d98fef029b95071db9f77" name="a904961dfde9d98fef029b95071db9f77"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a904961dfde9d98fef029b95071db9f77">&#9670;&#160;</a></span>CalibrationThresholdDialog()</h2>
@@ -219,10 +225,13 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Constructs the dialog, wiring the preview panes and controls to <span class="tt">board</span> and seeding the initial slider/spin value and Auto checkbox from <span class="tt">initialThreshold</span>, then runs an initial <a class="el" href="#ac7397dfb6bc6c95621d34ea47424307b">recompute()</a> (previews stay blank until <a class="el" href="#acbf503a710ae1696cb771b89768a0c58" title="Clones image into m_image and recomputes both preview panes and the status line.">setImage()</a> delivers the first frame). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Constructs the dialog, wiring the preview panes and controls to <span class="tt">board</span> and seeding the initial slider/spin value and Auto checkbox from <span class="tt">initialThreshold</span>, then runs an initial <a class="el" href="#ac7397dfb6bc6c95621d34ea47424307b">recompute()</a> (previews stay blank until <a class="el" href="#acbf503a710ae1696cb771b89768a0c58" title="Clones image into m_image and recomputes both preview panes and the status line.">setImage()</a> delivers the first frame). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">board</td><td>calibration board whose binarize()/detect() drive the previews (borrowed, not owned) </td></tr>
-    <tr><td class="paramname">initialThreshold</td><td>seed value: -1 selects Auto (Otsu), 0..255 selects manual with that value</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">board</td><td>calibration board whose binarize()/detect() drive the previews (borrowed, not owned) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">initialThreshold</td><td>seed value: -1 selects Auto (Otsu), 0..255 selects manual with that value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>owning widget, passed through to QDialog (Qt parent/child ownership)</td></tr>
   </table>
   </dd>
 </dl>
@@ -230,7 +239,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00028">28</a> of file <a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00081">m_board</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00097">m_board</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
 </div>
 </div>
@@ -267,7 +276,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">43</a> of file <a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00084">m_auto</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00087">m_binView</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00091">m_buttons</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00088">m_overlayView</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00090">m_regrab</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00085">m_slider</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00086">m_spin</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00089">m_status</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00138">onAutoToggled()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00147">onSliderChanged()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00158">onSpinChanged()</a>, and <a class="el" href="#abb644f4f0c31bca79de8761d3309bd87">regrabRequested()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00100">m_auto</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00103">m_binView</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00107">m_buttons</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00104">m_overlayView</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00106">m_regrab</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00101">m_slider</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00102">m_spin</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00105">m_status</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00138">onAutoToggled()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00147">onSliderChanged()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00158">onSpinChanged()</a>, and <a class="el" href="#abb644f4f0c31bca79de8761d3309bd87">regrabRequested()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00028">CalibrationThresholdDialog()</a>.</p>
 
@@ -295,9 +304,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Handles the "Auto (Otsu)" checkbox toggling: enables/disables the manual slider and spin box accordingly, then recomputes the previews. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Handles the "Auto (Otsu)" checkbox toggling: enables/disables the manual slider and spin box accordingly, then recomputes the previews. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">autoOtsu</td><td>true when Auto (Otsu) is now checked</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">autoOtsu</td><td>true when Auto (Otsu) is now checked</td></tr>
   </table>
   </dd>
 </dl>
@@ -305,7 +316,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00138">138</a> of file <a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00085">m_slider</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00086">m_spin</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00101">m_slider</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00102">m_spin</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>.</p>
 
@@ -338,7 +349,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00147">147</a> of file <a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00086">m_spin</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00102">m_spin</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>.</p>
 
@@ -371,7 +382,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00158">158</a> of file <a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00085">m_slider</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00101">m_slider</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>.</p>
 
@@ -404,7 +415,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">172</a> of file <a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00087">m_binView</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00081">m_board</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00082">m_image</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00088">m_overlayView</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00089">m_status</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00117">trialThreshold()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00103">m_binView</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00097">m_board</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00098">m_image</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00104">m_overlayView</a>, <a class="el" href="calibration__threshold__dialog_8h_source.html#l00105">m_status</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00117">trialThreshold()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00028">CalibrationThresholdDialog()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00138">onAutoToggled()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00147">onSliderChanged()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00158">onSpinChanged()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00130">setImage()</a>.</p>
 
@@ -467,7 +478,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00130">130</a> of file <a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00082">m_image</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00098">m_image</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
 </div>
 </div>
@@ -523,7 +534,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00117">117</a> of file <a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00084">m_auto</a>, and <a class="el" href="calibration__threshold__dialog_8h_source.html#l00085">m_slider</a>.</p>
+<p class="reference">References <a class="el" href="calibration__threshold__dialog_8h_source.html#l00100">m_auto</a>, and <a class="el" href="calibration__threshold__dialog_8h_source.html#l00101">m_slider</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00124">threshold()</a>.</p>
 
@@ -552,7 +563,7 @@ Private Attributes</h2></td></tr>
 
 <p>"Auto (Otsu)" checkbox. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00084">84</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00100">100</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00117">trialThreshold()</a>.</p>
 
@@ -580,7 +591,7 @@ Private Attributes</h2></td></tr>
 
 <p>Left preview pane: binarized image at the trial threshold. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00087">87</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00103">103</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
@@ -608,7 +619,7 @@ Private Attributes</h2></td></tr>
 
 <p>Borrowed pointer to the board being tuned (not owned). </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00081">81</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00097">97</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00028">CalibrationThresholdDialog()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
@@ -636,7 +647,7 @@ Private Attributes</h2></td></tr>
 
 <p>OK/Cancel button box. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00091">91</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00107">107</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>.</p>
 
@@ -664,7 +675,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last frame pushed via <a class="el" href="#acbf503a710ae1696cb771b89768a0c58" title="Clones image into m_image and recomputes both preview panes and the status line.">setImage()</a>; empty until the first grab. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00082">82</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00098">98</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00130">setImage()</a>.</p>
 
@@ -692,7 +703,7 @@ Private Attributes</h2></td></tr>
 
 <p>Right preview pane: detection overlay (or raw frame on failure). </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00088">88</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00104">104</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
@@ -720,7 +731,7 @@ Private Attributes</h2></td></tr>
 
 <p>"Re-grab" button; emits <a class="el" href="#abb644f4f0c31bca79de8761d3309bd87" title="Emitted when the user clicks &quot;Re-grab&quot; to request a fresh frame from the camera.">regrabRequested()</a> when clicked. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00090">90</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00106">106</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>.</p>
 
@@ -748,7 +759,7 @@ Private Attributes</h2></td></tr>
 
 <p>Manual threshold slider (0..255). </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00085">85</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00101">101</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00138">onAutoToggled()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00158">onSpinChanged()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00117">trialThreshold()</a>.</p>
 
@@ -776,7 +787,7 @@ Private Attributes</h2></td></tr>
 
 <p>Manual threshold spin box, kept in sync with m_slider. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00086">86</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00102">102</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>, <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00138">onAutoToggled()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00147">onSliderChanged()</a>.</p>
 
@@ -804,15 +815,15 @@ Private Attributes</h2></td></tr>
 
 <p>Status line: applied threshold, detected dot count, pass/fail. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00089">89</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__threshold__dialog_8h_source.html#l00105">105</a> of file <a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00043">buildUi()</a>, and <a class="el" href="calibration__threshold__dialog_8cpp_source.html#l00172">recompute()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/calibration/<a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/calibration/<a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/calibration/<a class="el" href="calibration__threshold__dialog_8h_source.html">calibration_threshold_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/calibration/<a class="el" href="calibration__threshold__dialog_8cpp_source.html">calibration_threshold_dialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/matching/match_group.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/matching/match_group.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('match__group_8
   <div class="headertitle"><div class="title">match_group.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="struct_match_group_config.html" title="A named group of MatchPatternConfig entries, displayed as a top-level tree item with its patterns nes...">MatchGroupConfig</a> and MatchGroup — per-group pattern container and shared algorithm config.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="manager__result_8h_source.html">manager_result.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="edge__match__config_8h_source.html">edge_match_config.h</a>&quot;</code><br />
@@ -139,14 +142,20 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:mtc_3A_3AMatchGroup" id="r_mtc_3A_3AMatchGroup"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_group.html">mtc::MatchGroup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns one named/numbered group of patterns plus their shared <a class="el" href="classmtc_1_1_match_group_config.html" title="Per-group configuration: holds group identity and the algorithm-specific config (typeConfig,...">MatchGroupConfig</a>: pattern CRUD (add/remove/rename/renumber/setImage), lookup, and static group/pattern index-range validation.  <a href="classmtc_1_1_match_group.html#details">More...</a><br /></td></tr>
 <tr class="memitem:mtc_3A_3AMatchGroupConfig" id="r_mtc_3A_3AMatchGroupConfig"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_match_group_config.html">mtc::MatchGroupConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-group configuration: holds group identity and the algorithm-specific config (<span class="tt"><a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">typeConfig</a></span>, default <a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>) that is SHARED by every pattern in the group.  <a href="classmtc_1_1_match_group_config.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:mtc" id="r_mtc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html">mtc</a></td></tr>
-<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html">utils_block_max.h</a>). <br /></td></tr>
+<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html" title="MatchBlock/BlockMax — block-partitioned max-value search helper used to enumerate multiple local maxi...">utils_block_max.h</a>). <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="struct_match_group_config.html" title="A named group of MatchPatternConfig entries, displayed as a top-level tree item with its patterns nes...">MatchGroupConfig</a> and MatchGroup — per-group pattern container and shared algorithm config. </p>
+
+<p class="definition">Definition in file <a class="el" href="match__group_8h_source.html">match_group.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_app_logg
 </div><!--header-->
 <div class="contents">
 
+<p>Temporary stream object returned by <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a>'s <a class="el" href="class_app_logger.html#aa69def16a957c28d166b852d87534110" title="Starts a buffered user-facing log entry at Info level.">info()</a>/warning()/error()/... helpers: buffers <span class="tt">operator&lt;&lt;</span> chained values and, on destruction, flushes the accumulated text to the owning <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> as one log message (dev-tagged when constructed with a non-empty context, user-facing otherwise).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="app__logger_8h_source.html">app_logger.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for AppLogger::LogStream:</div>
@@ -131,6 +134,7 @@ Collaboration diagram for AppLogger::LogStream:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab6ca37fa91c6db18f3453f15d4f0127e" id="r_ab6ca37fa91c6db18f3453f15d4f0127e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab6ca37fa91c6db18f3453f15d4f0127e">LogStream</a> (const LogStream &amp;other)</td></tr>
 <tr class="memitem:ab66b1e24c32285163e1b1e98f9b38ed9" id="r_ab66b1e24c32285163e1b1e98f9b38ed9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab66b1e24c32285163e1b1e98f9b38ed9">LogStream</a> (<a class="el" href="app__logger_8h.html#aca1fd1d8935433e6ba2e3918214e07f9">LogLevel</a> level, <a class="el" href="class_app_logger.html">AppLogger</a> *logger, QString ctx=QString())</td></tr>
+<tr class="memdesc:ab66b1e24c32285163e1b1e98f9b38ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a new buffered log entry at <span class="tt">level</span> for <span class="tt">logger</span>.  <br /></td></tr>
 <tr class="memitem:a686a714395da4dbb992ac91daf6fe3d8" id="r_a686a714395da4dbb992ac91daf6fe3d8"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
 <tr class="memitem:a686a714395da4dbb992ac91daf6fe3d8 template"><td class="memItemLeft"><a class="el" href="#ab66b1e24c32285163e1b1e98f9b38ed9">LogStream</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a686a714395da4dbb992ac91daf6fe3d8">operator&lt;&lt;</a> (const T &amp;value)</td></tr>
 <tr class="memitem:aeccfb9cd4a47667b07e2a3f3bd6b1065" id="r_aeccfb9cd4a47667b07e2a3f3bd6b1065"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aeccfb9cd4a47667b07e2a3f3bd6b1065">~LogStream</a> ()</td></tr>
@@ -149,9 +153,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a7950cce578b2269a62da31204ee2e933"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stream bound to m_buffer used to format appended values.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Temporary stream object returned by <a class="el" href="class_app_logger.html">AppLogger</a>'s <a class="el" href="class_app_logger.html#aa69def16a957c28d166b852d87534110" title="Starts a buffered user-facing log entry at Info level.">info()</a>/warning()/error()/... helpers: buffers <span class="tt">operator&lt;&lt;</span> chained values and, on destruction, flushes the accumulated text to the owning <a class="el" href="class_app_logger.html">AppLogger</a> as one log message (dev-tagged when constructed with a non-empty context, user-facing otherwise). </p>
+<div class="textblock"><p>Temporary stream object returned by <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a>'s <a class="el" href="class_app_logger.html#aa69def16a957c28d166b852d87534110" title="Starts a buffered user-facing log entry at Info level.">info()</a>/warning()/error()/... helpers: buffers <span class="tt">operator&lt;&lt;</span> chained values and, on destruction, flushes the accumulated text to the owning <a class="el" href="class_app_logger.html" title="Application-wide logging facade (singleton): routes user- and developer-facing messages to a rotating...">AppLogger</a> as one log message (dev-tagged when constructed with a non-empty context, user-facing otherwise). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00050">50</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00073">73</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab66b1e24c32285163e1b1e98f9b38ed9" name="ab66b1e24c32285163e1b1e98f9b38ed9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab66b1e24c32285163e1b1e98f9b38ed9">&#9670;&#160;</a></span>LogStream() <span class="overload">[1/2]</span></h2>
@@ -184,18 +188,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Starts a new buffered log entry at <span class="tt">level</span> for <span class="tt">logger</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Starts a new buffered log entry at <span class="tt">level</span> for <span class="tt">logger</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ctx</td><td>developer context (e.g. <a href="file:line">file:line</a>); empty means a user-facing entry </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>developer context (e.g. <a href="file:line">file:line</a>); empty means a user-facing entry </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00054">54</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00079">79</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="class_app_logger.html#a797d28321fc7aba08c685756c44964c2">AppLogger::AppLogger()</a>, <a class="el" href="app__logger_8h_source.html#l00088">m_buffer</a>, <a class="el" href="app__logger_8h_source.html#l00085">m_context</a>, <a class="el" href="app__logger_8h_source.html#l00086">m_level</a>, <a class="el" href="app__logger_8h_source.html#l00087">m_logger</a>, and <a class="el" href="app__logger_8h_source.html#l00089">m_stream</a>.</p>
+<p class="reference">References <a class="el" href="class_app_logger.html#a797d28321fc7aba08c685756c44964c2">AppLogger::AppLogger()</a>, <a class="el" href="app__logger_8h_source.html#l00113">m_buffer</a>, <a class="el" href="app__logger_8h_source.html#l00110">m_context</a>, <a class="el" href="app__logger_8h_source.html#l00111">m_level</a>, <a class="el" href="app__logger_8h_source.html#l00112">m_logger</a>, and <a class="el" href="app__logger_8h_source.html#l00114">m_stream</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00061">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00079">operator&lt;&lt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00086">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00104">operator&lt;&lt;()</a>.</p>
 
 </div>
 </div>
@@ -223,9 +229,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Copies the level, logger pointer, and accumulated buffer text from <span class="tt">other</span> (the copy gets its own QTextStream bound to its own buffer). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00061">61</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00086">86</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00054">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00088">m_buffer</a>, <a class="el" href="app__logger_8h_source.html#l00086">m_level</a>, <a class="el" href="app__logger_8h_source.html#l00087">m_logger</a>, and <a class="el" href="app__logger_8h_source.html#l00089">m_stream</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00079">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00113">m_buffer</a>, <a class="el" href="app__logger_8h_source.html#l00111">m_level</a>, <a class="el" href="app__logger_8h_source.html#l00112">m_logger</a>, and <a class="el" href="app__logger_8h_source.html#l00114">m_stream</a>.</p>
 
 </div>
 </div>
@@ -253,9 +259,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Flushes the buffered text (if any) to the owning logger via logDev/logUser, choosing the path based on whether a context was supplied. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00068">68</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00093">93</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00088">m_buffer</a>, <a class="el" href="app__logger_8h_source.html#l00085">m_context</a>, <a class="el" href="app__logger_8h_source.html#l00086">m_level</a>, and <a class="el" href="app__logger_8h_source.html#l00087">m_logger</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00113">m_buffer</a>, <a class="el" href="app__logger_8h_source.html#l00110">m_context</a>, <a class="el" href="app__logger_8h_source.html#l00111">m_level</a>, and <a class="el" href="app__logger_8h_source.html#l00112">m_logger</a>.</p>
 
 </div>
 </div>
@@ -286,9 +292,9 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 <p>Appends <span class="tt">value</span> (converted via QTextStream) followed by a space to the buffered message; enables chained <span class="tt">stream &lt;&lt; a &lt;&lt; b &lt;&lt; c</span> usage. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00079">79</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00104">104</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00054">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00089">m_stream</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00079">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00114">m_stream</a>.</p>
 
 </div>
 </div>
@@ -315,9 +321,9 @@ template&lt;typename T&gt; </div>
 
 <p>Accumulated message text built up by operator&lt;&lt;. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00088">88</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00113">113</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00061">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00054">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00068">~LogStream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00086">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00079">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00093">~LogStream()</a>.</p>
 
 </div>
 </div>
@@ -343,9 +349,9 @@ template&lt;typename T&gt; </div>
 
 <p>Developer context tag; empty for user-facing entries. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00085">85</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00110">110</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00054">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00068">~LogStream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00079">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00093">~LogStream()</a>.</p>
 
 </div>
 </div>
@@ -371,9 +377,9 @@ template&lt;typename T&gt; </div>
 
 <p>Severity this entry will be logged at. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00086">86</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00111">111</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00061">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00054">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00068">~LogStream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00086">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00079">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00093">~LogStream()</a>.</p>
 
 </div>
 </div>
@@ -399,9 +405,9 @@ template&lt;typename T&gt; </div>
 
 <p>Logger the buffered text is flushed to on destruction. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00087">87</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00112">112</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00061">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00054">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00068">~LogStream()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00086">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00079">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00093">~LogStream()</a>.</p>
 
 </div>
 </div>
@@ -427,14 +433,14 @@ template&lt;typename T&gt; </div>
 
 <p>Stream bound to m_buffer used to format appended values. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00089">89</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__logger_8h_source.html#l00114">114</a> of file <a class="el" href="app__logger_8h_source.html">app_logger.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00061">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00054">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00079">operator&lt;&lt;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__logger_8h_source.html#l00086">LogStream()</a>, <a class="el" href="app__logger_8h_source.html#l00079">LogStream()</a>, and <a class="el" href="app__logger_8h_source.html#l00104">operator&lt;&lt;()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/core/logger/<a class="el" href="app__logger_8h_source.html">app_logger.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/core/logger/<a class="el" href="app__logger_8h_source.html">app_logger.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

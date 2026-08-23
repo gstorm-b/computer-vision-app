@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_new_task
 </div><!--header-->
 <div class="contents">
 
+<p>Modal dialog that lets the user pick a save path (.vtask file) and name for a new task; the values are read back via <a class="el" href="#a6901ca75c91c83f0a07459ab7672c4c0" title="Returns the absolute .vtask save path chosen by the user, captured on finish.">getPath()</a>/getName() once the dialog is accepted.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for NewTaskDialog:</div>
@@ -162,7 +165,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Modal dialog that lets the user pick a save path (.vtask file) and name for a new task; the values are read back via <a class="el" href="#a6901ca75c91c83f0a07459ab7672c4c0" title="Returns the absolute .vtask save path chosen by the user, captured on finish.">getPath()</a>/getName() once the dialog is accepted. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00012">12</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00020">20</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a719f7ce3d2828952f02b52a694fd5886" name="a719f7ce3d2828952f02b52a694fd5886"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a719f7ce3d2828952f02b52a694fd5886">&#9670;&#160;</a></span>NewTaskDialog()</h2>
@@ -192,7 +195,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="new__task__dialog_8cpp_source.html#l00010">10</a> of file <a class="el" href="new__task__dialog_8cpp_source.html">new_task_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="new__task__dialog_8cpp_source.html#l00010">NewTaskDialog()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00083">onClicked_btn_cancel()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00053">onClicked_btn_finish()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00033">onClicked_btn_select_path()</a>, and <a class="el" href="new__task__dialog_8h_source.html#l00041">ui</a>.</p>
+<p class="reference">References <a class="el" href="new__task__dialog_8cpp_source.html#l00010">NewTaskDialog()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00083">onClicked_btn_cancel()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00053">onClicked_btn_finish()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00033">onClicked_btn_select_path()</a>, and <a class="el" href="new__task__dialog_8h_source.html#l00049">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="new__task__dialog_8cpp_source.html#l00010">NewTaskDialog()</a>.</p>
 
@@ -218,7 +221,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="new__task__dialog_8cpp_source.html#l00026">26</a> of file <a class="el" href="new__task__dialog_8cpp_source.html">new_task_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00041">ui</a>.</p>
+<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00049">ui</a>.</p>
 
 </div>
 </div>
@@ -248,9 +251,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the task name entered by the user, captured on finish. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00025">25</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00033">33</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00043">m_name</a>.</p>
+<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00051">m_name</a>.</p>
 
 </div>
 </div>
@@ -279,9 +282,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the absolute .vtask save path chosen by the user, captured on finish. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00020">20</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00028">28</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00042">m_save_file_path</a>.</p>
+<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00050">m_save_file_path</a>.</p>
 
 </div>
 </div>
@@ -344,7 +347,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="new__task__dialog_8cpp_source.html#l00053">53</a> of file <a class="el" href="new__task__dialog_8cpp_source.html">new_task_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00043">m_name</a>, <a class="el" href="new__task__dialog_8h_source.html#l00042">m_save_file_path</a>, and <a class="el" href="new__task__dialog_8h_source.html#l00041">ui</a>.</p>
+<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00051">m_name</a>, <a class="el" href="new__task__dialog_8h_source.html#l00050">m_save_file_path</a>, and <a class="el" href="new__task__dialog_8h_source.html#l00049">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="new__task__dialog_8cpp_source.html#l00010">NewTaskDialog()</a>.</p>
 
@@ -377,7 +380,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="new__task__dialog_8cpp_source.html#l00033">33</a> of file <a class="el" href="new__task__dialog_8cpp_source.html">new_task_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00042">m_save_file_path</a>, and <a class="el" href="new__task__dialog_8h_source.html#l00041">ui</a>.</p>
+<p class="reference">References <a class="el" href="new__task__dialog_8h_source.html#l00050">m_save_file_path</a>, and <a class="el" href="new__task__dialog_8h_source.html#l00049">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="new__task__dialog_8cpp_source.html#l00010">NewTaskDialog()</a>.</p>
 
@@ -406,9 +409,9 @@ Private Attributes</h2></td></tr>
 
 <p>Task name captured from the input field on finish. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00043">43</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00051">51</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="new__task__dialog_8h_source.html#l00025">getName()</a>, and <a class="el" href="new__task__dialog_8cpp_source.html#l00053">onClicked_btn_finish()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="new__task__dialog_8h_source.html#l00033">getName()</a>, and <a class="el" href="new__task__dialog_8cpp_source.html#l00053">onClicked_btn_finish()</a>.</p>
 
 </div>
 </div>
@@ -434,9 +437,9 @@ Private Attributes</h2></td></tr>
 
 <p>Absolute .vtask save path captured from the input field on finish. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00042">42</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00050">50</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="new__task__dialog_8h_source.html#l00020">getPath()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00053">onClicked_btn_finish()</a>, and <a class="el" href="new__task__dialog_8cpp_source.html#l00033">onClicked_btn_select_path()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="new__task__dialog_8h_source.html#l00028">getPath()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00053">onClicked_btn_finish()</a>, and <a class="el" href="new__task__dialog_8cpp_source.html#l00033">onClicked_btn_select_path()</a>.</p>
 
 </div>
 </div>
@@ -462,15 +465,15 @@ Private Attributes</h2></td></tr>
 
 <p>Generated UI form for this dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00041">41</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="new__task__dialog_8h_source.html#l00049">49</a> of file <a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="new__task__dialog_8cpp_source.html#l00010">NewTaskDialog()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00053">onClicked_btn_finish()</a>, <a class="el" href="new__task__dialog_8cpp_source.html#l00033">onClicked_btn_select_path()</a>, and <a class="el" href="new__task__dialog_8cpp_source.html#l00026">~NewTaskDialog()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="new__task__dialog_8cpp_source.html">new_task_dialog.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="new__task__dialog_8h_source.html">new_task_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="new__task__dialog_8cpp_source.html">new_task_dialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

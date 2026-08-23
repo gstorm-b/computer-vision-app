@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_i
 </div><!--header-->
 <div class="contents">
 
+<p>Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape/edge match for every registered pattern against a source image, then filters, sorts, and annotates the results.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::ImageMatcher:</div>
@@ -130,6 +133,7 @@ Collaboration diagram for mtc::ImageMatcher:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:PossibleObject" id="r_PossibleObject"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_image_matcher_1_1_possible_object.html">PossibleObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One image contour that survived the coarse area filter and is a candidate to be edge-matched against one or more patterns.  <a href="structmtc_1_1_image_matcher_1_1_possible_object.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -141,8 +145,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aead40ab862fb25458bc625c6f2edea0f" id="r_aead40ab862fb25458bc625c6f2edea0f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aead40ab862fb25458bc625c6f2edea0f">ImageMatcher</a> ()</td></tr>
 <tr class="memdesc:aead40ab862fb25458bc625c6f2edea0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs an empty matcher (no source image, empty model group).  <br /></td></tr>
 <tr class="memitem:a6075a4207aa67382a7a0e980ff4de3fa" id="r_a6075a4207aa67382a7a0e980ff4de3fa"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6075a4207aa67382a7a0e980ff4de3fa">MatchEdge</a> (cv::Mat &amp;imgEdge, <a class="el" href="classmtc_1_1_match_pattern.html">MatchPattern</a> *pattern, std::vector&lt; <a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a> &gt; &amp;matchObjs)</td></tr>
+<tr class="memdesc:a6075a4207aa67382a7a0e980ff4de3fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the coarse-to-fine pyramid, rotation-searching edge match of one pattern against <span class="tt">imgEdge</span>: coarse search at the top pyramid layer, then descends the pyramid refining position/angle (with optional sub-pixel estimation at layer 0), filters by score and by rotated-rect overlap, and builds one <a class="el" href="classmtc_1_1_matched_object.html" title="One matched pattern instance found by ImageMatcher: its geometry (corners, center,...">MatchedObject</a> per surviving candidate.  <br /></td></tr>
 <tr class="memitem:a436feebc4c6200c7916daa3441848e86" id="r_a436feebc4c6200c7916daa3441848e86"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a436feebc4c6200c7916daa3441848e86">matching</a> (bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)</td></tr>
+<tr class="memdesc:a436feebc4c6200c7916daa3441848e86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core matching pipeline: grayscales + thresholds + finds contours in the current source image, shortlists contours whose area falls in each pattern's expected range, runs MatchEdge per candidate/pattern, resolves picking/collision geometry and robot-pickability, sorts, and rewrites match_result (including the annotated match_result.Image).  <br /></td></tr>
 <tr class="memitem:ac4fb12785dc2d4e6a8a5a7147cdd5f7d" id="r_ac4fb12785dc2d4e6a8a5a7147cdd5f7d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d">matching</a> (cv::Mat &amp;image, bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)</td></tr>
+<tr class="memdesc:ac4fb12785dc2d4e6a8a5a7147cdd5f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the source image (clone of <span class="tt">image</span>), then runs the same pipeline as the other <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">matching()</a> overload.  <br /></td></tr>
 <tr class="memitem:a5b24181e2c6b1f22406f89870c508ad4" id="r_a5b24181e2c6b1f22406f89870c508ad4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5b24181e2c6b1f22406f89870c508ad4">robotPossiblePickingCheck</a> (const <a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a> &amp;obj) const</td></tr>
 <tr class="memitem:a31a3d0feb99034db711422c1cca618b2" id="r_a31a3d0feb99034db711422c1cca618b2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a31a3d0feb99034db711422c1cca618b2">setImageSource</a> (cv::Mat img)</td></tr>
 <tr class="memitem:a33da9cfc75f60f2445c08f0491f8d358" id="r_a33da9cfc75f60f2445c08f0491f8d358"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a33da9cfc75f60f2445c08f0491f8d358">setImageSource</a> (std::string path)</td></tr>
@@ -155,7 +162,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a75f5deeb972db83012dacec5c0c4e710" id="r_a75f5deeb972db83012dacec5c0c4e710"><td class="memItemLeft"><a class="el" href="structmtc_1_1_match_result.html">MatchResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a75f5deeb972db83012dacec5c0c4e710">match_result</a></td></tr>
-<tr class="memdesc:a75f5deeb972db83012dacec5c0c4e710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output of the most recent <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d">matching()</a> call.  <br /></td></tr>
+<tr class="memdesc:a75f5deeb972db83012dacec5c0c4e710"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output of the most recent <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">matching()</a> call.  <br /></td></tr>
 <tr class="memitem:a3571360b60d929d99371456f72fd39bd" id="r_a3571360b60d929d99371456f72fd39bd"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a3571360b60d929d99371456f72fd39bd">max_overlap</a> = 0.2</td></tr>
 <tr class="memdesc:a3571360b60d929d99371456f72fd39bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max allowed rotated-rect overlap ratio between two candidates before the lower-scoring one is discarded.  <br /></td></tr>
 <tr class="memitem:a0793078c0257f7040b8ac0e86a544b0c" id="r_a0793078c0257f7040b8ac0e86a544b0c"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0793078c0257f7040b8ac0e86a544b0c">max_pos_num</a> = 70</td></tr>
@@ -165,17 +172,23 @@ Public Attributes</h2></td></tr>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a2493ffd9c9a105130502a0f75fef588f" id="r_a2493ffd9c9a105130502a0f75fef588f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2493ffd9c9a105130502a0f75fef588f">DrawMatchResult</a> (cv::Mat &amp;drawImage, std::vector&lt; <a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a> &gt; &amp;matchedResults)</td></tr>
 <tr class="memitem:a41254030262d46e7e6a8710d10773476" id="r_a41254030262d46e7e6a8710d10773476"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a41254030262d46e7e6a8710d10773476">FilterWithRotatedRect</a> (std::vector&lt; <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> &gt; *vec, int iMethod, double dMaxOverLap, std::vector&lt; int &gt; *del_indexes=nullptr)</td></tr>
+<tr class="memdesc:a41254030262d46e7e6a8710d10773476"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes overlapping candidates: for every pair whose rotated rects intersect, drops the lower-scoring one (both if one fully contains the other, or if the intersection area exceeds dMaxOverLap fraction of rect i's area).  <br /></td></tr>
 <tr class="memitem:a7fc87922cc8f479bec91652ed829d359" id="r_a7fc87922cc8f479bec91652ed829d359"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7fc87922cc8f479bec91652ed829d359">FilterWithScore</a> (std::vector&lt; <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> &gt; *vec, double dScore)</td></tr>
 <tr class="memitem:a6b2a24b05908bdbf0edb96f7dc738a43" id="r_a6b2a24b05908bdbf0edb96f7dc738a43"><td class="memItemLeft">cv::Size&#160;</td><td class="memItemRight"><a class="el" href="#a6b2a24b05908bdbf0edb96f7dc738a43">GetBestRotationSize</a> (cv::Size sizeSrc, cv::Size sizeDst, double rAngle)</td></tr>
 <tr class="memitem:a56fda24306ea4ebaf8a7a6aba3558b56" id="r_a56fda24306ea4ebaf8a7a6aba3558b56"><td class="memItemLeft">cv::Point&#160;</td><td class="memItemRight"><a class="el" href="#a56fda24306ea4ebaf8a7a6aba3558b56">GetNextMaxLoc</a> (cv::Mat &amp;matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &amp;maxValue, double maxOverlap)</td></tr>
+<tr class="memdesc:a56fda24306ea4ebaf8a7a6aba3558b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the next-best match location in matResult after suppressing (setting to -1) the region around ptMaxLoc sized by (1 - maxOverlap), so a previously reported peak cannot be picked twice.  <br /></td></tr>
 <tr class="memitem:aace4442963d159d0cf45faf4ec19d812" id="r_aace4442963d159d0cf45faf4ec19d812"><td class="memItemLeft">cv::Point&#160;</td><td class="memItemRight"><a class="el" href="#aace4442963d159d0cf45faf4ec19d812">GetNextMaxLoc</a> (cv::Mat &amp;matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &amp;maxValue, double maxOverlap, <a class="el" href="classmtc_1_1_block_max.html">BlockMax</a> &amp;blockMax)</td></tr>
+<tr class="memdesc:aace4442963d159d0cf45faf4ec19d812"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same suppression logic as the other overload, but also updates <span class="tt">blockMax</span>'s block-max acceleration structure over the suppressed region (used when the coarse search is running with <a class="el" href="classmtc_1_1_block_max.html" title="Partitions a score map into a grid of blocks (sized from the pattern size) and caches each block&#39;s lo...">BlockMax</a> enabled).  <br /></td></tr>
 <tr class="memitem:a1890ea97ac0acf83e77f84a867c39cbf" id="r_a1890ea97ac0acf83e77f84a867c39cbf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1890ea97ac0acf83e77f84a867c39cbf">GetRotatedROI</a> (cv::Mat &amp;matSrc, cv::Size size, cv::Point2f ptLT, double dAngle, cv::Mat &amp;matROI)</td></tr>
 <tr class="memitem:af8b5e46653a02cbab5b94f04c74efcc6" id="r_af8b5e46653a02cbab5b94f04c74efcc6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af8b5e46653a02cbab5b94f04c74efcc6">MatchEdgePattern</a> (cv::Mat &amp;matSrc, <a class="el" href="classmtc_1_1_match_pattern.html">MatchPattern</a> *model, cv::Mat &amp;matResult, int layer, double minScore, const <a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a> &amp;cfg)</td></tr>
+<tr class="memdesc:af8b5e46653a02cbab5b94f04c74efcc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-SIMD edge-based template match: for every position, accumulates the normalized dot product between the pattern's gradient directions and the source image's Sobel gradient at that position, with an early-exit once the running partial score can no longer reach minScore.  <br /></td></tr>
 <tr class="memitem:ae59638d6c5d2075d4eb27095479971ea" id="r_ae59638d6c5d2075d4eb27095479971ea"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ae59638d6c5d2075d4eb27095479971ea">MatchEdgePattern_SIMD</a> (cv::Mat &amp;matSrc, <a class="el" href="classmtc_1_1_match_pattern.html">MatchPattern</a> *model, cv::Mat &amp;matResult, int layer, double minScore)</td></tr>
+<tr class="memdesc:ae59638d6c5d2075d4eb27095479971ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">SIMD (AVX2) counterpart to MatchEdgePattern: same normalized gradient-dot-product score, computed via edge_template_match_simd_omp over 32-byte-aligned scratch buffers instead of the scalar early-exit loop.  <br /></td></tr>
 <tr class="memitem:a26636ce454c01459f3fd0ebd0405a7ae" id="r_a26636ce454c01459f3fd0ebd0405a7ae"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a26636ce454c01459f3fd0ebd0405a7ae">pointInBox</a> (const cv::Point2f &amp;tl, const cv::Point2f &amp;br, const cv::Point2f &amp;pt)</td></tr>
 <tr class="memitem:ae45bfa6edafadac6cb9bb3a2dc32e66a" id="r_ae45bfa6edafadac6cb9bb3a2dc32e66a"><td class="memItemLeft">cv::Point2f&#160;</td><td class="memItemRight"><a class="el" href="#ae45bfa6edafadac6cb9bb3a2dc32e66a">ptRotatePt2f</a> (cv::Point2f ptInput, cv::Point2f ptOrg, double angle)</td></tr>
 <tr class="memitem:a5744765a52e8e1e9325cb2b27041c3ad" id="r_a5744765a52e8e1e9325cb2b27041c3ad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5744765a52e8e1e9325cb2b27041c3ad">SortPtWithCenter</a> (std::vector&lt; cv::Point2f &gt; &amp;vecSort)</td></tr>
 <tr class="memitem:afdd77d6bfa8ba1bc728fd9855729c740" id="r_afdd77d6bfa8ba1bc728fd9855729c740"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afdd77d6bfa8ba1bc728fd9855729c740">SubPixEsimation</a> (std::vector&lt; <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> &gt; *vec, double *dNewX, double *dNewY, double *dNewAngle, double dAngleStep, int iMaxScoreIndex)</td></tr>
+<tr class="memdesc:afdd77d6bfa8ba1bc728fd9855729c740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refines a coarse match to sub-pixel/sub-degree precision by fitting a quadratic surface (least squares over a fixed 3x3x3 neighbourhood in x, y, and angle around iMaxScoreIndex) and solving for the surface's stationary point.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -190,7 +203,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:af3e0f1fdce07681b274536857b98c636" id="r_af3e0f1fdce07681b274536857b98c636"><td class="memItemLeft">cv::Mat&#160;</td><td class="memItemRight"><a class="el" href="#af3e0f1fdce07681b274536857b98c636">m_img_source</a></td></tr>
 <tr class="memdesc:af3e0f1fdce07681b274536857b98c636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current source image to match against (set via setImageSource/setMatchSourceImage/matching(image, ...)).  <br /></td></tr>
 <tr class="memitem:a27122c4c2a2ce166e7cfae7222df2c5e" id="r_a27122c4c2a2ce166e7cfae7222df2c5e"><td class="memItemLeft"><a class="el" href="classmtc_1_1_match_group.html">MatchGroup</a>&#160;</td><td class="memItemRight"><a class="el" href="#a27122c4c2a2ce166e7cfae7222df2c5e">m_model_src</a></td></tr>
-<tr class="memdesc:a27122c4c2a2ce166e7cfae7222df2c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns the registered patterns plus the shared <a class="el" href="classmtc_1_1_match_group_config.html">MatchGroupConfig</a> (<a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a>) used by MatchEdge.  <br /></td></tr>
+<tr class="memdesc:a27122c4c2a2ce166e7cfae7222df2c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns the registered patterns plus the shared <a class="el" href="classmtc_1_1_match_group_config.html" title="Per-group configuration: holds group identity and the algorithm-specific config (typeConfig,...">MatchGroupConfig</a> (<a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>) used by MatchEdge.  <br /></td></tr>
 <tr class="memitem:a32542850dab200be5539314e93a80763" id="r_a32542850dab200be5539314e93a80763"><td class="memItemLeft">const <a class="el" href="classmtc_1_1_i_robot_picking_checker.html">IRobotPickingChecker</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a32542850dab200be5539314e93a80763">m_pickingChecker</a> {nullptr}</td></tr>
 <tr class="memdesc:a32542850dab200be5539314e93a80763"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-owning robot-pickability checker (nullptr =&gt; check disabled).  <br /></td></tr>
 <tr class="memitem:a80da5c23752d8908c590c92e5d11751c" id="r_a80da5c23752d8908c590c92e5d11751c"><td class="memItemLeft">cv::Point2f&#160;</td><td class="memItemRight"><a class="el" href="#a80da5c23752d8908c590c92e5d11751c">ROI_br</a></td></tr>
@@ -201,10 +214,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a6fd5e711163f6e4d449c066c38d7f11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upper bound of that contour-area/model-area ratio window.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape/edge match for every registered pattern against a source image, then filters, sorts, and annotates the results.</p>
-<p>Algorithm config lives in the group's <a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">MatchGroupConfig::typeConfig</a> (<a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a>), shared by every pattern in the group. Runtime search parameters (max_pos_num, max_overlap) are kept here as they govern the search over the whole image, not a single pattern. </p>
+<div class="textblock"><p>Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape/edge match for every registered pattern against a source image, then filters, sorts, and annotates the results. </p>
+<p>Algorithm config lives in the group's <a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">MatchGroupConfig::typeConfig</a> (<a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>), shared by every pattern in the group. Runtime search parameters (max_pos_num, max_overlap) are kept here as they govern the search over the whole image, not a single pattern. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00039">39</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00048">48</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aead40ab862fb25458bc625c6f2edea0f" name="aead40ab862fb25458bc625c6f2edea0f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aead40ab862fb25458bc625c6f2edea0f">&#9670;&#160;</a></span>ImageMatcher()</h2>
@@ -308,12 +321,14 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Removes overlapping candidates: for every pair whose rotated rects intersect, drops the lower-scoring one (both if one fully contains the other, or if the intersection area exceeds dMaxOverLap fraction of rect i's area). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Removes overlapping candidates: for every pair whose rotated rects intersect, drops the lower-scoring one (both if one fully contains the other, or if the intersection area exceeds dMaxOverLap fraction of rect i's area). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vec</td><td>candidate list, mutated in place: entries are marked _delete then erased </td></tr>
-    <tr><td class="paramname">iMethod</td><td>comparison method; TM_SQDIFF keeps the lower score, any other value (as used here, TM_CCOEFF_NORMED) keeps the higher score </td></tr>
-    <tr><td class="paramname">dMaxOverLap</td><td>max allowed overlap-area ratio before the lower-ranked candidate is dropped </td></tr>
-    <tr><td class="paramname">del_indexes</td><td>optional; if non-null, receives the pre-erase indexes of every candidate marked for deletion</td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">vec</td><td>candidate list, mutated in place: entries marked _delete then erased </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">iMethod</td><td>comparison method; TM_SQDIFF keeps the lower score, any other value (e.g. TM_CCOEFF_NORMED) keeps the higher score </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dMaxOverLap</td><td>max allowed overlap-area ratio before the lower-ranked candidate is dropped </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">del_indexes</td><td>if non-null, receives the pre-erase indexes of every candidate marked for deletion</td></tr>
   </table>
   </dd>
 </dl>
@@ -444,9 +459,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the model group holding this matcher's registered patterns and shared edge-match config. Same underlying object as <a class="el" href="#ae38a9098eb4b8d3eaf764ff3155e7913" title="Returns the pattern group holding this matcher&#39;s learned patterns/config.">getPatternGroup()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00049">49</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00058">58</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00251">m_model_src</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00292">m_model_src</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__pipeline_8cpp_source.html#l00012">vc::model::LocalizationPipeline::loadModel()</a>.</p>
 
@@ -493,13 +508,15 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Finds the next-best match location in matResult after suppressing (setting to -1) the region around ptMaxLoc sized by (1 - maxOverlap), so a previously reported peak cannot be picked twice. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Finds the next-best match location in matResult after suppressing (setting to -1) the region around ptMaxLoc sized by (1 - maxOverlap), so a previously reported peak cannot be picked twice. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">matResult</td><td>score map, mutated in place (suppressed region filled with -1) </td></tr>
-    <tr><td class="paramname">ptMaxLoc</td><td>location of the previous peak to suppress around </td></tr>
-    <tr><td class="paramname">sizeTemplate</td><td>template size, scaled by (1 - maxOverlap) to size the suppressed rectangle </td></tr>
-    <tr><td class="paramname">maxValue</td><td>output; the next maximum score found </td></tr>
-    <tr><td class="paramname">maxOverlap</td><td>suppression ratio: 0 suppresses just the template footprint, closer to 1 suppresses more </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">matResult</td><td>score map, mutated in place (suppressed region filled with -1) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ptMaxLoc</td><td>location of the previous peak to suppress around </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sizeTemplate</td><td>template size, scaled by (1 - maxOverlap) to size the suppressed rect </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">maxValue</td><td>the next maximum score found </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxOverlap</td><td>suppression ratio: 0 suppresses just the template footprint </td></tr>
   </table>
   </dd>
 </dl>
@@ -555,7 +572,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Same suppression logic as the other overload, but also updates <span class="tt">blockMax</span>'s block-max acceleration structure over the suppressed region (used when the coarse search is running with <a class="el" href="classmtc_1_1_block_max.html">BlockMax</a> enabled). </p>
+
+<p>Same suppression logic as the other overload, but also updates <span class="tt">blockMax</span>'s block-max acceleration structure over the suppressed region (used when the coarse search is running with <a class="el" href="classmtc_1_1_block_max.html" title="Partitions a score map into a grid of blocks (sized from the pattern size) and caches each block&#39;s lo...">BlockMax</a> enabled). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">matResult</td><td>score map, mutated in place </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ptMaxLoc</td><td>location of the previous peak to suppress around </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sizeTemplate</td><td>template size, scaled by (1 - maxOverlap) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">maxValue</td><td>the next maximum score found </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxOverlap</td><td>suppression ratio </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">blockMax</td><td>block-max structure updated over the suppressed region </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>location of the next maximum </dd></dl>
 
 </div>
 </div>
@@ -579,7 +609,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00090">90</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00251">m_model_src</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00292">m_model_src</a>.</p>
 
 </div>
 </div>
@@ -664,7 +694,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00093">93</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00251">m_model_src</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00292">m_model_src</a>.</p>
 
 </div>
 </div>
@@ -691,20 +721,22 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Runs the coarse-to-fine pyramid, rotation-searching edge match of one pattern against <span class="tt">imgEdge</span>: coarse search at the top pyramid layer, then descends the pyramid refining position/angle (with optional sub-pixel estimation at layer 0), filters by score and by rotated-rect overlap, and builds one <a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a> per surviving candidate. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Runs the coarse-to-fine pyramid, rotation-searching edge match of one pattern against <span class="tt">imgEdge</span>: coarse search at the top pyramid layer, then descends the pyramid refining position/angle (with optional sub-pixel estimation at layer 0), filters by score and by rotated-rect overlap, and builds one <a class="el" href="classmtc_1_1_matched_object.html" title="One matched pattern instance found by ImageMatcher: its geometry (corners, center,...">MatchedObject</a> per surviving candidate. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">imgEdge</td><td>image region to search (already cropped to the candidate area) </td></tr>
-    <tr><td class="paramname">pattern</td><td>model pattern to match; must be learned (isPatternLearned()) </td></tr>
-    <tr><td class="paramname">matchObjs</td><td>output; filled with one <a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a> per accepted match (points/angle/score set; parent set to <span class="tt">pattern</span>, not yet translated to full-image coordinates) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">imgEdge</td><td>image region to search (already cropped to the candidate area) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pattern</td><td>model pattern to match; must be learned (isPatternLearned()) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">matchObjs</td><td>filled with one <a class="el" href="classmtc_1_1_matched_object.html" title="One matched pattern instance found by ImageMatcher: its geometry (corners, center,...">MatchedObject</a> per accepted match (points/angle/score set; parent set to <span class="tt">pattern</span>, not yet translated to full-image coords) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if at least one match scored above the pattern's minimum score; false if the pattern is unlearned, the images are incompatible in size, the group's algorithm config is not EdgeBased, or no candidate reached the score threshold</dd></dl>
-<p>Runs edge-based template matching of <span class="tt">edgePattern</span> against <span class="tt">img_edge</span>: builds an image pyramid, searches the coarsest layer over the pattern's tolerance angle range (SIMD or scalar edge scoring depending on NOT_USE_SIMD), descends the pyramid refining position/angle per layer (with optional sub-pixel estimation at layer 0), filters by score and mutual overlap, then builds one <a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a> per surviving candidate (corners, center, score, angle) and appends the raw <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> to m_final_overlap_result for later overlap filtering across patterns. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if at least one match scored above the pattern's minimum score; false if the pattern is unlearned, images are incompatible in size, the group's algorithm config is not EdgeBased, or no candidate reached the score threshold</dd></dl>
+<p>Runs edge-based template matching of <span class="tt">edgePattern</span> against <span class="tt">img_edge</span>: builds an image pyramid, searches the coarsest layer over the pattern's tolerance angle range (SIMD or scalar edge scoring depending on NOT_USE_SIMD), descends the pyramid refining position/angle per layer (with optional sub-pixel estimation at layer 0), filters by score and mutual overlap, then builds one <a class="el" href="classmtc_1_1_matched_object.html" title="One matched pattern instance found by ImageMatcher: its geometry (corners, center,...">MatchedObject</a> per surviving candidate (corners, center, score, angle) and appends the raw <a class="el" href="classmtc_1_1_match_params.html" title="Result data for a single match candidate produced during pattern search: its location/score/angle,...">MatchParams</a> to m_final_overlap_result for later overlap filtering across patterns. </p>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00492">492</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00092">mtc::MatchPattern::borderColor()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00072">mtc::compareScoreBig2Small()</a>, <a class="el" href="match__object_8h_source.html#l00072">mtc::MatchedObject::computeMatchAngle()</a>, <a class="el" href="match__object_8h_source.html#l00084">mtc::MatchedObject::computePointAngle()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00018">D2R</a>, <a class="el" href="image__matcher_8cpp_source.html#l01159">FilterWithRotatedRect()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01143">FilterWithScore()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00962">GetBestRotationSize()</a>, <a class="el" href="utils__block__max_8cpp_source.html#l00112">mtc::BlockMax::GetMaxValueLoc()</a>, <a class="el" href="#a56fda24306ea4ebaf8a7a6aba3558b56">GetNextMaxLoc()</a>, <a class="el" href="match__pattern_8h_source.html#l00090">mtc::MatchPattern::getPatternImage()</a>, <a class="el" href="match__pattern_8h_source.html#l00088">mtc::MatchPattern::getPyramid()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01073">GetRotatedROI()</a>, <a class="el" href="match__pattern_8h_source.html#l00091">mtc::MatchPattern::getTopLayer()</a>, <a class="el" href="match__pattern_8h_source.html#l00085">mtc::MatchPattern::isPatternLearned()</a>, <a class="el" href="match__pattern__config_8h_source.html#l00040">mtc::MatchPatternConfig::m_angle</a>, <a class="el" href="image__matcher_8h_source.html#l00257">m_final_overlap_result</a>, <a class="el" href="match__pattern__config_8h_source.html#l00039">mtc::MatchPatternConfig::m_minScore</a>, <a class="el" href="image__matcher_8h_source.html#l00251">m_model_src</a>, <a class="el" href="match__pattern__config_8h_source.html#l00057">mtc::MatchPatternConfig::m_pickingOffset</a>, <a class="el" href="match__pattern__config_8h_source.html#l00048">mtc::MatchPatternConfig::m_pickPosition</a>, <a class="el" href="match__pattern__config_8h_source.html#l00041">mtc::MatchPatternConfig::m_toleranceAngle</a>, <a class="el" href="image__matcher_8cpp_source.html#l00020">MATCH_CANDIDATE_NUM</a>, <a class="el" href="match__object_8h_source.html#l00366">mtc::MatchedObject::matched_Score</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00779">MatchEdgePattern()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00899">MatchEdgePattern_SIMD()</a>, <a class="el" href="image__matcher_8h_source.html#l00145">max_overlap</a>, <a class="el" href="image__matcher_8h_source.html#l00144">max_pos_num</a>, <a class="el" href="match__pattern_8cpp_source.html#l00192">mtc::MatchPattern::patternConfigPtr()</a>, <a class="el" href="match__object_8h_source.html#l00361">mtc::MatchedObject::point_Center</a>, <a class="el" href="match__object_8h_source.html#l00359">mtc::MatchedObject::point_LB</a>, <a class="el" href="match__object_8h_source.html#l00357">mtc::MatchedObject::point_LT</a>, <a class="el" href="match__object_8h_source.html#l00362">mtc::MatchedObject::point_offset</a>, <a class="el" href="match__object_8h_source.html#l00360">mtc::MatchedObject::point_RB</a>, <a class="el" href="match__object_8h_source.html#l00358">mtc::MatchedObject::point_RT</a>, <a class="el" href="image__matcher_8cpp_source.html#l01011">ptRotatePt2f()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00019">R2D</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00018">RotatedRect</a>, <a class="el" href="match__object_8h_source.html#l00051">mtc::MatchedObject::setParent()</a>, <a class="el" href="edge__match__config_8h_source.html#l00057">mtc::EdgeMatchConfig::stopAtLayer1</a>, <a class="el" href="edge__match__config_8h_source.html#l00056">mtc::EdgeMatchConfig::subPixelEstimation</a>, <a class="el" href="image__matcher_8cpp_source.html#l01091">SubPixEsimation()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00017">VISION_TOLERANCE</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00103">mtc::MatchPattern::borderColor()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00072">mtc::compareScoreBig2Small()</a>, <a class="el" href="match__object_8h_source.html#l00085">mtc::MatchedObject::computeMatchAngle()</a>, <a class="el" href="match__object_8h_source.html#l00097">mtc::MatchedObject::computePointAngle()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00018">D2R</a>, <a class="el" href="image__matcher_8cpp_source.html#l01159">FilterWithRotatedRect()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01143">FilterWithScore()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00962">GetBestRotationSize()</a>, <a class="el" href="utils__block__max_8cpp_source.html#l00112">mtc::BlockMax::GetMaxValueLoc()</a>, <a class="el" href="#a56fda24306ea4ebaf8a7a6aba3558b56">GetNextMaxLoc()</a>, <a class="el" href="match__pattern_8h_source.html#l00101">mtc::MatchPattern::getPatternImage()</a>, <a class="el" href="match__pattern_8h_source.html#l00099">mtc::MatchPattern::getPyramid()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01073">GetRotatedROI()</a>, <a class="el" href="match__pattern_8h_source.html#l00102">mtc::MatchPattern::getTopLayer()</a>, <a class="el" href="match__pattern_8h_source.html#l00096">mtc::MatchPattern::isPatternLearned()</a>, <a class="el" href="match__pattern__config_8h_source.html#l00055">mtc::MatchPatternConfig::m_angle</a>, <a class="el" href="image__matcher_8h_source.html#l00298">m_final_overlap_result</a>, <a class="el" href="match__pattern__config_8h_source.html#l00054">mtc::MatchPatternConfig::m_minScore</a>, <a class="el" href="image__matcher_8h_source.html#l00292">m_model_src</a>, <a class="el" href="match__pattern__config_8h_source.html#l00072">mtc::MatchPatternConfig::m_pickingOffset</a>, <a class="el" href="match__pattern__config_8h_source.html#l00063">mtc::MatchPatternConfig::m_pickPosition</a>, <a class="el" href="match__pattern__config_8h_source.html#l00056">mtc::MatchPatternConfig::m_toleranceAngle</a>, <a class="el" href="image__matcher_8cpp_source.html#l00020">MATCH_CANDIDATE_NUM</a>, <a class="el" href="match__object_8h_source.html#l00386">mtc::MatchedObject::matched_Score</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00779">MatchEdgePattern()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00899">MatchEdgePattern_SIMD()</a>, <a class="el" href="image__matcher_8h_source.html#l00157">max_overlap</a>, <a class="el" href="image__matcher_8h_source.html#l00156">max_pos_num</a>, <a class="el" href="match__pattern_8cpp_source.html#l00192">mtc::MatchPattern::patternConfigPtr()</a>, <a class="el" href="match__object_8h_source.html#l00381">mtc::MatchedObject::point_Center</a>, <a class="el" href="match__object_8h_source.html#l00379">mtc::MatchedObject::point_LB</a>, <a class="el" href="match__object_8h_source.html#l00377">mtc::MatchedObject::point_LT</a>, <a class="el" href="match__object_8h_source.html#l00382">mtc::MatchedObject::point_offset</a>, <a class="el" href="match__object_8h_source.html#l00380">mtc::MatchedObject::point_RB</a>, <a class="el" href="match__object_8h_source.html#l00378">mtc::MatchedObject::point_RT</a>, <a class="el" href="image__matcher_8cpp_source.html#l01011">ptRotatePt2f()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00019">R2D</a>, <a class="el" href="vision__overlay__types_8h_source.html#l00027">RotatedRect</a>, <a class="el" href="match__object_8h_source.html#l00064">mtc::MatchedObject::setParent()</a>, <a class="el" href="edge__match__config_8h_source.html#l00063">mtc::EdgeMatchConfig::stopAtLayer1</a>, <a class="el" href="edge__match__config_8h_source.html#l00062">mtc::EdgeMatchConfig::subPixelEstimation</a>, <a class="el" href="image__matcher_8cpp_source.html#l01091">SubPixEsimation()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00017">VISION_TOLERANCE</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>.</p>
 
@@ -756,14 +788,16 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Non-SIMD edge-based template match: for every position, accumulates the normalized dot product between the pattern's gradient directions and the source image's Sobel gradient at that position, with an early-exit once the running partial score can no longer reach minScore. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Non-SIMD edge-based template match: for every position, accumulates the normalized dot product between the pattern's gradient directions and the source image's Sobel gradient at that position, with an early-exit once the running partial score can no longer reach minScore. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">matSrc</td><td>source pyramid-layer image to search (already rotated) </td></tr>
-    <tr><td class="paramname">model</td><td>pattern providing the per-layer gradient template (getPatterns()) </td></tr>
-    <tr><td class="paramname">matResult</td><td>output score map (CV_32FC1), sized (rows-tmplRows+1) x (cols-tmplCols+1) </td></tr>
-    <tr><td class="paramname">layer</td><td>pyramid layer to match at </td></tr>
-    <tr><td class="paramname">minScore</td><td>minimum score used both for early-exit and to accept a result </td></tr>
-    <tr><td class="paramname">cfg</td><td>edge-match config (used for cfg.greediness) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">matSrc</td><td>source pyramid-layer image to search (already rotated) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">model</td><td>pattern providing the per-layer gradient template (getPatterns()) </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">matResult</td><td>score map (CV_32FC1), sized (rows-tmplRows+1) x (cols-tmplCols+1) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">layer</td><td>pyramid layer to match at </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">minScore</td><td>minimum score used both for early-exit and to accept a result </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cfg</td><td>edge-match config (used for cfg.greediness) </td></tr>
   </table>
   </dd>
 </dl>
@@ -772,7 +806,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00779">779</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern__layer_8h_source.html#l00014">mtc::PatternPoint::Coordinates</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00015">mtc::PatternPoint::Derivative</a>, <a class="el" href="match__pattern_8h_source.html#l00089">mtc::MatchPattern::getPatterns()</a>, <a class="el" href="edge__match__config_8h_source.html#l00043">mtc::EdgeMatchConfig::greediness</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00016">mtc::PatternPoint::Magnitude</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00779">MatchEdgePattern()</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern__layer_8h_source.html#l00021">mtc::PatternPoint::Coordinates</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00022">mtc::PatternPoint::Derivative</a>, <a class="el" href="match__pattern_8h_source.html#l00100">mtc::MatchPattern::getPatterns()</a>, <a class="el" href="edge__match__config_8h_source.html#l00049">mtc::EdgeMatchConfig::greediness</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00023">mtc::PatternPoint::Magnitude</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00779">MatchEdgePattern()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00779">MatchEdgePattern()</a>.</p>
 
@@ -819,8 +853,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>SIMD (AVX2) counterpart to MatchEdgePattern: same normalized gradient-dot-product score, computed via edge_template_match_simd_omp over 32-byte-aligned scratch buffers instead of the scalar early-exit loop. </p><dl class="section return"><dt>Returns</dt><dd>false if the template does not fit in matSrc or the pattern has no points at this layer</dd></dl>
-<p>SIMD (AVX2) edge-based template match at one pyramid layer: computes Sobel gradients + magnitude of <span class="tt">matSrc</span>, then for every valid window position gathers per-point source gradients into aligned scratch buffers and scores the window via <a class="el" href="namespacemtc.html#af88c6f4d9537a7938044396b1e076ac8">edge_template_match_simd_omp()</a> against the pattern's precomputed gradient buffers, writing the average score at or above <span class="tt">minScore</span> into <span class="tt">matResult</span>. Unlike <a class="el" href="#af8b5e46653a02cbab5b94f04c74efcc6">MatchEdgePattern()</a>, this has no early-out and always scores every point. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>SIMD (AVX2) counterpart to MatchEdgePattern: same normalized gradient-dot-product score, computed via edge_template_match_simd_omp over 32-byte-aligned scratch buffers instead of the scalar early-exit loop. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">matSrc</td><td>source pyramid-layer image to search </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">model</td><td>pattern providing the per-layer gradient template </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">matResult</td><td>score map (CV_32FC1) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">layer</td><td>pyramid layer to match at </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">minScore</td><td>minimum score threshold </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>false if the template does not fit in matSrc or the pattern has no points at this layer</dd></dl>
+<p>SIMD (AVX2) edge-based template match at one pyramid layer: computes Sobel gradients + magnitude of <span class="tt">matSrc</span>, then for every valid window position gathers per-point source gradients into aligned scratch buffers and scores the window via <a class="el" href="namespacemtc.html#af88c6f4d9537a7938044396b1e076ac8">edge_template_match_simd_omp()</a> against the pattern's precomputed gradient buffers, writing the average score at or above <span class="tt">minScore</span> into <span class="tt">matResult</span>. Unlike <a class="el" href="#af8b5e46653a02cbab5b94f04c74efcc6" title="Non-SIMD edge-based template match: for every position, accumulates the normalized dot product betwee...">MatchEdgePattern()</a>, this has no early-out and always scores every point. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">matSrc</td><td>source window to search, gradients computed in place </td></tr>
     <tr><td class="paramname">model</td><td>pattern providing the precomputed edge-point gradient buffers (pGx/pGy/pMag) for <span class="tt">layer</span> </td></tr>
@@ -833,7 +879,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00899">899</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8cpp_source.html#l00852">mtc::edge_template_match_simd_omp()</a>, <a class="el" href="match__pattern_8h_source.html#l00089">mtc::MatchPattern::getPatterns()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00899">MatchEdgePattern_SIMD()</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8cpp_source.html#l00852">mtc::edge_template_match_simd_omp()</a>, <a class="el" href="match__pattern_8h_source.html#l00100">mtc::MatchPattern::getPatterns()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00899">MatchEdgePattern_SIMD()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00899">MatchEdgePattern_SIMD()</a>.</p>
 
@@ -867,12 +913,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Core matching pipeline: grayscales + thresholds + finds contours in the current source image, shortlists contours whose area falls in each pattern's expected range, runs MatchEdge per candidate/pattern, resolves picking/collision geometry and robot-pickability, sorts, and rewrites match_result (including the annotated match_result.Image). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Core matching pipeline: grayscales + thresholds + finds contours in the current source image, shortlists contours whose area falls in each pattern's expected range, runs MatchEdge per candidate/pattern, resolves picking/collision geometry and robot-pickability, sorts, and rewrites match_result (including the annotated match_result.Image). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">boundingBoxChecking</td><td>accepted but not read by the current implementation </td></tr>
-    <tr><td class="paramname">objectsNum</td><td>stop scanning further contour candidates once this many objects have been matched and at least one is possible-to-pick; a negative value disables the early stop </td></tr>
-    <tr><td class="paramname">usingRoi</td><td>crop the source image to the matching ROI before searching </td></tr>
-    <tr><td class="paramname">usingConditionRoi</td><td>classify matched objects against the condition ROI</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">boundingBoxChecking</td><td>accepted but not read by the current implementation </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">objectsNum</td><td>stop scanning once this many objects are matched and at least one is possible-to-pick; negative disables </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">usingRoi</td><td>crop the source image to the matching ROI before searching </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">usingConditionRoi</td><td>classify matched objects against the condition ROI</td></tr>
   </table>
   </dd>
 </dl>
@@ -881,7 +929,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00184">184</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edge__match__config_8h_source.html#l00053">mtc::EdgeMatchConfig::binaryMaxValue</a>, <a class="el" href="edge__match__config_8h_source.html#l00052">mtc::EdgeMatchConfig::binaryThreshold</a>, <a class="el" href="edge__match__config_8h_source.html#l00040">mtc::EdgeMatchConfig::blurHeight</a>, <a class="el" href="edge__match__config_8h_source.html#l00039">mtc::EdgeMatchConfig::blurWidth</a>, <a class="el" href="image__matcher_8cpp_source.html#l00134">mtc::clearImageBorder()</a>, <a class="el" href="image__matcher_8h_source.html#l00153">mtc::ImageMatcher::PossibleObject::conBoundingRect</a>, <a class="el" href="image__matcher_8h_source.html#l00255">Condition_ROI_br</a>, <a class="el" href="image__matcher_8h_source.html#l00254">Condition_ROI_tl</a>, <a class="el" href="image__matcher_8h_source.html#l00152">mtc::ImageMatcher::PossibleObject::conIndex</a>, <a class="el" href="image__matcher_8h_source.html#l00154">mtc::ImageMatcher::PossibleObject::conMinRectArea</a>, <a class="el" href="vision__utils_8h_source.html#l00019">DEFAULT_COLOR_BLUE</a>, <a class="el" href="vision__utils_8h_source.html#l00018">DEFAULT_COLOR_GREEN</a>, <a class="el" href="vision__utils_8h_source.html#l00017">DEFAULT_COLOR_RED</a>, <a class="el" href="vision__utils_8h_source.html#l00020">DEFAULT_COLOR_YELLOW</a>, <a class="el" href="vision__utils_8h_source.html#l00175">vsu::drawAxes2Img()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01159">FilterWithRotatedRect()</a>, <a class="el" href="match__pattern_8h_source.html#l00095">mtc::MatchPattern::getModelContoursSelectedArea()</a>, <a class="el" href="match__pattern_8h_source.html#l00096">mtc::MatchPattern::getModelContoursSelectedRectArea()</a>, <a class="el" href="edge__match__config_8h_source.html#l00049">mtc::EdgeMatchConfig::invertBinaryThreshold</a>, <a class="el" href="image__matcher_8h_source.html#l00262">lowerThreshRatio</a>, <a class="el" href="edge__match__config_8h_source.html#l00044">mtc::EdgeMatchConfig::lowWorkpieceRatio</a>, <a class="el" href="image__matcher_8h_source.html#l00257">m_final_overlap_result</a>, <a class="el" href="image__matcher_8h_source.html#l00250">m_img_source</a>, <a class="el" href="image__matcher_8h_source.html#l00251">m_model_src</a>, <a class="el" href="match__pattern__config_8h_source.html#l00033">mtc::MatchPatternConfig::m_patternIndex</a>, <a class="el" href="match__pattern__config_8h_source.html#l00032">mtc::MatchPatternConfig::m_patternName</a>, <a class="el" href="match__pattern__config_8h_source.html#l00054">mtc::MatchPatternConfig::m_pickingBoxAngle</a>, <a class="el" href="match__pattern__config_8h_source.html#l00053">mtc::MatchPatternConfig::m_pickingBoxDistance</a>, <a class="el" href="match__pattern__config_8h_source.html#l00052">mtc::MatchPatternConfig::m_pickingBoxSize</a>, <a class="el" href="image__matcher_8h_source.html#l00146">match_result</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, <a class="el" href="image__matcher_8h_source.html#l00145">max_overlap</a>, <a class="el" href="image__matcher_8h_source.html#l00155">mtc::ImageMatcher::PossibleObject::modelCheckList</a>, <a class="el" href="image__matcher_8cpp_source.html#l01257">robotPossiblePickingCheck()</a>, <a class="el" href="image__matcher_8h_source.html#l00253">ROI_br</a>, <a class="el" href="image__matcher_8h_source.html#l00252">ROI_tl</a>, <a class="el" href="image__matcher_8cpp_source.html#l00021">SMALL_CROP_OFFSET</a>, <a class="el" href="image__matcher_8cpp_source.html#l00455">sortMatchedObjects()</a>, and <a class="el" href="image__matcher_8h_source.html#l00263">upperThreshRatio</a>.</p>
+<p class="reference">References <a class="el" href="edge__match__config_8h_source.html#l00059">mtc::EdgeMatchConfig::binaryMaxValue</a>, <a class="el" href="edge__match__config_8h_source.html#l00058">mtc::EdgeMatchConfig::binaryThreshold</a>, <a class="el" href="edge__match__config_8h_source.html#l00046">mtc::EdgeMatchConfig::blurHeight</a>, <a class="el" href="edge__match__config_8h_source.html#l00045">mtc::EdgeMatchConfig::blurWidth</a>, <a class="el" href="image__matcher_8cpp_source.html#l00134">mtc::clearImageBorder()</a>, <a class="el" href="image__matcher_8h_source.html#l00168">mtc::ImageMatcher::PossibleObject::conBoundingRect</a>, <a class="el" href="image__matcher_8h_source.html#l00296">Condition_ROI_br</a>, <a class="el" href="image__matcher_8h_source.html#l00295">Condition_ROI_tl</a>, <a class="el" href="image__matcher_8h_source.html#l00167">mtc::ImageMatcher::PossibleObject::conIndex</a>, <a class="el" href="image__matcher_8h_source.html#l00169">mtc::ImageMatcher::PossibleObject::conMinRectArea</a>, <a class="el" href="vision__utils_8h_source.html#l00019">DEFAULT_COLOR_BLUE</a>, <a class="el" href="vision__utils_8h_source.html#l00018">DEFAULT_COLOR_GREEN</a>, <a class="el" href="vision__utils_8h_source.html#l00017">DEFAULT_COLOR_RED</a>, <a class="el" href="vision__utils_8h_source.html#l00020">DEFAULT_COLOR_YELLOW</a>, <a class="el" href="vision__utils_8h_source.html#l00196">vsu::drawAxes2Img()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01159">FilterWithRotatedRect()</a>, <a class="el" href="match__pattern_8h_source.html#l00106">mtc::MatchPattern::getModelContoursSelectedArea()</a>, <a class="el" href="match__pattern_8h_source.html#l00107">mtc::MatchPattern::getModelContoursSelectedRectArea()</a>, <a class="el" href="edge__match__config_8h_source.html#l00055">mtc::EdgeMatchConfig::invertBinaryThreshold</a>, <a class="el" href="image__matcher_8h_source.html#l00303">lowerThreshRatio</a>, <a class="el" href="edge__match__config_8h_source.html#l00050">mtc::EdgeMatchConfig::lowWorkpieceRatio</a>, <a class="el" href="image__matcher_8h_source.html#l00298">m_final_overlap_result</a>, <a class="el" href="image__matcher_8h_source.html#l00291">m_img_source</a>, <a class="el" href="image__matcher_8h_source.html#l00292">m_model_src</a>, <a class="el" href="match__pattern__config_8h_source.html#l00048">mtc::MatchPatternConfig::m_patternIndex</a>, <a class="el" href="match__pattern__config_8h_source.html#l00047">mtc::MatchPatternConfig::m_patternName</a>, <a class="el" href="match__pattern__config_8h_source.html#l00069">mtc::MatchPatternConfig::m_pickingBoxAngle</a>, <a class="el" href="match__pattern__config_8h_source.html#l00068">mtc::MatchPatternConfig::m_pickingBoxDistance</a>, <a class="el" href="match__pattern__config_8h_source.html#l00067">mtc::MatchPatternConfig::m_pickingBoxSize</a>, <a class="el" href="image__matcher_8h_source.html#l00158">match_result</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, <a class="el" href="image__matcher_8h_source.html#l00157">max_overlap</a>, <a class="el" href="image__matcher_8h_source.html#l00170">mtc::ImageMatcher::PossibleObject::modelCheckList</a>, <a class="el" href="image__matcher_8cpp_source.html#l01257">robotPossiblePickingCheck()</a>, <a class="el" href="image__matcher_8h_source.html#l00294">ROI_br</a>, <a class="el" href="image__matcher_8h_source.html#l00293">ROI_tl</a>, <a class="el" href="image__matcher_8cpp_source.html#l00021">SMALL_CROP_OFFSET</a>, <a class="el" href="image__matcher_8cpp_source.html#l00455">sortMatchedObjects()</a>, and <a class="el" href="image__matcher_8h_source.html#l00304">upperThreshRatio</a>.</p>
 
 </div>
 </div>
@@ -918,12 +966,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Replaces the source image (clone of <span class="tt">image</span>), then runs the same pipeline as the other <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d">matching()</a> overload. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Replaces the source image (clone of <span class="tt">image</span>), then runs the same pipeline as the other <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">matching()</a> overload. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">boundingBoxChecking</td><td>accepted but not read by the current implementation </td></tr>
-    <tr><td class="paramname">objectsNum</td><td>stop scanning further contour candidates once this many objects have been matched and at least one is possible-to-pick; a negative value disables the early stop </td></tr>
-    <tr><td class="paramname">usingRoi</td><td>crop the source image to the matching ROI before searching </td></tr>
-    <tr><td class="paramname">usingConditionRoi</td><td>classify matched objects against the condition ROI </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">image</td><td>source image to clone and match against </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">boundingBoxChecking</td><td>accepted but not read by the current implementation </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">objectsNum</td><td>stop scanning once this many objects are matched and at least one is possible-to-pick; negative disables </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">usingRoi</td><td>crop the source image to the matching ROI before searching </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">usingConditionRoi</td><td>classify matched objects against the condition ROI </td></tr>
   </table>
   </dd>
 </dl>
@@ -1054,7 +1105,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l01257">1257</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00260">m_pickingChecker</a>, <a class="el" href="image__matcher_8h_source.html#l00146">match_result</a>, <a class="el" href="match__object_8h_source.html#l00364">mtc::MatchedObject::point_angle</a>, <a class="el" href="match__object_8h_source.html#l00361">mtc::MatchedObject::point_Center</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01257">robotPossiblePickingCheck()</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00301">m_pickingChecker</a>, <a class="el" href="image__matcher_8h_source.html#l00158">match_result</a>, <a class="el" href="match__object_8h_source.html#l00384">mtc::MatchedObject::point_angle</a>, <a class="el" href="match__object_8h_source.html#l00381">mtc::MatchedObject::point_Center</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01257">robotPossiblePickingCheck()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01257">robotPossiblePickingCheck()</a>.</p>
 
@@ -1079,7 +1130,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00105">105</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00250">m_img_source</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00291">m_img_source</a>.</p>
 
 </div>
 </div>
@@ -1102,7 +1153,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00099">99</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00250">m_img_source</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00291">m_img_source</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>.</p>
 
@@ -1126,7 +1177,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets the rectangle used to classify matched objects as inside/outside the pick condition ROI (independent of the matching crop ROI), used only when the <span class="tt">usingConditionRoi</span> flag is passed to <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d">matching()</a>.</p>
+<p>Sets the rectangle used to classify matched objects as inside/outside the pick condition ROI (independent of the matching crop ROI), used only when the <span class="tt">usingConditionRoi</span> flag is passed to <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">matching()</a>.</p>
 <p>Sets the condition ROI used to flag matched objects that fall (partly or fully) outside it as not possible-to-pick. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tl</td><td>top-left corner of the condition ROI, in source-image pixels </td></tr>
@@ -1137,7 +1188,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00122">122</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00255">Condition_ROI_br</a>, and <a class="el" href="image__matcher_8h_source.html#l00254">Condition_ROI_tl</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00296">Condition_ROI_br</a>, and <a class="el" href="image__matcher_8h_source.html#l00295">Condition_ROI_tl</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>.</p>
 
@@ -1161,8 +1212,8 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets the rectangle the source image is cropped to before searching, used only when the <span class="tt">usingRoi</span> flag is passed to <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d">matching()</a>.</p>
-<p>Sets the region of interest that <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d">matching()</a> restricts contour search to when <span class="tt">usingRoi</span> is true. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets the rectangle the source image is cropped to before searching, used only when the <span class="tt">usingRoi</span> flag is passed to <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">matching()</a>.</p>
+<p>Sets the region of interest that <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">matching()</a> restricts contour search to when <span class="tt">usingRoi</span> is true. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tl</td><td>top-left corner of the ROI, in source-image pixels </td></tr>
     <tr><td class="paramname">br</td><td>bottom-right corner of the ROI, in source-image pixels </td></tr>
@@ -1172,7 +1223,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00113">113</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00253">ROI_br</a>, and <a class="el" href="image__matcher_8h_source.html#l00252">ROI_tl</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00294">ROI_br</a>, and <a class="el" href="image__matcher_8h_source.html#l00293">ROI_tl</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>.</p>
 
@@ -1197,7 +1248,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00478">478</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00250">m_img_source</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00478">setMatchSourceImage()</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00291">m_img_source</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00478">setMatchSourceImage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00478">setMatchSourceImage()</a>.</p>
 
@@ -1227,9 +1278,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Inject the robot-pickability checker (dependency inversion; non-owning). Pass nullptr to disable. The owner builds the concrete adapter from the calibration + robot config and keeps it alive while this matcher is used. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00125">125</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00137">137</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00260">m_pickingChecker</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00301">m_pickingChecker</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>.</p>
 
@@ -1268,7 +1319,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00455">455</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00251">m_model_src</a>, <a class="el" href="match__group_8h_source.html#l00042">mtc::MatchGroupConfig::m_sortByAngle</a>, <a class="el" href="match__group_8h_source.html#l00043">mtc::MatchGroupConfig::m_sortConditionAngle</a>, and <a class="el" href="match__object_8h_source.html#l00366">mtc::MatchedObject::matched_Score</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8h_source.html#l00292">m_model_src</a>, <a class="el" href="match__group_8h_source.html#l00043">mtc::MatchGroupConfig::m_sortByAngle</a>, <a class="el" href="match__group_8h_source.html#l00044">mtc::MatchGroupConfig::m_sortConditionAngle</a>, and <a class="el" href="match__object_8h_source.html#l00386">mtc::MatchedObject::matched_Score</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>.</p>
 
@@ -1358,14 +1409,16 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Refines a coarse match to sub-pixel/sub-degree precision by fitting a quadratic surface (least squares over a fixed 3x3x3 neighbourhood in x, y, and angle around iMaxScoreIndex) and solving for the surface's stationary point. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Refines a coarse match to sub-pixel/sub-degree precision by fitting a quadratic surface (least squares over a fixed 3x3x3 neighbourhood in x, y, and angle around iMaxScoreIndex) and solving for the surface's stationary point. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vec</td><td>candidate list; entry iMaxScoreIndex and its two angle-neighbours supply the 27 fitted samples </td></tr>
-    <tr><td class="paramname">dNewX</td><td>output; refined X offset from the peak </td></tr>
-    <tr><td class="paramname">dNewY</td><td>output; refined Y offset from the peak </td></tr>
-    <tr><td class="paramname">dNewAngle</td><td>output; refined angle offset (degrees) from the peak </td></tr>
-    <tr><td class="paramname">dAngleStep</td><td>angular spacing (degrees) between the neighbouring angle samples </td></tr>
-    <tr><td class="paramname">iMaxScoreIndex</td><td>index of the peak candidate in vec </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vec</td><td>candidate list; entry iMaxScoreIndex and its two angle-neighbours supply the 27 fitted samples </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dNewX</td><td>refined X offset from the peak </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dNewY</td><td>refined Y offset from the peak </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dNewAngle</td><td>refined angle offset (degrees) from the peak </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dAngleStep</td><td>angular spacing (degrees) between neighbouring angle samples </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">iMaxScoreIndex</td><td>index of the peak candidate in vec </td></tr>
   </table>
   </dd>
 </dl>
@@ -1403,7 +1456,7 @@ Private Attributes</h2></td></tr>
 
 <p>Bottom-right of the pick-condition ROI. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00255">255</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00296">296</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00122">setMatchingConditionROI()</a>.</p>
 
@@ -1431,7 +1484,7 @@ Private Attributes</h2></td></tr>
 
 <p>Top-left of the pick-condition ROI (used when usingConditionRoi is true). </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00254">254</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00295">295</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00122">setMatchingConditionROI()</a>.</p>
 
@@ -1459,7 +1512,7 @@ Private Attributes</h2></td></tr>
 
 <p>Lower bound of the contour-area/model-area ratio window used to shortlist candidate contours for a pattern. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00262">262</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00303">303</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>.</p>
 
@@ -1487,7 +1540,7 @@ Private Attributes</h2></td></tr>
 
 <p>Raw per-pattern match candidates (post-overlap-filter) from the most recent MatchEdge call. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00257">257</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00298">298</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>.</p>
 
@@ -1515,7 +1568,7 @@ Private Attributes</h2></td></tr>
 
 <p>Current source image to match against (set via setImageSource/setMatchSourceImage/matching(image, ...)). </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00250">250</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00291">291</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00105">setImageSource()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00099">setImageSource()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00478">setMatchSourceImage()</a>.</p>
 
@@ -1541,11 +1594,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Owns the registered patterns plus the shared <a class="el" href="classmtc_1_1_match_group_config.html">MatchGroupConfig</a> (<a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a>) used by MatchEdge. </p>
+<p>Owns the registered patterns plus the shared <a class="el" href="classmtc_1_1_match_group_config.html" title="Per-group configuration: holds group identity and the algorithm-specific config (typeConfig,...">MatchGroupConfig</a> (<a class="el" href="classmtc_1_1_edge_match_config.html" title="All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm ...">EdgeMatchConfig</a>) used by MatchEdge. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00251">251</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00292">292</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8h_source.html#l00049">getModel()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00090">getPatternGroup()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00093">getTemplateSourceSize()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00455">sortMatchedObjects()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8h_source.html#l00058">getModel()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00090">getPatternGroup()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00093">getTemplateSourceSize()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00455">sortMatchedObjects()</a>.</p>
 
 </div>
 </div>
@@ -1571,9 +1624,9 @@ Private Attributes</h2></td></tr>
 
 <p>Non-owning robot-pickability checker (nullptr =&gt; check disabled). </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00260">260</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00301">301</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l01257">robotPossiblePickingCheck()</a>, and <a class="el" href="image__matcher_8h_source.html#l00125">setRobotPickingChecker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l01257">robotPossiblePickingCheck()</a>, and <a class="el" href="image__matcher_8h_source.html#l00137">setRobotPickingChecker()</a>.</p>
 
 </div>
 </div>
@@ -1589,9 +1642,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Output of the most recent <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d">matching()</a> call. </p>
+<p>Output of the most recent <a class="el" href="#ac4fb12785dc2d4e6a8a5a7147cdd5f7d" title="Replaces the source image (clone of image), then runs the same pipeline as the other matching() overl...">matching()</a> call. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00146">146</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00158">158</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01257">robotPossiblePickingCheck()</a>, and <a class="el" href="localization__pipeline_8cpp_source.html#l00054">vc::model::LocalizationPipeline::runMatchOn()</a>.</p>
 
@@ -1611,7 +1664,7 @@ Private Attributes</h2></td></tr>
 
 <p>Max allowed rotated-rect overlap ratio between two candidates before the lower-scoring one is discarded. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00145">145</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00157">157</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>.</p>
 
@@ -1631,7 +1684,7 @@ Private Attributes</h2></td></tr>
 
 <p>Max candidate positions kept per rotation angle in the coarse (top pyramid layer) search, before overlap filtering. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00144">144</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00156">156</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">MatchEdge()</a>.</p>
 
@@ -1659,7 +1712,7 @@ Private Attributes</h2></td></tr>
 
 <p>Bottom-right of the matching crop ROI. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00253">253</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00294">294</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00113">setMatchingROI()</a>.</p>
 
@@ -1687,7 +1740,7 @@ Private Attributes</h2></td></tr>
 
 <p>Top-left of the matching crop ROI (used when usingRoi is true). </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00252">252</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00293">293</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00113">setMatchingROI()</a>.</p>
 
@@ -1715,15 +1768,15 @@ Private Attributes</h2></td></tr>
 
 <p>Upper bound of that contour-area/model-area ratio window. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00263">263</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8h_source.html#l00304">304</a> of file <a class="el" href="image__matcher_8h_source.html">image_matcher.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">matching()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="image__matcher_8h_source.html">image_matcher.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="image__matcher_8h_source.html">image_matcher.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

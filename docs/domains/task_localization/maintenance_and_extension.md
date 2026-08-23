@@ -129,7 +129,8 @@ Existing focused coverage lives in `tests/architecture_contract_test/main.cpp`.
 Keep fake-device tests for runtime behavior whenever possible:
 
 - fake PLC captures `IPlcIoWriter` writes
-- fake camera emits success/failure grabs
+- fake camera emits success/failure grabs, and `connectSucceeds` holds it unreachable
+  across many reconnect attempts (needed to exercise an unbounded retry policy)
 - fake VisionOutput captures sent positions and can fail sends
 
 Required behavior coverage:
@@ -143,6 +144,24 @@ Required behavior coverage:
 - Invalid calibration publishes `CalibrationInvalid`.
 - Camera change while running is rejected.
 - Lost device during running aborts with the correct role fault.
+- A rising `bErrorReset` clears a latched fault and re-arms the runtime.
+- A latched fault clears itself after `kFaultAutoRecoverMs` when no acknowledge arrives.
+- A role outage retries indefinitely without faulting, withdraws `bTaskReady`, and
+  re-arms on reconnect.
+- `CameraRunner::kSingleShotTimeoutMs` stays above the camera's own grab timeout.
+
+### Invariants worth a test rather than a comment
+
+Two classes of defect found on the bench were invisible to unit tests because they lived
+in the gap between two components. Prefer an assertion over a comment when you meet them:
+
+- **Ordered constants across a boundary.** A watchdog in one component must outlast the
+  operation it guards in another. Assert the ordering; a comment does not survive someone
+  tuning either side.
+- **A signal that a peer depends on for liveness.** If a component resolves state only
+  from a signal, every exit path of the emitter must emit it. A silent `return` in an
+  error branch is the failure mode, and it only shows up when that branch is taken —
+  i.e. on hardware, in the field.
 
 ## Documentation And UML Checklist
 

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/runtime/camera_runner.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/runtime/camera_runner.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('camera__runner
   <div class="headertitle"><div class="title">camera_runner.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>CameraRunner — per-camera thread runner mediating GUI-thread requests and the camera device's own worker thread via the DeviceCommand model.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QTimer&gt;</code><br />
 <code>#include &quot;<a class="el" href="device__runner_8h_source.html">runtime/device_runner.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="device__command__queue_8h_source.html">runtime/device_command_queue.h</a>&quot;</code><br />
@@ -139,13 +142,18 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Aruntime_3A_3ACameraRunner" id="r_vc_3A_3Aruntime_3A_3ACameraRunner"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1runtime_1_1_camera_runner.html">vc::runtime::CameraRunner</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-camera thread runner (replaces the legacy CameraWorker that previously lived in src/model); mediates between the GUI thread and the camera device's own HighPriority worker thread.  <a href="classvc_1_1runtime_1_1_camera_runner.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Aruntime" id="r_vc_3A_3Aruntime"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1runtime.html">vc::runtime</a></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>CameraRunner — per-camera thread runner mediating GUI-thread requests and the camera device's own worker thread via the DeviceCommand model. </p>
+
+<p class="definition">Definition in file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

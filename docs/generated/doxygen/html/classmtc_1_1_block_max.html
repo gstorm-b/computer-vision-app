@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_b
 </div><!--header-->
 <div class="contents">
 
+<p>Partitions a score map into a grid of blocks (sized from the pattern size) and caches each block's local maximum, so repeated searches for the next-best match only need to rescan the blocks touched by a previously matched region (via UpdateMax) instead of the whole map.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::BlockMax:</div>
@@ -130,10 +133,13 @@ Collaboration diagram for mtc::BlockMax:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a36fd18a8a0489bf72a1e02fd124ee6ac" id="r_a36fd18a8a0489bf72a1e02fd124ee6ac"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a36fd18a8a0489bf72a1e02fd124ee6ac">BlockMax</a> ()</td></tr>
-<tr class="memdesc:a36fd18a8a0489bf72a1e02fd124ee6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs an empty <a class="el" href="classmtc_1_1_block_max.html">BlockMax</a> with no blocks and no source map.  <br /></td></tr>
+<tr class="memdesc:a36fd18a8a0489bf72a1e02fd124ee6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs an empty <a class="el" href="classmtc_1_1_block_max.html" title="Partitions a score map into a grid of blocks (sized from the pattern size) and caches each block&#39;s lo...">BlockMax</a> with no blocks and no source map.  <br /></td></tr>
 <tr class="memitem:ad0c7661db0e2098b70bfc642c9957efe" id="r_ad0c7661db0e2098b70bfc642c9957efe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad0c7661db0e2098b70bfc642c9957efe">BlockMax</a> (cv::Mat matSrc, cv::Size sizePattern)</td></tr>
+<tr class="memdesc:ad0c7661db0e2098b70bfc642c9957efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partitions <span class="tt">matSrc</span> into blocks sized 2x <span class="tt">sizePattern</span> (plus right/bottom residue blocks when the map doesn't divide evenly) and computes each block's local maximum via cv::minMaxLoc. Leaves <span class="tt"><a class="el" href="#a399c184fbf07fb18adcadd98017953f9" title="Blocks partitioning _matSrc, each with its cached local maximum.">_vecBlocks</a></span> empty if <span class="tt">matSrc</span> is smaller than one full block in either dimension.  <br /></td></tr>
 <tr class="memitem:a716b43133f7105930aeec6d35e0ad5c4" id="r_a716b43133f7105930aeec6d35e0ad5c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a716b43133f7105930aeec6d35e0ad5c4">GetMaxValueLoc</a> (double &amp;dMax, cv::Point &amp;ptMaxLoc)</td></tr>
+<tr class="memdesc:a716b43133f7105930aeec6d35e0ad5c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the overall maximum value and its location across all blocks. Falls back to a direct cv::minMaxLoc over <span class="tt"><a class="el" href="#a4c7cddc338d6d3a6e686e0844354bef9" title="Source score/response map being searched.">_matSrc</a></span> when there are no blocks.  <br /></td></tr>
 <tr class="memitem:a5577499010d524d94db248ac091a6a25" id="r_a5577499010d524d94db248ac091a6a25"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5577499010d524d94db248ac091a6a25">UpdateMax</a> (cv::Rect rectIgnore)</td></tr>
+<tr class="memdesc:a5577499010d524d94db248ac091a6a25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recomputes the cached maximum (via cv::minMaxLoc) for every block that intersects <span class="tt">rectIgnore</span>; used to invalidate blocks after a region has been consumed/suppressed by a match.  <br /></td></tr>
 <tr class="memitem:adbc7b62872701a98f2ff23ba71f7e003" id="r_adbc7b62872701a98f2ff23ba71f7e003"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adbc7b62872701a98f2ff23ba71f7e003">~BlockMax</a> ()</td></tr>
 <tr class="memdesc:adbc7b62872701a98f2ff23ba71f7e003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor (no owned resources to release).  <br /></td></tr>
 </table><table class="memberdecls">
@@ -147,7 +153,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Partitions a score map into a grid of blocks (sized from the pattern size) and caches each block's local maximum, so repeated searches for the next-best match only need to rescan the blocks touched by a previously matched region (via UpdateMax) instead of the whole map. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__block__max_8h_source.html#l00032">32</a> of file <a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__block__max_8h_source.html#l00047">47</a> of file <a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a36fd18a8a0489bf72a1e02fd124ee6ac" name="a36fd18a8a0489bf72a1e02fd124ee6ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a36fd18a8a0489bf72a1e02fd124ee6ac">&#9670;&#160;</a></span>BlockMax() <span class="overload">[1/2]</span></h2>
@@ -164,7 +170,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Default-constructs an empty <a class="el" href="classmtc_1_1_block_max.html">BlockMax</a> with no blocks and no source map. </p>
+<p>Default-constructs an empty <a class="el" href="classmtc_1_1_block_max.html" title="Partitions a score map into a grid of blocks (sized from the pattern size) and caches each block&#39;s lo...">BlockMax</a> with no blocks and no source map. </p>
 
 <p class="definition">Definition at line <a class="el" href="utils__block__max_8cpp_source.html#l00022">22</a> of file <a class="el" href="utils__block__max_8cpp_source.html">utils_block_max.cpp</a>.</p>
 
@@ -188,11 +194,19 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>Partitions <span class="tt">matSrc</span> into blocks sized 2x <span class="tt">sizePattern</span> (plus right/bottom residue blocks when the map doesn't divide evenly) and computes each block's local maximum via cv::minMaxLoc. Leaves <span class="tt"><a class="el" href="#a399c184fbf07fb18adcadd98017953f9" title="Blocks partitioning _matSrc, each with its cached local maximum.">_vecBlocks</a></span> empty if <span class="tt">matSrc</span> is smaller than one full block in either dimension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">matSrc</td><td>score/response map to partition </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sizePattern</td><td>half the block side length; each block is 2x this size </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="utils__block__max_8cpp_source.html#l00026">26</a> of file <a class="el" href="utils__block__max_8cpp_source.html">utils_block_max.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="utils__block__max_8h_source.html#l00056">_matSrc</a>, <a class="el" href="utils__block__max_8h_source.html#l00024">mtc::MatchBlock::_maxValue</a>, <a class="el" href="utils__block__max_8h_source.html#l00025">mtc::MatchBlock::_pointMaxLoc</a>, <a class="el" href="utils__block__max_8h_source.html#l00023">mtc::MatchBlock::_rect</a>, and <a class="el" href="utils__block__max_8h_source.html#l00055">_vecBlocks</a>.</p>
+<p class="reference">References <a class="el" href="utils__block__max_8h_source.html#l00080">_matSrc</a>, <a class="el" href="utils__block__max_8h_source.html#l00036">mtc::MatchBlock::_maxValue</a>, <a class="el" href="utils__block__max_8h_source.html#l00037">mtc::MatchBlock::_pointMaxLoc</a>, <a class="el" href="utils__block__max_8h_source.html#l00035">mtc::MatchBlock::_rect</a>, and <a class="el" href="utils__block__max_8h_source.html#l00079">_vecBlocks</a>.</p>
 
 </div>
 </div>
@@ -236,17 +250,19 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns the overall maximum value and its location across all blocks. Falls back to a direct cv::minMaxLoc over <span class="tt"><a class="el" href="#a4c7cddc338d6d3a6e686e0844354bef9" title="Source score/response map being searched.">_matSrc</a></span> when there are no blocks. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Returns the overall maximum value and its location across all blocks. Falls back to a direct cv::minMaxLoc over <span class="tt"><a class="el" href="#a4c7cddc338d6d3a6e686e0844354bef9" title="Source score/response map being searched.">_matSrc</a></span> when there are no blocks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dMax</td><td>output maximum value </td></tr>
-    <tr><td class="paramname">ptMaxLoc</td><td>output location of the maximum </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dMax</td><td>overall maximum value </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">ptMaxLoc</td><td>location of the maximum </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="utils__block__max_8cpp_source.html#l00112">112</a> of file <a class="el" href="utils__block__max_8cpp_source.html">utils_block_max.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="utils__block__max_8h_source.html#l00056">_matSrc</a>, and <a class="el" href="utils__block__max_8h_source.html#l00055">_vecBlocks</a>.</p>
+<p class="reference">References <a class="el" href="utils__block__max_8h_source.html#l00080">_matSrc</a>, and <a class="el" href="utils__block__max_8h_source.html#l00079">_vecBlocks</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -266,11 +282,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>Recomputes the cached maximum (via cv::minMaxLoc) for every block that intersects <span class="tt">rectIgnore</span>; used to invalidate blocks after a region has been consumed/suppressed by a match. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rectIgnore</td><td>region whose overlapping blocks need their max recomputed </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="utils__block__max_8cpp_source.html#l00093">93</a> of file <a class="el" href="utils__block__max_8cpp_source.html">utils_block_max.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="utils__block__max_8h_source.html#l00056">_matSrc</a>, and <a class="el" href="utils__block__max_8h_source.html#l00055">_vecBlocks</a>.</p>
+<p class="reference">References <a class="el" href="utils__block__max_8h_source.html#l00080">_matSrc</a>, and <a class="el" href="utils__block__max_8h_source.html#l00079">_vecBlocks</a>.</p>
 
 </div>
 </div>
@@ -297,7 +320,7 @@ Private Attributes</h2></td></tr>
 
 <p>Source score/response map being searched. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__block__max_8h_source.html#l00056">56</a> of file <a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__block__max_8h_source.html#l00080">80</a> of file <a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="utils__block__max_8cpp_source.html#l00026">BlockMax()</a>, <a class="el" href="utils__block__max_8cpp_source.html#l00112">GetMaxValueLoc()</a>, and <a class="el" href="utils__block__max_8cpp_source.html#l00093">UpdateMax()</a>.</p>
 
@@ -325,15 +348,15 @@ Private Attributes</h2></td></tr>
 
 <p>Blocks partitioning <span class="tt"><a class="el" href="#a4c7cddc338d6d3a6e686e0844354bef9" title="Source score/response map being searched.">_matSrc</a></span>, each with its cached local maximum. </p>
 
-<p class="definition">Definition at line <a class="el" href="utils__block__max_8h_source.html#l00055">55</a> of file <a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="utils__block__max_8h_source.html#l00079">79</a> of file <a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="utils__block__max_8cpp_source.html#l00026">BlockMax()</a>, <a class="el" href="utils__block__max_8cpp_source.html#l00112">GetMaxValueLoc()</a>, and <a class="el" href="utils__block__max_8cpp_source.html#l00093">UpdateMax()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="utils__block__max_8cpp_source.html">utils_block_max.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="utils__block__max_8h_source.html">utils_block_max.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="utils__block__max_8cpp_source.html">utils_block_max.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

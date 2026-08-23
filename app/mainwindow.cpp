@@ -5,6 +5,10 @@
 #include <QMessageBox>
 
 #include "core/app_settings/app_settings.h"
+#include "core/auth/access_control.h"
+#include "core/utils/shell_handoff.h"
+#include "ui/forms/admin_login_dialog.h"
+#include "ui/forms/shell_startup.h"
 
 #include "core/utils/windows_helper.h"
 #include "DockAreaTabBar.h"
@@ -34,6 +38,95 @@
 #include "ui/forms/task/localization_dashboard_widget.h"
 #include "ui/forms/task/localization_patterns_widget.h"
 
+// ─────────────────────────────────────────────────────────────────────────────
+// TEMPORARY — Phase 5 (Task B1/B2) pattern-schema verification.
+//
+// Delete this whole block plus its single call at the end of onOpenProject().
+// It exists only to prove, against real project files, that:
+//   1. a pre-Phase-5 (v0) document still restores its picking geometry through
+//      the legacy flat-key read — the values logged below are what came off disk;
+//   2. toJson() -> fromJson() round-trips the new nested schema without drift.
+// Results go to the user log (System Log form).
+// ─────────────────────────────────────────────────────────────────────────────
+#include <QJsonObject>
+#include "core/logger/app_logger.h"
+#include "matching/pattern_group_manager.h"
+#include "matching/match_group.h"
+#include "matching/match_pattern.h"
+
+namespace {
+
+/// Builds one comparable line per pattern: "group/pattern:w,h,distance,angle,useBox,rx,ry,rz".
+QStringList phase5PatternSignatures(mtc::PatternGroupManager *mgr) {
+    QStringList out;
+    if (!mgr) return out;
+    for (const auto &group : mgr->groups()) {
+        if (!group) continue;
+        for (const auto &pattern : group->patterns()) {
+            if (!pattern) continue;
+            const mtc::MatchPatternConfig *c = pattern->patternConfigPtr();
+            if (!c) continue;
+            out << QString::fromStdWString(group->name()) + "/"
+                     + QString::fromStdWString(c->m_patternName) + ":"
+                     + QString::number(c->m_gripperBoxes.size.width,  'f', 4) + ","
+                     + QString::number(c->m_gripperBoxes.size.height, 'f', 4) + ","
+                     + QString::number(c->m_gripperBoxes.distance,    'f', 4) + ","
+                     + QString::number(c->m_pickingBoxAngle,          'f', 4) + ","
+                     + (c->m_usePickingBox ? "1" : "0") + ","
+                     + QString::number(c->m_pickingRotationOffset.x, 'f', 4) + ","
+                     + QString::number(c->m_pickingRotationOffset.y, 'f', 4) + ","
+                     + QString::number(c->m_pickingRotationOffset.z, 'f', 4);
+        }
+    }
+    out.sort();
+    return out;
+}
+
+/// Logs the loaded gripper geometry of every localization task, then re-serialises and
+/// re-parses the pattern library and reports whether anything changed.
+void phase5VerifyPatternSchema(const std::shared_ptr<vc::model::Project> &project) {
+    if (!project) return;
+
+    for (const auto &task : project->getCurrentTasks()) {
+        auto *loc = dynamic_cast<vc::model::TaskLocalization *>(task.get());
+        if (!loc) continue;
+        mtc::PatternGroupManager *mgr = loc->patternManager();
+        if (!mgr) continue;
+
+        const QStringList loaded = phase5PatternSignatures(mgr);
+        LOG_USER_INFO << QStringLiteral("[Phase5] Task '%1': %2 pattern(s) loaded from disk.")
+                             .arg(loc->name()).arg(loaded.size());
+        for (const QString &line : loaded)
+            LOG_USER_INFO << QStringLiteral("[Phase5]   ") + line;
+
+        // Round-trip through the current schema.
+        const QJsonObject doc = mgr->toJson();
+        mtc::PatternGroupManager reloaded;
+        if (!reloaded.fromJson(doc)) {
+            LOG_USER_INFO << QStringLiteral("[Phase5] Task '%1': ROUND-TRIP FAILED — "
+                                            "fromJson() rejected the document.").arg(loc->name());
+            continue;
+        }
+
+        const QStringList after = phase5PatternSignatures(&reloaded);
+        if (loaded == after) {
+            LOG_USER_INFO << QStringLiteral("[Phase5] Task '%1': round-trip OK "
+                                            "(schema version %2, %3 pattern(s) identical).")
+                                 .arg(loc->name())
+                                 .arg(doc.value("version").toInt(0))
+                                 .arg(after.size());
+        } else {
+            LOG_USER_INFO << QStringLiteral("[Phase5] Task '%1': ROUND-TRIP MISMATCH.")
+                                 .arg(loc->name());
+            LOG_USER_INFO << QStringLiteral("[Phase5]   before: ") + loaded.join(" | ");
+            LOG_USER_INFO << QStringLiteral("[Phase5]   after : ") + after.join(" | ");
+        }
+    }
+}
+
+} // namespace
+// ───────────────────────── end TEMPORARY Phase 5 block ───────────────────────
+
 /// Advanced Docking System types (CDockManager, CDockWidget, etc.) used unqualified below.
 using namespace ads;
 /// Shorthand for the project model type managed by this window.
@@ -52,7 +145,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     createToolBarActions();
     createMainContents();
-    updateAccessLevelLabel(false);
+
+    // The Access Level menu now reports the real role rather than whatever was last
+    // clicked, so it follows AccessControl instead of being set by the click handlers.
+    connect(vc::auth::AccessControl::instance(), &vc::auth::AccessControl::roleChanged,
+            this, [this](vc::auth::AccessRole role) {
+                updateAccessLevelLabel(role == vc::auth::AccessRole::Admin);
+            });
+    updateAccessLevelLabel(vc::auth::AccessControl::instance()->isAdmin());
 
     setProjectEnabled(false);
     updateWindowTitle();
@@ -159,59 +259,48 @@ void MainWindow::createToolBarActions() {
     connect(ui->actionSave_Project,   &QAction::triggered, this, &MainWindow::onSaveProject);
     connect(ui->actionSaveAs_Project, &QAction::triggered, this, &MainWindow::onSaveAsProject);
     connect(ui->actionClose_Project,  &QAction::triggered, this, &MainWindow::onCloseProject);
+    connect(ui->actionOpen_Runtime,   &QAction::triggered, this, &MainWindow::onOpenRuntime);
 
     connect(ui->actionSystemLog,          &QAction::triggered, this, &MainWindow::onSystemLogAction);
     connect(ui->actionPrivilege_Standard, &QAction::triggered, this, &MainWindow::onPrivilegeStandard);
     connect(ui->actionPrivilege_Admin,    &QAction::triggered, this, &MainWindow::onPrivilegeAdmin);
 
-    // Theme submenu — lists all registered styles with exclusive selection
-    ui->menuView->addSeparator();
-    m_menuTheme   = ui->menuView->addMenu(tr("Theme"));
+    // Theme and Language are declared in mainwindow.ui — menus and actions both. Only the
+    // exclusivity and the behaviour are wired here; Designer can express neither.
     m_actGrpTheme = new QActionGroup(this);
     m_actGrpTheme->setExclusive(true);
-
-    const QString currentStyleId = ThemeManager::instance()->currentStyleId();
-    for (const ThemeStyle &style : ThemeManager::instance()->styles()) {
-        QAction *act = m_menuTheme->addAction(style.displayName);
-        act->setCheckable(true);
-        act->setChecked(style.id == currentStyleId);
-        act->setData(style.id);
-        m_actGrpTheme->addAction(act);
-    }
+    ui->actionTheme_Light->setData(QStringLiteral("light"));
+    ui->actionTheme_Dark->setData(QStringLiteral("dark"));
+    m_actGrpTheme->addAction(ui->actionTheme_Light);
+    m_actGrpTheme->addAction(ui->actionTheme_Dark);
 
     connect(m_actGrpTheme, &QActionGroup::triggered, this, [](QAction *act) {
         ThemeManager::instance()->applyStyle(act->data().toString());
     });
+    // Follow the manager rather than assuming these actions are the only way the theme can
+    // change: the other shell writes the same settings file, and applyStyle() can be called
+    // from anywhere.
     connect(ThemeManager::instance(), &ThemeManager::themeChanged,
             this, &MainWindow::onThemeChanged);
-    connect(ThemeManager::instance(), &ThemeManager::styleRegistered,
-            this, &MainWindow::onThemeStyleRegistered);
 
-    // Language submenu
-    m_menuLanguage   = ui->menuView->addMenu(tr("Language"));
     m_actGrpLanguage = new QActionGroup(this);
     m_actGrpLanguage->setExclusive(true);
-
-    /// One entry in the Language submenu: an internal language id paired with its display name.
-    struct LangEntry { QString id; QString display; };
-    const QList<LangEntry> languages = {
-        { QStringLiteral("en"),    tr("English") },
-        { QStringLiteral("ja_JP"), QString::fromUtf8("日本語") },
-    };
-
-    const QString savedLang    = AppSettings::instance()->language();
-    const QString effectiveLang = (savedLang == QLatin1String("ja_JP")) ? savedLang
-                                                                        : QStringLiteral("en");
-    for (const LangEntry &entry : languages) {
-        QAction *act = m_menuLanguage->addAction(entry.display);
-        act->setCheckable(true);
-        act->setChecked(entry.id == effectiveLang);
-        act->setData(entry.id);
-        m_actGrpLanguage->addAction(act);
-    }
+    ui->actionLanguage_English->setData(QStringLiteral("en"));
+    ui->actionLanguage_Japanese->setData(QStringLiteral("ja_JP"));
+    m_actGrpLanguage->addAction(ui->actionLanguage_English);
+    m_actGrpLanguage->addAction(ui->actionLanguage_Japanese);
 
     connect(m_actGrpLanguage, &QActionGroup::triggered,
             this, &MainWindow::onLanguageAction);
+
+    onThemeChanged(ThemeManager::instance()->currentStyleId(),
+                   ThemeManager::instance()->isDark());
+    // "system" is a legacy value meaning "follow the OS locale"; there is no menu entry for
+    // it, so anything that is not ja_JP shows as English — which is what those launches
+    // actually produce.
+    const QString savedLang = AppSettings::instance()->language();
+    ui->actionLanguage_Japanese->setChecked(savedLang == QLatin1String("ja_JP"));
+    ui->actionLanguage_English->setChecked(savedLang != QLatin1String("ja_JP"));
 }
 
 /// Configures the Advanced Docking System's global flags, creates the CDockManager hosted
@@ -543,6 +632,8 @@ void MainWindow::onOpenProject() {
     refreshUIForProject(path);
     createProjectInfoDock();
     connectProjectSignals();
+
+    //phase5VerifyPatternSchema(m_project);   // TEMPORARY — Phase 5 verification, delete with its block above.
 }
 
 /// Slot: saves the current project, delegating to onSaveAsProject() if it has never been
@@ -613,47 +704,69 @@ void MainWindow::onSystemLogAction() {
     m_systemLogDock->setFocus();
 }
 
-/// Slot: switches the access-level label to "Standard".
+/// Slot: hands off to the operator runtime.
+///
+/// The release step closes the project, which is what actually gives up the devices — but
+/// it goes through maybeSave() first, so a switch can never be the thing that silently
+/// discards a commissioning session. Cancelling that prompt abandons the switch and leaves
+/// this application exactly as it was.
+///
+/// No privilege check in this direction: handing authority back is not an escalation.
+void MainWindow::onOpenRuntime() {
+    vc::ui::requestShellSwitch(this, vc::shell::ShellKind::Commissioning, [this]() -> bool {
+        if (!maybeSave())
+            return false;
+        onCloseProject();
+        // The switch exits via QCoreApplication::quit(), which does NOT go through
+        // closeEvent() — deliberately, because the user has already confirmed and already
+        // been through maybeSave(), and a third dialog asking the same thing is noise. But
+        // closeEvent() is also where handleCloseEvent() persists the last-used folder, so
+        // that has to be done here or a switch would quietly forget it.
+        handleCloseEvent();
+        return true;
+    });
+}
+
+/// Slot: drops the process back to the Operator role. Giving up authority never needs
+/// permission, so there is no prompt and no way for this to fail.
 void MainWindow::onPrivilegeStandard() {
-    updateAccessLevelLabel(false);
+    vc::auth::AccessControl::instance()->dropToOperator();
 }
 
-/// Slot: switches the access-level label to "Admin".
+/// Slot: asks for the administrator password and elevates on success.
+///
+/// Before Phase 7 / A5 this only changed a menu title — the access level was decorative and
+/// nothing read it. The menu label now follows the real role via AccessControl::roleChanged,
+/// so a cancelled or failed login leaves the menu showing what is actually in force rather
+/// than what was clicked.
 void MainWindow::onPrivilegeAdmin() {
-    updateAccessLevelLabel(true);
+    AdminLoginDialog::ensureAdmin(this);
 }
 
-/// Slot: reflects the active ThemeManager style in the Theme menu's checked action (signals
-/// blocked while updating to avoid re-triggering) and refreshes the project tree so it
-/// repaints with the new theme.
+/// Slot: reflects the active ThemeManager style in the Theme menu's checked action and
+/// repaints the project tree, whose icons differ between light and dark.
+///
+/// @warning Do not wrap the setChecked() calls in a QSignalBlocker. QActionGroup tracks its
+///          checked action through QAction::changed, so blocking an action while checking
+///          it leaves the group's exclusivity bookkeeping pointing at the wrong action —
+///          and checkedAction() then reports nothing is checked. Blocking is unnecessary
+///          anyway: setChecked() emits toggled()/changed(), never triggered(), and
+///          QActionGroup::triggered is the only signal wired to a slot here. The same
+///          mistake in the runtime shell's Layout menu left its task docks undocked.
 /// @param styleId id of the newly active theme style
 /// @param isDark unused: whether the new style is a dark theme
 void MainWindow::onThemeChanged(const QString &styleId, bool isDark) {
     Q_UNUSED(isDark)
     for (QAction *act : m_actGrpTheme->actions()) {
-        QSignalBlocker blocker(act);
         act->setChecked(act->data().toString() == styleId);
     }
     if (m_project)
         ui->proj_treeview_wg->refreshTree();
 }
 
-/// Slot: adds a menu entry for a theme style newly registered with ThemeManager, unless one
-/// already exists for its id.
-/// @param style the newly registered theme style
-void MainWindow::onThemeStyleRegistered(ThemeStyle style) {
-    for (QAction *act : m_actGrpTheme->actions()) {
-        if (act->data().toString() == style.id) return;
-    }
-    QAction *act = m_menuTheme->addAction(style.displayName);
-    act->setCheckable(true);
-    act->setChecked(style.id == ThemeManager::instance()->currentStyleId());
-    act->setData(style.id);
-    m_actGrpTheme->addAction(act);
-}
-
-/// Slot: persists the language chosen from the Language submenu to AppSettings and informs
-/// the user the change takes effect on next application start.
+/// Slot: persists the language chosen from the Language submenu and says plainly that it
+/// applies on the next start. The translator is installed once, before any widget exists,
+/// so there is nothing to re-translate in place.
 /// @param act the triggered language action; its data() holds the language id
 void MainWindow::onLanguageAction(QAction *act) {
     AppSettings::instance()->setLanguage(act->data().toString());

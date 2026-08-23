@@ -3,7 +3,9 @@
 #include "device/camera/camera_device.h"
 #include "device/output_device/vision_output_device.h"
 #include "device/plc/plc_device.h"
+#include "device/virtual/virtual_device.h"
 #include "ui/forms/camera/basler_camera_widget.h"
+#include "ui/forms/virtual/virtual_device_widget.h"
 #include "ui/forms/plc/mitsubishi_mc_device_widget.h"
 #include "ui/forms/vision_output/vision_tcpip_device_widget.h"
 #include "ui/forms/vision_output/vision_tcpip_client_device_widget.h"
@@ -24,6 +26,16 @@ QWidget *DeviceWidgetFactory::createDeviceWidget(
     if (!device) {
         LOG_DEV_ERR << "DeviceWidgetFactory: null device";
         return nullptr;
+    }
+
+    // Checked BEFORE the family switch, not inside it. The Camera and PLC arms below are
+    // written as equality rejections (`cameraType() != BaslerGigE`), so a virtual device
+    // would fall straight through to nullptr and the task page would substitute
+    // "No configuration panel available for this device" — a soft failure that reads as a
+    // missing panel rather than a missing registration, and hides the one thing the operator
+    // most needs to know about this device.
+    if (vc::device::isVirtualDevice(device.get())) {
+        return new VirtualDeviceWidget(device, parent);
     }
 
     switch (device->deviceType()) {

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/localization_recovery_policy.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/localization_recovery_policy.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,12 +119,15 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('localization__
   <div class="headertitle"><div class="title">localization_recovery_policy.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Connection-recovery policy model for localization-owned devices (camera, PLC, vision output): retry/escalate decision rules and default per-role policies.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QString&gt;</code><br />
 <code>#include &quot;<a class="el" href="idevice_8h_source.html">device/idevice.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for localization_recovery_policy.h:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="localization__recovery__policy_8h__incl.svg" width="100%" height="532"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="localization__recovery__policy_8h__incl.svg" width="100%" height="520"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -137,12 +140,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationRecoveryPolicy" id="r_vc_3A_3Amodel_3A_3ALocalizationRecoveryPolicy"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">vc::model::LocalizationRecoveryPolicy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-role (camera/PLC/vision-output) reconnect policy: which connection statuses are recoverable at all, how many times to retry, and at what interval/timeout.  <a href="structvc_1_1model_1_1_localization_recovery_policy.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -150,16 +154,23 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394a7c64d0111e86f669fd35c12335e1ad7d">vc::model::RetryScheduled</a>
 , <a class="el" href="namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394a61d97bf694e2e29acfc38f6a834329d3">vc::model::EscalateFault</a>
  }</td></tr>
+<tr class="memdesc:a81e02d492b58b6ab94fd21af7fea5394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recovery decision the localization runtime should take in response to a device connection-status change (see <a class="el" href="namespacevc_1_1model.html#aecb4f79c3782248ee930f9ea40049359" title="Decides how the localization runtime should react to a device&#39;s connection-status change,...">decideRecoveryAction()</a>).  <a href="namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aa953b6b24c8ba62225ce733b47f8d9bf" id="r_aa953b6b24c8ba62225ce733b47f8d9bf"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#aa953b6b24c8ba62225ce733b47f8d9bf">vc::model::buildRecoveryFaultMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, <a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status, int performedRetries)</td></tr>
+<tr class="memdesc:aa953b6b24c8ba62225ce733b47f8d9bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a human-readable fault message summarizing a failed recovery attempt (role, device id, status, retry count/budget, and timing parameters), suitable for logging or as a fault message payload.  <br /></td></tr>
 <tr class="memitem:aecb4f79c3782248ee930f9ea40049359" id="r_aecb4f79c3782248ee930f9ea40049359"><td class="memItemLeft"><a class="el" href="namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394">LocalizationRecoveryAction</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#aecb4f79c3782248ee930f9ea40049359">vc::model::decideRecoveryAction</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, <a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status, int currentRetryCount, bool retryAlreadyScheduled)</td></tr>
+<tr class="memdesc:aecb4f79c3782248ee930f9ea40049359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decides how the localization runtime should react to a device's connection-status change, given its recovery policy and current retry state.  <br /></td></tr>
 <tr class="memitem:ae73bd980fc96aec7f4e6925565187dd5" id="r_ae73bd980fc96aec7f4e6925565187dd5"><td class="memItemLeft"><a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#ae73bd980fc96aec7f4e6925565187dd5">vc::model::defaultCameraRecoveryPolicy</a> ()</td></tr>
 <tr class="memitem:ab9377468a19738d76abab42809123a63" id="r_ab9377468a19738d76abab42809123a63"><td class="memItemLeft"><a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#ab9377468a19738d76abab42809123a63">vc::model::defaultPlcRecoveryPolicy</a> ()</td></tr>
 <tr class="memitem:aa7f56bcd34cc7c604f02e8d0236d015b" id="r_aa7f56bcd34cc7c604f02e8d0236d015b"><td class="memItemLeft"><a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#aa7f56bcd34cc7c604f02e8d0236d015b">vc::model::defaultVisionOutputRecoveryPolicy</a> ()</td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Connection-recovery policy model for localization-owned devices (camera, PLC, vision output): retry/escalate decision rules and default per-role policies. </p>
+
+<p class="definition">Definition in file <a class="el" href="localization__recovery__policy_8h_source.html">localization_recovery_policy.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

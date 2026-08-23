@@ -9,10 +9,17 @@
 #include <QString>
 #include <utility>
 
-/// Application data-model types: tasks, device bindings, and localization signal mapping.
+/**
+ * @file task_device_binding.h
+ * @brief Application data-model types: tasks, device bindings, and localization signal mapping
+ *        (TaskDeviceRole, TaskDeviceBinding, TaskDeviceBindings).
+ */
 namespace vc::model {
 
-/// Purpose a device serves within a task's device bindings.
+/**
+ * @enum TaskDeviceRole
+ * @brief Purpose a device serves within a task's device bindings.
+ */
 enum class TaskDeviceRole {
     Unknown,      ///< No role assigned / unrecognized role string.
     PrimaryPlc,   ///< The task's main PLC device.
@@ -47,8 +54,11 @@ inline TaskDeviceRole taskDeviceRoleFromString(const QString &value)
     return TaskDeviceRole::Unknown;
 }
 
-/// A single role->device assignment (optionally with a camera slot number) for a task; the
-/// building block that TaskDeviceBindings stores a list of.
+/**
+ * @class TaskDeviceBinding
+ * @brief A single role->device assignment (optionally with a camera slot number) for a task;
+ *        the building block that TaskDeviceBindings stores a list of.
+ */
 class TaskDeviceBinding {
 public:
     /// Camera bindings use 1..16 numbers — the task enforces the same bound at
@@ -117,9 +127,12 @@ private:
     int m_cameraNumber{0};                          ///< Camera slot number (CameraNumber role only).
 };
 
-/// Ordered collection of a task's TaskDeviceBinding entries, with role-keyed convenience
-/// accessors for the single-valued roles (PrimaryPlc, VisionOutput) and the multi-valued
-/// CameraNumber role.
+/**
+ * @class TaskDeviceBindings
+ * @brief Ordered collection of a task's TaskDeviceBinding entries, with role-keyed convenience
+ *        accessors for the single-valued roles (PrimaryPlc, VisionOutput) and the multi-valued
+ *        CameraNumber role.
+ */
 class TaskDeviceBindings {
 public:
     /// Returns all bindings, regardless of role.

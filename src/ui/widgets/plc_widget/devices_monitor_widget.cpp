@@ -165,9 +165,6 @@ void DevicesMonitorWidget::setSubtitle(const QString &subtitle) {
     m_subtitleLabel->setText(subtitle);
 }
 
-/// Configures the contiguous device range shown and rebuilds all table rows.
-/// @param start_address first device address in the range
-/// @param amount number of consecutive devices in the range
 void DevicesMonitorWidget::setRange(int start_address, int amount) {
     m_start  = start_address;
     m_amount = amount;

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/camera/camera_device.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/camera/camera_device.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('camera__device
   <div class="headertitle"><div class="title">camera_device.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Camera device abstractions: camera hardware-family identification, the shared CameraCfg configuration contract, grab results, and the CameraDevice base class.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="idevice_8h_source.html">device/idevice.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="device__capabilities_8h_source.html">device/device_capabilities.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="calibrator_8h_source.html">calibration/calibrator.h</a>&quot;</code><br />
@@ -139,7 +142,9 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3ACameraCfg" id="r_vc_3A_3Adevice_3A_3ACameraCfg"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_camera_cfg.html">vc::device::CameraCfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base configuration contract for a camera device: exposure/gain/frame-rate parameters, backlight control, calibration data and JSON (de)serialization. Concrete cameras (e.g. <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html" title="Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus camera identity ...">BaslerGigeCfg</a>) subclass this and add their own hardware-specific properties.  <a href="classvc_1_1device_1_1_camera_cfg.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3ACameraDevice" id="r_vc_3A_3Adevice_3A_3ACameraDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_camera_device.html">vc::device::CameraDevice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for all camera devices: adds exposure/gain/backlight/IO control and single-shot, software-triggered and continuous grab operations on top of <a class="el" href="classvc_1_1device_1_1_i_device.html" title="Abstract base for every device family (camera/PLC/vision-output/robot): owns the device&#39;s id/name/tas...">IDevice</a>, and marks the device as an <a class="el" href="classvc_1_1device_1_1_i_image_source_device.html" title="Marker capability for devices that can act as a source of images (e.g. cameras).">IImageSourceDevice</a>.  <a href="classvc_1_1device_1_1_camera_device.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AGrabResult" id="r_vc_3A_3Adevice_3A_3AGrabResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1device_1_1_grab_result.html">vc::device::GrabResult</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result of a single camera grab: the captured frame plus success/error status.  <a href="structvc_1_1device_1_1_grab_result.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -147,7 +152,7 @@ Classes</h2></td></tr>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -162,14 +167,18 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38abe47d320a3803f16f5c6c720fdded2e9">vc::device::BaslerGigE</a>
 , <a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38a9ac02d8ae6da9bed67cdbc45ae6f152b">vc::device::BaslerUSB</a>
  }</td></tr>
-<tr class="memdesc:a7494bab370855403ce45bc7070b18e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the concrete camera implementation/hardware family behind a <a class="el" href="classvc_1_1device_1_1_camera_device.html">CameraDevice</a>.  <a href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38">More...</a><br /></td></tr>
+<tr class="memdesc:a7494bab370855403ce45bc7070b18e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the concrete camera implementation/hardware family behind a <a class="el" href="classvc_1_1device_1_1_camera_device.html" title="Abstract base for all camera devices: adds exposure/gain/backlight/IO control and single-shot,...">CameraDevice</a>.  <a href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ab681ec50004716965da0e12721496216" id="r_ab681ec50004716965da0e12721496216"><td class="memItemLeft">static <a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38">CameraType</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#ab681ec50004716965da0e12721496216">vc::device::CameraTypeFromString</a> (QString t)</td></tr>
 <tr class="memitem:a5f52db35cdb582c93633a62ad966629b" id="r_a5f52db35cdb582c93633a62ad966629b"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a5f52db35cdb582c93633a62ad966629b">vc::device::CameraTypeToString</a> (<a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38">CameraType</a> t)</td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Camera device abstractions: camera hardware-family identification, the shared CameraCfg configuration contract, grab results, and the CameraDevice base class. </p>
+
+<p class="definition">Definition in file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="ac470a8718f3d9c57a817a4e752689bba" name="ac470a8718f3d9c57a817a4e752689bba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac470a8718f3d9c57a817a4e752689bba">&#9670;&#160;</a></span>CAM_TYPE_BASLER_GIGE</h2>
 
@@ -182,9 +191,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00012">12</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00018">18</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00029">vc::device::CameraTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00052">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -200,9 +209,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00013">13</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00019">19</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00029">vc::device::CameraTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00052">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -219,9 +228,9 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>String tokens used to (de)serialize CameraType to/from JSON; kept in sync with the CameraType enum by CameraTypeToString()/CameraTypeFromString(). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00011">11</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00017">17</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00029">vc::device::CameraTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00052">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>.</p>
 
 </div>
 </div>

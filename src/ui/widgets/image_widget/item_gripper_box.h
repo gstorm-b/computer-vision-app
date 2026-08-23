@@ -4,11 +4,25 @@
 #include <QGraphicsItem>
 #include <QPainter>
 
-/// Movable/selectable QGraphicsItem drawing a pair of gripper "finger" squares
-/// placed symmetrically at `m_distance` on either side of the item's local
-/// origin, along the direction given by `m_placementAngle`.
+/**
+ * @file item_gripper_box.h
+ * @brief ItemGripperBox — QGraphicsItem drawing a pair of gripper "finger" squares.
+ */
+
+/**
+ * @class ItemGripperBox
+ * @brief Movable/selectable QGraphicsItem drawing a pair of gripper "finger" squares
+ *        placed symmetrically at `m_distance` on either side of the item's local
+ *        origin, along the direction given by `m_placementAngle`.
+ */
 class ItemGripperBox : public QGraphicsItem {
 public:
+  /**
+   * @brief Constructs the item at the local origin with default distance/sizes,
+   *        flagged movable and selectable, and accepting hover events.
+   * @param[in] parent Optional owning QGraphicsItem; standard Qt item parent/child
+   *                    ownership (deleted when `parent` is deleted).
+   */
   ItemGripperBox(QGraphicsItem *parent = nullptr);
 
   /// Returns the distance from the local origin to each finger square's center.

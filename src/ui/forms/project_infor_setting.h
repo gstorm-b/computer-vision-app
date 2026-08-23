@@ -8,21 +8,34 @@ namespace Ui {
 class ProjectInforSetting;
 }
 
-/// Settings form showing/editing a project's name and description, and displaying its created/
-/// updated timestamps; edits are written straight back into the bound Project model.
+/**
+ * @file project_infor_setting.h
+ * @brief ProjectInforSetting — settings form for a project's name/description and timestamps.
+ */
+
+/**
+ * @class ProjectInforSetting
+ * @brief Settings form showing/editing a project's name and description, and displaying its
+ *        created/updated timestamps; edits are written straight back into the bound Project
+ *        model.
+ */
 class ProjectInforSetting : public QWidget {
     Q_OBJECT
 public:
-    /// Loads the generated UI, binds `proj` via setProject(), and connects the name/description
-    /// editors to their change handlers.
-    /// @param proj the project whose data this form displays and edits
+    /**
+     * @brief Loads the generated UI, binds @p proj via setProject(), and connects the
+     *        name/description editors to their change handlers.
+     * @param[in] proj the project whose data this form displays and edits
+     */
     explicit ProjectInforSetting(std::shared_ptr<vc::model::Project> proj, QWidget *parent = nullptr);
     /// Deletes the generated UI object.
     ~ProjectInforSetting();
 
-    /// Rebinds the form to a different project and refreshes the displayed fields; does nothing
-    /// if `proj` is null.
-    /// @param proj the project to bind; ignored if null
+    /**
+     * @brief Rebinds the form to a different project and refreshes the displayed fields; does
+     *        nothing if @p proj is null.
+     * @param[in] proj the project to bind; ignored if null
+     */
     void setProject(std::shared_ptr<vc::model::Project> proj);
 
 private slots:

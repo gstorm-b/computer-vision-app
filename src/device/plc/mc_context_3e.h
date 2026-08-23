@@ -1,18 +1,24 @@
 #ifndef MC_CONTEXT_3E_H
 #define MC_CONTEXT_3E_H
 
+/**
+ * @file mc_context_3e.h
+ * @brief Concrete McContext for the MC 3E frame over Ethernet TCP/IP (Context_Mc3E).
+ */
+
 #include "mc_context.h"
 #include <QObject>
 #include <QMetaType>
 
-/// PLC (Mitsubishi MC-protocol family) device classes: this file adds the
-/// concrete 3E-frame context on top of the shared McContext base.
 namespace vc::device {
 
-/// Concrete McContext for the MC 3E frame over Ethernet TCP/IP: adds the 3E
-/// frame-header addressing fields (network/station/module-IO/multidrop numbers,
-/// monitoring time) on top of the base M/D device-range settings, and always
-/// carries a McMsgEthernetTcpCfg as its message-interface config.
+/**
+ * @class Context_Mc3E
+ * @brief Concrete McContext for the MC 3E frame over Ethernet TCP/IP: adds the 3E
+ *        frame-header addressing fields (network/station/module-IO/multidrop numbers,
+ *        monitoring time) on top of the base M/D device-range settings, and always
+ *        carries a McMsgEthernetTcpCfg as its message-interface config.
+ */
 class Context_Mc3E : public McContext {
     Q_GADGET
 

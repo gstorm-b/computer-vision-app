@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_point_f_
 </div><!--header-->
 <div class="contents">
 
+<p>Compound property manager for floating-point points, exposing X, Y (and Z) as individual QtDoubleProperty sub-properties depending on the active <a class="el" href="#a0772182c4569f4ecca8f32aa345a135b">Mode</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PointFPropertyManager:</div>
@@ -222,13 +225,14 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a02ae26be2d50f4553fc98b9f0d3ec565"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per top-level property state, keyed by the compound property.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Compound property manager for floating-point points, exposing X, Y (and Z) as individual QtDoubleProperty sub-properties depending on the active <a class="el" href="#a0772182c4569f4ecca8f32aa345a135b">Mode</a>. Two display modes:</p><ul>
+<div class="textblock"><p>Compound property manager for floating-point points, exposing X, Y (and Z) as individual QtDoubleProperty sub-properties depending on the active <a class="el" href="#a0772182c4569f4ecca8f32aa345a135b">Mode</a>. </p>
+<p>Two display modes:</p><ul>
 <li>XY — X, Y (maps to QPointF, cv::Point2f, cv::Point2d)</li>
 <li>XYZ — X, Y, Z (maps to cv::Point3f, cv::Point3d)</li>
 </ul>
 <p>The sub-properties must have their editor factory registered in the browser: </p><div class="fragment"><div class="line">browser-&gt;setFactoryForManager(ptFMan-&gt;subDoubleManager(), &amp;dblFactory);</div>
 </div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00395">395</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00422">422</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a0772182c4569f4ecca8f32aa345a135b" name="a0772182c4569f4ecca8f32aa345a135b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0772182c4569f4ecca8f32aa345a135b">&#9670;&#160;</a></span>Mode</h2>
@@ -247,7 +251,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="a0772182c4569f4ecca8f32aa345a135bae5277a5d937bb258d2a4c1a926ef7386" name="a0772182c4569f4ecca8f32aa345a135bae5277a5d937bb258d2a4c1a926ef7386"></a>XYZ&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00400">400</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00427">427</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
 
 </div>
 </div>
@@ -279,7 +283,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00889">889</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00515">m_doubleManager</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01197">slotDoubleChanged()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l01217">slotPropertyDestroyed()</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00545">m_doubleManager</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01197">slotDoubleChanged()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l01217">slotPropertyDestroyed()</a>.</p>
 
 </div>
 </div>
@@ -345,7 +349,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01162">1162</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00501">PointFPropertyManager::Data::decimals</a>, <a class="el" href="custom__property__managers_8h_source.html#l00515">m_doubleManager</a>, <a class="el" href="custom__property__managers_8h_source.html#l00514">m_subToParent</a>, <a class="el" href="custom__property__managers_8h_source.html#l00503">PointFPropertyManager::Data::maximum</a>, <a class="el" href="custom__property__managers_8h_source.html#l00502">PointFPropertyManager::Data::minimum</a>, <a class="el" href="custom__property__managers_8h_source.html#l00500">PointFPropertyManager::Data::mode</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00871">modeComponentCount()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00877">modeLabels()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00504">PointFPropertyManager::Data::singleStep</a>, <a class="el" href="custom__property__managers_8h_source.html#l00505">PointFPropertyManager::Data::subProps</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00499">PointFPropertyManager::Data::values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00531">PointFPropertyManager::Data::decimals</a>, <a class="el" href="custom__property__managers_8h_source.html#l00545">m_doubleManager</a>, <a class="el" href="custom__property__managers_8h_source.html#l00544">m_subToParent</a>, <a class="el" href="custom__property__managers_8h_source.html#l00533">PointFPropertyManager::Data::maximum</a>, <a class="el" href="custom__property__managers_8h_source.html#l00532">PointFPropertyManager::Data::minimum</a>, <a class="el" href="custom__property__managers_8h_source.html#l00530">PointFPropertyManager::Data::mode</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00871">modeComponentCount()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00877">modeLabels()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00534">PointFPropertyManager::Data::singleStep</a>, <a class="el" href="custom__property__managers_8h_source.html#l00535">PointFPropertyManager::Data::subProps</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00529">PointFPropertyManager::Data::values</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l01138">initializeProperty()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l01057">setMode()</a>.</p>
 
@@ -371,7 +375,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00970">970</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -442,7 +446,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01182">1182</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00514">m_subToParent</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00505">PointFPropertyManager::Data::subProps</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00544">m_subToParent</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00535">PointFPropertyManager::Data::subProps</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l01057">setMode()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l01148">uninitializeProperty()</a>.</p>
 
@@ -475,7 +479,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01138">1138</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8cpp_source.html#l01162">createSubProperties()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00500">PointFPropertyManager::Data::mode</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00871">modeComponentCount()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00499">PointFPropertyManager::Data::values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8cpp_source.html#l01162">createSubProperties()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00530">PointFPropertyManager::Data::mode</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00871">modeComponentCount()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00529">PointFPropertyManager::Data::values</a>.</p>
 
 </div>
 </div>
@@ -499,7 +503,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00982">982</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -523,7 +527,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00976">976</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -547,7 +551,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00964">964</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="#ad6c144c808f11169d31ad4d060778a7e">modeChanged()</a>, and <a class="el" href="#ab545e3fb772eb9ba87fd9cc8f47a84ec">~PointFPropertyManager()</a>.</p>
 
@@ -616,7 +620,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00871">871</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00400">XY</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00427">XY</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l01162">createSubProperties()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01138">initializeProperty()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01057">setMode()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l00999">setValue()</a>.</p>
 
@@ -650,7 +654,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00877">877</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00400">XY</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00427">XY</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l01162">createSubProperties()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l01119">valueText()</a>.</p>
 
@@ -688,7 +692,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01076">1076</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a6201ae1764d1612423cdb1cefa0c3983">decimalsChanged()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00515">m_doubleManager</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="#a6201ae1764d1612423cdb1cefa0c3983">decimalsChanged()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00545">m_doubleManager</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -723,7 +727,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01057">1057</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8cpp_source.html#l01162">createSubProperties()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01182">destroySubProperties()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00500">PointFPropertyManager::Data::mode</a>, <a class="el" href="#ad6c144c808f11169d31ad4d060778a7e">modeChanged()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00871">modeComponentCount()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00499">PointFPropertyManager::Data::values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8cpp_source.html#l01162">createSubProperties()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01182">destroySubProperties()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00530">PointFPropertyManager::Data::mode</a>, <a class="el" href="#ad6c144c808f11169d31ad4d060778a7e">modeChanged()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00871">modeComponentCount()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00529">PointFPropertyManager::Data::values</a>.</p>
 
 </div>
 </div>
@@ -764,7 +768,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01091">1091</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00515">m_doubleManager</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00545">m_doubleManager</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -800,7 +804,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01104">1104</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00515">m_doubleManager</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00545">m_doubleManager</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -876,7 +880,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00999">999</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00515">m_doubleManager</a>, <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00500">PointFPropertyManager::Data::mode</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00871">modeComponentCount()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00505">PointFPropertyManager::Data::subProps</a>, <a class="el" href="#a830da72d536a07effb754fb941f3dd79">valueChanged()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00499">PointFPropertyManager::Data::values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00545">m_doubleManager</a>, <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00530">PointFPropertyManager::Data::mode</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00871">modeComponentCount()</a>, <a class="el" href="custom__property__managers_8h_source.html#l00535">PointFPropertyManager::Data::subProps</a>, <a class="el" href="#a830da72d536a07effb754fb941f3dd79">valueChanged()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00529">PointFPropertyManager::Data::values</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l01018">setValue()</a>.</p>
 
@@ -902,7 +906,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00988">988</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -937,7 +941,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01197">1197</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00515">m_doubleManager</a>, <a class="el" href="custom__property__managers_8h_source.html#l00514">m_subToParent</a>, <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00505">PointFPropertyManager::Data::subProps</a>, <a class="el" href="#a830da72d536a07effb754fb941f3dd79">valueChanged()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00499">PointFPropertyManager::Data::values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00545">m_doubleManager</a>, <a class="el" href="custom__property__managers_8h_source.html#l00544">m_subToParent</a>, <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00535">PointFPropertyManager::Data::subProps</a>, <a class="el" href="#a830da72d536a07effb754fb941f3dd79">valueChanged()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00529">PointFPropertyManager::Data::values</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l00889">PointFPropertyManager()</a>.</p>
 
@@ -971,7 +975,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01217">1217</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00514">m_subToParent</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00544">m_subToParent</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l00889">PointFPropertyManager()</a>.</p>
 
@@ -996,7 +1000,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00904">904</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00515">m_doubleManager</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00545">m_doubleManager</a>.</p>
 
 </div>
 </div>
@@ -1027,7 +1031,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01148">1148</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8cpp_source.html#l01182">destroySubProperties()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8cpp_source.html#l01182">destroySubProperties()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -1051,7 +1055,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00913">913</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="#a6201ae1764d1612423cdb1cefa0c3983">decimalsChanged()</a>.</p>
 
@@ -1077,7 +1081,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l00920">920</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>.</p>
 
 </div>
 </div>
@@ -1141,7 +1145,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="custom__property__managers_8cpp_source.html#l01119">1119</a> of file <a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00501">PointFPropertyManager::Data::decimals</a>, <a class="el" href="custom__property__managers_8h_source.html#l00513">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00500">PointFPropertyManager::Data::mode</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00877">modeLabels()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00499">PointFPropertyManager::Data::values</a>.</p>
+<p class="reference">References <a class="el" href="custom__property__managers_8h_source.html#l00531">PointFPropertyManager::Data::decimals</a>, <a class="el" href="custom__property__managers_8h_source.html#l00543">m_values</a>, <a class="el" href="custom__property__managers_8h_source.html#l00530">PointFPropertyManager::Data::mode</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00877">modeLabels()</a>, and <a class="el" href="custom__property__managers_8h_source.html#l00529">PointFPropertyManager::Data::values</a>.</p>
 
 </div>
 </div>
@@ -1168,7 +1172,7 @@ Private Attributes</h2></td></tr>
 
 <p>Internal manager owning all created X/Y/Z sub-properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00515">515</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00545">545</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l01162">createSubProperties()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00889">PointFPropertyManager()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01076">setDecimals()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01091">setRange()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01104">setSingleStep()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00999">setValue()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01197">slotDoubleChanged()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l00904">subDoubleManager()</a>.</p>
 
@@ -1196,7 +1200,7 @@ Private Attributes</h2></td></tr>
 
 <p>Maps each sub double-property back to its owning compound property. </p>
 
-<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00514">514</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00544">544</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l01162">createSubProperties()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01182">destroySubProperties()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01197">slotDoubleChanged()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l01217">slotPropertyDestroyed()</a>.</p>
 
@@ -1224,15 +1228,15 @@ Private Attributes</h2></td></tr>
 
 <p>Per top-level property state, keyed by the compound property. </p>
 
-<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00513">513</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="custom__property__managers_8h_source.html#l00543">543</a> of file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="custom__property__managers_8cpp_source.html#l00970">decimals()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01138">initializeProperty()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00982">maximum()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00976">minimum()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00964">mode()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01076">setDecimals()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01057">setMode()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01091">setRange()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01104">setSingleStep()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00999">setValue()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00988">singleStep()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01197">slotDoubleChanged()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l01148">uninitializeProperty()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00913">value()</a>, <a class="el" href="custom__property__managers_8cpp_source.html#l00920">valueAsQPointF()</a>, and <a class="el" href="custom__property__managers_8cpp_source.html#l01119">valueText()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/<a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/<a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/<a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/<a class="el" href="custom__property__managers_8cpp_source.html">custom_property_managers.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

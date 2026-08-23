@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Typed, append-only list of PLC point values of type <span class="tt">T</span> (int, float, or treated as String for any other type).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="plc__value_8h_source.html">plc_value.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::ValueContainer&lt; T &gt;:</div>
@@ -152,7 +155,7 @@ Private Attributes</h2></td></tr>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 class vc::device::ValueContainer&lt; T &gt;</div><p>Typed, append-only list of PLC point values of type <span class="tt">T</span> (int, float, or treated as String for any other type). </p>
 
-<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00031">31</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00044">44</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a74f07fcffe9522e2e5f073b9c78a853a" name="a74f07fcffe9522e2e5f073b9c78a853a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a74f07fcffe9522e2e5f073b9c78a853a">&#9670;&#160;</a></span>add()</h2>
@@ -181,9 +184,9 @@ template&lt;typename T&gt; </div>
 
 <p>Appends <span class="tt">value</span> to the container. </p>
 
-<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00034">34</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00047">47</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
 
-<p class="reference">References <a class="el" href="plc__value_8h_source.html#l00051">data</a>.</p>
+<p class="reference">References <a class="el" href="plc__value_8h_source.html#l00064">data</a>.</p>
 
 </div>
 </div>
@@ -215,9 +218,9 @@ template&lt;typename T&gt; </div>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_value_container_abstract.html#a75e6d6898f2e98abe31499c6e98229a5">vc::device::ValueContainerAbstract</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00044">44</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00057">57</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
 
-<p class="reference">References <a class="el" href="plc__value_8h_source.html#l00013">vc::device::Float</a>, <a class="el" href="plc__value_8h_source.html#l00012">vc::device::Int</a>, and <a class="el" href="plc__value_8h_source.html#l00014">vc::device::String</a>.</p>
+<p class="reference">References <a class="el" href="plc__value_8h_source.html#l00020">vc::device::Float</a>, <a class="el" href="plc__value_8h_source.html#l00019">vc::device::Int</a>, and <a class="el" href="plc__value_8h_source.html#l00021">vc::device::String</a>.</p>
 
 </div>
 </div>
@@ -247,9 +250,9 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>all values added so far, in insertion order. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00039">39</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00052">52</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
 
-<p class="reference">References <a class="el" href="plc__value_8h_source.html#l00051">data</a>.</p>
+<p class="reference">References <a class="el" href="plc__value_8h_source.html#l00064">data</a>.</p>
 
 </div>
 </div>
@@ -278,14 +281,14 @@ template&lt;typename T&gt; </div>
 
 <p>Backing storage for the appended values. </p>
 
-<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00051">51</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__value_8h_source.html#l00064">64</a> of file <a class="el" href="plc__value_8h_source.html">plc_value.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="plc__value_8h_source.html#l00034">add()</a>, and <a class="el" href="plc__value_8h_source.html#l00039">values()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="plc__value_8h_source.html#l00047">add()</a>, and <a class="el" href="plc__value_8h_source.html#l00052">values()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="plc__value_8h_source.html">plc_value.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="plc__value_8h_source.html">plc_value.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

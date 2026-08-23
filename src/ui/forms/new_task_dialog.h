@@ -7,8 +7,16 @@ namespace Ui {
 class NewTaskDialog;
 }
 
-/// Modal dialog that lets the user pick a save path (.vtask file) and name for a new task;
-/// the values are read back via getPath()/getName() once the dialog is accepted.
+/**
+ * @file new_task_dialog.h
+ * @brief NewTaskDialog — modal dialog that collects a save path and name for a new task.
+ */
+
+/**
+ * @class NewTaskDialog
+ * @brief Modal dialog that lets the user pick a save path (.vtask file) and name for a new
+ *        task; the values are read back via getPath()/getName() once the dialog is accepted.
+ */
 class NewTaskDialog : public QDialog {
     Q_OBJECT
 public:

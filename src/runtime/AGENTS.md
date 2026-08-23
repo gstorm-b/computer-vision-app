@@ -19,4 +19,7 @@ Enforced by the architecture contract test.
 **Verify.** `tests/architecture_contract_test` (runner behavior tests),
 root app build.
 
-**Build registration.** `src/runtime/runtime.pri` only.
+**Build registration.** `src/runtime/runtime.pri` only. That `.pri` is consumed by
+`src/src.pro`, which compiles every module **once** into the `ncr_shared` static
+library that both shells link. No shell `.pro` lists module sources, so a file
+added anywhere else is simply not built.

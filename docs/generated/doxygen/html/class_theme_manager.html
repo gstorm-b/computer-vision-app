@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_theme_ma
 </div><!--header-->
 <div class="contents">
 
+<p>Application-wide theme/style manager: owns the registry of <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a> entries, applies the active style's QPalette and stylesheet to the QApplication, and resolves §5 design-token placeholders used in the project's QSS files.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ThemeManager:</div>
@@ -157,7 +160,9 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac3651c58a0617da28c7673c33f0a5bc6" id="r_ac3651c58a0617da28c7673c33f0a5bc6"><td class="memItemLeft">static <a class="el" href="class_theme_manager.html">ThemeManager</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac3651c58a0617da28c7673c33f0a5bc6">instance</a> ()</td></tr>
 <tr class="memitem:a7e18ca23e1cefac2de2da211d87c6c9c" id="r_a7e18ca23e1cefac2de2da211d87c6c9c"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a7e18ca23e1cefac2de2da211d87c6c9c">resolveTokens</a> (const QString &amp;qss, bool dark)</td></tr>
+<tr class="memdesc:a7e18ca23e1cefac2de2da211d87c6c9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves design-token placeholders in <span class="tt">qss</span> against a specific theme's token table.  <br /></td></tr>
 <tr class="memitem:a95213964df5c2bafb6a1a9f6a9d54659" id="r_a95213964df5c2bafb6a1a9f6a9d54659"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a95213964df5c2bafb6a1a9f6a9d54659">tokenValue</a> (const QString &amp;name, bool dark)</td></tr>
+<tr class="memdesc:a95213964df5c2bafb6a1a9f6a9d54659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw token lookup: returns the value string for a token in the requested theme.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -182,9 +187,9 @@ Static Private Attributes</h2></td></tr>
 <tr class="memdesc:a323dd1fc29f372eeda6be1d4e36bd5c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process-wide singleton instance, created lazily by <a class="el" href="#ac3651c58a0617da28c7673c33f0a5bc6">instance()</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Application-wide theme/style manager: owns the registry of <a class="el" href="struct_theme_style.html">ThemeStyle</a> entries (built-in "light"/"dark" plus any registered at runtime), applies the active style's QPalette and stylesheet to the QApplication, and resolves the §5 design-token placeholders used in the project's QSS files. Singleton, accessed via <a class="el" href="#ac3651c58a0617da28c7673c33f0a5bc6">instance()</a>; the instance is parented to qApp. </p>
+<div class="textblock"><p>Application-wide theme/style manager: owns the registry of <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a> entries, applies the active style's QPalette and stylesheet to the QApplication, and resolves §5 design-token placeholders used in the project's QSS files. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00027">27</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00050">50</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af600542d18b306e40ce06f04c83008ed" name="af600542d18b306e40ce06f04c83008ed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af600542d18b306e40ce06f04c83008ed">&#9670;&#160;</a></span>ThemeManager()</h2>
@@ -208,11 +213,11 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the manager: forces the "Fusion" QStyle, pre-registers the built-in "light" and "dark" <a class="el" href="struct_theme_style.html">ThemeStyle</a> entries, then applies the theme id last persisted in <a class="el" href="class_app_settings.html">AppSettings</a>. </p>
+<p>Constructs the manager: forces the "Fusion" QStyle, pre-registers the built-in "light" and "dark" <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a> entries, then applies the theme id last persisted in <a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00021">21</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00281">buildDarkPalette()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00242">buildLightPalette()</a>, <a class="el" href="theme__manager_8h_source.html#l00016">ThemeStyle::displayName</a>, <a class="el" href="theme__manager_8h_source.html#l00015">ThemeStyle::id</a>, <a class="el" href="app__settings_8cpp_source.html#l00043">AppSettings::instance()</a>, <a class="el" href="theme__manager_8h_source.html#l00017">ThemeStyle::isDark</a>, <a class="el" href="theme__manager_8h_source.html#l00018">ThemeStyle::palette</a>, <a class="el" href="theme__manager_8h_source.html#l00019">ThemeStyle::qssPath</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00043">registerStyle()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00281">buildDarkPalette()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00242">buildLightPalette()</a>, <a class="el" href="theme__manager_8h_source.html#l00038">ThemeStyle::displayName</a>, <a class="el" href="theme__manager_8h_source.html#l00037">ThemeStyle::id</a>, <a class="el" href="app__settings_8cpp_source.html#l00043">AppSettings::instance()</a>, <a class="el" href="theme__manager_8h_source.html#l00039">ThemeStyle::isDark</a>, <a class="el" href="theme__manager_8h_source.html#l00040">ThemeStyle::palette</a>, <a class="el" href="theme__manager_8h_source.html#l00041">ThemeStyle::qssPath</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00043">registerStyle()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00015">instance()</a>.</p>
 
@@ -245,7 +250,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00226">226</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00017">ThemeStyle::isDark</a>, <a class="el" href="theme__manager_8h_source.html#l00018">ThemeStyle::palette</a>, <a class="el" href="theme__manager_8h_source.html#l00019">ThemeStyle::qssPath</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00214">resolveTokens()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00039">ThemeStyle::isDark</a>, <a class="el" href="theme__manager_8h_source.html#l00040">ThemeStyle::palette</a>, <a class="el" href="theme__manager_8h_source.html#l00041">ThemeStyle::qssPath</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00214">resolveTokens()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00043">registerStyle()</a>.</p>
 
@@ -270,7 +275,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00056">56</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00226">apply()</a>, <a class="el" href="app__settings_8cpp_source.html#l00043">AppSettings::instance()</a>, <a class="el" href="theme__manager_8h_source.html#l00101">m_currentId</a>, <a class="el" href="theme__manager_8h_source.html#l00100">m_styles</a>, <a class="el" href="app__settings_8cpp_source.html#l00086">AppSettings::setTheme()</a>, and <a class="el" href="#a10019fd138b43615dafbf26f70db0574">themeChanged()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00226">apply()</a>, <a class="el" href="app__settings_8cpp_source.html#l00043">AppSettings::instance()</a>, <a class="el" href="theme__manager_8h_source.html#l00124">m_currentId</a>, <a class="el" href="theme__manager_8h_source.html#l00123">m_styles</a>, <a class="el" href="app__settings_8cpp_source.html#l00086">AppSettings::setTheme()</a>, and <a class="el" href="#a10019fd138b43615dafbf26f70db0574">themeChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager()</a>.</p>
 
@@ -350,11 +355,11 @@ Static Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns the full <a class="el" href="struct_theme_style.html">ThemeStyle</a> currently active, or a default-constructed <a class="el" href="struct_theme_style.html">ThemeStyle</a> if the current id does not match any registered style. </p>
+<p>Returns the full <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a> currently active, or a default-constructed <a class="el" href="struct_theme_style.html" title="Describes a named visual style that can be registered with ThemeManager. Built-in styles &quot;light&quot; and ...">ThemeStyle</a> if the current id does not match any registered style. </p>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00069">69</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00101">m_currentId</a>, and <a class="el" href="theme__manager_8h_source.html#l00100">m_styles</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00124">m_currentId</a>, and <a class="el" href="theme__manager_8h_source.html#l00123">m_styles</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00075">isDark()</a>.</p>
 
@@ -385,11 +390,11 @@ Static Private Attributes</h2></td></tr>
 
 <p>Returns the id of the currently active style. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00045">45</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00068">68</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00101">m_currentId</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00124">m_currentId</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, and <a class="el" href="windows__helper_8h_source.html#l00165">ThemedSvgIconEngine::styleKey()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, and <a class="el" href="windows__helper_8h_source.html#l00180">ThemedSvgIconEngine::styleKey()</a>.</p>
 
 </div>
 </div>
@@ -415,13 +420,13 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the process-wide <a class="el" href="class_theme_manager.html">ThemeManager</a>, lazily creating it (parented to qApp) on first call. </p>
+<p>Returns the process-wide <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a>, lazily creating it (parented to qApp) on first call. </p>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00015">15</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00102">s_instance</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00125">s_instance</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard::AddDeviceWizard()</a>, <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00252">CameraMappingWidget::CameraMappingWidget()</a>, <a class="el" href="device__row__delegate_8cpp_source.html#l00492">vc::widgets::DeviceRowDelegate::createEditor()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget::DeviceNavItemWidget()</a>, <a class="el" href="devices__monitor__widget_8cpp_source.html#l00025">vc::widgets::DevicesMonitorWidget::DevicesMonitorWidget()</a>, <a class="el" href="main_8cpp_source.html#l00027">main()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00644">MainWindow::onThemeStyleRegistered()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00057">ProjectTreeDelegate::paint()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget::ProjectTreeWidget()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00162">AddDeviceWizard::reloadStyleSheet()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00264">CameraMappingWidget::reloadStyleSheet()</a>, <a class="el" href="device__widget_8h_source.html#l00055">IDeviceWidget::reloadStyleSheet()</a>, <a class="el" href="task__widget_8h_source.html#l00078">ITaskWidget::reloadStyleSheet()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00514">SignalsMonitorWidget::reloadStyleSheet()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00077">SystemLogForm::reloadStyleSheet()</a>, <a class="el" href="devices__monitor__widget_8cpp_source.html#l00143">vc::widgets::DevicesMonitorWidget::reloadStyleSheet()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00129">SystemLogForm::rerenderLogs()</a>, <a class="el" href="device__widget_8h_source.html#l00044">IDeviceWidget::setupThemeReload()</a>, <a class="el" href="task__widget_8h_source.html#l00067">ITaskWidget::setupThemeReload()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00490">SignalsMonitorWidget::SignalsMonitorWidget()</a>, <a class="el" href="windows__helper_8h_source.html#l00165">ThemedSvgIconEngine::styleKey()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00051">SystemLogForm::SystemLogForm()</a>, <a class="el" href="windows__helper_8h_source.html#l00155">ThemedSvgIconEngine::themedPath()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00108">anonymous_namespace{localization_patterns_widget.cpp}::themeTokenColor()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00031">anonymous_namespace{vision_canvas.cpp}::tokenColor()</a>, <a class="el" href="device__row__delegate_8cpp_source.html#l00056">vc::widgets::anonymous_namespace{device_row_delegate.cpp}::tokenColor()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00437">VisionCanvas::VisionCanvas()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard::AddDeviceWizard()</a>, <a class="el" href="vision__result__adapter_8cpp_source.html#l00090">anonymous_namespace{vision_result_adapter.cpp}::appendWorkspaceOverlays()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00252">CameraMappingWidget::CameraMappingWidget()</a>, <a class="el" href="device__row__delegate_8cpp_source.html#l00492">vc::widgets::DeviceRowDelegate::createEditor()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget::DeviceNavItemWidget()</a>, <a class="el" href="devices__monitor__widget_8cpp_source.html#l00025">vc::widgets::DevicesMonitorWidget::DevicesMonitorWidget()</a>, <a class="el" href="main_8cpp_source.html#l00027">main()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00644">MainWindow::onThemeStyleRegistered()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00057">ProjectTreeDelegate::paint()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget::ProjectTreeWidget()</a>, <a class="el" href="add__device__wizard_8cpp_source.html#l00162">AddDeviceWizard::reloadStyleSheet()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00264">CameraMappingWidget::reloadStyleSheet()</a>, <a class="el" href="device__widget_8h_source.html#l00066">IDeviceWidget::reloadStyleSheet()</a>, <a class="el" href="task__widget_8h_source.html#l00087">ITaskWidget::reloadStyleSheet()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00514">SignalsMonitorWidget::reloadStyleSheet()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00077">SystemLogForm::reloadStyleSheet()</a>, <a class="el" href="devices__monitor__widget_8cpp_source.html#l00143">vc::widgets::DevicesMonitorWidget::reloadStyleSheet()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00129">SystemLogForm::rerenderLogs()</a>, <a class="el" href="device__widget_8h_source.html#l00055">IDeviceWidget::setupThemeReload()</a>, <a class="el" href="task__widget_8h_source.html#l00076">ITaskWidget::setupThemeReload()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00490">SignalsMonitorWidget::SignalsMonitorWidget()</a>, <a class="el" href="windows__helper_8h_source.html#l00180">ThemedSvgIconEngine::styleKey()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00051">SystemLogForm::SystemLogForm()</a>, <a class="el" href="windows__helper_8h_source.html#l00170">ThemedSvgIconEngine::themedPath()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00108">anonymous_namespace{localization_patterns_widget.cpp}::themeTokenColor()</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00031">anonymous_namespace{vision_canvas.cpp}::tokenColor()</a>, <a class="el" href="device__row__delegate_8cpp_source.html#l00056">vc::widgets::anonymous_namespace{device_row_delegate.cpp}::tokenColor()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00437">VisionCanvas::VisionCanvas()</a>.</p>
 
 </div>
 </div>
@@ -444,9 +449,9 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00075">75</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00069">currentStyle()</a>, and <a class="el" href="theme__manager_8h_source.html#l00017">ThemeStyle::isDark</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00069">currentStyle()</a>, and <a class="el" href="theme__manager_8h_source.html#l00039">ThemeStyle::isDark</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00162">AddDeviceWizard::reloadStyleSheet()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00264">CameraMappingWidget::reloadStyleSheet()</a>, <a class="el" href="device__widget_8h_source.html#l00055">IDeviceWidget::reloadStyleSheet()</a>, <a class="el" href="task__widget_8h_source.html#l00078">ITaskWidget::reloadStyleSheet()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00514">SignalsMonitorWidget::reloadStyleSheet()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00077">SystemLogForm::reloadStyleSheet()</a>, <a class="el" href="devices__monitor__widget_8cpp_source.html#l00143">vc::widgets::DevicesMonitorWidget::reloadStyleSheet()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00129">SystemLogForm::rerenderLogs()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00214">resolveTokens()</a>, <a class="el" href="#a10019fd138b43615dafbf26f70db0574">themeChanged()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00218">themedIcon()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00162">AddDeviceWizard::reloadStyleSheet()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00264">CameraMappingWidget::reloadStyleSheet()</a>, <a class="el" href="device__widget_8h_source.html#l00066">IDeviceWidget::reloadStyleSheet()</a>, <a class="el" href="task__widget_8h_source.html#l00087">ITaskWidget::reloadStyleSheet()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00514">SignalsMonitorWidget::reloadStyleSheet()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00077">SystemLogForm::reloadStyleSheet()</a>, <a class="el" href="devices__monitor__widget_8cpp_source.html#l00143">vc::widgets::DevicesMonitorWidget::reloadStyleSheet()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00129">SystemLogForm::rerenderLogs()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00214">resolveTokens()</a>, <a class="el" href="#a10019fd138b43615dafbf26f70db0574">themeChanged()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00218">themedIcon()</a>.</p>
 
 </div>
 </div>
@@ -468,7 +473,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00043">43</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00226">apply()</a>, <a class="el" href="theme__manager_8h_source.html#l00015">ThemeStyle::id</a>, <a class="el" href="theme__manager_8h_source.html#l00101">m_currentId</a>, <a class="el" href="theme__manager_8h_source.html#l00100">m_styles</a>, and <a class="el" href="#ae7cf5c3cad9b8ef4421f62b4c982adb1">styleRegistered()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00226">apply()</a>, <a class="el" href="theme__manager_8h_source.html#l00037">ThemeStyle::id</a>, <a class="el" href="theme__manager_8h_source.html#l00124">m_currentId</a>, <a class="el" href="theme__manager_8h_source.html#l00123">m_styles</a>, and <a class="el" href="#ae7cf5c3cad9b8ef4421f62b4c982adb1">styleRegistered()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager()</a>.</p>
 
@@ -488,9 +493,7 @@ Static Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>QSS design-token resolution.</p>
-<p>Qt has no native QSS variables, so stylesheets reference design tokens by name through the placeholder syntax "@{group.token}" (e.g. "@{accent.primary}", "@{bg.surface}"). <a class="el" href="#ac679a232b339cb72e7c42d4bedbfccc6">resolveTokens()</a> substitutes every placeholder with the hex / rgba value the §5 token table (ui_design_rules.md) assigns it for the given theme. This is the one place tokens turn into literals; renaming a token is a single-table edit. Unknown tokens are left untouched (and logged once).</p>
-<p>The no-argument overload resolves for the active theme; the bool overload is used by <a class="el" href="#a4071cc23bbcfd02546e2bbe4860b4812">ThemeManager::apply()</a> while a specific style is being installed. </p>
+<p>Resolves design-token placeholders in <span class="tt">qss</span> against the active theme's token table. The no-argument overload resolves for the active theme; the bool overload is used by <a class="el" href="#a4071cc23bbcfd02546e2bbe4860b4812">ThemeManager::apply()</a> while a specific style is being installed. </p>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00214">214</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
@@ -527,19 +530,19 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p></p>
-<p>QSS design-token resolution.</p>
-<p>Qt has no native QSS variables, so stylesheets reference design tokens by name through the placeholder syntax "@{group.token}" (e.g. "@{accent.primary}", "@{bg.surface}"). <a class="el" href="#ac679a232b339cb72e7c42d4bedbfccc6">resolveTokens()</a> substitutes every placeholder with the hex / rgba value the §5 token table (ui_design_rules.md) assigns it for the given theme. This is the one place tokens turn into literals; renaming a token is a single-table edit. Unknown tokens are left untouched (and logged once).</p>
-<p>The no-argument overload resolves for the active theme; the bool overload is used by <a class="el" href="#a4071cc23bbcfd02546e2bbe4860b4812">ThemeManager::apply()</a> while a specific style is being installed.    </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Resolves design-token placeholders in <span class="tt">qss</span> against a specific theme's token table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dark</td><td>true to resolve against the dark-theme values, false for light </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">qss</td><td>stylesheet text containing "@{group.token}" placeholders </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dark</td><td>true to resolve against the dark-theme values, false for light </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>the stylesheet with all known tokens substituted; unknown tokens left untouched </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00181">181</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00174">tokenValue()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00174">tokenValue()</a>.</p>
 
 </div>
 </div>
@@ -596,9 +599,9 @@ Static Private Attributes</h2></td></tr>
 
 <p>Returns a copy of all currently registered styles. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00039">39</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00062">62</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00100">m_styles</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00123">m_styles</a>.</p>
 
 </div>
 </div>
@@ -633,7 +636,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00075">isDark()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard::AddDeviceWizard()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00252">CameraMappingWidget::CameraMappingWidget()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget::DeviceNavItemWidget()</a>, <a class="el" href="devices__monitor__widget_8cpp_source.html#l00025">vc::widgets::DevicesMonitorWidget::DevicesMonitorWidget()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget::ProjectTreeWidget()</a>, <a class="el" href="device__widget_8h_source.html#l00044">IDeviceWidget::setupThemeReload()</a>, <a class="el" href="task__widget_8h_source.html#l00067">ITaskWidget::setupThemeReload()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00490">SignalsMonitorWidget::SignalsMonitorWidget()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00051">SystemLogForm::SystemLogForm()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00437">VisionCanvas::VisionCanvas()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="add__device__wizard_8cpp_source.html#l00030">AddDeviceWizard::AddDeviceWizard()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00252">CameraMappingWidget::CameraMappingWidget()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget::DeviceNavItemWidget()</a>, <a class="el" href="devices__monitor__widget_8cpp_source.html#l00025">vc::widgets::DevicesMonitorWidget::DevicesMonitorWidget()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget::ProjectTreeWidget()</a>, <a class="el" href="device__widget_8h_source.html#l00055">IDeviceWidget::setupThemeReload()</a>, <a class="el" href="task__widget_8h_source.html#l00076">ITaskWidget::setupThemeReload()</a>, <a class="el" href="signals__monitor__widget_8cpp_source.html#l00490">SignalsMonitorWidget::SignalsMonitorWidget()</a>, <a class="el" href="system__log__form_8cpp_source.html#l00051">SystemLogForm::SystemLogForm()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00437">VisionCanvas::VisionCanvas()</a>.</p>
 
 </div>
 </div>
@@ -657,7 +660,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00075">isDark()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00155">ThemedSvgIconEngine::themedPath()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00170">ThemedSvgIconEngine::themedPath()</a>.</p>
 
 </div>
 </div>
@@ -687,7 +690,16 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Raw token lookup. Returns the value string for a token in the requested theme, or an empty string if the token name is not in the §5 table. </p>
+
+<p>Raw token lookup: returns the value string for a token in the requested theme. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>token name as it appears inside "@{...}" (e.g. "accent.primary") </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">dark</td><td>true to look up the dark-theme value, false for light </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the hex/rgba value string, or an empty string if the token name is unknown </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="theme__manager_8cpp_source.html#l00174">174</a> of file <a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a>.</p>
 
@@ -718,9 +730,9 @@ Static Private Attributes</h2></td></tr>
 
 <p>Id of the currently active style in m_styles. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00101">101</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00124">124</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00069">currentStyle()</a>, <a class="el" href="theme__manager_8h_source.html#l00045">currentStyleId()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00043">registerStyle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00069">currentStyle()</a>, <a class="el" href="theme__manager_8h_source.html#l00068">currentStyleId()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00043">registerStyle()</a>.</p>
 
 </div>
 </div>
@@ -746,9 +758,9 @@ Static Private Attributes</h2></td></tr>
 
 <p>All registered styles, in registration order. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00100">100</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00123">123</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00069">currentStyle()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00043">registerStyle()</a>, and <a class="el" href="theme__manager_8h_source.html#l00039">styles()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00056">applyStyle()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00069">currentStyle()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00043">registerStyle()</a>, and <a class="el" href="theme__manager_8h_source.html#l00062">styles()</a>.</p>
 
 </div>
 </div>
@@ -774,15 +786,15 @@ Static Private Attributes</h2></td></tr>
 
 <p>Process-wide singleton instance, created lazily by <a class="el" href="#ac3651c58a0617da28c7673c33f0a5bc6">instance()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00102">102</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00125">125</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00015">instance()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/core/utils/<a class="el" href="theme__manager_8h_source.html">theme_manager.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/core/utils/<a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/core/utils/<a class="el" href="theme__manager_8h_source.html">theme_manager.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/core/utils/<a class="el" href="theme__manager_8cpp_source.html">theme_manager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

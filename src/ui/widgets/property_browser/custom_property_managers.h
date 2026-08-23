@@ -10,6 +10,12 @@
 
 #include <climits>
 
+/**
+ * @file custom_property_managers.h
+ * @brief Compound QtPropertyBrowser managers exposing multi-component values (position,
+ *        size, integer point, floating-point point) as grouped sub-properties.
+ */
+
 /// Enables the OpenCV cv::Point/cv::Point2f/cv::Point3f/... interoperability (valueAsCvPoint*,
 /// setValue(cv::Point...) overloads) when opencv2/core/types.hpp is available; those APIs are
 /// compiled out otherwise.
@@ -18,29 +24,32 @@
 #  define NCR_PROP_HAS_OPENCV 1
 #endif
 
-/// Compound property manager for robot / machine positions, exposing X, Y, Z (and Roll,
-/// Pitch, Yaw) as individual QtDoubleProperty sub-properties depending on the active Mode.
-/// Three display modes:
-///   - XY     — X, Y                   (2 components, e.g. image-plane point)
-///   - XYZ    — X, Y, Z                (3 components, e.g. 3-D Cartesian)
-///   - XYZRPY — X, Y, Z, Roll, Pitch, Yaw (6-DOF robot pose)
-///
-/// Each component is a QtDoubleProperty created internally. The sub-properties must have
-/// their editor factory registered in the browser:
-/// @code
-///     browser->setFactoryForManager(posMan->subDoubleManager(), &dblFactory);
-/// @endcode
-///
-/// Example:
-/// @code
-///     auto *pos = posMan->addProperty("TCP Position");
-///     posMan->setMode(pos, PositionPropertyManager::XYZRPY);
-///     posMan->setRange(pos, -1000.0, 1000.0);
-///     posMan->setDecimals(pos, 2);
-///     posMan->setValue(pos, {100.0, 200.0, 300.0, 0.0, 0.0, 45.0});
-///     browser->addProperty(pos);
-/// @endcode
-
+/**
+ * @class PositionPropertyManager
+ * @brief Compound property manager for robot / machine positions, exposing X, Y, Z (and Roll,
+ *        Pitch, Yaw) as individual QtDoubleProperty sub-properties depending on the active Mode.
+ *
+ * Three display modes:
+ *   - XY     — X, Y                   (2 components, e.g. image-plane point)
+ *   - XYZ    — X, Y, Z                (3 components, e.g. 3-D Cartesian)
+ *   - XYZRPY — X, Y, Z, Roll, Pitch, Yaw (6-DOF robot pose)
+ *
+ * Each component is a QtDoubleProperty created internally. The sub-properties must have
+ * their editor factory registered in the browser:
+ * @code
+ *   browser->setFactoryForManager(posMan->subDoubleManager(), &dblFactory);
+ * @endcode
+ *
+ * Example:
+ * @code
+ *   auto *pos = posMan->addProperty("TCP Position");
+ *   posMan->setMode(pos, PositionPropertyManager::XYZRPY);
+ *   posMan->setRange(pos, -1000.0, 1000.0);
+ *   posMan->setDecimals(pos, 2);
+ *   posMan->setValue(pos, {100.0, 200.0, 300.0, 0.0, 0.0, 45.0});
+ *   browser->addProperty(pos);
+ * @endcode
+ */
 class PositionPropertyManager : public QtAbstractPropertyManager {
     Q_OBJECT
 public:
@@ -118,7 +127,10 @@ private slots:
     void slotPropertyDestroyed(QtProperty *sub);
 
 private:
-    /// Per-property state backing one compound position property.
+    /**
+     * @struct Data
+     * @brief Per-property state backing one compound position property.
+     */
     struct Data {
         QVector<double>    values;           ///< Current component values in mode order.
         Mode               mode{XY};         ///< Active display mode.
@@ -141,15 +153,18 @@ private:
     Q_DISABLE_COPY(PositionPropertyManager)
 };
 
-/// Compound property manager for physical or pixel sizes, exposing Width, Height (and Depth)
-/// as individual QtDoubleProperty sub-properties depending on the active Mode.
-/// Two display modes:
-///   - WH  — Width, Height          (2-D, e.g. image dimensions, pick-box)
-///   - WHD — Width, Height, Depth   (3-D, e.g. bounding box)
-///
-/// Same factory-registration requirement as PositionPropertyManager: register
-/// subDoubleManager() with the browser's double editor factory.
-
+/**
+ * @class SizePropertyManager
+ * @brief Compound property manager for physical or pixel sizes, exposing Width, Height (and
+ *        Depth) as individual QtDoubleProperty sub-properties depending on the active Mode.
+ *
+ * Two display modes:
+ *   - WH  — Width, Height          (2-D, e.g. image dimensions, pick-box)
+ *   - WHD — Width, Height, Depth   (3-D, e.g. bounding box)
+ *
+ * Same factory-registration requirement as PositionPropertyManager: register
+ * subDoubleManager() with the browser's double editor factory.
+ */
 class SizePropertyManager : public QtAbstractPropertyManager {
     Q_OBJECT
 public:
@@ -226,7 +241,10 @@ private slots:
     void slotPropertyDestroyed(QtProperty *sub);
 
 private:
-    /// Per-property state backing one compound size property.
+    /**
+     * @struct Data
+     * @brief Per-property state backing one compound size property.
+     */
     struct Data {
         QVector<double>    values;           ///< Current component values in mode order.
         Mode               mode{WH};         ///< Active display mode.
@@ -250,26 +268,29 @@ private:
     Q_DISABLE_COPY(SizePropertyManager)
 };
 
-/// Compound property manager for integer-coordinate points, exposing X, Y (and Z) as
-/// individual QtIntProperty sub-properties depending on the active Mode.
-/// Two display modes:
-///   - XY  — X, Y       (maps to QPoint, cv::Point/cv::Point2i)
-///   - XYZ — X, Y, Z    (maps to cv::Point3i)
-///
-/// The sub-properties must have their editor factory registered in the browser:
-/// @code
-///     browser->setFactoryForManager(ptMan->subIntManager(), &spinFactory);
-/// @endcode
-///
-/// Example:
-/// @code
-///     auto *p = ptMan->addProperty("Pick pixel");
-///     ptMan->setMode(p, PointPropertyManager::XY);
-///     ptMan->setRange(p, 0, 4096);
-///     ptMan->setValue(p, QPoint{640, 480});
-///     browser->addProperty(p);
-/// @endcode
-
+/**
+ * @class PointPropertyManager
+ * @brief Compound property manager for integer-coordinate points, exposing X, Y (and Z) as
+ *        individual QtIntProperty sub-properties depending on the active Mode.
+ *
+ * Two display modes:
+ *   - XY  — X, Y       (maps to QPoint, cv::Point/cv::Point2i)
+ *   - XYZ — X, Y, Z    (maps to cv::Point3i)
+ *
+ * The sub-properties must have their editor factory registered in the browser:
+ * @code
+ *   browser->setFactoryForManager(ptMan->subIntManager(), &spinFactory);
+ * @endcode
+ *
+ * Example:
+ * @code
+ *   auto *p = ptMan->addProperty("Pick pixel");
+ *   ptMan->setMode(p, PointPropertyManager::XY);
+ *   ptMan->setRange(p, 0, 4096);
+ *   ptMan->setValue(p, QPoint{640, 480});
+ *   browser->addProperty(p);
+ * @endcode
+ */
 class PointPropertyManager : public QtAbstractPropertyManager {
     Q_OBJECT
 public:
@@ -359,7 +380,10 @@ private slots:
     void slotPropertyDestroyed(QtProperty *sub);
 
 private:
-    /// Per-property state backing one compound integer point property.
+    /**
+     * @struct Data
+     * @brief Per-property state backing one compound integer point property.
+     */
     struct Data {
         QVector<int>       values;      ///< Current component values in mode order.
         Mode               mode{XY};    ///< Active display mode.
@@ -381,17 +405,20 @@ private:
     Q_DISABLE_COPY(PointPropertyManager)
 };
 
-/// Compound property manager for floating-point points, exposing X, Y (and Z) as individual
-/// QtDoubleProperty sub-properties depending on the active Mode.
-/// Two display modes:
-///   - XY  — X, Y       (maps to QPointF, cv::Point2f, cv::Point2d)
-///   - XYZ — X, Y, Z    (maps to cv::Point3f, cv::Point3d)
-///
-/// The sub-properties must have their editor factory registered in the browser:
-/// @code
-///     browser->setFactoryForManager(ptFMan->subDoubleManager(), &dblFactory);
-/// @endcode
-
+/**
+ * @class PointFPropertyManager
+ * @brief Compound property manager for floating-point points, exposing X, Y (and Z) as
+ *        individual QtDoubleProperty sub-properties depending on the active Mode.
+ *
+ * Two display modes:
+ *   - XY  — X, Y       (maps to QPointF, cv::Point2f, cv::Point2d)
+ *   - XYZ — X, Y, Z    (maps to cv::Point3f, cv::Point3d)
+ *
+ * The sub-properties must have their editor factory registered in the browser:
+ * @code
+ *   browser->setFactoryForManager(ptFMan->subDoubleManager(), &dblFactory);
+ * @endcode
+ */
 class PointFPropertyManager : public QtAbstractPropertyManager {
     Q_OBJECT
 public:
@@ -494,7 +521,10 @@ private slots:
     void slotPropertyDestroyed(QtProperty *sub);
 
 private:
-    /// Per-property state backing one compound floating-point point property.
+    /**
+     * @struct Data
+     * @brief Per-property state backing one compound floating-point point property.
+     */
     struct Data {
         QVector<double>    values;           ///< Current component values in mode order.
         Mode               mode{XY};         ///< Active display mode.

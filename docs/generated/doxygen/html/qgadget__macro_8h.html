@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/core/qgadget_macro.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/core/qgadget_macro.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('qgadget__macro
   <div class="headertitle"><div class="title">qgadget_macro.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Q_GADGET property-declaration macros and gadget meta-property helpers (displayName, writeProperty, readProperty) for Q_GADGET config types.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;qtmetamacros.h&gt;</code><br />
 <code>#include &lt;QtTypes&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
@@ -160,7 +163,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a6e0a29e01a41f4e3e9cc69c97f5b20bb" id="r_a6e0a29e01a41f4e3e9cc69c97f5b20bb"><td class="memItemLeft">QVariant&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1gadget__meta.html#a6e0a29e01a41f4e3e9cc69c97f5b20bb">vc::gadget_meta::readProperty</a> (const QMetaObject &amp;meta, const void *gadget, const QString &amp;propName)</td></tr>
 <tr class="memitem:a31ba1eb93a2b677457d9411385aff806" id="r_a31ba1eb93a2b677457d9411385aff806"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1gadget__meta.html#a31ba1eb93a2b677457d9411385aff806">vc::gadget_meta::writeProperty</a> (const QMetaObject &amp;meta, void *gadget, const QString &amp;propName, const QVariant &amp;value)</td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Q_GADGET property-declaration macros and gadget meta-property helpers (displayName, writeProperty, readProperty) for Q_GADGET config types. </p>
+<p>Property-browser widgets dispatch edits through the Q_PROPERTY system of a Q_GADGET config; the helpers in <a class="el" href="namespacevc_1_1gadget__meta.html">vc::gadget_meta</a> centralise the "indexOfProperty → read/writeOnGadget" pattern and the "&lt;prop&gt;_name" Q_CLASSINFO display-name lookup emitted by the macros below, so each widget no longer re-implements it. </p>
+
+<p class="definition">Definition in file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="aeb76225a3ebe1eb4b6b0a2227cb8f0fd" name="aeb76225a3ebe1eb4b6b0a2227cb8f0fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb76225a3ebe1eb4b6b0a2227cb8f0fd">&#9670;&#160;</a></span>G_PROPERTY_BOOL_READWRITE</h2>
 
@@ -191,7 +199,7 @@ Functions</h2></td></tr>
 <div class="line">    <span class="keywordtype">void</span> set##name(type val) { m_##name = val; } \</div>
 </div><!-- fragment --><p>Declares a read-write boolean Q_GADGET property <span class="tt">name</span> of <span class="tt">type</span>, backed by member <span class="tt">m_##name</span>, plus a Q_CLASSINFO entry recording its display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00046">46</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00058">58</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 </div>
 </div>
@@ -225,7 +233,7 @@ Functions</h2></td></tr>
 <div class="line">    <span class="keywordtype">void</span> set##name(type val) { m_##name = val; } \</div>
 </div><!-- fragment --><p>Declares a read-write enum Q_GADGET property <span class="tt">name</span> of <span class="tt">type</span>, backed by member <span class="tt">m_##name</span>, plus a Q_CLASSINFO entry recording its display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00056">56</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00068">68</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 </div>
 </div>
@@ -271,7 +279,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="keywordtype">void</span> set##name(type val) { m_##name = val; } \</div>
 </div><!-- fragment --><p>Declares a read-write numeric Q_GADGET property <span class="tt">name</span> of <span class="tt">type</span>, backed by member <span class="tt">m_##name</span>, plus Q_CLASSINFO entries recording its display name and its [minVal, maxVal] range (consumed by property-browser widgets for validation/UI bounds). </p>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00016">16</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00028">28</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 </div>
 </div>
@@ -304,7 +312,7 @@ Functions</h2></td></tr>
 <div class="line">type name()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_##name; } \</div>
 </div><!-- fragment --><p>Declares a read-only (CONSTANT) string-like Q_GADGET property <span class="tt">name</span> of <span class="tt">type</span>, backed by member <span class="tt">m_##name</span>, plus a Q_CLASSINFO entry recording its display name. No setter is generated. </p>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00037">37</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00049">49</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 </div>
 </div>
@@ -338,7 +346,7 @@ Functions</h2></td></tr>
 <div class="line"><span class="keywordtype">void</span> set##name(type val) { m_##name = val; } \</div>
 </div><!-- fragment --><p>Declares a read-write string-like Q_GADGET property <span class="tt">name</span> of <span class="tt">type</span>, backed by member <span class="tt">m_##name</span>, plus a Q_CLASSINFO entry recording its display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00027">27</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00039">39</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 </div>
 </div>
@@ -372,7 +380,7 @@ Functions</h2></td></tr>
 <div class="line">    <span class="keywordtype">void</span> set##name(type val) { d-&gt;m_##name = val; } \</div>
 </div><!-- fragment --><p>Like G_PROPERTY_STRING_READWRITE, but for a d-pointer (PIMPL) class: the getter/setter access <span class="tt">d-&gt;m_##name</span> instead of a direct member, so the class must have an accessible <span class="tt">d</span> pointer with that member. </p>
 
-<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00066">66</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="qgadget__macro_8h_source.html#l00078">78</a> of file <a class="el" href="qgadget__macro_8h_source.html">qgadget_macro.h</a>.</p>
 
 </div>
 </div>

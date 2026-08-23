@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_prop_sp
 </div><!--header-->
 <div class="contents">
 
+<p>One row in a property spec table: a single editable parameter's identity, editor attributes (type/range/decimals/read-only), and the read/write accessors that connect it to a bound Config instance.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for PropSpec&lt; Config &gt;:</div>
@@ -152,9 +155,9 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Config&gt;<br />
-struct PropSpec&lt; Config &gt;</div><p>One row in a property spec table. Fields: key — unique internal id (ASCII, used as map key) label — user-visible name in the property browser description — shown in the description panel; nullptr → no tooltip propType — QMetaType type id: QMetaType::Double, Int, Bool, QString … min/max/step — range and step attributes (invalid QVariant = skip) decimals — precision for Double; -1 = use manager default readOnly — disables the editor widget for this property read — extract the value from the config as a QVariant write — apply a changed QVariant value back to the config </p>
+struct PropSpec&lt; Config &gt;</div><p>One row in a property spec table: a single editable parameter's identity, editor attributes (type/range/decimals/read-only), and the read/write accessors that connect it to a bound Config instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00059">59</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00057">57</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a3f39dbfa70370c92ff6f14a9327c5acc" name="a3f39dbfa70370c92ff6f14a9327c5acc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f39dbfa70370c92ff6f14a9327c5acc">&#9670;&#160;</a></span>decimals</h2>
@@ -172,9 +175,9 @@ template&lt;typename Config&gt; </div>
 
 <p>Precision for Double properties; -1 = use the manager default. </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00065">65</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00063">63</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00088">PropSpecHelper::applyAttributes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00087">PropSpecHelper::applyAttributes()</a>.</p>
 
 </div>
 </div>
@@ -194,9 +197,9 @@ template&lt;typename Config&gt; </div>
 
 <p>Shown in the description panel; nullptr means no tooltip. </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00062">62</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00060">60</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00088">PropSpecHelper::applyAttributes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00087">PropSpecHelper::applyAttributes()</a>.</p>
 
 </div>
 </div>
@@ -216,9 +219,9 @@ template&lt;typename Config&gt; </div>
 
 <p>Unique internal id (ASCII, used as the lookup-map key). </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00060">60</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00058">58</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00107">PropSpecHelper::buildOne()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00111">PropSpecHelper::buildOne()</a>.</p>
 
 </div>
 </div>
@@ -238,9 +241,9 @@ template&lt;typename Config&gt; </div>
 
 <p>User-visible name shown in the property browser. </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00061">61</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00059">59</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00107">PropSpecHelper::buildOne()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00111">PropSpecHelper::buildOne()</a>.</p>
 
 </div>
 </div>
@@ -258,9 +261,9 @@ template&lt;typename Config&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00064">64</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00062">62</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00088">PropSpecHelper::applyAttributes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00087">PropSpecHelper::applyAttributes()</a>.</p>
 
 </div>
 </div>
@@ -278,9 +281,9 @@ template&lt;typename Config&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00064">64</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00062">62</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00088">PropSpecHelper::applyAttributes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00087">PropSpecHelper::applyAttributes()</a>.</p>
 
 </div>
 </div>
@@ -300,9 +303,9 @@ template&lt;typename Config&gt; </div>
 
 <p>QMetaType type id: QMetaType::Double / Int / Bool / QString … </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00063">63</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00061">61</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00107">PropSpecHelper::buildOne()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00111">PropSpecHelper::buildOne()</a>.</p>
 
 </div>
 </div>
@@ -322,9 +325,9 @@ template&lt;typename Config&gt; </div>
 
 <p>Extracts this property's current value from the config. </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00068">68</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00066">66</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00107">PropSpecHelper::buildOne()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00111">PropSpecHelper::buildOne()</a>.</p>
 
 </div>
 </div>
@@ -344,9 +347,9 @@ template&lt;typename Config&gt; </div>
 
 <p>When true, disables the editor widget for this property. </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00066">66</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00064">64</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00088">PropSpecHelper::applyAttributes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00087">PropSpecHelper::applyAttributes()</a>.</p>
 
 </div>
 </div>
@@ -366,9 +369,9 @@ template&lt;typename Config&gt; </div>
 
 <p>Range/step attributes; an invalid QVariant means "skip this attribute". </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00064">64</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00062">62</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00088">PropSpecHelper::applyAttributes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="prop__spec_8h_source.html#l00087">PropSpecHelper::applyAttributes()</a>.</p>
 
 </div>
 </div>
@@ -388,12 +391,12 @@ template&lt;typename Config&gt; </div>
 
 <p>Applies a changed value back to the config. </p>
 
-<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00069">69</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="prop__spec_8h_source.html#l00067">67</a> of file <a class="el" href="prop__spec_8h_source.html">prop_spec.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/<a class="el" href="prop__spec_8h_source.html">prop_spec.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/<a class="el" href="prop__spec_8h_source.html">prop_spec.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

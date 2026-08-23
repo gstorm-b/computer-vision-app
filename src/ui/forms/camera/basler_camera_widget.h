@@ -27,23 +27,38 @@ class BaslerCameraWidget;
 
 class CalibrationThresholdDialog;
 
-/// Device widget for a Basler GigE camera: exposes device/camera parameters through
-/// a QtPropertyBrowser, drives connect/trigger/save actions via CameraRunner, and
-/// hosts the board-calibration workflow (board setup, threshold tuning, corner
-/// detection, and calibration apply) for this camera.
+/**
+ * @file basler_camera_widget.h
+ * @brief BaslerCameraWidget — device widget for a Basler GigE camera.
+ */
+
+/**
+ * @class BaslerCameraWidget
+ * @brief Device widget for a Basler GigE camera: exposes device/camera parameters through
+ *        a QtPropertyBrowser, drives connect/trigger/save actions via CameraRunner, and
+ *        hosts the board-calibration workflow (board setup, threshold tuning, corner
+ *        detection, and calibration apply) for this camera.
+ */
 class BaslerCameraWidget : public IDeviceWidget
 {
     Q_OBJECT
 
 public:
-    /// Runner is owned by TaskRunner (not by this widget).  It must outlive
-    /// this widget — TaskRunner guarantees this as long as the device stays
-    /// assigned to the task.  Pass nullptr only if the caller explicitly
-    /// disables thread-routed access (rare; status lamp will stay disabled).
-    /// @param dv the Basler camera device this widget will control (expected to be
-    ///        castable to vc::device::BaslerGigECamera)
-    /// @param runner thread-routed access point to the camera; nullptr disables control
-    /// @param dock optional dock widget whose title is kept in sync with the device name
+    /**
+     * @brief Constructs the widget for @p dv, wiring it to @p runner for thread-routed
+     *        camera access and to @p dock for title-sync.
+     *
+     * @param[in] dv the Basler camera device this widget will control (expected to be
+     *        castable to vc::device::BaslerGigECamera)
+     * @param[in] runner thread-routed access point to the camera; nullptr disables control
+     * @param[in] dock optional dock widget whose title is kept in sync with the device name
+     * @param[in] parent parent widget
+     *
+     * @note @p runner is owned by TaskRunner (not by this widget). It must outlive this
+     *       widget — TaskRunner guarantees this as long as the device stays assigned to
+     *       the task. Pass nullptr only if the caller explicitly disables thread-routed
+     *       access (rare; status lamp will stay disabled).
+     */
     explicit BaslerCameraWidget(std::shared_ptr<vc::device::IDevice> dv,
                                 vc::runtime::CameraRunner *runner,
                                 ads::CDockWidget *dock = nullptr,
@@ -158,13 +173,11 @@ private:
 
     BaslerCamSelectDialog *m_camera_select_dialog{nullptr};  ///< Dialog for picking a Basler device on the network; owned by this widget (child of `this`).
 
-    /// Not owned — provided by TaskRunner.  Widget never creates a thread.
-    vc::runtime::CameraRunner *m_runner{nullptr};
+    vc::runtime::CameraRunner *m_runner{nullptr};  ///< Not owned — provided by TaskRunner. Widget never creates a thread.
 
     bool m_populating_browser{false};  ///< Guards onPropertyValueChanged() against reacting to programmatic updates from populateBrowser().
 
-    /// Calibration board the user picked; rebuilt on preset change.
-    std::unique_ptr<calib::CalibrationBoard> m_board;
+    std::unique_ptr<calib::CalibrationBoard> m_board;  ///< Calibration board the user picked; rebuilt on preset change.
     /// True for the single grabFinished that follows btn_calib_detect_clicked();
     /// tells onCameraGrabFinished() to run board detection on that frame.
     bool m_pendingCalibDetect{false};

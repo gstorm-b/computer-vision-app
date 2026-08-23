@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1mo
 </div><!--header-->
 <div class="contents">
 
+<p>Outcome of one localization cycle (grab + match + send), published via <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a1e44048c749cd0befc04c197d783184b" title="Emitted with the final result of each cycle, whether it succeeded or faulted.">cycleResultUpdated()</a> for UI display and task logging.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::model::LocalizationRuntimeController::CycleResult:</div>
@@ -153,7 +156,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Outcome of one localization cycle (grab + match + send), published via <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a1e44048c749cd0befc04c197d783184b" title="Emitted with the final result of each cycle, whether it succeeded or faulted.">cycleResultUpdated()</a> for UI display and task logging. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00088">88</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00108">108</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="ab88ddfd5e19c185e71e9de88d698637f" name="ab88ddfd5e19c185e71e9de88d698637f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab88ddfd5e19c185e71e9de88d698637f">&#9670;&#160;</a></span>detectedNumber</h2>
@@ -169,7 +172,7 @@ Public Attributes</h2></td></tr>
 
 <p>Number of objects the matcher reported as possible to pick. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00091">91</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00111">111</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00642">vc::model::LocalizationRuntimeController::publishCycleSuccessOutputs()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
@@ -189,7 +192,7 @@ Public Attributes</h2></td></tr>
 
 <p>Annotated/display image returned by the matcher. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00096">96</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00116">116</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00147">VisionResultAdapter::fromCycleResult()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
@@ -209,7 +212,7 @@ Public Attributes</h2></td></tr>
 
 <p>Fault code recorded when faulted is true. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00090">90</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00110">110</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 </div>
 </div>
@@ -227,7 +230,7 @@ Public Attributes</h2></td></tr>
 
 <p>True if the cycle ended in a fault instead of completing normally. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00089">89</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00109">109</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 </div>
 </div>
@@ -245,7 +248,7 @@ Public Attributes</h2></td></tr>
 
 <p>True if the matcher flagged the matched area as below its configured limit. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00094">94</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00114">114</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00642">vc::model::LocalizationRuntimeController::publishCycleSuccessOutputs()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
@@ -265,7 +268,7 @@ Public Attributes</h2></td></tr>
 
 <p>Matching execution time reported by the matcher, in milliseconds. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00093">93</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00113">113</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
@@ -285,7 +288,7 @@ Public Attributes</h2></td></tr>
 
 <p>Full match result from the matcher. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00097">97</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00117">117</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00147">VisionResultAdapter::fromCycleResult()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
@@ -305,7 +308,7 @@ Public Attributes</h2></td></tr>
 
 <p>Raw camera frame grabbed for this cycle. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00095">95</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00115">115</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00147">VisionResultAdapter::fromCycleResult()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
@@ -325,7 +328,7 @@ Public Attributes</h2></td></tr>
 
 <p>Per-object result rows built from matchResult. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00098">98</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00118">118</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__result__adapter_8cpp_source.html#l00147">VisionResultAdapter::fromCycleResult()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
@@ -345,14 +348,14 @@ Public Attributes</h2></td></tr>
 
 <p>Number of positions actually sent to the vision output device. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00092">92</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00112">112</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00563">LocalizationDashboardWidget::updateCycleResult()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

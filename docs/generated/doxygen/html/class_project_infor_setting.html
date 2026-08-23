@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_project_
 </div><!--header-->
 <div class="contents">
 
+<p>Settings form showing/editing a project's name and description, and displaying its created/updated timestamps; edits are written straight back into the bound <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> model.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ProjectInforSetting:</div>
@@ -140,7 +143,9 @@ Signals</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a85acbabe19ea2651c3f7b2e03f8e5778" id="r_a85acbabe19ea2651c3f7b2e03f8e5778"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a85acbabe19ea2651c3f7b2e03f8e5778">ProjectInforSetting</a> (std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_project.html">vc::model::Project</a> &gt; proj, QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a85acbabe19ea2651c3f7b2e03f8e5778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the generated UI, binds <code class="param">proj</code> via <a class="el" href="#ac6c3381106dc35f05a2aeaf09aa95f38" title="Rebinds the form to a different project and refreshes the displayed fields; does nothing if proj is n...">setProject()</a>, and connects the name/description editors to their change handlers.  <br /></td></tr>
 <tr class="memitem:ac6c3381106dc35f05a2aeaf09aa95f38" id="r_ac6c3381106dc35f05a2aeaf09aa95f38"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac6c3381106dc35f05a2aeaf09aa95f38">setProject</a> (std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_project.html">vc::model::Project</a> &gt; proj)</td></tr>
+<tr class="memdesc:ac6c3381106dc35f05a2aeaf09aa95f38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rebinds the form to a different project and refreshes the displayed fields; does nothing if <code class="param">proj</code> is null.  <br /></td></tr>
 <tr class="memitem:afad866bd3bfbfa257f2fbdf99ffb4017" id="r_afad866bd3bfbfa257f2fbdf99ffb4017"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afad866bd3bfbfa257f2fbdf99ffb4017">~ProjectInforSetting</a> ()</td></tr>
 <tr class="memdesc:afad866bd3bfbfa257f2fbdf99ffb4017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the generated UI object.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -160,9 +165,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a2343a65bdd67a8c84ba75760ec05890f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generated UI object owning this form's widgets; destroyed in the destructor.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Settings form showing/editing a project's name and description, and displaying its created/ updated timestamps; edits are written straight back into the bound <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> model. </p>
+<div class="textblock"><p>Settings form showing/editing a project's name and description, and displaying its created/updated timestamps; edits are written straight back into the bound <a class="el" href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa" title="Shorthand for the project model type managed by this window.">Project</a> model. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__infor__setting_8h_source.html#l00013">13</a> of file <a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__infor__setting_8h_source.html#l00022">22</a> of file <a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a85acbabe19ea2651c3f7b2e03f8e5778" name="a85acbabe19ea2651c3f7b2e03f8e5778"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a85acbabe19ea2651c3f7b2e03f8e5778">&#9670;&#160;</a></span>ProjectInforSetting()</h2>
@@ -190,9 +195,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Loads the generated UI, binds <span class="tt">proj</span> via <a class="el" href="#ac6c3381106dc35f05a2aeaf09aa95f38">setProject()</a>, and connects the name/description editors to their change handlers. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Loads the generated UI, binds <code class="param">proj</code> via <a class="el" href="#ac6c3381106dc35f05a2aeaf09aa95f38" title="Rebinds the form to a different project and refreshes the displayed fields; does nothing if proj is n...">setProject()</a>, and connects the name/description editors to their change handlers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proj</td><td>the project whose data this form displays and edits</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">proj</td><td>the project whose data this form displays and edits</td></tr>
   </table>
   </dd>
 </dl>
@@ -200,7 +207,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__infor__setting_8cpp_source.html#l00007">7</a> of file <a class="el" href="project__infor__setting_8cpp_source.html">project_infor_setting.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__infor__setting_8cpp_source.html#l00058">onDescriptionChanged()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00051">onNameModified()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00007">ProjectInforSetting()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00028">setProject()</a>, and <a class="el" href="project__infor__setting_8h_source.html#l00042">ui</a>.</p>
+<p class="reference">References <a class="el" href="project__infor__setting_8cpp_source.html#l00058">onDescriptionChanged()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00051">onNameModified()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00007">ProjectInforSetting()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00028">setProject()</a>, and <a class="el" href="project__infor__setting_8h_source.html#l00055">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__infor__setting_8cpp_source.html#l00007">ProjectInforSetting()</a>.</p>
 
@@ -225,7 +232,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__infor__setting_8cpp_source.html#l00022">22</a> of file <a class="el" href="project__infor__setting_8cpp_source.html">project_infor_setting.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00042">ui</a>.</p>
+<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00055">ui</a>.</p>
 
 </div>
 </div>
@@ -258,7 +265,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__infor__setting_8cpp_source.html#l00058">58</a> of file <a class="el" href="project__infor__setting_8cpp_source.html">project_infor_setting.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00043">m_proj</a>, <a class="el" href="#afb09bece464fd23f316a54d3f855eaaf">projectModified()</a>, and <a class="el" href="project__infor__setting_8h_source.html#l00042">ui</a>.</p>
+<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00056">m_proj</a>, <a class="el" href="#afb09bece464fd23f316a54d3f855eaaf">projectModified()</a>, and <a class="el" href="project__infor__setting_8h_source.html#l00055">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__infor__setting_8cpp_source.html#l00007">ProjectInforSetting()</a>.</p>
 
@@ -292,7 +299,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__infor__setting_8cpp_source.html#l00051">51</a> of file <a class="el" href="project__infor__setting_8cpp_source.html">project_infor_setting.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00043">m_proj</a>, <a class="el" href="#afb09bece464fd23f316a54d3f855eaaf">projectModified()</a>, and <a class="el" href="project__infor__setting_8h_source.html#l00042">ui</a>.</p>
+<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00056">m_proj</a>, <a class="el" href="#afb09bece464fd23f316a54d3f855eaaf">projectModified()</a>, and <a class="el" href="project__infor__setting_8h_source.html#l00055">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__infor__setting_8cpp_source.html#l00007">ProjectInforSetting()</a>.</p>
 
@@ -354,7 +361,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__infor__setting_8cpp_source.html#l00039">39</a> of file <a class="el" href="project__infor__setting_8cpp_source.html">project_infor_setting.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00043">m_proj</a>, and <a class="el" href="project__infor__setting_8h_source.html#l00042">ui</a>.</p>
+<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00056">m_proj</a>, and <a class="el" href="project__infor__setting_8h_source.html#l00055">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__infor__setting_8cpp_source.html#l00028">setProject()</a>.</p>
 
@@ -374,9 +381,11 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Rebinds the form to a different project and refreshes the displayed fields; does nothing if <span class="tt">proj</span> is null. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Rebinds the form to a different project and refreshes the displayed fields; does nothing if <code class="param">proj</code> is null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proj</td><td>the project to bind; ignored if null</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">proj</td><td>the project to bind; ignored if null</td></tr>
   </table>
   </dd>
 </dl>
@@ -384,7 +393,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__infor__setting_8cpp_source.html#l00028">28</a> of file <a class="el" href="project__infor__setting_8cpp_source.html">project_infor_setting.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00043">m_proj</a>, and <a class="el" href="project__infor__setting_8cpp_source.html#l00039">refreshProjectInfor()</a>.</p>
+<p class="reference">References <a class="el" href="project__infor__setting_8h_source.html#l00056">m_proj</a>, and <a class="el" href="project__infor__setting_8cpp_source.html#l00039">refreshProjectInfor()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__infor__setting_8cpp_source.html#l00007">ProjectInforSetting()</a>.</p>
 
@@ -413,7 +422,7 @@ Private Attributes</h2></td></tr>
 
 <p>The project currently bound to and edited by this form. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__infor__setting_8h_source.html#l00043">43</a> of file <a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__infor__setting_8h_source.html#l00056">56</a> of file <a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__infor__setting_8cpp_source.html#l00058">onDescriptionChanged()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00051">onNameModified()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00039">refreshProjectInfor()</a>, and <a class="el" href="project__infor__setting_8cpp_source.html#l00028">setProject()</a>.</p>
 
@@ -441,15 +450,15 @@ Private Attributes</h2></td></tr>
 
 <p>Generated UI object owning this form's widgets; destroyed in the destructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__infor__setting_8h_source.html#l00042">42</a> of file <a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__infor__setting_8h_source.html#l00055">55</a> of file <a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="project__infor__setting_8cpp_source.html#l00058">onDescriptionChanged()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00051">onNameModified()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00007">ProjectInforSetting()</a>, <a class="el" href="project__infor__setting_8cpp_source.html#l00039">refreshProjectInfor()</a>, and <a class="el" href="project__infor__setting_8cpp_source.html#l00022">~ProjectInforSetting()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="project__infor__setting_8cpp_source.html">project_infor_setting.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="project__infor__setting_8h_source.html">project_infor_setting.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="project__infor__setting_8cpp_source.html">project_infor_setting.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

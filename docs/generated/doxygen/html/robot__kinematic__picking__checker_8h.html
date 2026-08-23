@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/robot_kinematic_picking_checker.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/robot_kinematic_picking_checker.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('robot__kinemat
   <div class="headertitle"><div class="title">robot_kinematic_picking_checker.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>RobotKinematicPickingChecker — concrete <a class="el" href="classmtc_1_1_i_robot_picking_checker.html" title="Port (dependency-inversion boundary) that lets the pure-vision ImageMatcher ask &quot;can the robot actual...">mtc::IRobotPickingChecker</a> bridging vision calibration and robot kinematics/collision checks.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="robot__picking__checker_8h_source.html">matching/robot_picking_checker.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="calibrator_8h_source.html">calibration/calibrator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vision__output__config_8h_source.html">device/output_device/vision_output_config.h</a>&quot;</code><br />
@@ -127,12 +130,12 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('robot__kinemat
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for robot_kinematic_picking_checker.h:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="robot__kinematic__picking__checker_8h__incl.svg" width="100%" height="556"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="robot__kinematic__picking__checker_8h__incl.svg" width="100%" height="544"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="robot__kinematic__picking__checker_8h__dep__incl.svg" width="432" height="208"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="robot__kinematic__picking__checker_8h__dep__incl.svg" width="446" height="176"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="robot__kinematic__picking__checker_8h_source.html">Go to the source code of this file.</a></p>
@@ -140,15 +143,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ARobotKinematicPickingChecker" id="r_vc_3A_3Amodel_3A_3ARobotKinematicPickingChecker"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1model_1_1_robot_kinematic_picking_checker.html">vc::model::RobotKinematicPickingChecker</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concrete <a class="el" href="classmtc_1_1_i_robot_picking_checker.html" title="Port (dependency-inversion boundary) that lets the pure-vision ImageMatcher ask &quot;can the robot actual...">mtc::IRobotPickingChecker</a>: the single bridge that pulls together the three families the pure-vision matcher must not know about: the calib module (image -&gt; world), the <a class="el" href="namespace_robot_kinematics.html" title="Robot kinematics core: configuration model, forward/inverse solvers, and JSON preset loading.">RobotKinematics</a> component (solveAll IK + simplified-mesh collision), and the <a class="el" href="namespacevc_1_1device.html" title="Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).">vc::device</a> robot-check config (preset, TCP, collision toggle).  <a href="classvc_1_1model_1_1_robot_kinematic_picking_checker.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ARobotKinematicPickingChecker_3A_3AWaypoint" id="r_vc_3A_3Amodel_3A_3ARobotKinematicPickingChecker_3A_3AWaypoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_robot_kinematic_picking_checker_1_1_waypoint.html">vc::model::RobotKinematicPickingChecker::Waypoint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One picking-path waypoint, prepared from a config PickPathPoint: a 6-axis tool-frame offset (mm/deg) plus required posture branch signs (-1/+1, or 0 for "any") resolved from the preset's posture labels at construction.  <a href="structvc_1_1model_1_1_robot_kinematic_picking_checker_1_1_waypoint.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>RobotKinematicPickingChecker — concrete <a class="el" href="classmtc_1_1_i_robot_picking_checker.html" title="Port (dependency-inversion boundary) that lets the pure-vision ImageMatcher ask &quot;can the robot actual...">mtc::IRobotPickingChecker</a> bridging vision calibration and robot kinematics/collision checks. </p>
+
+<p class="definition">Definition in file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -1044,3 +1044,563 @@ contract (not the old `.arg(x,0,'f',3)` → `1.000`).
 the RobotKinematics integration into `vision_tcpip_device_base.cpp` and did not
 `include(robotkinematics.pri)`, so they no longer compiled from the CLI. That
 wiring was added alongside this change so the suites build and run again.
+
+## 29. Dead `MatchedObject::checkCollisionObject` after the mask-based rewrite
+
+**Status: open cleanup, no behaviour risk.**
+
+The mask-based gripper collision check
+(`MatchedObject::checkCollisionObject2`) was confirmed complete on 2026-07-28
+after real picking runs with no observed failures, and it is the only path
+`ImageMatcher::matching()` calls
+([image_matcher.cpp:364](../../src/matching/image_matcher.cpp#L364)).
+
+The superseded point-in-polygon implementation
+([match_object.h:146](../../src/matching/match_object.h#L146)) is still in the
+header and now has no caller anywhere in `src/` — only comments reference it.
+Keeping it invites someone to call the version with the known false negative: a
+jaw lying wholly inside a large part registers no collision, because no contour
+vertex falls inside the jaw.
+
+**Work when picked up.**
+
+- Remove `checkCollisionObject` and its `goto`-based loop.
+- Update the two comments that name it: the "Unlike checkCollisionObject ..."
+  paragraph above `checkCollisionObject2`, and the `hasCollision()` brief that
+  says "the last collision check (checkCollisionObject or
+  checkCollisionObject2)".
+- Confirm no test or tool references it before deleting.
+
+## 30. `MatchBoxGripper` is dead code superseded by `GripperBoxes`
+
+**Status: open cleanup, no behaviour risk.** Found during Phase 5 Task B1
+(2026-07-29).
+
+[match_box_gripper.h](../../src/matching/match_box_gripper.h) declares
+`mtc::MatchBoxGripper` (`m_boxSize`, `m_boxDistance`) and nothing constructs or
+references it anywhere in `src/`, `app/`, `tests/`, or `tools/` — the only hits
+are its own definition plus the file-list entries in `src/matching/matching.pri`
+and `tests/architecture_contract_test/architecture_contract_test.pro`.
+
+Phase 5 introduced `mtc::GripperBoxes`
+([gripper_boxes.h](../../src/matching/gripper_boxes.h)) for exactly this concept,
+with the `angle` field `MatchBoxGripper` lacks. Leaving both invites someone to
+pick the dead one.
+
+**Work when picked up.** Delete the header and its two file-list entries.
+
+## 31. `pattern_group_manager.h` pulls QtWidgets into the matching module
+
+**Status: open, architectural.** Found during Phase 5 Task B1 (2026-07-29).
+
+[pattern_group_manager.h](../../src/matching/pattern_group_manager.h) includes
+`<QMessageBox>`, so the level-1 `matching` module — which the module map says
+owns the matching engine and must not include UI — drags in QtWidgets. Any
+non-GUI consumer (a headless test, a CLI tool) must add `QT += widgets` purely to
+compile a data class; this was hit while building a standalone check for the
+Phase 5 schema work.
+
+The include-layering contract test does not catch it because it validates
+project-header layering, not Qt module usage.
+
+**Work when picked up.** Confirm whether `QMessageBox` is actually used in the
+header; if it is only needed in the `.cpp` (or not at all), move or drop the
+include. If a manager genuinely needs to raise a dialog, that decision belongs in
+the UI layer instead — return a `ManagerResult` and let the caller present it,
+which is the pattern the rest of the class already follows.
+
+## 32. Flaky `test_disconnect_notice_on_graceful_close`
+
+**Status: open, intermittent — diagnosed to the product side, not the test.**
+Observed during Phase 5 Task C3 verification (2026-07-29).
+
+`VisionTcpipClientDeviceTest::test_disconnect_notice_on_graceful_close`
+([main.cpp:230](../../tests/vision_tcpip_client_device_test/main.cpp#L230)) fails
+intermittently — roughly **2 runs in 3** on the machine it was measured on, though
+the rate moves with load. The assertion that fails is
+
+```
+QVERIFY(waitFor([&]() { return peer.gotDisconnectNotice(); }));
+```
+
+right after `device.deviceDisconnect()`. It also reproduces when that test is run
+**in isolation** (`... test_disconnect_notice_on_graceful_close`), so it is not
+interference between tests. Timing is bimodal: a passing run finishes in ~58 ms, a
+failing one burns the full `waitFor` timeout (~2 s). The notice either lands
+immediately or never.
+
+Not caused by Phase 5: nothing in Phases A–C touches the heartbeat or
+graceful-close path.
+
+**Diagnosis.** Device logs are byte-identical between failing and passing runs —
+`"VisionTcpip sent disconnect notice"` is emitted every time
+([vision_tcpip_device_base.cpp:522](../../src/device/output_device/vision_tcpip_device_base.cpp#L522)).
+So the send side succeeds and the payload is lost in transit.
+
+`sendDisconnectNotice()` writes the notice, calls `flush()`, then
+`waitForBytesWritten(150)`. That only proves the bytes left the *local* send
+buffer — it says nothing about the peer having read them. `deviceDisconnect()`
+then calls `detachHeartbeatSocket()->abort()`. An abortive close sends a TCP RST,
+and an RST causes the receiver to **discard whatever is still sitting unread in
+its receive buffer**. So whether the notice survives is a pure race between the
+peer's event loop and the RST. The comment above `kDisconnectFlushMs` shows the
+author knew about the discard risk and added the bounded wait as mitigation, but
+that mitigation cannot close the hole — no local-side wait can.
+
+**Why it matters beyond the test.** A real remote intermittently misses the
+graceful-disconnect notice and has to fall back on heartbeat timeout, which is
+slower and looks like a link failure rather than a planned shutdown.
+
+**Work when picked up.** Replace the abortive close on the graceful path with a
+graceful one: `disconnectFromHost()` and wait for `disconnected` (bounded), so the
+FIN is ordered *after* the notice in the stream instead of racing it. Keep
+`abort()` for the lost-connection path, where there is nothing to deliver. The
+test needs no change once the ordering is correct.
+
+## 33. Device-level kinematic check ignores the RX/RY axes (RESOLVED 2026-07-29)
+
+**Status: RESOLVED.** Fixed in the same session it was found, before the rotation
+offsets could be used in production.
+
+`runKinematicCheck()` now builds
+`fromXYZRPY_mm_deg(p.x, p.y, p.z, 180.0 + p.rx, p.ry, p.rz)`.
+
+The emitted `rx`/`ry`/`rz` are the fixed-axis RPY of the orientation the runtime
+actually commands: `LocalizationRuntimeController` composes `pick * offset`, and
+since `fromXYZRPY` builds `Rz(yaw)·Ry(pitch)·Rx(roll)` with the pick contributing
+only a Z rotation, that product is exactly `Rz(rz)·Ry(ry)·Rx(rx)`. The check adds
+the top-down tool flip on top as before; rotations about a shared axis commute, so
+
+```
+Rz(rz)·Ry(ry)·Rx(rx) · Rx(180)  ==  Rz(rz)·Ry(ry)·Rx(180 + rx)
+```
+
+which is why folding the flip into the roll term is exact rather than an
+approximation. With `rx = ry = 0` it reduces to the previous `180.0, 0.0, rz`
+form, so the 4-axis behaviour is bit-for-bit unchanged.
+
+Verified: root app builds, `architecture_contract_test` 41/41.
+
+---
+
+**Original report** (kept for traceability):
+
+**Status: open, correctness gap opened by Phase 5.** Found 2026-07-29.
+
+`VisionTcpipDeviceBase::runKinematicCheck()`
+([vision_tcpip_device_base.cpp:252](../../src/device/output_device/vision_tcpip_device_base.cpp#L252))
+builds the pose it tests as
+
+```cpp
+RobotKinematics::Pose::fromXYZRPY_mm_deg(p.x, p.y, p.z, 180.0, 0.0, p.rz);
+```
+
+The hard-coded `180.0, 0.0` was correct under the 4-axis contract, where every
+outgoing pose was a top-down pick and the only free rotation was about Z. Phase 5
+made `VisionOutputPosition` six-axis, so `p.rx`/`p.ry` can now be non-zero — and
+this check silently drops them. It therefore validates reachability for a
+different orientation than the one actually sent, and can pass a pose the robot
+cannot reach.
+
+Note this is a **separate, older path** from
+`RobotKinematicPickingChecker::isPickable`, which was updated in Phase 5 Task C2
+and does honour the full offset. This one is the vision-output device's own
+advisory check on outgoing positions.
+
+**Work when picked up.** Decide how `rx`/`ry` compose with the top-down base
+orientation — they are not simply additive in fixed-axis RPY, so this needs the
+same `Pose` product the runtime uses rather than arithmetic on the angles. The
+cleanest fix is probably to have the runtime hand the device the already-composed
+orientation instead of re-deriving it here.
+
+---
+
+## 34. `MatchPattern::getImageWithPickPosition()` has no callers left
+
+**Status:** open — found during Phase 5 Task G1 (2026-07-31), deliberately not deleted.
+
+Its only caller was `LocalizationPatternsWidget::updatePatternThumb()`, which used it
+to get a `cv::Mat` with the pick axes already drawn in. G1 replaced the thumbnail with
+`PatternThumbnailView`, which paints the overlay itself, so the method is now unused:
+
+```
+src\matching\match_pattern.h:73    declaration
+src\matching\match_pattern.cpp:232 definition
+```
+
+**Why it was left in place.** Removing it also makes `vsu::drawAxes2Img` a deletion
+candidate, and that helper may have other users; unpicking that was out of scope for a
+UI task. Deleting production code is the user's call, not a side effect.
+
+**Worth noting when picked up.** This method was the `matching` module rendering UI
+decoration into a pixel buffer — a layering smell independent of whether anything calls
+it. Burning marks into the image also cannot honour a zoomable view, which is why the
+thumbnail had to stop using it rather than merely preferring not to.
+
+---
+
+## 35. `RuntimeShellWindow` builds its UI in code, with no `.ui` file
+
+**Status:** ✅ **CLOSED 2026-08-23 by Phase 7 / C2.** `runtime_app/ui/runtime_shell_window.ui`
+now carries both pages, the menubar and every action; the `.cpp` only wires them. The ADS
+dock manager stays in code because it is not a Designer widget — it is constructed into the
+form's `wg_dock` host, the same pattern `app/mainwindow.cpp` uses.
+
+**The rule is now mechanical rather than a reading exercise.**
+`test_runtime_shell_is_structured_and_form_driven` fails on `new QVBoxLayout`,
+`QStackedWidget`, `QToolBar`, `QMenuBar`, `QStatusBar` and friends anywhere under
+`runtime_app/`, which is how this went unnoticed for a whole phase in the first place. The
+test was verified able to fail by temporarily injecting exactly such a line.
+
+Original text follows.
+
+---
+
+**Status:** open — found 2026-08-23 while verifying the restored `runtime_app/` for
+Phase 6 / E7. Deliberately not fixed there.
+
+`runtime_app/runtime_shell_window.cpp` constructs the whole widget tree in C++:
+`new QStackedWidget`, `new QVBoxLayout`, `new QLabel`, `new QPushButton`,
+`new QToolBar`. There is no `runtime_shell_window.ui`, `runtime_app/runtime_app.pri`
+has no `FORMS` entry, and the `.cpp` includes no generated `ui_*.h`.
+
+That contradicts two things:
+
+- `docs/rules/ui_design_rules.md` **Rule 1.1** — "Layout primitives are authored in
+  `.ui`" — and its own checklist item, "Structure is in `.ui`; no layout primitives
+  `new`-ed in cpp";
+- the Phase 6 plan's own Task D4, which lists
+  `runtime_app/runtime_shell_window.h/.cpp/.ui` among the files to create.
+
+**Why it was left.** It is not damage from the folder loss — the shipped implementation
+never had a `.ui`. Converting it is a self-contained UI task with its own visual
+verification, and folding it into the E7 build work would have mixed an untested UI
+rewrite into a build-system change. Note that `m_dockManager->setStyleSheet(QString())`
+in the same file is **not** part of this: `app/mainwindow.cpp:320` does the same thing
+for the same reason (disable the ADS internal stylesheet so the global QSS owns
+`ads--` rules), so it is established precedent, not a violation.
+
+**How to pick up.** Author `runtime_shell_window.ui` with both pages, give every styled
+widget an `objectName`, add it to `FORMS` in `runtime_app/runtime_app.pri`, and reduce
+the `.cpp` to wiring. Then re-run the Checkpoint D manual startup checks — the three
+project-select messages are the part most easily broken by a layout port.
+
+Alternatively the owner may decide a shell window is a sanctioned exception to Rule 1.1,
+in which case record that exception in `runtime_app/AGENTS.md` so the next agent does
+not "fix" it.
+
+---
+
+## 36. The two shells keep separate settings files
+
+**Status:** ✅ **CLOSED 2026-08-23 by Phase 7 / A3.** `AppSettings::filePath()` is now
+product-scoped — `GenericDataLocation` + a compile-time product folder — instead of being
+derived from `QCoreApplication::applicationName()`. On Windows that resolves to the same
+`%APPDATA%\NCRN Pick\settings.dat` the editor always used, so nothing needed migrating on
+the editor side, and `legacyFilePath()` reads a shell's old application-scoped file once as
+a fallback so settings written before the change are not lost.
+
+The invariant is asserted directly rather than by inspection:
+`test_settings_path_is_product_scoped_not_application_scoped` changes the application name
+and requires the path **not** to move. That test was verified able to fail by temporarily
+restoring the old `AppDataLocation` expression.
+
+The `SingleInstanceGuard` warning below still stands and became more relevant, not less:
+Phase 7 / B1 deliberately moves both shells onto **one** instance key, which is the change
+this note said to check for. Original text follows.
+
+---
+
+**Status:** open — found 2026-08-23 during Phase 6 / E7b verification.
+
+`AppSettings::filePath()` is `QStandardPaths::AppDataLocation + "/settings.dat"`, and
+`AppDataLocation` includes `QCoreApplication::applicationName()`. The shells set
+different names — `"NCRN Pick"` in `app/main.cpp`, `"NCRN Pick Runtime"` in
+`runtime_app/main.cpp` — so they read and write **different** files:
+
+```
+%APPDATA%\NCRN Pick\settings.dat            ncr_picking.exe
+%APPDATA%\NCRN Pick Runtime\settings.dat    ncr_runtime.exe
+```
+
+For `lastRuntimeProjectPath` that is correct and probably intended — only the runtime
+shell uses it. For `theme` and `language` it is a behaviour gap: an operator who sets
+Japanese in the commissioning app gets an English runtime, and the runtime shell has **no
+UI to change either setting**, so there is no way to fix it from the runtime side.
+
+Whether that is a defect depends on a decision nobody has made yet: are the two shells one
+product with one set of preferences, or two applications that happen to ship together?
+
+**How to pick up.** If shared: set the same `applicationName` (or an explicit
+`organizationName` + a fixed settings path) in both shells, and check what else keys off
+`applicationName` — `SingleInstanceGuard` deliberately uses its own per-shell key
+(`"ncr_picking"` / `"ncr_runtime"`) and must keep it, or the two shells would start
+blocking each other, which is explicitly not wanted (see
+`docs/domains/runtime_app/runtime_shell.md` → "One Process Per Shell"). If separate: say
+so in `runtime_shell.md` and give the runtime shell a language selector, because "no way
+to change it" is only acceptable while nobody needs to.
+
+
+---
+
+## 37. `app/mainwindow.cpp` constructs the dock host's layout in code
+
+**Status:** open — noticed 2026-08-23 while making the Rule 1.1 check mechanical for the
+runtime shell (Phase 7 / C2).
+
+```
+app/mainwindow.cpp:300    QVBoxLayout *layout = new QVBoxLayout(ui->wg_dock);
+```
+
+`docs/rules/ui_design_rules.md` Rule 1.1 puts layout primitives in the `.ui`. The runtime
+shell's equivalent is now declared in `runtime_shell_window.ui` and the contract test
+enforces it for `runtime_app/` — but the check is **deliberately scoped to that shell**,
+because widening it would have failed on this line.
+
+**Why it was left.** It is a one-line change in `mainwindow.ui` plus one line removed from
+the `.cpp`, but it touches the commissioning window's dock host, which the project owner had
+just finished verifying by hand. Mixing an unrequested UI change into a build/structure phase
+is how a verified window stops being verified.
+
+**How to pick up.** Declare a `QVBoxLayout` on `wg_dock` in `mainwindow.ui` with zero
+margins and spacing, delete the four lines in `createMainContents()`, then widen the contract
+test's `layoutPrimitive` scan from `runtime_app/` to both shells so it cannot come back.
+Re-check that the dock area still fills the window and the system-log dock still opens.
+
+
+---
+
+## 38. A project with no localization tasks lands the runtime on a blank page
+
+**Status:** open — noticed 2026-08-23 while fixing the runtime dock layout (Phase 7 / C).
+
+`RuntimeShellWindow::startProject()` switches to `page_runtime` unconditionally once the
+project loads. If the project has **no localization task**, `startTaskRuntimes()` creates no
+docks, `applyCurrentLayout()` returns early on the empty list, and the operator is left
+looking at an empty dock manager. The status bar says `0 task(s) running`, which is the only
+clue on screen.
+
+**Why it matters.** This shell owns the screen on a field machine and the whole design rule
+for it is "never a blank window" — `onCloseProject()` and all three startup failure modes
+already route back to the project-select page for exactly that reason. This path was missed.
+
+**How to pick up.** In `startProject()`, if `shown == 0` after `startTaskRuntimes()`, stay on
+(or return to) the project-select page with a reason naming the case: the project loaded but
+has nothing to run. Distinguish it from "the file would not load" — the actions differ
+(open a different project vs. commission this one). Add it to the startup table in
+`docs/domains/runtime_app/runtime_shell.md`, which currently lists three failure modes.
+
+
+---
+
+## 39. `test_both_shells_take_the_same_instance_key` is flaky on back-to-back runs
+
+**Status:** open — measured 2026-08-23 during Phase 7 / C verification.
+
+The test acquires the **real** product instance key (`ShellHandoff::kInstanceKey`) with a
+`SingleInstanceGuard`. Run the suite once and it passes; run it three times in immediate
+succession and `editorLikeGuard.tryAcquire()` returns `false` on the later runs. Isolated
+re-runs were 58/58 every time.
+
+```text
+run A (cmd /c, immediate)  -> 57 passed, 1 failed  (tryAcquire returned FALSE)
+run B (cmd /c, immediate)  -> 57 passed, 1 failed
+run C (cmd /c, immediate)  -> 57 passed, 1 failed
+run alone                  -> 58 passed, 0 failed
+```
+
+**Likely cause.** `QLockFile` decides a lock is stale by checking whether the recorded PID
+is still alive **and** whether the recorded application name matches. Consecutive runs of
+the same executable share an application name, and Windows reuses PIDs quickly — so a lock
+left a moment ago can look live to the next run. The lock file was absent from `%TEMP%`
+whenever it was inspected afterwards, so nothing is leaking permanently.
+
+**Why it matters.** It costs whoever hits it a wrong conclusion: the failure names the
+shared-instance-key contract, which reads like a real regression in the hand-off design.
+
+**How to pick up.** Give the test its own key derived from the shared constant rather than
+the constant itself (e.g. `kInstanceKey + "_test"`), and assert separately — by reading
+both `main.cpp` files, which this test already does — that the two shells use the shared
+constant verbatim. That keeps the contract and removes the collision with any real shell
+and with the previous run. Worth doing before anyone wires the suite into CI, where runs
+are back-to-back by construction.
+
+
+---
+
+## 40. Three dead controls in the commissioning shell's UI
+
+**Status:** open — found 2026-08-23 by a sweep prompted by the `btn_browse` defect the owner
+reported in the runtime shell (Phase 7 / C). The runtime shell's own control was fixed; these
+three are in `app/` and were left alone because that window had just been verified by hand.
+
+| Control | Where | What the operator sees |
+|---|---|---|
+| `m_actCaptureImage` | `app/mainwindow.cpp:254-255` | A toolbar button **with an icon** on the task toolbar that does nothing. Created and given an icon, never `connect()`ed — its four siblings are wired at `:244-247`. This is the only one that is both visible and clickable. |
+| `menuHelp` | `app/mainwindow.ui:68`, added to the bar at `:106` | A top-level **Help** menu that opens an empty popup. Zero `<addaction>` children, never referenced in the `.cpp`. |
+| `actionRecent_Job` | `app/mainwindow.ui:151` | Nothing — it is in no `<addaction>` anywhere, so it is unreachable. Dead weight in the form only. |
+
+**Why it matters.** A control that is visible and does nothing is worse than a missing one:
+the operator concludes the software is broken rather than that the feature is absent. The
+capture-image button is the sharp end of this.
+
+**How to pick up.** `actionRecent_Job` is a safe delete from the `.ui`. `menuHelp` needs a
+product decision — populate it (About, version, log folder) or remove it. `m_actCaptureImage`
+needs the same: decide what "Capture Image" does from the commissioning window, or take the
+button off the toolbar. Do not leave it clickable and inert.
+
+**Related.** The same sweep confirmed everything else in both shells is wired, including the
+Theme/Language/tile actions that carry their behaviour through a `QActionGroup` rather than a
+direct `connect()` — those look dead to a naive grep and are not.
+
+
+---
+
+## 41. Editor → runtime hand-off still does not bring the runtime window to the front
+
+**Status:** OPEN, still reproducing — reported again by the owner 2026-08-23 **after** the
+blind-gap fix below landed. Runtime → editor works reliably; editor → runtime does not.
+
+### What was fixed, and why it was not enough
+
+`RuntimeShellWindow`'s constructor used to load the project and open every device before
+`presentShellWindow()` was reached, so the process ran for seconds with **no window at all**.
+That is now split: `beginStartup()` does the loading, posted from `main()` after
+`presentShellWindow()`. Measured on the `--handoff` path:
+
+| | Foreground claim reached at |
+|---|---|
+| Before | +3795 ms after process start |
+| After | **+197 ms** |
+
+`presentShellWindow()` also used to defer `activateWindow()` a full event-loop turn behind
+`show()`; it now claims immediately **and** re-asserts on the deferred turn.
+
+**Both changes are real improvements and should stay.** Neither fixed the reported symptom, so
+the blind gap was at most a contributing factor and is not the root cause. Do not re-do this
+work.
+
+### What has been ruled out
+
+- **The grant does not expire with time.** `AllowSetForegroundWindow()` has no wall-clock
+  expiry. It is revoked by exactly two things: the next user input not directed at the granted
+  process, and another `AllowSetForegroundWindow()` naming a different PID.
+- **It survives the granting process exiting.** The reliable runtime → editor direction proves
+  this in this codebase — the incoming editor's granter is already dead when it asks.
+- **Nothing steals the grant inside the runtime before the claim.** No top-level window or
+  modal dialog is created before `presentShellWindow()`: startup failures route to an
+  in-window page via `showProjectSelect()`, docks are parented to the hidden main window, and
+  `RuntimeLayoutController::applyLayout()` only calls `addDockWidget()`.
+- **`QLockFile`'s poll backoff is not the cause.** Its jitter is ~100–300 ms in the realistic
+  case, and it is *larger* in the direction that works (the runtime's teardown is the slow
+  one), so the mechanism predicts the asymmetry inverted.
+
+### Where to look next, in order
+
+1. **Instrument it — this is the blocker.** The failure is currently undiagnosable from logs:
+   - `::AllowSetForegroundWindow()`'s `BOOL` return is **discarded** at
+     `src/core/utils/shell_handoff.cpp:115`. It fails silently if the caller is not the
+     foreground process at that instant, and the outgoing editor reaches that line only after
+     `maybeSave()` (a possible modal save prompt) and `onCloseProject()`. Log the return.
+   - The incoming side logs *"foreground claimed"* unconditionally at
+     `src/ui/forms/shell_startup.cpp:112`; `activateWindow()` returns void. Follow it with a
+     `GetForegroundWindow() == (HWND)window->winId()` check and log the actual outcome.
+
+   Until those two land, "sometimes it works" cannot be separated into "never granted" vs
+   "granted then revoked" vs "granted, claimed, refused".
+2. **Check the editor's release path for a foreground loss** between the confirm dialog
+   (`src/ui/forms/shell_startup.cpp:120`) and `launchSibling()` (`:157`) — `releaseResources()`
+   at `:142` runs in between and, for the editor, includes `maybeSave()` and the destruction of
+   every `TaskRunner` (up to 3 s of `wait()` each).
+3. **Consider the standard fallbacks** only after 1 and 2 give evidence: re-asserting the claim
+   on the window's first `showEvent`/`WM_ACTIVATE`, or `FlashWindowEx` as an honest last resort
+   (a taskbar flash the operator can act on beats a window that never surfaces). The
+   `AttachThreadInput` trick works but is a hack and should be the last option considered.
+
+### Why it matters
+
+The operator switches applications and appears to get nothing, then has to hunt for the
+window. On a field machine where the runtime owns the screen, that reads as the machine
+failing to start.
+
+
+---
+
+## 42. The Add Device wizard shows the raw JSON token instead of the display name
+
+**Status:** open — noticed 2026-08-23 while registering the virtual device sub-types
+(Phase 7 / D2).
+
+`DeviceRegistry::displayNamesFor()` returns `entry.subTypeValue` — the **JSON token** — and
+the wizard puts that straight into its combo (`add_device_wizard.cpp`), then writes
+`currentText()` back as the token. Meanwhile `DeviceRegistryEntry::displayName` exists,
+carries the readable label ("Basler GigE", "Virtual Camera"), and **nothing reads it** —
+`device_registry.h:29` documents it as write-only.
+
+**Why it matters.** It fuses two things with opposite lifetimes:
+
+| | Lifetime |
+|---|---|
+| The token | **Frozen forever** — it is persisted into customer project files |
+| The operator-facing label | Should be changeable any time, and translatable |
+
+Today an operator picking a virtual camera sees the bare word `Virtual`. Making that clearer
+— "Virtual Camera (no hardware)" — is exactly the kind of R8 wording that should be free to
+improve, and right now it cannot be touched without changing what gets written into every
+project file from then on.
+
+**How to pick up.** Populate the combos with `displayName` and carry the token in
+`QComboBox::itemData`, then change `buildDeviceJson()` from `currentText()` to
+`currentData()`. Add a registry lookup that returns entries (not just token strings) so the
+wizard can read both fields. Do it alongside the risk-R8 markers so the wording lands in one
+place — the tokens themselves stay exactly as they are.
+
+**Related.** `displayNamesFor()`'s name already lies about what it returns; renaming it to
+`subTypeTokensFor()` while here would stop the next person making the same assumption.
+
+
+---
+
+## 43. Virtual PLC values cannot be driven, so the runtime stops at Ready
+
+**Status:** open — found 2026-08-23 by the project owner completing Checkpoint D. **This is the
+single thing standing between "a hardware-free project reaches Ready" and "a hardware-free
+project runs a cycle."**
+
+`VirtualPlcDevice` records what the runtime **writes** (`digitalWrites`, `wordWrites`) and
+advertises a tag space the signal-map editor can bind to. What it has no way to do is drive a
+value **in**.
+
+Every runtime state past Ready begins with the PLC changing an input:
+
+| To reach | The PLC must set |
+|---|---|
+| RunningCycle | `bExecuteTrigger` |
+| Faulted → Ready | `bErrorReset` |
+| A camera / pattern-group switch | `nActiveCamera`, `nActivePatternGroup` |
+
+With no way to produce those, a hardware-free project can be built, opened, configured and taken
+to Ready — and then nothing. Every state transition the task state machine has is unreachable,
+including the fault paths that matter most.
+
+**How to pick up.** `VirtualPlcDevice` already inherits the signal that delivers values:
+`PlcDevice::valueChanged(QMap<QString, QVariant>)`, which the runtime consumes through
+`PlcRunner`. Add a public setter — `setTagValue(const QString &tag, const QVariant &value)` —
+that records the value and emits `valueChanged` with it, then surface it in the device panel.
+
+Two things to decide when doing it:
+
+1. **Where the UI lives.** `VirtualDeviceWidget` is generic on purpose — its rows come from
+   `Q_PROPERTY` metadata and it knows nothing about any family. A tag-poke table is
+   family-specific, so either it gets a family hook or the virtual PLC gets its own panel. The
+   generic widget is worth keeping; a small "extra content" slot it can fill is likely cheaper
+   than a second widget.
+2. **Whether written values read back.** A real PLC's `M10` reads back what the PLC holds, not
+   what this software last wrote. Deciding that the virtual PLC echoes its own writes makes
+   handshake signals self-completing and would hide a mapping mistake where the runtime writes
+   and reads the same tag by accident. Recommend keeping the injected (input) values and the
+   recorded (output) writes as **separate stores**, which is also what the real hardware does.
+
+**Related.** [`docs/domains/virtual_devices/virtual_devices.md`](../domains/virtual_devices/virtual_devices.md)
+"Known gap", and the PLC signal contract in
+[`docs/domains/task_localization/plc_signal_contract.md`](../domains/task_localization/plc_signal_contract.md).

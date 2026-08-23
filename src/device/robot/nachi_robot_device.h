@@ -1,13 +1,21 @@
 #ifndef NACHI_ROBOT_DEVICE_H
 #define NACHI_ROBOT_DEVICE_H
 
+/**
+ * @file nachi_robot_device.h
+ * @brief Nachi robot device stub (NachiRobotDevice).
+ */
+
 #include "device/robot/robot_device.h"
 #include "device/robot/nachi_robot_config.h"
 
 namespace vc::device {
 
-/// Minimum concrete robot device — Nachi vendor stub. See KawasakiRobotDevice
-/// for the equivalent pattern.
+/**
+ * @class NachiRobotDevice
+ * @brief Minimum concrete robot device — Nachi vendor stub. See KawasakiRobotDevice
+ *        for the equivalent pattern.
+ */
 class NachiRobotDevice : public RobotDevice {
     Q_OBJECT
 

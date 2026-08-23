@@ -6,14 +6,30 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QCursor>
 
-/// Selectable/movable QGraphicsItem marking a picking position: draws an X/Y
-/// axis cross with arrowheads at the item's center plus, optionally, a move
-/// handle (center dot) and a rotate handle (offset at 45°) that let the user
-/// drag-move and drag-rotate the item interactively.
+/**
+ * @file item_picking_pos.h
+ * @brief ItemPickingCenter — QGraphicsItem marking an interactively movable/rotatable
+ *        picking position.
+ */
+
+/**
+ * @class ItemPickingCenter
+ * @brief Selectable/movable QGraphicsItem marking a picking position: draws an X/Y
+ *        axis cross with arrowheads at the item's center plus, optionally, a move
+ *        handle (center dot) and a rotate handle (offset at 45°) that let the user
+ *        drag-move and drag-rotate the item interactively.
+ */
 class ItemPickingCenter :  public QObject, public QGraphicsItem {
   Q_OBJECT
     // Q_INTERFACES(Q)
 public:
+  /**
+   * @brief Constructs the item at the local origin, selectable and reporting scene
+   *        position changes, and accepting hover events; handles are drawn and the
+   *        item is movable by default.
+   * @param[in] parent Optional owning QGraphicsItem; standard Qt item parent/child
+   *                    ownership (deleted when `parent` is deleted).
+   */
   ItemPickingCenter(QGraphicsItem *parent = nullptr);
 
   /// Returns a square centered on the item, sized to fully contain the axes,

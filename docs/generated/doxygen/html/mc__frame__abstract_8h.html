@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/plc/mc_frame_abstract.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/plc/mc_frame_abstract.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('mc__frame__abs
   <div class="headertitle"><div class="title">mc_frame_abstract.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Abstract MC-protocol frame codec for building/parsing request and response frames.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QByteArray&gt;</code><br />
 <code>#include &quot;<a class="el" href="mc__context_8h_source.html">device/plc/mc_context.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="mc__request_8h_source.html">device/plc/mc_request.h</a>&quot;</code><br />
@@ -138,14 +141,19 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3AMCFrameAbstract" id="r_vc_3A_3Adevice_3A_3AMCFrameAbstract"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_m_c_frame_abstract.html">vc::device::MCFrameAbstract</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract MC-protocol frame codec: builds outgoing request frames and parses incoming response frames for a specific MC frame variant (1E/3E/1C/3C). Concrete subclasses (e.g. <a class="el" href="classvc_1_1device_1_1_frame3_e.html" title="Concrete MC-protocol frame codec for the 3E frame: builds/parses the binary 3E read/write (bit and wo...">Frame3E</a>) implement the actual binary/ASCII encoding.  <a href="classvc_1_1device_1_1_m_c_frame_abstract.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract MC-protocol frame codec for building/parsing request and response frames. </p>
+
+<p class="definition">Definition in file <a class="el" href="mc__frame__abstract_8h_source.html">mc_frame_abstract.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

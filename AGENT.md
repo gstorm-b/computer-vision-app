@@ -31,8 +31,9 @@ tree by default.
 3. `docs/rules/build_and_verification.md` for the qmake/MSVC build and test
    flow.
 3a. `docs/rules/documentation_build.md` for the Doxygen/Graphviz/PlantUML
-    generated API reference, and `docs/rules/design_rules.md` §18 for the
-    `///` Doxygen comment style all class/method/member comments must follow.
+    generated API reference, and `docs/rules/doc_comment_style.md` for the
+    Doxygen comment mechanics (`/** */`, `///`, `///<`, explicit tags) all
+    class/method/member doc comments must follow (supersedes design_rules.md §18).
 4. `docs/backlog/technical_debt_and_next_steps.md` for the active
    implementation backlog after restructure closeout.
 5. `docs/backlog/later_todo_list.md` before flagging or fixing known deferred
@@ -92,13 +93,32 @@ either update the docs or flag the drift before closing the task.
   into the current change.
 - Do not add backwards-compatibility shims unless the user explicitly asks. The
   project has not shipped to customers yet.
+  - **One approved exception exists:** the pattern-library JSON read accepts the
+    two older gripper-geometry shapes (schema v0 and v1) in
+    `src/matching/pattern_group_manager.cpp`. Real commissioned picking geometry
+    lives in saved projects, so dropping it would mean re-teaching parts on the
+    line. It is agreed with the project owner — do not "clean it up". Rationale
+    and the full schema history:
+    [docs/domains/task_localization/pick_geometry_and_output_contract.md](docs/domains/task_localization/pick_geometry_and_output_contract.md).
 
 ## Module Map And Scope Cards
 
 The build is one `.pri` per module; every module folder carries an
 `AGENTS.md` scope card (purpose, allowed dependencies, invariants, verify
 commands). Read the scope card before editing a module, and register new
-files in that module's `.pri` — never in `ncr_picking.pro`.
+files in that module's `.pri` — never in a shell `.pro`.
+
+Those module `.pri` files are consumed by **`src/src.pro`**, which compiles all of
+`src/` once into the `ncr_shared` static library that both shells link. A shell
+`.pro` no longer lists module sources at all, so a file registered anywhere but
+its module `.pri` is not built.
+
+**Resources are the one thing that must NOT move into the library.** Every `.qrc`
+is listed at shell level in `qmake/app_common.pri`. A `.qrc` compiled into a
+static library is dropped by the linker — nothing references a symbol in the
+generated `qrc_*.cpp` — so icons, the QSS theme and `:/i18n` silently resolve to
+nothing at runtime, with no build error. Library code may still *use* them; the
+resource system is process-global.
 
 | Module | Path | Level |
 |---|---|---|
@@ -109,15 +129,25 @@ files in that module's `.pri` — never in `ncr_picking.pro`.
 | model | `src/model/` | 2 |
 | runtime | `src/runtime/` | 2 |
 | ui (forms + widgets) | `src/ui/` | UI |
-| app shell (+translations) | `app/` | top |
+| app shell — commissioning (+translations) | `app/` | top |
+| runtime shell — operator | `runtime_app/` | top |
 
 Include-layering rules (enforced by
 `tests/architecture_contract_test::test_module_include_layering_contract`):
 lower levels must not include higher ones; `model` and `runtime` may include
 each other; `device` may include `calibration` (cameras own a Calibrator);
-`ui` may include every non-UI module; only `app/` may include everything; no
-`../` escapes and no `src/`-prefixed quoted includes (module includes are
-rooted at `src/`, e.g. `core/...`, `ui/widgets/...`).
+`ui` may include every non-UI module; the two shells (`app/`, `runtime_app/`)
+may each include everything **except each other** — they are peers over the same
+modules, not a hierarchy; no `../` escapes and no `src/`-prefixed quoted includes
+(module includes are rooted at `src/`, e.g. `core/...`, `ui/widgets/...`).
+
+Shared qmake configuration is split in two: `qmake/common_deps.pri` holds what is
+needed to **compile** repository code (Qt modules, include roots, OpenCV, Pylon,
+ADS, RobotKinematics) and is included by the static library *and* both shells;
+`qmake/app_common.pri` holds what only an **executable** can have (resources, the
+file version, `DESTDIR`, the link against `ncr_shared`, dependency deployment). A
+shell `.pro` adds only its own shell `.pri`, icon and install rules — never a
+second copy of either.
 
 Prebuilt third-party install trees under `3rdparty/` (Eigen, Coal, Boost,
 Assimp) are provisioned locally and NOT tracked in git — see
@@ -149,6 +179,14 @@ Local machine paths must come from environment variables. Do not add new
 hard-coded absolute paths for Qt, OpenCV, Basler Pylon, Visual Studio, or
 third-party libraries.
 
+The one sanctioned exception is `qmake/local_paths.pri`, which is **untracked**
+(template: `qmake/local_paths.pri.example`). qmake reads it directly, so a build
+from Qt Creator and a build from a terminal resolve the same OpenCV and Pylon
+installs without either side exporting anything — an IDE inherits the environment
+of whatever launched it, which is how two toolchains end up on two different
+installs unnoticed. It is a **fallback**, applied only after the qmake command line
+and the environment, so the rule above still holds for everything tracked.
+
 Expected local variables:
 
 - `NCR_PICKING_ROOT`
@@ -167,17 +205,42 @@ Important:
 
 - Call `vcvars64.bat` directly. Do not redirect its output.
 - Run `qmake` from the build directory before compiling.
-- Build output location follows the `.pro` owner:
-  - root app `ncr_picking.pro`: `%NCR_PICKING_ROOT%\build\<build-name>`;
+- **Both executables are linked into one folder: `build\bin\<config>`**, together
+  with a single shared runtime set and `robot_assets\`. That is `DESTDIR`, set
+  once in `qmake/app_common.pri`. Build layout and deploy layout are different
+  questions: intermediates must stay apart, binaries must come together.
+- Intermediates follow the `.pro` owner:
+  - **both shells at once (preferred): `ncr_picking_all.pro` →
+    `%NCR_PICKING_ROOT%\build\all\<build-name>`.** Use the same directory from
+    the CLI and from Qt Creator so they share one incremental state;
+  - shared static library `src\src.pro`: `ncr_shared.lib` →
+    `%NCR_PICKING_ROOT%\build\shared_lib\<config>`;
+  - app shell `ncr_picking.pro`: `%NCR_PICKING_ROOT%\build\<build-name>`;
+  - runtime shell `runtime_app\ncr_runtime.pro`:
+    `%NCR_PICKING_ROOT%\build\runtime_build\<build-name>`;
   - tests: `build\<build-name>` next to the test `.pro`;
   - examples/components: `build\<build-name>` next to that `.pro`.
 - Do not put test/example/component build outputs under root `build\`.
-  Root `build\` is reserved for the root application and root release/package
-  verification.
+  Root `build\` holds the umbrella build plus one subfolder per individually
+  built shell, and root release/package verification. Two shells must never
+  share a build directory **when built individually** — they collide on
+  `Makefile`, `.qmake.stash` and the generated moc/ui files. The umbrella is the
+  safe way to share one directory: qmake gives each subproject its own uniquely
+  named makefile.
+- A change under `src/` affects both shells. Build through
+  `ncr_picking_all.pro` so one cannot be left stale against the other.
+- A build directory is not an install image: it mixes intermediates with the
+  deployed runtime. Ship from `dist\` — see
+  `docs/rules/build_and_verification.md` and `docs/product/install_image.md`.
 - For `tests/architecture_contract_test`, run
   `nmake /nologo -f Makefile.Debug compiler_moc_source_make_all` before the
   normal `nmake /nologo`.
 - Use `QT_QPA_PLATFORM=minimal` when running Qt tests headlessly.
+- Parallel compilation is **opt-in**: add `CONFIG+=multicore` at qmake time for
+  MSVC `/MP` (measured 10m50s → 4m08s on a 16-core machine, clean rebuild). Off by
+  default because it depends on the machine having RAM to match its cores, and it
+  oversubscribes when combined with `jom`. Cap it with `NCR_JOBS=<n>`. See
+  `qmake/multicore.pri`.
 - Qt Creator may use `jom`, but from Codex CLI use the qmake + nmake fallback
   unless the `jom` PATH inheritance issue has been solved.
 
@@ -185,27 +248,52 @@ See `docs/rules/build_and_verification.md` for exact commands.
 
 ## Current Release Decision
 
-Phase 4 chose a single-app first release:
+**Phase 4 is ON HOLD as of 2026-07-28.** The product needs further development
+before a first release is meaningful, so the release track is deferred: no
+customer installer work, no release-candidate hardening, and the Phase 4 release
+gate is not a current acceptance criterion. Do not start packaging or
+release-gate work because the rest of the backlog looks clear — resuming
+Phase 4 is a product decision by the user.
 
-- one `ncr_picking.exe`;
+The release *shape* Phase 4 chose still stands and should not be re-litigated
+when the track resumes, **except for the runtime-executable decision, which
+Phase 6 superseded on 2026-08-19 by the project owner's explicit choice**:
+
+- ~~one `ncr_picking.exe`~~ → **two executables**: `ncr_picking.exe`
+  (commissioning) and `ncr_runtime.exe` (operator runtime), built from the same
+  `src/` modules through `qmake/app_common.pri`;
 - explicit Commission and Runtime modes;
-- no separate runtime executable until the operator flow is validated.
+- ~~no separate runtime executable until the operator flow is validated~~ →
+  the separate runtime executable exists as of Phase 6.
 
-Customer installer work is still open. Build-folder deployment copies
-RobotKinematics DLLs and `robot_assets/`, but a customer installer must have
-its own manifest and clean-machine smoke test.
+The original reasoning is kept above rather than deleted: it is still the right
+default for a single-shell product, and a future agent should understand that
+the split was a deliberate decision, not drift. Rationale, shell boundaries and
+the operator startup flow:
+[docs/domains/runtime_app/runtime_shell.md](docs/domains/runtime_app/runtime_shell.md).
+
+Build-folder deployment copies RobotKinematics DLLs and `robot_assets/`. That is
+a developer convenience, not packaging, and a customer installer will still need
+its own manifest and clean-machine smoke test whenever the track reopens.
+
+See `docs/product/phase4_product_release_plan.md` and the "Release Track Status"
+section of `docs/backlog/technical_debt_and_next_steps.md`.
 
 ## Highest Priority Next Work
 
-Start with `docs/backlog/technical_debt_and_next_steps.md`. The most important
-next slices are:
+Start with `docs/backlog/technical_debt_and_next_steps.md`, skipping anything
+marked on hold. Active slices are:
 
-- operator runtime validation with a real or simulated Localization cycle;
-- customer installer prototype and clean-machine smoke verification;
-- `TaskLocalization` ownership/threading debt around active-camera switching
-  and shared device pointers;
-- schema/version validation for task config and imported bindings;
+- feature development toward the capabilities the product still lacks — this is
+  the reason Phase 4 was deferred, and the user sets its scope;
+- runtime matching latency and UI responsiveness measurement, which feeds the
+  threading-model revisit criteria;
+- Doxygen doc-comment sweep across headers, following
+  `docs/rules/doc_comment_style.md`;
 - QSS token mechanism and remaining UI cleanup.
+
+Operator runtime validation stays useful as development validation whenever the
+runtime path is touched, but it is no longer a release gate.
 
 ## Do Not
 

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_i_task_w
 </div><!--header-->
 <div class="contents">
 
+<p>Base class for all task-configuration widgets.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="task__widget_8h_source.html">task_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ITaskWidget:</div>
@@ -145,26 +148,30 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a2d3cfd0e4167c2c20e5be77f37577f43" id="r_a2d3cfd0e4167c2c20e5be77f37577f43"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2d3cfd0e4167c2c20e5be77f37577f43">changePropertyBrowserDefault</a> ()</td></tr>
 <tr class="memitem:a10a14337d5a3fc21d68cbc7d30a07435" id="r_a10a14337d5a3fc21d68cbc7d30a07435"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget</a> (<a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> *wg)</td></tr>
 <tr class="memitem:a23854620a628779514575881f0425c3e" id="r_a23854620a628779514575881f0425c3e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a23854620a628779514575881f0425c3e">embedBrowserInWidget</a> (QWidget *container)</td></tr>
+<tr class="memdesc:a23854620a628779514575881f0425c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Embeds m_propBrowser into <code class="param">container</code> via a zero-margin QHBoxLayout. No-op if <code class="param">container</code> is null.  <br /></td></tr>
 <tr class="memitem:a5f1b0800b45f464ac947560ec69a6aa0" id="r_a5f1b0800b45f464ac947560ec69a6aa0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5f1b0800b45f464ac947560ec69a6aa0">initBrowserInWidget</a> (QWidget *container)</td></tr>
 <tr class="memitem:a359284998e5564a7ad6092d9d6999f52" id="r_a359284998e5564a7ad6092d9d6999f52"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a359284998e5564a7ad6092d9d6999f52">initPropertyBrowser</a> (QWidget *container)</td></tr>
+<tr class="memdesc:a359284998e5564a7ad6092d9d6999f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> (m_propBrowser) and its manager/ factory/editor pointers, then embeds it into <code class="param">container</code> via <a class="el" href="#a23854620a628779514575881f0425c3e" title="Embeds m_propBrowser into container via a zero-margin QHBoxLayout. No-op if container is null.">embedBrowserInWidget()</a>. No-op if <code class="param">container</code> is null.  <br /></td></tr>
 <tr class="memitem:a80ba1a32ae7655a1980f215f41d3f051" id="r_a80ba1a32ae7655a1980f215f41d3f051"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a80ba1a32ae7655a1980f215f41d3f051">reloadStyleSheet</a> ()</td></tr>
 <tr class="memitem:a631a2a6279eb7fa88f6b0898fbefec04" id="r_a631a2a6279eb7fa88f6b0898fbefec04"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a631a2a6279eb7fa88f6b0898fbefec04">removePropertyBrowserWidget</a> (<a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> *wg)</td></tr>
 <tr class="memitem:a386d4bb80424ed2c1f3fb252da639611" id="r_a386d4bb80424ed2c1f3fb252da639611"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a386d4bb80424ed2c1f3fb252da639611">setupThemeReload</a> (const QString &amp;darkPath, const QString &amp;lightPath)</td></tr>
+<tr class="memdesc:a386d4bb80424ed2c1f3fb252da639611"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths, triggers an initial load, and subscribes to <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> for subsequent switches.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-static-methods" class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:a698cbb40f38b9ed4964985b8644555cf" id="r_a698cbb40f38b9ed4964985b8644555cf"><td class="memItemLeft">static QtVariantProperty *&#160;</td><td class="memItemRight"><a class="el" href="#a698cbb40f38b9ed4964985b8644555cf">addPropertyToBrowser</a> (const QMetaObject &amp;meta, QMetaProperty &amp;prop, QVariant &amp;value, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser)</td></tr>
+<tr class="memdesc:a698cbb40f38b9ed4964985b8644555cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Introspects a QMetaProperty and creates the matching QtVariantProperty: builds an enum property (with translated enum names) for enum-typed properties, otherwise a plain value property; applies display name, numeric min/max, and tooltip from Q_CLASSINFO entries named <span class="tt">&lt;prop&gt;_name</span> / <span class="tt">&lt;prop&gt;_min</span> / <span class="tt">&lt;prop&gt;_max</span> / <span class="tt">&lt;prop&gt;_desc</span>; disables the property when the QMetaProperty isn't writable; adds it to <code class="param">browser</code> if given. The <span class="tt">objectName</span> property is always skipped.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a5294cb2db4ce9803dc42065a82dec3ed" id="r_a5294cb2db4ce9803dc42065a82dec3ed"><td class="memItemLeft">QHBoxLayout *&#160;</td><td class="memItemRight"><a class="el" href="#a5294cb2db4ce9803dc42065a82dec3ed">m_browserBox</a> {nullptr}</td></tr>
 <tr class="memdesc:a5294cb2db4ce9803dc42065a82dec3ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero-margin layout created by <a class="el" href="#a5f1b0800b45f464ac947560ec69a6aa0">initBrowserInWidget()</a> to host m_browserStackWidget.  <br /></td></tr>
 <tr class="memitem:ace48b61af3936f96ddeffbde00784673" id="r_ace48b61af3936f96ddeffbde00784673"><td class="memItemLeft">QStackedWidget *&#160;</td><td class="memItemRight"><a class="el" href="#ace48b61af3936f96ddeffbde00784673">m_browserStackWidget</a> {nullptr}</td></tr>
-<tr class="memdesc:ace48b61af3936f96ddeffbde00784673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack switched between multiple <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> instances by <a class="el" href="#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget()</a>/changePropertyBrowserDefault().  <br /></td></tr>
+<tr class="memdesc:ace48b61af3936f96ddeffbde00784673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack switched between multiple <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> instances by <a class="el" href="#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget()</a>/changePropertyBrowserDefault().  <br /></td></tr>
 <tr class="memitem:a2948b66503f894973c97bcef926bf3ef" id="r_a2948b66503f894973c97bcef926bf3ef"><td class="memItemLeft">ads::CDockWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a2948b66503f894973c97bcef926bf3ef">m_dock</a> {nullptr}</td></tr>
 <tr class="memdesc:a2948b66503f894973c97bcef926bf3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owning dock widget, if any; not owned by this widget.  <br /></td></tr>
 <tr class="memitem:a323d09ad76e449391413657585911d94" id="r_a323d09ad76e449391413657585911d94"><td class="memItemLeft"><a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a323d09ad76e449391413657585911d94">m_propBrowser</a> {nullptr}</td></tr>
-<tr class="memdesc:a323d09ad76e449391413657585911d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default property browser (search + tree + description), created by <a class="el" href="#a359284998e5564a7ad6092d9d6999f52">initPropertyBrowser()</a>.  <br /></td></tr>
+<tr class="memdesc:a323d09ad76e449391413657585911d94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default property browser (search + tree + description), created by <a class="el" href="#a359284998e5564a7ad6092d9d6999f52" title="Creates the PropertyBrowserWidget (m_propBrowser) and its manager/ factory/editor pointers,...">initPropertyBrowser()</a>.  <br /></td></tr>
 <tr class="memitem:a1c38e24752b9876e97d40f6966782610" id="r_a1c38e24752b9876e97d40f6966782610"><td class="memItemLeft">QList&lt; <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1c38e24752b9876e97d40f6966782610">m_propertyBrowserWidgets</a></td></tr>
 <tr class="memdesc:a1c38e24752b9876e97d40f6966782610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-default property browsers currently tracked in m_browserStackWidget.  <br /></td></tr>
 <tr class="memitem:aff5d6fbf6d49cb923b0c18fb2efd6740" id="r_aff5d6fbf6d49cb923b0c18fb2efd6740"><td class="memItemLeft">std::shared_ptr&lt; <a class="el" href="classvc_1_1model_1_1_i_task.html">vc::model::ITask</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aff5d6fbf6d49cb923b0c18fb2efd6740">m_task</a></td></tr>
@@ -179,17 +186,21 @@ Protected Attributes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a3d41d3ad22f8b93eea071c6ba84789d1" id="r_a3d41d3ad22f8b93eea071c6ba84789d1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3d41d3ad22f8b93eea071c6ba84789d1">m_darkQssPath</a></td></tr>
-<tr class="memdesc:a3d41d3ad22f8b93eea071c6ba84789d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource path to the dark-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611">setupThemeReload()</a>.  <br /></td></tr>
+<tr class="memdesc:a3d41d3ad22f8b93eea071c6ba84789d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource path to the dark-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611" title="Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths,...">setupThemeReload()</a>.  <br /></td></tr>
 <tr class="memitem:a94c62a67d1709077d6460128a61b1a9c" id="r_a94c62a67d1709077d6460128a61b1a9c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a94c62a67d1709077d6460128a61b1a9c">m_lightQssPath</a></td></tr>
-<tr class="memdesc:a94c62a67d1709077d6460128a61b1a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource path to the light-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611">setupThemeReload()</a>.  <br /></td></tr>
+<tr class="memdesc:a94c62a67d1709077d6460128a61b1a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource path to the light-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611" title="Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths,...">setupThemeReload()</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for all task-configuration widgets.</p>
-<p>Property browser setup ───────────────────── Call initPropertyBrowser(container) once in the subclass constructor. This creates a <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> (search + tree + description) and embeds it in <span class="tt">container</span>.</p>
-<p>The three low-level pointers (m_variantManager, m_variantFactory, m_variantEditor) are kept for backward compatibility with existing code that accesses them directly. New code should prefer m_propBrowser.</p>
-<p>Completer on a string property ─────────────────────────────── auto *p = m_variantManager-&gt;addProperty(QMetaType::QString, "Tag"); m_variantManager-&gt;setAttribute(p, "completer", QStringList{"alpha", "beta", "gamma"}); </p>
-
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00041">41</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<div class="textblock"><p>Base class for all task-configuration widgets. </p>
+<p>Property browser setup: call initPropertyBrowser(container) once in the subclass constructor. This creates a <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> (search + tree + description) and embeds it in <code class="param">container</code>.</p>
+<p>The three low-level pointers (m_variantManager, m_variantFactory, m_variantEditor) are kept for backward compatibility with existing code that accesses them directly; new code should prefer m_propBrowser.</p>
+<div class="fragment"><div class="line"><span class="comment">// Completer on a string property</span></div>
+<div class="line"><span class="keyword">auto</span> *p = <a class="code hl_variable" href="#a5965ce907c7efa589d15d1809256fb94">m_variantManager</a>-&gt;addProperty(QMetaType::QString, <span class="stringliteral">&quot;Tag&quot;</span>);</div>
+<div class="line"><a class="code hl_variable" href="#a5965ce907c7efa589d15d1809256fb94">m_variantManager</a>-&gt;setAttribute(p, <span class="stringliteral">&quot;completer&quot;</span>,</div>
+<div class="line">                               QStringList{<span class="stringliteral">&quot;alpha&quot;</span>, <span class="stringliteral">&quot;beta&quot;</span>, <span class="stringliteral">&quot;gamma&quot;</span>});</div>
+<div class="ttc" id="aclass_i_task_widget_html_a5965ce907c7efa589d15d1809256fb94"><div class="ttname"><a href="#a5965ce907c7efa589d15d1809256fb94">ITaskWidget::m_variantManager</a></div><div class="ttdeci">QtVariantPropertyManager * m_variantManager</div><div class="ttdoc">Alias into m_propBrowser&#39;s variant manager; do not delete.</div><div class="ttdef"><b>Definition</b> <a href="task__widget_8h_source.html#l00282">task_widget.h:282</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00048">48</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2e5d45b19d18392b722bc7e671bd1c66" name="a2e5d45b19d18392b722bc7e671bd1c66"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2e5d45b19d18392b722bc7e671bd1c66">&#9670;&#160;</a></span>ITaskWidget()</h2>
@@ -224,9 +235,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructs the base widget, storing the owning dock and the task it configures; subclasses build their actual UI on top of this. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00047">47</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00054">54</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00255">m_dock</a>, and <a class="el" href="task__widget_8h_source.html#l00256">m_task</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00274">m_dock</a>, and <a class="el" href="task__widget_8h_source.html#l00275">m_task</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00149">LocalizationDashboardWidget::LocalizationDashboardWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00338">LocalizationPatternsWidget::LocalizationPatternsWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00159">LocalizationSettingWidget::LocalizationSettingWidget()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00056">LocalizationTaskWidget::LocalizationTaskWidget()</a>.</p>
 
@@ -274,19 +285,24 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Introspects a QMetaProperty and creates the matching QtVariantProperty: builds an enum property (with translated enum names) for enum-typed properties, otherwise a plain value property; applies display name, numeric min/max, and tooltip from Q_CLASSINFO entries named <span class="tt">&lt;prop&gt;_name</span> / <span class="tt">&lt;prop&gt;_min</span> / <span class="tt">&lt;prop&gt;_max</span> / <span class="tt">&lt;prop&gt;_desc</span>; disables the property when the QMetaProperty isn't writable; adds it to <span class="tt">browser</span> if given. The <span class="tt">objectName</span> property is always skipped. Reads min/max/name from Q_CLASSINFO entries: Q_CLASSINFO("speed_min", "0") Q_CLASSINFO("speed_max", "100") Q_CLASSINFO("speed_name", "Speed (m/s)") </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Introspects a QMetaProperty and creates the matching QtVariantProperty: builds an enum property (with translated enum names) for enum-typed properties, otherwise a plain value property; applies display name, numeric min/max, and tooltip from Q_CLASSINFO entries named <span class="tt">&lt;prop&gt;_name</span> / <span class="tt">&lt;prop&gt;_min</span> / <span class="tt">&lt;prop&gt;_max</span> / <span class="tt">&lt;prop&gt;_desc</span>; disables the property when the QMetaProperty isn't writable; adds it to <code class="param">browser</code> if given. The <span class="tt">objectName</span> property is always skipped. </p>
+<p>Reads min/max/name from Q_CLASSINFO entries: </p><div class="fragment"><div class="line">Q_CLASSINFO(<span class="stringliteral">&quot;speed_min&quot;</span>, <span class="stringliteral">&quot;0&quot;</span>)</div>
+<div class="line">Q_CLASSINFO(<span class="stringliteral">&quot;speed_max&quot;</span>, <span class="stringliteral">&quot;100&quot;</span>)</div>
+<div class="line">Q_CLASSINFO(<span class="stringliteral">&quot;speed_name&quot;</span>, <span class="stringliteral">&quot;Speed (m/s)&quot;</span>)</div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">meta</td><td>meta-object of the class owning <span class="tt">prop</span> (used for QMetaEnum/Q_CLASSINFO lookups) </td></tr>
-    <tr><td class="paramname">prop</td><td>the reflected property to build an editor for </td></tr>
-    <tr><td class="paramname">value</td><td>the property's current value </td></tr>
-    <tr><td class="paramname">manager</td><td>QtVariantPropertyManager used to create the property </td></tr>
-    <tr><td class="paramname">browser</td><td>optional tree browser to add the created property to </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">meta</td><td>meta-object of the class owning <code class="param">prop</code> (used for QMetaEnum/Q_CLASSINFO lookups) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">prop</td><td>the reflected property to build an editor for </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>the property's current value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">manager</td><td>QtVariantPropertyManager used to create the property </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">browser</td><td>optional tree browser to add the created property to </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the created QtVariantProperty, or nullptr if creation failed or the property is <span class="tt">objectName</span> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00185">185</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00204">204</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
 </div>
 </div>
@@ -314,9 +330,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Switches m_browserStackWidget back to the default m_propBrowser, lazily creating it (and adding it to the stack) on first use. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00148">148</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00161">161</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00268">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00259">m_propBrowser</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00287">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00278">m_propBrowser</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00875">LocalizationTaskWidget::populateBrowser()</a>.</p>
 
@@ -346,9 +362,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Switches m_browserStackWidget to show <span class="tt">wg</span>, adding it to the stack first (and appending it to m_propertyBrowserWidgets) if it isn't already tracked. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00135">135</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00148">148</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00268">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00269">m_propertyBrowserWidgets</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00287">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00288">m_propertyBrowserWidgets</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00875">LocalizationTaskWidget::populateBrowser()</a>.</p>
 
@@ -376,18 +392,20 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Embeds m_propBrowser into <span class="tt">container</span> via a zero-margin QHBoxLayout. No-op if <span class="tt">container</span> is null. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Embeds m_propBrowser into <code class="param">container</code> via a zero-margin QHBoxLayout. No-op if <code class="param">container</code> is null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">container</td><td>widget to host the property browser </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">container</td><td>widget to host the property browser </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00110">110</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00123">123</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00259">m_propBrowser</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00278">m_propBrowser</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00093">initPropertyBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>.</p>
 
 </div>
 </div>
@@ -413,11 +431,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds a QStackedWidget (m_browserStackWidget) inside <span class="tt">container</span>'s new zero-margin QHBoxLayout (m_browserBox), for switching between multiple <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> instances. No-op if <span class="tt">container</span> is null. </p>
+<p>Builds a QStackedWidget (m_browserStackWidget) inside <span class="tt">container</span>'s new zero-margin QHBoxLayout (m_browserBox), for switching between multiple <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> instances. No-op if <span class="tt">container</span> is null. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00123">123</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00136">136</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00267">m_browserBox</a>, and <a class="el" href="task__widget_8h_source.html#l00268">m_browserStackWidget</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00286">m_browserBox</a>, and <a class="el" href="task__widget_8h_source.html#l00287">m_browserStackWidget</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>.</p>
 
@@ -445,16 +463,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Creates the <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> (m_propBrowser) and its manager/ factory/editor pointers, then embeds it into <span class="tt">container</span> via <a class="el" href="#a23854620a628779514575881f0425c3e">embedBrowserInWidget()</a>. No-op if <span class="tt">container</span> is null. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Creates the <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> (m_propBrowser) and its manager/ factory/editor pointers, then embeds it into <code class="param">container</code> via <a class="el" href="#a23854620a628779514575881f0425c3e" title="Embeds m_propBrowser into container via a zero-margin QHBoxLayout. No-op if container is null.">embedBrowserInWidget()</a>. No-op if <code class="param">container</code> is null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">container</td><td>widget to host the property browser </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">container</td><td>widget to host the property browser </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00093">93</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00104">104</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00110">embedBrowserInWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00259">m_propBrowser</a>, <a class="el" href="task__widget_8h_source.html#l00265">m_variantEditor</a>, <a class="el" href="task__widget_8h_source.html#l00264">m_variantFactory</a>, and <a class="el" href="task__widget_8h_source.html#l00263">m_variantManager</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00123">embedBrowserInWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00278">m_propBrowser</a>, <a class="el" href="task__widget_8h_source.html#l00284">m_variantEditor</a>, <a class="el" href="task__widget_8h_source.html#l00283">m_variantFactory</a>, and <a class="el" href="task__widget_8h_source.html#l00282">m_variantManager</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>.</p>
 
@@ -542,11 +562,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Loads the per-form QSS for the active theme. No-op when paths are empty (widget relies on the global sheet only). Subclasses may override to run additional logic after the sheet is applied. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00078">78</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00087">87</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00075">ThemeManager::isDark()</a>, <a class="el" href="task__widget_8h_source.html#l00272">m_darkQssPath</a>, and <a class="el" href="task__widget_8h_source.html#l00273">m_lightQssPath</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00075">ThemeManager::isDark()</a>, <a class="el" href="task__widget_8h_source.html#l00291">m_darkQssPath</a>, and <a class="el" href="task__widget_8h_source.html#l00292">m_lightQssPath</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00067">setupThemeReload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00076">setupThemeReload()</a>.</p>
 
 </div>
 </div>
@@ -574,9 +594,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Removes <span class="tt">wg</span> from m_browserStackWidget and from m_propertyBrowserWidgets. No-op if <span class="tt">wg</span> isn't currently tracked. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00158">158</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00171">171</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00268">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00269">m_propertyBrowserWidgets</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00287">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00288">m_propertyBrowserWidgets</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00460">LocalizationTaskWidget::onTaskDevicesChanged()</a>.</p>
 
@@ -608,17 +628,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths, triggers an initial load, and subscribes to <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> for subsequent switches. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths, triggers an initial load, and subscribes to <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574" title="Emitted after applyStyle() successfully switches the active style.">ThemeManager::themeChanged</a> for subsequent switches. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">darkPath</td><td>resource path to the dark-theme QSS file </td></tr>
-    <tr><td class="paramname">lightPath</td><td>resource path to the light-theme QSS file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">darkPath</td><td>resource path to the dark-theme QSS file </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lightPath</td><td>resource path to the light-theme QSS file </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00067">67</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00076">76</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="task__widget_8h_source.html#l00272">m_darkQssPath</a>, <a class="el" href="task__widget_8h_source.html#l00273">m_lightQssPath</a>, <a class="el" href="task__widget_8h_source.html#l00078">reloadStyleSheet()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="task__widget_8h_source.html#l00291">m_darkQssPath</a>, <a class="el" href="task__widget_8h_source.html#l00292">m_lightQssPath</a>, <a class="el" href="task__widget_8h_source.html#l00087">reloadStyleSheet()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00149">LocalizationDashboardWidget::LocalizationDashboardWidget()</a>.</p>
 
@@ -647,9 +669,9 @@ Private Attributes</h2></td></tr>
 
 <p>Zero-margin layout created by <a class="el" href="#a5f1b0800b45f464ac947560ec69a6aa0">initBrowserInWidget()</a> to host m_browserStackWidget. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00267">267</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00286">286</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00123">initBrowserInWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00136">initBrowserInWidget()</a>.</p>
 
 </div>
 </div>
@@ -673,11 +695,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Stack switched between multiple <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a> instances by <a class="el" href="#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget()</a>/changePropertyBrowserDefault(). </p>
+<p>Stack switched between multiple <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> instances by <a class="el" href="#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget()</a>/changePropertyBrowserDefault(). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00268">268</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00287">287</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00135">changePropertyBrowserWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00123">initBrowserInWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00158">removePropertyBrowserWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00161">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00136">initBrowserInWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00171">removePropertyBrowserWidget()</a>.</p>
 
 </div>
 </div>
@@ -701,11 +723,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Resource path to the dark-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611">setupThemeReload()</a>. </p>
+<p>Resource path to the dark-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611" title="Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths,...">setupThemeReload()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00272">272</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00291">291</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00078">reloadStyleSheet()</a>, and <a class="el" href="task__widget_8h_source.html#l00067">setupThemeReload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00087">reloadStyleSheet()</a>, and <a class="el" href="task__widget_8h_source.html#l00076">setupThemeReload()</a>.</p>
 
 </div>
 </div>
@@ -731,9 +753,9 @@ Private Attributes</h2></td></tr>
 
 <p>Owning dock widget, if any; not owned by this widget. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00255">255</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00274">274</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00047">ITaskWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00054">ITaskWidget()</a>.</p>
 
 </div>
 </div>
@@ -757,11 +779,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Resource path to the light-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611">setupThemeReload()</a>. </p>
+<p>Resource path to the light-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611" title="Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths,...">setupThemeReload()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00273">273</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00292">292</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00078">reloadStyleSheet()</a>, and <a class="el" href="task__widget_8h_source.html#l00067">setupThemeReload()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00087">reloadStyleSheet()</a>, and <a class="el" href="task__widget_8h_source.html#l00076">setupThemeReload()</a>.</p>
 
 </div>
 </div>
@@ -785,11 +807,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Default property browser (search + tree + description), created by <a class="el" href="#a359284998e5564a7ad6092d9d6999f52">initPropertyBrowser()</a>. </p>
+<p>Default property browser (search + tree + description), created by <a class="el" href="#a359284998e5564a7ad6092d9d6999f52" title="Creates the PropertyBrowserWidget (m_propBrowser) and its manager/ factory/editor pointers,...">initPropertyBrowser()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00259">259</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00278">278</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00110">embedBrowserInWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00093">initPropertyBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00161">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00123">embedBrowserInWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>.</p>
 
 </div>
 </div>
@@ -815,9 +837,9 @@ Private Attributes</h2></td></tr>
 
 <p>Non-default property browsers currently tracked in m_browserStackWidget. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00269">269</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00288">288</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00135">changePropertyBrowserWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00158">removePropertyBrowserWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00171">removePropertyBrowserWidget()</a>.</p>
 
 </div>
 </div>
@@ -843,9 +865,9 @@ Private Attributes</h2></td></tr>
 
 <p>The task this widget configures. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00256">256</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00275">275</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">LocalizationTaskWidget::initNavPanel()</a>, <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00173">LocalizationDashboardWidget::initWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00179">LocalizationSettingWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00047">ITaskWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">LocalizationTaskWidget::showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">LocalizationTaskWidget::showPatternsPage()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00644">LocalizationTaskWidget::showSettingsPage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">LocalizationTaskWidget::initNavPanel()</a>, <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00173">LocalizationDashboardWidget::initWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00179">LocalizationSettingWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00054">ITaskWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">LocalizationTaskWidget::showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">LocalizationTaskWidget::showPatternsPage()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00644">LocalizationTaskWidget::showSettingsPage()</a>.</p>
 
 </div>
 </div>
@@ -871,9 +893,9 @@ Private Attributes</h2></td></tr>
 
 <p>Alias into m_propBrowser's tree browser; do not delete. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00265">265</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00284">284</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00723">LocalizationPatternsWidget::clearPropertyBrowserState()</a>, <a class="el" href="task__widget_8h_source.html#l00093">initPropertyBrowser()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00777">LocalizationPatternsWidget::rebuildPropertyBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00723">LocalizationPatternsWidget::clearPropertyBrowserState()</a>, <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00777">LocalizationPatternsWidget::rebuildPropertyBrowser()</a>.</p>
 
 </div>
 </div>
@@ -899,9 +921,9 @@ Private Attributes</h2></td></tr>
 
 <p>Alias into m_propBrowser's variant factory; do not delete. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00264">264</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00283">283</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00093">initPropertyBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>.</p>
 
 </div>
 </div>
@@ -927,14 +949,14 @@ Private Attributes</h2></td></tr>
 
 <p>Alias into m_propBrowser's variant manager; do not delete. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00263">263</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00282">282</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00761">LocalizationPatternsWidget::buildCommonProperties()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00746">LocalizationPatternsWidget::buildGroupProperties()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01832">LocalizationPatternsWidget::commitWorkingGroupConfig()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01797">LocalizationPatternsWidget::commitWorkingPatternConfig()</a>, <a class="el" href="task__widget_8h_source.html#l00093">initPropertyBrowser()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00777">LocalizationPatternsWidget::rebuildPropertyBrowser()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00708">LocalizationPatternsWidget::wirePropertyBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00761">LocalizationPatternsWidget::buildCommonProperties()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00746">LocalizationPatternsWidget::buildGroupProperties()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01832">LocalizationPatternsWidget::commitWorkingGroupConfig()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01797">LocalizationPatternsWidget::commitWorkingPatternConfig()</a>, <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00777">LocalizationPatternsWidget::rebuildPropertyBrowser()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00708">LocalizationPatternsWidget::wirePropertyBrowser()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="task__widget_8h_source.html">task_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="task__widget_8h_source.html">task_widget.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

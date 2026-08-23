@@ -6,9 +6,17 @@
 #include <QStringListModel>
 #include <QDebug>
 
-/// QLineEdit that only accepts text matching an entry in its completer's
-/// string-list model: when editing finishes, any text not present in that
-/// list is silently cleared.
+/**
+ * @file validating_line_edit.h
+ * @brief ValidatingLineEdit — QLineEdit that clears text not present in its completer's list.
+ */
+
+/**
+ * @class ValidatingLineEdit
+ * @brief QLineEdit that only accepts text matching an entry in its completer's
+ *        string-list model: when editing finishes, any text not present in that
+ *        list is silently cleared.
+ */
 class ValidatingLineEdit : public QLineEdit {
     Q_OBJECT
 

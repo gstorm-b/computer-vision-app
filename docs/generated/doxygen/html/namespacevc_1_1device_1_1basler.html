@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('namespacevc_1_
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:BaslerIOLine" id="r_BaslerIOLine"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1device_1_1basler_1_1_basler_i_o_line.html">BaslerIOLine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reported I/O capability of a single GenICam camera line, as discovered by querying the camera's LineSelector/LineMode nodes (see <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#abcd8ab5f8937c05c5b3827f746745d9a">BaslerGigECamera::initializeIOPort</a>).  <a href="structvc_1_1device_1_1basler_1_1_basler_i_o_line.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -140,17 +141,19 @@ Enumerations</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a1c339d2e9aa515f24b6f5a1bd4f182d5" id="r_a1c339d2e9aa515f24b6f5a1bd4f182d5"><td class="memItemLeft">static Basler_UniversalCameraParams::ExposureAutoEnums&#160;</td><td class="memItemRight"><a class="el" href="#a1c339d2e9aa515f24b6f5a1bd4f182d5">autoExposureToEnum</a> (QString mode)</td></tr>
+<tr class="memdesc:a1c339d2e9aa515f24b6f5a1bd4f182d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a Pylon/GenICam ExposureAutoEnums value from its "Off"/"Once"/"Continuous" string.  <br /></td></tr>
 <tr class="memitem:a1b249c4e410e9cc447eeae57afef37fa" id="r_a1b249c4e410e9cc447eeae57afef37fa"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a1b249c4e410e9cc447eeae57afef37fa">autoExposureToQString</a> (Basler_UniversalCameraParams::ExposureAutoEnums mode)</td></tr>
+<tr class="memdesc:a1b249c4e410e9cc447eeae57afef37fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a Pylon/GenICam ExposureAutoEnums value to the plain "Off"/"Once"/"Continuous" string used by the camera's GenApi ExposureAuto parameter.  <br /></td></tr>
 <tr class="memitem:aba317f2f1947b87f0c225a5ea39e48fd" id="r_aba317f2f1947b87f0c225a5ea39e48fd"><td class="memItemLeft">static <a class="el" href="#a2b95b2f6333c088cb4cb7e9d89bcfee8">BaslerExposureMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#aba317f2f1947b87f0c225a5ea39e48fd">BaslerExposureTypeFromString</a> (QString t)</td></tr>
+<tr class="memdesc:aba317f2f1947b87f0c225a5ea39e48fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a <a class="el" href="#a2b95b2f6333c088cb4cb7e9d89bcfee8" title="Auto-exposure mode, mirroring the Basler GenICam ExposureAuto enumeration.">BaslerExposureMode</a> from its registered enum name string.  <br /></td></tr>
 <tr class="memitem:a89a50158860301b7c745be5cfecc5aa5" id="r_a89a50158860301b7c745be5cfecc5aa5"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a89a50158860301b7c745be5cfecc5aa5">BaslerExposureTypeToString</a> (<a class="el" href="#a2b95b2f6333c088cb4cb7e9d89bcfee8">BaslerExposureMode</a> t)</td></tr>
+<tr class="memdesc:a89a50158860301b7c745be5cfecc5aa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a <a class="el" href="#a2b95b2f6333c088cb4cb7e9d89bcfee8" title="Auto-exposure mode, mirroring the Basler GenICam ExposureAuto enumeration.">BaslerExposureMode</a> to its Qt-enum-registered string name (e.g. "Exposure_Off").  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:afdf534d8daac87a0b08c79ff696b6699" id="r_afdf534d8daac87a0b08c79ff696b6699"><td class="memItemLeft">static const char *&#160;</td><td class="memItemRight"><a class="el" href="#afdf534d8daac87a0b08c79ff696b6699">enum_keys_basler_defines</a> []</td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basler-camera-specific enums, GenICam/Pylon parameter conversion helpers, and the <a class="el" href="structvc_1_1device_1_1basler_1_1_basler_i_o_line.html">BaslerIOLine</a> capability struct shared by the Basler GigE camera device and its config. </p>
-</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
 <a id="a2b95b2f6333c088cb4cb7e9d89bcfee8" name="a2b95b2f6333c088cb4cb7e9d89bcfee8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2b95b2f6333c088cb4cb7e9d89bcfee8">&#9670;&#160;</a></span>BaslerExposureMode</h2>
 
@@ -181,7 +184,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00024">24</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00034">34</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
 
 </div>
 </div>
@@ -215,7 +218,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00016">16</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00023">23</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
 
 </div>
 </div>
@@ -242,15 +245,17 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Parses a Pylon/GenICam ExposureAutoEnums value from its "Off"/"Once"/"Continuous" string. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Parses a Pylon/GenICam ExposureAutoEnums value from its "Off"/"Once"/"Continuous" string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mode</td><td>the exposure-auto mode string </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>the exposure-auto mode string </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the matching Pylon SDK enum value, or ExposureAuto_Off if <span class="tt">mode</span> is unrecognized </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00077">77</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00095">95</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
 
 </div>
 </div>
@@ -276,15 +281,17 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Converts a Pylon/GenICam ExposureAutoEnums value to the plain "Off"/"Once"/"Continuous" string used by the camera's GenApi ExposureAuto parameter. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Converts a Pylon/GenICam ExposureAutoEnums value to the plain "Off"/"Once"/"Continuous" string used by the camera's GenApi ExposureAuto parameter. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">mode</td><td>the Pylon SDK exposure-auto enum value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>the Pylon SDK exposure-auto enum value </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>"Off", "Once", or "Continuous"; defaults to "Off" for unrecognized values </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00063">63</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00079">79</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
 
 </div>
 </div>
@@ -310,19 +317,21 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Parses a <a class="el" href="#a2b95b2f6333c088cb4cb7e9d89bcfee8" title="Auto-exposure mode, mirroring the Basler GenICam ExposureAuto enumeration.">BaslerExposureMode</a> from its registered enum name string. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Parses a <a class="el" href="#a2b95b2f6333c088cb4cb7e9d89bcfee8" title="Auto-exposure mode, mirroring the Basler GenICam ExposureAuto enumeration.">BaslerExposureMode</a> from its registered enum name string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">t</td><td>the enum name string (as produced by BaslerExposureTypeToString) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td>the enum name string (as produced by BaslerExposureTypeToString) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the matching enum value, or Exposure_Off if <span class="tt">t</span> does not match any name </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00055">55</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00069">69</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00025">Exposure_Off</a>, and <a class="el" href="meta__utils_8h_source.html#l00025">stringToQEnum()</a>.</p>
+<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00035">Exposure_Off</a>, and <a class="el" href="meta__utils_8h_source.html#l00035">stringToQEnum()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">vc::device::BaslerGigeCfg::fromJson()</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00100">vc::device::BaslerGigeCfg::setAutoExposure()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">vc::device::BaslerGigeCfg::fromJson()</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00107">vc::device::BaslerGigeCfg::setAutoExposure()</a>.</p>
 
 </div>
 </div>
@@ -348,19 +357,21 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Converts a <a class="el" href="#a2b95b2f6333c088cb4cb7e9d89bcfee8" title="Auto-exposure mode, mirroring the Basler GenICam ExposureAuto enumeration.">BaslerExposureMode</a> to its Qt-enum-registered string name (e.g. "Exposure_Off"). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Converts a <a class="el" href="#a2b95b2f6333c088cb4cb7e9d89bcfee8" title="Auto-exposure mode, mirroring the Basler GenICam ExposureAuto enumeration.">BaslerExposureMode</a> to its Qt-enum-registered string name (e.g. "Exposure_Off"). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">t</td><td>the exposure mode to convert </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td>the exposure mode to convert </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the enum's registered name string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00048">48</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00060">60</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
 
-<p class="reference">References <a class="el" href="meta__utils_8h_source.html#l00014">qenumToString()</a>.</p>
+<p class="reference">References <a class="el" href="meta__utils_8h_source.html#l00022">qenumToString()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00105">vc::device::BaslerGigeCfg::autoExposure()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">vc::device::BaslerGigeCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00112">vc::device::BaslerGigeCfg::autoExposure()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">vc::device::BaslerGigeCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -397,7 +408,7 @@ Variables</h2></td></tr>
 <div class="line">}</div>
 </div><!-- fragment --><p>Enum key strings registered only so <span class="tt">lupdate</span>/<span class="tt">linguist</span> picks up translatable enum labels; not read by any code at runtime. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00033">33</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__define_8h_source.html#l00043">43</a> of file <a class="el" href="basler__define_8h_source.html">basler_define.h</a>.</p>
 
 </div>
 </div>

@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_m
 </div><!--header-->
 <div class="contents">
 
+<p>A single learned template.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::MatchPattern:</div>
@@ -172,7 +175,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab0b4bf889164be9e090c32871339481d" id="r_ab0b4bf889164be9e090c32871339481d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab0b4bf889164be9e090c32871339481d">MatchPattern</a> ()</td></tr>
 <tr class="memdesc:ab0b4bf889164be9e090c32871339481d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs with an empty config and no parent group.  <br /></td></tr>
 <tr class="memitem:a88d49b3be5f985d0bd2c682860403aef" id="r_a88d49b3be5f985d0bd2c682860403aef"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a88d49b3be5f985d0bd2c682860403aef">MatchPattern</a> (const <a class="el" href="struct_match_pattern_config.html">MatchPatternConfig</a> &amp;config, <a class="el" href="#a76a407f6a9e608095713c81f7a65f6dd">MatchGroup</a> *parent)</td></tr>
-<tr class="memdesc:a88d49b3be5f985d0bd2c682860403aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs with a copy of <span class="tt"><a class="el" href="#ab51f824a7ca8c0342d9af453d60c5a3c" title="Returns the current per-pattern config by const reference.">config</a></span> and a back-pointer to the owning <span class="tt">parent</span> group.  <br /></td></tr>
+<tr class="memdesc:a88d49b3be5f985d0bd2c682860403aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs with a copy of <span class="tt"><a class="el" href="#ab51f824a7ca8c0342d9af453d60c5a3c" title="Returns the current per-pattern config by const reference.">config</a></span> and a back-pointer to the owning <span class="tt">parent</span> group (used to fetch the shared Edge-Based algorithm config).  <br /></td></tr>
 <tr class="memitem:a05ebca7ea87a429c83ef891955aafd15" id="r_a05ebca7ea87a429c83ef891955aafd15"><td class="memItemLeft">std::wstring&#160;</td><td class="memItemRight"><a class="el" href="#a05ebca7ea87a429c83ef891955aafd15">name</a> () const</td></tr>
 <tr class="memdesc:a05ebca7ea87a429c83ef891955aafd15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pattern's display name.  <br /></td></tr>
 <tr class="memitem:a83d02186a2d57a4e3d7e710c12e7d227" id="r_a83d02186a2d57a4e3d7e710c12e7d227"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a83d02186a2d57a4e3d7e710c12e7d227">number</a> () const</td></tr>
@@ -242,11 +245,11 @@ Friends</h2></td></tr>
 <tr class="memitem:a76a407f6a9e608095713c81f7a65f6dd" id="r_a76a407f6a9e608095713c81f7a65f6dd"><td class="memItemLeft">class&#160;</td><td class="memItemRight"><a class="el" href="#a76a407f6a9e608095713c81f7a65f6dd">MatchGroup</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A single learned template.</p>
-<p>Carries a <a class="el" href="structmtc_1_1_match_pattern_config.html">MatchPatternConfig</a> (identity + per-pattern search params) plus the data computed by <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a>: image pyramids, edge point arrays, contour masks, etc. The algorithm (Edge-Based) config is shared at the group level (<a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">MatchGroupConfig::typeConfig</a>) and fetched via the parent group.</p>
+<div class="textblock"><p>A single learned template. </p>
+<p>Carries a <a class="el" href="structmtc_1_1_match_pattern_config.html" title="Per-pattern configuration carried by MatchPattern: identity, type-agnostic search parameters,...">MatchPatternConfig</a> (identity + per-pattern search params) plus the data computed by <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a>: image pyramids, edge point arrays, contour masks, etc. The algorithm (Edge-Based) config is shared at the group level (<a class="el" href="classmtc_1_1_match_group_config.html#abdf2264acdaddc98f085a17d903dff0c">MatchGroupConfig::typeConfig</a>) and fetched via the parent group.</p>
 <p>To change per-pattern settings after construction, retrieve a copy of the config, modify the relevant fields, then call <a class="el" href="#a6347d3573be7cfa5b7a63ece4d434756" title="Replaces the per-pattern config with a copy of cfg.">setConfig()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00026">26</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00033">33</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab0b4bf889164be9e090c32871339481d" name="ab0b4bf889164be9e090c32871339481d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0b4bf889164be9e090c32871339481d">&#9670;&#160;</a></span>MatchPattern() <span class="overload">[1/2]</span></h2>
@@ -288,12 +291,19 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Constructs with a copy of <span class="tt"><a class="el" href="#ab51f824a7ca8c0342d9af453d60c5a3c" title="Returns the current per-pattern config by const reference.">config</a></span> and a back-pointer to the owning <span class="tt">parent</span> group. </p>
 <p>Constructs with a copy of <span class="tt"><a class="el" href="#ab51f824a7ca8c0342d9af453d60c5a3c" title="Returns the current per-pattern config by const reference.">config</a></span> and a back-pointer to the owning <span class="tt">parent</span> group (used to fetch the shared Edge-Based algorithm config). </p>
+<p>Constructs with a copy of <span class="tt"><a class="el" href="#ab51f824a7ca8c0342d9af453d60c5a3c" title="Returns the current per-pattern config by const reference.">config</a></span> and a back-pointer to the owning <span class="tt">parent</span> group.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">config</td><td>per-pattern identity, search params, and raw training image </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>owning group; used to fetch the shared Edge-Based config </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00016">16</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00038">config()</a>, <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00129">m_parentGroup</a>, and <a class="el" href="match__pattern_8h_source.html#l00116">MatchGroup</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00049">config()</a>, <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00140">m_parentGroup</a>, and <a class="el" href="match__pattern_8h_source.html#l00127">MatchGroup</a>.</p>
 
 </div>
 </div>
@@ -323,9 +333,9 @@ Friends</h2></td></tr>
 
 <p>Returns the estimated border/background intensity (0 or 255). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00092">92</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00103">103</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00137">m_borderColor</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00148">m_borderColor</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -358,7 +368,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00270">270</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00140">m_patterns</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00151">m_patterns</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
@@ -389,9 +399,9 @@ Friends</h2></td></tr>
 
 <p>Returns the current per-pattern config by const reference. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00038">38</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00049">49</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00815">LocalizationPatternsWidget::bindPatternToBrowser()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00016">MatchPattern()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00900">LocalizationPatternsWidget::updatePatternThumb()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
@@ -423,7 +433,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00277">277</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8cpp_source.html#l00021">groupEdgeConfig()</a>, <a class="el" href="match__pattern_8h_source.html#l00131">m_image</a>, <a class="el" href="match__pattern_8h_source.html#l00135">m_minReduceArea</a>, <a class="el" href="match__pattern_8h_source.html#l00136">m_topLayer</a>, and <a class="el" href="edge__match__config_8h_source.html#l00047">mtc::EdgeMatchConfig::minReduceLength</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8cpp_source.html#l00021">groupEdgeConfig()</a>, <a class="el" href="match__pattern_8h_source.html#l00142">m_image</a>, <a class="el" href="match__pattern_8h_source.html#l00146">m_minReduceArea</a>, <a class="el" href="match__pattern_8h_source.html#l00147">m_topLayer</a>, and <a class="el" href="edge__match__config_8h_source.html#l00053">mtc::EdgeMatchConfig::minReduceLength</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
@@ -448,7 +458,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00247">247</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8cpp_source.html#l00021">groupEdgeConfig()</a>, <a class="el" href="edge__match__config_8h_source.html#l00038">mtc::EdgeMatchConfig::kernelSize</a>, <a class="el" href="match__pattern_8h_source.html#l00131">m_image</a>, and <a class="el" href="vision__utils_8h_source.html#l00228">vsu::median()</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8cpp_source.html#l00021">groupEdgeConfig()</a>, <a class="el" href="edge__match__config_8h_source.html#l00044">mtc::EdgeMatchConfig::kernelSize</a>, <a class="el" href="match__pattern_8h_source.html#l00142">m_image</a>, and <a class="el" href="vision__utils_8h_source.html#l00253">vsu::median()</a>.</p>
 
 </div>
 </div>
@@ -471,7 +481,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00232">232</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__utils_8h_source.html#l00019">DEFAULT_COLOR_BLUE</a>, <a class="el" href="vision__utils_8h_source.html#l00017">DEFAULT_COLOR_RED</a>, <a class="el" href="vision__utils_8h_source.html#l00175">vsu::drawAxes2Img()</a>, <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, and <a class="el" href="match__pattern_8h_source.html#l00131">m_image</a>.</p>
+<p class="reference">References <a class="el" href="vision__utils_8h_source.html#l00019">DEFAULT_COLOR_BLUE</a>, <a class="el" href="vision__utils_8h_source.html#l00017">DEFAULT_COLOR_RED</a>, <a class="el" href="vision__utils_8h_source.html#l00196">vsu::drawAxes2Img()</a>, <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, and <a class="el" href="match__pattern_8h_source.html#l00142">m_image</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00900">LocalizationPatternsWidget::updatePatternThumb()</a>.</p>
 
@@ -502,9 +512,9 @@ Friends</h2></td></tr>
 
 <p>Returns a clone of the binary threshold mask computed during <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00098">98</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00109">109</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00132">m_maskImage</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00143">m_maskImage</a>.</p>
 
 </div>
 </div>
@@ -533,9 +543,9 @@ Friends</h2></td></tr>
 
 <p>Returns the area (px^2) of the selected contour. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00095">95</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00106">106</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00143">m_contoursSelectArea</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00154">m_contoursSelectArea</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
@@ -566,9 +576,9 @@ Friends</h2></td></tr>
 
 <p>Returns the index of the selected low-workpiece contour. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00094">94</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00105">105</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00142">m_contoursSelectIndex</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00153">m_contoursSelectIndex</a>.</p>
 
 </div>
 </div>
@@ -597,9 +607,9 @@ Friends</h2></td></tr>
 
 <p>Returns the area (px^2) of the selected contour's min-area rotated rect. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00096">96</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00107">107</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00145">m_contoursSelectRectArea</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00156">m_contoursSelectRectArea</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00184">mtc::ImageMatcher::matching()</a>.</p>
 
@@ -630,9 +640,9 @@ Friends</h2></td></tr>
 
 <p>Returns a clone of the raw training image (same source as <a class="el" href="#a6ecd270c43351abf6c9a767f95b7a104" title="Returns a clone of the stored raw training image.">getRawImage()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00090">90</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00101">101</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -663,9 +673,9 @@ Friends</h2></td></tr>
 
 <p>Returns a clone of the mask with the top-layer contour(s) drawn on it. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00099">99</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00110">110</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00133">m_maskPatternPoint</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00144">m_maskPatternPoint</a>.</p>
 
 </div>
 </div>
@@ -694,9 +704,9 @@ Friends</h2></td></tr>
 
 <p>Returns the per-level learned pattern data built by <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00089">89</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00100">100</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00140">m_patterns</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00151">m_patterns</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00779">mtc::ImageMatcher::MatchEdgePattern()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00899">mtc::ImageMatcher::MatchEdgePattern_SIMD()</a>.</p>
 
@@ -727,9 +737,9 @@ Friends</h2></td></tr>
 
 <p>Returns the image pyramid built by <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00088">88</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00099">99</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_pyramids</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00150">m_pyramids</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -754,7 +764,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00221">221</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00900">LocalizationPatternsWidget::updatePatternThumb()</a>.</p>
 
@@ -779,7 +789,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00226">226</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
 </div>
 </div>
@@ -808,9 +818,9 @@ Friends</h2></td></tr>
 
 <p>Returns the pyramid depth computed by <a class="el" href="#aba68ced34332b284ff6de5d04f302704">findTopLayer()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00091">91</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00102">102</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00136">m_topLayer</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00147">m_topLayer</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -842,7 +852,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00021">21</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00129">m_parentGroup</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00140">m_parentGroup</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00277">findTopLayer()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00247">getImageWithCannyThreshold()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
@@ -873,11 +883,11 @@ Friends</h2></td></tr>
 
 <p>Returns a clone of the stored raw training image. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00036">36</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00047">47</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00116">MatchGroup</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00311">setImage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00127">MatchGroup</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00311">setImage()</a>.</p>
 
 </div>
 </div>
@@ -906,9 +916,9 @@ Friends</h2></td></tr>
 
 <p>Returns the display/save name set via <a class="el" href="#a70b3717e1a9eef96c9b6cb8e414d285b" title="Sets the display/save name associated with this pattern&#39;s preview image.">setImageSaveName()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00102">102</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00113">113</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00147">m_iamgeSaveName</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00158">m_iamgeSaveName</a>.</p>
 
 </div>
 </div>
@@ -937,9 +947,9 @@ Friends</h2></td></tr>
 
 <p>True when no raw training image has been set. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00084">84</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00095">95</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00900">LocalizationPatternsWidget::updatePatternThumb()</a>.</p>
 
@@ -970,9 +980,9 @@ Friends</h2></td></tr>
 
 <p>True once <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a> has completed successfully. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00085">85</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00096">96</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00134">m_hasPatternLearned</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00145">m_hasPatternLearned</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -997,7 +1007,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00050">50</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern__layer_8h_source.html#l00041">mtc::PatternLayer::allocateMemory()</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00150">mtc::PatternLayer::angle</a>, <a class="el" href="edge__match__config_8h_source.html#l00053">mtc::EdgeMatchConfig::binaryMaxValue</a>, <a class="el" href="edge__match__config_8h_source.html#l00052">mtc::EdgeMatchConfig::binaryThreshold</a>, <a class="el" href="edge__match__config_8h_source.html#l00040">mtc::EdgeMatchConfig::blurHeight</a>, <a class="el" href="edge__match__config_8h_source.html#l00039">mtc::EdgeMatchConfig::blurWidth</a>, <a class="el" href="match__pattern_8cpp_source.html#l00270">clearPatternData()</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00147">mtc::PatternLayer::contours</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00014">mtc::PatternPoint::Coordinates</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00015">mtc::PatternPoint::Derivative</a>, <a class="el" href="match__pattern_8cpp_source.html#l00277">findTopLayer()</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00049">mtc::PatternLayer::freeMemory()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00021">groupEdgeConfig()</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00148">mtc::PatternLayer::hierarchies</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00145">mtc::PatternLayer::image</a>, <a class="el" href="edge__match__config_8h_source.html#l00049">mtc::EdgeMatchConfig::invertBinaryThreshold</a>, <a class="el" href="edge__match__config_8h_source.html#l00038">mtc::EdgeMatchConfig::kernelSize</a>, <a class="el" href="match__pattern_8h_source.html#l00137">m_borderColor</a>, <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00143">m_contoursSelectArea</a>, <a class="el" href="match__pattern_8h_source.html#l00142">m_contoursSelectIndex</a>, <a class="el" href="match__pattern_8h_source.html#l00144">m_contoursSelectRect</a>, <a class="el" href="match__pattern_8h_source.html#l00145">m_contoursSelectRectArea</a>, <a class="el" href="match__pattern_8h_source.html#l00134">m_hasPatternLearned</a>, <a class="el" href="match__pattern_8h_source.html#l00131">m_image</a>, <a class="el" href="match__pattern_8h_source.html#l00132">m_maskImage</a>, <a class="el" href="match__pattern_8h_source.html#l00133">m_maskPatternPoint</a>, <a class="el" href="match__pattern_8h_source.html#l00140">m_patterns</a>, <a class="el" href="match__pattern_8h_source.html#l00139">m_pyramids</a>, <a class="el" href="match__pattern_8h_source.html#l00136">m_topLayer</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00149">mtc::PatternLayer::Magnitude</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00016">mtc::PatternPoint::Magnitude</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00146">mtc::PatternLayer::patternPoints</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00151">mtc::PatternLayer::pGx</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00152">mtc::PatternLayer::pGy</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00153">mtc::PatternLayer::pMag</a>, <a class="el" href="edge__match__config_8h_source.html#l00036">mtc::EdgeMatchConfig::threshLower</a>, <a class="el" href="edge__match__config_8h_source.html#l00037">mtc::EdgeMatchConfig::threshUpper</a>, <a class="el" href="vision__utils_8h_source.html#l00116">vsu::tNeighborSimplify()</a>, and <a class="el" href="edge__match__config_8h_source.html#l00048">mtc::EdgeMatchConfig::tSamples</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern__layer_8h_source.html#l00055">mtc::PatternLayer::allocateMemory()</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00164">mtc::PatternLayer::angle</a>, <a class="el" href="edge__match__config_8h_source.html#l00059">mtc::EdgeMatchConfig::binaryMaxValue</a>, <a class="el" href="edge__match__config_8h_source.html#l00058">mtc::EdgeMatchConfig::binaryThreshold</a>, <a class="el" href="edge__match__config_8h_source.html#l00046">mtc::EdgeMatchConfig::blurHeight</a>, <a class="el" href="edge__match__config_8h_source.html#l00045">mtc::EdgeMatchConfig::blurWidth</a>, <a class="el" href="match__pattern_8cpp_source.html#l00270">clearPatternData()</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00161">mtc::PatternLayer::contours</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00021">mtc::PatternPoint::Coordinates</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00022">mtc::PatternPoint::Derivative</a>, <a class="el" href="match__pattern_8cpp_source.html#l00277">findTopLayer()</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00063">mtc::PatternLayer::freeMemory()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00021">groupEdgeConfig()</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00162">mtc::PatternLayer::hierarchies</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00159">mtc::PatternLayer::image</a>, <a class="el" href="edge__match__config_8h_source.html#l00055">mtc::EdgeMatchConfig::invertBinaryThreshold</a>, <a class="el" href="edge__match__config_8h_source.html#l00044">mtc::EdgeMatchConfig::kernelSize</a>, <a class="el" href="match__pattern_8h_source.html#l00148">m_borderColor</a>, <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00154">m_contoursSelectArea</a>, <a class="el" href="match__pattern_8h_source.html#l00153">m_contoursSelectIndex</a>, <a class="el" href="match__pattern_8h_source.html#l00155">m_contoursSelectRect</a>, <a class="el" href="match__pattern_8h_source.html#l00156">m_contoursSelectRectArea</a>, <a class="el" href="match__pattern_8h_source.html#l00145">m_hasPatternLearned</a>, <a class="el" href="match__pattern_8h_source.html#l00142">m_image</a>, <a class="el" href="match__pattern_8h_source.html#l00143">m_maskImage</a>, <a class="el" href="match__pattern_8h_source.html#l00144">m_maskPatternPoint</a>, <a class="el" href="match__pattern_8h_source.html#l00151">m_patterns</a>, <a class="el" href="match__pattern_8h_source.html#l00150">m_pyramids</a>, <a class="el" href="match__pattern_8h_source.html#l00147">m_topLayer</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00163">mtc::PatternLayer::Magnitude</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00023">mtc::PatternPoint::Magnitude</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00160">mtc::PatternLayer::patternPoints</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00165">mtc::PatternLayer::pGx</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00166">mtc::PatternLayer::pGy</a>, <a class="el" href="match__pattern__layer_8h_source.html#l00167">mtc::PatternLayer::pMag</a>, <a class="el" href="edge__match__config_8h_source.html#l00042">mtc::EdgeMatchConfig::threshLower</a>, <a class="el" href="edge__match__config_8h_source.html#l00043">mtc::EdgeMatchConfig::threshUpper</a>, <a class="el" href="vision__utils_8h_source.html#l00134">vsu::tNeighborSimplify()</a>, and <a class="el" href="edge__match__config_8h_source.html#l00054">mtc::EdgeMatchConfig::tSamples</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00038">learnPattern()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00029">learnPattern()</a>.</p>
 
@@ -1045,7 +1055,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00029">29</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>, <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00134">m_hasPatternLearned</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00200">setRawImage()</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>, <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00145">m_hasPatternLearned</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00200">setRawImage()</a>.</p>
 
 </div>
 </div>
@@ -1074,11 +1084,11 @@ Friends</h2></td></tr>
 
 <p>Returns the pattern's display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00034">34</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00045">45</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00116">MatchGroup</a>, <a class="el" href="match__group_8cpp_source.html#l00135">mtc::MatchGroup::removePatternByNumber()</a>, <a class="el" href="match__pattern_8h_source.html#l00101">setImageSaveName()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00298">setName()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00900">LocalizationPatternsWidget::updatePatternThumb()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00127">MatchGroup</a>, <a class="el" href="match__group_8cpp_source.html#l00135">mtc::MatchGroup::removePatternByNumber()</a>, <a class="el" href="match__pattern_8h_source.html#l00112">setImageSaveName()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00298">setName()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00900">LocalizationPatternsWidget::updatePatternThumb()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
 </div>
 </div>
@@ -1107,11 +1117,11 @@ Friends</h2></td></tr>
 
 <p>Returns the pattern's index within its group. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00035">35</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00046">46</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00116">MatchGroup</a>, <a class="el" href="match__group_8cpp_source.html#l00186">mtc::MatchGroup::renumberPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00304">setNumber()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00127">MatchGroup</a>, <a class="el" href="match__group_8cpp_source.html#l00186">mtc::MatchGroup::renumberPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00304">setNumber()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
 </div>
 </div>
@@ -1134,7 +1144,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00187">187</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
 </div>
 </div>
@@ -1154,11 +1164,11 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a pointer to the internal config (no copy). </p>
-<p>Returns a pointer to the internal config (no copy); valid as long as this <a class="el" href="classmtc_1_1_match_pattern.html">MatchPattern</a> is alive and its config is not reassigned. </p>
+<p>Returns a pointer to the internal config (no copy); valid as long as this <a class="el" href="classmtc_1_1_match_pattern.html" title="A single learned template.">MatchPattern</a> is alive and its config is not reassigned. </p>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00192">192</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
@@ -1191,7 +1201,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00292">292</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -1214,7 +1224,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00182">182</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00150">mtc::MatchGroup::setPatternConfig()</a>.</p>
 
@@ -1246,7 +1256,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00311">311</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00036">image()</a>, <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, and <a class="el" href="match__pattern_8h_source.html#l00131">m_image</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00047">image()</a>, <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, and <a class="el" href="match__pattern_8h_source.html#l00142">m_image</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00207">mtc::MatchGroup::setPatternImage()</a>.</p>
 
@@ -1277,9 +1287,9 @@ Friends</h2></td></tr>
 
 <p>Sets the display/save name associated with this pattern's preview image. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00101">101</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00112">112</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00147">m_iamgeSaveName</a>, and <a class="el" href="match__pattern_8h_source.html#l00034">name()</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00158">m_iamgeSaveName</a>, and <a class="el" href="match__pattern_8h_source.html#l00045">name()</a>.</p>
 
 </div>
 </div>
@@ -1310,7 +1320,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00298">298</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00034">name()</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00045">name()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00166">mtc::MatchGroup::renamePattern()</a>.</p>
 
@@ -1343,7 +1353,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00304">304</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00035">number()</a>, and <a class="el" href="manager__result_8h_source.html#l00024">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, <a class="el" href="match__pattern_8h_source.html#l00046">number()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__group_8cpp_source.html#l00186">mtc::MatchGroup::renumberPattern()</a>.</p>
 
@@ -1368,7 +1378,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00209">209</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00128">m_config</a>, and <a class="el" href="match__pattern_8h_source.html#l00134">m_hasPatternLearned</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00139">m_config</a>, and <a class="el" href="match__pattern_8h_source.html#l00145">m_hasPatternLearned</a>.</p>
 
 </div>
 </div>
@@ -1390,7 +1400,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__pattern_8cpp_source.html#l00200">200</a> of file <a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__utils_8h_source.html#l00090">vsu::imread_wstring()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00200">setRawImage()</a>.</p>
+<p class="reference">References <a class="el" href="vision__utils_8h_source.html#l00105">vsu::imread_wstring()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00200">setRawImage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00038">learnPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00029">learnPattern()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00200">setRawImage()</a>.</p>
 
@@ -1417,11 +1427,11 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00116">116</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00127">127</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00036">image()</a>, <a class="el" href="match__pattern_8h_source.html#l00116">MatchGroup</a>, <a class="el" href="match__pattern_8h_source.html#l00034">name()</a>, and <a class="el" href="match__pattern_8h_source.html#l00035">number()</a>.</p>
+<p class="reference">References <a class="el" href="match__pattern_8h_source.html#l00047">image()</a>, <a class="el" href="match__pattern_8h_source.html#l00127">MatchGroup</a>, <a class="el" href="match__pattern_8h_source.html#l00045">name()</a>, and <a class="el" href="match__pattern_8h_source.html#l00046">number()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00116">MatchGroup</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00016">MatchPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00127">MatchGroup</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00016">MatchPattern()</a>.</p>
 
 </div>
 </div>
@@ -1448,9 +1458,9 @@ Friends</h2></td></tr>
 
 <p>Estimated border/background intensity (0 or 255) from the mean pixel value. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00137">137</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00148">148</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00092">borderColor()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00103">borderColor()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
@@ -1476,9 +1486,9 @@ Friends</h2></td></tr>
 
 <p>Per-pattern identity, search params, and raw training image. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00128">128</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00139">139</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00038">config()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00232">getImageWithPickPosition()</a>, <a class="el" href="match__pattern_8h_source.html#l00090">getPatternImage()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00221">getRawImage()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00226">getRawImageSize()</a>, <a class="el" href="match__pattern_8h_source.html#l00036">image()</a>, <a class="el" href="match__pattern_8h_source.html#l00084">isImageEmpty()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00029">learnPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00016">MatchPattern()</a>, <a class="el" href="match__pattern_8h_source.html#l00034">name()</a>, <a class="el" href="match__pattern_8h_source.html#l00035">number()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00187">patternConfig()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00192">patternConfigPtr()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00292">setConfig()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00182">setConfig()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00311">setImage()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00298">setName()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00304">setNumber()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00209">setRawImage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00049">config()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00232">getImageWithPickPosition()</a>, <a class="el" href="match__pattern_8h_source.html#l00101">getPatternImage()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00221">getRawImage()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00226">getRawImageSize()</a>, <a class="el" href="match__pattern_8h_source.html#l00047">image()</a>, <a class="el" href="match__pattern_8h_source.html#l00095">isImageEmpty()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00029">learnPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00016">MatchPattern()</a>, <a class="el" href="match__pattern_8h_source.html#l00045">name()</a>, <a class="el" href="match__pattern_8h_source.html#l00046">number()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00187">patternConfig()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00192">patternConfigPtr()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00292">setConfig()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00182">setConfig()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00311">setImage()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00298">setName()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00304">setNumber()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00209">setRawImage()</a>.</p>
 
 </div>
 </div>
@@ -1504,9 +1514,9 @@ Friends</h2></td></tr>
 
 <p>Area (px^2) of the selected contour. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00143">143</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00154">154</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00095">getModelContoursSelectedArea()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00106">getModelContoursSelectedArea()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
@@ -1532,9 +1542,9 @@ Friends</h2></td></tr>
 
 <p>Index of the selected low-workpiece contour in the threshold-image contour list. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00142">142</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00153">153</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00094">getModelContoursSelectedIndex()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00105">getModelContoursSelectedIndex()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
@@ -1560,7 +1570,7 @@ Friends</h2></td></tr>
 
 <p>Minimum-area rotated rect enclosing the selected contour. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00144">144</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00155">155</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
@@ -1588,9 +1598,9 @@ Friends</h2></td></tr>
 
 <p>Area (px^2) of m_contoursSelectRect. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00145">145</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00156">156</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00096">getModelContoursSelectedRectArea()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00107">getModelContoursSelectedRectArea()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
@@ -1616,9 +1626,9 @@ Friends</h2></td></tr>
 
 <p>True once <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a> has completed successfully. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00134">134</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00145">145</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00085">isPatternLearned()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00029">learnPattern()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00209">setRawImage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00096">isPatternLearned()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00029">learnPattern()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00209">setRawImage()</a>.</p>
 
 </div>
 </div>
@@ -1644,9 +1654,9 @@ Friends</h2></td></tr>
 
 <p>Display/save name associated with this pattern's preview image. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00147">147</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00158">158</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00102">imageSaveName()</a>, and <a class="el" href="match__pattern_8h_source.html#l00101">setImageSaveName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00113">imageSaveName()</a>, and <a class="el" href="match__pattern_8h_source.html#l00112">setImageSaveName()</a>.</p>
 
 </div>
 </div>
@@ -1672,7 +1682,7 @@ Friends</h2></td></tr>
 
 <p>Working (grayscale) image set by <a class="el" href="#a83f0dc7d559f4c47267007871b8dee9f">setRawImage()</a>/setImage(); source for learn/preview operations. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00131">131</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00142">142</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00277">findTopLayer()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00247">getImageWithCannyThreshold()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00232">getImageWithPickPosition()</a>, <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00311">setImage()</a>.</p>
 
@@ -1700,9 +1710,9 @@ Friends</h2></td></tr>
 
 <p>Binary threshold mask computed during <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a>, used for the low-workpiece area pre-filter. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00132">132</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00143">143</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00098">getMaskImage()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00109">getMaskImage()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
@@ -1728,9 +1738,9 @@ Friends</h2></td></tr>
 
 <p>Mask with the top pyramid layer's simplified contour(s) drawn onto it. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00133">133</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00144">144</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00099">getPatternMask()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00110">getPatternMask()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
@@ -1756,7 +1766,7 @@ Friends</h2></td></tr>
 
 <p>Minimum pyramid-layer area (px^2) computed by <a class="el" href="#aba68ced34332b284ff6de5d04f302704">findTopLayer()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00135">135</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00146">146</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00277">findTopLayer()</a>.</p>
 
@@ -1784,7 +1794,7 @@ Friends</h2></td></tr>
 
 <p>Back-pointer to the owning group; used to fetch the shared Edge-Based config. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00129">129</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00140">140</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00021">groupEdgeConfig()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00016">MatchPattern()</a>.</p>
 
@@ -1812,9 +1822,9 @@ Friends</h2></td></tr>
 
 <p>Per-level learned edge template data produced by <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00140">140</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00151">151</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00270">clearPatternData()</a>, <a class="el" href="match__pattern_8h_source.html#l00089">getPatterns()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00270">clearPatternData()</a>, <a class="el" href="match__pattern_8h_source.html#l00100">getPatterns()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
@@ -1840,9 +1850,9 @@ Friends</h2></td></tr>
 
 <p>Image pyramid built by <a class="el" href="#a2f252da4916c2cd784fc7ee48858281d">learnPattern()</a> (one entry per level, up to m_topLayer). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00139">139</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00150">150</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00088">getPyramid()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8h_source.html#l00099">getPyramid()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
@@ -1868,15 +1878,15 @@ Friends</h2></td></tr>
 
 <p>Pyramid depth computed by <a class="el" href="#aba68ced34332b284ff6de5d04f302704">findTopLayer()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00136">136</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__pattern_8h_source.html#l00147">147</a> of file <a class="el" href="match__pattern_8h_source.html">match_pattern.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00277">findTopLayer()</a>, <a class="el" href="match__pattern_8h_source.html#l00091">getTopLayer()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__pattern_8cpp_source.html#l00277">findTopLayer()</a>, <a class="el" href="match__pattern_8h_source.html#l00102">getTopLayer()</a>, and <a class="el" href="match__pattern_8cpp_source.html#l00050">learnPattern()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__pattern_8h_source.html">match_pattern.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__pattern_8h_source.html">match_pattern.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__pattern_8cpp_source.html">match_pattern.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

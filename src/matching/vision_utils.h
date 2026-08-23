@@ -24,9 +24,19 @@
 /// Radians-to-degrees conversion factor (multiply a radian value by this to get degrees).
 #define R2D (180.0 / CV_PI)
 
-/// Static utility bag ("Vision Support Utilities"): OpenCV-based helpers for wide-path image
-/// I/O, contour simplification, PCA orientation, pixel-histogram statistics, and debug drawing
-/// used across the matching pipeline. All members are static; the class is never instantiated.
+/**
+ * @file vision_utils.h
+ * @brief vsu — static utility bag: OpenCV helpers for wide-path image I/O, contour
+ *        simplification, PCA orientation, histogram statistics, and debug drawing.
+ */
+
+/**
+ * @class vsu
+ * @brief Static utility bag ("Vision Support Utilities"): OpenCV-based helpers for wide-path
+ *        image I/O, contour simplification, PCA orientation, pixel-histogram statistics, and
+ *        debug drawing used across the matching pipeline. All members are static; the class is
+ *        never instantiated.
+ */
 class vsu {
 public:
 
@@ -48,13 +58,15 @@ public:
 //     cv::Point center;
 // };
 
-/// Encodes `img` using the codec inferred from `filename`'s extension and writes the result to
-/// a file opened via a wide-character path (works around cv::imwrite's lack of Unicode path
-/// support on Windows).
-/// @param filename destination path (wide string so non-ASCII paths are supported)
-/// @param img image to encode
-/// @param params optional cv::imencode parameters (e.g. JPEG quality)
-/// @return true on success; false if encoding or opening the file for writing fails
+    /**
+     * @brief Encodes `img` using the codec inferred from `filename`'s extension and writes the
+     *        result to a file opened via a wide-character path (works around cv::imwrite's lack
+     *        of Unicode path support on Windows).
+     * @param[in] filename destination path (wide string so non-ASCII paths are supported)
+     * @param[in] img      image to encode
+     * @param[in] params   optional cv::imencode parameters (e.g. JPEG quality)
+     * @return true on success; false if encoding or opening the file for writing fails
+     */
 static bool imwrite_wstring(const std::wstring& filename,
                             const cv::Mat& img,
                             const std::vector<int>& params = std::vector<int>()) {
@@ -82,11 +94,14 @@ static bool imwrite_wstring(const std::wstring& filename,
     return true;
 }
 
-/// Reads and decodes an image from a wide-character path (works around cv::imread's lack of
-/// Unicode path support on Windows): loads the raw file bytes then decodes via cv::imdecode.
-/// @param filename source path (wide string so non-ASCII paths are supported)
-/// @param flags cv::imdecode flags controlling color conversion (default: color)
-/// @return the decoded image, or an empty cv::Mat if the file could not be opened
+    /**
+     * @brief Reads and decodes an image from a wide-character path (works around cv::imread's
+     *        lack of Unicode path support on Windows): loads the raw file bytes then decodes
+     *        via cv::imdecode.
+     * @param[in] filename source path (wide string so non-ASCII paths are supported)
+     * @param[in] flags    cv::imdecode flags controlling color conversion (default: color)
+     * @return the decoded image, or an empty cv::Mat if the file could not be opened
+     */
 static cv::Mat imread_wstring(const std::wstring& filename,
                               int flags = cv::IMREAD_COLOR) {
     // Open the file with the wide string name in binary mode
@@ -105,14 +120,17 @@ static cv::Mat imread_wstring(const std::wstring& filename,
 }
 
 
-/// Simplifies a contour by greedily replacing runs of up to `T` consecutive points with a
-/// single segment whenever every skipped point lies within `tolerance` of that segment
-/// (perpendicular distance), scanning from the farthest candidate neighbor back to the nearest.
-/// @param contour ordered contour points to simplify
-/// @param T maximum look-ahead neighbor count per compression step
-/// @param tolerance max perpendicular distance (pixels) an intermediate point may deviate
-/// @return the simplified point sequence; returns `contour` unchanged if it has fewer than 2
-///         points or T < 2
+    /**
+     * @brief Simplifies a contour by greedily replacing runs of up to `T` consecutive points
+     *        with a single segment whenever every skipped point lies within `tolerance` of that
+     *        segment (perpendicular distance), scanning from the farthest candidate neighbor back
+     *        to the nearest.
+     * @param[in] contour   ordered contour points to simplify
+     * @param[in] T         maximum look-ahead neighbor count per compression step
+     * @param[in] tolerance max perpendicular distance (pixels) an intermediate point may deviate
+     * @return the simplified point sequence; returns `contour` unchanged if it has fewer than 2
+     *         points or T < 2
+     */
 static std::vector<cv::Point> tNeighborSimplify(const std::vector<cv::Point>& contour,
                                                 int T = 5, double tolerance = 2.0) {
     const size_t N = contour.size();
@@ -164,14 +182,17 @@ static std::vector<cv::Point> tNeighborSimplify(const std::vector<cv::Point>& co
     return simplified;
 }
 
-/// Draws an X/Y orientation gizmo (two arrowed axis lines plus a center dot) onto `img` at
-/// `position`, rotated by `angle`; the Y axis is drawn at a fixed 0.8x length ratio vs X.
-/// @param img image to draw onto (modified in place)
-/// @param position gizmo origin, in image pixel coordinates
-/// @param angle rotation of the X axis; interpreted as radians or degrees per `radian`
-/// @param radian true if `angle` is already in radians; false to convert from degrees
-/// @param length X-axis arrow length in pixels (Y axis uses length * 0.8)
-/// @param hookSize arrowhead size fraction passed through to cv::arrowedLine
+    /**
+     * @brief Draws an X/Y orientation gizmo (two arrowed axis lines plus a center dot) onto
+     *        `img` at `position`, rotated by `angle`; the Y axis is drawn at a fixed 0.8x
+     *        length ratio vs X.
+     * @param[in,out] img      image to draw onto (modified in place)
+     * @param[in]     position gizmo origin, in image pixel coordinates
+     * @param[in]     angle    rotation of the X axis; interpreted as radians or degrees per `radian`
+     * @param[in]     radian   true if `angle` is already in radians; false to convert from degrees
+     * @param[in]     length   X-axis arrow length in pixels (Y axis uses length * 0.8)
+     * @param[in]     hookSize arrowhead size fraction passed through to cv::arrowedLine
+     */
 static void drawAxes2Img(cv::Mat& img, cv::Point position, double angle, bool radian, int length, double hookSize = 0.4,
                          cv::Scalar xColour = DEFAULT_COLOR_BLUE, cv::Scalar yColour = DEFAULT_COLOR_RED,
                          cv::Scalar centerColour = DEFAULT_COLOR_YELLOW)  {
@@ -187,11 +208,13 @@ static void drawAxes2Img(cv::Mat& img, cv::Point position, double angle, bool ra
     circle(img, position, 2, centerColour, 2);
 }
 
-/// Runs PCA over `pts` and derives a principal-axis orientation and centroid, as used to
-/// estimate an object's pick angle from its contour points.
-/// @param pts contour/blob points to analyze
-/// @param angleOutput set to the angle (radians) of the first eigenvector via atan2
-/// @param centerOutput set to the PCA mean (centroid) of `pts`
+    /**
+     * @brief Runs PCA over `pts` and derives a principal-axis orientation and centroid, as used
+     *        to estimate an object's pick angle from its contour points.
+     * @param[in]  pts         contour/blob points to analyze
+     * @param[out] angleOutput set to the angle (radians) of the first eigenvector via atan2
+     * @param[out] centerOutput set to the PCA mean (centroid) of `pts`
+     */
 static void computePcaOrientation(const std::vector<cv::Point>& pts, double& angleOutput, cv::Point2f& centerOutput) {
     int sz = static_cast<int>(pts.size());
     cv::Mat data_pts = cv::Mat(sz, 2, CV_64F);
@@ -221,10 +244,12 @@ static void computePcaOrientation(const std::vector<cv::Point>& pts, double& ang
 }
 
 
-/// Computes the median pixel intensity of a single-channel 8-bit image via a 256-bin histogram
-/// running sum.
-/// @param Input single-channel image to analyze (passed by value; not modified)
-/// @return the median intensity bin, or -1.0 if the histogram never reaches half the pixel count
+    /**
+     * @brief Computes the median pixel intensity of a single-channel 8-bit image via a 256-bin
+     *        histogram running sum.
+     * @param[in] Input single-channel image to analyze (passed by value; not modified)
+     * @return the median intensity bin, or -1.0 if the histogram never reaches half the pixel count
+     */
 static double median(cv::Mat Input) {
     double m = (Input.rows*Input.cols) / 2;
     int bin = 0;
@@ -248,12 +273,14 @@ static double median(cv::Mat Input) {
     return med;
 }
 
-/// Crops `sourceImage` to `boxBounding` expanded by `border` pixels on every side, clamped to
-/// the source image bounds.
-/// @param sourceImage image to crop (passed by value)
-/// @param boxBounding region to crop around, before border expansion
-/// @param border pixels added on each side of `boxBounding` before clamping
-/// @return the cropped sub-image (a view into `sourceImage`'s data)
+    /**
+     * @brief Crops `sourceImage` to `boxBounding` expanded by `border` pixels on every side,
+     *        clamped to the source image bounds.
+     * @param[in] sourceImage image to crop (passed by value)
+     * @param[in] boxBounding region to crop around, before border expansion
+     * @param[in] border      pixels added on each side of `boxBounding` before clamping
+     * @return the cropped sub-image (a view into `sourceImage`'s data)
+     */
 static cv::Mat cropImageWithBorderOffset(cv::Mat sourceImage, cv::Rect boxBounding,int border) {
     cv::Mat outputMat;
     int minOffset_X, maxOffset_X;
@@ -289,17 +316,17 @@ static cv::Mat cropImageWithBorderOffset(cv::Mat sourceImage, cv::Rect boxBoundi
     return outputMat;
 }
 
-/// Binarizes a source image the same way ImageMatcher does before contour/area pre-filtering:
-/// grayscale -> 5x5 Gaussian blur -> threshold (THRESH_BINARY).
-/// @param src source image (BGR, BGRA, or already single-channel)
-/// @param threshold < 0 selects automatic Otsu thresholding (current engine behaviour);
-///        0..255 uses that fixed manual value
-/// @param maxValue cv::threshold maxval (intensity assigned above threshold); applies in both
-///        auto and manual modes
-/// @param usedThreshold optional out-param receiving the value actually applied (the
-///        Otsu-computed value in auto mode). Kept here so the patterns-widget binary preview
-///        matches what the matcher would compute.
-/// @return the binary image, or an empty cv::Mat if `src` is empty
+    /**
+     * @brief Binarizes a source image the same way ImageMatcher does before contour/area
+     *        pre-filtering: grayscale → 5x5 Gaussian blur → threshold (THRESH_BINARY).
+     * @param[in]  src            source image (BGR, BGRA, or already single-channel)
+     * @param[in]  threshold      < 0 selects automatic Otsu thresholding; 0..255 uses that
+     *                            fixed manual value
+     * @param[in]  maxValue       cv::threshold maxval (intensity assigned above threshold)
+     * @param[out] usedThreshold  optional; receives the value actually applied (the
+     *                            Otsu-computed value in auto mode)
+     * @return the binary image, or an empty cv::Mat if `src` is empty
+     */
 static cv::Mat binarizeSourceImage(const cv::Mat& src, int threshold = -1,
                                    int maxValue = 255, double* usedThreshold = nullptr) {
     if (src.empty()) return cv::Mat();
@@ -327,11 +354,13 @@ static cv::Mat binarizeSourceImage(const cv::Mat& src, int threshold = -1,
     return binary;
 }
 
-/// Draws the 4 edges of a rotated rectangle (e.g. a picking box) onto `matSrc` as thin
-/// anti-aliased lines.
-/// @param matSrc image to draw onto (modified in place)
-/// @param rectRot rotated rectangle whose 4 corners are connected
-/// @param color line color
+    /**
+     * @brief Draws the 4 edges of a rotated rectangle (e.g. a picking box) onto `matSrc` as
+     *        thin anti-aliased lines.
+     * @param[in,out] matSrc  image to draw onto (modified in place)
+     * @param[in]     rectRot rotated rectangle whose 4 corners are connected
+     * @param[in]     color   line color
+     */
 static void drawPickingBox(cv::Mat& matSrc, cv::RotatedRect rectRot, cv::Scalar color) {
     cv::Point2f vertices2f[4];
     rectRot.points(vertices2f);

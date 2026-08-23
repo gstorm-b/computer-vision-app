@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_device_n
 </div><!--header-->
 <div class="contents">
 
+<p>A single clickable device entry (icon + name + short type label + connect-status dot) in a device navigation list. Style properties ("deviceType", "navActive") and the indicator dot's "lampState" drive QSS; <a class="el" href="#a904e714f81e3ef65eaf1981b384bfb0a">setDevice()</a> keeps it in sync with an <a class="el" href="classvc_1_1device_1_1_i_device.html" title="Abstract base for every device family (camera/PLC/vision-output/robot): owns the device&#39;s id/name/tas...">vc::device::IDevice</a> snapshot.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for DeviceNavItemWidget:</div>
@@ -144,6 +147,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3c93d8de4c1068e6b85f1e16172a3793" id="r_a3c93d8de4c1068e6b85f1e16172a3793"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a3c93d8de4c1068e6b85f1e16172a3793">deviceName</a> () const</td></tr>
 <tr class="memdesc:a3c93d8de4c1068e6b85f1e16172a3793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current device-name label text, or an empty string if the label doesn't exist yet.  <br /></td></tr>
 <tr class="memitem:a8b1c949b6b681bb1cdce0421f5fff8c6" id="r_a8b1c949b6b681bb1cdce0421f5fff8c6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8b1c949b6b681bb1cdce0421f5fff8c6">DeviceNavItemWidget</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a8b1c949b6b681bb1cdce0421f5fff8c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the icon/name/type layout, applies default device type, unselected state, and "off" indicator, and re-applies the current icon on theme changes.  <br /></td></tr>
 <tr class="memitem:aaefc3ac065ce61cf6a2f745e4c1f480a" id="r_aaefc3ac065ce61cf6a2f745e4c1f480a"><td class="memItemLeft"><a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">vc::device::DeviceType</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaefc3ac065ce61cf6a2f745e4c1f480a">deviceType</a> () const</td></tr>
 <tr class="memdesc:aaefc3ac065ce61cf6a2f745e4c1f480a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the device type set via <a class="el" href="#a47365b920c13fc4bbf2bc1a10d072e78">setDeviceType()</a>/setDevice().  <br /></td></tr>
 <tr class="memitem:a5e3a08892d5bae75193e35ee812dc4a3" id="r_a5e3a08892d5bae75193e35ee812dc4a3"><td class="memItemLeft"><a class="el" href="class_device_nav_dot.html">DeviceNavDot</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a5e3a08892d5bae75193e35ee812dc4a3">indicatorDot</a> () const</td></tr>
@@ -161,7 +165,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac5cc0a8e5e54e0e7eec9dd68ba9fa228"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the visible device-name label text; no-op if unchanged or before <a class="el" href="#af1c5a9d430ddbbf1fecfa0bae0bd6483">initUi()</a>.  <br /></td></tr>
 <tr class="memitem:a47365b920c13fc4bbf2bc1a10d072e78" id="r_a47365b920c13fc4bbf2bc1a10d072e78"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a47365b920c13fc4bbf2bc1a10d072e78">setDeviceType</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">vc::device::DeviceType</a> type)</td></tr>
 <tr class="memitem:ae500e4b2cbbee636e156cfebb2729ba3" id="r_ae500e4b2cbbee636e156cfebb2729ba3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae500e4b2cbbee636e156cfebb2729ba3">setIcon</a> (const QIcon &amp;icon, const QSize &amp;size=QSize(14, 14))</td></tr>
+<tr class="memdesc:ae500e4b2cbbee636e156cfebb2729ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the device icon rendered at <span class="tt">size</span> (falls back to 14x14 when invalid); clears the icon label when <span class="tt">icon</span> is null.  <br /></td></tr>
 <tr class="memitem:abf0b63a7c0d28c5f19f8839079a418ad" id="r_abf0b63a7c0d28c5f19f8839079a418ad"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abf0b63a7c0d28c5f19f8839079a418ad">setIconPath</a> (const QString &amp;iconPath, const QSize &amp;size=QSize(14, 14))</td></tr>
+<tr class="memdesc:abf0b63a7c0d28c5f19f8839079a418ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads an SVG icon from <span class="tt">iconPath</span> and applies it via <a class="el" href="#ae500e4b2cbbee636e156cfebb2729ba3" title="Sets the device icon rendered at size (falls back to 14x14 when invalid); clears the icon label when ...">setIcon()</a>; remembers <span class="tt">iconPath</span>/<span class="tt">size</span> so the icon can be re-rendered on theme changes. Clears the icon when <span class="tt">iconPath</span> is empty.  <br /></td></tr>
 <tr class="memitem:ad8f398ed445f2bbb8680527b96df0f85" id="r_ad8f398ed445f2bbb8680527b96df0f85"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad8f398ed445f2bbb8680527b96df0f85">setIndicatorState</a> (const QString &amp;state)</td></tr>
 <tr class="memitem:a7bac6ba59aef782b857edbc5ba30c02b" id="r_a7bac6ba59aef782b857edbc5ba30c02b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7bac6ba59aef782b857edbc5ba30c02b">setSelected</a> (bool selected)</td></tr>
 <tr class="memitem:a22e8352dae18642a3d4a946731cc3f30" id="r_a22e8352dae18642a3d4a946731cc3f30"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a22e8352dae18642a3d4a946731cc3f30">setTypeLabelText</a> (const QString &amp;text)</td></tr>
@@ -195,7 +201,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:af85977e8bc86c7c1db6bb9baadab2fb6" id="r_af85977e8bc86c7c1db6bb9baadab2fb6"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#af85977e8bc86c7c1db6bb9baadab2fb6">m_iconLabel</a> {nullptr}</td></tr>
 <tr class="memdesc:af85977e8bc86c7c1db6bb9baadab2fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the device icon.  <br /></td></tr>
 <tr class="memitem:ac44fd7962feff2ef458dbcad0464a068" id="r_ac44fd7962feff2ef458dbcad0464a068"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac44fd7962feff2ef458dbcad0464a068">m_iconPath</a></td></tr>
-<tr class="memdesc:ac44fd7962feff2ef458dbcad0464a068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource path of the last icon set via <a class="el" href="#abf0b63a7c0d28c5f19f8839079a418ad">setIconPath()</a>; re-applied on theme change.  <br /></td></tr>
+<tr class="memdesc:ac44fd7962feff2ef458dbcad0464a068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resource path of the last icon set via <a class="el" href="#abf0b63a7c0d28c5f19f8839079a418ad" title="Loads an SVG icon from iconPath and applies it via setIcon(); remembers iconPath/size so the icon can...">setIconPath()</a>; re-applied on theme change.  <br /></td></tr>
 <tr class="memitem:ac5e05342fca511bc36239421f0099a9a" id="r_ac5e05342fca511bc36239421f0099a9a"><td class="memItemLeft">QSize&#160;</td><td class="memItemRight"><a class="el" href="#ac5e05342fca511bc36239421f0099a9a">m_iconSize</a> {14, 14}</td></tr>
 <tr class="memdesc:ac5e05342fca511bc36239421f0099a9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Size the icon is rendered at; set alongside m_iconPath.  <br /></td></tr>
 <tr class="memitem:a8472a008019e6dfdd07cc13f42792250" id="r_a8472a008019e6dfdd07cc13f42792250"><td class="memItemLeft"><a class="el" href="class_device_nav_dot.html">DeviceNavDot</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a8472a008019e6dfdd07cc13f42792250">m_indicatorDot</a> {nullptr}</td></tr>
@@ -208,9 +214,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a9dba97475ba8b4a642bc1736f6918697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the short device-type text.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A single clickable device entry (icon + name + short type label + connect-status dot) in a device navigation list. Style properties ("deviceType", "navActive") and the indicator dot's "lampState" drive QSS; <a class="el" href="#a904e714f81e3ef65eaf1981b384bfb0a">setDevice()</a> keeps it in sync with an <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a> snapshot. </p>
+<div class="textblock"><p>A single clickable device entry (icon + name + short type label + connect-status dot) in a device navigation list. Style properties ("deviceType", "navActive") and the indicator dot's "lampState" drive QSS; <a class="el" href="#a904e714f81e3ef65eaf1981b384bfb0a">setDevice()</a> keeps it in sync with an <a class="el" href="classvc_1_1device_1_1_i_device.html" title="Abstract base for every device family (camera/PLC/vision-output/robot): owns the device&#39;s id/name/tas...">vc::device::IDevice</a> snapshot. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00020">20</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00029">29</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8b1c949b6b681bb1cdce0421f5fff8c6" name="a8b1c949b6b681bb1cdce0421f5fff8c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8b1c949b6b681bb1cdce0421f5fff8c6">&#9670;&#160;</a></span>DeviceNavItemWidget()</h2>
@@ -234,11 +240,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Builds the icon/name/type layout, applies default device type, unselected state, and "off" indicator, and re-applies the current icon on theme changes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Owning widget; standard Qt parent/child ownership.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Builds the icon/name/type layout, applies default device type, unselected state, and "off" indicator, and re-applies the current icon on theme changes. </p>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">51</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8cpp_source.html#l00319">initUi()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00111">m_iconPath</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00112">m_iconSize</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00150">setIconPath()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00180">setIndicatorState()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00162">setSelected()</a>, <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>, and <a class="el" href="idevice__config_8h_source.html#l00052">vc::device::UserType</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8cpp_source.html#l00319">initUi()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00131">m_iconPath</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00132">m_iconSize</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00150">setIconPath()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00180">setIndicatorState()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00162">setSelected()</a>, <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>, and <a class="el" href="idevice__config_8h_source.html#l00059">vc::device::UserType</a>.</p>
 
 </div>
 </div>
@@ -301,7 +315,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00272">272</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00056">vc::device::Robot</a>, <a class="el" href="idevice__config_8h_source.html#l00052">vc::device::UserType</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00063">vc::device::Robot</a>, <a class="el" href="idevice__config_8h_source.html#l00059">vc::device::UserType</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>.</p>
 
@@ -334,7 +348,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00254">254</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00056">vc::device::Robot</a>, <a class="el" href="idevice__config_8h_source.html#l00052">vc::device::UserType</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00063">vc::device::Robot</a>, <a class="el" href="idevice__config_8h_source.html#l00059">vc::device::UserType</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00115">setTypeLabelText()</a>.</p>
 
@@ -359,7 +373,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00076">76</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00110">m_deviceId</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00130">m_deviceId</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="#ac900db87f025b649e9b2cfd9a2365604">activated()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00067">setDeviceId()</a>.</p>
 
@@ -384,7 +398,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00091">91</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00116">m_nameLabel</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00136">m_nameLabel</a>.</p>
 
 </div>
 </div>
@@ -407,7 +421,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00108">108</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00113">m_deviceType</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00133">m_deviceType</a>.</p>
 
 </div>
 </div>
@@ -430,7 +444,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00221">221</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00118">m_indicatorDot</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00138">m_indicatorDot</a>.</p>
 
 </div>
 </div>
@@ -452,7 +466,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00195">195</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00118">m_indicatorDot</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00138">m_indicatorDot</a>.</p>
 
 </div>
 </div>
@@ -482,7 +496,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00291">291</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00026">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00028">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00029">vc::device::Connecting</a>, <a class="el" href="idevice_8h_source.html#l00025">vc::device::Disconnected</a>, <a class="el" href="idevice_8h_source.html#l00027">vc::device::LostConnected</a>, and <a class="el" href="idevice_8h_source.html#l00024">vc::device::NoConnection</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00036">vc::device::Connecting</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, and <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00202">setConnectStatus()</a>.</p>
 
@@ -514,7 +528,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00319">319</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00115">m_iconLabel</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00118">m_indicatorDot</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00116">m_nameLabel</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00117">m_typeLabel</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00135">m_iconLabel</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00138">m_indicatorDot</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00136">m_nameLabel</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00137">m_typeLabel</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget()</a>.</p>
 
@@ -539,7 +553,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00173">173</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00114">m_selected</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00134">m_selected</a>.</p>
 
 </div>
 </div>
@@ -569,7 +583,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00309">309</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#ac900db87f025b649e9b2cfd9a2365604">activated()</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00110">m_deviceId</a>.</p>
+<p class="reference">References <a class="el" href="#ac900db87f025b649e9b2cfd9a2365604">activated()</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00130">m_deviceId</a>.</p>
 
 </div>
 </div>
@@ -591,7 +605,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00228">228</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00116">m_nameLabel</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00117">m_typeLabel</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00136">m_nameLabel</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00137">m_typeLabel</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00162">setSelected()</a>.</p>
 
@@ -624,7 +638,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00236">236</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>, <a class="el" href="idevice__config_8h_source.html#l00054">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00056">vc::device::Robot</a>, <a class="el" href="idevice__config_8h_source.html#l00052">vc::device::UserType</a>, and <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="idevice__config_8h_source.html#l00063">vc::device::Robot</a>, <a class="el" href="idevice__config_8h_source.html#l00059">vc::device::UserType</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00801">LocalizationTaskWidget::onAssignedDeviceModified()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00708">LocalizationTaskWidget::showDeviceConfigPage()</a>.</p>
 
@@ -696,7 +710,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00067">67</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8cpp_source.html#l00076">deviceId()</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00110">m_deviceId</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8cpp_source.html#l00076">deviceId()</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00130">m_deviceId</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00209">setDevice()</a>.</p>
 
@@ -721,7 +735,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00082">82</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00116">m_nameLabel</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00136">m_nameLabel</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00209">setDevice()</a>.</p>
 
@@ -745,7 +759,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">98</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8cpp_source.html#l00272">defaultIconPathFor()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00254">defaultTypeLabelFor()</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00113">m_deviceType</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00228">refreshStyle()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00236">roleForDeviceType()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00150">setIconPath()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00115">setTypeLabelText()</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8cpp_source.html#l00272">defaultIconPathFor()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00254">defaultTypeLabelFor()</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00133">m_deviceType</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00228">refreshStyle()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00236">roleForDeviceType()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00150">setIconPath()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00115">setTypeLabelText()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00209">setDevice()</a>.</p>
 
@@ -769,11 +783,20 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Sets the device icon rendered at <span class="tt">size</span> (falls back to 14x14 when invalid); clears the icon label when <span class="tt">icon</span> is null. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">icon</td><td>Icon to display; a null icon clears the icon label. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Render size; falls back to 14x14 when invalid.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Sets the device icon rendered at <span class="tt">size</span> (falls back to 14x14 when invalid); clears the icon label when <span class="tt">icon</span> is null. </p>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00134">134</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00115">m_iconLabel</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00112">m_iconSize</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00135">m_iconLabel</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00132">m_iconSize</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00150">setIconPath()</a>.</p>
 
@@ -797,11 +820,20 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Loads an SVG icon from <span class="tt">iconPath</span> and applies it via <a class="el" href="#ae500e4b2cbbee636e156cfebb2729ba3">setIcon()</a>; remembers <span class="tt">iconPath</span>/<span class="tt">size</span> so the icon can be re-rendered on theme changes. Clears the icon when <span class="tt">iconPath</span> is empty. </p>
+
+<p>Loads an SVG icon from <span class="tt">iconPath</span> and applies it via <a class="el" href="#ae500e4b2cbbee636e156cfebb2729ba3" title="Sets the device icon rendered at size (falls back to 14x14 when invalid); clears the icon label when ...">setIcon()</a>; remembers <span class="tt">iconPath</span>/<span class="tt">size</span> so the icon can be re-rendered on theme changes. Clears the icon when <span class="tt">iconPath</span> is empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">iconPath</td><td>Qt resource path to an SVG icon; empty clears the icon. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>Render size; falls back to 14x14 when invalid.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Loads an SVG icon from <span class="tt">iconPath</span> and applies it via <a class="el" href="#ae500e4b2cbbee636e156cfebb2729ba3" title="Sets the device icon rendered at size (falls back to 14x14 when invalid); clears the icon label when ...">setIcon()</a>; remembers <span class="tt">iconPath</span>/<span class="tt">size</span> so the icon can be re-rendered on theme changes. Clears the icon when <span class="tt">iconPath</span> is empty. </p>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00150">150</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00111">m_iconPath</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00134">setIcon()</a>, and <a class="el" href="windows__helper_8h_source.html#l00179">svgIcon()</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00131">m_iconPath</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00134">setIcon()</a>, and <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>.</p>
 
@@ -825,7 +857,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00180">180</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00118">m_indicatorDot</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00138">m_indicatorDot</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00202">setConnectStatus()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00572">LocalizationTaskWidget::wireDeviceNavDots()</a>.</p>
 
@@ -849,7 +881,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00162">162</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00114">m_selected</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00228">refreshStyle()</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00134">m_selected</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00228">refreshStyle()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00771">LocalizationTaskWidget::refreshNavItemStyles()</a>.</p>
 
@@ -873,7 +905,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00115">115</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8cpp_source.html#l00254">defaultTypeLabelFor()</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00113">m_deviceType</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00117">m_typeLabel</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8cpp_source.html#l00254">defaultTypeLabelFor()</a>, <a class="el" href="device__nav__item__widget_8h_source.html#l00133">m_deviceType</a>, and <a class="el" href="device__nav__item__widget_8h_source.html#l00137">m_typeLabel</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>.</p>
 
@@ -898,7 +930,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8cpp_source.html#l00127">127</a> of file <a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00117">m_typeLabel</a>.</p>
+<p class="reference">References <a class="el" href="device__nav__item__widget_8h_source.html#l00137">m_typeLabel</a>.</p>
 
 </div>
 </div>
@@ -925,7 +957,7 @@ Private Attributes</h2></td></tr>
 
 <p>Device id set via <a class="el" href="#ae16cebba4fa18bd5422891e428d8be0f" title="Sets the device id (mirrored into the &quot;deviceId&quot; property); no-op if unchanged.">setDeviceId()</a>/setDevice(); emitted by <a class="el" href="#ac900db87f025b649e9b2cfd9a2365604" title="Emitted with this item&#39;s device id when the item is left-clicked.">activated()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00110">110</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00130">130</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00076">deviceId()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00309">mousePressEvent()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00067">setDeviceId()</a>.</p>
 
@@ -953,7 +985,7 @@ Private Attributes</h2></td></tr>
 
 <p>Device type set via <a class="el" href="#a47365b920c13fc4bbf2bc1a10d072e78">setDeviceType()</a>/setDevice(). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00113">113</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00133">133</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00108">deviceType()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00098">setDeviceType()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00115">setTypeLabelText()</a>.</p>
 
@@ -981,7 +1013,7 @@ Private Attributes</h2></td></tr>
 
 <p>Displays the device icon. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00115">115</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00135">135</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00319">initUi()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00134">setIcon()</a>.</p>
 
@@ -1007,9 +1039,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Resource path of the last icon set via <a class="el" href="#abf0b63a7c0d28c5f19f8839079a418ad">setIconPath()</a>; re-applied on theme change. </p>
+<p>Resource path of the last icon set via <a class="el" href="#abf0b63a7c0d28c5f19f8839079a418ad" title="Loads an SVG icon from iconPath and applies it via setIcon(); remembers iconPath/size so the icon can...">setIconPath()</a>; re-applied on theme change. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00111">111</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00131">131</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00150">setIconPath()</a>.</p>
 
@@ -1037,7 +1069,7 @@ Private Attributes</h2></td></tr>
 
 <p>Size the icon is rendered at; set alongside m_iconPath. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00112">112</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00132">132</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00051">DeviceNavItemWidget()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00134">setIcon()</a>.</p>
 
@@ -1065,7 +1097,7 @@ Private Attributes</h2></td></tr>
 
 <p>Small connect-status dot overlaid on the icon. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00118">118</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00138">138</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00221">indicatorDot()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00195">indicatorState()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00319">initUi()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00180">setIndicatorState()</a>.</p>
 
@@ -1093,7 +1125,7 @@ Private Attributes</h2></td></tr>
 
 <p>Displays the device name. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00116">116</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00136">136</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00091">deviceName()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00319">initUi()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00228">refreshStyle()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00082">setDeviceName()</a>.</p>
 
@@ -1121,7 +1153,7 @@ Private Attributes</h2></td></tr>
 
 <p>Whether setSelected(true) was last called. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00114">114</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00134">134</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00173">isSelected()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00162">setSelected()</a>.</p>
 
@@ -1149,15 +1181,15 @@ Private Attributes</h2></td></tr>
 
 <p>Displays the short device-type text. </p>
 
-<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00117">117</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__nav__item__widget_8h_source.html#l00137">137</a> of file <a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__nav__item__widget_8cpp_source.html#l00319">initUi()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00228">refreshStyle()</a>, <a class="el" href="device__nav__item__widget_8cpp_source.html#l00115">setTypeLabelText()</a>, and <a class="el" href="device__nav__item__widget_8cpp_source.html#l00127">typeLabelText()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/controls/<a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/controls/<a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/controls/<a class="el" href="device__nav__item__widget_8h_source.html">device_nav_item_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/controls/<a class="el" href="device__nav__item__widget_8cpp_source.html">device_nav_item_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

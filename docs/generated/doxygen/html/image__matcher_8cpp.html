@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -142,7 +142,7 @@ Include dependency graph for image_matcher.cpp:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:mtc" id="r_mtc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html">mtc</a></td></tr>
-<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html">utils_block_max.h</a>). <br /></td></tr>
+<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html" title="MatchBlock/BlockMax — block-partitioned max-value search helper used to enumerate multiple local maxi...">utils_block_max.h</a>). <br /></td></tr>
 <tr class="memitem:mtc_3A_3Aanonymous_5Fnamespace_7Bimage_5Fmatcher_2Ecpp_7D" id="r_mtc_3A_3Aanonymous_5Fnamespace_7Bimage_5Fmatcher_2Ecpp_7D"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacemtc_1_1anonymous__namespace_02image__matcher_8cpp_03.html">mtc::anonymous_namespace{image_matcher.cpp}</a></td></tr>
 <tr class="memdesc:namespacemtc_1_1anonymous__namespace_02image__matcher_8cpp_03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Anonymous-namespace helpers for sortMatchedObjects() below. <br /></td></tr>
 </table><table class="memberdecls">
@@ -161,7 +161,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a75c6aa1b2f46d008254b1c8c533f4875" id="r_a75c6aa1b2f46d008254b1c8c533f4875"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html#a75c6aa1b2f46d008254b1c8c533f4875">mtc::clearImageBorder</a> (Mat &amp;image, int offset)</td></tr>
 <tr class="memitem:a4d1a2c334cf1a70c8627b0e5d910a703" id="r_a4d1a2c334cf1a70c8627b0e5d910a703"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html#a4d1a2c334cf1a70c8627b0e5d910a703">mtc::comparePtWithAngle</a> (const pair&lt; Point2f, double &gt; lhs, const pair&lt; Point2f, double &gt; rhs)</td></tr>
 <tr class="memitem:a7d9ac27d952cd5bb65d390325f788cfa" id="r_a7d9ac27d952cd5bb65d390325f788cfa"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html#a7d9ac27d952cd5bb65d390325f788cfa">mtc::compareScoreBig2Small</a> (const <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> &amp;lhs, const <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> &amp;rhs)</td></tr>
-<tr class="memdesc:a7d9ac27d952cd5bb65d390325f788cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort predicate ordering <a class="el" href="classmtc_1_1_match_params.html">MatchParams</a> by descending match score (best first).  <br /></td></tr>
+<tr class="memdesc:a7d9ac27d952cd5bb65d390325f788cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sort predicate ordering <a class="el" href="classmtc_1_1_match_params.html" title="Result data for a single match candidate produced during pattern search: its location/score/angle,...">MatchParams</a> by descending match score (best first).  <br /></td></tr>
 <tr class="memitem:af88c6f4d9537a7938044396b1e076ac8" id="r_af88c6f4d9537a7938044396b1e076ac8"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html#af88c6f4d9537a7938044396b1e076ac8">mtc::edge_template_match_simd_omp</a> (const float *iSx, const float *iSy, const float *iTx, const float *iTy, const float *SMag, const float *TMag, int length)</td></tr>
 <tr class="memitem:ad3908560c59723ee406acae1b089779d" id="r_ad3908560c59723ee406acae1b089779d"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html#ad3908560c59723ee406acae1b089779d">mtc::IM_Conv_SIMD</a> (unsigned char *pCharKernel, unsigned char *pCharConv, int iLength)</td></tr>
 <tr class="memitem:a83ccbedc7ccac776ffbd03b9a11b2ea3" id="r_a83ccbedc7ccac776ffbd03b9a11b2ea3"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacemtc_1_1anonymous__namespace_02image__matcher_8cpp_03.html#a83ccbedc7ccac776ffbd03b9a11b2ea3">mtc::anonymous_namespace{image_matcher.cpp}::pickPriority</a> (const <a class="el" href="classmtc_1_1_matched_object.html">MatchedObject</a> &amp;obj)</td></tr>

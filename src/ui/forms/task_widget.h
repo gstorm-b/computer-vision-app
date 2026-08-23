@@ -21,23 +21,30 @@
 
 #include "model/itask.h"
 
-/// Base class for all task-configuration widgets.
-///
-/// Property browser setup
-/// ─────────────────────
-/// Call initPropertyBrowser(container) once in the subclass constructor.
-/// This creates a PropertyBrowserWidget (search + tree + description) and
-/// embeds it in `container`.
-///
-/// The three low-level pointers (m_variantManager, m_variantFactory,
-/// m_variantEditor) are kept for backward compatibility with existing code
-/// that accesses them directly.  New code should prefer m_propBrowser.
-///
-/// Completer on a string property
-/// ───────────────────────────────
-///   auto *p = m_variantManager->addProperty(QMetaType::QString, "Tag");
-///   m_variantManager->setAttribute(p, "completer",
-///                                  QStringList{"alpha", "beta", "gamma"});
+/**
+ * @file task_widget.h
+ * @brief ITaskWidget — base class for all task-configuration widgets.
+ */
+
+/**
+ * @class ITaskWidget
+ * @brief Base class for all task-configuration widgets.
+ *
+ * Property browser setup: call initPropertyBrowser(container) once in the subclass
+ * constructor. This creates a PropertyBrowserWidget (search + tree + description) and
+ * embeds it in @p container.
+ *
+ * The three low-level pointers (m_variantManager, m_variantFactory, m_variantEditor) are
+ * kept for backward compatibility with existing code that accesses them directly; new code
+ * should prefer m_propBrowser.
+ *
+ * @code
+ * // Completer on a string property
+ * auto *p = m_variantManager->addProperty(QMetaType::QString, "Tag");
+ * m_variantManager->setAttribute(p, "completer",
+ *                                QStringList{"alpha", "beta", "gamma"});
+ * @endcode
+ */
 class ITaskWidget : public QWidget {
     Q_OBJECT
 
@@ -59,11 +66,13 @@ public:
 
 protected:
     // ── Theme reload ──────────────────────────────────────────────────────
-    /// Call once from the subclass constructor when the widget has a per-form
-    /// QSS pair. Stores the paths, triggers an initial load, and subscribes
-    /// to ThemeManager::themeChanged for subsequent switches.
-    /// @param darkPath resource path to the dark-theme QSS file
-    /// @param lightPath resource path to the light-theme QSS file
+    /**
+     * @brief Call once from the subclass constructor when the widget has a per-form
+     *        QSS pair. Stores the paths, triggers an initial load, and subscribes
+     *        to ThemeManager::themeChanged for subsequent switches.
+     * @param[in] darkPath resource path to the dark-theme QSS file
+     * @param[in] lightPath resource path to the light-theme QSS file
+     */
     void setupThemeReload(const QString &darkPath, const QString &lightPath) {
         m_darkQssPath  = darkPath;
         m_lightQssPath = lightPath;
@@ -86,10 +95,12 @@ protected:
     }
 
     // ── Initialization ────────────────────────────────────────────────────
-    /// Creates the PropertyBrowserWidget (m_propBrowser) and its manager/
-    /// factory/editor pointers, then embeds it into `container` via
-    /// embedBrowserInWidget(). No-op if `container` is null.
-    /// @param container widget to host the property browser
+    /**
+     * @brief Creates the PropertyBrowserWidget (m_propBrowser) and its manager/
+     *        factory/editor pointers, then embeds it into @p container via
+     *        embedBrowserInWidget(). No-op if @p container is null.
+     * @param[in] container widget to host the property browser
+     */
     void initPropertyBrowser(QWidget *container) {
         if (container == nullptr) {
             return;
@@ -104,9 +115,11 @@ protected:
         if (container) embedBrowserInWidget(container);
     }
 
-    /// Embeds m_propBrowser into `container` via a zero-margin QHBoxLayout.
-    /// No-op if `container` is null.
-    /// @param container widget to host the property browser
+    /**
+     * @brief Embeds m_propBrowser into @p container via a zero-margin QHBoxLayout.
+     *        No-op if @p container is null.
+     * @param[in] container widget to host the property browser
+     */
     void embedBrowserInWidget(QWidget *container) {
         if (container == nullptr) {
             return;
@@ -133,6 +146,16 @@ protected:
     /// first (and appending it to m_propertyBrowserWidgets) if it isn't
     /// already tracked.
     void changePropertyBrowserWidget(PropertyBrowserWidget *wg) {
+        // A device widget is not obliged to own a property browser — IDeviceWidget's
+        // getPropertyBrowser() returns nullptr until initPropertyBrowser() is called, and
+        // nothing forces a subclass to call it. Passing that nullptr straight through put it
+        // into QStackedWidget::addWidget(), which crashes. Fall back to the shared default
+        // browser instead: an empty panel is a correct answer, a crash is not.
+        if (wg == nullptr) {
+            changePropertyBrowserDefault();
+            return;
+        }
+
         if (!m_propertyBrowserWidgets.contains(wg)) {
             m_propertyBrowserWidgets.append(wg);
             m_browserStackWidget->addWidget(wg);
@@ -165,23 +188,29 @@ protected:
     }
 
     // ── Reflection helper ─────────────────────────────────────────────────
-    /// Introspects a QMetaProperty and creates the matching QtVariantProperty:
-    /// builds an enum property (with translated enum names) for enum-typed
-    /// properties, otherwise a plain value property; applies display name,
-    /// numeric min/max, and tooltip from Q_CLASSINFO entries named
-    /// `<prop>_name` / `<prop>_min` / `<prop>_max` / `<prop>_desc`; disables
-    /// the property when the QMetaProperty isn't writable; adds it to
-    /// `browser` if given. The `objectName` property is always skipped.
-    /// Reads min/max/name from Q_CLASSINFO entries:
-    ///   Q_CLASSINFO("speed_min", "0")
-    ///   Q_CLASSINFO("speed_max", "100")
-    ///   Q_CLASSINFO("speed_name", "Speed (m/s)")
-    /// @param meta meta-object of the class owning `prop` (used for QMetaEnum/Q_CLASSINFO lookups)
-    /// @param prop the reflected property to build an editor for
-    /// @param value the property's current value
-    /// @param manager QtVariantPropertyManager used to create the property
-    /// @param browser optional tree browser to add the created property to
-    /// @return the created QtVariantProperty, or nullptr if creation failed or the property is `objectName`
+    /**
+     * @brief Introspects a QMetaProperty and creates the matching QtVariantProperty: builds
+     *        an enum property (with translated enum names) for enum-typed properties,
+     *        otherwise a plain value property; applies display name, numeric min/max, and
+     *        tooltip from Q_CLASSINFO entries named `<prop>_name` / `<prop>_min` /
+     *        `<prop>_max` / `<prop>_desc`; disables the property when the QMetaProperty isn't
+     *        writable; adds it to @p browser if given. The `objectName` property is always
+     *        skipped.
+     *
+     * Reads min/max/name from Q_CLASSINFO entries:
+     * @code
+     * Q_CLASSINFO("speed_min", "0")
+     * Q_CLASSINFO("speed_max", "100")
+     * Q_CLASSINFO("speed_name", "Speed (m/s)")
+     * @endcode
+     *
+     * @param[in] meta meta-object of the class owning @p prop (used for QMetaEnum/Q_CLASSINFO lookups)
+     * @param[in] prop the reflected property to build an editor for
+     * @param[in] value the property's current value
+     * @param[in] manager QtVariantPropertyManager used to create the property
+     * @param[in] browser optional tree browser to add the created property to
+     * @return the created QtVariantProperty, or nullptr if creation failed or the property is `objectName`
+     */
     static QtVariantProperty *addPropertyToBrowser(
             const QMetaObject        &meta,
             QMetaProperty            &prop,

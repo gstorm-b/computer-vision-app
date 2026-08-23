@@ -1,21 +1,33 @@
 #ifndef PLC_RUNNER_H
 #define PLC_RUNNER_H
 
+/**
+ * @file plc_runner.h
+ * @brief PlcRunner — family-level thread runner for PLC devices, mediating GUI-thread
+ *        commission requests and runtime polling updates across the PLC device's worker thread.
+ */
+
 #include "runtime/device_runner.h"
 #include "device/device_capabilities.h"
 #include "device/plc/plc_device.h"
 
 namespace vc::runtime {
 
-/// Family-level runner for the PLC device family; holds a PlcDevice* (the abstract base) so the
-/// runner stays sub-type-agnostic. Vendor-specific consumers reach the concrete device via
-/// `qobject_cast<McProtocolDevice *>(runner->typedDevice())` and connect to the device's vendor
-/// signals directly (cross-thread queued). Mirrors CameraRunner / VisionOutputRunner: one flat
-/// runner per family, no per-vendor subclass.
-/// @note Commission mode: requestConnect() / requestDisconnect() from the GUI thread are queued
-/// to the PLC thread; connection status comes back via connectStatusChanged().
-/// @note Runtime mode: the concrete PLC device runs its own polling loop on its thread; the task
-/// runtime thread listens to pollingUpdate() forwarded here.
+/**
+ * @class PlcRunner
+ * @brief Family-level runner for the PLC device family; holds a PlcDevice* (the abstract base)
+ *        so the runner stays sub-type-agnostic.
+ *
+ * Vendor-specific consumers reach the concrete device via
+ * `qobject_cast<McProtocolDevice *>(runner->typedDevice())` and connect to the device's vendor
+ * signals directly (cross-thread queued). Mirrors CameraRunner / VisionOutputRunner: one flat
+ * runner per family, no per-vendor subclass.
+ *
+ * @note Commission mode: requestConnect() / requestDisconnect() from the GUI thread are queued
+ *       to the PLC thread; connection status comes back via connectStatusChanged().
+ * @note Runtime mode: the concrete PLC device runs its own polling loop on its thread; the task
+ *       runtime thread listens to pollingUpdate() forwarded here.
+ */
 class PlcRunner : public DeviceRunner<vc::device::PlcDevice> {
     Q_OBJECT
 
@@ -45,10 +57,17 @@ public:
 
 signals:
     // ── Family-level signals forwarded from PLC thread ────────────────────────
-    /// Emitted with the latest polled PLC value map, forwarded from the device's own
-    /// pollingUpdate() signal.
+    /**
+     * @brief Emitted with the latest polled PLC value map, forwarded from the device's own
+     *        pollingUpdate() signal.
+     * @param[in] map latest polled tag/value snapshot.
+     */
     void pollingUpdate(std::shared_ptr<vc::device::PlcValueMap> map);
-    /// Emitted with a set of updated tag values, forwarded from the device's valueChanged().
+    /**
+     * @brief Emitted with a set of updated tag values, forwarded from the device's
+     *        valueChanged().
+     * @param[in] values tag/value pairs that changed since the previous poll.
+     */
     void valueChanged(QMap<QString, QVariant> values);
 
     // ── Internal queued triggers ──────────────────────────────────────────────

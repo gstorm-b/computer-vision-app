@@ -166,6 +166,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:aaa368b85fe0baa4e02f5aef943f537bf pro_methods_class_item_roi_rotated" id="r_aaa368b85fe0baa4e02f5aef943f537bf"><td class="memItemLeft">QRectF&#160;</td><td class="memItemRight"><a class="el" href="class_item_roi_rotated.html#aaa368b85fe0baa4e02f5aef943f537bf">handleRect</a> (<a class="el" href="class_item_roi_rotated.html#a1d1ff7ae87399bfa2414dd50a75bd045">HandlePosition</a> pos) const</td></tr>
 <tr class="memitem:a6f12e5ad71c56ac386299ad30b344896 pro_methods_class_item_roi_rotated" id="r_a6f12e5ad71c56ac386299ad30b344896"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="class_item_roi_rotated.html#a6f12e5ad71c56ac386299ad30b344896">isInsideParent</a> (QRectF &amp;new_rect)</td></tr>
 <tr class="memitem:a96e6a2b9ae320963deec37e7d20d6f0a pro_methods_class_item_roi_rotated" id="r_a96e6a2b9ae320963deec37e7d20d6f0a"><td class="memItemLeft">QVariant&#160;</td><td class="memItemRight"><a class="el" href="class_item_roi_rotated.html#a96e6a2b9ae320963deec37e7d20d6f0a">itemChange</a> (QGraphicsItem::GraphicsItemChange change, const QVariant &amp;value) override</td></tr>
+<tr class="memdesc:a96e6a2b9ae320963deec37e7d20d6f0a pro_methods_class_item_roi_rotated"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays fully inside the parent item's bounding rect.  <br /></td></tr>
 <tr class="memitem:af586097de5c045ccce0f3e7eab25e412 pro_methods_class_item_roi_rotated" id="r_af586097de5c045ccce0f3e7eab25e412"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_item_roi_rotated.html#af586097de5c045ccce0f3e7eab25e412">mouseMoveEvent</a> (QGraphicsSceneMouseEvent *event) override</td></tr>
 <tr class="memitem:a98d266eb32fbf1734d75fe5a1e6b5592 pro_methods_class_item_roi_rotated" id="r_a98d266eb32fbf1734d75fe5a1e6b5592"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_item_roi_rotated.html#a98d266eb32fbf1734d75fe5a1e6b5592">mousePressEvent</a> (QGraphicsSceneMouseEvent *event) override</td></tr>
 <tr class="memitem:a0d70fe0abdce893726c547a77e121738 pro_methods_class_item_roi_rotated" id="r_a0d70fe0abdce893726c547a77e121738"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="class_item_roi_rotated.html#a0d70fe0abdce893726c547a77e121738">mouseReleaseEvent</a> (QGraphicsSceneMouseEvent *event) override</td></tr>
@@ -176,16 +177,16 @@ Protected Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a92c9090fa7d29105ff8eb7252b5e12ad" id="r_a92c9090fa7d29105ff8eb7252b5e12ad"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a92c9090fa7d29105ff8eb7252b5e12ad">m_id</a></td></tr>
-<tr class="memdesc:a92c9090fa7d29105ff8eb7252b5e12ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stable identifier carried over from the source <a class="el" href="struct_vision_roi.html">VisionRoi</a>.  <br /></td></tr>
+<tr class="memdesc:a92c9090fa7d29105ff8eb7252b5e12ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stable identifier carried over from the source <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a>.  <br /></td></tr>
 <tr class="memitem:a45457756ddb8720c5f250ebb89d37c67" id="r_a45457756ddb8720c5f250ebb89d37c67"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a45457756ddb8720c5f250ebb89d37c67">m_label</a></td></tr>
-<tr class="memdesc:a45457756ddb8720c5f250ebb89d37c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display label carried over from the source <a class="el" href="struct_vision_roi.html">VisionRoi</a>.  <br /></td></tr>
+<tr class="memdesc:a45457756ddb8720c5f250ebb89d37c67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display label carried over from the source <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_class_item_roi_rotated"><td colspan="2">Public Types inherited from <a class="el" href="class_item_roi_rotated.html">ItemRoiRotated</a></td></tr>
-<tr class="memitem:a9b65152b4b99670192e5d31352ef04bf pub_types_class_item_roi_rotated" id="r_a9b65152b4b99670192e5d31352ef04bf"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <a class="el" href="class_item_roi_rotated.html#a9b65152b4b99670192e5d31352ef04bfa0d029306f1dc496e61ff84d7fb8d289c">Type</a> = UserType + 28
+<tr class="memitem:afd0a40a4a7dd25cb603c88533f0bb5d0 pub_types_class_item_roi_rotated" id="r_afd0a40a4a7dd25cb603c88533f0bb5d0"><td class="memItemLeft">enum &#160;</td><td class="memItemRight">{ <a class="el" href="class_item_roi_rotated.html#afd0a40a4a7dd25cb603c88533f0bb5d0a0d029306f1dc496e61ff84d7fb8d289c">Type</a> = UserType + 28
  }</td></tr>
-<tr class="memdesc:a9b65152b4b99670192e5d31352ef04bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom QGraphicsItem type id returned by <a class="el" href="class_item_roi_rotated.html#ae7f53fb790f1e25aea0c1c8176a829e6" title="Returns the custom item type id (Type) for qgraphicsitem_cast/type() dispatch.">type()</a>, for qgraphicsitem_cast&lt;ItemRoiRotated*&gt;().  <a href="class_item_roi_rotated.html#a9b65152b4b99670192e5d31352ef04bf">More...</a><br /></td></tr>
+<tr class="memdesc:afd0a40a4a7dd25cb603c88533f0bb5d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom QGraphicsItem type id returned by <a class="el" href="class_item_roi_rotated.html#ae7f53fb790f1e25aea0c1c8176a829e6" title="Returns the custom item type id (Type) for qgraphicsitem_cast/type() dispatch.">type()</a>, for qgraphicsitem_cast&lt;ItemRoiRotated*&gt;().  <a href="class_item_roi_rotated.html#afd0a40a4a7dd25cb603c88533f0bb5d0">More...</a><br /></td></tr>
 <tr class="inherit_header signals_classvision__canvas__detail_1_1_vision_canvas_item_base"><td colspan="2">Signals inherited from <a class="el" href="classvision__canvas__detail_1_1_vision_canvas_item_base.html">vision_canvas_detail::VisionCanvasItemBase</a></td></tr>
 <tr class="memitem:ae45c56bb97bfd2db5b324826036c8d21 signals_classvision__canvas__detail_1_1_vision_canvas_item_base" id="r_ae45c56bb97bfd2db5b324826036c8d21"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classvision__canvas__detail_1_1_vision_canvas_item_base.html#ae45c56bb97bfd2db5b324826036c8d21">geometryChanged</a> ()</td></tr>
 <tr class="memdesc:ae45c56bb97bfd2db5b324826036c8d21 signals_classvision__canvas__detail_1_1_vision_canvas_item_base"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted while the item's geometry is being interactively changed (drag in progress).  <br /></td></tr>
@@ -204,9 +205,10 @@ Additional Inherited Members</h2></td></tr>
 , <a class="el" href="class_item_roi_rotated.html#a1d1ff7ae87399bfa2414dd50a75bd045ade1d29487f5ce6a69942fb59b76846dc">RotateHandle</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a1d1ff7ae87399bfa2414dd50a75bd045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies which handle (corner resize or top rotation handle), if any, is being hit-tested/dragged.  <a href="class_item_roi_rotated.html#a1d1ff7ae87399bfa2414dd50a75bd045">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Editable rotated rectangular ROI item: wraps <a class="el" href="class_item_roi_rotated.html">ItemRoiRotated</a> (the resize/rotate handle behavior) and adds the id/label needed to round-trip to/from <a class="el" href="struct_vision_roi.html">VisionRoi</a>. </p>
+<div class="textblock"><p>Editable rotated rectangular ROI item: wraps <a class="el" href="class_item_roi_rotated.html" title="Resizable, movable, and rotatable rectangular region-of-interest item for a QGraphicsScene: renders a...">ItemRoiRotated</a> (the resize/rotate handle behavior) and adds the id/label needed to round-trip to/from <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00353">353</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -307,7 +309,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Forwards to <a class="el" href="class_item_roi_rotated.html#a96e6a2b9ae320963deec37e7d20d6f0a">ItemRoiRotated::itemChange</a> and additionally emits <a class="el" href="classvision__canvas__detail_1_1_vision_canvas_item_base.html#a375dbb228bdf49b5a17b4f5d8c3ec1eb" title="Emitted when the item&#39;s QGraphicsItem selection state changes.">selectionChanged()</a> when the item's selection state flips. </p>
+<p>Forwards to <a class="el" href="class_item_roi_rotated.html#a96e6a2b9ae320963deec37e7d20d6f0a" title="Intercepts ItemPositionChange to clamp the proposed new position so the ROI stays fully inside the pa...">ItemRoiRotated::itemChange</a> and additionally emits <a class="el" href="classvision__canvas__detail_1_1_vision_canvas_item_base.html#a375dbb228bdf49b5a17b4f5d8c3ec1eb" title="Emitted when the item&#39;s QGraphicsItem selection state changes.">selectionChanged()</a> when the item's selection state flips. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00399">399</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
@@ -397,13 +399,13 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the current geometry as a <a class="el" href="struct_vision_roi.html">VisionRoi</a> (rotated shape), reading center/size/rotation/visibility/selection back from the underlying QGraphicsItem. </p>
+<p>Returns the current geometry as a <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a> (rotated shape), reading center/size/rotation/visibility/selection back from the underlying QGraphicsItem. </p>
 
 <p>Implements <a class="el" href="classvision__canvas__detail_1_1_roi_item_base.html#a28e7bb9f471d0e2e5f149003fef8ad60">vision_canvas_detail::RoiItemBase</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00376">376</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l00427">m_id</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00428">m_label</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00376">roi()</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00018">RotatedRect</a>.</p>
+<p class="reference">References <a class="el" href="vision__canvas_8cpp_source.html#l00427">m_id</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00428">m_label</a>, <a class="el" href="vision__canvas_8cpp_source.html#l00376">roi()</a>, and <a class="el" href="vision__overlay__types_8h_source.html#l00027">RotatedRect</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="vision__canvas_8cpp_source.html#l00376">roi()</a>, and <a class="el" href="vision__canvas_8cpp_source.html#l00359">VisionRotatedRoiItem()</a>.</p>
 
@@ -430,7 +432,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Stable identifier carried over from the source <a class="el" href="struct_vision_roi.html">VisionRoi</a>. </p>
+<p>Stable identifier carried over from the source <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00427">427</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
@@ -458,7 +460,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Display label carried over from the source <a class="el" href="struct_vision_roi.html">VisionRoi</a>. </p>
+<p>Display label carried over from the source <a class="el" href="struct_vision_roi.html" title="A single region of interest overlaid on a vision image: geometry (center/size/angle),...">VisionRoi</a>. </p>
 
 <p class="definition">Definition at line <a class="el" href="vision__canvas_8cpp_source.html#l00428">428</a> of file <a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a>.</p>
 
@@ -467,7 +469,7 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/<a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/vision/<a class="el" href="vision__canvas_8cpp_source.html">vision_canvas.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

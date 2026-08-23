@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_theme_s
 </div><!--header-->
 <div class="contents">
 
+<p>Describes a named visual style that can be registered with <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a>. Built-in styles "light" and "dark" are always pre-registered; additional styles can be registered at runtime via <a class="el" href="class_theme_manager.html#a19d2773097f4a2f17289bc1c7fca081a">ThemeManager::registerStyle()</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for ThemeStyle:</div>
@@ -141,9 +144,9 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a06abbe36e82cfe0f02f5275a6597761d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qt resource path to .qss file, empty = no stylesheet.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Describes a named visual style that can be registered with <a class="el" href="class_theme_manager.html">ThemeManager</a>. Built-in styles "light" and "dark" are always pre-registered. Additional styles can be registered at runtime via <a class="el" href="class_theme_manager.html#a19d2773097f4a2f17289bc1c7fca081a">ThemeManager::registerStyle()</a>. </p>
+<div class="textblock"><p>Describes a named visual style that can be registered with <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a>. Built-in styles "light" and "dark" are always pre-registered; additional styles can be registered at runtime via <a class="el" href="class_theme_manager.html#a19d2773097f4a2f17289bc1c7fca081a">ThemeManager::registerStyle()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00014">14</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00036">36</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a784cbc12be2297ddd4b22fd031b77699" name="a784cbc12be2297ddd4b22fd031b77699"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a784cbc12be2297ddd4b22fd031b77699">&#9670;&#160;</a></span>displayName</h2>
@@ -159,7 +162,7 @@ Public Attributes</h2></td></tr>
 
 <p>Shown in the Theme menu. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00016">16</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00038">38</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00644">MainWindow::onThemeStyleRegistered()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager::ThemeManager()</a>.</p>
 
@@ -179,7 +182,7 @@ Public Attributes</h2></td></tr>
 
 <p>Unique key, e.g. "dark", "high_contrast". </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00015">15</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00037">37</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00644">MainWindow::onThemeStyleRegistered()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00043">ThemeManager::registerStyle()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager::ThemeManager()</a>.</p>
 
@@ -199,7 +202,7 @@ Public Attributes</h2></td></tr>
 
 <p>Controls themedIcon() icon variant selection. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00017">17</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00039">39</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00226">ThemeManager::apply()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00075">ThemeManager::isDark()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager::ThemeManager()</a>.</p>
 
@@ -219,7 +222,7 @@ Public Attributes</h2></td></tr>
 
 <p>nullopt = keep current palette unchanged. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00018">18</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00040">40</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00226">ThemeManager::apply()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager::ThemeManager()</a>.</p>
 
@@ -239,14 +242,14 @@ Public Attributes</h2></td></tr>
 
 <p>Qt resource path to .qss file, empty = no stylesheet. </p>
 
-<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00019">19</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="theme__manager_8h_source.html#l00041">41</a> of file <a class="el" href="theme__manager_8h_source.html">theme_manager.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00226">ThemeManager::apply()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager::ThemeManager()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/core/utils/<a class="el" href="theme__manager_8h_source.html">theme_manager.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/core/utils/<a class="el" href="theme__manager_8h_source.html">theme_manager.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

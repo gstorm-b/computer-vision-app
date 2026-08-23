@@ -119,17 +119,13 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('namespacevc_1_
   <div class="headertitle"><div class="title">vc::device::Factory Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> helpers for allocating MC-protocol frame context instances.  
-<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a86b1cd4a6e1587aef9dfb6ccc481fcf0" id="r_a86b1cd4a6e1587aef9dfb6ccc481fcf0"><td class="memItemLeft">static std::shared_ptr&lt; <a class="el" href="classvc_1_1device_1_1_mc_context.html">McContext</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a86b1cd4a6e1587aef9dfb6ccc481fcf0">contextFactory</a> (<a class="el" href="namespacevc_1_1device_1_1mc.html#a0d6895c4d48891d0fdbda5e69c6c997c">McFrameType</a> frame_type, <a class="el" href="namespacevc_1_1device_1_1mc.html#a67328b18acd39ab07ad908e6d3b58b1c">McDataCode</a> data_code=McDataCode::Binary)</td></tr>
+<tr class="memdesc:a86b1cd4a6e1587aef9dfb6ccc481fcf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the <a class="el" href="classvc_1_1device_1_1_mc_context.html" title="Abstract base context for an MC-protocol PLC connection: holds the frame-independent addressing/refre...">McContext</a> subclass matching <span class="tt">frame_type</span> (only Frame_3E is currently implemented; other frame types return nullptr).  <br /></td></tr>
 </table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> helpers for allocating MC-protocol frame context instances. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a86b1cd4a6e1587aef9dfb6ccc481fcf0" name="a86b1cd4a6e1587aef9dfb6ccc481fcf0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a86b1cd4a6e1587aef9dfb6ccc481fcf0">&#9670;&#160;</a></span>contextFactory()</h2>
 
@@ -156,18 +152,20 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Allocates the <a class="el" href="classvc_1_1device_1_1_mc_context.html">McContext</a> subclass matching <span class="tt">frame_type</span> (only Frame_3E is currently implemented; other frame types return nullptr). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Allocates the <a class="el" href="classvc_1_1device_1_1_mc_context.html" title="Abstract base context for an MC-protocol PLC connection: holds the frame-independent addressing/refre...">McContext</a> subclass matching <span class="tt">frame_type</span> (only Frame_3E is currently implemented; other frame types return nullptr). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">frame_type</td><td>the MC frame variant to build a context for </td></tr>
-    <tr><td class="paramname">data_code</td><td>data encoding (binary/ASCII) passed to the Frame_3E context </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">frame_type</td><td>the MC frame variant to build a context for </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data_code</td><td>data encoding (binary/ASCII) passed to the Frame_3E context </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a shared <a class="el" href="classvc_1_1device_1_1_context___mc3_e.html">Context_Mc3E</a> for Frame_3E, otherwise nullptr </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a shared <a class="el" href="classvc_1_1device_1_1_context___mc3_e.html" title="Concrete McContext for the MC 3E frame over Ethernet TCP/IP: adds the 3E frame-header addressing fiel...">Context_Mc3E</a> for Frame_3E, otherwise nullptr </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__context__factory_8h_source.html#l00017">17</a> of file <a class="el" href="mc__context__factory_8h_source.html">mc_context_factory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__context__factory_8h_source.html#l00022">22</a> of file <a class="el" href="mc__context__factory_8h_source.html">mc_context_factory.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00065">vc::device::McProtocolConfig::configMcProtocol()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00094">vc::device::McProtocolConfig::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__config_8h_source.html#l00076">vc::device::McProtocolConfig::configMcProtocol()</a>, and <a class="el" href="mc__protocol__config_8h_source.html#l00107">vc::device::McProtocolConfig::fromJson()</a>.</p>
 
 </div>
 </div>

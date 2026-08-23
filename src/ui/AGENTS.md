@@ -45,7 +45,25 @@ below only the `app` shell. Enforced by
 affected surface in both Commission and Runtime modes and both themes.
 
 **Build registration.** `src/ui/ui.pri` only. New files: add to the matching
-`SOURCES`/`HEADERS`/`FORMS` list.
+`SOURCES`/`HEADERS`/`FORMS` list. That `.pri` is consumed by `src/src.pro`, which
+compiles every module **once** into the `ncr_shared` static library that both
+shells link. No shell `.pro` lists module sources, so a file added anywhere else
+is simply not built.
+
+**Resources are the exception, and moving them here breaks things silently.**
+Every `.qrc` — `resrc.qrc` (icons, QSS themes), `ads.qrc`, `qtpropertybrowser.qrc`
+— is listed at **shell** level in `qmake/app_common.pri`, never in a module `.pri`
+and never in `src/src.pro`. Qt registers a resource through a static initialiser
+in the generated `qrc_*.cpp`; inside a static library nothing references a symbol
+in that object file, so the linker drops it and the resource **does not exist at
+runtime**. Icons, the QSS theme and `:/i18n` all resolve to nothing, with **no
+build error and no warning** — you find out by looking at an unstyled window.
+
+Library code may freely *use* those resources: the Qt resource system is
+process-global, so what the executable registers is visible here. Only the
+registration has to stay in the shells. `src/src.pro` ends with a bare
+`RESOURCES =` that takes back any `.qrc` an included `.pri` added on its own; do
+not "tidy" that away either.
 
 **Docs.** `docs/rules/ui_design_rules.md`, `docs/rules/ui_theme_tokens.md`,
 `docs/domains/signal_map/`,

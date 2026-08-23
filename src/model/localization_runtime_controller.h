@@ -8,6 +8,7 @@
 #include <QPointer>
 #include <QMap>
 #include <QStringList>
+#include <QTimer>
 #include <QVariant>
 #include <QVector>
 
@@ -27,6 +28,12 @@
 #include "model/task_localization_config.h"
 #include "runtime/device_command.h"
 
+/**
+ * @file localization_runtime_controller.h
+ * @brief LocalizationRuntimeController — runs one localization task at runtime: per-cycle state
+ *        machine, device-role binding, and connection recovery.
+ */
+
 /// Forward declarations of runtime runner types, referenced here only via QPointer/raw pointer
 /// so this header does not need to include the full runtime runner headers.
 namespace vc::runtime {
@@ -38,19 +45,27 @@ class VisionOutputRunner;
 
 namespace vc::model {
 
-/// Runs one localization task at runtime: binds the task's primary PLC, vision-output, and
-/// active-camera device runners into fixed "roles", drives the per-cycle state machine
-/// (wait for trigger -> grab -> match -> convert to world coordinates -> send to vision output),
-/// and monitors/recovers each role's connection according to its LocalizationRecoveryPolicy.
-/// Task-relevant state changes (ready/fault/recovering, signal values, cycle results, log lines)
-/// are published via Qt signals for the UI and the PLC (through publishBoolSignal /
-/// publishNumberSignal).
+/**
+ * @class LocalizationRuntimeController
+ * @brief Runs one localization task at runtime.
+ *
+ * Binds the task's primary PLC, vision-output, and active-camera device runners into fixed
+ * "roles", drives the per-cycle state machine (wait for trigger -> grab -> match -> convert to
+ * world coordinates -> send to vision output), and monitors/recovers each role's connection
+ * according to its LocalizationRecoveryPolicy. Task-relevant state changes (ready/fault/
+ * recovering, signal values, cycle results, log lines) are published via Qt signals for the UI
+ * and the PLC (through publishBoolSignal / publishNumberSignal).
+ */
 class LocalizationRuntimeController : public QObject {
     Q_OBJECT
 
 public:
-    /// Snapshot of a task's device/pattern/calibration bindings, supplied to setup() and rebuilt
-    /// by the owner whenever roles or the active camera/pattern-group selection change.
+    /**
+     * @struct RuntimeContext
+     * @brief Snapshot of a task's device/pattern/calibration bindings, supplied to setup() and
+     *        rebuilt by the owner whenever roles or the active camera/pattern-group selection
+     *        change.
+     */
     struct RuntimeContext {
         TaskLocalizeConfig config;                            ///< Localization task configuration used for this runtime session.
         QString primaryPlcDeviceId;                           ///< Device id bound to the "primary_plc" role.
@@ -69,9 +84,12 @@ public:
         int activePatternGroupNumber{-1};                     ///< Pattern group number to activate at setup; -1 selects the first available.
     };
 
-    /// One matched object's localization result, as reported to the UI/log: image-space and
-    /// world-space (robot) position, plus the disposition status assigned by
-    /// buildVisionOutputPositions().
+    /**
+     * @struct ResultRow
+     * @brief One matched object's localization result, as reported to the UI/log: image-space
+     *        and world-space (robot) position, plus the disposition status assigned by
+     *        buildVisionOutputPositions().
+     */
     struct ResultRow {
         int index{0};                       ///< 1-based row index within the cycle's result set.
         QString patternName;                ///< Name of the matched pattern.
@@ -83,8 +101,11 @@ public:
         QString status;                     ///< Human-readable disposition, e.g. "Sent" or "Skipped: <reason>".
     };
 
-    /// Outcome of one localization cycle (grab + match + send), published via
-    /// cycleResultUpdated() for UI display and task logging.
+    /**
+     * @struct CycleResult
+     * @brief Outcome of one localization cycle (grab + match + send), published via
+     *        cycleResultUpdated() for UI display and task logging.
+     */
     struct CycleResult {
         bool faulted{false};                ///< True if the cycle ended in a fault instead of completing normally.
         LocalizationFaultCode faultCode{LocalizationFaultCode::None}; ///< Fault code recorded when faulted is true.
@@ -98,21 +119,44 @@ public:
         QVector<ResultRow> rows;             ///< Per-object result rows built from matchResult.
     };
 
-    /// One timestamped task-log line surfaced to the UI via taskLogAppended().
+    /**
+     * @struct TaskLogEntry
+     * @brief One timestamped task-log line surfaced to the UI via taskLogAppended().
+     */
     struct TaskLogEntry {
         QDateTime timestamp;  ///< Time the log line was appended.
         QString severity;     ///< Severity tag used by appendTaskLog(), e.g. "INFO", "WARN", "ERROR".
         QString message;      ///< Log message text.
     };
 
-    /// Outcome of setup(): whether the supplied RuntimeContext was valid to run, plus the
-    /// resolved role device ids and any validation errors.
+    /**
+     * @struct SetupResult
+     * @brief Outcome of setup(): whether the supplied RuntimeContext was valid to run, plus the
+     *        resolved role device ids and any validation errors.
+     */
     struct SetupResult {
         bool valid{false};                  ///< True if the context passed all validation checks.
         QString primaryPlcDeviceId;         ///< Device id resolved for the primary PLC role.
         QString visionOutputDeviceId;       ///< Device id resolved for the vision output role.
         QStringList errors;                 ///< Human-readable validation failures; empty when valid.
     };
+
+    /// Delay after which a latched cycle fault clears itself when no bErrorReset rising
+    /// edge arrives, in milliseconds. The runtime must never park on a transient fault
+    /// waiting for an operator, so the acknowledge input is the fast way out of a fault
+    /// rather than the only one.
+    static constexpr int kFaultAutoRecoverMs = 2000;
+
+    /// How many consecutive automatic recoveries pass before one is reported at USER
+    /// level. A repeating auto-recovered fault is a real problem, but logging every
+    /// occurrence would bury the event log the automatic path exists to keep readable.
+    static constexpr int kAutoRecoverWarnStride = 5;
+
+    /// How many reconnect attempts pass between USER-level retry reports during one
+    /// outage. Attempt 1 is always reported; at the default 5000 ms retry interval this
+    /// works out to roughly one line per minute thereafter. Every attempt is still
+    /// recorded at DEV level, so a flapping link stays diagnosable after the fact.
+    static constexpr int kQuietRetryLogStride = 12;
 
     /// Registers the Qt meta-types used by this class's queued signals (CycleResult,
     /// TaskLogEntry, LocalizationFaultCode, CameraWorkspace, shared_ptr<IRobotPickingChecker>).
@@ -134,12 +178,14 @@ public:
                              const LocalizationRecoveryPolicy &plcPolicy,
                              const LocalizationRecoveryPolicy &visionOutputPolicy);
 
-    /// Binds `context`'s role runners/cameras/patterns/calibration, validates them, and, if
-    /// valid, requests a connection for every role and marks the runtime ready once all roles
-    /// are healthy.
-    /// @param context device/pattern/calibration bindings for this task run
-    /// @return validation outcome; SetupResult::valid is false if a required role, the active
-    /// pattern group, or the active camera calibration is missing/invalid
+    /**
+     * @brief Binds `context`'s role runners/cameras/patterns/calibration, validates them, and,
+     *        if valid, requests a connection for every role and marks the runtime ready once
+     *        all roles are healthy.
+     * @param[in] context device/pattern/calibration bindings for this task run
+     * @return validation outcome; SetupResult::valid is false if a required role, the active
+     *         pattern group, or the active camera calibration is missing/invalid
+     */
     SetupResult setup(const RuntimeContext &context);
     /// Manually starts a localization cycle, as if triggered by the PLC. No-op (logged) if the
     /// runtime is not valid or is not currently ReadyForTrigger.
@@ -147,17 +193,23 @@ public:
     /// Returns whether the last setup() call produced a usable (fully validated) configuration.
     bool isValid() const { return m_valid; }
 
-    /// Maps raw PLC tag values to named signal events via the signal mapper, and reacts to
-    /// active-camera / active-pattern-group changes and rising/falling edges of the
-    /// bExecuteTrigger signal (starts a cycle on rising edge; on falling edge, resets the
-    /// matching-finished output and either recovers a pending fault or marks the runtime ready).
-    /// @param values raw values keyed by PLC signal name, as received from the primary PLC runner
+    /**
+     * @brief Maps raw PLC tag values to named signal events via the signal mapper, and reacts to
+     *        active-camera / active-pattern-group changes, rising/falling edges of the
+     *        bExecuteTrigger signal (starts a cycle on rising edge; on falling edge, resets the
+     *        matching-finished output and either recovers a pending fault or marks the runtime
+     *        ready), and the rising edge of bErrorReset (acknowledges a latched fault).
+     * @param[in] values raw values keyed by PLC signal name, as received from the primary PLC
+     *            runner
+     */
     void handlePlcValues(const QMap<QString, QVariant> &values);
-    /// Receives the completed match result for `cycleId`, converts it to world-space positions,
-    /// and forwards them to the vision output device. Stale results (cycleId mismatch, or the
-    /// cycle is no longer running) are silently dropped.
-    /// @param cycleId cycle id the result belongs to
-    /// @param matchResult matcher output for the grabbed frame
+    /**
+     * @brief Receives the completed match result for `cycleId`, converts it to world-space
+     *        positions, and forwards them to the vision output device. Stale results (cycleId
+     *        mismatch, or the cycle is no longer running) are silently dropped.
+     * @param[in] cycleId     cycle id the result belongs to
+     * @param[in] matchResult matcher output for the grabbed frame
+     */
     void onRuntimeMatchingFinished(int cycleId, mtc::MatchResult matchResult);
 
 signals:
@@ -174,20 +226,27 @@ signals:
     void taskLogAppended(vc::model::LocalizationRuntimeController::TaskLogEntry entry);
     /// Emitted when a localization cycle begins (trigger accepted).
     void runtimeCycleStarted(QString message);
-    /// Emitted while a role is retrying its connection after a loss.
+    /// Emitted when a role starts recovering, or when its unhealthy status changes during
+    /// an outage — NOT on every retry. Reconnect is unbounded, so an outage lasting
+    /// minutes would otherwise emit an identical line every retryIntervalMs and bury the
+    /// operator's event log.
     void runtimeRecovering(QString message);
     /// Emitted when the runtime (re)enters the ReadyForTrigger state.
     void runtimeReady(QString message);
-    /// Emitted when the runtime enters the Faulted state (unrecoverable role loss or invalid
-    /// setup).
+    /// Emitted when the runtime enters the Faulted state. A lost device connection does
+    /// NOT reach here: role recovery retries indefinitely instead of escalating, so this
+    /// is now raised only by an invalid setup.
     void runtimeFault(QString message);
-    /// Emitted after a successful camera grab to hand the frame off for matching (on whatever
-    /// external thread/service listens for this signal).
-    /// @param cycleId id of the cycle the frame belongs to, echoed back via onRuntimeMatchingFinished()
-    /// @param group pattern group snapshot to match against
-    /// @param workspace active camera workspace (crop/offset) settings
-    /// @param image grabbed frame to match
-    /// @param pickingChecker robot-pickability checker to gate matches with, or null if disabled
+    /**
+     * @brief Emitted after a successful camera grab to hand the frame off for matching (on
+     *        whatever external thread/service listens for this signal).
+     * @param[in] cycleId        id of the cycle the frame belongs to, echoed back via
+     *            onRuntimeMatchingFinished()
+     * @param[in] group          pattern group snapshot to match against
+     * @param[in] workspace      active camera workspace (crop/offset) settings
+     * @param[in] image          grabbed frame to match
+     * @param[in] pickingChecker robot-pickability checker to gate matches with, or null if disabled
+     */
     void runtimeMatchingRequested(int cycleId,
                                   std::shared_ptr<mtc::MatchGroup> group,
                                   CameraWorkspace workspace,
@@ -195,26 +254,41 @@ signals:
                                   std::shared_ptr<mtc::IRobotPickingChecker> pickingChecker);
 
 private:
-    /// Per-role bookkeeping for the connection-recovery state machine: the runner/device bound
-    /// to a role, its recovery policy, and the current retry/fault progress against that policy.
+    /**
+     * @struct RoleRecoveryContext
+     * @brief Per-role bookkeeping for the connection-recovery state machine: the runner/device
+     *        bound to a role, its recovery policy, and the current retry/fault progress against
+     *        that policy.
+     */
     struct RoleRecoveryContext {
         QString roleName;                              ///< Role name from the bound LocalizationRecoveryPolicy (for logging/messages).
         QString deviceId;                               ///< Device id bound to this role.
         QPointer<vc::runtime::IDeviceRunner> runner;    ///< Runner bound to this role.
-        LocalizationRecoveryPolicy policy;               ///< Reconnect/retry policy in effect for this role.
-        int retryCount{0};                               ///< Number of reconnect attempts made since the last healthy connection.
+        LocalizationRecoveryPolicy policy;               ///< Reconnect policy in effect for this role.
+        int retryCount{0};                               ///< Number of reconnect attempts made since the last healthy connection; unbounded.
         bool retryScheduled{false};                      ///< True while a scheduleRoleReconnect() timer is pending.
-        bool faultRaised{false};                         ///< True once raiseRoleFault() has been called for the current outage.
+        /// Unhealthy status already reported for the current outage. Repeats of the same
+        /// status are retried silently at USER level: an outage that lasts minutes would
+        /// otherwise emit one identical "recovering" line every retryIntervalMs and bury
+        /// everything else in the operator's event log.
+        vc::device::ConnectStatus reportedStatus{vc::device::ConnectStatus::Connected};
+        QDateTime outageStartedAt;                       ///< When the current outage began; reported as elapsed time on recovery.
     };
 
-    /// The three device roles the controller coordinates.
+    /**
+     * @enum RunnerRole
+     * @brief The three device roles the controller coordinates.
+     */
     enum class RunnerRole {
         Camera,
         PrimaryPlc,
         VisionOutput
     };
 
-    /// Lifecycle state of the runtime / current localization cycle.
+    /**
+     * @enum CycleState
+     * @brief Lifecycle state of the runtime / current localization cycle.
+     */
     enum class CycleState {
         NotReady,            ///< Not yet set up, or a required role/pattern/calibration is invalid.
         ReadyForTrigger,     ///< All roles healthy and validated; waiting for the next execute trigger.
@@ -242,19 +316,21 @@ private:
     void clearRoleContext(RunnerRole role);
     /// Maps a role to the integer key used in m_recoveryContexts.
     static int roleKey(RunnerRole role) { return static_cast<int>(role); }
-    /// Core recovery/fault state machine driven by a role's connection-status change: on
+    /// Core recovery state machine driven by a role's connection-status change: on
     /// reconnect, clears retry state and re-evaluates runtime readiness; on loss, aborts a
     /// running cycle (with a role-specific fault code) and then, via decideRecoveryAction(),
-    /// either schedules a retry or escalates to a fault.
+    /// schedules a retry. Retrying is unbounded — there is no escalation to a fault.
     void handleRoleStatusChanged(RunnerRole role, vc::device::ConnectStatus status);
     /// Schedules a one-shot reconnect attempt for `role` after its policy's retry interval.
     void scheduleRoleReconnect(RunnerRole role);
     /// Issues an immediate requestConnect() on the role's runner (dispatched by concrete runner
     /// type).
     void requestRoleConnectNow(RunnerRole role);
-    /// Publishes a task fault (bTaskFault / nFaultCode) for `role`, transitions to Faulted, and
-    /// emits runtimeFault() with a role-specific message.
-    void raiseRoleFault(RunnerRole role, vc::device::ConnectStatus status);
+    /// Returns true when a reconnect attempt for `context` should be reported at USER level:
+    /// the first attempt of an outage, then one in every kQuietRetryLogStride. Everything
+    /// else goes to the developer log only, so a long outage stays one readable line per
+    /// minute instead of one per retry.
+    static bool shouldReportRetryToUser(const RoleRecoveryContext &context);
     /// Returns true only if the PrimaryPlc, VisionOutput, and Camera roles are all bound and
     /// their devices report Connected.
     bool allRequiredRolesHealthy() const;
@@ -279,14 +355,22 @@ private:
     void publishCycleFaultOutputs(LocalizationFaultCode code);
     /// Builds a timestamped TaskLogEntry from `severity`/`message` and emits taskLogAppended().
     void appendTaskLog(const QString &severity, const QString &message);
-    /// Checks that the active (or first available) pattern group exists and has at least one
-    /// pattern with a non-empty train image.
-    /// @param errors optional; a failure message is appended on validation failure
-    /// @return true if the active pattern group is usable for matching
+    /// Reports a runner error to the app log and the task log, suppressing an immediate
+    /// repeat of the same message from the same role (a dead PLC fails every queued write,
+    /// so the same line would otherwise arrive many times a second).
+    void reportRoleError(RunnerRole role, const QString &roleName, const QString &message);
+    /**
+     * @brief Checks that the active (or first available) pattern group exists and has at least
+     *        one pattern with a non-empty train image.
+     * @param[out] errors optional; a failure message is appended on validation failure
+     * @return true if the active pattern group is usable for matching
+     */
     bool validateActivePatternGroup(QStringList *errors = nullptr) const;
-    /// Checks that the calibrator for the active camera is calibrated.
-    /// @param errors optional; a failure message is appended on validation failure
-    /// @return true if the active camera has a valid calibration
+    /**
+     * @brief Checks that the calibrator for the active camera is calibrated.
+     * @param[out] errors optional; a failure message is appended on validation failure
+     * @return true if the active camera has a valid calibration
+     */
     bool validateActiveCameraCalibration(QStringList *errors = nullptr) const;
     /// (Re)build the robot-pickability checker for the active camera. Called once at runtime
     /// setup and again on active-camera change (calibrator differs per camera). Leaves
@@ -295,15 +379,17 @@ private:
     /// Returns the pattern group for the active (or first available) pattern-group number, or
     /// null if none is available.
     std::shared_ptr<mtc::MatchGroup> snapshotActivePatternGroup() const;
-    /// Converts a match result's objects into world-space positions and per-object result rows,
-    /// applying the active camera workspace's crop offset, image-to-robot calibration, and
-    /// collision/ROI/pickability filtering; at most 2 positions are accepted for sending, the
-    /// rest are marked "Skipped".
-    /// @param matchResult matcher output for the cycle
-    /// @param rows optional; appended with one ResultRow per matched object
-    /// @param faultCode optional; set to CalibrationInvalid if the active camera has no valid
-    /// calibration, otherwise None
-    /// @return world-space positions accepted for sending (at most 2)
+    /**
+     * @brief Converts a match result's objects into world-space positions and per-object result
+     *        rows, applying the active camera workspace's crop offset, image-to-robot
+     *        calibration, and collision/ROI/pickability filtering; at most 2 positions are
+     *        accepted for sending, the rest are marked "Skipped".
+     * @param[in]  matchResult matcher output for the cycle
+     * @param[out] rows        optional; appended with one ResultRow per matched object
+     * @param[out] faultCode   optional; set to CalibrationInvalid if the active camera has no
+     *             valid calibration, otherwise None
+     * @return world-space positions accepted for sending (at most 2)
+     */
     QVector<vc::device::VisionOutputPosition> buildVisionOutputPositions(
         const mtc::MatchResult &matchResult,
         QVector<ResultRow> *rows,
@@ -320,8 +406,30 @@ private:
     void startCycle();
     /// Tears down any in-flight grab/matching/send connections, records `code` as the cycle
     /// fault, publishes fault outputs, logs `message`, and transitions to WaitingTriggerReset or
-    /// Recovering depending on whether the execute trigger is still asserted.
+    /// Recovering depending on whether the execute trigger is still asserted. Arms the
+    /// fault auto-recovery timer when the fault comes to rest in Recovering.
     void abortCycle(LocalizationFaultCode code, const QString &message);
+
+    // ── Fault acknowledge / automatic recovery ────────────────────────────────
+    /// Handles a rising edge of the bErrorReset PLC input: cancels any pending automatic
+    /// recovery (the operator got there first) and clears the fault via recoverFromFault().
+    void acknowledgeFault();
+    /// Clears the latched fault outputs (bTaskFault / nFaultCode) unconditionally, then
+    /// attempts to re-arm the runtime via markRuntimeReady(). Shared by the acknowledge
+    /// input and the automatic timeout so the two paths cannot drift apart; `reason` is
+    /// the only thing that differs between them, and it is what the event log records.
+    /// @param reason human-readable cause, logged and passed on as the ready message
+    /// @note Clearing is unconditional but re-arming is not: markRuntimeReady() still
+    ///       requires healthy roles and a valid pattern group / calibration. This is an
+    ///       acknowledge, not a repair — if the cause persists, the next cycle re-faults.
+    void recoverFromFault(const QString &reason);
+    /// Starts the single-shot fault auto-recovery timer, unless one is already pending.
+    /// Called only where a cycle fault comes to rest, never at the moment of failure:
+    /// re-arming while the PLC still holds bExecuteTrigger high would break the
+    /// rising-edge handshake.
+    void armFaultAutoRecovery();
+    /// Stops any pending fault auto-recovery timer.
+    void cancelFaultAutoRecovery();
 
 private slots:
     /// Handles the single-shot grab result: on failure, aborts the cycle with
@@ -365,12 +473,19 @@ private:
     int m_activePatternGroupNumber{-1};               ///< Pattern group number currently used for matching; -1 if unset.
     int m_activeCycleId{0};                           ///< Monotonically incremented id for the in-flight/most-recent cycle; used to discard stale async results.
     bool m_lastExecuteTrigger{false};                 ///< Last observed value of the PLC bExecuteTrigger signal, used for edge detection.
+    bool m_lastErrorReset{false};                     ///< Last observed value of the PLC bErrorReset signal, used for edge detection.
     CycleState m_cycleState{CycleState::NotReady};    ///< Current lifecycle state of the runtime/cycle.
     CycleResult m_pendingCycleResult;                 ///< Result being assembled for the in-flight cycle.
+    /// Single-shot timer that clears a latched cycle fault after kFaultAutoRecoverMs when
+    /// no bErrorReset arrives. A cancellable member rather than QTimer::singleShot
+    /// precisely because an acknowledge must be able to win the race.
+    QTimer m_faultRecoverTimer;
+    int m_consecutiveAutoRecoveries{0};               ///< Automatic recoveries since the last successful cycle; drives the kAutoRecoverWarnStride report.
     LocalizationRecoveryPolicy m_cameraRecoveryPolicy{defaultCameraRecoveryPolicy()}; ///< Reconnect/retry policy for the Camera role.
     LocalizationRecoveryPolicy m_plcRecoveryPolicy{defaultPlcRecoveryPolicy()}; ///< Reconnect/retry policy for the PrimaryPlc role.
     LocalizationRecoveryPolicy m_visionOutputRecoveryPolicy{defaultVisionOutputRecoveryPolicy()}; ///< Reconnect/retry policy for the VisionOutput role.
     QHash<int, RoleRecoveryContext> m_recoveryContexts; ///< Per-role recovery bookkeeping, keyed by roleKey(role).
+    QHash<int, QString> m_lastRoleError;                ///< Last error message reported per role, keyed by roleKey(role); used to suppress immediate repeats.
 };
 
 } // namespace vc::model

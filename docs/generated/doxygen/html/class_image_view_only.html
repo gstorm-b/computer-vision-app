@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_image_vi
 </div><!--header-->
 <div class="contents">
 
+<p>Read-only, non-editable QGraphicsView for displaying a single image (loaded from a file path, an OpenCV cv::Mat, or a QPixmap) with Ctrl+wheel zoom, Ctrl+left-drag panning, rectangular ROI overlays drawn on top of the pixmap, and fit-to-view on load / double-middle-click / R key.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ImageViewOnly:</div>
@@ -135,15 +138,19 @@ Collaboration diagram for ImageViewOnly:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a07cda8479ba75bc541c3ad499b7ebe49" id="r_a07cda8479ba75bc541c3ad499b7ebe49"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a07cda8479ba75bc541c3ad499b7ebe49">addROI</a> (int tl_x, int tl_y, int br_x, int br_y, QColor border_color)</td></tr>
+<tr class="memdesc:a07cda8479ba75bc541c3ad499b7ebe49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a rectangular ROI outline (corners given as tl/br points) as a child item of the current pixmap item so it renders on top of the image; the fill is always a fixed low-alpha green regardless of <span class="tt">border_color</span>, which is only used for the 3px border pen.  <br /></td></tr>
 <tr class="memitem:a397e42920c031999a8184c7a0bb915c2" id="r_a397e42920c031999a8184c7a0bb915c2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a397e42920c031999a8184c7a0bb915c2">clearCurrentImage</a> ()</td></tr>
 <tr class="memitem:af45a0fac1d278fb1f41f98b579d6c79c" id="r_af45a0fac1d278fb1f41f98b579d6c79c"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#af45a0fac1d278fb1f41f98b579d6c79c">getCurrentImage</a> ()</td></tr>
 <tr class="memdesc:af45a0fac1d278fb1f41f98b579d6c79c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently displayed pixmap, or a null QPixmap if no image is loaded.  <br /></td></tr>
 <tr class="memitem:afc9a1a582b82ca075110c7b5dc9b3553" id="r_afc9a1a582b82ca075110c7b5dc9b3553"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afc9a1a582b82ca075110c7b5dc9b3553">hadImage</a> ()</td></tr>
 <tr class="memdesc:afc9a1a582b82ca075110c7b5dc9b3553"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if an image is currently loaded.  <br /></td></tr>
 <tr class="memitem:a02ff469a1d55d227d309c168c15ae486" id="r_a02ff469a1d55d227d309c168c15ae486"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a02ff469a1d55d227d309c168c15ae486">ImageViewOnly</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a02ff469a1d55d227d309c168c15ae486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the view: creates the backing QGraphicsScene, sets a dark grey background brush, full-viewport update mode, and pixel-perfect (non-smooth) pixmap rendering by default.  <br /></td></tr>
 <tr class="memitem:a14cc410f565fe2ab599bdfa1abebc33f" id="r_a14cc410f565fe2ab599bdfa1abebc33f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a14cc410f565fe2ab599bdfa1abebc33f">loadImage</a> (QPixmap &amp;pixmap, bool fitsize=false)</td></tr>
 <tr class="memitem:a446b71b009c988bb5ce2f7802a49aaa1" id="r_a446b71b009c988bb5ce2f7802a49aaa1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a446b71b009c988bb5ce2f7802a49aaa1">loadImageFromPath</a> (QString &amp;path, bool fitsize=true)</td></tr>
+<tr class="memdesc:a446b71b009c988bb5ce2f7802a49aaa1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads an image from disk at <span class="tt">path</span> and displays it; logs and does nothing if the file cannot be read as an image.  <br /></td></tr>
 <tr class="memitem:a332fcce8099a191f8a64f4afc122eab6" id="r_a332fcce8099a191f8a64f4afc122eab6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a332fcce8099a191f8a64f4afc122eab6">loadImageOpenCv</a> (cv::Mat &amp;image, bool fitsize=false)</td></tr>
+<tr class="memdesc:a332fcce8099a191f8a64f4afc122eab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an OpenCV image (8-bit grayscale, BGR, or BGRA) to a QPixmap via cvMatToQPixmap and displays it; does nothing if <span class="tt">image</span> is empty.  <br /></td></tr>
 <tr class="memitem:af971eb6837c085241bbf55f792fe7227" id="r_af971eb6837c085241bbf55f792fe7227"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#af971eb6837c085241bbf55f792fe7227">removeAllROI</a> ()</td></tr>
 <tr class="memdesc:af971eb6837c085241bbf55f792fe7227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all previously added ROI rectangles from the scene and clears the tracking list.  <br /></td></tr>
 <tr class="memitem:a7b86e40cf76ea230957643d723644cca" id="r_a7b86e40cf76ea230957643d723644cca"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7b86e40cf76ea230957643d723644cca">setEnabelPixelModel</a> (bool enable)</td></tr>
@@ -154,6 +161,7 @@ Protected Types</h2></td></tr>
 , <a class="el" href="#a629822acda6cb393836d0f5019f74d8ca59aa6980e2b2c0e18e6c12f2323c0970">IModeZoom</a>
 , <a class="el" href="#a629822acda6cb393836d0f5019f74d8ca58e356a5523fc2a01b91700c27d76ae4">IModePan</a>
  }</td></tr>
+<tr class="memdesc:a629822acda6cb393836d0f5019f74d8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current mouse-interaction mode, used to disambiguate plain view navigation from the Ctrl-driven zoom/pan gestures.  <a href="#a629822acda6cb393836d0f5019f74d8c">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -198,7 +206,7 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ab1fdd7afbd81721ee58a40f7a4d6cf50" id="r_ab1fdd7afbd81721ee58a40f7a4d6cf50"><td class="memItemLeft"><a class="el" href="#a629822acda6cb393836d0f5019f74d8c">InteractMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#ab1fdd7afbd81721ee58a40f7a4d6cf50">m_previous_mode</a></td></tr>
 <tr class="memdesc:ab1fdd7afbd81721ee58a40f7a4d6cf50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interact mode active before the current one, used to restore state.  <br /></td></tr>
 <tr class="memitem:aa38323a72929c1b81a9351113bc9399c" id="r_aa38323a72929c1b81a9351113bc9399c"><td class="memItemLeft">QList&lt; QGraphicsRectItem * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa38323a72929c1b81a9351113bc9399c">m_roi_items</a></td></tr>
-<tr class="memdesc:aa38323a72929c1b81a9351113bc9399c"><td class="mdescLeft">&#160;</td><td class="mdescRight">ROI rectangle items added via <a class="el" href="#a07cda8479ba75bc541c3ad499b7ebe49">addROI()</a>, removed by <a class="el" href="#af971eb6837c085241bbf55f792fe7227" title="Removes all previously added ROI rectangles from the scene and clears the tracking list.">removeAllROI()</a>.  <br /></td></tr>
+<tr class="memdesc:aa38323a72929c1b81a9351113bc9399c"><td class="mdescLeft">&#160;</td><td class="mdescRight">ROI rectangle items added via <a class="el" href="#a07cda8479ba75bc541c3ad499b7ebe49" title="Adds a rectangular ROI outline (corners given as tl/br points) as a child item of the current pixmap ...">addROI()</a>, removed by <a class="el" href="#af971eb6837c085241bbf55f792fe7227" title="Removes all previously added ROI rectangles from the scene and clears the tracking list.">removeAllROI()</a>.  <br /></td></tr>
 <tr class="memitem:ac0385b7de3960792937e269c400d2c0a" id="r_ac0385b7de3960792937e269c400d2c0a"><td class="memItemLeft">QGraphicsScene *&#160;</td><td class="memItemRight"><a class="el" href="#ac0385b7de3960792937e269c400d2c0a">m_scene</a> {nullptr}</td></tr>
 <tr class="memdesc:ac0385b7de3960792937e269c400d2c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns the QGraphicsScene backing the view (parented to <span class="tt">this</span>).  <br /></td></tr>
 <tr class="memitem:af958a953683afec03d71ac9156159c70" id="r_af958a953683afec03d71ac9156159c70"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af958a953683afec03d71ac9156159c70">m_scene_interacting</a></td></tr>
@@ -207,7 +215,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Read-only, non-editable QGraphicsView for displaying a single image (loaded from a file path, an OpenCV cv::Mat, or a QPixmap) with Ctrl+wheel zoom, Ctrl+left-drag panning, rectangular ROI overlays drawn on top of the pixmap, and fit-to-view on load / double-middle-click / R key. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00022">22</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00032">32</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a629822acda6cb393836d0f5019f74d8c" name="a629822acda6cb393836d0f5019f74d8c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a629822acda6cb393836d0f5019f74d8c">&#9670;&#160;</a></span>InteractMode</h2>
@@ -228,14 +236,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
 <p>Current mouse-interaction mode, used to disambiguate plain view navigation from the Ctrl-driven zoom/pan gestures. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a629822acda6cb393836d0f5019f74d8caeb07241a3c594fa57aa9d13b0242052e" name="a629822acda6cb393836d0f5019f74d8caeb07241a3c594fa57aa9d13b0242052e"></a>IModeNone&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a629822acda6cb393836d0f5019f74d8ca59aa6980e2b2c0e18e6c12f2323c0970" name="a629822acda6cb393836d0f5019f74d8ca59aa6980e2b2c0e18e6c12f2323c0970"></a>IModeZoom&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a629822acda6cb393836d0f5019f74d8ca58e356a5523fc2a01b91700c27d76ae4" name="a629822acda6cb393836d0f5019f74d8ca58e356a5523fc2a01b91700c27d76ae4"></a>IModePan&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a629822acda6cb393836d0f5019f74d8caeb07241a3c594fa57aa9d13b0242052e" name="a629822acda6cb393836d0f5019f74d8caeb07241a3c594fa57aa9d13b0242052e"></a>IModeNone&#160;</td><td class="fielddoc"><p>No special interaction; default view/selection behavior. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a629822acda6cb393836d0f5019f74d8ca59aa6980e2b2c0e18e6c12f2323c0970" name="a629822acda6cb393836d0f5019f74d8ca59aa6980e2b2c0e18e6c12f2323c0970"></a>IModeZoom&#160;</td><td class="fielddoc"><p>Ctrl+wheel zoom in progress. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a629822acda6cb393836d0f5019f74d8ca58e356a5523fc2a01b91700c27d76ae4" name="a629822acda6cb393836d0f5019f74d8ca58e356a5523fc2a01b91700c27d76ae4"></a>IModePan&#160;</td><td class="fielddoc"><p>Ctrl+left-drag panning in progress. </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00069">69</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00095">95</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 </div>
 </div>
@@ -262,12 +274,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the view: creates the backing QGraphicsScene, sets a dark grey background brush, full-viewport update mode, and pixel-perfect (non-smooth) pixmap rendering by default.</p>
+
+<p>Constructs the view: creates the backing QGraphicsScene, sets a dark grey background brush, full-viewport update mode, and pixel-perfect (non-smooth) pixmap rendering by default. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Optional owning widget; standard Qt parent/child ownership.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Creates the backing QGraphicsScene, applies a dark grey background brush, sets FullViewportUpdate (to avoid ghosting), and disables smooth pixmap transform (per m_is_pixel_model) so zoomed pixels stay crisp. </p>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00048">48</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00137">m_first_time_image_set</a>, <a class="el" href="image__view__only_8h_source.html#l00138">m_is_pixel_model</a>, <a class="el" href="image__view__only_8h_source.html#l00134">m_pixmap_item</a>, and <a class="el" href="image__view__only_8h_source.html#l00133">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00163">m_first_time_image_set</a>, <a class="el" href="image__view__only_8h_source.html#l00164">m_is_pixel_model</a>, <a class="el" href="image__view__only_8h_source.html#l00160">m_pixmap_item</a>, and <a class="el" href="image__view__only_8h_source.html#l00159">m_scene</a>.</p>
 
 </div>
 </div>
@@ -305,11 +324,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds a rectangular ROI outline (corners given as tl/br points) as a child item of the current pixmap item so it renders on top of the image; the fill is always a fixed low-alpha green regardless of <span class="tt">border_color</span>, which is only used for the 3px border pen. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Adds a rectangular ROI outline (corners given as tl/br points) as a child item of the current pixmap item so it renders on top of the image; the fill is always a fixed low-alpha green regardless of <span class="tt">border_color</span>, which is only used for the 3px border pen. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tl_x/tl_y</td><td>top-left corner of the ROI rectangle </td></tr>
-    <tr><td class="paramname">br_x/br_y</td><td>bottom-right corner of the ROI rectangle </td></tr>
-    <tr><td class="paramname">border_color</td><td>colour used for the ROI border pen</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tl_x</td><td>top-left X of the ROI rectangle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tl_y</td><td>top-left Y of the ROI rectangle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">br_x</td><td>bottom-right X of the ROI rectangle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">br_y</td><td>bottom-right Y of the ROI rectangle </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">border_color</td><td>colour used for the ROI border pen</td></tr>
   </table>
   </dd>
 </dl>
@@ -317,7 +340,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00087">87</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00134">m_pixmap_item</a>, and <a class="el" href="image__view__only_8h_source.html#l00147">m_roi_items</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00160">m_pixmap_item</a>, and <a class="el" href="image__view__only_8h_source.html#l00173">m_roi_items</a>.</p>
 
 </div>
 </div>
@@ -348,7 +371,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00333">333</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00347">changeCursor()</a>, <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00140">m_current_mode</a>, <a class="el" href="image__view__only_8h_source.html#l00141">m_previous_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00142">m_scene_interacting</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00347">changeCursor()</a>, <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00166">m_current_mode</a>, <a class="el" href="image__view__only_8h_source.html#l00167">m_previous_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00168">m_scene_interacting</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00404">leftMouseButtonReleased()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00262">wheelEvent()</a>.</p>
 
@@ -381,7 +404,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00347">347</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00072">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00071">IModeZoom</a>, and <a class="el" href="image__view__only_8h_source.html#l00140">m_current_mode</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00098">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00097">IModeZoom</a>, and <a class="el" href="image__view__only_8h_source.html#l00166">m_current_mode</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00333">backToPreviousMode()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>.</p>
 
@@ -414,7 +437,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00321">321</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00347">changeCursor()</a>, <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00140">m_current_mode</a>, <a class="el" href="image__view__only_8h_source.html#l00141">m_previous_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00142">m_scene_interacting</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00347">changeCursor()</a>, <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00166">m_current_mode</a>, <a class="el" href="image__view__only_8h_source.html#l00167">m_previous_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00168">m_scene_interacting</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00048">ImageViewOnly()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00279">keyPressEvent()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00306">keyReleaseEvent()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00383">leftMouseButtonPressed()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00262">wheelEvent()</a>.</p>
 
@@ -439,7 +462,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00156">156</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00135">m_pixmap_bounding_rect</a>, <a class="el" href="image__view__only_8h_source.html#l00134">m_pixmap_item</a>, and <a class="el" href="image__view__only_8h_source.html#l00133">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00161">m_pixmap_bounding_rect</a>, <a class="el" href="image__view__only_8h_source.html#l00160">m_pixmap_item</a>, and <a class="el" href="image__view__only_8h_source.html#l00159">m_scene</a>.</p>
 
 </div>
 </div>
@@ -463,7 +486,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00077">77</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00134">m_pixmap_item</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00160">m_pixmap_item</a>.</p>
 
 </div>
 </div>
@@ -487,7 +510,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00166">166</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00134">m_pixmap_item</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00160">m_pixmap_item</a>.</p>
 
 </div>
 </div>
@@ -519,7 +542,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00363">363</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00072">IModePan</a>, and <a class="el" href="image__view__only_8h_source.html#l00071">IModeZoom</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00098">IModePan</a>, and <a class="el" href="image__view__only_8h_source.html#l00097">IModeZoom</a>.</p>
 
 </div>
 </div>
@@ -550,7 +573,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00279">279</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00140">m_current_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00135">m_pixmap_bounding_rect</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00166">m_current_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00161">m_pixmap_bounding_rect</a>.</p>
 
 </div>
 </div>
@@ -581,7 +604,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00306">306</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00072">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00140">m_current_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00145">m_last_pan_point</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00098">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00166">m_current_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00171">m_last_pan_point</a>.</p>
 
 </div>
 </div>
@@ -612,7 +635,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00383">383</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00072">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00144">m_has_panned</a>, and <a class="el" href="image__view__only_8h_source.html#l00145">m_last_pan_point</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00098">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00170">m_has_panned</a>, and <a class="el" href="image__view__only_8h_source.html#l00171">m_last_pan_point</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00173">mousePressEvent()</a>.</p>
 
@@ -645,7 +668,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00404">404</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00333">backToPreviousMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00072">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00071">IModeZoom</a>, <a class="el" href="image__view__only_8h_source.html#l00140">m_current_mode</a>, <a class="el" href="image__view__only_8h_source.html#l00144">m_has_panned</a>, and <a class="el" href="image__view__only_8h_source.html#l00145">m_last_pan_point</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00333">backToPreviousMode()</a>, <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00098">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00097">IModeZoom</a>, <a class="el" href="image__view__only_8h_source.html#l00166">m_current_mode</a>, <a class="el" href="image__view__only_8h_source.html#l00170">m_has_panned</a>, and <a class="el" href="image__view__only_8h_source.html#l00171">m_last_pan_point</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00226">mouseReleaseEvent()</a>.</p>
 
@@ -674,7 +697,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00137">137</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00137">m_first_time_image_set</a>, <a class="el" href="image__view__only_8h_source.html#l00135">m_pixmap_bounding_rect</a>, <a class="el" href="image__view__only_8h_source.html#l00134">m_pixmap_item</a>, and <a class="el" href="image__view__only_8h_source.html#l00133">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00163">m_first_time_image_set</a>, <a class="el" href="image__view__only_8h_source.html#l00161">m_pixmap_bounding_rect</a>, <a class="el" href="image__view__only_8h_source.html#l00160">m_pixmap_item</a>, and <a class="el" href="image__view__only_8h_source.html#l00159">m_scene</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00112">loadImageFromPath()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00125">loadImageOpenCv()</a>.</p>
 
@@ -698,9 +721,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Loads an image from disk at <span class="tt">path</span> and displays it; logs and does nothing if the file cannot be read as an image. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Loads an image from disk at <span class="tt">path</span> and displays it; logs and does nothing if the file cannot be read as an image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fitsize</td><td>when true, refits the view to the image bounds after loading</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>filesystem path of the image to load </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fitsize</td><td>when true, refits the view to the image bounds after loading</td></tr>
   </table>
   </dd>
 </dl>
@@ -730,9 +756,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Converts an OpenCV image (8-bit grayscale, BGR, or BGRA) to a QPixmap via cvMatToQPixmap and displays it; does nothing if <span class="tt">image</span> is empty. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Converts an OpenCV image (8-bit grayscale, BGR, or BGRA) to a QPixmap via cvMatToQPixmap and displays it; does nothing if <span class="tt">image</span> is empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fitsize</td><td>when true, refits the view to the image bounds after loading</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">image</td><td>source OpenCV image to convert and display </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fitsize</td><td>when true, refits the view to the image bounds after loading</td></tr>
   </table>
   </dd>
 </dl>
@@ -771,7 +800,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00249">249</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00140">m_current_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00135">m_pixmap_bounding_rect</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00166">m_current_mode</a>, and <a class="el" href="image__view__only_8h_source.html#l00161">m_pixmap_bounding_rect</a>.</p>
 
 </div>
 </div>
@@ -802,7 +831,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00196">196</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00070">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00072">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00071">IModeZoom</a>, <a class="el" href="image__view__only_8h_source.html#l00140">m_current_mode</a>, <a class="el" href="image__view__only_8h_source.html#l00144">m_has_panned</a>, and <a class="el" href="image__view__only_8h_source.html#l00145">m_last_pan_point</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00096">IModeNone</a>, <a class="el" href="image__view__only_8h_source.html#l00098">IModePan</a>, <a class="el" href="image__view__only_8h_source.html#l00097">IModeZoom</a>, <a class="el" href="image__view__only_8h_source.html#l00166">m_current_mode</a>, <a class="el" href="image__view__only_8h_source.html#l00170">m_has_panned</a>, and <a class="el" href="image__view__only_8h_source.html#l00171">m_last_pan_point</a>.</p>
 
 </div>
 </div>
@@ -888,7 +917,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00102">102</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00147">m_roi_items</a>, and <a class="el" href="image__view__only_8h_source.html#l00133">m_scene</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00173">m_roi_items</a>, and <a class="el" href="image__view__only_8h_source.html#l00159">m_scene</a>.</p>
 
 </div>
 </div>
@@ -975,7 +1004,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00071">71</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00138">m_is_pixel_model</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8h_source.html#l00164">m_is_pixel_model</a>.</p>
 
 </div>
 </div>
@@ -1006,7 +1035,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__view__only_8cpp_source.html#l00262">262</a> of file <a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00333">backToPreviousMode()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, and <a class="el" href="image__view__only_8h_source.html#l00071">IModeZoom</a>.</p>
+<p class="reference">References <a class="el" href="image__view__only_8cpp_source.html#l00333">backToPreviousMode()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, and <a class="el" href="image__view__only_8h_source.html#l00097">IModeZoom</a>.</p>
 
 </div>
 </div>
@@ -1033,7 +1062,7 @@ Private Attributes</h2></td></tr>
 
 <p>Currently active interact mode. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00140">140</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00166">166</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00333">backToPreviousMode()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00347">changeCursor()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00279">keyPressEvent()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00306">keyReleaseEvent()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00404">leftMouseButtonReleased()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00249">mouseDoubleClickEvent()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00196">mouseMoveEvent()</a>.</p>
 
@@ -1061,7 +1090,7 @@ Private Attributes</h2></td></tr>
 
 <p>True after the first image has been loaded once. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00137">137</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00163">163</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00048">ImageViewOnly()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00137">loadImage()</a>.</p>
 
@@ -1089,7 +1118,7 @@ Private Attributes</h2></td></tr>
 
 <p>Tracks whether an actual pan movement occurred during the current pan gesture. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00144">144</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00170">170</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00383">leftMouseButtonPressed()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00404">leftMouseButtonReleased()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00196">mouseMoveEvent()</a>.</p>
 
@@ -1117,7 +1146,7 @@ Private Attributes</h2></td></tr>
 
 <p>When true, disables smooth pixmap transform for hard pixel edges when zoomed. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00138">138</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00164">164</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00048">ImageViewOnly()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00071">setEnabelPixelModel()</a>.</p>
 
@@ -1145,7 +1174,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last recorded mouse position used to compute pan deltas. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00145">145</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00171">171</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00306">keyReleaseEvent()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00383">leftMouseButtonPressed()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00404">leftMouseButtonReleased()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00196">mouseMoveEvent()</a>.</p>
 
@@ -1173,7 +1202,7 @@ Private Attributes</h2></td></tr>
 
 <p>Cached bounding rect of the current pixmap item, used to refit the view. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00135">135</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00161">161</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00156">clearCurrentImage()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00279">keyPressEvent()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00137">loadImage()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00249">mouseDoubleClickEvent()</a>.</p>
 
@@ -1201,7 +1230,7 @@ Private Attributes</h2></td></tr>
 
 <p>The single displayed pixmap item; null until an image is loaded. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00134">134</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00160">160</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00087">addROI()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00156">clearCurrentImage()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00077">getCurrentImage()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00166">hadImage()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00048">ImageViewOnly()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00137">loadImage()</a>.</p>
 
@@ -1229,7 +1258,7 @@ Private Attributes</h2></td></tr>
 
 <p>Interact mode active before the current one, used to restore state. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00141">141</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00167">167</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00333">backToPreviousMode()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>.</p>
 
@@ -1255,9 +1284,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>ROI rectangle items added via <a class="el" href="#a07cda8479ba75bc541c3ad499b7ebe49">addROI()</a>, removed by <a class="el" href="#af971eb6837c085241bbf55f792fe7227" title="Removes all previously added ROI rectangles from the scene and clears the tracking list.">removeAllROI()</a>. </p>
+<p>ROI rectangle items added via <a class="el" href="#a07cda8479ba75bc541c3ad499b7ebe49" title="Adds a rectangular ROI outline (corners given as tl/br points) as a child item of the current pixmap ...">addROI()</a>, removed by <a class="el" href="#af971eb6837c085241bbf55f792fe7227" title="Removes all previously added ROI rectangles from the scene and clears the tracking list.">removeAllROI()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00147">147</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00173">173</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00087">addROI()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00102">removeAllROI()</a>.</p>
 
@@ -1285,7 +1314,7 @@ Private Attributes</h2></td></tr>
 
 <p>Owns the QGraphicsScene backing the view (parented to <span class="tt">this</span>). </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00133">133</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00159">159</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00156">clearCurrentImage()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00048">ImageViewOnly()</a>, <a class="el" href="image__view__only_8cpp_source.html#l00137">loadImage()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00102">removeAllROI()</a>.</p>
 
@@ -1313,15 +1342,15 @@ Private Attributes</h2></td></tr>
 
 <p>True whenever an interact mode other than IModeNone is active. </p>
 
-<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00142">142</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__view__only_8h_source.html#l00168">168</a> of file <a class="el" href="image__view__only_8h_source.html">image_view_only.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="image__view__only_8cpp_source.html#l00333">backToPreviousMode()</a>, and <a class="el" href="image__view__only_8cpp_source.html#l00321">changeInteractMode()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="image__view__only_8h_source.html">image_view_only.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="image__view__only_8h_source.html">image_view_only.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="image__view__only_8cpp_source.html">image_view_only.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

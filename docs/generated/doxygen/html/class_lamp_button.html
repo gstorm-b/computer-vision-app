@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_lamp_but
 </div><!--header-->
 <div class="contents">
 
+<p>Push button that acts as a status "lamp": exposes a <a class="el" href="#a6afbb031726cf4c932ce0c9ee4196e1e" title="Connection/operation states the lamp can display.">Status</a> enum and reflects it as a dynamic "status" property so a stylesheet can color/decorate the button per state.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for LampButton:</div>
@@ -166,7 +169,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Push button that acts as a status "lamp": exposes a <a class="el" href="#a6afbb031726cf4c932ce0c9ee4196e1e" title="Connection/operation states the lamp can display.">Status</a> enum and reflects it as a dynamic "status" property so a stylesheet can color/decorate the button per state. </p>
 
-<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00009">9</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00017">17</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a6afbb031726cf4c932ce0c9ee4196e1e" name="a6afbb031726cf4c932ce0c9ee4196e1e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6afbb031726cf4c932ce0c9ee4196e1e">&#9670;&#160;</a></span>Status</h2>
@@ -194,7 +197,7 @@ Private Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00013">13</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00024">24</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
 
 </div>
 </div>
@@ -224,9 +227,9 @@ Private Attributes</h2></td></tr>
 
 <p>Constructs the button in the Disconnected state and applies the matching style. </p>
 
-<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00022">22</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00033">33</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
 
-<p class="reference">References <a class="el" href="lamp__button_8h_source.html#l00014">Disconnected</a>, <a class="el" href="lamp__button_8h_source.html#l00040">m_status</a>, and <a class="el" href="lamp__button_8h_source.html#l00044">updateStyle()</a>.</p>
+<p class="reference">References <a class="el" href="lamp__button_8h_source.html#l00025">Disconnected</a>, <a class="el" href="lamp__button_8h_source.html#l00051">m_status</a>, and <a class="el" href="lamp__button_8h_source.html#l00055">updateStyle()</a>.</p>
 
 </div>
 </div>
@@ -256,9 +259,9 @@ Private Attributes</h2></td></tr>
 
 <p>Updates the lamp state and re-applies the style if <span class="tt"><a class="el" href="#ae75fd5445fd54c4e5b1f11130d48016f" title="Returns the current lamp status.">status</a></span> actually changed. </p>
 
-<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00029">29</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00040">40</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
 
-<p class="reference">References <a class="el" href="lamp__button_8h_source.html#l00040">m_status</a>, <a class="el" href="lamp__button_8h_source.html#l00037">status()</a>, and <a class="el" href="lamp__button_8h_source.html#l00044">updateStyle()</a>.</p>
+<p class="reference">References <a class="el" href="lamp__button_8h_source.html#l00051">m_status</a>, <a class="el" href="lamp__button_8h_source.html#l00048">status()</a>, and <a class="el" href="lamp__button_8h_source.html#l00055">updateStyle()</a>.</p>
 
 </div>
 </div>
@@ -287,11 +290,11 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the current lamp status. </p>
 
-<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00037">37</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00048">48</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
 
-<p class="reference">References <a class="el" href="lamp__button_8h_source.html#l00040">m_status</a>.</p>
+<p class="reference">References <a class="el" href="lamp__button_8h_source.html#l00051">m_status</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lamp__button_8h_source.html#l00029">setStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lamp__button_8h_source.html#l00040">setStatus()</a>.</p>
 
 </div>
 </div>
@@ -319,11 +322,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Maps m_status to the "status" dynamic property (used by the stylesheet), then forces the style to unpolish/re-polish and repaints the button. </p>
 
-<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00044">44</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00055">55</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
 
-<p class="reference">References <a class="el" href="lamp__button_8h_source.html#l00015">Connected</a>, <a class="el" href="lamp__button_8h_source.html#l00016">ConnectFail</a>, <a class="el" href="lamp__button_8h_source.html#l00014">Disconnected</a>, <a class="el" href="lamp__button_8h_source.html#l00018">Error</a>, <a class="el" href="lamp__button_8h_source.html#l00040">m_status</a>, and <a class="el" href="lamp__button_8h_source.html#l00017">Operation</a>.</p>
+<p class="reference">References <a class="el" href="lamp__button_8h_source.html#l00026">Connected</a>, <a class="el" href="lamp__button_8h_source.html#l00027">ConnectFail</a>, <a class="el" href="lamp__button_8h_source.html#l00025">Disconnected</a>, <a class="el" href="lamp__button_8h_source.html#l00029">Error</a>, <a class="el" href="lamp__button_8h_source.html#l00051">m_status</a>, and <a class="el" href="lamp__button_8h_source.html#l00028">Operation</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lamp__button_8h_source.html#l00022">LampButton()</a>, and <a class="el" href="lamp__button_8h_source.html#l00029">setStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lamp__button_8h_source.html#l00033">LampButton()</a>, and <a class="el" href="lamp__button_8h_source.html#l00040">setStatus()</a>.</p>
 
 </div>
 </div>
@@ -350,14 +353,14 @@ Private Attributes</h2></td></tr>
 
 <p>Current lamp status, mirrored into the "status" dynamic property. </p>
 
-<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00040">40</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lamp__button_8h_source.html#l00051">51</a> of file <a class="el" href="lamp__button_8h_source.html">lamp_button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="lamp__button_8h_source.html#l00022">LampButton()</a>, <a class="el" href="lamp__button_8h_source.html#l00029">setStatus()</a>, <a class="el" href="lamp__button_8h_source.html#l00037">status()</a>, and <a class="el" href="lamp__button_8h_source.html#l00044">updateStyle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="lamp__button_8h_source.html#l00033">LampButton()</a>, <a class="el" href="lamp__button_8h_source.html#l00040">setStatus()</a>, <a class="el" href="lamp__button_8h_source.html#l00048">status()</a>, and <a class="el" href="lamp__button_8h_source.html#l00055">updateStyle()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="lamp__button_8h_source.html">lamp_button.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="lamp__button_8h_source.html">lamp_button.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

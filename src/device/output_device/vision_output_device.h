@@ -1,6 +1,12 @@
 #ifndef VISION_OUTPUT_DEVICE_H
 #define VISION_OUTPUT_DEVICE_H
 
+/**
+ * @file vision_output_device.h
+ * @brief Abstract device classes for the vision-output device family (the software side that
+ *        streams matching results / raw bytes out to an external system).
+ */
+
 #include "device/idevice.h"
 #include "device/device_capabilities.h"
 #include "device/output_device/vision_output_config.h"
@@ -9,24 +15,16 @@
 #define VISION_OUTPUT_TYPE_TCPIP    "VisionTCPIP"
 #define VISION_OUTPUT_TYPE_SERIAL   "VisionSerial"
 
-/// Abstract device classes for the vision-output device family (the software side that
-/// streams matching results / raw bytes out to an external system).
 namespace vc::device {
 
-// Family-level sub-type dispatch handle. Mirrors CameraType / RobotType.
-// Concrete vendors register a value here; DeviceFactory::createVisionOutput()
-// switches on this enum to pick the concrete subclass.
-// enum VisionOutputType {
-//     VisionOutputTypeNone,
-//     VisionTCPIP,
-//     VisionSerial,   // placeholder for future transport
-// };
-
-/// Abstract base for the vision-output device family. Concrete vendors
-/// (VisionTcpipDevice, future VisionSerialDevice, …) inherit from this base. The base
-/// only carries the family-level dispatch (visionOutputType()) and the family JSON
-/// header; transport-specific surface (TCP servers / serial port / heartbeat) lives
-/// entirely on the concrete subclass.
+/**
+ * @class VisionOutputDevice
+ * @brief Abstract base for the vision-output device family. Concrete vendors
+ *        (VisionTcpipDevice, future VisionSerialDevice, …) inherit from this base. The base
+ *        only carries the family-level dispatch (visionOutputType()) and the family JSON
+ *        header; transport-specific surface (TCP servers / serial port / heartbeat) lives
+ *        entirely on the concrete subclass.
+ */
 class VisionOutputDevice : public IDevice, public IResultOutputDevice {
     Q_OBJECT
 

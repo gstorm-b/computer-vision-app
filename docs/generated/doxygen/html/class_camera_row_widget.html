@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_camera_r
 </div><!--header-->
 <div class="contents">
 
+<p>A single mapping row: camera-name combo, number combo, and a delete button ("Component 2" — a normal row, as opposed to the trailing Add row).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CameraRowWidget:</div>
@@ -139,7 +142,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ae3d66d3a540f0241989efab77f3f2c03" id="r_ae3d66d3a540f0241989efab77f3f2c03"><td class="memItemLeft">QPushButton *&#160;</td><td class="memItemRight"><a class="el" href="#ae3d66d3a540f0241989efab77f3f2c03">btnDelete</a></td></tr>
-<tr class="memdesc:ae3d66d3a540f0241989efab77f3f2c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes this row when clicked; wired up by the owning <a class="el" href="class_camera_mapping_widget.html">CameraMappingWidget</a>.  <br /></td></tr>
+<tr class="memdesc:ae3d66d3a540f0241989efab77f3f2c03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes this row when clicked; wired up by the owning <a class="el" href="class_camera_mapping_widget.html" title="Main manager widget (&quot;Component 5&quot;): a FlatListWidget of camera-to-number mapping rows plus a trailin...">CameraMappingWidget</a>.  <br /></td></tr>
 <tr class="memitem:a2e032983be2ac97278289b0ffe8b09f6" id="r_a2e032983be2ac97278289b0ffe8b09f6"><td class="memItemLeft"><a class="el" href="class_editable_combo_widget.html">EditableComboWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a2e032983be2ac97278289b0ffe8b09f6">nameWidget</a></td></tr>
 <tr class="memdesc:a2e032983be2ac97278289b0ffe8b09f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Editable combo holding the camera id (userData) / display name (text) for this row.  <br /></td></tr>
 <tr class="memitem:aa84a9722927ed01b77c82b13db8c98d5" id="r_aa84a9722927ed01b77c82b13db8c98d5"><td class="memItemLeft"><a class="el" href="class_editable_combo_widget.html">EditableComboWidget</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aa84a9722927ed01b77c82b13db8c98d5">numberWidget</a></td></tr>
@@ -148,7 +151,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A single mapping row: camera-name combo, number combo, and a delete button ("Component 2" — a normal row, as opposed to the trailing Add row). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00068">68</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00083">83</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7e1623e4b66a2bf6c42a6e60246c91b6" name="a7e1623e4b66a2bf6c42a6e60246c91b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7e1623e4b66a2bf6c42a6e60246c91b6">&#9670;&#160;</a></span>CameraRowWidget()</h2>
@@ -177,7 +180,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8cpp_source.html#l00139">139</a> of file <a class="el" href="camera__mapping__widget_8cpp_source.html">camera_mapping_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__mapping__widget_8h_source.html#l00076">btnDelete</a>, <a class="el" href="camera__mapping__widget_8h_source.html#l00074">nameWidget</a>, and <a class="el" href="camera__mapping__widget_8h_source.html#l00075">numberWidget</a>.</p>
+<p class="reference">References <a class="el" href="camera__mapping__widget_8h_source.html#l00091">btnDelete</a>, <a class="el" href="camera__mapping__widget_8h_source.html#l00089">nameWidget</a>, and <a class="el" href="camera__mapping__widget_8h_source.html#l00090">numberWidget</a>.</p>
 
 </div>
 </div>
@@ -194,9 +197,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes this row when clicked; wired up by the owning <a class="el" href="class_camera_mapping_widget.html">CameraMappingWidget</a>. </p>
+<p>Removes this row when clicked; wired up by the owning <a class="el" href="class_camera_mapping_widget.html" title="Main manager widget (&quot;Component 5&quot;): a FlatListWidget of camera-to-number mapping rows plus a trailin...">CameraMappingWidget</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00076">76</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00091">91</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__mapping__widget_8cpp_source.html#l00139">CameraRowWidget()</a>, and <a class="el" href="camera__mapping__widget_8cpp_source.html#l00332">CameraMappingWidget::wireRow()</a>.</p>
 
@@ -216,7 +219,7 @@ Public Attributes</h2></td></tr>
 
 <p>Editable combo holding the camera id (userData) / display name (text) for this row. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00074">74</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00089">89</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__mapping__widget_8cpp_source.html#l00350">CameraMappingWidget::addMappingRow()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00494">CameraMappingWidget::applyDuplicateWarnings()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00139">CameraRowWidget()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00455">CameraMappingWidget::getCurrentMapping()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00525">CameraMappingWidget::setDuplicateWarning()</a>, and <a class="el" href="camera__mapping__widget_8cpp_source.html#l00332">CameraMappingWidget::wireRow()</a>.</p>
 
@@ -236,15 +239,15 @@ Public Attributes</h2></td></tr>
 
 <p>Editable combo holding the assigned slot number, stored as text/userData. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00075">75</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__mapping__widget_8h_source.html#l00090">90</a> of file <a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__mapping__widget_8cpp_source.html#l00350">CameraMappingWidget::addMappingRow()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00139">CameraRowWidget()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00455">CameraMappingWidget::getCurrentMapping()</a>, <a class="el" href="camera__mapping__widget_8cpp_source.html#l00387">CameraMappingWidget::updateSortingData()</a>, and <a class="el" href="camera__mapping__widget_8cpp_source.html#l00332">CameraMappingWidget::wireRow()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="camera__mapping__widget_8cpp_source.html">camera_mapping_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="camera__mapping__widget_8h_source.html">camera_mapping_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="camera__mapping__widget_8cpp_source.html">camera_mapping_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

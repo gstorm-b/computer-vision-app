@@ -10,41 +10,58 @@ class QLabel;
 class QLineEdit;
 class QTableWidget;
 
-/// UI widgets that present PLC device state and other live monitor panels.
+/**
+ * @file devices_monitor_widget.h
+ * @brief DevicesMonitorWidget — self-contained monitor for Mitsubishi M-bit or D-word PLC
+ *        registers; part of the `vc::widgets` UI widgets that present PLC device state and
+ *        other live monitor panels.
+ */
+
 namespace vc::widgets {
 
 class DeviceRowDelegate;
 
-/// Self-contained monitor for either Mitsubishi M-bit or D-word registers,
-/// matching the design handoff `PLC Panel` register table:
-///
-///    ┌──────────────────────────────────────────────────────────────────┐
-///    │ M DEVICES — BIT REGISTERS         16 / 64 ACTIVE   [ filter… ]   │  header
-///    ├──────────┬──────────────────────────┬──────────┬─────────────────┤
-///    │ ADDRESS  │ DESCRIPTION              │ STATE    │ ACTION          │
-///    ├──────────┼──────────────────────────┼──────────┼─────────────────┤
-///    │ M2000    │ trigger input            │ [ ON ]   │ ON  OFF  TOGGLE │
-///    │ M2001    │ vision busy              │ [ OFF ]  │ ON  OFF  TOGGLE │
-///    └──────────┴──────────────────────────┴──────────┴─────────────────┘
-///
-/// Mode::Bit  → State chip + ON/OFF/TOGGLE per row (emits bitWriteRequested).
-/// Mode::Word → Numeric value + value box + WRITE per row
-///               (emits wordWriteRequested).
-///
-/// Rendering is owned by `DeviceRowDelegate` — every interactive control is
-/// painted by the delegate itself, no per-row `setCellWidget()` widgets.
-/// This guarantees the row sizes (44 px) cleanly match the painted geometry
-/// with no native QPushButton bevel-clipping.
+/**
+ * @class DevicesMonitorWidget
+ * @brief Self-contained monitor for either Mitsubishi M-bit or D-word registers,
+ *        matching the design handoff `PLC Panel` register table:
+ *
+ * @code
+ *    ┌──────────────────────────────────────────────────────────────────┐
+ *    │ M DEVICES — BIT REGISTERS         16 / 64 ACTIVE   [ filter… ]   │  header
+ *    ├──────────┬──────────────────────────┬──────────┬─────────────────┤
+ *    │ ADDRESS  │ DESCRIPTION              │ STATE    │ ACTION          │
+ *    ├──────────┼──────────────────────────┼──────────┼─────────────────┤
+ *    │ M2000    │ trigger input            │ [ ON ]   │ ON  OFF  TOGGLE │
+ *    │ M2001    │ vision busy              │ [ OFF ]  │ ON  OFF  TOGGLE │
+ *    └──────────┴──────────────────────────┴──────────┴─────────────────┘
+ * @endcode
+ *
+ * Mode::Bit  → State chip + ON/OFF/TOGGLE per row (emits bitWriteRequested).
+ * Mode::Word → Numeric value + value box + WRITE per row
+ *              (emits wordWriteRequested).
+ *
+ * Rendering is owned by `DeviceRowDelegate` — every interactive control is
+ * painted by the delegate itself, no per-row `setCellWidget()` widgets.
+ * This guarantees the row sizes (44 px) cleanly match the painted geometry
+ * with no native QPushButton bevel-clipping.
+ */
 class DevicesMonitorWidget : public QWidget {
     Q_OBJECT
 public:
-    /// Register kind monitored by this widget instance: Bit for M-registers
-    /// (ON/OFF), Word for D-registers (signed 16-bit values).
+    /**
+     * @enum Mode
+     * @brief Register kind monitored by this widget instance: Bit for M-registers
+     *        (ON/OFF), Word for D-registers (signed 16-bit values).
+     */
     enum class Mode { Bit, Word };
 
-    /// Constructs the widget for the given register kind, builds the header/table
-    /// UI, and applies the current theme's stylesheet.
-    /// @param mode Bit or Word — fixed for the widget's lifetime
+    /**
+     * @brief Constructs the widget for the given register kind, builds the header/table
+     *        UI, and applies the current theme's stylesheet.
+     * @param[in] mode Bit or Word — fixed for the widget's lifetime
+     * @param[in] parent owning widget, passed through to QWidget (Qt parent/child ownership)
+     */
     explicit DevicesMonitorWidget(Mode mode, QWidget *parent = nullptr);
     ~DevicesMonitorWidget() override;
 
@@ -56,9 +73,11 @@ public:
     /// Sets the header subtitle label text.
     void setSubtitle(const QString &subtitle);
 
-    /// Configures the contiguous device range shown and rebuilds all table rows.
-    /// @param start_address first device address in the range
-    /// @param amount number of consecutive devices in the range
+    /**
+     * @brief Configures the contiguous device range shown and rebuilds all table rows.
+     * @param[in] start_address first device address in the range
+     * @param[in] amount number of consecutive devices in the range
+     */
     void setRange(int start_address, int amount);
     /// Returns the first device address of the currently configured range.
     int  startAddress() const { return m_start; }

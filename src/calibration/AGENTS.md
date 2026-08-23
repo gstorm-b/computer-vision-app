@@ -22,6 +22,9 @@ Enforced by the architecture contract test. (Consumed by `device/camera`
 Makefile.Debug compiler_moc_source_make_all` + `nmake /nologo`; run
 `calibration_test.exe`), plus root app build.
 
-**Build registration.** `src/calibration/calibration.pri` only.
+**Build registration.** `src/calibration/calibration.pri` only. That `.pri` is
+consumed by `src/src.pro`, which compiles every module **once** into the
+`ncr_shared` static library that both shells link. No shell `.pro` lists module
+sources, so a file added anywhere else is simply not built.
 
 **Docs.** `docs/domains/calibration/calibration_module.md`.

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('pattern__tree_
   <div class="headertitle"><div class="title">pattern_tree_widget.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="class_pattern_tree_widget.html" title="Main widget: a QTreeWidget of pattern groups/patterns (each rendered by a custom item widget) plus a ...">PatternTreeWidget</a> — tree view of match pattern groups/patterns, plus its editable-config structs (<a class="el" href="struct_match_pattern_config.html" title="A single match pattern&#39;s editable data: display name, identifying number, match threshold score,...">MatchPatternConfig</a>, <a class="el" href="struct_match_group_config.html" title="A named group of MatchPatternConfig entries, displayed as a top-level tree item with its patterns nes...">MatchGroupConfig</a>) and row widgets (<a class="el" href="class_pattern_group_item_widget.html" title="Row widget for a top-level (group) tree item: accent bar, name label, group number badge,...">PatternGroupItemWidget</a>, <a class="el" href="class_pattern_item_widget.html" title="Row widget for a child (pattern) tree item: thumbnail, name/number/threshold labels,...">PatternItemWidget</a>, <a class="el" href="class_footer_item_widget.html" title="Row widget pinned as the tree&#39;s last (non-selectable) item: an &quot;Add Group&quot; button and an &quot;Auto Sort&quot; ...">FooterItemWidget</a>).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QTreeWidget&gt;</code><br />
 <code>#include &lt;QWidget&gt;</code><br />
 <code>#include &lt;QHBoxLayout&gt;</code><br />
@@ -136,7 +139,7 @@ Include dependency graph for pattern_tree_widget.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="pattern__tree__widget_8h__dep__incl.svg" width="614" height="315"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="pattern__tree__widget_8h__dep__incl.svg" width="592" height="315"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="pattern__tree__widget_8h_source.html">Go to the source code of this file.</a></p>
@@ -144,13 +147,23 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:FooterItemWidget" id="r_FooterItemWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_footer_item_widget.html">FooterItemWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row widget pinned as the tree's last (non-selectable) item: an "Add Group" button and an "Auto Sort" button.  <a href="class_footer_item_widget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchGroupConfig" id="r_MatchGroupConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_match_group_config.html">MatchGroupConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A named group of <a class="el" href="struct_match_pattern_config.html" title="A single match pattern&#39;s editable data: display name, identifying number, match threshold score,...">MatchPatternConfig</a> entries, displayed as a top-level tree item with its patterns nested underneath.  <a href="struct_match_group_config.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MatchPatternConfig" id="r_MatchPatternConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_match_pattern_config.html">MatchPatternConfig</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single match pattern's editable data: display name, identifying number, match threshold score, and an optional preview thumbnail.  <a href="struct_match_pattern_config.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PatternGroupItemWidget" id="r_PatternGroupItemWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_pattern_group_item_widget.html">PatternGroupItemWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row widget for a top-level (group) tree item: accent bar, name label, group number badge, an "Add Pattern" button, and a delete button.  <a href="class_pattern_group_item_widget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PatternItemWidget" id="r_PatternItemWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_pattern_item_widget.html">PatternItemWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row widget for a child (pattern) tree item: thumbnail, name/number/threshold labels, an edit button, and a delete button.  <a href="class_pattern_item_widget.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PatternTreeWidget" id="r_PatternTreeWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_pattern_tree_widget.html">PatternTreeWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main widget: a QTreeWidget of pattern groups/patterns (each rendered by a custom item widget) plus a pinned footer row, kept in sync with an internal <a class="el" href="struct_match_group_config.html" title="A named group of MatchPatternConfig entries, displayed as a top-level tree item with its patterns nes...">MatchGroupConfig</a> list.  <a href="class_pattern_tree_widget.html#details">More...</a><br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_pattern_tree_widget.html" title="Main widget: a QTreeWidget of pattern groups/patterns (each rendered by a custom item widget) plus a ...">PatternTreeWidget</a> — tree view of match pattern groups/patterns, plus its editable-config structs (<a class="el" href="struct_match_pattern_config.html" title="A single match pattern&#39;s editable data: display name, identifying number, match threshold score,...">MatchPatternConfig</a>, <a class="el" href="struct_match_group_config.html" title="A named group of MatchPatternConfig entries, displayed as a top-level tree item with its patterns nes...">MatchGroupConfig</a>) and row widgets (<a class="el" href="class_pattern_group_item_widget.html" title="Row widget for a top-level (group) tree item: accent bar, name label, group number badge,...">PatternGroupItemWidget</a>, <a class="el" href="class_pattern_item_widget.html" title="Row widget for a child (pattern) tree item: thumbnail, name/number/threshold labels,...">PatternItemWidget</a>, <a class="el" href="class_footer_item_widget.html" title="Row widget pinned as the tree&#39;s last (non-selectable) item: an &quot;Add Group&quot; button and an &quot;Auto Sort&quot; ...">FooterItemWidget</a>). </p>
+
+<p class="definition">Definition in file <a class="el" href="pattern__tree__widget_8h_source.html">pattern_tree_widget.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

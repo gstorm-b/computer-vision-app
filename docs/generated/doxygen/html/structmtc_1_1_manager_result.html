@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structmtc_1_1_
 </div><!--header-->
 <div class="contents">
 
+<p>Lightweight ok/error result: <span class="tt"><a class="el" href="#acc4f809810b6ad077ab6264946718748" title="True on success; false when the operation failed.">ok</a></span> reports success, <span class="tt"><a class="el" href="#a5e9c61e009c6cac5b4862260846e81e4" title="Failure message; empty when ok is true.">error</a></span> carries a human-readable failure message when <span class="tt"><a class="el" href="#acc4f809810b6ad077ab6264946718748" title="True on success; false when the operation failed.">ok</a></span> is false.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="manager__result_8h_source.html">manager_result.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::ManagerResult:</div>
@@ -153,7 +156,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Lightweight ok/error result: <span class="tt"><a class="el" href="#acc4f809810b6ad077ab6264946718748" title="True on success; false when the operation failed.">ok</a></span> reports success, <span class="tt"><a class="el" href="#a5e9c61e009c6cac5b4862260846e81e4" title="Failure message; empty when ok is true.">error</a></span> carries a human-readable failure message when <span class="tt"><a class="el" href="#acc4f809810b6ad077ab6264946718748" title="True on success; false when the operation failed.">ok</a></span> is false. </p>
 
-<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00012">12</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00018">18</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad6cefadf927a9afaebefdc3fc5e88749" name="ad6cefadf927a9afaebefdc3fc5e88749"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad6cefadf927a9afaebefdc3fc5e88749">&#9670;&#160;</a></span>ManagerResult() <span class="overload">[1/2]</span></h2>
@@ -180,7 +183,7 @@ Public Attributes</h2></td></tr>
 
 <p>Default-constructs a successful result (ok = true, empty error). </p>
 
-<p class="reference">Referenced by <a class="el" href="manager__result_8h_source.html#l00028">fail()</a>, and <a class="el" href="manager__result_8h_source.html#l00024">success()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="manager__result_8h_source.html#l00042">fail()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">success()</a>.</p>
 
 </div>
 </div>
@@ -212,10 +215,17 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructs a result with an explicit success flag and optional error message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ok</td><td>true for success, false for failure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">error</td><td>failure description; empty by default </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00020">20</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00030">30</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00014">error</a>, and <a class="el" href="manager__result_8h_source.html#l00013">ok</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00020">error</a>, and <a class="el" href="manager__result_8h_source.html#l00019">ok</a>.</p>
 
 </div>
 </div>
@@ -244,8 +254,15 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a failed result carrying <span class="tt">reason</span> as the error message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">reason</td><td>failure description stored in the error field </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="structmtc_1_1_manager_result.html" title="Lightweight ok/error result: ok reports success, error carries a human-readable failure message when ...">ManagerResult</a> with ok = false and error = reason </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00028">28</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00042">42</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
 
 <p class="reference">References <a class="el" href="#ad6cefadf927a9afaebefdc3fc5e88749">ManagerResult()</a>.</p>
 
@@ -278,9 +295,9 @@ Public Attributes</h2></td></tr>
 
 <p>Implicit bool — lets you write: if (!result) { ... }. </p>
 
-<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00032">32</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00046">46</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00013">ok</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00019">ok</a>.</p>
 
 </div>
 </div>
@@ -309,7 +326,7 @@ Public Attributes</h2></td></tr>
 
 <p>Returns a successful result. </p>
 
-<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00024">24</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00034">34</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
 
 <p class="reference">References <a class="el" href="#ad6cefadf927a9afaebefdc3fc5e88749">ManagerResult()</a>.</p>
 
@@ -332,9 +349,9 @@ Public Attributes</h2></td></tr>
 
 <p>Failure message; empty when <span class="tt"><a class="el" href="#acc4f809810b6ad077ab6264946718748" title="True on success; false when the operation failed.">ok</a></span> is true. </p>
 
-<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00014">14</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00020">20</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="manager__result_8h_source.html#l00020">ManagerResult()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00155">anonymous_namespace{localization_patterns_widget.cpp}::resultMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="manager__result_8h_source.html#l00030">ManagerResult()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00155">anonymous_namespace{localization_patterns_widget.cpp}::resultMessage()</a>.</p>
 
 </div>
 </div>
@@ -352,14 +369,14 @@ Public Attributes</h2></td></tr>
 
 <p>True on success; false when the operation failed. </p>
 
-<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00013">13</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="manager__result_8h_source.html#l00019">19</a> of file <a class="el" href="manager__result_8h_source.html">manager_result.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="manager__result_8h_source.html#l00020">ManagerResult()</a>, and <a class="el" href="manager__result_8h_source.html#l00032">operator bool()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="manager__result_8h_source.html#l00030">ManagerResult()</a>, and <a class="el" href="manager__result_8h_source.html#l00046">operator bool()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="manager__result_8h_source.html">manager_result.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="manager__result_8h_source.html">manager_result.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

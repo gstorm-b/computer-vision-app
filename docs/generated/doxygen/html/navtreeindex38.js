@@ -1,5 +1,11 @@
 var NAVTREEINDEX38 =
 {
+"structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html":[10,0,30,2,12,4],
+"structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html":[11,0,7,1,8,4],
+"structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#a1133b826cc0c6c4226caee2ec0c54184":[10,0,30,2,12,4,2],
+"structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#a1133b826cc0c6c4226caee2ec0c54184":[11,0,7,1,8,4,2],
+"structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#a1f3d2bdc9559203de79945c7faa47c60":[10,0,30,2,12,4,0],
+"structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#a1f3d2bdc9559203de79945c7faa47c60":[11,0,7,1,8,4,0],
 "structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#a56c5a8a3128831f2ace3822c83d4a1a7":[10,0,30,2,12,4,1],
 "structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#a56c5a8a3128831f2ace3822c83d4a1a7":[11,0,7,1,8,4,1],
 "structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html#ab541865787ef8ffd0f952cff2aab1a2a":[10,0,30,2,12,4,3],
@@ -243,11 +249,5 @@ var NAVTREEINDEX38 =
 "vision__tool__palette_8cpp_source.html":[12,0,3,6,1,5,15],
 "vision__tool__palette_8h.html":[12,0,3,6,1,5,16],
 "vision__tool__palette_8h_source.html":[12,0,3,6,1,5,16],
-"vision__utils_8cpp.html":[12,0,3,3,23],
-"vision__utils_8cpp_source.html":[12,0,3,3,23],
-"vision__utils_8h.html":[12,0,3,3,24],
-"vision__utils_8h.html#a0a3cc1d5cde549e408f825ddd7f5853d":[12,0,3,3,24,1],
-"vision__utils_8h.html#a39c663074332446065723e9be9350139":[12,0,3,3,24,6],
-"vision__utils_8h.html#a3c94bf70680f70480b17a2eb8d653655":[12,0,3,3,24,4],
-"vision__utils_8h.html#a42b5a8e4eb4fae836e7fc9e9513b1d2a":[12,0,3,3,24,5]
+"vision__utils_8cpp.html":[12,0,3,3,23]
 };

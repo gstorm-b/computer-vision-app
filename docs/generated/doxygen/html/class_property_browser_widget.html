@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_property
 </div><!--header-->
 <div class="contents">
 
+<p>A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyBrowser, and a description panel showing the selected property's tooltip.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for PropertyBrowserWidget:</div>
@@ -156,6 +159,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae76f564cd34cf3f215d84b7670da79a9" id="r_ae76f564cd34cf3f215d84b7670da79a9"><td class="memItemLeft"><a class="el" href="class_position_property_manager.html">PositionPropertyManager</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae76f564cd34cf3f215d84b7670da79a9">positionManager</a> () const</td></tr>
 <tr class="memdesc:ae76f564cd34cf3f215d84b7670da79a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pre-wired manager for position properties (XY / XYZ / XYZRPY).  <br /></td></tr>
 <tr class="memitem:a953075df71e79827071a969ee3fb7e42" id="r_a953075df71e79827071a969ee3fb7e42"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a953075df71e79827071a969ee3fb7e42">PropertyBrowserWidget</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="memdesc:a953075df71e79827071a969ee3fb7e42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the widget and builds the search bar, tree browser, and description panel, then wires up the built-in variant/position/size/ point property managers with their editor factories.  <br /></td></tr>
 <tr class="memitem:aebcb1a0514a7864ef8033006de76aeb3" id="r_aebcb1a0514a7864ef8033006de76aeb3"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aebcb1a0514a7864ef8033006de76aeb3">removeProperty</a> (QtProperty *property)</td></tr>
 <tr class="memdesc:aebcb1a0514a7864ef8033006de76aeb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes <span class="tt">property</span> (and its browser item) from the tree browser.  <br /></td></tr>
 <tr class="memitem:a49933804b9a69288a9f747aad310588f" id="r_a49933804b9a69288a9f747aad310588f"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a49933804b9a69288a9f747aad310588f">searchText</a> () const</td></tr>
@@ -242,16 +246,42 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ab1966b2acf6deafdee99ebf7ff5cd017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manager for built-in variant-typed properties.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>============================================================================ <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget</a></p>
-<p>A self-contained property inspector composed of three zones:</p>
-<p>┌─────────────────────────────────────────────────────┐ │ [🔍 Filter properties... ✕]│ ← searchBar ├─────────────────────────────────────────────────────┤ │ │ │ QtTreePropertyBrowser │ │ │ ├─────────────────────────────────────────────────────┤ │ Description: <span class="tt">&lt;tooltip of selected property&gt;</span> │ ← descFrame └─────────────────────────────────────────────────────┘</p>
-<p>All layout widgets are named (see objectName) for full QSS theming: #searchBar — the top filter frame #searchEdit — the QLineEdit inside the search bar #descFrame — the bottom description frame #descLabel — the QLabel showing the description</p>
-<p>Built-in managers (pre-wired, ready to use): <a class="el" href="#a92e7bae02820beaead8e040daee55adc" title="Returns the pre-wired manager for built-in variant types (int/double/bool/string …).">variantManager()</a> — QtVariantPropertyManager (int/double/bool/string …) <a class="el" href="#ae76f564cd34cf3f215d84b7670da79a9" title="Returns the pre-wired manager for position properties (XY / XYZ / XYZRPY).">positionManager()</a> — <a class="el" href="class_position_property_manager.html">PositionPropertyManager</a> (XY / XYZ / XYZRPY) <a class="el" href="#a4038775d41639c0d7e2bff85c921d4eb" title="Returns the pre-wired manager for size properties (WH / WHD).">sizeManager()</a> — <a class="el" href="class_size_property_manager.html">SizePropertyManager</a> (WH / WHD) <a class="el" href="#a521958a5370259c13dc4d71d7ca47a56" title="Returns the pre-wired manager for integer point properties (QPoint, cv::Point, cv::Point3i).">pointManager()</a> — <a class="el" href="class_point_property_manager.html">PointPropertyManager</a> (int XY / XYZ — QPoint, cv::Point, cv::Point3i) <a class="el" href="#a56a5104351800040fd629120fac68266" title="Returns the pre-wired manager for floating-point point properties (QPointF, cv::Point2f/d,...">pointFManager()</a> — <a class="el" href="class_point_f_property_manager.html">PointFPropertyManager</a> (double XY / XYZ — QPointF, cv::Point2f/d, cv::Point3f/d)</p>
-<p>String properties with completer: auto *p = <a class="el" href="#a92e7bae02820beaead8e040daee55adc" title="Returns the pre-wired manager for built-in variant types (int/double/bool/string …).">variantManager()</a>-&gt;addProperty(QMetaType::QString, "File path"); <a class="el" href="#a92e7bae02820beaead8e040daee55adc" title="Returns the pre-wired manager for built-in variant types (int/double/bool/string …).">variantManager()</a>-&gt;setAttribute(p, "completer", QStringList{"/path/a", "/path/b"});</p>
-<p>Usage pattern: auto *w = new <a class="el" href="class_property_browser_widget.html">PropertyBrowserWidget(parentWidget)</a>; w-&gt;setSearchVisible(false); // hide search if panel is tiny auto *grp = w-&gt;<a class="el" href="#a92e7bae02820beaead8e040daee55adc" title="Returns the pre-wired manager for built-in variant types (int/double/bool/string …).">variantManager()</a>-&gt;addProperty( QtVariantPropertyManager::groupTypeId(), "Settings"); auto *p = w-&gt;<a class="el" href="#a92e7bae02820beaead8e040daee55adc" title="Returns the pre-wired manager for built-in variant types (int/double/bool/string …).">variantManager()</a>-&gt;addProperty(QMetaType::Double, "Speed"); grp-&gt;addSubProperty(p); w-&gt;addProperty(grp);</p>
-<hr  />
- 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00060">60</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<div class="textblock"><p>A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyBrowser, and a description panel showing the selected property's tooltip. </p>
+<div class="fragment"><div class="line">┌─────────────────────────────────────────────────────┐</div>
+<div class="line">│ [🔍 Filter properties...                          ✕]│  ← searchBar</div>
+<div class="line">├─────────────────────────────────────────────────────┤</div>
+<div class="line">│                                                     │</div>
+<div class="line">│  QtTreePropertyBrowser                              │</div>
+<div class="line">│                                                     │</div>
+<div class="line">├─────────────────────────────────────────────────────┤</div>
+<div class="line">│  Description: `&lt;tooltip of selected <span class="keyword">property</span>&gt;`      │  ← descFrame</div>
+<div class="line">└─────────────────────────────────────────────────────┘</div>
+</div><!-- fragment --><p>All layout widgets are named (see objectName) for full QSS theming:</p><ul>
+<li>#searchBar — the top filter frame</li>
+<li>#searchEdit — the QLineEdit inside the search bar</li>
+<li>#descFrame — the bottom description frame</li>
+<li>#descLabel — the QLabel showing the description</li>
+</ul>
+<p>Built-in managers (pre-wired, ready to use):</p><ul>
+<li><a class="el" href="#a92e7bae02820beaead8e040daee55adc" title="Returns the pre-wired manager for built-in variant types (int/double/bool/string …).">variantManager()</a> — QtVariantPropertyManager (int/double/bool/string …)</li>
+<li><a class="el" href="#ae76f564cd34cf3f215d84b7670da79a9" title="Returns the pre-wired manager for position properties (XY / XYZ / XYZRPY).">positionManager()</a> — <a class="el" href="class_position_property_manager.html" title="Compound property manager for robot / machine positions, exposing X, Y, Z (and Roll,...">PositionPropertyManager</a> (XY / XYZ / XYZRPY)</li>
+<li><a class="el" href="#a4038775d41639c0d7e2bff85c921d4eb" title="Returns the pre-wired manager for size properties (WH / WHD).">sizeManager()</a> — <a class="el" href="class_size_property_manager.html" title="Compound property manager for physical or pixel sizes, exposing Width, Height (and Depth) as individu...">SizePropertyManager</a> (WH / WHD)</li>
+<li><a class="el" href="#a521958a5370259c13dc4d71d7ca47a56" title="Returns the pre-wired manager for integer point properties (QPoint, cv::Point, cv::Point3i).">pointManager()</a> — <a class="el" href="class_point_property_manager.html" title="Compound property manager for integer-coordinate points, exposing X, Y (and Z) as individual QtIntPro...">PointPropertyManager</a> (int XY / XYZ — QPoint, cv::Point, cv::Point3i)</li>
+<li><a class="el" href="#a56a5104351800040fd629120fac68266" title="Returns the pre-wired manager for floating-point point properties (QPointF, cv::Point2f/d,...">pointFManager()</a> — <a class="el" href="class_point_f_property_manager.html" title="Compound property manager for floating-point points, exposing X, Y (and Z) as individual QtDoubleProp...">PointFPropertyManager</a> (double XY / XYZ — QPointF, cv::Point2f/d, cv::Point3f/d)</li>
+</ul>
+<p>String properties with completer: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> *p = <a class="code hl_function" href="#a92e7bae02820beaead8e040daee55adc">variantManager</a>()-&gt;addProperty(QMetaType::QString, <span class="stringliteral">&quot;File path&quot;</span>);</div>
+<div class="line"><a class="code hl_function" href="#a92e7bae02820beaead8e040daee55adc">variantManager</a>()-&gt;setAttribute(p, <span class="stringliteral">&quot;completer&quot;</span>, QStringList{<span class="stringliteral">&quot;/path/a&quot;</span>, <span class="stringliteral">&quot;/path/b&quot;</span>});</div>
+<div class="ttc" id="aclass_property_browser_widget_html_a92e7bae02820beaead8e040daee55adc"><div class="ttname"><a href="#a92e7bae02820beaead8e040daee55adc">PropertyBrowserWidget::variantManager</a></div><div class="ttdeci">QtVariantPropertyManager * variantManager() const</div><div class="ttdoc">Returns the pre-wired manager for built-in variant types (int/double/bool/string …).</div><div class="ttdef"><b>Definition</b> <a href="property__browser__widget_8h_source.html#l00094">property_browser_widget.h:94</a></div></div>
+</div><!-- fragment --><p>Usage pattern: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> *w = <span class="keyword">new</span> <a class="code hl_function" href="#a953075df71e79827071a969ee3fb7e42">PropertyBrowserWidget</a>(parentWidget);</div>
+<div class="line">w-&gt;setSearchVisible(<span class="keyword">false</span>);       <span class="comment">// hide search if panel is tiny</span></div>
+<div class="line"><span class="keyword">auto</span> *grp = w-&gt;variantManager()-&gt;addProperty(</div>
+<div class="line">                QtVariantPropertyManager::groupTypeId(), <span class="stringliteral">&quot;Settings&quot;</span>);</div>
+<div class="line"><span class="keyword">auto</span> *p = w-&gt;variantManager()-&gt;addProperty(QMetaType::Double, <span class="stringliteral">&quot;Speed&quot;</span>);</div>
+<div class="line">grp-&gt;addSubProperty(p);</div>
+<div class="line">w-&gt;addProperty(grp);</div>
+<div class="ttc" id="aclass_property_browser_widget_html_a953075df71e79827071a969ee3fb7e42"><div class="ttname"><a href="#a953075df71e79827071a969ee3fb7e42">PropertyBrowserWidget::PropertyBrowserWidget</a></div><div class="ttdeci">PropertyBrowserWidget(QWidget *parent=nullptr)</div><div class="ttdoc">Constructs the widget and builds the search bar, tree browser, and description panel,...</div><div class="ttdef"><b>Definition</b> <a href="property__browser__widget_8cpp_source.html#l00013">property_browser_widget.cpp:13</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00072">72</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a953075df71e79827071a969ee3fb7e42" name="a953075df71e79827071a969ee3fb7e42"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a953075df71e79827071a969ee3fb7e42">&#9670;&#160;</a></span>PropertyBrowserWidget()</h2>
@@ -275,12 +305,19 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the widget and builds the search bar, tree browser, and description panel, then wires up the built-in variant/position/size/ point property managers with their editor factories.</p>
+
+<p>Constructs the widget and builds the search bar, tree browser, and description panel, then wires up the built-in variant/position/size/ point property managers with their editor factories. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Owning widget; standard Qt parent/child ownership.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Builds the search bar / tree browser / description panel layout, wires up the built-in property managers, and starts a 120ms debounce timer that applies the search filter after typing settles. </p>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00013">13</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8cpp_source.html#l00279">applyFilter()</a>, <a class="el" href="property__browser__widget_8h_source.html#l00187">m_filterTimer</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8cpp_source.html#l00279">applyFilter()</a>, <a class="el" href="property__browser__widget_8h_source.html#l00202">m_filterTimer</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>.</p>
 
 </div>
 </div>
@@ -331,7 +368,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00176">176</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -362,7 +399,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00279">279</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8cpp_source.html#l00311">filterTopLevel()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00188">m_filterText</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8cpp_source.html#l00311">filterTopLevel()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00203">m_filterText</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00013">PropertyBrowserWidget()</a>.</p>
 
@@ -393,7 +430,7 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the underlying QtTreePropertyBrowser used to host properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00077">77</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00092">92</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 </div>
 </div>
@@ -416,7 +453,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00189">189</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00175">m_descLabel</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00190">m_descLabel</a>.</p>
 
 </div>
 </div>
@@ -440,7 +477,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00148">148</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00172">m_searchEdit</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00187">m_searchEdit</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00135">setSearchVisible()</a>.</p>
 
@@ -501,7 +538,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00311">311</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8cpp_source.html#l00291">itemOrChildMatchesFilter()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8cpp_source.html#l00291">itemOrChildMatchesFilter()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00279">applyFilter()</a>.</p>
 
@@ -527,7 +564,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00168">168</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00174">m_descFrame</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00189">m_descFrame</a>.</p>
 
 </div>
 </div>
@@ -551,7 +588,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00142">142</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00171">m_searchBar</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00186">m_searchBar</a>.</p>
 
 </div>
 </div>
@@ -619,7 +656,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00262">262</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#afc085d12dc3e68986d84d2bb71bd7e71">currentItemChanged()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00175">m_descLabel</a>.</p>
+<p class="reference">References <a class="el" href="#afc085d12dc3e68986d84d2bb71bd7e71">currentItemChanged()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00190">m_descLabel</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>.</p>
 
@@ -652,7 +689,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00253">253</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_filterText</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00187">m_filterTimer</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00203">m_filterText</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00202">m_filterTimer</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>.</p>
 
@@ -683,9 +720,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the pre-wired manager for floating-point point properties (QPointF, cv::Point2f/d, cv::Point3f/d). </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00089">89</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00104">104</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00181">m_sizeManager</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00196">m_sizeManager</a>.</p>
 
 </div>
 </div>
@@ -714,9 +751,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the pre-wired manager for integer point properties (QPoint, cv::Point, cv::Point3i). </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00087">87</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00102">102</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00180">m_positionManager</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00195">m_positionManager</a>.</p>
 
 </div>
 </div>
@@ -745,9 +782,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the pre-wired manager for position properties (XY / XYZ / XYZRPY). </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00083">83</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00098">98</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00178">m_variantManager</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00193">m_variantManager</a>.</p>
 
 </div>
 </div>
@@ -771,7 +808,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00182">182</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -795,7 +832,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00154">154</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00172">m_searchEdit</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00187">m_searchEdit</a>.</p>
 
 </div>
 </div>
@@ -819,7 +856,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00202">202</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -843,7 +880,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00162">162</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00174">m_descFrame</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00189">m_descFrame</a>.</p>
 
 </div>
 </div>
@@ -871,7 +908,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00196">196</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -895,7 +932,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00226">226</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -919,7 +956,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00238">238</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -943,7 +980,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00232">232</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -967,7 +1004,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00214">214</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -991,7 +1028,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00220">220</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -1015,7 +1052,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00135">135</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8cpp_source.html#l00148">clearSearch()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00171">m_searchBar</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8cpp_source.html#l00148">clearSearch()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00186">m_searchBar</a>.</p>
 
 </div>
 </div>
@@ -1039,7 +1076,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00208">208</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -1070,7 +1107,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00103">103</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>, <a class="el" href="property__browser__widget_8h_source.html#l00184">m_dblFactory</a>, <a class="el" href="property__browser__widget_8h_source.html#l00185">m_intFactory</a>, <a class="el" href="property__browser__widget_8h_source.html#l00183">m_pointFManager</a>, <a class="el" href="property__browser__widget_8h_source.html#l00182">m_pointManager</a>, <a class="el" href="property__browser__widget_8h_source.html#l00180">m_positionManager</a>, <a class="el" href="property__browser__widget_8h_source.html#l00181">m_sizeManager</a>, <a class="el" href="property__browser__widget_8h_source.html#l00179">m_variantFactory</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00178">m_variantManager</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>, <a class="el" href="property__browser__widget_8h_source.html#l00199">m_dblFactory</a>, <a class="el" href="property__browser__widget_8h_source.html#l00200">m_intFactory</a>, <a class="el" href="property__browser__widget_8h_source.html#l00198">m_pointFManager</a>, <a class="el" href="property__browser__widget_8h_source.html#l00197">m_pointManager</a>, <a class="el" href="property__browser__widget_8h_source.html#l00195">m_positionManager</a>, <a class="el" href="property__browser__widget_8h_source.html#l00196">m_sizeManager</a>, <a class="el" href="property__browser__widget_8h_source.html#l00194">m_variantFactory</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00193">m_variantManager</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00013">PropertyBrowserWidget()</a>.</p>
 
@@ -1103,7 +1140,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00030">30</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>, <a class="el" href="property__browser__widget_8h_source.html#l00174">m_descFrame</a>, <a class="el" href="property__browser__widget_8h_source.html#l00175">m_descLabel</a>, <a class="el" href="property__browser__widget_8h_source.html#l00171">m_searchBar</a>, <a class="el" href="property__browser__widget_8h_source.html#l00172">m_searchEdit</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00262">onCurrentItemChanged()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00253">onSearchChanged()</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>, <a class="el" href="property__browser__widget_8h_source.html#l00189">m_descFrame</a>, <a class="el" href="property__browser__widget_8h_source.html#l00190">m_descLabel</a>, <a class="el" href="property__browser__widget_8h_source.html#l00186">m_searchBar</a>, <a class="el" href="property__browser__widget_8h_source.html#l00187">m_searchEdit</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00262">onCurrentItemChanged()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00253">onSearchChanged()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00013">PropertyBrowserWidget()</a>.</p>
 
@@ -1134,9 +1171,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the pre-wired manager for size properties (WH / WHD). </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00085">85</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00100">100</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00179">m_variantFactory</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00194">m_variantFactory</a>.</p>
 
 </div>
 </div>
@@ -1160,7 +1197,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="property__browser__widget_8cpp_source.html#l00244">244</a> of file <a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -1189,9 +1226,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the editor factory registered for <a class="el" href="#a92e7bae02820beaead8e040daee55adc" title="Returns the pre-wired manager for built-in variant types (int/double/bool/string …).">variantManager()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00081">81</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00096">96</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00173">m_browser</a>.</p>
+<p class="reference">References <a class="el" href="property__browser__widget_8h_source.html#l00188">m_browser</a>.</p>
 
 </div>
 </div>
@@ -1220,7 +1257,7 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the pre-wired manager for built-in variant types (int/double/bool/string …). </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00079">79</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00094">94</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 </div>
 </div>
@@ -1247,9 +1284,9 @@ Private Attributes</h2></td></tr>
 
 <p>The tree property browser hosting all properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00173">173</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00188">188</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00176">addProperty()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00189">clear()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00311">filterTopLevel()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00182">removeProperty()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00202">setAlternatingRowColors()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00196">setExpanded()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00226">setHeaderVisible()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00238">setIndentation()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00232">setPropertiesWithoutValueMarked()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00214">setResizeMode()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00220">setRootIsDecorated()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00208">setSplitterPosition()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00244">splitterPosition()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00081">variantFactory()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00176">addProperty()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00189">clear()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00311">filterTopLevel()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00182">removeProperty()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00202">setAlternatingRowColors()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00196">setExpanded()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00226">setHeaderVisible()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00238">setIndentation()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00232">setPropertiesWithoutValueMarked()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00214">setResizeMode()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00220">setRootIsDecorated()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00208">setSplitterPosition()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00244">splitterPosition()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00096">variantFactory()</a>.</p>
 
 </div>
 </div>
@@ -1275,7 +1312,7 @@ Private Attributes</h2></td></tr>
 
 <p>shared by custom managers </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00184">184</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00199">199</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
 
@@ -1303,7 +1340,7 @@ Private Attributes</h2></td></tr>
 
 <p>Bottom description frame (objectName "descFrame"). </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00174">174</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00189">189</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00168">isDescriptionVisible()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00162">setDescriptionVisible()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>.</p>
 
@@ -1331,7 +1368,7 @@ Private Attributes</h2></td></tr>
 
 <p>Label showing the selected property's name/tooltip. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00175">175</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00190">190</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00189">clear()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00262">onCurrentItemChanged()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>.</p>
 
@@ -1359,7 +1396,7 @@ Private Attributes</h2></td></tr>
 
 <p>Pending filter text set by <a class="el" href="#a492f15b232cde311bcb0ef43ddec1e59">onSearchChanged()</a>, applied by <a class="el" href="#af50b885b9d14eb802a710220ea831f27">applyFilter()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00188">188</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00203">203</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00279">applyFilter()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00253">onSearchChanged()</a>.</p>
 
@@ -1387,7 +1424,7 @@ Private Attributes</h2></td></tr>
 
 <p>debounce rapid key input </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00187">187</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00202">202</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00253">onSearchChanged()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00013">PropertyBrowserWidget()</a>.</p>
 
@@ -1415,7 +1452,7 @@ Private Attributes</h2></td></tr>
 
 <p>for integer point manager </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00185">185</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00200">200</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
 
@@ -1443,7 +1480,7 @@ Private Attributes</h2></td></tr>
 
 <p>Manager for floating-point point properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00183">183</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00198">198</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
 
@@ -1471,7 +1508,7 @@ Private Attributes</h2></td></tr>
 
 <p>Manager for integer point properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00182">182</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00197">197</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
 
@@ -1499,9 +1536,9 @@ Private Attributes</h2></td></tr>
 
 <p>Manager for position (XY/XYZ/XYZRPY) properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00180">180</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00195">195</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="property__browser__widget_8h_source.html#l00087">pointManager()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="property__browser__widget_8h_source.html#l00102">pointManager()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
 
 </div>
 </div>
@@ -1527,7 +1564,7 @@ Private Attributes</h2></td></tr>
 
 <p>Top filter bar frame (objectName "searchBar"). </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00171">171</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00186">186</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00142">isSearchVisible()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00135">setSearchVisible()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>.</p>
 
@@ -1555,7 +1592,7 @@ Private Attributes</h2></td></tr>
 
 <p>Filter text field inside m_searchBar (objectName "searchEdit"). </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00172">172</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00187">187</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00148">clearSearch()</a>, <a class="el" href="property__browser__widget_8cpp_source.html#l00154">searchText()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00030">setupUi()</a>.</p>
 
@@ -1583,9 +1620,9 @@ Private Attributes</h2></td></tr>
 
 <p>Manager for size (WH/WHD) properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00181">181</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00196">196</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="property__browser__widget_8h_source.html#l00089">pointFManager()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="property__browser__widget_8h_source.html#l00104">pointFManager()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
 
 </div>
 </div>
@@ -1611,9 +1648,9 @@ Private Attributes</h2></td></tr>
 
 <p>Editor factory registered for m_variantManager. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00179">179</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00194">194</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00085">sizeManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>, and <a class="el" href="property__browser__widget_8h_source.html#l00100">sizeManager()</a>.</p>
 
 </div>
 </div>
@@ -1639,9 +1676,9 @@ Private Attributes</h2></td></tr>
 
 <p>Manager for built-in variant-typed properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00178">178</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00193">193</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="property__browser__widget_8h_source.html#l00083">positionManager()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="property__browser__widget_8h_source.html#l00098">positionManager()</a>, and <a class="el" href="property__browser__widget_8cpp_source.html#l00103">setupManagers()</a>.</p>
 
 </div>
 </div>
@@ -1666,7 +1703,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00064">64</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00076">76</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 </div>
 </div>
@@ -1690,13 +1727,13 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00063">63</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="property__browser__widget_8h_source.html#l00075">75</a> of file <a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/<a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/<a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/<a class="el" href="property__browser__widget_8h_source.html">property_browser_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/<a class="el" href="property__browser__widget_8cpp_source.html">property_browser_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

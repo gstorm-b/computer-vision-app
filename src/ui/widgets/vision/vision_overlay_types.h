@@ -11,16 +11,28 @@
 #include <QVariant>
 #include <QVector>
 
-/// Shape kind for a VisionRoi: whether it is an unrotated axis-aligned rectangle or a
-/// rectangle that may carry a rotation angle.
+/**
+ * @file vision_overlay_types.h
+ * @brief VisionRoi/VisionResultObject/VisionResultOverlay — UI-facing value types shared
+ *        by the vision canvas, numeric inspector, and result viewer/adapters.
+ */
+
+/**
+ * @enum VisionRoiShape
+ * @brief Shape kind for a VisionRoi: whether it is an unrotated axis-aligned rectangle or a
+ *        rectangle that may carry a rotation angle.
+ */
 enum class VisionRoiShape {
-    AxisAlignedRect,
-    RotatedRect,
+    AxisAlignedRect,  ///< Unrotated axis-aligned rectangle; angleDeg is not meaningful.
+    RotatedRect,      ///< Rectangle that may carry a non-zero rotation angle.
 };
 
-/// A single region of interest overlaid on a vision image: geometry (center/size/angle),
-/// display metadata (label, color, visibility/selection/warning flags), and whether the
-/// user can edit it.
+/**
+ * @struct VisionRoi
+ * @brief A single region of interest overlaid on a vision image: geometry (center/size/angle),
+ *        display metadata (label, color, visibility/selection/warning flags), and whether the
+ *        user can edit it.
+ */
 struct VisionRoi {
     QString id;  ///< Stable identifier used to look up/update this ROI (e.g. session key, "workspace", "condition").
     QString label;  ///< Human-readable name shown in the UI (e.g. numeric inspector title).
@@ -57,9 +69,12 @@ inline bool operator==(const VisionRoi &lhs, const VisionRoi &rhs)
         && lhs.color == rhs.color;
 }
 
-/// A single matched/candidate object produced by a vision matching cycle, translated
-/// into UI-friendly fields for overlay drawing (position, corners, picking-box
-/// polygons, and the accept/reject/fault/pick-eligibility flags derived from the match).
+/**
+ * @struct VisionResultObject
+ * @brief A single matched/candidate object produced by a vision matching cycle, translated
+ *        into UI-friendly fields for overlay drawing (position, corners, picking-box
+ *        polygons, and the accept/reject/fault/pick-eligibility flags derived from the match).
+ */
 struct VisionResultObject {
     int index{0};  ///< 1-based display index assigned when building the overlay (see VisionResultAdapter).
     QString patternName;  ///< Name of the matched pattern, as reported by the matcher.
@@ -78,7 +93,10 @@ struct VisionResultObject {
     bool outsideConditionRoi{false};  ///< Whether this object falls outside the configured condition ROI.
 };
 
-/// Toggle flags controlling which overlay elements the vision canvas/result viewer draws.
+/**
+ * @struct VisionOverlayVisibility
+ * @brief Toggle flags controlling which overlay elements the vision canvas/result viewer draws.
+ */
 struct VisionOverlayVisibility {
     bool showScore{true};  ///< Whether to draw each object's match score.
     bool showAngle{true};  ///< Whether to draw each object's matched/point angle.
@@ -90,9 +108,12 @@ struct VisionOverlayVisibility {
     bool showRuntimeSignalValues{false};  ///< Whether to draw VisionResultOverlay::runtimeSignalValues on the canvas.
 };
 
-/// Complete set of overlay data drawn on top of a source vision image: matched
-/// objects (accepted/rejected), picking points, configured ROIs, runtime signal
-/// values, and the current visibility toggles.
+/**
+ * @struct VisionResultOverlay
+ * @brief Complete set of overlay data drawn on top of a source vision image: matched
+ *        objects (accepted/rejected), picking points, configured ROIs, runtime signal
+ *        values, and the current visibility toggles.
+ */
 struct VisionResultOverlay {
     QSize sourceImageSize;  ///< Size, in pixels, of the image this overlay was computed against.
     QVector<VisionResultObject> acceptedObjects;  ///< Matched objects eligible for picking/output.

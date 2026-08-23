@@ -12,36 +12,48 @@ class QListWidgetItem;
 
 namespace vc::widgets::sm_internal { class RowWidget; }
 
-/// Read-only monitor of "task signals" already mapped via SignalsMapWidget.
-/// One row per logical signal slot, four columns per row:
-///
-///   `<signal display name> | <type chip> | <current value> | [Modify]`
-///
-/// The widget is task-agnostic and device-agnostic. The owner page is
-/// responsible for:
-///   - appendRow() the schema (mirrors SignalsMapWidget's setup).
-///   - setRowTag() with the tag bound to each signal from the task config.
-///   - refreshBool() / refreshNumber() with live values keyed by tag-name.
-///   - setDeviceConnected() to gate the Modify button.
-///   - Listening to requestWriteValue() and routing to the device runner.
-///
-/// Container is a QListWidget with one custom row widget per item. Column
-/// widths are auto-sized to the widest content of each column across all
-/// rows, so every column visually aligns even though each row is its own
-/// widget. See relayoutColumns().
-///
-/// Bool rows track OFF->ON->OFF transitions that complete inside 200 ms and
-/// surface a "Rising edge" chip next to the ON/OFF chip. The chip auto-
-/// hides after 2 s; a new rising-edge event while it is still visible
-/// triggers a single blink (hide 500 ms, then show again, hide timer
-/// restarts).
+/**
+ * @file signals_monitor_widget.h
+ * @brief SignalsMonitorWidget — read-only monitor of task signals already mapped via
+ *        SignalsMapWidget.
+ */
+
+/**
+ * @class SignalsMonitorWidget
+ * @brief Read-only monitor of "task signals" already mapped via SignalsMapWidget.
+ *        One row per logical signal slot, four columns per row:
+ *
+ *   `<signal display name> | <type chip> | <current value> | [Modify]`
+ *
+ * The widget is task-agnostic and device-agnostic. The owner page is
+ * responsible for:
+ *   - appendRow() the schema (mirrors SignalsMapWidget's setup).
+ *   - setRowTag() with the tag bound to each signal from the task config.
+ *   - refreshBool() / refreshNumber() with live values keyed by tag-name.
+ *   - setDeviceConnected() to gate the Modify button.
+ *   - Listening to requestWriteValue() and routing to the device runner.
+ *
+ * Container is a QListWidget with one custom row widget per item. Column
+ * widths are auto-sized to the widest content of each column across all
+ * rows, so every column visually aligns even though each row is its own
+ * widget. See relayoutColumns().
+ *
+ * Bool rows track OFF->ON->OFF transitions that complete inside 200 ms and
+ * surface a "Rising edge" chip next to the ON/OFF chip. The chip auto-
+ * hides after 2 s; a new rising-edge event while it is still visible
+ * triggers a single blink (hide 500 ms, then show again, hide timer
+ * restarts).
+ */
 class SignalsMonitorWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    /// Signal value kind driving row rendering: a numeric readout or an
-    /// ON/OFF pill with rising-edge detection.
+    /**
+     * @enum Type
+     * @brief Signal value kind driving row rendering: a numeric readout or an
+     *        ON/OFF pill with rising-edge detection.
+     */
     enum class Type { Number, Bool };
     Q_ENUM(Type)
 
@@ -50,21 +62,25 @@ public:
     /// Destroys the widget; row widgets are owned by the internal list.
     ~SignalsMonitorWidget() override;
 
-    /// Appends a new row for `internalName` to the end of the list.
-    /// A no-op (with a logged warning) if `internalName` already exists.
-    /// @param internalName unique key identifying the row
-    /// @param displayName label shown in the name column
-    /// @param type value kind (Number or Bool), selects value-column rendering
+    /**
+     * @brief Appends a new row for `internalName` to the end of the list.
+     *        A no-op (with a logged warning) if `internalName` already exists.
+     * @param[in] internalName unique key identifying the row
+     * @param[in] displayName label shown in the name column
+     * @param[in] type value kind (Number or Bool), selects value-column rendering
+     */
     void appendRow(const QString &internalName,
                    const QString &displayName,
                    Type type);
-    /// Inserts a new row for `internalName` at position `row` (clamped to the
-    /// current row count). A no-op (with a logged warning) if `internalName`
-    /// already exists.
-    /// @param row target index in the row list
-    /// @param internalName unique key identifying the row
-    /// @param displayName label shown in the name column
-    /// @param type value kind (Number or Bool), selects value-column rendering
+    /**
+     * @brief Inserts a new row for `internalName` at position `row` (clamped to the
+     *        current row count). A no-op (with a logged warning) if `internalName`
+     *        already exists.
+     * @param[in] row target index in the row list
+     * @param[in] internalName unique key identifying the row
+     * @param[in] displayName label shown in the name column
+     * @param[in] type value kind (Number or Bool), selects value-column rendering
+     */
     void insertRowAt(int row,
                      const QString &internalName,
                      const QString &displayName,
@@ -99,12 +115,14 @@ public:
     bool isDeviceConnected() const { return m_deviceConnected; }
 
 signals:
-    /// Emitted after the user confirms a new value in the Modify dialog.
-    /// The owner routes the write to the device runner; the widget does not
-    /// self-update — call refreshBool()/refreshNumber() when the device
-    /// echoes the new value.
-    /// @param internalName row the new value applies to
-    /// @param value the confirmed value to write
+    /**
+     * @brief Emitted after the user confirms a new value in the Modify dialog.
+     *        The owner routes the write to the device runner; the widget does not
+     *        self-update — call refreshBool()/refreshNumber() when the device
+     *        echoes the new value.
+     * @param[in] internalName row the new value applies to
+     * @param[in] value the confirmed value to write
+     */
     void requestWriteValue(const QString &internalName, const QVariant &value);
 
 private:

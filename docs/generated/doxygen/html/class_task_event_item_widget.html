@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_task_eve
 </div><!--header-->
 <div class="contents">
 
+<p>Visual row inside <a class="el" href="class_task_event_log_widget.html" title="Operator-facing task event log (read-only).">TaskEventLogWidget</a> for a single <a class="el" href="struct_task_event.html" title="Data record for one row of TaskEventLogWidget.">TaskEvent</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for TaskEventItemWidget:</div>
@@ -154,11 +157,11 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a76ca7f232aa24c8d2cd636c92a318bf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity captured at construction time.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Visual row inside <a class="el" href="class_task_event_log_widget.html">TaskEventLogWidget</a> for a single <a class="el" href="struct_task_event.html" title="Data record for one row of TaskEventLogWidget.">TaskEvent</a>.</p>
-<p>Layout (left to right): [3 px severity bar] | [hh:mm:ss] | [LEVEL] | [[SOURCE]] | [message ...]</p>
-<p>Styling is owned entirely by dark.qss / light.qss via: <a class="el" href="class_task_event_item_widget.html">TaskEventItemWidget</a>[severity="info"|"warning"|"error"|"success"] <a class="el" href="class_task_event_item_widget.html">TaskEventItemWidget</a>[...] QFrame[eventPart="bar"] <a class="el" href="class_task_event_item_widget.html">TaskEventItemWidget</a>[...] QLabel[eventPart="level"] QLabel[eventPart="time"|"message"|"source"] </p>
+<div class="textblock"><p>Visual row inside <a class="el" href="class_task_event_log_widget.html" title="Operator-facing task event log (read-only).">TaskEventLogWidget</a> for a single <a class="el" href="struct_task_event.html" title="Data record for one row of TaskEventLogWidget.">TaskEvent</a>. </p>
+<p>Layout (left to right): </p><div class="fragment"><div class="line">[3 px severity bar] | [hh:mm:ss] | [LEVEL] | [[SOURCE]] | [message ...]</div>
+</div><!-- fragment --><p>Styling is owned entirely by dark.qss / light.qss via: <a class="el" href="class_task_event_item_widget.html" title="Visual row inside TaskEventLogWidget for a single TaskEvent.">TaskEventItemWidget</a>[severity="info"|"warning"|"error"|"success"] <a class="el" href="class_task_event_item_widget.html" title="Visual row inside TaskEventLogWidget for a single TaskEvent.">TaskEventItemWidget</a>[...] QFrame[eventPart="bar"] <a class="el" href="class_task_event_item_widget.html" title="Visual row inside TaskEventLogWidget for a single TaskEvent.">TaskEventItemWidget</a>[...] QLabel[eventPart="level"] QLabel[eventPart="time"|"message"|"source"] </p>
 
-<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00039">39</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00056">56</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa2bfc48d3f4075d457b7d0f5e33bfc8e" name="aa2bfc48d3f4075d457b7d0f5e33bfc8e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa2bfc48d3f4075d457b7d0f5e33bfc8e">&#9670;&#160;</a></span>TaskEventItemWidget()</h2>
@@ -191,7 +194,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__event__log__widget_8cpp_source.html#l00013">13</a> of file <a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00022">TaskEvent::level</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00050">level()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00053">m_level</a>, <a class="el" href="task__event__log__widget_8cpp_source.html#l00029">setupUi()</a>, and <a class="el" href="task__event__log__widget_8cpp_source.html#l00083">severityProperty()</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00034">TaskEvent::level</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00067">level()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00070">m_level</a>, <a class="el" href="task__event__log__widget_8cpp_source.html#l00029">setupUi()</a>, and <a class="el" href="task__event__log__widget_8cpp_source.html#l00083">severityProperty()</a>.</p>
 
 </div>
 </div>
@@ -221,9 +224,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the severity level this row was constructed with. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00050">50</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00067">67</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00053">m_level</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00070">m_level</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__event__log__widget_8cpp_source.html#l00096">levelText()</a>, <a class="el" href="task__event__log__widget_8cpp_source.html#l00083">severityProperty()</a>, and <a class="el" href="task__event__log__widget_8cpp_source.html#l00013">TaskEventItemWidget()</a>.</p>
 
@@ -257,7 +260,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__event__log__widget_8cpp_source.html#l00096">96</a> of file <a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00015">Error</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00050">level()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00016">Success</a>, and <a class="el" href="task__event__log__widget_8h_source.html#l00014">Warning</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00024">Error</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00067">level()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00025">Success</a>, and <a class="el" href="task__event__log__widget_8h_source.html#l00023">Warning</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__event__log__widget_8cpp_source.html#l00029">setupUi()</a>.</p>
 
@@ -290,7 +293,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__event__log__widget_8cpp_source.html#l00029">29</a> of file <a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00022">TaskEvent::level</a>, <a class="el" href="task__event__log__widget_8cpp_source.html#l00096">levelText()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00023">TaskEvent::message</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00026">TaskEvent::source</a>, and <a class="el" href="task__event__log__widget_8h_source.html#l00021">TaskEvent::timestamp</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00034">TaskEvent::level</a>, <a class="el" href="task__event__log__widget_8cpp_source.html#l00096">levelText()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00035">TaskEvent::message</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00038">TaskEvent::source</a>, and <a class="el" href="task__event__log__widget_8h_source.html#l00033">TaskEvent::timestamp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__event__log__widget_8cpp_source.html#l00013">TaskEventItemWidget()</a>.</p>
 
@@ -323,7 +326,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__event__log__widget_8cpp_source.html#l00083">83</a> of file <a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00015">Error</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00050">level()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00016">Success</a>, and <a class="el" href="task__event__log__widget_8h_source.html#l00014">Warning</a>.</p>
+<p class="reference">References <a class="el" href="task__event__log__widget_8h_source.html#l00024">Error</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00067">level()</a>, <a class="el" href="task__event__log__widget_8h_source.html#l00025">Success</a>, and <a class="el" href="task__event__log__widget_8h_source.html#l00023">Warning</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__event__log__widget_8cpp_source.html#l00013">TaskEventItemWidget()</a>.</p>
 
@@ -352,15 +355,15 @@ Private Attributes</h2></td></tr>
 
 <p>Severity captured at construction time. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00053">53</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__event__log__widget_8h_source.html#l00070">70</a> of file <a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__event__log__widget_8h_source.html#l00050">level()</a>, and <a class="el" href="task__event__log__widget_8cpp_source.html#l00013">TaskEventItemWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__event__log__widget_8h_source.html#l00067">level()</a>, and <a class="el" href="task__event__log__widget_8cpp_source.html#l00013">TaskEventItemWidget()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="task__event__log__widget_8h_source.html">task_event_log_widget.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="task__event__log__widget_8cpp_source.html">task_event_log_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

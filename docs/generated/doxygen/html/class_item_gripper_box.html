@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_item_gri
 </div><!--header-->
 <div class="contents">
 
+<p>Movable/selectable QGraphicsItem drawing a pair of gripper "finger" squares placed symmetrically at <span class="tt"><a class="el" href="#aad5108c80f18da9cff8880cbf0e99183" title="Center-to-origin distance for both finger squares.">m_distance</a></span> on either side of the item's local origin, along the direction given by <span class="tt"><a class="el" href="#a6cf9ac903d7c7e2f0f66ca3e564d061f" title="Placement direction of the two finger squares, in degrees.">m_placementAngle</a></span>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ItemGripperBox:</div>
@@ -138,6 +141,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aff9306101deef65928aaef575262ccc3" id="r_aff9306101deef65928aaef575262ccc3"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#aff9306101deef65928aaef575262ccc3">distance</a> () const</td></tr>
 <tr class="memdesc:aff9306101deef65928aaef575262ccc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance from the local origin to each finger square's center.  <br /></td></tr>
 <tr class="memitem:a3f72d66db4863921e8d13d163138f9c0" id="r_a3f72d66db4863921e8d13d163138f9c0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3f72d66db4863921e8d13d163138f9c0">ItemGripperBox</a> (QGraphicsItem *parent=nullptr)</td></tr>
+<tr class="memdesc:a3f72d66db4863921e8d13d163138f9c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the item at the local origin with default distance/sizes, flagged movable and selectable, and accepting hover events.  <br /></td></tr>
 <tr class="memitem:ace2ead3185a6174f0858449025cf4499" id="r_ace2ead3185a6174f0858449025cf4499"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ace2ead3185a6174f0858449025cf4499">paint</a> (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override</td></tr>
 <tr class="memitem:a0a4f1e5642c93547fefcd71e07c29cf0" id="r_a0a4f1e5642c93547fefcd71e07c29cf0"><td class="memItemLeft">qreal&#160;</td><td class="memItemRight"><a class="el" href="#a0a4f1e5642c93547fefcd71e07c29cf0">placementAngle</a> () const</td></tr>
 <tr class="memdesc:a0a4f1e5642c93547fefcd71e07c29cf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the angle (degrees) along which the two finger squares are placed.  <br /></td></tr>
@@ -172,7 +176,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Movable/selectable QGraphicsItem drawing a pair of gripper "finger" squares placed symmetrically at <span class="tt"><a class="el" href="#aad5108c80f18da9cff8880cbf0e99183" title="Center-to-origin distance for both finger squares.">m_distance</a></span> on either side of the item's local origin, along the direction given by <span class="tt"><a class="el" href="#a6cf9ac903d7c7e2f0f66ca3e564d061f" title="Placement direction of the two finger squares, in degrees.">m_placementAngle</a></span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00010">10</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00018">18</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3f72d66db4863921e8d13d163138f9c0" name="a3f72d66db4863921e8d13d163138f9c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3f72d66db4863921e8d13d163138f9c0">&#9670;&#160;</a></span>ItemGripperBox()</h2>
@@ -188,11 +192,19 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructs the item at the local origin with default distance/sizes, flagged movable and selectable, and accepting hover events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">parent</td><td>Optional owning QGraphicsItem; standard Qt item parent/child ownership (deleted when <span class="tt">parent</span> is deleted).</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Constructs the item with default distance (40.0), equal 20x20 finger squares, zero placement angle, movable/selectable flags, and hover events enabled. </p>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00006">6</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00052">m_cacheValid</a>, <a class="el" href="item__gripper__box_8h_source.html#l00046">m_distance</a>, <a class="el" href="item__gripper__box_8h_source.html#l00049">m_placementAngle</a>, <a class="el" href="item__gripper__box_8h_source.html#l00047">m_size1</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00048">m_size2</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00066">m_cacheValid</a>, <a class="el" href="item__gripper__box_8h_source.html#l00060">m_distance</a>, <a class="el" href="item__gripper__box_8h_source.html#l00063">m_placementAngle</a>, <a class="el" href="item__gripper__box_8h_source.html#l00061">m_size1</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00062">m_size2</a>.</p>
 
 </div>
 </div>
@@ -224,7 +236,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00091">91</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00051">m_cachedBounding</a>, <a class="el" href="item__gripper__box_8h_source.html#l00052">m_cacheValid</a>, <a class="el" href="item__gripper__box_8h_source.html#l00046">m_distance</a>, <a class="el" href="item__gripper__box_8h_source.html#l00049">m_placementAngle</a>, <a class="el" href="item__gripper__box_8h_source.html#l00047">m_size1</a>, <a class="el" href="item__gripper__box_8h_source.html#l00048">m_size2</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00083">pointAtAngleAndDistance()</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00065">m_cachedBounding</a>, <a class="el" href="item__gripper__box_8h_source.html#l00066">m_cacheValid</a>, <a class="el" href="item__gripper__box_8h_source.html#l00060">m_distance</a>, <a class="el" href="item__gripper__box_8h_source.html#l00063">m_placementAngle</a>, <a class="el" href="item__gripper__box_8h_source.html#l00061">m_size1</a>, <a class="el" href="item__gripper__box_8h_source.html#l00062">m_size2</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00083">pointAtAngleAndDistance()</a>.</p>
 
 </div>
 </div>
@@ -248,7 +260,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00018">18</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00046">m_distance</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00060">m_distance</a>.</p>
 
 </div>
 </div>
@@ -288,7 +300,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00123">123</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00046">m_distance</a>, <a class="el" href="item__gripper__box_8h_source.html#l00049">m_placementAngle</a>, <a class="el" href="item__gripper__box_8h_source.html#l00047">m_size1</a>, <a class="el" href="item__gripper__box_8h_source.html#l00048">m_size2</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00083">pointAtAngleAndDistance()</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00060">m_distance</a>, <a class="el" href="item__gripper__box_8h_source.html#l00063">m_placementAngle</a>, <a class="el" href="item__gripper__box_8h_source.html#l00061">m_size1</a>, <a class="el" href="item__gripper__box_8h_source.html#l00062">m_size2</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00083">pointAtAngleAndDistance()</a>.</p>
 
 </div>
 </div>
@@ -312,7 +324,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00064">64</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00049">m_placementAngle</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00063">m_placementAngle</a>.</p>
 
 </div>
 </div>
@@ -370,7 +382,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00025">25</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00052">m_cacheValid</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00046">m_distance</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00066">m_cacheValid</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00060">m_distance</a>.</p>
 
 </div>
 </div>
@@ -393,7 +405,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00071">71</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00052">m_cacheValid</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00049">m_placementAngle</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00066">m_cacheValid</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00063">m_placementAngle</a>.</p>
 
 </div>
 </div>
@@ -416,7 +428,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00041">41</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00052">m_cacheValid</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00047">m_size1</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00066">m_cacheValid</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00061">m_size1</a>.</p>
 
 </div>
 </div>
@@ -439,7 +451,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00054">54</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00052">m_cacheValid</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00048">m_size2</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00066">m_cacheValid</a>, and <a class="el" href="item__gripper__box_8h_source.html#l00062">m_size2</a>.</p>
 
 </div>
 </div>
@@ -462,7 +474,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00035">35</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00047">m_size1</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00061">m_size1</a>.</p>
 
 </div>
 </div>
@@ -485,7 +497,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="item__gripper__box_8cpp_source.html#l00051">51</a> of file <a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00048">m_size2</a>.</p>
+<p class="reference">References <a class="el" href="item__gripper__box_8h_source.html#l00062">m_size2</a>.</p>
 
 </div>
 </div>
@@ -512,7 +524,7 @@ Private Attributes</h2></td></tr>
 
 <p>Cached result of <a class="el" href="#a9b293f0f3b25f49fdf21bceaeeadb710">boundingRect()</a>; valid only while m_cacheValid is true. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00051">51</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00065">65</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__gripper__box_8cpp_source.html#l00091">boundingRect()</a>.</p>
 
@@ -540,7 +552,7 @@ Private Attributes</h2></td></tr>
 
 <p>True when m_cachedBounding reflects the current geometry. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00052">52</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00066">66</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__gripper__box_8cpp_source.html#l00091">boundingRect()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00006">ItemGripperBox()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00025">setDistance()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00071">setPlacementAngle()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00041">setSize1()</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00054">setSize2()</a>.</p>
 
@@ -568,7 +580,7 @@ Private Attributes</h2></td></tr>
 
 <p>Center-to-origin distance for both finger squares. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00046">46</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00060">60</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__gripper__box_8cpp_source.html#l00091">boundingRect()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00018">distance()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00006">ItemGripperBox()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00123">paint()</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00025">setDistance()</a>.</p>
 
@@ -596,7 +608,7 @@ Private Attributes</h2></td></tr>
 
 <p>Placement direction of the two finger squares, in degrees. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00049">49</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00063">63</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__gripper__box_8cpp_source.html#l00091">boundingRect()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00006">ItemGripperBox()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00123">paint()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00064">placementAngle()</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00071">setPlacementAngle()</a>.</p>
 
@@ -624,7 +636,7 @@ Private Attributes</h2></td></tr>
 
 <p>Size of the finger square at m_placementAngle. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00047">47</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00061">61</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__gripper__box_8cpp_source.html#l00091">boundingRect()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00006">ItemGripperBox()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00123">paint()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00041">setSize1()</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00035">size1()</a>.</p>
 
@@ -652,15 +664,15 @@ Private Attributes</h2></td></tr>
 
 <p>Size of the finger square at m_placementAngle + 180°. </p>
 
-<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00048">48</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="item__gripper__box_8h_source.html#l00062">62</a> of file <a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="item__gripper__box_8cpp_source.html#l00091">boundingRect()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00006">ItemGripperBox()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00123">paint()</a>, <a class="el" href="item__gripper__box_8cpp_source.html#l00054">setSize2()</a>, and <a class="el" href="item__gripper__box_8cpp_source.html#l00051">size2()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/<a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="item__gripper__box_8h_source.html">item_gripper_box.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/<a class="el" href="item__gripper__box_8cpp_source.html">item_gripper_box.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

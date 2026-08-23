@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structcalib_1_
 </div><!--header-->
 <div class="contents">
 
-<p>Geometry and detection parameters for a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a> instance.  
+<p>Geometry and detection parameters for a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a> instance.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>&gt;</code></p>
@@ -133,6 +133,7 @@ Collaboration diagram for calib::FanucIRvisionBoard::Params:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8d8b93fd1ddfd394eb1c0fbc58d29fe8" id="r_a8d8b93fd1ddfd394eb1c0fbc58d29fe8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a8d8b93fd1ddfd394eb1c0fbc58d29fe8">isValid</a> (std::string *errorOut=nullptr) const</td></tr>
+<tr class="memdesc:a8d8b93fd1ddfd394eb1c0fbc58d29fe8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks internal consistency of the parameter set (odd/min row-col counts, positive spacings, and the normal &lt; coor dot-size &lt; spacing ordering).  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -152,9 +153,9 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a014ab222f627f5b233f8011299f2ee34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grid row count; must be odd, &gt;= 5.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Geometry and detection parameters for a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a> instance. </p>
+<div class="textblock"><p>Geometry and detection parameters for a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a> instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00020">20</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00033">33</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a8d8b93fd1ddfd394eb1c0fbc58d29fe8" name="a8d8b93fd1ddfd394eb1c0fbc58d29fe8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d8b93fd1ddfd394eb1c0fbc58d29fe8">&#9670;&#160;</a></span>isValid()</h2>
@@ -170,9 +171,11 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Checks internal consistency of the parameter set (odd/min row-col counts, positive spacings, and the normal &lt; coor dot-size &lt; spacing ordering). </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Checks internal consistency of the parameter set (odd/min row-col counts, positive spacings, and the normal &lt; coor dot-size &lt; spacing ordering). </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">errorOut</td><td>if non-null and validation fails, receives a description of the first violated rule </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">errorOut</td><td>if non-null and validation fails, receives a description of the first violated rule </td></tr>
   </table>
   </dd>
 </dl>
@@ -181,7 +184,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">23</a> of file <a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00034">binarizeThreshold</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00022">cols</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00028">coorDotSizeMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00023">dotSpacingMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00030">innerTargetDotSizeMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00024">marginMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00026">normalDotSizeMm</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00021">rows</a>.</p>
+<p class="reference">References <a class="el" href="fanuc__irvision__board_8h_source.html#l00047">binarizeThreshold</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00035">cols</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00041">coorDotSizeMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00036">dotSpacingMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00043">innerTargetDotSizeMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00037">marginMm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00039">normalDotSizeMm</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00034">rows</a>.</p>
 
 </div>
 </div>
@@ -197,9 +200,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Binarization threshold used by <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html#a13cb90a77a13a802454e243d5da4cdbb">detect()</a>: -1 =&gt; auto (Otsu), 0..255 =&gt; fixed manual threshold. Defaults to auto so existing presets / saved JSON keep their previous behaviour. </p>
+<p>Binarization threshold used by <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html#a13cb90a77a13a802454e243d5da4cdbb" title="Detects the dot grid in image: binarizes, extracts near-circular blobs, identifies the 4 orientation ...">detect()</a>: -1 =&gt; auto (Otsu), 0..255 =&gt; fixed manual threshold. Defaults to auto so existing presets / saved JSON keep their previous behaviour. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00034">34</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00047">47</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">isValid()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">calib::FanucIRvisionBoard::paramsFromJson()</a>.</p>
 
@@ -219,7 +222,7 @@ Public Attributes</h2></td></tr>
 
 <p>Grid column count; must be odd, &gt;= 7. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00022">22</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00035">35</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">isValid()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">calib::FanucIRvisionBoard::paramsFromJson()</a>.</p>
 
@@ -239,7 +242,7 @@ Public Attributes</h2></td></tr>
 
 <p>Diameter of (a) outer of the centre ring, and (b) the 3 solid coord dots. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00028">28</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00041">41</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">isValid()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">calib::FanucIRvisionBoard::paramsFromJson()</a>.</p>
 
@@ -259,7 +262,7 @@ Public Attributes</h2></td></tr>
 
 <p>Centre-to-centre spacing between adjacent dots, in mm. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00023">23</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00036">36</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">isValid()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">calib::FanucIRvisionBoard::paramsFromJson()</a>.</p>
 
@@ -279,7 +282,7 @@ Public Attributes</h2></td></tr>
 
 <p>Inner white circle of target rings and the centre ring. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00030">30</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00043">43</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">isValid()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">calib::FanucIRvisionBoard::paramsFromJson()</a>.</p>
 
@@ -298,7 +301,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Blank border around the grid on the generated image, in mm. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00024">24</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00037">37</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">isValid()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">calib::FanucIRvisionBoard::paramsFromJson()</a>.</p>
 
@@ -318,7 +321,7 @@ Public Attributes</h2></td></tr>
 
 <p>Diameter of (a) plain solid normal dots, and (b) outer of target rings. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00026">26</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00039">39</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">isValid()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">calib::FanucIRvisionBoard::paramsFromJson()</a>.</p>
 
@@ -338,15 +341,15 @@ Public Attributes</h2></td></tr>
 
 <p>Grid row count; must be odd, &gt;= 5. </p>
 
-<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00021">21</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fanuc__irvision__board_8h_source.html#l00034">34</a> of file <a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00023">isValid()</a>, and <a class="el" href="fanuc__irvision__board_8cpp_source.html#l00081">calib::FanucIRvisionBoard::paramsFromJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/calibration/<a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/calibration/<a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/calibration/<a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/calibration/<a class="el" href="fanuc__irvision__board_8cpp_source.html">fanuc_irvision_board.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

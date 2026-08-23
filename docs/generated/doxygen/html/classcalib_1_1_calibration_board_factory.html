@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classcalib_1_1
 </div><!--header-->
 <div class="contents">
 
+<p>Centralised allocator for <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a> subclasses. Returns base-class std::unique_ptr&lt;CalibrationBoard&gt; so callers can stay board-agnostic.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="calibration__board__factory_8h_source.html">calibration_board_factory.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for calib::CalibrationBoardFactory:</div>
@@ -131,15 +134,19 @@ Collaboration diagram for calib::CalibrationBoardFactory:</div>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a6baaf2fe1dc26a4280881c05f12de909" id="r_a6baaf2fe1dc26a4280881c05f12de909"><td class="memItemLeft">static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6baaf2fe1dc26a4280881c05f12de909">availablePresets</a> ()</td></tr>
 <tr class="memitem:adc5ddb6e0192c28d9e7ee446478dcd23" id="r_adc5ddb6e0192c28d9e7ee446478dcd23"><td class="memItemLeft">static std::unique_ptr&lt; <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#adc5ddb6e0192c28d9e7ee446478dcd23">create</a> (<a class="el" href="namespacecalib.html#aa21d7855d1fe4ab6a08379ffc43ad592">CalibrationBoardType</a> type)</td></tr>
+<tr class="memdesc:adc5ddb6e0192c28d9e7ee446478dcd23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default-constructs a board of the given type using that type's own defaults.  <br /></td></tr>
 <tr class="memitem:a09ffc35aa43480610f7619967aba1299" id="r_a09ffc35aa43480610f7619967aba1299"><td class="memItemLeft">static std::unique_ptr&lt; <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a09ffc35aa43480610f7619967aba1299">createFanucIRvision</a> (const <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html">FanucIRvisionBoard::Params</a> &amp;params=<a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html">FanucIRvisionBoard::Params</a>{})</td></tr>
-<tr class="memdesc:a09ffc35aa43480610f7619967aba1299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a> with explicit <span class="tt">params</span>.  <br /></td></tr>
+<tr class="memdesc:a09ffc35aa43480610f7619967aba1299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a> with explicit params.  <br /></td></tr>
 <tr class="memitem:af5259660f400f3f5c641011522d6ec2f" id="r_af5259660f400f3f5c641011522d6ec2f"><td class="memItemLeft">static std::unique_ptr&lt; <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#af5259660f400f3f5c641011522d6ec2f">createFromJson</a> (const std::string &amp;json)</td></tr>
+<tr class="memdesc:af5259660f400f3f5c641011522d6ec2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstructs a board instance from JSON produced by <a class="el" href="classcalib_1_1_calibration_board.html#ab19c34cdf6d5ccf3d536e922f0f9de8c">CalibrationBoard::toJson()</a>, dispatching on the top-level "type" field.  <br /></td></tr>
 <tr class="memitem:a5b45575abe1c23a1fbf225e690c53215" id="r_a5b45575abe1c23a1fbf225e690c53215"><td class="memItemLeft">static std::unique_ptr&lt; <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5b45575abe1c23a1fbf225e690c53215">createFromPreset</a> (const std::string &amp;presetName)</td></tr>
+<tr class="memdesc:a5b45575abe1c23a1fbf225e690c53215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a board from a named preset. Recognised presets: "iRvision5mm", "iRvision11mm", "iRvision15mm", "iRvision22mm", "iRvision30mm".  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Centralised allocator for <a class="el" href="classcalib_1_1_calibration_board.html">CalibrationBoard</a> subclasses. Returns base-class std::unique_ptr&lt;CalibrationBoard&gt; so callers can stay board-agnostic. When type-specific accessors are needed (e.g. <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html#a0a2b2354c9f5d9e241714ab4494fb1d7" title="Converts targetCells() to flat row-major grid indices (row * cols + col).">FanucIRvisionBoard::targetIndices</a>), construct the subclass directly instead of going through the factory. </p>
+<div class="textblock"><p>Centralised allocator for <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a> subclasses. Returns base-class std::unique_ptr&lt;CalibrationBoard&gt; so callers can stay board-agnostic. </p>
+<p>When type-specific accessors are needed (e.g. <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html#a0a2b2354c9f5d9e241714ab4494fb1d7" title="Converts targetCells() to flat row-major grid indices (row * cols + col).">FanucIRvisionBoard::targetIndices</a>), construct the subclass directly instead of going through the factory. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board__factory_8h_source.html#l00026">26</a> of file <a class="el" href="calibration__board__factory_8h_source.html">calibration_board_factory.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board__factory_8h_source.html#l00037">37</a> of file <a class="el" href="calibration__board__factory_8h_source.html">calibration_board_factory.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a6baaf2fe1dc26a4280881c05f12de909" name="a6baaf2fe1dc26a4280881c05f12de909"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6baaf2fe1dc26a4280881c05f12de909">&#9670;&#160;</a></span>availablePresets()</h2>
@@ -163,7 +170,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the list of preset names recognised by <a class="el" href="#a5b45575abe1c23a1fbf225e690c53215">createFromPreset()</a>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>the list of preset names recognised by <a class="el" href="#a5b45575abe1c23a1fbf225e690c53215" title="Constructs a board from a named preset. Recognised presets: &quot;iRvision5mm&quot;, &quot;iRvision11mm&quot;,...">createFromPreset()</a>. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board__factory_8cpp_source.html#l00076">76</a> of file <a class="el" href="calibration__board__factory_8cpp_source.html">calibration_board_factory.cpp</a>.</p>
 
@@ -193,9 +200,11 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Default-construct a board of the given type using that type's own defaults. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Default-constructs a board of the given type using that type's own defaults. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>the calibration board pattern to instantiate </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>the calibration board pattern to instantiate </td></tr>
   </table>
   </dd>
 </dl>
@@ -204,7 +213,7 @@ Static Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board__factory_8cpp_source.html#l00013">13</a> of file <a class="el" href="calibration__board__factory_8cpp_source.html">calibration_board_factory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00024">createFanucIRvision()</a>, and <a class="el" href="calibration__board__factory_8h_source.html#l00016">calib::FanucIRvision</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00024">createFanucIRvision()</a>, and <a class="el" href="calibration__board__factory_8h_source.html#l00023">calib::FanucIRvision</a>.</p>
 
 </div>
 </div>
@@ -231,14 +240,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructs a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a> with explicit <span class="tt">params</span>. </p>
-<p>Construct a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a> with explicit params. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Constructs a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a> with explicit params. </p>
+<p>Constructs a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a> with explicit <span class="tt">params</span>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">params</td><td>board geometry/detection parameters (defaults to <a class="el" href="structcalib_1_1_fanuc_i_rvision_board_1_1_params.html" title="Geometry and detection parameters for a FanucIRvisionBoard instance.">FanucIRvisionBoard::Params</a>{}) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">params</td><td>board geometry/detection parameters </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a>, held via its base-class pointer </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a new <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a>, held via its base-class pointer </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board__factory_8cpp_source.html#l00024">24</a> of file <a class="el" href="calibration__board__factory_8cpp_source.html">calibration_board_factory.cpp</a>.</p>
 
@@ -268,9 +278,11 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Reconstruct a board instance from JSON produced by <a class="el" href="classcalib_1_1_calibration_board.html#ab19c34cdf6d5ccf3d536e922f0f9de8c">CalibrationBoard::toJson()</a>, dispatching on the top-level "type" field. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Reconstructs a board instance from JSON produced by <a class="el" href="classcalib_1_1_calibration_board.html#ab19c34cdf6d5ccf3d536e922f0f9de8c">CalibrationBoard::toJson()</a>, dispatching on the top-level "type" field. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">json</td><td>serialised board JSON </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">json</td><td>serialised board JSON </td></tr>
   </table>
   </dd>
 </dl>
@@ -305,26 +317,28 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a board from a named preset. Recognised presets: "iRvision5mm", "iRvision11mm", "iRvision15mm", "iRvision22mm", "iRvision30mm". </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Constructs a board from a named preset. Recognised presets: "iRvision5mm", "iRvision11mm", "iRvision15mm", "iRvision22mm", "iRvision30mm". </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">presetName</td><td>the preset identifier </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">presetName</td><td>the preset identifier </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>a new board instance, or nullptr for unknown names</dd></dl>
-<p>Constructs a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html">FanucIRvisionBoard</a> from a named preset ("iRvision-5mm", "iRvision-11.5mm", "iRvision-15mm", "iRvision-22.5mm", or "iRvision-30mm"; see <a class="el" href="#a6baaf2fe1dc26a4280881c05f12de909">availablePresets()</a>). </p><dl class="section return"><dt>Returns</dt><dd>a new board instance, or nullptr for an unrecognised preset name </dd></dl>
+<p>Constructs a <a class="el" href="classcalib_1_1_fanuc_i_rvision_board.html" title="Fanuc iRVision-style dot grid calibration board (concrete CalibrationBoard).">FanucIRvisionBoard</a> from a named preset ("iRvision-5mm", "iRvision-11.5mm", "iRvision-15mm", "iRvision-22.5mm", or "iRvision-30mm"; see <a class="el" href="#a6baaf2fe1dc26a4280881c05f12de909">availablePresets()</a>). </p><dl class="section return"><dt>Returns</dt><dd>a new board instance, or nullptr for an unrecognised preset name </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">33</a> of file <a class="el" href="calibration__board__factory_8cpp_source.html">calibration_board_factory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00024">createFanucIRvision()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00046">calib::FanucIRvisionBoard::iRvisionPattern11m</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00048">calib::FanucIRvisionBoard::iRvisionPattern15mm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00050">calib::FanucIRvisionBoard::iRvisionPattern22mm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00052">calib::FanucIRvisionBoard::iRvisionPattern30mm</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00044">calib::FanucIRvisionBoard::iRvisionPattern5mm</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00024">createFanucIRvision()</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00062">calib::FanucIRvisionBoard::iRvisionPattern11m</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00064">calib::FanucIRvisionBoard::iRvisionPattern15mm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00066">calib::FanucIRvisionBoard::iRvisionPattern22mm</a>, <a class="el" href="fanuc__irvision__board_8h_source.html#l00068">calib::FanucIRvisionBoard::iRvisionPattern30mm</a>, and <a class="el" href="fanuc__irvision__board_8h_source.html#l00060">calib::FanucIRvisionBoard::iRvisionPattern5mm</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">BaslerCameraWidget::btn_setup_board_clicked()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00531">BaslerCameraWidget::setCalibBoardPreset()</a>, and <a class="el" href="calibration__board__dialog_8cpp_source.html#l00063">CalibrationBoardDialog::updatePreview()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/calibration/<a class="el" href="calibration__board__factory_8h_source.html">calibration_board_factory.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/calibration/<a class="el" href="calibration__board__factory_8cpp_source.html">calibration_board_factory.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/calibration/<a class="el" href="calibration__board__factory_8h_source.html">calibration_board_factory.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/calibration/<a class="el" href="calibration__board__factory_8cpp_source.html">calibration_board_factory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

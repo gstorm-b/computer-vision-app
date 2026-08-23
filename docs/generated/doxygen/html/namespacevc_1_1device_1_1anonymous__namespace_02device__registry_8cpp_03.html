@@ -153,11 +153,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> for a Basler GigE camera device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html">BaslerGigECamera</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Basler GigE camera device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html" title="Basler GigE Vision camera device, implemented on top of the Pylon SDK (Pylon::CInstantCamera)....">BaslerGigECamera</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00023">23</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00023">createBaslerGige()</a>, <a class="el" href="idevice__config_8h_source.html#l00019">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00015">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00016">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00023">createBaslerGige()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00023">createBaslerGige()</a>.</p>
 
@@ -181,11 +181,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> for a Kawasaki robot device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_kawasaki_robot_device.html">KawasakiRobotDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Kawasaki robot device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_kawasaki_robot_device.html" title="Minimum concrete robot device for the Kawasaki vendor. All calls are stubs returning sensible default...">KawasakiRobotDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00099">99</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00099">createKawasaki()</a>, <a class="el" href="idevice__config_8h_source.html#l00019">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00015">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00016">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00099">createKawasaki()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00099">createKawasaki()</a>.</p>
 
@@ -209,11 +209,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> for a Mitsubishi MC-protocol PLC device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html">McProtocolDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Mitsubishi MC-protocol PLC device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html" title="Mitsubishi MC-protocol PLC device: owns the transport (McMsgInterface) and frame codec (MCFrameAbstra...">McProtocolDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00042">42</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00042">createMitsubishiMc()</a>, <a class="el" href="idevice__config_8h_source.html#l00019">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00015">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00016">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00042">createMitsubishiMc()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00042">createMitsubishiMc()</a>.</p>
 
@@ -237,11 +237,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> for a Nachi robot device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_nachi_robot_device.html">NachiRobotDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Nachi robot device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_nachi_robot_device.html" title="Minimum concrete robot device — Nachi vendor stub. See KawasakiRobotDevice for the equivalent pattern...">NachiRobotDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00118">118</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00118">createNachi()</a>, <a class="el" href="idevice__config_8h_source.html#l00019">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00015">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00016">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00118">createNachi()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00118">createNachi()</a>.</p>
 
@@ -265,11 +265,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> for a Vision TCP/IP server output device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_vision_tcpip_device.html">VisionTcpipDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Vision TCP/IP server output device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_vision_tcpip_device.html" title="TCP/IP server transport of the vision-output family: listens on two ports (main + heartbeat),...">VisionTcpipDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00061">61</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00061">createVisionTcpip()</a>, <a class="el" href="idevice__config_8h_source.html#l00019">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00015">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00016">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00061">createVisionTcpip()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00061">createVisionTcpip()</a>.</p>
 
@@ -293,11 +293,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="namespacevc_1_1device_1_1_factory.html" title="Factory helpers for allocating MC-protocol frame context instances.">Factory</a> for a Vision TCP/IP client output device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device.html">VisionTcpipClientDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Vision TCP/IP client output device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device.html" title="TCP/IP client transport of the vision-output family. Same protocol as VisionTcpipDevice,...">VisionTcpipClientDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00080">80</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00080">createVisionTcpipClient()</a>, <a class="el" href="idevice__config_8h_source.html#l00019">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00015">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00016">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00080">createVisionTcpipClient()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00080">createVisionTcpipClient()</a>.</p>
 
@@ -325,7 +325,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00178">178</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00019">DEVICE_JSK_CONFIG</a>, and <a class="el" href="device__registry_8cpp_source.html#l00178">subTypeValueFrom()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, and <a class="el" href="device__registry_8cpp_source.html#l00178">subTypeValueFrom()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00178">subTypeValueFrom()</a>.</p>
 

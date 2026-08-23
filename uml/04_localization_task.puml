@@ -69,6 +69,7 @@ package "vc::model" {
     +bMatchingBusy : QString
     +bMatchingDetected : QString
     +bMatchingLowArea : QString
+    +bErrorReset : QString
     +deviceBindings : TaskDeviceBindings
   }
 
@@ -224,6 +225,13 @@ package "vc::model" {
   }
 
   class CameraMapEntry <<Q_GADGET>>
+
+  class GripperPresetStore {
+    ..named gripper geometries, project-scoped..
+    +presets() : QVector<GripperPreset>
+    +add(preset) : bool
+    +remove(name) : bool
+  }
 }
 
 package "vc::device" {
@@ -231,7 +239,11 @@ package "vc::device" {
   abstract class CameraDevice
   abstract class PlcDevice
   abstract class VisionOutputDevice
-  class VisionOutputPosition
+  class VisionOutputPosition {
+    +x / y / z : double
+    +rx / ry / rz : double
+    +toString() : QString
+  }
   class VisionOutputRequest
 }
 
@@ -264,6 +276,7 @@ TaskLocalizeConfig *-- TaskDeviceBindings : deviceBindings
 TaskDeviceBindings o-- "0..*" TaskDeviceBinding
 TaskDeviceBinding --> TaskDeviceRole
 TaskLocalization *-- PatternGroupManager : m_patternManager
+TaskLocalization *-- GripperPresetStore : m_gripperPresets, saved under "gripperPresets"
 TaskLocalization *-- LocalizationRuntimeController : explicit owner, no QObject parent in runtime
 TaskLocalization *-- LocalizationPipeline : m_pipeline
 LocalizationRuntimeController *-- LocalizationSignalMapper : m_signalMapper
@@ -319,14 +332,28 @@ note right of TaskLocalization
 end note
 
 note right of LocalizationRuntimeController
-  Runtime reconnect/fault behavior is delegated to
-  explicit recovery policies per device role.
+  Runtime reconnect behavior is delegated to explicit
+  recovery policies per device role. Reconnect is
+  UNLIMITED: a lost role withdraws bTaskReady, retries
+  until it returns or the runtime ends, and never
+  escalates to a fault. Consequence for the PLC: a dead
+  link shows bTaskReady=false with bTaskFault=false, so
+  bTaskFault is the wrong signal to watch for it.
   Recovery/fault signals now feed the task state machine.
   The controller does not call TaskLocalization directly.
   It receives an immutable RuntimeContext snapshot at setup,
   coordinates device runners through queued APIs, and emits
   runtimeMatchingRequested() so matching runs on the task
   matching worker thread.
+
+  A latched cycle fault always has a way out: a bErrorReset
+  rising edge, or automatically after kFaultAutoRecoverMs
+  (2000 ms) when no acknowledge arrives. Both run one shared
+  recovery body. Clearing bTaskFault/nFaultCode is
+  unconditional; re-arming still validates roles, pattern
+  group and calibration -- this is an acknowledge, not a
+  repair. Consequence: bTaskFault is a PULSE, so the PLC
+  must sample it on bMatchingFinished.
 end note
 
 note right of LocalizationSignalMapper
@@ -344,6 +371,36 @@ note bottom of TaskLocalization
   Binary pattern images are not embedded directly in JSON.
   getTaskImageMap() exposes keys like g{groupNumber}_p{patternNumber};
   ProjectRepository stores those cv::Mat images in project_images.
+end note
+
+note bottom of VisionOutputPosition
+  6 axes since Phase 5 (was 4: x, y, z, r).
+  The old 'r' and the new 'rz' are the SAME axis --
+  the rotation about Z -- so r was dropped and rz
+  carries it. rx / ry are genuinely new.
+
+  toString() emits six %08.2f fields per position, so
+  the frame is "{detected},{x,y,z,rx,ry,rz},...;".
+  A robot program reading 4 fields per position does
+  not merely ignore the extras: it strides a flat field
+  list, so it MISALIGNS and reads wrong coordinates.
+  The robot side is user-owned.
+end note
+
+note bottom of ResultRow
+  buildVisionOutputPositions() composes the world pose as
+    world = pickPose * offsetPose
+  using RobotKinematics::Pose, so the pattern's 6-axis
+  offset is applied in the TOOL frame.
+
+  x / y / z carry the composed translation.
+  rx / ry come straight from the pattern's rotation offset.
+  rz = worldYaw + offset.z -- the pick yaw and the pattern's
+  Z offset both act about Z, so they add into one axis.
+
+  At zero offset this reduces exactly to the pre-Phase-5
+  Rz translate, so existing patterns are unaffected: the
+  identity is algebraic, not sampled.
 end note
 
 @enduml

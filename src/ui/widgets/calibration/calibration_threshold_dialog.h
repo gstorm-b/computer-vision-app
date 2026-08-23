@@ -17,27 +17,41 @@ namespace calib {
 class CalibrationBoard;
 }
 
-/// Modal dialog that tunes the calibration-board binarization threshold on a live camera
-/// frame. It drives the SAME binarize()/detect() routines the board uses at calibration time,
-/// so the preview matches reality.
-///   - "Auto (Otsu)" checkbox: threshold == -1, Otsu picks the value.
-///   - Slider / spin 0..255: fixed manual threshold.
-///   - Left preview : binarized image (THRESH_BINARY_INV).
-///   - Right preview: detection overlay (detected dots) when detect succeeds.
-///   - Status line  : applied threshold + detected dot count + pass/fail.
-/// @note The board pointer is borrowed (not owned). The dialog temporarily applies the trial
-/// threshold to the board for previewing; the caller is responsible for committing the
-/// accepted value (threshold()) and/or restoring the previous one after exec().
+/**
+ * @file calibration_threshold_dialog.h
+ * @brief CalibrationThresholdDialog — live-preview tuner for the calibration-board
+ *        binarization threshold.
+ */
+
+/**
+ * @class CalibrationThresholdDialog
+ * @brief Modal dialog that tunes the calibration-board binarization threshold on a live camera
+ *        frame. It drives the SAME binarize()/detect() routines the board uses at calibration time,
+ *        so the preview matches reality.
+ *
+ *   - "Auto (Otsu)" checkbox: threshold == -1, Otsu picks the value.
+ *   - Slider / spin 0..255: fixed manual threshold.
+ *   - Left preview : binarized image (THRESH_BINARY_INV).
+ *   - Right preview: detection overlay (detected dots) when detect succeeds.
+ *   - Status line  : applied threshold + detected dot count + pass/fail.
+ *
+ * @note The board pointer is borrowed (not owned). The dialog temporarily applies the trial
+ *       threshold to the board for previewing; the caller is responsible for committing the
+ *       accepted value (threshold()) and/or restoring the previous one after exec().
+ */
 class CalibrationThresholdDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    /// Constructs the dialog, wiring the preview panes and controls to `board` and seeding the
-    /// initial slider/spin value and Auto checkbox from `initialThreshold`, then runs an
-    /// initial recompute() (previews stay blank until setImage() delivers the first frame).
-    /// @param board calibration board whose binarize()/detect() drive the previews (borrowed, not owned)
-    /// @param initialThreshold seed value: -1 selects Auto (Otsu), 0..255 selects manual with that value
+    /**
+     * @brief Constructs the dialog, wiring the preview panes and controls to `board` and seeding the
+     *        initial slider/spin value and Auto checkbox from `initialThreshold`, then runs an
+     *        initial recompute() (previews stay blank until setImage() delivers the first frame).
+     * @param[in] board calibration board whose binarize()/detect() drive the previews (borrowed, not owned)
+     * @param[in] initialThreshold seed value: -1 selects Auto (Otsu), 0..255 selects manual with that value
+     * @param[in] parent owning widget, passed through to QDialog (Qt parent/child ownership)
+     */
     CalibrationThresholdDialog(calib::CalibrationBoard *board,
                                int initialThreshold,
                                QWidget *parent = nullptr);
@@ -56,9 +70,11 @@ signals:
     void regrabRequested();
 
 private slots:
-    /// Handles the "Auto (Otsu)" checkbox toggling: enables/disables the manual slider and
-    /// spin box accordingly, then recomputes the previews.
-    /// @param autoOtsu true when Auto (Otsu) is now checked
+    /**
+     * @brief Handles the "Auto (Otsu)" checkbox toggling: enables/disables the manual slider and
+     *        spin box accordingly, then recomputes the previews.
+     * @param[in] autoOtsu true when Auto (Otsu) is now checked
+     */
     void onAutoToggled(bool autoOtsu);
     /// Handles slider movement: mirrors `value` onto the spin box (blocking its signal to
     /// avoid feedback) and recomputes the previews.

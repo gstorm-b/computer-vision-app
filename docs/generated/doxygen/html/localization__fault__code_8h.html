@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/localization_fault_code.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/localization_fault_code.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,11 +119,14 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('localization__
   <div class="headertitle"><div class="title">localization_fault_code.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>LocalizationFaultCode — fault codes reported by the localization task's runtime/recovery logic, and their name/value conversion helpers.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QString&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for localization_fault_code.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="localization__fault__code_8h__incl.svg" width="183" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="localization__fault__code_8h__incl.svg" width="211" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -137,7 +140,7 @@ This graph shows which files directly or indirectly include this file:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -156,13 +159,20 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespacevc_1_1model.html#a4b1f6a88acffb98bc6294327244c648da8462b58246e70e5c83e5b939a9332cb5">vc::model::InternalError</a> = 500
 <br />
  }</td></tr>
+<tr class="memdesc:a4b1f6a88acffb98bc6294327244c648d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fault codes reported by the localization task's runtime/recovery logic (see <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html" title="Runs one localization task at runtime.">LocalizationRuntimeController</a>).  <a href="namespacevc_1_1model.html#a4b1f6a88acffb98bc6294327244c648d">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aad84ba764269155fc6dae08de2da782e" id="r_aad84ba764269155fc6dae08de2da782e"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#aad84ba764269155fc6dae08de2da782e">vc::model::localizationFaultCodeName</a> (<a class="el" href="namespacevc_1_1model.html#a4b1f6a88acffb98bc6294327244c648d">LocalizationFaultCode</a> code)</td></tr>
+<tr class="memdesc:aad84ba764269155fc6dae08de2da782e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the stable, human-readable identifier for <span class="tt">code</span> (e.g. "CameraLost"), used for logging/diagnostics; falls back to "Unknown" for any value not in the switch.  <br /></td></tr>
 <tr class="memitem:a1b36dfc3ca61ec731d18d2fa0b4d7879" id="r_a1b36dfc3ca61ec731d18d2fa0b4d7879"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#a1b36dfc3ca61ec731d18d2fa0b4d7879">vc::model::localizationFaultCodeValue</a> (<a class="el" href="namespacevc_1_1model.html#a4b1f6a88acffb98bc6294327244c648d">LocalizationFaultCode</a> code)</td></tr>
+<tr class="memdesc:a1b36dfc3ca61ec731d18d2fa0b4d7879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the numeric fault-code value (e.g. for publishing over "nFaultCode").  <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>LocalizationFaultCode — fault codes reported by the localization task's runtime/recovery logic, and their name/value conversion helpers. </p>
+
+<p class="definition">Definition in file <a class="el" href="localization__fault__code_8h_source.html">localization_fault_code.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

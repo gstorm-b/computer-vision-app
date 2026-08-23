@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/localization_signal_mapper.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/localization_signal_mapper.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('localization__
   <div class="headertitle"><div class="title">localization_signal_mapper.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Application data-model types: tasks, device bindings, and localization signal mapping (LocalizationSignalEvent, LocalizationSignalMapper).  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QList&gt;</code><br />
 <code>#include &lt;QMap&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
@@ -140,16 +143,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationSignalEvent" id="r_vc_3A_3Amodel_3A_3ALocalizationSignalEvent"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_localization_signal_event.html">vc::model::LocalizationSignalEvent</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One mapped PLC signal update, ready to be dispatched under its <a class="el" href="classvc_1_1model_1_1_task_localize_config.html">TaskLocalizeConfig</a> property name.  <a href="structvc_1_1model_1_1_localization_signal_event.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One mapped PLC signal update, ready to be dispatched under its <a class="el" href="classvc_1_1model_1_1_task_localize_config.html" title="Localization-task configuration: PLC signal-name bindings for camera/pattern selection and matching s...">TaskLocalizeConfig</a> property name.  <a href="structvc_1_1model_1_1_localization_signal_event.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Amodel_3A_3ALocalizationSignalMapper" id="r_vc_3A_3Amodel_3A_3ALocalizationSignalMapper"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1model_1_1_localization_signal_mapper.html">vc::model::LocalizationSignalMapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bidirectional lookup between PLC tags and the <a class="el" href="classvc_1_1model_1_1_task_localize_config.html" title="Localization-task configuration: PLC signal-name bindings for camera/pattern selection and matching s...">TaskLocalizeConfig</a> signal names they are configured to (see kSignalFields in the .cpp), used to translate raw PLC reads into named localization signal events.  <a href="classvc_1_1model_1_1_localization_signal_mapper.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Amodel" id="r_vc_3A_3Amodel"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html">vc::model</a></td></tr>
-<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Model classes for projects, tasks, and task configuration. <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1model"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application data-model types: tasks, device bindings, and localization signal mapping. <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Application data-model types: tasks, device bindings, and localization signal mapping (LocalizationSignalEvent, LocalizationSignalMapper). </p>
+
+<p class="definition">Definition in file <a class="el" href="localization__signal__mapper_8h_source.html">localization_signal_mapper.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

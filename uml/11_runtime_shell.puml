@@ -1,0 +1,123 @@
+@startuml runtime_shell
+title Operator Runtime Shell (ncr_runtime.exe)
+
+skinparam backgroundColor #FAFAFA
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam ArrowColor #2B4C7E
+skinparam ClassBackgroundColor #EEF5FF
+
+package "runtime_app (shell)" {
+  class RuntimeShellWindow <<QMainWindow>> {
+    ..pages..
+    -buildProjectSelectPage()
+    -buildRuntimePage()
+    ..project lifecycle..
+    -tryStartRememberedProject()
+    -onBrowseForProject()
+    -startProject(path) : bool
+    -showProjectSelect(reason)
+    ..runtime..
+    -startTaskRuntimes()
+    -stopTaskRuntimes()
+    -applyCurrentLayout()
+    {static} +kMaxTasks : int = 8
+  }
+
+  class RuntimeLayoutController {
+    {static} +kMaxTiles : int = 8
+    {static} +supportedTileCounts() : QList<int>
+    {static} +smallestFittingTileCount(taskCount) : int
+    {static} +gridFor(tileCount) : QSize
+    {static} +applyLayout(manager, docks, tileCount)
+  }
+}
+
+package "app (shell)" {
+  class MainWindow <<QMainWindow>>
+}
+
+package "src (shared modules)" {
+  class "vc::model::Project" as Project
+  class "vc::model::ProjectRepository" as ProjectRepository
+  class "vc::model::TaskLocalization" as TaskLocalization
+  class LocalizationDashboardWidget <<ITaskWidget>>
+  class "AppSettings" as AppSettings
+  class "ThemeManager" as ThemeManager
+}
+
+package "3rdparty" {
+  class "ads::CDockManager" as CDockManager
+  class "ads::CDockWidget" as CDockWidget
+}
+
+RuntimeShellWindow --> RuntimeLayoutController : tile grid
+RuntimeShellWindow --> Project : loads, never saves
+RuntimeShellWindow ..> ProjectRepository : load() only
+RuntimeShellWindow --> TaskLocalization : beginRuntime() / endRuntime()
+RuntimeShellWindow *-- LocalizationDashboardWidget : one per task
+RuntimeShellWindow --> AppSettings : lastRuntimeProjectPath
+RuntimeShellWindow --> ThemeManager
+RuntimeShellWindow *-- CDockManager
+RuntimeLayoutController ..> CDockManager : addDockWidget placements
+CDockManager *-- CDockWidget
+
+MainWindow --> Project : loads AND saves
+
+note bottom of RuntimeShellWindow
+  Startup decision tree (three distinct messages,
+  because they call for three different actions):
+    remembered path empty  -> select page, "none run yet"
+    file missing           -> select page, "moved/renamed/drive"
+    load fails             -> select page, "could not be loaded: <reason>"
+    load succeeds          -> runtime view, tasks already running
+
+  The remembered path is written ONLY after a load
+  succeeds, so a corrupt file never becomes the one
+  the next launch tries first.
+
+  Tasks enter runtime with no button press. A task that
+  fails setup keeps its tile showing Faulted, and tasks
+  past the 8 cap are named in the log and toolbar --
+  a task nobody can see is a task nobody is watching.
+end note
+
+note right of RuntimeLayoutController
+  ADS has docking and floating but no "tile into N"
+  primitive, so the grid is an explicit sequence of
+  addDockWidget() placements.
+    1 -> 1x1   2 -> 1x2   4 -> 2x2
+    6 -> 3x2   8 -> 4x2
+
+  Floating is an operator decision and is never undone
+  by a layout change: a floated dock is skipped and
+  does not consume a tile. Floating is a VIEW
+  operation -- a floated task keeps running.
+end note
+
+note bottom of MainWindow
+  Phase 6 split the product into two shells by the
+  project owner's decision, superseding the Phase 4
+  "one executable" shape.
+
+  They are PEERS over the same src/ modules, not a
+  hierarchy: neither may include the other's headers.
+  Shared qmake config lives in qmake/app_common.pri.
+
+  Only this shell writes a project file. One writer,
+  one reader -- which is why no project-file
+  compatibility layer between them is needed.
+end note
+
+note bottom of LocalizationDashboardWidget
+  Reused as-is by the runtime shell: read-only, driven
+  purely by task signals.
+
+  LocalizationTaskWidget is deliberately NOT reused --
+  it starts Commission on the task in its constructor,
+  which would put the operator executable into
+  commissioning on launch.
+end note
+
+@enduml

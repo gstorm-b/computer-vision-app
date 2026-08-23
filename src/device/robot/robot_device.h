@@ -1,6 +1,12 @@
 #ifndef ROBOT_DEVICE_H
 #define ROBOT_DEVICE_H
 
+/**
+ * @file robot_device.h
+ * @brief Abstract robot device family: sub-type dispatch, the family-level config and device
+ *        base classes.
+ */
+
 #include "device/idevice.h"
 
 /// JSON/display-string values for each RobotType, used by RobotTypeToString()/
@@ -11,10 +17,12 @@
 
 namespace vc::device {
 
-/// Top-level dispatch handle for the robot family. Matches the Camera /
-/// PLC sub-type pattern: each vendor implementation registers a new value
-/// here; DeviceFactory::createRobotDevice() switches on this enum to pick
-/// the concrete subclass.
+/**
+ * @enum RobotType
+ * @brief Top-level dispatch handle for the robot family. Each vendor implementation registers
+ *        a value here; DeviceFactory::createRobotDevice() switches on this enum to pick the
+ *        concrete subclass.
+ */
 enum RobotType {
     RobotTypeNone,  ///< No/unknown robot type.
     Kawasaki,       ///< Kawasaki vendor robot.
@@ -22,9 +30,11 @@ enum RobotType {
     Huayan,         ///< Placeholder for future vendor.
 };
 
-/// Converts a RobotType to its JSON/display string (e.g. "Kawasaki").
-/// @param t the robot type to convert
-/// @return the matching ROBOT_TYPE_* string, or "" for RobotTypeNone/unrecognized values
+/**
+ * @brief Converts a RobotType to its JSON/display string (e.g. "Kawasaki").
+ * @param[in] t the robot type to convert
+ * @return the matching ROBOT_TYPE_* string, or "" for RobotTypeNone/unrecognized values
+ */
 [[maybe_unused]] static QString RobotTypeToString(RobotType t) {
     switch (t) {
     case RobotType::Kawasaki: return ROBOT_TYPE_KAWASAKI;
@@ -36,9 +46,11 @@ enum RobotType {
     return "";
 }
 
-/// Converts a JSON/display string back to a RobotType.
-/// @param t the string previously produced by RobotTypeToString()
-/// @return the matching RobotType, or RobotTypeNone if `t` matches no known vendor
+/**
+ * @brief Converts a JSON/display string back to a RobotType.
+ * @param[in] t the string previously produced by RobotTypeToString()
+ * @return the matching RobotType, or RobotTypeNone if `t` matches no known vendor
+ */
 [[maybe_unused]] static RobotType RobotTypeFromString(QString t) {
     if (t == ROBOT_TYPE_KAWASAKI) return RobotType::Kawasaki;
     if (t == ROBOT_TYPE_NACHI)    return RobotType::Nachi;
@@ -46,14 +58,12 @@ enum RobotType {
     return RobotType::RobotTypeNone;
 }
 
-// =====================================================================
-// RobotCfg — abstract config for the robot family
-// =====================================================================
-//
-/// Per Rule 12.5, the abstract base only carries the family-level dispatch
-/// (RobotType) and the family-level JSON header. Vendor-specific fields
-/// live in the concrete subclass — kept intentionally empty here until
-/// the first real vendor implementation lands.
+/**
+ * @class RobotCfg
+ * @brief Abstract config for the robot family. Carries only the family-level dispatch
+ *        (RobotType) and the family-level JSON header. Vendor-specific fields live in the
+ *        concrete subclass.
+ */
 class RobotCfg : public IDeviceCfg {
 public:
     /// Returns the concrete vendor sub-type (e.g. Kawasaki, Nachi); implemented by
@@ -73,12 +83,13 @@ public:
         return obj;
     }
 
-    /// Validates the family-level header: checks that `obj` carries the robot-type key
-    /// and that it matches this config's own robotType(). Logs via LOG_DEV_ERR on either
-    /// failure. Concrete subclasses call this base implementation before restoring their
-    /// own vendor-specific fields.
-    /// @param obj JSON object previously produced by toJson()
-    /// @return true if the robot-type key is present and matches; false otherwise
+    /**
+     * @brief Validates the family-level header: checks that `obj` carries the robot-type key
+     *        and that it matches this config's own robotType(). Concrete subclasses call this
+     *        before restoring their own vendor-specific fields.
+     * @param[in] obj JSON object previously produced by toJson()
+     * @return true if the robot-type key is present and matches; false otherwise
+     */
     bool fromJson(const QJsonObject &obj) override {
         if (!obj.contains(DEVICE_JSK_ROBOT_TYPE)) {
             LOG_DEV_ERR << "RobotCfg: missing RobotType key";
@@ -93,14 +104,11 @@ public:
     }
 };
 
-// =====================================================================
-// RobotDevice — abstract device for the robot family
-// =====================================================================
-//
-/// Minimum surface area as required by IDevice. Vendor-specific motion /
-/// teach-pendant / IO APIs are intentionally not declared here — they will
-/// be added once the first concrete vendor lands and the shared abstraction
-/// becomes concrete (Rule 12.5).
+/**
+ * @class RobotDevice
+ * @brief Abstract base for the robot device family. Carries only the minimum IDevice surface area;
+ *        vendor-specific motion/IO APIs are added in concrete subclasses.
+ */
 class RobotDevice : public IDevice {
     Q_OBJECT
 

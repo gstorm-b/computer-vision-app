@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1mod
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract base for a QObject-derived signal group that can be (de)serialized to/from JSON.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="isignal__group_8h_source.html">isignal_group.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::model::ISignalGroup:</div>
@@ -135,6 +138,7 @@ Collaboration diagram for vc::model::ISignalGroup:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2f58f649f6e6b7a6efa4ffdcd6acae70" id="r_a2f58f649f6e6b7a6efa4ffdcd6acae70"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a2f58f649f6e6b7a6efa4ffdcd6acae70">fromJson</a> (const QObject &amp;obj)=0</td></tr>
+<tr class="memdesc:a2f58f649f6e6b7a6efa4ffdcd6acae70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores this signal group's state from <span class="tt">obj</span>.  <br /></td></tr>
 <tr class="memitem:a6de54eabef7b48e99c4e4fa367c2f2ac" id="r_a6de54eabef7b48e99c4e4fa367c2f2ac"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6de54eabef7b48e99c4e4fa367c2f2ac">ISignalGroup</a> (QObject *parent=nullptr)</td></tr>
 <tr class="memdesc:a6de54eabef7b48e99c4e4fa367c2f2ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the signal group with the given QObject <span class="tt">parent</span>.  <br /></td></tr>
 <tr class="memitem:a20193b66b7882ef0e370a7f49b4855ba" id="r_a20193b66b7882ef0e370a7f49b4855ba"><td class="memItemLeft">virtual QJsonObject&#160;</td><td class="memItemRight"><a class="el" href="#a20193b66b7882ef0e370a7f49b4855ba">toJson</a> () const =0</td></tr>
@@ -142,9 +146,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acb2f3e4ab019779f581faa1a77ec3f79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Signal-group model interface: abstract base for a QObject-derived signal group that can be (de)serialized to/from JSON. </p>
+<div class="textblock"><p>Abstract base for a QObject-derived signal group that can be (de)serialized to/from JSON. </p>
 
-<p class="definition">Definition at line <a class="el" href="isignal__group_8h_source.html#l00010">10</a> of file <a class="el" href="isignal__group_8h_source.html">isignal_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="isignal__group_8h_source.html#l00018">18</a> of file <a class="el" href="isignal__group_8h_source.html">isignal_group.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a6de54eabef7b48e99c4e4fa367c2f2ac" name="a6de54eabef7b48e99c4e4fa367c2f2ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6de54eabef7b48e99c4e4fa367c2f2ac">&#9670;&#160;</a></span>ISignalGroup()</h2>
@@ -171,7 +175,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Constructs the signal group with the given QObject <span class="tt">parent</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="isignal__group_8h_source.html#l00015">15</a> of file <a class="el" href="isignal__group_8h_source.html">isignal_group.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="isignal__group_8h_source.html#l00023">23</a> of file <a class="el" href="isignal__group_8h_source.html">isignal_group.h</a>.</p>
 
 </div>
 </div>
@@ -225,9 +229,11 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Restores this signal group's state from <span class="tt">obj</span>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Restores this signal group's state from <span class="tt">obj</span>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">obj</td><td>object providing the serialized signal-group state </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">obj</td><td>object providing the serialized signal-group state </td></tr>
   </table>
   </dd>
 </dl>
@@ -262,7 +268,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="isignal__group_8h_source.html">isignal_group.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="isignal__group_8h_source.html">isignal_group.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

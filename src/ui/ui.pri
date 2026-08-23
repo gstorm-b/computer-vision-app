@@ -10,18 +10,23 @@
 # (enforced by tests/architecture_contract_test). Add new files here only.
 SOURCES += \
     $$PWD/forms/add_device_wizard.cpp \
+    $$PWD/forms/admin_login_dialog.cpp \
     $$PWD/forms/camera/basler_cam_select_dialog.cpp \
     $$PWD/forms/camera/basler_camera_widget.cpp \
     $$PWD/forms/device_widget_factory.cpp \
+    $$PWD/forms/virtual/virtual_device_widget.cpp \
     $$PWD/forms/new_project_dialog.cpp \
     $$PWD/forms/new_task_dialog.cpp \
     $$PWD/forms/pattern/add_pattern_image_dialog.cpp \
     $$PWD/forms/pattern/add_pattern_wizard.cpp \
     $$PWD/forms/pattern/edit_pattern_wizard.cpp \
+    $$PWD/forms/pattern/gripper_register_dialog.cpp \
     $$PWD/forms/pattern/pattern_canvas.cpp \
     $$PWD/forms/plc/mitsubishi_mc_device_widget.cpp \
     $$PWD/forms/plc/plc_mitsu_device_wizard.cpp \
     $$PWD/forms/project_infor_setting.cpp \
+    $$PWD/forms/shell_startup.cpp \
+    $$PWD/forms/system_log_form.cpp \
     $$PWD/forms/task/localization_dashboard_widget.cpp \
     $$PWD/forms/task/localization_patterns_widget.cpp \
     $$PWD/forms/task/localization_setting_widget.cpp \
@@ -59,7 +64,9 @@ SOURCES += \
     $$PWD/widgets/image_widget/item_roi_rotated.cpp \
     $$PWD/widgets/image_widget/item_roi.cpp \
     $$PWD/widgets/no_wheel_combobox.cpp \
+    $$PWD/widgets/pattern_thumbnail_view.cpp \
     $$PWD/widgets/pattern_tree_widget.cpp \
+    $$PWD/widgets/pick_overlay_painter.cpp \
     $$PWD/widgets/plc_widget/device_row_delegate.cpp \
     $$PWD/widgets/plc_widget/devices_monitor_widget.cpp \
     $$PWD/widgets/project_tree_widget.cpp \
@@ -80,21 +87,26 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/forms/add_device_wizard.h \
+    $$PWD/forms/admin_login_dialog.h \
     $$PWD/forms/camera/basler_cam_select_dialog.h \
     $$PWD/forms/camera/basler_camera_widget.h \
     $$PWD/forms/device_widget_factory.h \
+    $$PWD/forms/virtual/virtual_device_widget.h \
     $$PWD/forms/device_widget.h \
     $$PWD/forms/new_project_dialog.h \
     $$PWD/forms/new_task_dialog.h \
     $$PWD/forms/pattern/add_pattern_image_dialog.h \
     $$PWD/forms/pattern/add_pattern_wizard.h \
     $$PWD/forms/pattern/edit_pattern_wizard.h \
+    $$PWD/forms/pattern/gripper_register_dialog.h \
     $$PWD/forms/pattern/pattern_canvas.h \
     $$PWD/forms/pattern/pattern_manager_dialog.h \
     $$PWD/forms/pattern/pattern_theme.h \
     $$PWD/forms/plc/mitsubishi_mc_device_widget.h \
     $$PWD/forms/plc/plc_mitsu_device_wizard.h \
     $$PWD/forms/project_infor_setting.h \
+    $$PWD/forms/shell_startup.h \
+    $$PWD/forms/system_log_form.h \
     $$PWD/forms/task_widget.h \
     $$PWD/forms/task/localization_dashboard_widget.h \
     $$PWD/forms/task/localization_patterns_widget.h \
@@ -137,7 +149,9 @@ HEADERS += \
     $$PWD/widgets/no_wheel_combobox.h \
     $$PWD/widgets/no_wheel_double_spinbox.h \
     $$PWD/widgets/no_wheel_spinbox.h \
+    $$PWD/widgets/pattern_thumbnail_view.h \
     $$PWD/widgets/pattern_tree_widget.h \
+    $$PWD/widgets/pick_overlay_painter.h \
     $$PWD/widgets/plc_widget/device_row_delegate.h \
     $$PWD/widgets/plc_widget/devices_monitor_widget.h \
     $$PWD/widgets/project_tree_widget.h \
@@ -160,15 +174,19 @@ HEADERS += \
     $$PWD/widgets/vision/vision_tool_palette.h
 
 FORMS += \
+    $$PWD/forms/virtual/virtual_device_widget.ui \
     $$PWD/forms/add_device_wizard.ui \
+    $$PWD/forms/admin_login_dialog.ui \
     $$PWD/forms/camera/basler_cam_select_dialog.ui \
     $$PWD/forms/camera/basler_camera_widget.ui \
     $$PWD/forms/new_project_dialog.ui \
     $$PWD/forms/new_task_dialog.ui \
     $$PWD/forms/pattern/add_pattern_image_dialog.ui \
+    $$PWD/forms/pattern/gripper_register_dialog.ui \
     $$PWD/forms/plc/mitsubishi_mc_device_widget.ui \
     $$PWD/forms/plc/plc_mitsu_device_wizard.ui \
     $$PWD/forms/project_infor_setting.ui \
+    $$PWD/forms/system_log_form.ui \
     $$PWD/forms/task/localization_dashboard_widget.ui \
     $$PWD/forms/task/localization_patterns_widget.ui \
     $$PWD/forms/task/localization_setting_widget.ui \

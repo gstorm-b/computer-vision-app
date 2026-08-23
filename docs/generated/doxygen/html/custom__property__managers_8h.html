@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/custom_property_managers.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/custom_property_managers.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('custom__proper
   <div class="headertitle"><div class="title">custom_property_managers.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Compound QtPropertyBrowser managers exposing multi-component values (position, size, integer point, floating-point point) as grouped sub-properties.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;qtpropertybrowser/qtpropertybrowser.h&quot;</code><br />
 <code>#include &quot;qtpropertybrowser/qtpropertymanager.h&quot;</code><br />
 <code>#include &lt;QVector&gt;</code><br />
@@ -150,11 +153,19 @@ Classes</h2></td></tr>
 <tr class="memitem:PointFPropertyManager_3A_3AData" id="r_PointFPropertyManager_3A_3AData"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="struct_point_f_property_manager_1_1_data.html">PointFPropertyManager::Data</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-property state backing one compound floating-point point property.  <a href="struct_point_f_property_manager_1_1_data.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PointFPropertyManager" id="r_PointFPropertyManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_point_f_property_manager.html">PointFPropertyManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound property manager for floating-point points, exposing X, Y (and Z) as individual QtDoubleProperty sub-properties depending on the active <a class="el" href="class_point_f_property_manager.html#a0772182c4569f4ecca8f32aa345a135b">Mode</a>.  <a href="class_point_f_property_manager.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PointPropertyManager" id="r_PointPropertyManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_point_property_manager.html">PointPropertyManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound property manager for integer-coordinate points, exposing X, Y (and Z) as individual QtIntProperty sub-properties depending on the active <a class="el" href="class_point_property_manager.html#a4a0ee8a9857d743ab50803d3752d7302">Mode</a>.  <a href="class_point_property_manager.html#details">More...</a><br /></td></tr>
 <tr class="memitem:PositionPropertyManager" id="r_PositionPropertyManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_position_property_manager.html">PositionPropertyManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound property manager for robot / machine positions, exposing X, Y, Z (and Roll, Pitch, Yaw) as individual QtDoubleProperty sub-properties depending on the active <a class="el" href="class_position_property_manager.html#a23786a3c425ab4a44fa3d92990f39ccd">Mode</a>.  <a href="class_position_property_manager.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SizePropertyManager" id="r_SizePropertyManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_size_property_manager.html">SizePropertyManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compound property manager for physical or pixel sizes, exposing Width, Height (and Depth) as individual QtDoubleProperty sub-properties depending on the active <a class="el" href="class_size_property_manager.html#ae94b404fe8fed37ded6d95a280581e64">Mode</a>.  <a href="class_size_property_manager.html#details">More...</a><br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Compound QtPropertyBrowser managers exposing multi-component values (position, size, integer point, floating-point point) as grouped sub-properties. </p>
+
+<p class="definition">Definition in file <a class="el" href="custom__property__managers_8h_source.html">custom_property_managers.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

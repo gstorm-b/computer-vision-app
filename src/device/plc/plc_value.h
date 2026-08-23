@@ -1,21 +1,31 @@
 #ifndef PLC_VALUE_H
 #define PLC_VALUE_H
 
+/**
+ * @file plc_value.h
+ * @brief Generic typed value-container abstraction for PLC point values.
+ */
+
 #include <vector>
 
-/// Generic typed value-container abstraction for PLC point values.
 namespace vc::device {
 
-/// Runtime tag for the element type held by a ValueContainer, as reported by
-/// ValueContainerAbstract::type().
+/**
+ * @enum PLCValueType
+ * @brief Runtime tag for the element type held by a ValueContainer, as reported by
+ *        ValueContainerAbstract::type().
+ */
 enum class PLCValueType {
     Int,
     Float,
     String
 };
 
-/// Type-erased interface over a ValueContainer<T> so heterogeneous containers
-/// can be stored/queried without knowing `T` at the call site.
+/**
+ * @class ValueContainerAbstract
+ * @brief Type-erased interface over a ValueContainer<T> so heterogeneous containers
+ *        can be stored/queried without knowing `T` at the call site.
+ */
 class ValueContainerAbstract {
 public:
     virtual ~ValueContainerAbstract() = default;
@@ -25,8 +35,11 @@ public:
     virtual void printAll() const = 0;
 };
 
-/// Typed, append-only list of PLC point values of type `T` (int, float, or
-/// treated as String for any other type).
+/**
+ * @class ValueContainer
+ * @brief Typed, append-only list of PLC point values of type `T` (int, float, or
+ *        treated as String for any other type).
+ */
 template<typename T>
 class ValueContainer : public ValueContainerAbstract {
 public:

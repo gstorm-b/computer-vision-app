@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_workspac
 </div><!--header-->
 <div class="contents">
 
+<p>Dialog for defining up to two axis-aligned ROIs on one reference image: the working ROI (crop region, drawn green) and the condition ROI (task-dependent region, drawn orange). Both are optional and live in the same image's pixel coordinates.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for WorkspaceSettingDialog:</div>
@@ -152,6 +155,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a64d6d01dd5619d425ee63b3b14752316" id="r_a64d6d01dd5619d425ee63b3b14752316"><td class="memItemLeft">QRectF&#160;</td><td class="memItemRight"><a class="el" href="#a64d6d01dd5619d425ee63b3b14752316">resultRoi</a> () const</td></tr>
 <tr class="memdesc:a64d6d01dd5619d425ee63b3b14752316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accepted working ROI in image-pixel coordinates (empty if not drawn).  <br /></td></tr>
 <tr class="memitem:aec0e00dc5bd9ee194d58875748f91896" id="r_aec0e00dc5bd9ee194d58875748f91896"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aec0e00dc5bd9ee194d58875748f91896">setInitial</a> (const QPixmap &amp;image, const QRectF &amp;workingRoi, const QRectF &amp;conditionRoi)</td></tr>
+<tr class="memdesc:aec0e00dc5bd9ee194d58875748f91896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preloads an existing workspace: loads <code class="param">image</code> into the view and draws <code class="param">workingRoi</code> / <code class="param">conditionRoi</code> if non-empty.  <br /></td></tr>
 <tr class="memitem:aaac0c81a77fab7a2d071a9e3c4b5d95e" id="r_aaac0c81a77fab7a2d071a9e3c4b5d95e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aaac0c81a77fab7a2d071a9e3c4b5d95e">setTitleText</a> (const QString &amp;title)</td></tr>
 <tr class="memdesc:aaac0c81a77fab7a2d071a9e3c4b5d95e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text shown in the dialog's title label.  <br /></td></tr>
 <tr class="memitem:aa65ec1b4a2970055db64c22cf45392ca" id="r_aa65ec1b4a2970055db64c22cf45392ca"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aa65ec1b4a2970055db64c22cf45392ca">WorkspaceSettingDialog</a> (QWidget *parent=nullptr)</td></tr>
@@ -218,11 +222,11 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a79609f7a7afd96a0b394708b5b0d386e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generated form; owns the button/host-stack widgets.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Dialog for defining up to two axis-aligned ROIs on one reference image: the working ROI (crop region, drawn green) and the condition ROI (task-dependent region, drawn orange). Both are optional and live in the same image's pixel coordinates.</p>
+<div class="textblock"><p>Dialog for defining up to two axis-aligned ROIs on one reference image: the working ROI (crop region, drawn green) and the condition ROI (task-dependent region, drawn orange). Both are optional and live in the same image's pixel coordinates. </p>
 <p>The image comes from a file ("Choose image") or a camera grab ("Grab", which the owner serves by handling <a class="el" href="#a70b666f6dc8ec7bb15b2bb012a39d06b" title="Emitted when the user clicks &quot;Grab&quot;; the owner should respond with setMainViewImage().">requestGrab()</a> and calling <a class="el" href="#a74b26fb3b320e143851c01a0bec5c1a3">setMainViewImage()</a>). On accept, <a class="el" href="#a9d0afd540d7fccff49028baba0cdbaa2" title="Image the ROIs were drawn on, valid only after hasResult().">resultImage()</a> holds the image the ROIs were drawn on, <a class="el" href="#a64d6d01dd5619d425ee63b3b14752316" title="Accepted working ROI in image-pixel coordinates (empty if not drawn).">resultRoi()</a> holds the working ROI and <a class="el" href="#a75317884a88907eeb63749336f261517" title="Accepted condition ROI in image-pixel coordinates (empty if not drawn).">resultConditionRoi()</a> the condition ROI (each empty when not drawn), all in image-pixel coordinates.</p>
-<dl class="section note"><dt>Note</dt><dd>Mirrors <a class="el" href="class_add_pattern_image_dialog.html">AddPatternImageDialog</a>: the <a class="el" href="class_image_widget.html">ImageWidget</a> is embedded in code; the .ui only carries the buttons + the host stack. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Mirrors <a class="el" href="class_add_pattern_image_dialog.html" title="Modal dialog for building a single pattern image: the user either triggers a camera capture (requestI...">AddPatternImageDialog</a>: the <a class="el" href="class_image_widget.html" title="QGraphicsView-based image viewer that shows a loaded pixmap and lets the user pan/zoom it and draw/ma...">ImageWidget</a> is embedded in code; the .ui only carries the buttons + the host stack. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00029">29</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00038">38</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
 <a id="a2466cfa2823615637b44b78efa23e4a1" name="a2466cfa2823615637b44b78efa23e4a1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2466cfa2823615637b44b78efa23e4a1">&#9670;&#160;</a></span>RoiKind</h2>
@@ -251,7 +255,7 @@ Private Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="a2466cfa2823615637b44b78efa23e4a1a9e2941b3c81256fac10392aaca4ccfde" name="a2466cfa2823615637b44b78efa23e4a1a9e2941b3c81256fac10392aaca4ccfde"></a>Condition&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">70</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">84</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
 </div>
 </div>
@@ -278,11 +282,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the dialog: embeds the <a class="el" href="class_image_widget.html">ImageWidget</a> into the .ui's host stack, builds the ROI colour legend overlay, and wires all button/ROI signals. </p>
+<p>Constructs the dialog: embeds the <a class="el" href="class_image_widget.html" title="QGraphicsView-based image viewer that shows a loaded pixmap and lets the user pan/zoom it and draw/ma...">ImageWidget</a> into the .ui's host stack, builds the ROI colour legend overlay, and wires all button/ROI signals. </p>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">28</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00100">m_lastDir</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00169">onChooseImageClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00228">onClearConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00205">onClearWorkingRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00185">onGrabClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00238">onRoiCreated()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00215">onSetConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00191">onSetWorkingRoiClicked()</a>, <a class="el" href="class_image_widget.html#a1afe5310dc189ca35103a32c4bde2bab">ImageWidget::signal_draw_roi_finished()</a>, <a class="el" href="class_image_widget.html#a9e1f7fd08b67132745d23824c31146a1">ImageWidget::signal_new_roi_added()</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00098">ui</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00114">m_lastDir</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00169">onChooseImageClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00228">onClearConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00205">onClearWorkingRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00185">onGrabClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00238">onRoiCreated()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00215">onSetConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00191">onSetWorkingRoiClicked()</a>, <a class="el" href="class_image_widget.html#a1afe5310dc189ca35103a32c4bde2bab">ImageWidget::signal_draw_roi_finished()</a>, <a class="el" href="class_image_widget.html#a9e1f7fd08b67132745d23824c31146a1">ImageWidget::signal_new_roi_added()</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00112">ui</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -315,7 +319,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00105">105</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00098">ui</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00112">ui</a>.</p>
 
 </div>
 </div>
@@ -345,9 +349,9 @@ Private Attributes</h2></td></tr>
 
 <p>True once <a class="el" href="#a385d8efce734b75bc0a3ef8c0d6fa6d9">onSaveClicked()</a> has committed a result. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00050">50</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00061">61</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00106">m_hasResult</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00120">m_hasResult</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>.</p>
 
@@ -409,7 +413,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00169">169</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00100">m_lastDir</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00114">m_lastDir</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -442,7 +446,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00228">228</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00104">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00118">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -475,7 +479,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00205">205</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00103">m_workingRoi</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00117">m_workingRoi</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -541,7 +545,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00238">238</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">Condition</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00104">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00102">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00103">m_workingRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">None</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00264">styleRoi()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">Working</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">Condition</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00118">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00116">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00117">m_workingRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">None</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00264">styleRoi()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">Working</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -573,7 +577,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">289</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00104">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00106">m_hasResult</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00109">m_resultConditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00107">m_resultImage</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00108">m_resultRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00103">m_workingRoi</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00118">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00120">m_hasResult</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00123">m_resultConditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00121">m_resultImage</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00122">m_resultRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00117">m_workingRoi</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -606,7 +610,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00215">215</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">Condition</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00104">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00102">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, and <a class="el" href="image__widget_8h_source.html#l00045">ImageWidget::NormalROI</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">Condition</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00118">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00116">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, and <a class="el" href="image__widget_8h_source.html#l00060">ImageWidget::NormalROI</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -639,7 +643,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00191">191</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00102">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00103">m_workingRoi</a>, <a class="el" href="image__widget_8h_source.html#l00045">ImageWidget::NormalROI</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">Working</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00116">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00117">m_workingRoi</a>, <a class="el" href="image__widget_8h_source.html#l00060">ImageWidget::NormalROI</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">Working</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -701,7 +705,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">279</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00104">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00102">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00103">m_workingRoi</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">None</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00118">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00116">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00117">m_workingRoi</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">None</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00169">onChooseImageClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00121">setInitial()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00146">setMainViewImage()</a>.</p>
 
@@ -732,9 +736,9 @@ Private Attributes</h2></td></tr>
 
 <p>Accepted condition ROI in image-pixel coordinates (empty if not drawn). </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00053">53</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00064">64</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00109">m_resultConditionRoi</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00123">m_resultConditionRoi</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>.</p>
 
@@ -765,9 +769,9 @@ Private Attributes</h2></td></tr>
 
 <p>Image the ROIs were drawn on, valid only after <a class="el" href="#a21cedf3bd133dfbeb65a363effef2df7" title="True once onSaveClicked() has committed a result.">hasResult()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00051">51</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00062">62</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00107">m_resultImage</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00121">m_resultImage</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>.</p>
 
@@ -798,9 +802,9 @@ Private Attributes</h2></td></tr>
 
 <p>Accepted working ROI in image-pixel coordinates (empty if not drawn). </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00052">52</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00063">63</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00108">m_resultRoi</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00122">m_resultRoi</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>.</p>
 
@@ -829,6 +833,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Preloads an existing workspace: loads <code class="param">image</code> into the view and draws <code class="param">workingRoi</code> / <code class="param">conditionRoi</code> if non-empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">image</td><td>reference image to display; ignored if null </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">workingRoi</td><td>initial working ROI in image-pixel coordinates; skipped if empty </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">conditionRoi</td><td>initial condition ROI in image-pixel coordinates; skipped if empty</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Preloads an existing workspace: loads <span class="tt">image</span> into the view and draws <span class="tt">workingRoi</span>/ <span class="tt">conditionRoi</span> if non-empty. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">image</td><td>reference image to display; ignored if null </td></tr>
@@ -840,7 +854,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00121">121</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">Condition</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00102">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">None</a>, <a class="el" href="image__widget_8h_source.html#l00045">ImageWidget::NormalROI</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">Working</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">Condition</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00116">m_pendingKind</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">None</a>, <a class="el" href="image__widget_8h_source.html#l00060">ImageWidget::NormalROI</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">Working</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>.</p>
 
@@ -872,7 +886,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00146">146</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>.</p>
 
@@ -897,7 +911,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00111">111</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00098">ui</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00112">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, and <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>.</p>
 
@@ -934,7 +948,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00264">264</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00070">Condition</a>, <a class="el" href="item__roi_8cpp_source.html#l00034">ItemRoi::setBoundingColorNormal()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00041">ItemRoi::setBoundingColorSelected()</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00084">Condition</a>, <a class="el" href="item__roi_8cpp_source.html#l00034">ItemRoi::setBoundingColorNormal()</a>, and <a class="el" href="item__roi_8cpp_source.html#l00041">ItemRoi::setBoundingColorSelected()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00238">onRoiCreated()</a>.</p>
 
@@ -966,7 +980,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">318</a> of file <a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00104">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00103">m_workingRoi</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00098">ui</a>.</p>
+<p class="reference">References <a class="el" href="workspace__setting__dialog_8h_source.html#l00118">m_conditionRoi</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">m_view</a>, <a class="el" href="workspace__setting__dialog_8h_source.html#l00117">m_workingRoi</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00112">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00169">onChooseImageClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00228">onClearConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00205">onClearWorkingRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00238">onRoiCreated()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00121">setInitial()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00146">setMainViewImage()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -995,7 +1009,7 @@ Private Attributes</h2></td></tr>
 
 <p>Currently drawn condition ROI item, or null if none. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00104">104</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00118">118</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00228">onClearConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00238">onRoiCreated()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00215">onSetConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
 
@@ -1023,9 +1037,9 @@ Private Attributes</h2></td></tr>
 
 <p>Set true by <a class="el" href="#a385d8efce734b75bc0a3ef8c0d6fa6d9">onSaveClicked()</a> once a result has been committed. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00106">106</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00120">120</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8h_source.html#l00050">hasResult()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8h_source.html#l00061">hasResult()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>.</p>
 
 </div>
 </div>
@@ -1051,7 +1065,7 @@ Private Attributes</h2></td></tr>
 
 <p>Directory remembered from the last "Choose image" file dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00100">100</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00114">114</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00169">onChooseImageClicked()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -1079,7 +1093,7 @@ Private Attributes</h2></td></tr>
 
 <p>Kind to assign to the next ROI reported via <a class="el" href="#a0e6a3b51004eaf60c92c5db1f5a3f3ee" title="Capture a freshly created ROI (drawn or preloaded) into the pending kind.">onRoiCreated()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00102">102</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00116">116</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00238">onRoiCreated()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00215">onSetConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00191">onSetWorkingRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00121">setInitial()</a>.</p>
 
@@ -1107,9 +1121,9 @@ Private Attributes</h2></td></tr>
 
 <p>Condition ROI captured at save time, in image-pixel coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00109">109</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00123">123</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00053">resultConditionRoi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00064">resultConditionRoi()</a>.</p>
 
 </div>
 </div>
@@ -1135,9 +1149,9 @@ Private Attributes</h2></td></tr>
 
 <p>Image captured at save time. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00107">107</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00121">121</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00051">resultImage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00062">resultImage()</a>.</p>
 
 </div>
 </div>
@@ -1163,9 +1177,9 @@ Private Attributes</h2></td></tr>
 
 <p>Working ROI captured at save time, in image-pixel coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00108">108</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00122">122</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00052">resultRoi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, and <a class="el" href="workspace__setting__dialog_8h_source.html#l00063">resultRoi()</a>.</p>
 
 </div>
 </div>
@@ -1191,7 +1205,7 @@ Private Attributes</h2></td></tr>
 
 <p>Embedded reference-image view; child of <span class="tt"><a class="el" href="#a79609f7a7afd96a0b394708b5b0d386e" title="Generated form; owns the button/host-stack widgets.">ui</a></span>'s stack, not owned separately. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00099">99</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00113">113</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00169">onChooseImageClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00228">onClearConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00205">onClearWorkingRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00215">onSetConditionRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00191">onSetWorkingRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00121">setInitial()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00146">setMainViewImage()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>.</p>
 
@@ -1219,7 +1233,7 @@ Private Attributes</h2></td></tr>
 
 <p>Currently drawn working ROI item, or null if none. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00103">103</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00117">117</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00205">onClearWorkingRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00238">onRoiCreated()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00289">onSaveClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00191">onSetWorkingRoiClicked()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00279">resetRois()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>.</p>
 
@@ -1247,15 +1261,15 @@ Private Attributes</h2></td></tr>
 
 <p>Generated form; owns the button/host-stack widgets. </p>
 
-<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00098">98</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="workspace__setting__dialog_8h_source.html#l00112">112</a> of file <a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00111">setTitleText()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00318">updateButtons()</a>, <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00028">WorkspaceSettingDialog()</a>, and <a class="el" href="workspace__setting__dialog_8cpp_source.html#l00105">~WorkspaceSettingDialog()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/task/<a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/task/<a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/task/<a class="el" href="workspace__setting__dialog_8h_source.html">workspace_setting_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/task/<a class="el" href="workspace__setting__dialog_8cpp_source.html">workspace_setting_dialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

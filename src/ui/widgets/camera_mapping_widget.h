@@ -13,12 +13,22 @@
 #include <QStringList>
 #include <QEvent>
 
-/// Label that becomes an editable QComboBox when clicked ("Component 1").
-/// Carries an optional "userData" string that travels separately from the
-/// visible label text. Callers that need to decouple a stable identifier
-/// (e.g. a device id) from the human-readable label set both via
-/// setOptions(displayNames, values, currentValue) and read the underlying
-/// id back via userData().
+/**
+ * @file camera_mapping_widget.h
+ * @brief Camera-to-number mapping editor: CameraMappingWidget and its row/support widgets
+ *        (EditableComboWidget, CameraRowWidget, AddRowWidget, SortableCameraItem).
+ */
+
+/**
+ * @class EditableComboWidget
+ * @brief Label that becomes an editable QComboBox when clicked ("Component 1").
+ *
+ * Carries an optional "userData" string that travels separately from the
+ * visible label text. Callers that need to decouple a stable identifier
+ * (e.g. a device id) from the human-readable label set both via
+ * setOptions(displayNames, values, currentValue) and read the underlying
+ * id back via userData().
+ */
 class EditableComboWidget : public QStackedWidget {
     Q_OBJECT
 public:
@@ -45,8 +55,10 @@ public:
                     const QString &currentValue);
 
 signals:
-    /// Emitted when the combo-box selection changes.
-    /// @param newValue the underlying value (userData) of the newly selected item, not its display label
+    /**
+     * @brief Emitted when the combo-box selection changes.
+     * @param[in] newValue the underlying value (userData) of the newly selected item, not its display label
+     */
     void valueChanged(const QString &newValue);
     /// Emitted when the label is clicked, just before switching into edit (combo) mode.
     void editRequested();
@@ -63,8 +75,11 @@ private:
     QString    m_userData; ///< Cached value set via setUserData()/setOptions(); empty means "use the label text".
 };
 
-/// A single mapping row: camera-name combo, number combo, and a delete button
-/// ("Component 2" — a normal row, as opposed to the trailing Add row).
+/**
+ * @class CameraRowWidget
+ * @brief A single mapping row: camera-name combo, number combo, and a delete button
+ *        ("Component 2" — a normal row, as opposed to the trailing Add row).
+ */
 class CameraRowWidget : public QWidget {
     Q_OBJECT
 public:
@@ -76,18 +91,25 @@ public:
     QPushButton *btnDelete;            ///< Removes this row when clicked; wired up by the owning CameraMappingWidget.
 };
 
-/// Trailing "Add" row ("Component 3"): shows a "+ Add New Row" button that flips
-/// to a camera-selection combo + Cancel button when clicked.
+/**
+ * @class AddRowWidget
+ * @brief Trailing "Add" row ("Component 3"): shows a "+ Add New Row" button that flips
+ *        to a camera-selection combo + Cancel button when clicked.
+ */
 class AddRowWidget : public QStackedWidget {
     Q_OBJECT
 public:
     /// Builds both stacked pages (add button, select-camera) and starts on the add-button page.
     explicit AddRowWidget(QWidget *parent = nullptr);
-    /// Repopulates the camera-selection combo from parallel `displayNames`/`ids`
-    /// arrays and disables the add button (with an explanatory tooltip) when
-    /// `ids` is empty.
-    /// @param displayNames labels shown in the selection combo
-    /// @param ids the id emitted by addRequested() for each corresponding entry
+
+    /**
+     * @brief Repopulates the camera-selection combo from parallel `displayNames`/`ids`
+     *        arrays and disables the add button (with an explanatory tooltip) when
+     *        `ids` is empty.
+     *
+     * @param[in] displayNames labels shown in the selection combo
+     * @param[in] ids the id emitted by addRequested() for each corresponding entry
+     */
     void setAvailableCameras(const QStringList &displayNames,
                              const QStringList &ids);
 
@@ -109,8 +131,11 @@ private:
     QPushButton *btnCancel;       ///< Returns to the add-button page without emitting addRequested().
 };
 
-/// List item ("Component 4") that sorts numerically by its Qt::UserRole data
-/// instead of alphabetically by text, so mapping rows sort by assigned slot number.
+/**
+ * @class SortableCameraItem
+ * @brief List item ("Component 4") that sorts numerically by its Qt::UserRole data
+ *        instead of alphabetically by text, so mapping rows sort by assigned slot number.
+ */
 class SortableCameraItem : public QListWidgetItem {
 public:
     /// Constructs the item, optionally attaching it to `view`.
@@ -123,9 +148,12 @@ public:
     }
 };
 
-/// Main manager widget ("Component 5"): a FlatListWidget of camera-to-number
-/// mapping rows plus a trailing Add row, keeping ids unique, numbers within
-/// setNumberLimit(), and the list sorted/re-themed automatically.
+/**
+ * @class CameraMappingWidget
+ * @brief Main manager widget ("Component 5"): a FlatListWidget of camera-to-number
+ *        mapping rows plus a trailing Add row, keeping ids unique, numbers within
+ *        setNumberLimit(), and the list sorted/re-themed automatically.
+ */
 class CameraMappingWidget : public FlatListWidget {
     Q_OBJECT
 public:

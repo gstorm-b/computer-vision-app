@@ -6,13 +6,22 @@
 #include <pylon/PylonIncludes.h>
 #include <pylon/gige/GigETransportLayer.h>
 
+/**
+ * @file basler_cam_select_dialog.h
+ * @brief GetDevicesWorker (Basler GigE device enumeration thread) and
+ *        BaslerCamSelectDialog (the camera-picker dialog built on top of it).
+ */
+
 /// Forward declaration of the Qt Designer–generated UI form for BaslerCamSelectDialog.
 namespace Ui {
 class BaslerCamSelectDialog;
 }
 
-/// Background QThread that enumerates all reachable Basler GigE cameras via the Pylon
-/// transport layer and stores them in cameraDeviceList before emitting resultReady().
+/**
+ * @class GetDevicesWorker
+ * @brief Background QThread that enumerates all reachable Basler GigE cameras via the Pylon
+ *        transport layer and stores them in cameraDeviceList before emitting resultReady().
+ */
 class GetDevicesWorker: public QThread {
     Q_OBJECT
 
@@ -47,8 +56,11 @@ public:
     Pylon::DeviceInfoList cameraDeviceList;  ///< Devices found by the most recent run(); populated on the worker thread, read on the GUI thread after resultReady().
 };
 
-/// Modal dialog that lists reachable Basler GigE cameras (queried asynchronously via
-/// GetDevicesWorker) in a table and lets the user pick one to use.
+/**
+ * @class BaslerCamSelectDialog
+ * @brief Modal dialog that lists reachable Basler GigE cameras (queried asynchronously via
+ *        GetDevicesWorker) in a table and lets the user pick one to use.
+ */
 class BaslerCamSelectDialog : public QDialog {
     Q_OBJECT
 
@@ -73,10 +85,12 @@ private:
     void btn_cancel_clicked();
     /// Slot for btn_select_confirm: accepts the dialog.
     void btn_select_confirm_clicked();
-    /// Slot for QDialog::finished(): if accepted with a valid row selected, emits
-    /// userSelectionFinished(true, ...) with the chosen camera's info; otherwise emits
-    /// userSelectionFinished(false, {}).
-    /// @param state the QDialog::DialogCode the dialog finished with
+    /**
+     * @brief Slot for QDialog::finished(): if accepted with a valid row selected, emits
+     *        userSelectionFinished(true, ...) with the chosen camera's info; otherwise
+     *        emits userSelectionFinished(false, {}).
+     * @param[in] state the QDialog::DialogCode the dialog finished with
+     */
     void dialogClosing(int state);
     /// Slot for the table's itemSelectionChanged: recomputes m_current_select_row and
     /// m_is_selected from the table's current row, and enables/disables
@@ -91,10 +105,12 @@ private:
     void cameraListCame();
     /// Removes all rows from the camera table widget.
     void clearCameraTableView();
-    /// Appends one row to the camera table populated from `info` (model name,
-    /// user-defined ID, serial number, IP/MAC address, subnet mask, and an
-    /// accessibility-derived status of "Ok"/"In use").
-    /// @param info the Pylon device info to render as a new row
+    /**
+     * @brief Appends one row to the camera table populated from @p info (model name,
+     *        user-defined ID, serial number, IP/MAC address, subnet mask, and an
+     *        accessibility-derived status of "Ok"/"In use").
+     * @param[in] info the Pylon device info to render as a new row
+     */
     void cameraTableViewAddNewRow(Pylon::CDeviceInfo &info);
 
     /// Returns whether `info`'s device is currently accessible (i.e. not already opened
@@ -104,9 +120,11 @@ private:
     }
 
 signals:
-    /// Emitted when the dialog closes, reporting the user's choice.
-    /// @param isAccept true if a camera was picked and confirmed; false if cancelled or no valid selection
-    /// @param devices the selected camera's info when isAccept is true; default-constructed otherwise
+    /**
+     * @brief Emitted when the dialog closes, reporting the user's choice.
+     * @param[in] isAccept true if a camera was picked and confirmed; false if cancelled or no valid selection
+     * @param[in] devices the selected camera's info when isAccept is true; default-constructed otherwise
+     */
     void userSelectionFinished(bool isAccept, Pylon::CDeviceInfo devices);
 
 private:

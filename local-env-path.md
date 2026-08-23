@@ -1,0 +1,9 @@
+OPENCV_INCLUDE_DIR=C:\build_packages\opencv\build\include
+OPENCV_LIB_DIR=C:\build_packages\opencv\build\x64\vc16\lib
+OPENCV_WORLD_RELEASE=opencv_world4140
+OPENCV_WORLD_DEBUG=opencv_world4140d
+PYLON_INCLUDE_DIR=C:\Program Files\Basler\pylon\Development\include
+PYLON_LIB_DIR=C:\Program Files\Basler\pylon\Development\lib\x64
+PYLON_BASE_LIB=PylonBase_v12
+OPENCV_BIN=C:\build_packages\opencv\build\x64\vc16\bin
+PYLON_RUNTIME_DIR=C:\Program Files\Basler\pylon\Runtime\x64

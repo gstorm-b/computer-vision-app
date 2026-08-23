@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1mo
   <div class="headertitle"><div class="title">vc::model::LocalizationRuntimeController::RoleRecoveryContext Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Per-role bookkeeping for the connection-recovery state machine: the runner/device bound to a role, its recovery policy, and the current retry/fault progress against that policy.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for vc::model::LocalizationRuntimeController::RoleRecoveryContext:</div>
 <div class="dyncontent">
@@ -138,14 +141,14 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a73f0accbd3e8388ede772ea4ffa3d0ed" id="r_a73f0accbd3e8388ede772ea4ffa3d0ed"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a73f0accbd3e8388ede772ea4ffa3d0ed">retryScheduled</a> {false}</td></tr>
 <tr class="memdesc:a73f0accbd3e8388ede772ea4ffa3d0ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">True while a <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a7aebe7b4d2fe883c4d4c922de528a4c6" title="Schedules a one-shot reconnect attempt for role after its policy&#39;s retry interval.">scheduleRoleReconnect()</a> timer is pending.  <br /></td></tr>
 <tr class="memitem:a96095542a682168dbdb644c33ca0c564" id="r_a96095542a682168dbdb644c33ca0c564"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a96095542a682168dbdb644c33ca0c564">roleName</a></td></tr>
-<tr class="memdesc:a96095542a682168dbdb644c33ca0c564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Role name from the bound <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> (for logging/messages).  <br /></td></tr>
+<tr class="memdesc:a96095542a682168dbdb644c33ca0c564"><td class="mdescLeft">&#160;</td><td class="mdescRight">Role name from the bound <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html" title="Per-role (camera/PLC/vision-output) reconnect policy: which connection statuses are recoverable at al...">LocalizationRecoveryPolicy</a> (for logging/messages).  <br /></td></tr>
 <tr class="memitem:ae79943662dd823e296fbc39125516a3d" id="r_ae79943662dd823e296fbc39125516a3d"><td class="memItemLeft">QPointer&lt; <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html">vc::runtime::IDeviceRunner</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae79943662dd823e296fbc39125516a3d">runner</a></td></tr>
 <tr class="memdesc:ae79943662dd823e296fbc39125516a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runner bound to this role.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Per-role bookkeeping for the connection-recovery state machine: the runner/device bound to a role, its recovery policy, and the current retry/fault progress against that policy. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00200">200</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00241">241</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a079dafc0f9196a350caa174ee5bdddf2" name="a079dafc0f9196a350caa174ee5bdddf2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a079dafc0f9196a350caa174ee5bdddf2">&#9670;&#160;</a></span>deviceId</h2>
@@ -161,7 +164,7 @@ Public Attributes</h2></td></tr>
 
 <p>Device id bound to this role. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00202">202</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00243">243</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00979">vc::model::LocalizationRuntimeController::handleRoleStatusChanged()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01151">vc::model::LocalizationRuntimeController::raiseRoleFault()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01100">vc::model::LocalizationRuntimeController::requestRoleConnectNow()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
 
@@ -181,7 +184,7 @@ Public Attributes</h2></td></tr>
 
 <p>True once <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a635bd5df3a6899533a5a58e62c7b3641">raiseRoleFault()</a> has been called for the current outage. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00207">207</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00248">248</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00979">vc::model::LocalizationRuntimeController::handleRoleStatusChanged()</a>.</p>
 
@@ -201,7 +204,7 @@ Public Attributes</h2></td></tr>
 
 <p>Reconnect/retry policy in effect for this role. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00204">204</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00245">245</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00979">vc::model::LocalizationRuntimeController::handleRoleStatusChanged()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01151">vc::model::LocalizationRuntimeController::raiseRoleFault()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01100">vc::model::LocalizationRuntimeController::requestRoleConnectNow()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
 
@@ -221,7 +224,7 @@ Public Attributes</h2></td></tr>
 
 <p>Number of reconnect attempts made since the last healthy connection. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00205">205</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00246">246</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00979">vc::model::LocalizationRuntimeController::handleRoleStatusChanged()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01151">vc::model::LocalizationRuntimeController::raiseRoleFault()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01100">vc::model::LocalizationRuntimeController::requestRoleConnectNow()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
 
@@ -241,7 +244,7 @@ Public Attributes</h2></td></tr>
 
 <p>True while a <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a7aebe7b4d2fe883c4d4c922de528a4c6" title="Schedules a one-shot reconnect attempt for role after its policy&#39;s retry interval.">scheduleRoleReconnect()</a> timer is pending. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00206">206</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00247">247</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00979">vc::model::LocalizationRuntimeController::handleRoleStatusChanged()</a>.</p>
 
@@ -259,9 +262,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Role name from the bound <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> (for logging/messages). </p>
+<p>Role name from the bound <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html" title="Per-role (camera/PLC/vision-output) reconnect policy: which connection statuses are recoverable at al...">LocalizationRecoveryPolicy</a> (for logging/messages). </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00201">201</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00242">242</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>.</p>
 
@@ -281,14 +284,14 @@ Public Attributes</h2></td></tr>
 
 <p>Runner bound to this role. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00203">203</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00244">244</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00525">vc::model::LocalizationRuntimeController::allRequiredRolesHealthy()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00458">vc::model::LocalizationRuntimeController::bindRoleContext()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00508">vc::model::LocalizationRuntimeController::clearRoleContext()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00979">vc::model::LocalizationRuntimeController::handleRoleStatusChanged()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l01100">vc::model::LocalizationRuntimeController::requestRoleConnectNow()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l01064">vc::model::LocalizationRuntimeController::scheduleRoleReconnect()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

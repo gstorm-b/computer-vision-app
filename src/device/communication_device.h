@@ -1,6 +1,11 @@
 #ifndef COMMUNICATION_DEVICE_H
 #define COMMUNICATION_DEVICE_H
 
+/**
+ * @file communication_device.h
+ * @brief Placeholder for a future CommunicationDevice base class (currently unused/commented out).
+ */
+
 // #include "idevice.h"
 
 // namespace vc::device {

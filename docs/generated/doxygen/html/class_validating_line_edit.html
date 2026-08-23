@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_validati
 </div><!--header-->
 <div class="contents">
 
+<p>QLineEdit that only accepts text matching an entry in its completer's string-list model: when editing finishes, any text not present in that list is silently cleared.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ValidatingLineEdit:</div>
@@ -149,7 +152,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>QLineEdit that only accepts text matching an entry in its completer's string-list model: when editing finishes, any text not present in that list is silently cleared. </p>
 
-<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00012">12</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00020">20</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac208bc243c05488a95f46ebb4906aa0a" name="ac208bc243c05488a95f46ebb4906aa0a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac208bc243c05488a95f46ebb4906aa0a">&#9670;&#160;</a></span>ValidatingLineEdit()</h2>
@@ -175,9 +178,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructs the edit with no completer set and connects editingFinished to <a class="el" href="#a00d1ae6727b67b815f198aa7db903052">validateInput()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00018">18</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00026">26</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
 
-<p class="reference">References <a class="el" href="validating__line__edit_8h_source.html#l00050">m_completer</a>, and <a class="el" href="validating__line__edit_8h_source.html#l00037">validateInput()</a>.</p>
+<p class="reference">References <a class="el" href="validating__line__edit_8h_source.html#l00058">m_completer</a>, and <a class="el" href="validating__line__edit_8h_source.html#l00045">validateInput()</a>.</p>
 
 </div>
 </div>
@@ -206,9 +209,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the completer used both for input suggestions and, via its QStringListModel, as the allowed-value whitelist checked by <a class="el" href="#a00d1ae6727b67b815f198aa7db903052">validateInput()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00028">28</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00036">36</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
 
-<p class="reference">References <a class="el" href="validating__line__edit_8h_source.html#l00050">m_completer</a>.</p>
+<p class="reference">References <a class="el" href="validating__line__edit_8h_source.html#l00058">m_completer</a>.</p>
 
 </div>
 </div>
@@ -236,11 +239,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Clears the current text if it does not exactly match an entry in m_completer's QStringListModel; no-op if no completer is set or its model isn't a QStringListModel. </p>
 
-<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00037">37</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00045">45</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
 
-<p class="reference">References <a class="el" href="validating__line__edit_8h_source.html#l00050">m_completer</a>.</p>
+<p class="reference">References <a class="el" href="validating__line__edit_8h_source.html#l00058">m_completer</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="validating__line__edit_8h_source.html#l00018">ValidatingLineEdit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="validating__line__edit_8h_source.html#l00026">ValidatingLineEdit()</a>.</p>
 
 </div>
 </div>
@@ -267,14 +270,14 @@ Private Attributes</h2></td></tr>
 
 <p>Completer whose string-list model is also used as the allowed-value whitelist. </p>
 
-<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00050">50</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="validating__line__edit_8h_source.html#l00058">58</a> of file <a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="validating__line__edit_8h_source.html#l00028">setCompleter()</a>, <a class="el" href="validating__line__edit_8h_source.html#l00037">validateInput()</a>, and <a class="el" href="validating__line__edit_8h_source.html#l00018">ValidatingLineEdit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="validating__line__edit_8h_source.html#l00036">setCompleter()</a>, <a class="el" href="validating__line__edit_8h_source.html#l00045">validateInput()</a>, and <a class="el" href="validating__line__edit_8h_source.html#l00026">ValidatingLineEdit()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="validating__line__edit_8h_source.html">validating_line_edit.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

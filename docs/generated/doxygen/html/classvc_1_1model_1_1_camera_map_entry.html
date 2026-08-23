@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1mod
 </div><!--header-->
 <div class="contents">
 
+<p>Associates a PLC signal value with a camera device id.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for vc::model::CameraMapEntry:</div>
@@ -146,6 +149,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a4c4f1c867a23b8d776708b27664563db" id="r_a4c4f1c867a23b8d776708b27664563db"><td class="memItemLeft">static <a class="el" href="#a157417f9d12e89d9e6a1f29aba341c10">CameraMapEntry</a>&#160;</td><td class="memItemRight"><a class="el" href="#a4c4f1c867a23b8d776708b27664563db">fromJson</a> (const QJsonObject &amp;o)</td></tr>
+<tr class="memdesc:a4c4f1c867a23b8d776708b27664563db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a <a class="el" href="classvc_1_1model_1_1_camera_map_entry.html" title="Associates a PLC signal value with a camera device id.">CameraMapEntry</a> from a JSON object produced by <a class="el" href="#a670b92ff1333d5a385f0d77477b587ea">toJson()</a>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-properties" class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
@@ -160,9 +164,10 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ae10302adf03a4af51aca473cd3c75cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">PLC signal value this entry maps from.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Model types for camera/signal mapping: <a class="el" href="classvc_1_1model_1_1_camera_map_entry.html">CameraMapEntry</a> associates a PLC signal value with a camera device id, with Qt property (Q_GADGET) and JSON (de)serialization support. </p>
+<div class="textblock"><p>Associates a PLC signal value with a camera device id. </p>
+<p>Q_GADGET with Qt properties (signalValue, cameraDeviceId) and JSON (de)serialization support. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00012">12</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00021">21</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a157417f9d12e89d9e6a1f29aba341c10" name="a157417f9d12e89d9e6a1f29aba341c10"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a157417f9d12e89d9e6a1f29aba341c10">&#9670;&#160;</a></span>CameraMapEntry() <span class="overload">[1/2]</span></h2>
@@ -189,7 +194,7 @@ Private Attributes</h2></td></tr>
 
 <p>Constructs a zero-value entry with an empty camera device id. </p>
 
-<p class="reference">Referenced by <a class="el" href="camera__map__entry_8h_source.html#l00022">CameraMapEntry()</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00047">fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__map__entry_8h_source.html#l00031">CameraMapEntry()</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00058">fromJson()</a>.</p>
 
 </div>
 </div>
@@ -222,9 +227,9 @@ Private Attributes</h2></td></tr>
 
 <p>Constructs an entry pairing signal value <span class="tt">sv</span> with camera device id <span class="tt">camId</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00022">22</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00031">31</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a157417f9d12e89d9e6a1f29aba341c10">CameraMapEntry()</a>, <a class="el" href="camera__map__entry_8h_source.html#l00056">m_cameraDeviceId</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00055">m_signalValue</a>.</p>
+<p class="reference">References <a class="el" href="#a157417f9d12e89d9e6a1f29aba341c10">CameraMapEntry()</a>, <a class="el" href="camera__map__entry_8h_source.html#l00067">m_cameraDeviceId</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00066">m_signalValue</a>.</p>
 
 </div>
 </div>
@@ -254,9 +259,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the camera device id this entry maps to. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00028">28</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00037">37</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__map__entry_8h_source.html#l00055">m_signalValue</a>.</p>
+<p class="reference">References <a class="el" href="camera__map__entry_8h_source.html#l00066">m_signalValue</a>.</p>
 
 </div>
 </div>
@@ -282,15 +287,17 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Builds a <a class="el" href="classvc_1_1model_1_1_camera_map_entry.html">CameraMapEntry</a> from a JSON object produced by <a class="el" href="#a670b92ff1333d5a385f0d77477b587ea">toJson()</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Builds a <a class="el" href="classvc_1_1model_1_1_camera_map_entry.html" title="Associates a PLC signal value with a camera device id.">CameraMapEntry</a> from a JSON object produced by <a class="el" href="#a670b92ff1333d5a385f0d77477b587ea">toJson()</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">o</td><td>JSON object with "signalValue" and "cameraDeviceId" fields </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">o</td><td>JSON object with "signalValue" and "cameraDeviceId" fields </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the reconstructed entry; missing fields default to 0 / an empty string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00047">47</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00058">58</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
 <p class="reference">References <a class="el" href="#a157417f9d12e89d9e6a1f29aba341c10">CameraMapEntry()</a>.</p>
 
@@ -321,9 +328,9 @@ Private Attributes</h2></td></tr>
 
 <p>Sets the camera device id. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00033">33</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00042">42</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__map__entry_8h_source.html#l00055">m_signalValue</a>.</p>
+<p class="reference">References <a class="el" href="camera__map__entry_8h_source.html#l00066">m_signalValue</a>.</p>
 
 </div>
 </div>
@@ -352,7 +359,7 @@ Private Attributes</h2></td></tr>
 
 <p>Sets the PLC signal value. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00031">31</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00040">40</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
 </div>
 </div>
@@ -381,7 +388,7 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the PLC signal value this entry maps from. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00026">26</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00035">35</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
 </div>
 </div>
@@ -409,9 +416,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Serializes this entry to a JSON object with "signalValue" and "cameraDeviceId" keys. </p><dl class="section return"><dt>Returns</dt><dd>the JSON representation of this entry </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00037">37</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00046">46</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__map__entry_8h_source.html#l00056">m_cameraDeviceId</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00055">m_signalValue</a>.</p>
+<p class="reference">References <a class="el" href="camera__map__entry_8h_source.html#l00067">m_cameraDeviceId</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00066">m_signalValue</a>.</p>
 
 </div>
 </div>
@@ -438,9 +445,9 @@ Private Attributes</h2></td></tr>
 
 <p>Camera device id this entry maps to. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00056">56</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00067">67</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__map__entry_8h_source.html#l00022">CameraMapEntry()</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00037">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__map__entry_8h_source.html#l00031">CameraMapEntry()</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00046">toJson()</a>.</p>
 
 </div>
 </div>
@@ -466,9 +473,9 @@ Private Attributes</h2></td></tr>
 
 <p>PLC signal value this entry maps from. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00055">55</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00066">66</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__map__entry_8h_source.html#l00028">cameraDeviceId()</a>, <a class="el" href="camera__map__entry_8h_source.html#l00022">CameraMapEntry()</a>, <a class="el" href="camera__map__entry_8h_source.html#l00033">setCameraDeviceId()</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00037">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__map__entry_8h_source.html#l00037">cameraDeviceId()</a>, <a class="el" href="camera__map__entry_8h_source.html#l00031">CameraMapEntry()</a>, <a class="el" href="camera__map__entry_8h_source.html#l00042">setCameraDeviceId()</a>, and <a class="el" href="camera__map__entry_8h_source.html#l00046">toJson()</a>.</p>
 
 </div>
 </div>
@@ -493,7 +500,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00016">16</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00025">25</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
 </div>
 </div>
@@ -517,12 +524,12 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00015">15</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__map__entry_8h_source.html#l00024">24</a> of file <a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="camera__map__entry_8h_source.html">camera_map_entry.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

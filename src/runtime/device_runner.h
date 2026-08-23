@@ -1,28 +1,42 @@
 #ifndef DEVICE_RUNNER_H
 #define DEVICE_RUNNER_H
 
+/**
+ * @file device_runner.h
+ * @brief CRTP base template (DeviceRunner<TDevice>) providing shared thread-lifecycle
+ *        (start/stop/attach/detach) boilerplate for per-device IDeviceRunner implementations.
+ */
+
 #include "runtime/idevice_runner.h"
 #include <QApplication>
 #include <QEventLoop>
 
-/// Runtime layer: device command/result value types and the queue/runner machinery that
-/// dispatches commands to per-device worker threads.
 namespace vc::runtime {
 
-/// CRTP template base for per-device thread runners — eliminates the duplication that used
-/// to exist between the old CameraWorker and McDeviceWorker. Concrete subclasses only need
-/// to implement wireSignals() / unwireSignals() with device-specific connections.
-/// @note Thread ownership: m_thread is parented to this runner (QThread(this)) and is
-///       automatically cleaned up. The device pointer is NOT owned here; it is a raw
-///       pointer into the shared_ptr held by DeviceManager.
-/// @note attach() / detach() guard against double-calling via m_attached.
+/**
+ * @class DeviceRunner
+ * @brief CRTP template base for per-device thread runners — eliminates the duplication that
+ *        used to exist between the old CameraWorker and McDeviceWorker.
+ *
+ * Concrete subclasses only need to implement wireSignals() / unwireSignals() with
+ * device-specific connections.
+ *
+ * @note Thread ownership: m_thread is parented to this runner (QThread(this)) and is
+ *       automatically cleaned up. The device pointer is NOT owned here; it is a raw pointer
+ *       into the shared_ptr held by DeviceManager.
+ * @note attach() / detach() guard against double-calling via m_attached.
+ */
 template<typename TDevice>
 class DeviceRunner : public IDeviceRunner {
 
 public:
-    /// Wraps `device` (not owned) and creates (but does not start) its worker QThread,
-    /// parented to this runner.
-    /// @note `device` must not be null (enforced via Q_ASSERT).
+    /**
+     * @brief Wraps `device` (not owned) and creates (but does not start) its worker QThread,
+     *        parented to this runner.
+     * @param[in] device device instance this runner wraps; not owned, must outlive the runner.
+     * @param[in] parent optional QObject parent.
+     * @note `device` must not be null (enforced via Q_ASSERT).
+     */
     explicit DeviceRunner(TDevice *device, QObject *parent = nullptr)
         : IDeviceRunner(parent)
         , m_device(device)

@@ -10,6 +10,9 @@
 #include "device/robot/kawasaki_robot_device.h"
 #include "device/robot/nachi_robot_device.h"
 #include "device/robot/robot_device.h"
+#include "device/virtual/virtual_camera_device.h"
+#include "device/virtual/virtual_plc_device.h"
+#include "device/virtual/virtual_vision_output_device.h"
 
 /// Device abstraction layer: concrete device family registration and lookup (see DeviceRegistry).
 namespace vc::device {
@@ -30,6 +33,25 @@ IDevice *createBaslerGige(const QJsonObject &obj, QObject *parent)
     auto *device = new BaslerGigECamera(deviceId,
                                         obj[DEVICE_JSK_NAME].toString(),
                                         parent);
+    if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
+        device->fromJson(obj);
+    }
+    return device;
+}
+
+/// Factory for a hardware-free virtual camera: requires a non-empty DeviceId in `obj`.
+/// @return the new VirtualCameraDevice (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
+IDevice *createVirtualCamera(const QJsonObject &obj, QObject *parent)
+{
+    const QString deviceId = obj[DEVICE_JSK_ID].toString();
+    if (deviceId.isEmpty()) {
+        return nullptr;
+    }
+
+    auto *device = new VirtualCameraDevice(deviceId,
+                                           obj[DEVICE_JSK_NAME].toString(),
+                                           parent);
     if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
         device->fromJson(obj);
     }
@@ -93,6 +115,44 @@ IDevice *createVisionTcpipClient(const QJsonObject &obj, QObject *parent)
     return device;
 }
 
+/// Factory for a hardware-free virtual PLC: requires a non-empty DeviceId in `obj`.
+/// @return the new VirtualPlcDevice (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
+IDevice *createVirtualPlc(const QJsonObject &obj, QObject *parent)
+{
+    const QString deviceId = obj[DEVICE_JSK_ID].toString();
+    if (deviceId.isEmpty()) {
+        return nullptr;
+    }
+
+    auto *device = new VirtualPlcDevice(deviceId,
+                                        obj[DEVICE_JSK_NAME].toString(),
+                                        parent);
+    if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
+        device->fromJson(obj);
+    }
+    return device;
+}
+
+/// Factory for a hardware-free virtual vision output: requires a non-empty DeviceId in `obj`.
+/// @return the new VirtualVisionOutputDevice (parented to `parent`, config applied via
+/// fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing
+IDevice *createVirtualVisionOutput(const QJsonObject &obj, QObject *parent)
+{
+    const QString deviceId = obj[DEVICE_JSK_ID].toString();
+    if (deviceId.isEmpty()) {
+        return nullptr;
+    }
+
+    auto *device = new VirtualVisionOutputDevice(deviceId,
+                                                 obj[DEVICE_JSK_NAME].toString(),
+                                                 parent);
+    if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
+        device->fromJson(obj);
+    }
+    return device;
+}
+
 /// Factory for a Kawasaki robot device: requires a non-empty DeviceId in `obj`.
 /// @return the new KawasakiRobotDevice (parented to `parent`, config applied via fromJson()
 /// when a DeviceConfig object is present), or nullptr if DeviceId is missing
@@ -140,11 +200,28 @@ const QList<DeviceRegistryEntry> kEntries = {
       QStringLiteral(DEVICE_JSK_CAM_TYPE),
       createBaslerGige,
       true },
+    // Virtual entries go LAST within their family, and that ordering is load-bearing.
+    // displayNamesFor() preserves this order, the Add Device wizard's combo leaves index 0
+    // current, and buildDeviceJson() writes back currentText() — so the first entry of a
+    // family is what an operator creates when they never touch the combo. Put Virtual first
+    // and the default camera silently becomes a simulated one.
+    { DeviceType::Camera,
+      CameraTypeToString(CameraType::VirtualCamera),
+      QStringLiteral("Virtual Camera"),
+      QStringLiteral(DEVICE_JSK_CAM_TYPE),
+      createVirtualCamera,
+      true },
     { DeviceType::PLC,
       PlcTypeToString(PlcType::MitsubishiMc),
       QStringLiteral("Mitsubishi MC"),
       QStringLiteral(DEVICE_JSK_PLC_TYPE),
       createMitsubishiMc,
+      true },
+    { DeviceType::PLC,
+      PlcTypeToString(PlcType::VirtualPlc),
+      QStringLiteral("Virtual PLC"),
+      QStringLiteral(DEVICE_JSK_PLC_TYPE),
+      createVirtualPlc,
       true },
     { DeviceType::VisionOutput,
       VisionOutputTypeToString(VisionOutputType::VisionTCPIP),
@@ -157,6 +234,12 @@ const QList<DeviceRegistryEntry> kEntries = {
       QStringLiteral("Vision TCP/IP Client"),
       QStringLiteral(DEVICE_JSK_VOUT_TYPE),
       createVisionTcpipClient,
+      true },
+    { DeviceType::VisionOutput,
+      VisionOutputTypeToString(VisionOutputType::VirtualVisionOutput),
+      QStringLiteral("Virtual Vision Output"),
+      QStringLiteral(DEVICE_JSK_VOUT_TYPE),
+      createVirtualVisionOutput,
       true },
     { DeviceType::Robot,
       RobotTypeToString(RobotType::Kawasaki),

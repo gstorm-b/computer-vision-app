@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus camera identity (model/serial/IP), exposed as Q_GADGET properties for the property-browser UI (each G_PROPERTY_* macro below declares a property with generated getter/setter backed by the matching m_* field declared further down).  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::BaslerGigeCfg:</div>
@@ -181,7 +184,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af21ef50ab3179ea784efc41935e5eb3c pub_methods_classvc_1_1device_1_1_camera_cfg" id="r_af21ef50ab3179ea784efc41935e5eb3c"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_camera_cfg.html#af21ef50ab3179ea784efc41935e5eb3c">setCalibBoardPreset</a> (const QString &amp;preset)</td></tr>
 <tr class="memdesc:af21ef50ab3179ea784efc41935e5eb3c pub_methods_classvc_1_1device_1_1_camera_cfg"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the calibration-board preset name.  <br /></td></tr>
 <tr class="memitem:a38177ef52f13710590f1c97a2b25dd1c pub_methods_classvc_1_1device_1_1_camera_cfg" id="r_a38177ef52f13710590f1c97a2b25dd1c"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a38177ef52f13710590f1c97a2b25dd1c">setCalibrator</a> (<a class="el" href="classcalib_1_1_calibrator.html">calib::Calibrator</a> calib)</td></tr>
-<tr class="memdesc:a38177ef52f13710590f1c97a2b25dd1c pub_methods_classvc_1_1device_1_1_camera_cfg"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the calibrator with <span class="tt"><a class="el" href="namespacecalib.html" title="Calibration board synthesis, detection, and factory types.">calib</a></span> (copied).  <br /></td></tr>
+<tr class="memdesc:a38177ef52f13710590f1c97a2b25dd1c pub_methods_classvc_1_1device_1_1_camera_cfg"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the calibrator with <span class="tt"><a class="el" href="namespacecalib.html">calib</a></span> (copied).  <br /></td></tr>
 <tr class="memitem:a007d0c376f8654cb08bfe68425e6e622 pub_methods_classvc_1_1device_1_1_camera_cfg" id="r_a007d0c376f8654cb08bfe68425e6e622"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a007d0c376f8654cb08bfe68425e6e622">setCalibThreshold</a> (int threshold)</td></tr>
 <tr class="memdesc:a007d0c376f8654cb08bfe68425e6e622 pub_methods_classvc_1_1device_1_1_camera_cfg"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the binarization threshold, clamped to [-1, 255] (-1 = auto/Otsu, 0..255 = manual).  <br /></td></tr>
 <tr class="inherit_header pub_methods_classvc_1_1device_1_1_i_device_cfg"><td colspan="2">Public Member Functions inherited from <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html">vc::device::IDeviceCfg</a></td></tr>
@@ -240,7 +243,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus camera identity (model/serial/IP), exposed as Q_GADGET properties for the property-browser UI (each G_PROPERTY_* macro below declares a property with generated getter/setter backed by the matching m_* field declared further down). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00023">23</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00030">30</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad3976c61b25458909eda7f33a5753afa" name="ad3976c61b25458909eda7f33a5753afa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad3976c61b25458909eda7f33a5753afa">&#9670;&#160;</a></span>BaslerGigeCfg()</h2>
@@ -268,9 +271,9 @@ Additional Inherited Members</h2></td></tr>
 <p>&lt; Configured exposure time. </p>
 <p>&lt; Camera model name (read-only, from device info). &lt; User-defined camera name (read-only, from device info). &lt; Camera serial number (read-only, from device info). IP address used to locate the camera on connect. &lt; Auto-exposure mode (Off/Once/Continuous). &lt; Configured gain. &lt; Enables acquisition frame-rate limiting. &lt; Configured acquisition frame rate. &lt; Enables automatic backlight output around a grab. &lt; Digital output line driven for backlight control. &lt; Delay (microseconds) after enabling backlight before grabbing. &lt; Inverts the backlight output line's logic level. Constructs a default-initialized config (see field initializers below for defaults). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00046">46</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00053">53</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00153">clone()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00160">clone()</a>.</p>
 
 </div>
 </div>
@@ -306,9 +309,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#aa54ff09907b9d765ba3153f149a9d5cc">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00140">140</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00147">147</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00172">m_enableAcquisitionFrameRate</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_paramsAcquisitionFrameRate</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00179">m_enableAcquisitionFrameRate</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00180">m_paramsAcquisitionFrameRate</a>.</p>
 
 </div>
 </div>
@@ -337,9 +340,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns the current auto-exposure mode as its string name. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00105">105</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00112">112</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00048">vc::device::basler::BaslerExposureTypeToString()</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00166">m_autoExposureMode</a>.</p>
+<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00060">vc::device::basler::BaslerExposureTypeToString()</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_autoExposureMode</a>.</p>
 
 </div>
 </div>
@@ -370,9 +373,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a00a7cc82c5427757d4dd7b6d81161b05">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00060">60</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00067">67</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00023">vc::device::BaslerGigE</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00030">vc::device::BaslerGigE</a>.</p>
 
 </div>
 </div>
@@ -403,9 +406,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#a3f68f42a59b6720550f19bf790389584">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00153">153</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00160">160</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00046">BaslerGigeCfg()</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00053">BaslerGigeCfg()</a>.</p>
 
 </div>
 </div>
@@ -436,9 +439,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ac985e0c41b82834b7c60ca9602d9d2b6">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00055">55</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00062">62</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00053">vc::device::Camera</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>.</p>
 
 </div>
 </div>
@@ -469,9 +472,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a9061ce3d0d7060f2214c4c424bf835ea">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00065">65</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00072">72</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00175">m_autoBacklightControl</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00182">m_autoBacklightControl</a>.</p>
 
 </div>
 </div>
@@ -502,9 +505,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a172b116c151bb2ba761667f763c31494">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00089">89</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00096">96</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00165">m_paramsExposureTime</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00172">m_paramsExposureTime</a>.</p>
 
 </div>
 </div>
@@ -539,9 +542,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a40cebbeb9a74c683d6fc2dece17564d9">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00070">70</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00077">77</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00164">m_paramsExposureMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00163">m_paramsExposureMin</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00171">m_paramsExposureMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsExposureMin</a>.</p>
 
 </div>
 </div>
@@ -580,7 +583,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">52</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00055">vc::device::basler::BaslerExposureTypeFromString()</a>, <a class="el" href="basler__define_8h_source.html#l00109">vc::device::basler::BaslerIOLine::fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00120">vc::device::CameraCfg::fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00175">m_autoBacklightControl</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00178">m_autoBacklightDelay</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00177">m_autoBacklightInvert</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00176">m_autoBacklightLine</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00166">m_autoExposureMode</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00172">m_enableAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00180">m_ioCapabilities</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00161">m_ipAddress</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00158">m_modelName</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_paramsAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00164">m_paramsExposureMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00163">m_paramsExposureMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00165">m_paramsExposureTime</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsGain</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00169">m_paramsGainMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00168">m_paramsGainMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00160">m_serialNumber</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00159">m_userDefinedName</a>, and <a class="el" href="basler__define_8h_source.html#l00094">vc::device::basler::BaslerIOLine::name</a>.</p>
+<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00069">vc::device::basler::BaslerExposureTypeFromString()</a>, <a class="el" href="basler__define_8h_source.html#l00130">vc::device::basler::BaslerIOLine::fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00136">vc::device::CameraCfg::fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00182">m_autoBacklightControl</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00185">m_autoBacklightDelay</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00184">m_autoBacklightInvert</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00183">m_autoBacklightLine</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_autoExposureMode</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00179">m_enableAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00187">m_ioCapabilities</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00168">m_ipAddress</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00165">m_modelName</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00180">m_paramsAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00171">m_paramsExposureMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsExposureMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00172">m_paramsExposureTime</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00177">m_paramsGain</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00176">m_paramsGainMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00175">m_paramsGainMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00167">m_serialNumber</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00166">m_userDefinedName</a>, and <a class="el" href="basler__define_8h_source.html#l00115">vc::device::basler::BaslerIOLine::name</a>.</p>
 
 </div>
 </div>
@@ -611,9 +614,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a9bc58c58666aa5f2b91979b525791682">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00129">129</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00136">136</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsGain</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00177">m_paramsGain</a>.</p>
 
 </div>
 </div>
@@ -648,9 +651,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#aefa9ca57743a7bf33f291ee9b33d5ffc">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00110">110</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00117">117</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00169">m_paramsGainMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00168">m_paramsGainMin</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00176">m_paramsGainMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00175">m_paramsGainMin</a>.</p>
 
 </div>
 </div>
@@ -681,7 +684,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ad1351944ee1dabb3bfc194f2b7025c2d">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00050">50</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00057">57</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>.</p>
 
@@ -718,9 +721,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a3b7a09a06bd2e23b7d4e99d07c8b2504">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00134">134</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00141">141</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00172">m_enableAcquisitionFrameRate</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_paramsAcquisitionFrameRate</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00179">m_enableAcquisitionFrameRate</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00180">m_paramsAcquisitionFrameRate</a>.</p>
 
 </div>
 </div>
@@ -746,11 +749,11 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets the auto-exposure mode by parsing its string name (via <a class="el" href="namespacevc_1_1device_1_1basler.html#aba317f2f1947b87f0c225a5ea39e48fd">BaslerExposureTypeFromString()</a>). </p>
+<p>Sets the auto-exposure mode by parsing its string name (via <a class="el" href="namespacevc_1_1device_1_1basler.html#aba317f2f1947b87f0c225a5ea39e48fd" title="Parses a BaslerExposureMode from its registered enum name string.">BaslerExposureTypeFromString()</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00100">100</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00107">107</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00055">vc::device::basler::BaslerExposureTypeFromString()</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00166">m_autoExposureMode</a>.</p>
+<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00069">vc::device::basler::BaslerExposureTypeFromString()</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_autoExposureMode</a>.</p>
 
 </div>
 </div>
@@ -779,9 +782,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Sets the auto-exposure mode directly from the enum value. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00094">94</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00101">101</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00166">m_autoExposureMode</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_autoExposureMode</a>.</p>
 
 </div>
 </div>
@@ -812,9 +815,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a38487ad10e0fb568668153453bdba724">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00082">82</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00089">89</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00164">m_paramsExposureMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00163">m_paramsExposureMin</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00165">m_paramsExposureTime</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00171">m_paramsExposureMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsExposureMin</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00172">m_paramsExposureTime</a>.</p>
 
 </div>
 </div>
@@ -849,9 +852,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a6f3888d1519c5da3bfe72828435ff1b9">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00076">76</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00083">83</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00164">m_paramsExposureMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00163">m_paramsExposureMin</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00171">m_paramsExposureMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsExposureMin</a>.</p>
 
 </div>
 </div>
@@ -882,9 +885,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a79842b29b109e16ae865b0302d772927">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00122">122</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00129">129</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsGain</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00169">m_paramsGainMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00168">m_paramsGainMin</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00177">m_paramsGain</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00176">m_paramsGainMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00175">m_paramsGainMin</a>.</p>
 
 </div>
 </div>
@@ -919,9 +922,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a1d20c260398c7d369e48b50e95c40629">vc::device::CameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00116">116</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00123">123</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00169">m_paramsGainMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00168">m_paramsGainMin</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00176">m_paramsGainMax</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00175">m_paramsGainMin</a>.</p>
 
 </div>
 </div>
@@ -947,14 +950,14 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Serializes all Basler-specific fields (identity, exposure/gain/frame-rate, backlight, IO-line capabilities) plus the <a class="el" href="classvc_1_1device_1_1_camera_cfg.html">CameraCfg</a> base fields to JSON. Implemented in the .cpp.</p>
+<p>Serializes all Basler-specific fields (identity, exposure/gain/frame-rate, backlight, IO-line capabilities) plus the <a class="el" href="classvc_1_1device_1_1_camera_cfg.html" title="Base configuration contract for a camera device: exposure/gain/frame-rate parameters,...">CameraCfg</a> base fields to JSON. Implemented in the .cpp.</p>
 <p>Serializes this config to JSON, extending <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a530be26d49e84c25294fc232583e35d0">CameraCfg::toJson()</a> with all Basler-specific fields (identity, backlight, exposure, gain, frame rate, and IO line capabilities). </p><dl class="section return"><dt>Returns</dt><dd>the populated JSON object </dd></dl>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_camera_cfg.html#a530be26d49e84c25294fc232583e35d0">vc::device::CameraCfg</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">18</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00048">vc::device::basler::BaslerExposureTypeToString()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00175">m_autoBacklightControl</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00178">m_autoBacklightDelay</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00177">m_autoBacklightInvert</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00176">m_autoBacklightLine</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00166">m_autoExposureMode</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00172">m_enableAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00180">m_ioCapabilities</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00161">m_ipAddress</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00158">m_modelName</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_paramsAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00164">m_paramsExposureMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00163">m_paramsExposureMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00165">m_paramsExposureTime</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsGain</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00169">m_paramsGainMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00168">m_paramsGainMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00160">m_serialNumber</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00159">m_userDefinedName</a>, and <a class="el" href="camera__device_8h_source.html#l00107">vc::device::CameraCfg::toJson()</a>.</p>
+<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00060">vc::device::basler::BaslerExposureTypeToString()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00182">m_autoBacklightControl</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00185">m_autoBacklightDelay</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00184">m_autoBacklightInvert</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00183">m_autoBacklightLine</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00173">m_autoExposureMode</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00179">m_enableAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00187">m_ioCapabilities</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00168">m_ipAddress</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00165">m_modelName</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00180">m_paramsAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00171">m_paramsExposureMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00170">m_paramsExposureMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00172">m_paramsExposureTime</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00177">m_paramsGain</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00176">m_paramsGainMax</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00175">m_paramsGainMin</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00167">m_serialNumber</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00166">m_userDefinedName</a>, and <a class="el" href="camera__device_8h_source.html#l00123">vc::device::CameraCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -973,9 +976,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Enables automatic backlight output around a grab. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00175">175</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00182">182</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00065">enableBlackLightControl()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00072">enableBlackLightControl()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -993,7 +996,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Delay (microseconds) after enabling backlight before grabbing. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00178">178</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00185">185</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
@@ -1013,7 +1016,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Inverts the backlight output line's logic level. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00177">177</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00184">184</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
@@ -1033,7 +1036,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Digital output line driven for backlight control. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00176">176</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00183">183</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
@@ -1053,9 +1056,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Auto-exposure mode (Off/Once/Continuous). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00166">166</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00173">173</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00105">autoExposure()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00100">setAutoExposure()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00094">setAutoExposure()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00112">autoExposure()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00107">setAutoExposure()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00101">setAutoExposure()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1073,7 +1076,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Pylon device-info record for the currently associated camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00181">181</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00188">188</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 </div>
 </div>
@@ -1091,9 +1094,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Enables acquisition frame-rate limiting. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00172">172</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00179">179</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00140">acquisitionFrameRate()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00134">setAcquisitionFrameRate()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00147">acquisitionFrameRate()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00141">setAcquisitionFrameRate()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1111,7 +1114,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Digital I/O lines and their input/output capabilities, read from the camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00180">180</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00187">187</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
@@ -1131,7 +1134,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>IP address used to locate the camera on connect. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00161">161</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00168">168</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
@@ -1151,7 +1154,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Camera model name, populated from device info on connect. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00158">158</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00165">165</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
@@ -1171,9 +1174,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Configured acquisition frame rate. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00173">173</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00180">180</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00140">acquisitionFrameRate()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00134">setAcquisitionFrameRate()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00147">acquisitionFrameRate()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00141">setAcquisitionFrameRate()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1191,9 +1194,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Maximum allowed exposure time. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00164">164</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00171">171</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00070">exposureTimeLimit()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00082">setExposureTime()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00076">setExposureTimeLimit()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00077">exposureTimeLimit()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00089">setExposureTime()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00083">setExposureTimeLimit()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1211,9 +1214,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Minimum allowed exposure time. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00163">163</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00170">170</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00070">exposureTimeLimit()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00082">setExposureTime()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00076">setExposureTimeLimit()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00077">exposureTimeLimit()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00089">setExposureTime()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00083">setExposureTimeLimit()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1231,9 +1234,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Configured exposure time. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00165">165</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00172">172</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00089">exposureTime()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00082">setExposureTime()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8h_source.html#l00096">exposureTime()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00089">setExposureTime()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1251,9 +1254,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Configured gain. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00170">170</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00177">177</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00129">gain()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00122">setGain()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00136">gain()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00129">setGain()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1271,9 +1274,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Maximum allowed gain. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00169">169</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00176">176</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00110">gainLimit()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00122">setGain()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00116">setGainLimit()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00117">gainLimit()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00129">setGain()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00123">setGainLimit()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1291,9 +1294,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Minimum allowed gain. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00168">168</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00175">175</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00110">gainLimit()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00122">setGain()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00116">setGainLimit()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00117">gainLimit()</a>, <a class="el" href="basler__camera__widget_8cpp_source.html#l00153">BaslerCameraWidget::populateBrowser_BaslerConfig()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00129">setGain()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00123">setGainLimit()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
@@ -1311,7 +1314,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Camera serial number, populated from device info on connect. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00160">160</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00167">167</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
@@ -1331,15 +1334,15 @@ Additional Inherited Members</h2></td></tr>
 
 <p>User-defined camera name, populated from device info on connect. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00159">159</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00166">166</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">fromJson()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">vc::device::BaslerGigECamera::setDeviceConfig()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/camera/<a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/device/camera/<a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/camera/<a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/camera/<a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

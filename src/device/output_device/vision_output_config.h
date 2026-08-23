@@ -1,6 +1,12 @@
 #ifndef VISION_OUTPUT_CONFIG_H
 #define VISION_OUTPUT_CONFIG_H
 
+/**
+ * @file vision_output_config.h
+ * @brief Config types and JSON (de)serialization for the vision-output device family (the
+ *        software side that streams matching results / raw bytes out to an external system).
+ */
+
 #include "device/idevice_config.h"
 #include "core/logger/app_logger.h"
 
@@ -9,18 +15,23 @@
 #include <QString>
 #include <QVector>
 
-/// Config types and JSON (de)serialization for the vision-output device family (the
-/// software side that streams matching results / raw bytes out to an external system).
 namespace vc::device {
 
-/// Family-level sub-type dispatch handle. Mirrors CameraType / RobotType.
-/// Concrete vendors register a value here; DeviceFactory::createVisionOutput()
-/// switches on this enum to pick the concrete subclass.
+/**
+ * @enum VisionOutputType
+ * @brief Family-level sub-type dispatch handle. Mirrors CameraType / RobotType.
+ *        Concrete vendors register a value here; DeviceFactory::createVisionOutput()
+ *        switches on this enum to pick the concrete subclass.
+ */
 enum VisionOutputType : int {
     VisionOutputTypeNone,     ///< Sentinel: no vision-output sub-type selected.
     VisionTCPIP,        ///< TCP/IP server transport (software listens)
     VisionTcpipClient,  ///< TCP/IP client transport (software dials out)
     VisionSerial,       ///< placeholder for future transport
+    /// No transport at all: results are captured in memory instead of sent. Named
+    /// `VirtualVisionOutput` because these enums are unscoped and every enumerator lands in
+    /// `vc::device`, so each family needs its own spelling.
+    VirtualVisionOutput,
 };
 
 /// Converts a VisionOutputType to its JSON string label (e.g. "VisionTCPIP");
@@ -30,6 +41,7 @@ inline QString VisionOutputTypeToString(VisionOutputType t) {
     case VisionTCPIP:            return QStringLiteral("VisionTCPIP");
     case VisionTcpipClient:      return QStringLiteral("VisionTcpipClient");
     case VisionSerial:           return QStringLiteral("VisionSerial");
+    case VirtualVisionOutput:    return QStringLiteral("Virtual");
     case VisionOutputTypeNone:   return QString();
     }
     return QString();
@@ -41,28 +53,45 @@ inline VisionOutputType VisionOutputTypeFromString(const QString &t) {
     if (t == QLatin1String("VisionTCPIP"))       return VisionTCPIP;
     if (t == QLatin1String("VisionTcpipClient")) return VisionTcpipClient;
     if (t == QLatin1String("VisionSerial"))      return VisionSerial;
+    if (t == QLatin1String("Virtual"))           return VirtualVisionOutput;
     return VisionOutputTypeNone;
 }
 
-/// One waypoint of the picking path, expressed as a 6-axis offset from the matching
-/// (pick) pose, applied in the TOOL frame (pose = pick * offset). The posture branch
-/// fields hold preset-specific labels (e.g. "lefty"/"righty"); an empty label means "any
-/// branch on that axis". The whole path is "pickable" only when every waypoint is
-/// reachable on the required posture branch (and collision-free when the collision
-/// check is enabled).
+/**
+ * @struct PickPathPoint
+ * @brief One waypoint of the picking path. By default each axis is an offset from the
+ *        matching (pick) pose, applied in the TOOL frame (pose = pick * offset). Any axis
+ *        whose abs* flag is set is instead an ABSOLUTE value in the robot BASE frame,
+ *        replacing whatever the composition produced on that axis. The posture branch
+ *        fields hold preset-specific labels (e.g. "lefty"/"righty"); an empty label means "any
+ *        branch on that axis". The whole path is "pickable" only when every waypoint is
+ *        reachable on the required posture branch (and collision-free when the collision
+ *        check is enabled).
+ *
+ * @note Mixing absolute and relative axes cannot be expressed as a single transform
+ *       product. RobotKinematicPickingChecker::isPickable composes the tool-frame offset
+ *       first, decomposes the result to base-frame XYZ+RPY, overwrites the flagged axes,
+ *       and rebuilds the pose.
+ * @note All flags default to false, which is exactly the pre-Phase-5 all-relative
+ *       behaviour; documents written before the flags existed load that way.
+ */
 struct PickPathPoint {
-    double dx = 0.0, dy = 0.0, dz = 0.0;            ///< mm   offset from pick pose
-    double dRoll = 0.0, dPitch = 0.0, dYaw = 0.0;   ///< deg  offset from pick pose
+    double dx = 0.0, dy = 0.0, dz = 0.0;            ///< mm   offset from pick pose, or absolute base-frame position when the matching abs flag is set
+    double dRoll = 0.0, dPitch = 0.0, dYaw = 0.0;   ///< deg  offset from pick pose, or absolute base-frame rotation when the matching abs flag is set
+    bool absX = false, absY = false, absZ = false;              ///< Treat dx/dy/dz as absolute base-frame positions instead of offsets.
+    bool absRoll = false, absPitch = false, absYaw = false;     ///< Treat dRoll/dPitch/dYaw as absolute base-frame rotations instead of offsets.
     QString shoulder;                               ///< preset label, "" = any
     QString elbow;                                  ///< preset label, "" = any
     QString wrist;                                  ///< preset label, "" = any
 
-    /// Serializes this waypoint offset (dx/dy/dz/dRoll/dPitch/dYaw and the posture
-    /// branch labels) to JSON.
+    /// Serializes this waypoint (the six axis values, their absolute/relative flags, and
+    /// the posture branch labels) to JSON.
     QJsonObject toJson() const {
         QJsonObject obj;
         obj["dx"] = dx; obj["dy"] = dy; obj["dz"] = dz;
         obj["dRoll"] = dRoll; obj["dPitch"] = dPitch; obj["dYaw"] = dYaw;
+        obj["absX"] = absX; obj["absY"] = absY; obj["absZ"] = absZ;
+        obj["absRoll"] = absRoll; obj["absPitch"] = absPitch; obj["absYaw"] = absYaw;
         obj["shoulder"] = shoulder;
         obj["elbow"]    = elbow;
         obj["wrist"]    = wrist;
@@ -70,27 +99,37 @@ struct PickPathPoint {
     }
 
     /// Restores this waypoint from JSON written by toJson(); missing numeric fields
-    /// default to 0.0, missing labels default to an empty string.
+    /// default to 0.0, missing labels default to an empty string, and missing abs* flags
+    /// default to false (all-relative, the behaviour before the flags existed).
     void fromJson(const QJsonObject &obj) {
         dx = obj["dx"].toDouble(0.0); dy = obj["dy"].toDouble(0.0); dz = obj["dz"].toDouble(0.0);
         dRoll  = obj["dRoll"].toDouble(0.0);
         dPitch = obj["dPitch"].toDouble(0.0);
         dYaw   = obj["dYaw"].toDouble(0.0);
+        absX = obj["absX"].toBool(false);
+        absY = obj["absY"].toBool(false);
+        absZ = obj["absZ"].toBool(false);
+        absRoll  = obj["absRoll"] .toBool(false);
+        absPitch = obj["absPitch"].toBool(false);
+        absYaw   = obj["absYaw"]  .toBool(false);
         shoulder = obj["shoulder"].toString();
         elbow    = obj["elbow"].toString();
         wrist    = obj["wrist"].toString();
     }
 };
 
-/// Optional reachability/singularity gate: when enabled, the vision output device runs
-/// inverse kinematics on each outgoing pick pose (built from x,y,z,r via the top-down
-/// pick convention, at the configured TCP) using the selected robot preset, and flags
-/// poses that are out of reach / out of joint limits / singular. When
-/// collisionCheckEnabled is also set, each reachable solution is additionally run
-/// through the Coal mesh self-collision check. Plain value type (no RobotKinematics
-/// dependency) so the config header stays light; the device builds the solver from
-/// these fields. Custom presets are not authored here (preset selection only, by name;
-/// the only built-in preset is "Nachi MZ04D").
+/**
+ * @struct RobotKinematicCheckConfig
+ * @brief Optional reachability/singularity gate: when enabled, the vision output device runs
+ *        inverse kinematics on each outgoing pick pose (built from x,y,z,r via the top-down
+ *        pick convention, at the configured TCP) using the selected robot preset, and flags
+ *        poses that are out of reach / out of joint limits / singular. When
+ *        collisionCheckEnabled is also set, each reachable solution is additionally run
+ *        through the Coal mesh self-collision check. Plain value type (no RobotKinematics
+ *        dependency) so the config header stays light; the device builds the solver from
+ *        these fields. Custom presets are not authored here (preset selection only, by name;
+ *        the only built-in preset is "Nachi MZ04D").
+ */
 struct RobotKinematicCheckConfig {
     bool    enabled   = false;                   ///< Enables the kinematic reachability gate.
     bool    collisionCheckEnabled = false;       ///< run Coal mesh self-collision too
@@ -140,10 +179,13 @@ struct RobotKinematicCheckConfig {
     }
 };
 
-/// Abstract config for the vision-output device family. Carries only the family-level
-/// dispatch field (visionOutputType()) and the shared kinematic-check config; concrete
-/// configs (VisionTcpipDeviceCfg, future VisionSerialDeviceCfg, …) inherit and add their
-/// transport-specific Q_PROPERTYs.
+/**
+ * @class VisionOutputDeviceCfg
+ * @brief Abstract config for the vision-output device family. Carries only the family-level
+ *        dispatch field (visionOutputType()) and the shared kinematic-check config; concrete
+ *        configs (VisionTcpipDeviceCfg, future VisionSerialDeviceCfg, …) inherit and add their
+ *        transport-specific Q_PROPERTYs.
+ */
 class VisionOutputDeviceCfg : public IDeviceCfg {
 public:
     /// Returns the concrete vision-output sub-type (server/client/serial/…) this config

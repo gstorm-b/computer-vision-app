@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_basler_c
 </div><!--header-->
 <div class="contents">
 
+<p>Modal dialog that lists reachable Basler GigE cameras (queried asynchronously via <a class="el" href="class_get_devices_worker.html" title="Background QThread that enumerates all reachable Basler GigE cameras via the Pylon transport layer an...">GetDevicesWorker</a>) in a table and lets the user pick one to use.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for BaslerCamSelectDialog:</div>
@@ -135,6 +138,7 @@ Collaboration diagram for BaslerCamSelectDialog:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
 Signals</h2></td></tr>
 <tr class="memitem:a3d8fce2134946abe7a81dd0c549e970f" id="r_a3d8fce2134946abe7a81dd0c549e970f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3d8fce2134946abe7a81dd0c549e970f">userSelectionFinished</a> (bool isAccept, Pylon::CDeviceInfo devices)</td></tr>
+<tr class="memdesc:a3d8fce2134946abe7a81dd0c549e970f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted when the dialog closes, reporting the user's choice.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -155,10 +159,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memdesc:affb781d3db48c0682baaa12f811bd9e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for btn_select_confirm: accepts the dialog.  <br /></td></tr>
 <tr class="memitem:ad830701b12ecfcaa9b0f43c3cfca97bd" id="r_ad830701b12ecfcaa9b0f43c3cfca97bd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad830701b12ecfcaa9b0f43c3cfca97bd">cameraListCame</a> ()</td></tr>
 <tr class="memitem:a0ba0df96631b6cf6f00e59c80a8debb6" id="r_a0ba0df96631b6cf6f00e59c80a8debb6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0ba0df96631b6cf6f00e59c80a8debb6">cameraTableViewAddNewRow</a> (Pylon::CDeviceInfo &amp;info)</td></tr>
+<tr class="memdesc:a0ba0df96631b6cf6f00e59c80a8debb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends one row to the camera table populated from <code class="param">info</code> (model name, user-defined ID, serial number, IP/MAC address, subnet mask, and an accessibility-derived status of "Ok"/"In use").  <br /></td></tr>
 <tr class="memitem:aa3f530c49eb6fa58f86d61719f3e98cb" id="r_aa3f530c49eb6fa58f86d61719f3e98cb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa3f530c49eb6fa58f86d61719f3e98cb">cameraWorkerStart</a> ()</td></tr>
 <tr class="memitem:a6d3d797c790209467af73701146e5206" id="r_a6d3d797c790209467af73701146e5206"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6d3d797c790209467af73701146e5206">clearCameraTableView</a> ()</td></tr>
 <tr class="memdesc:a6d3d797c790209467af73701146e5206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all rows from the camera table widget.  <br /></td></tr>
 <tr class="memitem:a7092325ce9a5121353d4b0265bd6765d" id="r_a7092325ce9a5121353d4b0265bd6765d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7092325ce9a5121353d4b0265bd6765d">dialogClosing</a> (int state)</td></tr>
+<tr class="memdesc:a7092325ce9a5121353d4b0265bd6765d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot for QDialog::finished(): if accepted with a valid row selected, emits userSelectionFinished(true, ...) with the chosen camera's info; otherwise emits userSelectionFinished(false, {}).  <br /></td></tr>
 <tr class="memitem:a04140316c9f67bc9289ea70ff553ac10" id="r_a04140316c9f67bc9289ea70ff553ac10"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a04140316c9f67bc9289ea70ff553ac10">isCameraDeviceAccessible</a> (Pylon::CDeviceInfo &amp;info)</td></tr>
 <tr class="memitem:a06741d490d5f5ded664a5055158e6054" id="r_a06741d490d5f5ded664a5055158e6054"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a06741d490d5f5ded664a5055158e6054">tableViewSelectionChanged</a> ()</td></tr>
 </table><table class="memberdecls">
@@ -178,9 +184,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a1c7eb6a028e548ccd59d210684a0ff85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qt Designer–generated UI form for this dialog.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Modal dialog that lists reachable Basler GigE cameras (queried asynchronously via <a class="el" href="class_get_devices_worker.html">GetDevicesWorker</a>) in a table and lets the user pick one to use. </p>
+<div class="textblock"><p>Modal dialog that lists reachable Basler GigE cameras (queried asynchronously via <a class="el" href="class_get_devices_worker.html" title="Background QThread that enumerates all reachable Basler GigE cameras via the Pylon transport layer an...">GetDevicesWorker</a>) in a table and lets the user pick one to use. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00052">52</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00064">64</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a52c87f30aa8ec4f2f8858c5706eb3b69" name="a52c87f30aa8ec4f2f8858c5706eb3b69"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a52c87f30aa8ec4f2f8858c5706eb3b69">&#9670;&#160;</a></span>BaslerCamSelectDialog()</h2>
@@ -209,7 +215,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00005">5</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00005">BaslerCamSelectDialog()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00005">BaslerCamSelectDialog()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00005">BaslerCamSelectDialog()</a>.</p>
 
@@ -234,7 +240,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00014">14</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00114">get_cam_thread</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00132">get_cam_thread</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 </div>
 </div>
@@ -297,7 +303,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00087">87</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00114">get_cam_thread</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00132">get_cam_thread</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>.</p>
 
@@ -360,7 +366,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00143">143</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00116">cameraDeviceList</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00167">cameraTableViewAddNewRow()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00156">clearCameraTableView()</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00114">get_cam_thread</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00134">cameraDeviceList</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00167">cameraTableViewAddNewRow()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00156">clearCameraTableView()</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00132">get_cam_thread</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>.</p>
 
@@ -388,6 +394,14 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Appends one row to the camera table populated from <code class="param">info</code> (model name, user-defined ID, serial number, IP/MAC address, subnet mask, and an accessibility-derived status of "Ok"/"In use"). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">info</td><td>the Pylon device info to render as a new row</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Appends one row to the camera table populated from <span class="tt">info</span> (model name, user-defined ID, serial number, IP/MAC address, subnet mask, and an accessibility-derived status of "Ok"/"In use"). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">info</td><td>the Pylon device info to render as a new row </td></tr>
@@ -397,7 +411,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00167">167</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00102">isCameraDeviceAccessible()</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00118">isCameraDeviceAccessible()</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00143">cameraListCame()</a>.</p>
 
@@ -429,7 +443,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00135">135</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>.</p>
 
@@ -462,7 +476,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00156">156</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00143">cameraListCame()</a>.</p>
 
@@ -490,6 +504,14 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Slot for QDialog::finished(): if accepted with a valid row selected, emits userSelectionFinished(true, ...) with the chosen camera's info; otherwise emits userSelectionFinished(false, {}). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">state</td><td>the QDialog::DialogCode the dialog finished with</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Slot for QDialog::finished(): if accepted with a valid row selected, emits userSelectionFinished(true, ...) with the chosen camera's info; otherwise emits userSelectionFinished(false, {}). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">state</td><td>the QDialog::DialogCode the dialog finished with </td></tr>
@@ -499,7 +521,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00107">107</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00116">cameraDeviceList</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00119">m_current_select_row</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00118">m_is_selected</a>, and <a class="el" href="#a3d8fce2134946abe7a81dd0c549e970f">userSelectionFinished()</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00134">cameraDeviceList</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00137">m_current_select_row</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00136">m_is_selected</a>, and <a class="el" href="#a3d8fce2134946abe7a81dd0c549e970f">userSelectionFinished()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>.</p>
 
@@ -523,7 +545,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">26</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00094">btn_cancel_clicked()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00087">btn_refresh_clicked()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00099">btn_select_confirm_clicked()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00143">cameraListCame()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00135">cameraWorkerStart()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00107">dialogClosing()</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00114">get_cam_thread</a>, <a class="el" href="class_get_devices_worker.html#ac6a282fd8edccba1b4e7a1f48b5a9f55">GetDevicesWorker::resultReady()</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00122">table_headers</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00122">tableViewSelectionChanged()</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00094">btn_cancel_clicked()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00087">btn_refresh_clicked()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00099">btn_select_confirm_clicked()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00143">cameraListCame()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00135">cameraWorkerStart()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00107">dialogClosing()</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00132">get_cam_thread</a>, <a class="el" href="class_get_devices_worker.html#ac6a282fd8edccba1b4e7a1f48b5a9f55">GetDevicesWorker::resultReady()</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00140">table_headers</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00122">tableViewSelectionChanged()</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00005">BaslerCamSelectDialog()</a>.</p>
 
@@ -553,7 +575,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns whether <span class="tt">info</span>'s device is currently accessible (i.e. not already opened elsewhere), via the Pylon transport-layer factory. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00102">102</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00118">118</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00167">cameraTableViewAddNewRow()</a>.</p>
 
@@ -577,7 +599,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00071">71</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00114">get_cam_thread</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00119">m_current_select_row</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00118">m_is_selected</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00132">get_cam_thread</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00137">m_current_select_row</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00136">m_is_selected</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 </div>
 </div>
@@ -607,7 +629,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00122">122</a> of file <a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00116">cameraDeviceList</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00119">m_current_select_row</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00118">m_is_selected</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">ui</a>.</p>
+<p class="reference">References <a class="el" href="basler__cam__select__dialog_8h_source.html#l00134">cameraDeviceList</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00137">m_current_select_row</a>, <a class="el" href="basler__cam__select__dialog_8h_source.html#l00136">m_is_selected</a>, and <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">ui</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>.</p>
 
@@ -639,10 +661,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Emitted when the dialog closes, reporting the user's choice. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Emitted when the dialog closes, reporting the user's choice. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">isAccept</td><td>true if a camera was picked and confirmed; false if cancelled or no valid selection </td></tr>
-    <tr><td class="paramname">devices</td><td>the selected camera's info when isAccept is true; default-constructed otherwise </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">isAccept</td><td>true if a camera was picked and confirmed; false if cancelled or no valid selection </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">devices</td><td>the selected camera's info when isAccept is true; default-constructed otherwise </td></tr>
   </table>
   </dd>
 </dl>
@@ -674,7 +698,7 @@ Private Attributes</h2></td></tr>
 
 <p>Last enumerated camera list; indices correspond to table rows. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00116">116</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00134">134</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00143">cameraListCame()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00107">dialogClosing()</a>, and <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00122">tableViewSelectionChanged()</a>.</p>
 
@@ -702,7 +726,7 @@ Private Attributes</h2></td></tr>
 
 <p>Background thread that enumerates Basler GigE cameras for the table. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00114">114</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00132">132</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00087">btn_refresh_clicked()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00143">cameraListCame()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00071">showCameraSelectForm()</a>, and <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00014">~BaslerCamSelectDialog()</a>.</p>
 
@@ -730,7 +754,7 @@ Private Attributes</h2></td></tr>
 
 <p>Index of the currently selected table row, or -1 if none. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00119">119</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00137">137</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00107">dialogClosing()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00071">showCameraSelectForm()</a>, and <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00122">tableViewSelectionChanged()</a>.</p>
 
@@ -758,7 +782,7 @@ Private Attributes</h2></td></tr>
 
 <p>True when the current table row is a valid selection. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00118">118</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00136">136</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00107">dialogClosing()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00071">showCameraSelectForm()</a>, and <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00122">tableViewSelectionChanged()</a>.</p>
 
@@ -795,7 +819,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p>Column headers for the camera table widget. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00122">122</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00140">140</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>.</p>
 
@@ -823,15 +847,15 @@ Private Attributes</h2></td></tr>
 
 <p>Qt Designer–generated UI form for this dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00113">113</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="basler__cam__select__dialog_8h_source.html#l00131">131</a> of file <a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00005">BaslerCamSelectDialog()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00143">cameraListCame()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00167">cameraTableViewAddNewRow()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00135">cameraWorkerStart()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00156">clearCameraTableView()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00026">initForm()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00071">showCameraSelectForm()</a>, <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00122">tableViewSelectionChanged()</a>, and <a class="el" href="basler__cam__select__dialog_8cpp_source.html#l00014">~BaslerCamSelectDialog()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/camera/<a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/forms/camera/<a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/camera/<a class="el" href="basler__cam__select__dialog_8h_source.html">basler_cam_select_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/forms/camera/<a class="el" href="basler__cam__select__dialog_8cpp_source.html">basler_cam_select_dialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

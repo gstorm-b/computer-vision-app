@@ -26,28 +26,38 @@ class LocalizationPatternsWidget;
 class VisionCanvas;
 class VisionResultViewerWidget;
 
-/// Task widget for managing localization pattern groups/patterns, editing
-/// their match configuration, and running matching tests against a test
-/// image. Three responsibilities:
-///  1. Pattern management — add/remove/rename groups + patterns via the
-///     PatternGroupManager held by the task.
-///  2. Match configuration — bind the selected pattern's MatchPatternConfig
-///     and the selected group's MatchGroupConfig to a property browser.
-///  3. Matching test — run a matching pass on a test image and visualise
-///     the result. Image source is provided externally: connect
-///     `requestCameraImage()` on the host side and feed back via
-///     `setCameraImage()`.
+/**
+ * @file localization_patterns_widget.h
+ * @brief LocalizationPatternsWidget — task widget for managing localization pattern
+ *        groups/patterns and running matching tests.
+ */
+
+/**
+ * @class LocalizationPatternsWidget
+ * @brief Task widget for managing localization pattern groups/patterns, editing their match
+ *        configuration, and running matching tests against a test image.
+ *
+ * Three responsibilities:
+ *  1. Pattern management — add/remove/rename groups + patterns via the PatternGroupManager
+ *     held by the task.
+ *  2. Match configuration — bind the selected pattern's MatchPatternConfig and the selected
+ *     group's MatchGroupConfig to a property browser.
+ *  3. Matching test — run a matching pass on a test image and visualise the result. Image
+ *     source is provided externally: connect `requestCameraImage()` on the host side and
+ *     feed back via `setCameraImage()`.
+ */
 class LocalizationPatternsWidget : public ITaskWidget {
     Q_OBJECT
 
 public:
-    /// Constructs the widget for `task`, runs the generated UI setup, and
-    /// wires toolbar/tree/property-browser/vision-canvas state via
-    /// initWidget().
-    /// @param task the localization task this widget edits (cast internally
-    ///        to TaskLocalization)
-    /// @param dock optional dock-widget host, forwarded to ITaskWidget
-    /// @param parent optional parent widget
+    /**
+     * @brief Constructs the widget for @p task, runs the generated UI setup, and wires
+     *        toolbar/tree/property-browser/vision-canvas state via initWidget().
+     * @param[in] task the localization task this widget edits (cast internally
+     *        to TaskLocalization)
+     * @param[in] dock optional dock-widget host, forwarded to ITaskWidget
+     * @param[in] parent optional parent widget
+     */
     explicit LocalizationPatternsWidget(std::shared_ptr<vc::model::ITask> task,
                                         ads::CDockWidget *dock = nullptr,
                                         QWidget *parent = nullptr);
@@ -71,23 +81,30 @@ signals:
     void requestCameraImage(QString id);
 
 public slots:
-    /// External entry point for image input (camera, file, network …).
-    /// @note Routes by priority: forwarded to the active Add Pattern wizard
-    ///       if one is open, else to the legacy AddPatternImageDialog if
-    ///       visible; otherwise becomes the new current test image
-    ///       (m_currentImage).
+    /**
+     * @brief External entry point for image input (camera, file, network …).
+     * @note Routes by priority: forwarded to the active Add Pattern wizard
+     *       if one is open, else to the legacy AddPatternImageDialog if
+     *       visible; otherwise becomes the new current test image
+     *       (m_currentImage).
+     */
     void setCameraImage(const cv::Mat &image);
 
-    /// Open the Edit Pattern Wizard for a specific (groupNumber, patternNumber).
-    /// Returns true if the user accepted and the pattern was updated.
-    /// Invoke from a host-supplied UI control (e.g. a "Edit" toolbar button
-    /// or a keyboard shortcut), or from the pattern tree's edit-icon click.
-    /// @return true on accept and a successful commit through the manager;
-    ///         false if the group/pattern wasn't found or the wizard/commit
-    ///         was rejected
-    /// @note Only pattern-level fields are updated (name, number, pick
-    ///       position, picking-box geometry); the raw pattern image is left
-    ///       untouched.
+    /**
+     * @brief Opens the Edit Pattern Wizard for a specific (groupNumber, patternNumber).
+     *
+     * Invoke from a host-supplied UI control (e.g. a "Edit" toolbar button or a keyboard
+     * shortcut), or from the pattern tree's edit-icon click.
+     *
+     * @param[in] groupNumber the pattern's owning group number
+     * @param[in] patternNumber the pattern's number within its group
+     * @return true on accept and a successful commit through the manager;
+     *         false if the group/pattern wasn't found or the wizard/commit
+     *         was rejected
+     * @note Only pattern-level fields are updated (name, number, pick
+     *       position, picking-box geometry); the raw pattern image is left
+     *       untouched.
+     */
     bool editPattern(int groupNumber, int patternNumber);
 
     /// Open the Edit Pattern Wizard for the currently-selected pattern,
@@ -107,6 +124,9 @@ private slots:
     /// Prompts for a new group's name/number via AddGroupDialog, rejects
     /// duplicates, then adds it through the PatternGroupManager.
     void onTreeAddGroupRequested();
+    /// Opens GripperRegisterDialog on a copy of the task's gripper presets and, on
+    /// accept, stores the edited set back onto the task.
+    void onTreeGripperRequested();
     /// Runs the 5-step AddPatternWizard for `groupIndex`, adds the resulting
     /// pattern through the manager, then pushes the wizard's pick position
     /// and picking-box geometry back into the newly created pattern.
@@ -323,11 +343,17 @@ private:
     void rebuildGroupCombo();
 
     // ── Status / KPI / state pill ───────────────────────────────────────
-    /// Status-pill states shown in the toolbar; drives the pill's label text
-    /// and stylesheet role.
+    /**
+     * @enum State
+     * @brief Status-pill states shown in the toolbar; drives the pill's label text
+     *        and stylesheet role.
+     */
     enum class State { Idle, Busy, Success, Warning, Error };
-    /// Updates the state pill's text/style and the status-text label.
-    /// @param message shown verbatim, or "Ready" when empty
+    /**
+     * @brief Updates the state pill's text/style and the status-text label.
+     * @param[in] state the pill state to render
+     * @param[in] message shown verbatim, or "Ready" when empty
+     */
     void  setState(State state, const QString &message = {});
     /// Refreshes the "Groups: N · Patterns: N" status label from the pattern
     /// manager's current group/pattern counts.
@@ -416,10 +442,6 @@ private:
     bool m_hasLastMatchResult{false};   ///< True once a matching run has completed at least once.
     VisionCanvas *m_rawPreview{nullptr};   ///< Vision canvas installed in place of the raw-image view (owned via Qt parentage).
     VisionResultViewerWidget *m_resultViewer{nullptr};   ///< Result viewer installed in place of the result-image view (owned via Qt parentage).
-
-    // ── Pattern thumbnail scene ────────────────────────────────────────
-    QGraphicsScene      *m_thumbScene  {nullptr};   ///< Graphics scene backing the pattern-thumbnail preview.
-    QGraphicsPixmapItem *m_thumbPixmap {nullptr};   ///< Pixmap item within m_thumbScene showing the selected pattern's thumbnail.
 };
 
 #endif // LOCALIZATION_PATTERNS_WIDGET_H

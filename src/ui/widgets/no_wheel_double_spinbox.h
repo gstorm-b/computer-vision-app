@@ -6,8 +6,16 @@
 #include <QDoubleSpinBox>
 #include <QWheelEvent>
 
-/// QDoubleSpinBox specialization that always ignores mouse-wheel events, so scrolling a
-/// form does not accidentally change the spin box's value.
+/**
+ * @file no_wheel_double_spinbox.h
+ * @brief NoWheelDoubleSpinBox — QDoubleSpinBox specialization that ignores mouse-wheel events.
+ */
+
+/**
+ * @class NoWheelDoubleSpinBox
+ * @brief QDoubleSpinBox specialization that always ignores mouse-wheel events, so scrolling a
+ *        form does not accidentally change the spin box's value.
+ */
 class NoWheelDoubleSpinBox : public QDoubleSpinBox {
     Q_OBJECT
 

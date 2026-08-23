@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classvc_1_1dev
 </div><!--header-->
 <div class="contents">
 
+<p>Abstract config for the vision-output device family. Carries only the family-level dispatch field (<a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>) and the shared kinematic-check config; concrete configs (<a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_cfg.html" title="Concrete config for the TCP/IP server transport of VisionOutput: listen address, main and heartbeat p...">VisionTcpipDeviceCfg</a>, future VisionSerialDeviceCfg, …) inherit and add their transport-specific Q_PROPERTYs.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for vc::device::VisionOutputDeviceCfg:</div>
@@ -151,9 +154,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aac9f354d92833247d7b5f12cf018f17c" id="r_aac9f354d92833247d7b5f12cf018f17c"><td class="memItemLeft"><a class="el" href="structvc_1_1device_1_1_robot_kinematic_check_config.html">RobotKinematicCheckConfig</a>&#160;</td><td class="memItemRight"><a class="el" href="#aac9f354d92833247d7b5f12cf018f17c">m_kinematicCheck</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract config for the vision-output device family. Carries only the family-level dispatch field (<a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>) and the shared kinematic-check config; concrete configs (<a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_cfg.html">VisionTcpipDeviceCfg</a>, future VisionSerialDeviceCfg, …) inherit and add their transport-specific Q_PROPERTYs. </p>
+<div class="textblock"><p>Abstract config for the vision-output device family. Carries only the family-level dispatch field (<a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>) and the shared kinematic-check config; concrete configs (<a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_cfg.html" title="Concrete config for the TCP/IP server transport of VisionOutput: listen address, main and heartbeat p...">VisionTcpipDeviceCfg</a>, future VisionSerialDeviceCfg, …) inherit and add their transport-specific Q_PROPERTYs. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00147">147</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00163">163</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a8da6435c568b5b71d5d70ff713e92e6b" name="a8da6435c568b5b71d5d70ff713e92e6b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8da6435c568b5b71d5d70ff713e92e6b">&#9670;&#160;</a></span>deviceType()</h2>
@@ -182,9 +185,9 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ac985e0c41b82834b7c60ca9602d9d2b6">vc::device::IDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00154">154</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00170">170</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00055">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
 </div>
 </div>
@@ -210,17 +213,17 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Restores the family-level fields from JSON. Fails (returning false, without modifying state) if the <a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190">VisionOutputType</a> key is missing or its value doesn't match this config's <a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>. </p><dl class="section return"><dt>Returns</dt><dd>true on success, false if the type key is missing or mismatched </dd></dl>
+<p>Restores the family-level fields from JSON. Fails (returning false, without modifying state) if the <a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190" title="Family-level sub-type dispatch handle. Mirrors CameraType / RobotType. Concrete vendors register a va...">VisionOutputType</a> key is missing or its value doesn't match this config's <a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>. </p><dl class="section return"><dt>Returns</dt><dd>true on success, false if the type key is missing or mismatched </dd></dl>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ab2110eaf63e41619a07dd83f86c32716">vc::device::IDeviceCfg</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html#a639d7f36bd749b6975f19d3ab4722e12">vc::device::VisionTcpipClientDeviceCfg</a>, and <a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_cfg.html#a4e8a5a8e92f5fb0ef6d65222a6a97ec9">vc::device::VisionTcpipDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00172">172</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00188">188</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00042">DEVICE_JSK_VOUT_KCHECK</a>, <a class="el" href="idevice__config_8h_source.html#l00034">DEVICE_JSK_VOUT_TYPE</a>, <a class="el" href="app__logger_8h_source.html#l00163">LOG_DEV_ERR</a>, <a class="el" href="vision__output__config_8h_source.html#l00189">m_kinematicCheck</a>, <a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00040">vc::device::VisionOutputTypeFromString()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00048">DEVICE_JSK_VOUT_KCHECK</a>, <a class="el" href="idevice__config_8h_source.html#l00040">DEVICE_JSK_VOUT_TYPE</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="vision__output__config_8h_source.html#l00205">m_kinematicCheck</a>, <a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00047">vc::device::VisionOutputTypeFromString()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00079">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00077">vc::device::VisionTcpipDeviceCfg::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00082">vc::device::VisionTcpipClientDeviceCfg::fromJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00078">vc::device::VisionTcpipDeviceCfg::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -246,17 +249,17 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Serializes the family-level fields (<a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190">VisionOutputType</a> tag and the kinematic-check config) to JSON. Concrete subclasses override to add their own fields on top. </p>
+<p>Serializes the family-level fields (<a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190" title="Family-level sub-type dispatch handle. Mirrors CameraType / RobotType. Concrete vendors register a va...">VisionOutputType</a> tag and the kinematic-check config) to JSON. Concrete subclasses override to add their own fields on top. </p>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#a6287b4b385f2f48b51d6a5fe4940bc33">vc::device::IDeviceCfg</a>.</p>
 
 <p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html#a65b179398086049e9140a285b97b9c13">vc::device::VisionTcpipClientDeviceCfg</a>, and <a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_cfg.html#a0e499489e371227518921d2f06e8b9b5">vc::device::VisionTcpipDeviceCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00160">160</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00176">176</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00042">DEVICE_JSK_VOUT_KCHECK</a>, <a class="el" href="idevice__config_8h_source.html#l00034">DEVICE_JSK_VOUT_TYPE</a>, <a class="el" href="vision__output__config_8h_source.html#l00189">m_kinematicCheck</a>, <a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00028">vc::device::VisionOutputTypeToString()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00048">DEVICE_JSK_VOUT_KCHECK</a>, <a class="el" href="idevice__config_8h_source.html#l00040">DEVICE_JSK_VOUT_TYPE</a>, <a class="el" href="vision__output__config_8h_source.html#l00205">m_kinematicCheck</a>, <a class="el" href="#ac4a319fa66f72bbc03ddcbee7c663d43">visionOutputType()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00035">vc::device::VisionOutputTypeToString()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00063">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00064">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__tcpip__client__config_8h_source.html#l00065">vc::device::VisionTcpipClientDeviceCfg::toJson()</a>, and <a class="el" href="vision__tcpip__config_8h_source.html#l00065">vc::device::VisionTcpipDeviceCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -286,7 +289,7 @@ Public Attributes</h2></td></tr>
 
 <p>Implemented in <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html#a8e52f90d1d6fc2a6101b7e3d398b3fb7">vc::device::VisionTcpipClientDeviceCfg</a>, and <a class="el" href="classvc_1_1device_1_1_vision_tcpip_device_cfg.html#a8c3de7668c3cef93744b5157463847b6">vc::device::VisionTcpipDeviceCfg</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00172">fromJson()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00160">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00188">fromJson()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00176">toJson()</a>.</p>
 
 </div>
 </div>
@@ -304,14 +307,14 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Robot kinematic reachability check (Phase 2). Shared by every concrete vision-output transport (server / client). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00189">189</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00205">205</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00172">fromJson()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00160">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00188">fromJson()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00176">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/device/output_device/<a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/device/output_device/<a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

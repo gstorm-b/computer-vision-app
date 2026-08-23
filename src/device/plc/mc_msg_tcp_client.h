@@ -1,6 +1,12 @@
 #ifndef MC_MSG_TCP_CLIENT_H
 #define MC_MSG_TCP_CLIENT_H
 
+/**
+ * @file mc_msg_tcp_client.h
+ * @brief Ethernet TCP/IP config (McMsgEthernetTcpCfg) and synchronous TCP transport
+ *        (McEthernetTcpPort) for the Mitsubishi MC-protocol PLC integration.
+ */
+
 #include "device/plc/mc_msg_interface.h"
 
 #include <memory>
@@ -10,11 +16,13 @@
 #include <QByteArray>
 #include <QJsonObject>
 
-/// Device-family classes for the MC (Mitsubishi) protocol PLC integration.
 namespace vc::device {
 
-/// McMsgItfConfig for the Ethernet TCP/IP transport: adds the target IP address and port,
-/// on top of the base connect/write/response timeouts.
+/**
+ * @class McMsgEthernetTcpCfg
+ * @brief McMsgItfConfig for the Ethernet TCP/IP transport: adds the target IP address and port,
+ *        on top of the base connect/write/response timeouts.
+ */
 class McMsgEthernetTcpCfg : public McMsgItfConfig {
     Q_GADGET
 
@@ -64,8 +72,11 @@ public:
     int m_portNumber{5000};   ///< PLC TCP port; backing store for the portNumber property.
 };
 
-/// McMsgInterface transport that talks to the PLC over a plain TCP/IP socket
-/// (QTcpSocket), driven synchronously via waitFor*() calls.
+/**
+ * @class McEthernetTcpPort
+ * @brief McMsgInterface transport that talks to the PLC over a plain TCP/IP socket
+ *        (QTcpSocket), driven synchronously via waitFor*() calls.
+ */
 class McEthernetTcpPort : public McMsgInterface {
 public:
     /// Constructs the port in the NotInit state and allocates the underlying QTcpSocket
@@ -161,12 +172,15 @@ public:
         return m_error_state;
     }
 
-    /// Waits up to `wait_buffer` ms for readyRead, then appends any available bytes to `buffer`.
-    /// Accumulates elapsed wait time across calls (m_total_wait_time) so repeated
-    /// BufferEmpty results eventually surface as ResponseTimeout once
-    /// m_config.m_responseTimeout is exceeded.
-    /// @return NoError if bytes were appended (resets the accumulated wait time), BufferEmpty
-    /// while still under the response timeout, ResponseTimeout once it is exceeded
+    /**
+     * @brief Waits up to `wait_buffer` ms for readyRead, then appends any available bytes to
+     *        `buffer`. Accumulated wait time triggers ResponseTimeout when it exceeds
+     *        m_config.m_responseTimeout.
+     * @param[out] buffer buffer to append received bytes to
+     * @param[in]  wait_buffer per-call read wait time in milliseconds
+     * @return NoError if bytes were appended (resets accumulated time), BufferEmpty while still
+     *         under the response timeout, ResponseTimeout once it is exceeded
+     */
     const MsgErrorState ReceiveMsg(QByteArray &buffer, int wait_buffer = 1) override {        
         m_socket->waitForReadyRead(wait_buffer);
 

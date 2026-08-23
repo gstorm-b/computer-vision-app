@@ -5,26 +5,36 @@
 #include <string>
 #include <vector>
 
-/// Calibration board synthesis, detection, and factory types.
+/**
+ * @file calibration_board.h
+ * @brief CalibrationBoard — abstract base for calibration board synthesis/detection.
+ */
+
 namespace calib {
 
-/// Writes a PNG file with an embedded pHYs chunk so the printer / viewer can
-/// render the image at the correct physical size (1:1 mm scale).
-/// @param pxPerMm the rendering resolution of `img` (e.g. 300/25.4 for 300 DPI)
-/// @return true on success
+/**
+ * @brief Writes a PNG file with an embedded pHYs chunk so the printer/viewer can render the
+ *        image at the correct physical size (1:1 mm scale).
+ * @param[in] path     destination file path
+ * @param[in] img      image to encode and write
+ * @param[in] pxPerMm  rendering resolution of `img` (e.g. 300/25.4 for 300 DPI)
+ * @return true on success
+ */
 bool writePrintablePng(const std::string& path,
                        const cv::Mat& img,
                        double pxPerMm);
 
-/// Abstract base class for calibration board synthesis/detection.
-///
-/// Every concrete board type (Fanuc iRVision, Halcon, ChArUco, ...) implements
-/// this interface so that downstream code (Calibrator, GUI, automation scripts)
-/// can stay board-agnostic.
-///
-/// Concrete subclasses live in their own headers, e.g. FanucIRvisionBoard in
-/// "fanuc_irvision_board.h". Use CalibrationBoardFactory (in
-/// "calibration_board_factory.h") to construct instances polymorphically.
+/**
+ * @class CalibrationBoard
+ * @brief Abstract base class for calibration board synthesis/detection.
+ *
+ * Every concrete board type (Fanuc iRVision, Halcon, ChArUco, ...) implements this interface
+ * so that downstream code (Calibrator, GUI, automation scripts) can stay board-agnostic.
+ *
+ * Concrete subclasses live in their own headers, e.g. FanucIRvisionBoard in
+ * "fanuc_irvision_board.h". Use CalibrationBoardFactory (in "calibration_board_factory.h")
+ * to construct instances polymorphically.
+ */
 class CalibrationBoard
 {
 public:
@@ -35,31 +45,41 @@ public:
     /// Renders the board into a single-channel image at `pixelsPerMm` pixels per millimeter.
     virtual cv::Mat generateImage(double pixelsPerMm = 10.0) const = 0;
 
-    /// Renders the board at `dpi` DPI and writes it as a PNG with an embedded
-    /// pHYs chunk so that printer drivers reproduce the exact physical size.
-    /// Default 300 DPI is fine for laser printers; use 600 DPI for finer ink.
-    /// @return true on success (see writePrintablePng())
+    /**
+     * @brief Renders the board at `dpi` DPI and writes it as a PNG with an embedded pHYs chunk
+     *        so that printer drivers reproduce the exact physical size. Default 300 DPI is fine
+     *        for laser printers; use 600 DPI for finer ink.
+     * @param[in] path destination file path
+     * @param[in] dpi  output resolution in dots-per-inch (default 300)
+     * @return true on success (see writePrintablePng())
+     */
     bool writePrintableImage(const std::string& path, double dpi = 300.0) const;
 
     // --- Detection ---
-    /// Detects the board's dot pattern in `image`.
-    /// @param imagePoints all detected dot centres in row-major (objectPoints) order
-    /// @param cornerImagePoints optional; receives the 4 corner dots used for homography
-    ///        fit, ordered [TL, TR, BR, BL] in board coordinates
-    /// @param debugOverlay optional; receives a BGR image with overlay annotations
-    /// @return true if detection succeeded
+    /**
+     * @brief Detects the board's dot pattern in `image`.
+     * @param[in]  image             input image to detect the board in
+     * @param[out] imagePoints        all detected dot centres in row-major (objectPoints) order
+     * @param[out] cornerImagePoints  optional; receives the 4 corner dots used for homography
+     *                                fit, ordered [TL, TR, BR, BL] in board coordinates
+     * @param[out] debugOverlay       optional; receives a BGR image with overlay annotations
+     * @return true if detection succeeded
+     */
     virtual bool detect(const cv::Mat& image,
                         std::vector<cv::Point2f>& imagePoints,
                         std::vector<cv::Point2f>* cornerImagePoints = nullptr,
                         cv::Mat* debugOverlay = nullptr) const = 0;
 
-    /// Binarizes `image` (grayscale or BGR) into a single-channel mask where the
-    /// dark board dots become foreground (255). When binarizeThreshold() < 0 the
-    /// threshold is computed automatically (Otsu); otherwise the fixed value is
-    /// applied (THRESH_BINARY_INV). If `usedThreshold` is non-null it receives
-    /// the value actually applied (the Otsu-computed value in auto mode).
-    /// @note detect() uses this same routine, so a preview built from binarize()
-    ///       matches exactly what detection sees.
+    /**
+     * @brief Binarizes `image` (grayscale or BGR) into a single-channel mask where the dark
+     *        board dots become foreground (255). When binarizeThreshold() < 0 the threshold is
+     *        computed automatically (Otsu); otherwise the fixed value is applied (THRESH_BINARY_INV).
+     * @param[in]  image          input image to binarize
+     * @param[out] usedThreshold  if non-null, receives the value actually applied
+     * @return binary mask
+     * @note detect() uses this same routine, so a preview built from binarize() matches exactly
+     *       what detection sees.
+     */
     virtual cv::Mat binarize(const cv::Mat& image,
                              double* usedThreshold = nullptr) const;
 

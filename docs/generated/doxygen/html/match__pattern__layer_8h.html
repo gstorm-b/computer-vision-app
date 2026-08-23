@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/matching/match_pattern_layer.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/matching/match_pattern_layer.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('match__pattern
   <div class="headertitle"><div class="title">match_pattern_layer.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>PatternPoint/PatternLayer — learned per-point edge data and template layer produced when training a pattern.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;opencv2/core.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -137,14 +140,20 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:mtc_3A_3APatternLayer" id="r_mtc_3A_3APatternLayer"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_pattern_layer.html">mtc::PatternLayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Learned template data for one trained pattern image: the extracted edge points/contours plus the raw SIMD-aligned gradient buffers (pGx/pGy/pMag) used by the Edge-Based matching algorithm.  <a href="classmtc_1_1_pattern_layer.html#details">More...</a><br /></td></tr>
 <tr class="memitem:mtc_3A_3APatternPoint" id="r_mtc_3A_3APatternPoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_pattern_point.html">mtc::PatternPoint</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-edge-point sample extracted from a pattern's edges: pixel coordinate, gradient direction (Derivative) and gradient magnitude.  <a href="structmtc_1_1_pattern_point.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:mtc" id="r_mtc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacemtc.html">mtc</a></td></tr>
-<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html">utils_block_max.h</a>). <br /></td></tr>
+<tr class="memdesc:namespacemtc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vision/matching module: MatchBlock/BlockMax implementation (see <a class="el" href="utils__block__max_8h.html" title="MatchBlock/BlockMax — block-partitioned max-value search helper used to enumerate multiple local maxi...">utils_block_max.h</a>). <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>PatternPoint/PatternLayer — learned per-point edge data and template layer produced when training a pattern. </p>
+
+<p class="definition">Definition in file <a class="el" href="match__pattern__layer_8h_source.html">match_pattern_layer.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

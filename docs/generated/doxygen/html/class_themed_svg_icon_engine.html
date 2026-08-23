@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_themed_s
 </div><!--header-->
 <div class="contents">
 
+<p>QIconEngine that resolves an SVG icon path through <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> (so the icon follows the active light/dark theme/style) and caches rendered pixmaps in QPixmapCache keyed by style, path, mode, state, and size to avoid re-rendering the SVG each time.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for ThemedSvgIconEngine:</div>
@@ -140,6 +143,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a12271ccc6aafdc0b90d09e7e85af72b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the plugin key identifying this QIconEngine implementation.  <br /></td></tr>
 <tr class="memitem:aabb10c060061b70e70ecf139561dd92a" id="r_aabb10c060061b70e70ecf139561dd92a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aabb10c060061b70e70ecf139561dd92a">paint</a> (QPainter *painter, const QRect &amp;rect, QIcon::Mode mode, QIcon::State state) override</td></tr>
 <tr class="memitem:ab97c1831a4f202ad1e0f5c3c3082002b" id="r_ab97c1831a4f202ad1e0f5c3c3082002b"><td class="memItemLeft">QPixmap&#160;</td><td class="memItemRight"><a class="el" href="#ab97c1831a4f202ad1e0f5c3c3082002b">pixmap</a> (const QSize &amp;size, QIcon::Mode mode, QIcon::State state) override</td></tr>
+<tr class="memdesc:ab97c1831a4f202ad1e0f5c3c3082002b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders (or fetches from QPixmapCache) the themed SVG for the given icon <span class="tt">mode</span>/<span class="tt">state</span>, caching the result keyed by style, path, mode, state, and size.  <br /></td></tr>
 <tr class="memitem:a776ba5fad3e27f2656e201691d7ef7c9" id="r_a776ba5fad3e27f2656e201691d7ef7c9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a776ba5fad3e27f2656e201691d7ef7c9">ThemedSvgIconEngine</a> (QString basePath, int intent)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
@@ -155,9 +159,9 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a5600e22eeccb04495965170c800764bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default square render size (px) used when no valid size is requested.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>QIconEngine that resolves an SVG icon path through <a class="el" href="class_theme_manager.html">ThemeManager</a> (so the icon follows the active light/dark theme/style) and caches rendered pixmaps in QPixmapCache keyed by style, path, mode, state, and size to avoid re-rendering the SVG each time. </p>
+<div class="textblock"><p>QIconEngine that resolves an SVG icon path through <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> (so the icon follows the active light/dark theme/style) and caches rendered pixmaps in QPixmapCache keyed by style, path, mode, state, and size to avoid re-rendering the SVG each time. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00084">84</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00095">95</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a776ba5fad3e27f2656e201691d7ef7c9" name="a776ba5fad3e27f2656e201691d7ef7c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a776ba5fad3e27f2656e201691d7ef7c9">&#9670;&#160;</a></span>ThemedSvgIconEngine()</h2>
@@ -185,13 +189,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Constructs the engine for the themed SVG at <span class="tt">basePath</span>, rendered at <span class="tt">intent</span> pixels square when <a class="el" href="#ab97c1831a4f202ad1e0f5c3c3082002b">pixmap()</a>/actualSize() are asked for an invalid size. </p>
+<p>Constructs the engine for the themed SVG at <span class="tt">basePath</span>, rendered at <span class="tt">intent</span> pixels square when <a class="el" href="#ab97c1831a4f202ad1e0f5c3c3082002b" title="Renders (or fetches from QPixmapCache) the themed SVG for the given icon mode/state,...">pixmap()</a>/actualSize() are asked for an invalid size. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00089">89</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00100">100</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00174">m_basePath</a>, and <a class="el" href="windows__helper_8h_source.html#l00175">m_intent</a>.</p>
+<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00189">m_basePath</a>, and <a class="el" href="windows__helper_8h_source.html#l00190">m_intent</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00096">clone()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00107">clone()</a>.</p>
 
 </div>
 </div>
@@ -229,9 +233,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the actual (unscaled) size of the themed SVG icon for the given mode/state, delegating to a temporary QIcon built from <a class="el" href="#a0479cc8bd8c4a408dafcd7bc8871b66f">themedPath()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00146">146</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00161">161</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00155">themedPath()</a>.</p>
+<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00170">themedPath()</a>.</p>
 
 </div>
 </div>
@@ -259,9 +263,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns a new engine with the same base path and intent size (QIconEngine polymorphic-copy contract). </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00096">96</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00107">107</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00174">m_basePath</a>, <a class="el" href="windows__helper_8h_source.html#l00175">m_intent</a>, and <a class="el" href="windows__helper_8h_source.html#l00089">ThemedSvgIconEngine()</a>.</p>
+<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00189">m_basePath</a>, <a class="el" href="windows__helper_8h_source.html#l00190">m_intent</a>, and <a class="el" href="windows__helper_8h_source.html#l00100">ThemedSvgIconEngine()</a>.</p>
 
 </div>
 </div>
@@ -290,7 +294,7 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the plugin key identifying this QIconEngine implementation. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00102">102</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00113">113</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
 </div>
 </div>
@@ -332,9 +336,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Paints the themed pixmap rendered at <span class="tt">rect</span>'s size into <span class="tt">rect</span>; does nothing if <span class="tt">painter</span> is null. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00136">136</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00151">151</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00111">pixmap()</a>.</p>
+<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00126">pixmap()</a>.</p>
 
 </div>
 </div>
@@ -369,19 +373,23 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Renders (or fetches from QPixmapCache) the themed SVG at <span class="tt">size</span> for the given icon <span class="tt">mode</span>/<span class="tt">state</span>, caching the result keyed by style, path, mode, state, and size. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Renders (or fetches from QPixmapCache) the themed SVG for the given icon <span class="tt">mode</span>/<span class="tt">state</span>, caching the result keyed by style, path, mode, state, and size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>desired pixmap size; falls back to an m_intent square when invalid </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">size</td><td>desired pixmap size; falls back to an m_intent square when invalid </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">mode</td><td>icon mode (Normal, Disabled, Active, Selected) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">state</td><td>icon state (Off, On) </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the rendered or cached pixmap </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00111">111</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00126">126</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00175">m_intent</a>, <a class="el" href="windows__helper_8h_source.html#l00165">styleKey()</a>, and <a class="el" href="windows__helper_8h_source.html#l00155">themedPath()</a>.</p>
+<p class="reference">References <a class="el" href="windows__helper_8h_source.html#l00190">m_intent</a>, <a class="el" href="windows__helper_8h_source.html#l00180">styleKey()</a>, and <a class="el" href="windows__helper_8h_source.html#l00170">themedPath()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00136">paint()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00151">paint()</a>.</p>
 
 </div>
 </div>
@@ -409,11 +417,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns an identifier for the currently active style, used as part of the pixmap-cache key; returns a placeholder string if there is no QApplication or the style id has not been set yet. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00165">165</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00180">180</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00045">ThemeManager::currentStyleId()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8h_source.html#l00068">ThemeManager::currentStyleId()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00111">pixmap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00126">pixmap()</a>.</p>
 
 </div>
 </div>
@@ -439,13 +447,13 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Resolves m_basePath through <a class="el" href="class_theme_manager.html">ThemeManager</a> for the currently active theme; returns m_basePath unchanged if no QApplication instance exists yet. </p>
+<p>Resolves m_basePath through <a class="el" href="class_theme_manager.html" title="Application-wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty...">ThemeManager</a> for the currently active theme; returns m_basePath unchanged if no QApplication instance exists yet. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00155">155</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00170">170</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="windows__helper_8h_source.html#l00174">m_basePath</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00218">ThemeManager::themedIcon()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="windows__helper_8h_source.html#l00189">m_basePath</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00218">ThemeManager::themedIcon()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00146">actualSize()</a>, and <a class="el" href="windows__helper_8h_source.html#l00111">pixmap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00161">actualSize()</a>, and <a class="el" href="windows__helper_8h_source.html#l00126">pixmap()</a>.</p>
 
 </div>
 </div>
@@ -472,9 +480,9 @@ Private Attributes</h2></td></tr>
 
 <p>Untheme-resolved base path to the SVG icon file. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00174">174</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00189">189</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00096">clone()</a>, <a class="el" href="windows__helper_8h_source.html#l00155">themedPath()</a>, and <a class="el" href="windows__helper_8h_source.html#l00089">ThemedSvgIconEngine()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00107">clone()</a>, <a class="el" href="windows__helper_8h_source.html#l00170">themedPath()</a>, and <a class="el" href="windows__helper_8h_source.html#l00100">ThemedSvgIconEngine()</a>.</p>
 
 </div>
 </div>
@@ -500,14 +508,14 @@ Private Attributes</h2></td></tr>
 
 <p>Default square render size (px) used when no valid size is requested. </p>
 
-<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00175">175</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="windows__helper_8h_source.html#l00190">190</a> of file <a class="el" href="windows__helper_8h_source.html">windows_helper.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00096">clone()</a>, <a class="el" href="windows__helper_8h_source.html#l00111">pixmap()</a>, and <a class="el" href="windows__helper_8h_source.html#l00089">ThemedSvgIconEngine()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="windows__helper_8h_source.html#l00107">clone()</a>, <a class="el" href="windows__helper_8h_source.html#l00126">pixmap()</a>, and <a class="el" href="windows__helper_8h_source.html#l00100">ThemedSvgIconEngine()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/core/utils/<a class="el" href="windows__helper_8h_source.html">windows_helper.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/core/utils/<a class="el" href="windows__helper_8h_source.html">windows_helper.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

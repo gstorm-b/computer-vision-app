@@ -8,11 +8,20 @@
 
 #include <utility>
 
-/// Runtime layer: device command/result value types and the queue/runner machinery that
-/// dispatches commands to per-device worker threads.
+/**
+ * @file device_command.h
+ * @brief Value types for device commands and their results — DeviceCommand, DeviceCommandResult,
+ *        and the DeviceCommandKind/DeviceCommandResultStatus/DeviceCommandResultCode enums used
+ *        by the runtime layer's device runners and command queue to dispatch work to, and report
+ *        outcomes from, per-device worker threads.
+ */
+
 namespace vc::runtime {
 
-/// Kind of operation a DeviceCommand asks a device runner to perform.
+/**
+ * @enum DeviceCommandKind
+ * @brief Kind of operation a DeviceCommand asks a device runner to perform.
+ */
 enum class DeviceCommandKind {
     Unknown,           ///< No/unset command kind.
     Connect,           ///< Connect the target device.
@@ -21,7 +30,10 @@ enum class DeviceCommandKind {
     CameraApplyParams, ///< Apply camera parameters carried in the command payload.
 };
 
-/// Lifecycle status of a DeviceCommandResult.
+/**
+ * @enum DeviceCommandResultStatus
+ * @brief Lifecycle status of a DeviceCommandResult.
+ */
 enum class DeviceCommandResultStatus {
     Accepted,  ///< The command was accepted for execution (may still complete later).
     Rejected,  ///< The command was rejected before execution (see DeviceCommandResultCode).
@@ -29,7 +41,10 @@ enum class DeviceCommandResultStatus {
     Failed,    ///< The command ran and failed, or was rejected (see DeviceCommandResultCode).
 };
 
-/// Reason code accompanying a non-successful DeviceCommandResult.
+/**
+ * @enum DeviceCommandResultCode
+ * @brief Reason code accompanying a non-successful DeviceCommandResult.
+ */
 enum class DeviceCommandResultCode {
     None,               ///< No error (used with Accepted/Succeeded).
     Busy,               ///< Runner was already busy with another command.
@@ -101,8 +116,11 @@ inline QString deviceCommandResultCodeToString(DeviceCommandResultCode code)
     }
 }
 
-/// A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),
-/// identifying the operation, its target device, and an optional payload/timeout.
+/**
+ * @struct DeviceCommand
+ * @brief A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),
+ *        identifying the operation, its target device, and an optional payload/timeout.
+ */
 struct DeviceCommand {
     QString id;                                        ///< Unique command id (UUID, no braces); assigned by create().
     DeviceCommandKind kind{DeviceCommandKind::Unknown}; ///< Operation this command requests.
@@ -110,11 +128,13 @@ struct DeviceCommand {
     int timeoutMs{3000};                                ///< Max time allowed for the command to complete, in ms.
     QVariantMap payload;                                ///< Kind-specific arguments (e.g. camera params).
 
-    /// Builds a DeviceCommand with a freshly generated unique id.
-    /// @param kind operation to perform
-    /// @param targetDeviceId id of the device to target
-    /// @param timeoutMs max time allowed for the command to complete, in ms
-    /// @param payload kind-specific arguments
+    /**
+     * @brief Builds a DeviceCommand with a freshly generated unique id.
+     * @param[in] kind operation to perform
+     * @param[in] targetDeviceId id of the device to target
+     * @param[in] timeoutMs max time allowed for the command to complete, in ms
+     * @param[in] payload kind-specific arguments
+     */
     static DeviceCommand create(DeviceCommandKind kind,
                                 const QString &targetDeviceId,
                                 int timeoutMs = 3000,
@@ -130,8 +150,11 @@ struct DeviceCommand {
     }
 };
 
-/// Outcome of dispatching a DeviceCommand: echoes the originating command's identity plus a
-/// status/code/message describing what happened, and any result payload.
+/**
+ * @struct DeviceCommandResult
+ * @brief Outcome of dispatching a DeviceCommand: echoes the originating command's identity plus
+ *        a status/code/message describing what happened, and any result payload.
+ */
 struct DeviceCommandResult {
     QString commandId;                                              ///< Id of the DeviceCommand this result answers.
     DeviceCommandKind kind{DeviceCommandKind::Unknown};              ///< Operation that was requested.

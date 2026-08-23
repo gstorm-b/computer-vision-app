@@ -118,13 +118,21 @@ note right of SerialRobotKinematics
   RobotKinematicCheckConfig (enable + collision-enable +
   preset "Nachi MZ04D" + TCP). RobotKinematicCheckWidget
   edits it (FK via ForwardKinematics::toolPose, IK via
-  SerialRobotKinematics::solve, top-down pick pose =
-  fromXYZRPY_mm_deg(x,y,z,180,0,r)).
+  SerialRobotKinematics::solve).
   VisionTcpipDeviceBase::runKinematicCheck() runs IK per
   outgoing pick on the send path, and when collision is
   enabled also runs Coal mesh self-collision on each
   reachable solution. Advisory: log + kinematicCheckResult
   signal, never blocks the payload.
+
+  Pick pose (Phase 5): fromXYZRPY_mm_deg(x, y, z,
+  180 + rx, ry, rz). It was (x,y,z,180,0,r), which
+  hard-coded top-down and silently dropped the incoming
+  rx / ry -- a gap Phase 5 itself opened by adding them
+  to the wire format. Folding the 180 flip into the roll
+  term is EXACT, not an approximation: rotations about a
+  shared axis commute, so Rx(rx)*Rx(180) == Rx(180+rx).
+  At rx = ry = 0 it reduces to the old form.
 end note
 
 @enduml

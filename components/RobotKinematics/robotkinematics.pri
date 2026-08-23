@@ -51,9 +51,15 @@ include($$ROBOTKINEMATICS_DIR/mesh_collision_backend.pri)
 #     Recursive (xcopy /E) so both the original-resolution meshes (device runtime
 #     check) and the simplified/ voxel meshes (widget tester check) are deployed.
 #     xcopy /D copies only missing/newer files.
-# Disable either with CONFIG -= robotkinematics_copy_dlls / _copy_assets in the
-# host .pro *before* this include.
-CONFIG += robotkinematics_copy_dlls robotkinematics_copy_assets
+# Both steps are ON by default. A host that must not run them - a static library
+# has no binary to sit next to - opts out with
+#
+#     CONFIG += robotkinematics_no_copy_dlls robotkinematics_no_copy_assets
+#
+# *before* this include. Opting out with CONFIG -= robotkinematics_copy_dlls does
+# NOT work: the line below would add the flag straight back.
+!contains(CONFIG, robotkinematics_no_copy_dlls):   CONFIG += robotkinematics_copy_dlls
+!contains(CONFIG, robotkinematics_no_copy_assets): CONFIG += robotkinematics_copy_assets
 win32:contains(CONFIG, robotkinematics_mesh_collision) {
     # Target dir = directory of the produced binary. The app uses a
     # debug_and_release layout (<build>/debug, <build>/release); honour an

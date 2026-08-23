@@ -1,6 +1,12 @@
 #ifndef CAMERA_BASLER_GIGE_H
 #define CAMERA_BASLER_GIGE_H
 
+/**
+ * @file camera_basler_gige.h
+ * @brief Basler GigE camera config (BaslerGigeCfg) and CameraDevice implementation
+ *        (BaslerGigECamera) built on the Pylon SDK for GigE Vision cameras.
+ */
+
 // #include <pylon/PylonIncludes.h>
 // #include <pylon/_BaslerUniversalCameraParams.h>
 
@@ -12,14 +18,15 @@
 
 using namespace vc::device::basler;
 
-/// Basler-specific camera device: config (BaslerGigeCfg) and CameraDevice implementation
-/// (BaslerGigECamera) built on the Pylon SDK for GigE Vision cameras.
 namespace vc::device {
 
-/// Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus
-/// camera identity (model/serial/IP), exposed as Q_GADGET properties for the property-browser
-/// UI (each G_PROPERTY_* macro below declares a property with generated getter/setter backed
-/// by the matching m_* field declared further down).
+/**
+ * @class BaslerGigeCfg
+ * @brief Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus
+ *        camera identity (model/serial/IP), exposed as Q_GADGET properties for the property-browser
+ *        UI (each G_PROPERTY_* macro below declares a property with generated getter/setter backed
+ *        by the matching m_* field declared further down).
+ */
 class BaslerGigeCfg : public CameraCfg {
     Q_GADGET
 
@@ -182,10 +189,13 @@ public:
 
 };
 
-/// Basler GigE Vision camera device, implemented on top of the Pylon SDK
-/// (Pylon::CInstantCamera). Handles connect/disconnect, exposure/gain/backlight parameter
-/// application, digital I/O lines, and single/continuous/software-triggered grabs, converting
-/// captured Pylon images to cv::Mat.
+/**
+ * @class BaslerGigECamera
+ * @brief Basler GigE Vision camera device, implemented on top of the Pylon SDK
+ *        (Pylon::CInstantCamera). Handles connect/disconnect, exposure/gain/backlight parameter
+ *        application, digital I/O lines, and single/continuous/software-triggered grabs, converting
+ *        captured Pylon images to cv::Mat.
+ */
 class BaslerGigECamera : public vc::device::CameraDevice {
     Q_OBJECT
 
@@ -251,8 +261,16 @@ public:
     /// @return false if the camera instance is null; true otherwise.
     bool applyParametersChange() override;
 
+    /// Default blocking-grab timeout handed to Pylon's GrabOne(), in milliseconds;
+    /// overridable per device via setGrabTimeout(). CameraRunner's own command watchdog
+    /// must stay above this value, or it will always give up before the camera can
+    /// possibly answer — see CameraRunner::kSingleShotTimeoutMs.
+    static constexpr int kDefaultGrabTimeoutMs = 5000;
+
     /// Performs a blocking single grab (optionally toggling the backlight line around it),
     /// converts the result to cv::Mat and emits grabFinished().
+    /// @note grabFinished() is emitted on EVERY path, success or failure, because
+    ///       CameraRunner resolves its in-flight command from it.
     GrabResult grabSingleShot() override;
     /// Not implemented: always returns false.
     bool startAutoContinuousShot() override;
@@ -309,8 +327,16 @@ private:
     /// Mono8 otherwise; leaves `mat` empty and logs an error for unsupported pixel formats.
     void pylon_image_to_mat(Pylon::CInstantCamera::GrabResultPtr_t &ptrGrabResult, cv::Mat &mat);
 
+    /// Detects a removed Pylon device after a failed grab and, if removed, closes the
+    /// instance and publishes ConnectStatus::LostConnected so the runtime's recovery
+    /// policy starts reconnecting.
+    /// @return true if removal was detected and published
+    /// @note This camera has no removal callback or heartbeat, so a pulled cable is only
+    ///       ever noticed here — on a grab that fails.
+    bool publishRemovalIfDetected();
+
 private:
-    int m_grab_timeout{5000};              ///< Timeout (milliseconds) for grab calls.
+    int m_grab_timeout{kDefaultGrabTimeoutMs};  ///< Timeout (milliseconds) for grab calls; set via setGrabTimeout().
     BaslerGigeCfg m_config;                ///< Current Basler configuration; registered as this device's IDeviceCfg.
     Pylon::CDeviceInfo m_camera_info;      ///< Pylon device-info record for the connected camera.
     QString m_camera_ip_address;           ///< IP address used to find the camera on the last deviceConnect() call.

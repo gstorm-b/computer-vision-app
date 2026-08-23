@@ -10,6 +10,18 @@
 #include <QMetaObject>
 #include <QMetaProperty>
 
+/**
+ * @file qgadget_macro.h
+ * @brief Q_GADGET property-declaration macros and gadget meta-property helpers
+ *        (displayName, writeProperty, readProperty) for Q_GADGET config types.
+ *
+ * Property-browser widgets dispatch edits through the Q_PROPERTY system of a
+ * Q_GADGET config; the helpers in vc::gadget_meta centralise the
+ * "indexOfProperty → read/writeOnGadget" pattern and the "<prop>_name"
+ * Q_CLASSINFO display-name lookup emitted by the macros below, so each widget
+ * no longer re-implements it.
+ */
+
 /// Declares a read-write numeric Q_GADGET property `name` of `type`, backed by member
 /// `m_##name`, plus Q_CLASSINFO entries recording its display name and its [minVal,
 /// maxVal] range (consumed by property-browser widgets for validation/UI bounds).
@@ -70,11 +82,6 @@ Q_PROPERTY(type name READ name WRITE set##name) \
     type name() const { return d->m_##name; } \
     void set##name(type val) { d->m_##name = val; } \
 
-/// Shared gadget meta-property helpers. Property-browser widgets dispatch edits
-/// through the Q_PROPERTY system of a Q_GADGET config; these helpers centralize the
-/// "indexOfProperty → read/write OnGadget" pattern and the "<prop>_name" Q_CLASSINFO
-/// display-name lookup emitted by the macros above, so each widget no longer
-/// re-implements it.
 namespace vc::gadget_meta {
 
 /// Resolves the display name registered via Q_CLASSINFO("<prop>_name", "…").

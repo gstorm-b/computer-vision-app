@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_calibrat
 </div><!--header-->
 <div class="contents">
 
+<p>Small modal dialog that lets the user pick a calibration board from the presets registered in <a class="el" href="classcalib_1_1_calibration_board_factory.html#a6baaf2fe1dc26a4280881c05f12de909">calib::CalibrationBoardFactory::availablePresets()</a>.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CalibrationBoardDialog:</div>
@@ -157,10 +160,14 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:aedb031b6368880164c984e831b293853"><td class="mdescLeft">&#160;</td><td class="mdescRight">Word-wrapped label showing the selected preset's details.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Small modal dialog that lets the user pick a calibration board from the presets registered in <a class="el" href="classcalib_1_1_calibration_board_factory.html#a6baaf2fe1dc26a4280881c05f12de909">calib::CalibrationBoardFactory::availablePresets()</a>.</p>
-<p>Usage: <a class="el" href="class_calibration_board_dialog.html">CalibrationBoardDialog</a> dlg(currentPreset, parent); if (dlg.exec() == QDialog::Accepted) { QString preset = dlg.selectedPreset(); } </p>
-
-<p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8h_source.html#l00020">20</a> of file <a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>.</p>
+<div class="textblock"><p>Small modal dialog that lets the user pick a calibration board from the presets registered in <a class="el" href="classcalib_1_1_calibration_board_factory.html#a6baaf2fe1dc26a4280881c05f12de909">calib::CalibrationBoardFactory::availablePresets()</a>. </p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="#af3b4fc09d662495d0608392aad13d944">CalibrationBoardDialog</a> dlg(currentPreset, parent);</div>
+<div class="line"><span class="keywordflow">if</span> (dlg.exec() == QDialog::Accepted) {</div>
+<div class="line">    QString preset = dlg.selectedPreset();</div>
+<div class="line">}</div>
+<div class="ttc" id="aclass_calibration_board_dialog_html_af3b4fc09d662495d0608392aad13d944"><div class="ttname"><a href="#af3b4fc09d662495d0608392aad13d944">CalibrationBoardDialog::CalibrationBoardDialog</a></div><div class="ttdeci">CalibrationBoardDialog(const QString &amp;currentPreset, QWidget *parent=nullptr)</div><div class="ttdoc">Sets the window title and builds the dialog UI seeded from currentPreset.</div><div class="ttdef"><b>Definition</b> <a href="calibration__board__dialog_8cpp_source.html#l00013">calibration_board_dialog.cpp:13</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8h_source.html#l00028">28</a> of file <a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af3b4fc09d662495d0608392aad13d944" name="af3b4fc09d662495d0608392aad13d944"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3b4fc09d662495d0608392aad13d944">&#9670;&#160;</a></span>CalibrationBoardDialog()</h2>
@@ -226,7 +233,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8cpp_source.html#l00023">23</a> of file <a class="el" href="calibration__board__dialog_8cpp_source.html">calibration_board_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00076">calib::CalibrationBoardFactory::availablePresets()</a>, <a class="el" href="calibration__board__dialog_8h_source.html#l00048">m_buttons</a>, <a class="el" href="calibration__board__dialog_8h_source.html#l00046">m_combo</a>, <a class="el" href="calibration__board__dialog_8h_source.html#l00047">m_preview</a>, and <a class="el" href="calibration__board__dialog_8cpp_source.html#l00063">updatePreview()</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00076">calib::CalibrationBoardFactory::availablePresets()</a>, <a class="el" href="calibration__board__dialog_8h_source.html#l00056">m_buttons</a>, <a class="el" href="calibration__board__dialog_8h_source.html#l00054">m_combo</a>, <a class="el" href="calibration__board__dialog_8h_source.html#l00055">m_preview</a>, and <a class="el" href="calibration__board__dialog_8cpp_source.html#l00063">updatePreview()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__dialog_8cpp_source.html#l00013">CalibrationBoardDialog()</a>.</p>
 
@@ -252,7 +259,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8cpp_source.html#l00056">56</a> of file <a class="el" href="calibration__board__dialog_8cpp_source.html">calibration_board_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board__dialog_8h_source.html#l00046">m_combo</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board__dialog_8h_source.html#l00054">m_combo</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00587">BaslerCameraWidget::btn_setup_board_clicked()</a>.</p>
 
@@ -285,7 +292,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8cpp_source.html#l00063">63</a> of file <a class="el" href="calibration__board__dialog_8cpp_source.html">calibration_board_dialog.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>, <a class="el" href="calibration__board__dialog_8h_source.html#l00046">m_combo</a>, and <a class="el" href="calibration__board__dialog_8h_source.html#l00047">m_preview</a>.</p>
+<p class="reference">References <a class="el" href="calibration__board__factory_8cpp_source.html#l00033">calib::CalibrationBoardFactory::createFromPreset()</a>, <a class="el" href="calibration__board__dialog_8h_source.html#l00054">m_combo</a>, and <a class="el" href="calibration__board__dialog_8h_source.html#l00055">m_preview</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__dialog_8cpp_source.html#l00023">buildUi()</a>.</p>
 
@@ -314,7 +321,7 @@ Private Attributes</h2></td></tr>
 
 <p>OK/Cancel buttons. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8h_source.html#l00048">48</a> of file <a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8h_source.html#l00056">56</a> of file <a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__dialog_8cpp_source.html#l00023">buildUi()</a>.</p>
 
@@ -342,7 +349,7 @@ Private Attributes</h2></td></tr>
 
 <p>Preset selector, populated from availablePresets(). </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8h_source.html#l00046">46</a> of file <a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8h_source.html#l00054">54</a> of file <a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__dialog_8cpp_source.html#l00023">buildUi()</a>, <a class="el" href="calibration__board__dialog_8cpp_source.html#l00056">selectedPreset()</a>, and <a class="el" href="calibration__board__dialog_8cpp_source.html#l00063">updatePreview()</a>.</p>
 
@@ -370,15 +377,15 @@ Private Attributes</h2></td></tr>
 
 <p>Word-wrapped label showing the selected preset's details. </p>
 
-<p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8h_source.html#l00047">47</a> of file <a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="calibration__board__dialog_8h_source.html#l00055">55</a> of file <a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="calibration__board__dialog_8cpp_source.html#l00023">buildUi()</a>, and <a class="el" href="calibration__board__dialog_8cpp_source.html#l00063">updatePreview()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/calibration/<a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a></li>
-<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/calibration/<a class="el" href="calibration__board__dialog_8cpp_source.html">calibration_board_dialog.cpp</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/calibration/<a class="el" href="calibration__board__dialog_8h_source.html">calibration_board_dialog.h</a></li>
+<li>C:/DGB/Project/ncr_picking/src/ui/widgets/calibration/<a class="el" href="calibration__board__dialog_8cpp_source.html">calibration_board_dialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

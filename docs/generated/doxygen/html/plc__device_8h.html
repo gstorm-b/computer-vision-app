@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/plc/plc_device.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/plc/plc_device.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('plc__device_8h
   <div class="headertitle"><div class="title">plc_device.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Abstract PLC device family: sub-type dispatch, the family-level config and device base classes, and the shared value-map interface.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;QMap&gt;</code><br />
 <code>#include &quot;<a class="el" href="idevice_8h_source.html">device/idevice.h</a>&quot;</code><br />
@@ -138,14 +141,17 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3APlcCfg" id="r_vc_3A_3Adevice_3A_3APlcCfg"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_plc_cfg.html">vc::device::PlcCfg</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract config for the PLC family. Carries only the family-level dispatch field; concrete configs (<a class="el" href="classvc_1_1device_1_1_mc_protocol_config.html" title="MC-protocol device configuration: holds a cloned McContext (frame type plus its addressing/timing par...">McProtocolConfig</a> for Mitsubishi MC, future OmronFinsConfig, …) inherit and add their protocol-specific Q_PROPERTYs.  <a href="classvc_1_1device_1_1_plc_cfg.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3APlcDevice" id="r_vc_3A_3Adevice_3A_3APlcDevice"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_plc_device.html">vc::device::PlcDevice</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract base for the PLC family. Concrete vendors (<a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html" title="Mitsubishi MC-protocol PLC device: owns the transport (McMsgInterface) and frame codec (MCFrameAbstra...">McProtocolDevice</a> for Mitsubishi MC, future OmronFinsDevice, SiemensS7Device, …) inherit from this base. The base only carries the family-level dispatch (<a class="el" href="classvc_1_1device_1_1_plc_device.html#ad9eccb918418cd4792815f2a4ca23b13">plcType()</a>) and the family JSON header; vendor-specific surface lives entirely on the concrete subclass.  <a href="classvc_1_1device_1_1_plc_device.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3APlcValueMap" id="r_vc_3A_3Adevice_3A_3APlcValueMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_plc_value_map.html">vc::device::PlcValueMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract, vendor-agnostic holder for a PLC's polled register values. Concrete vendors provide a concrete value map (e.g. holding device-map tables) and expose it via <a class="el" href="classvc_1_1device_1_1_plc_value_map.html#a9d868f92fa8f917177f69aed44167783">clone()</a> for snapshotting.  <a href="classvc_1_1device_1_1_plc_value_map.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:vc" id="r_vc"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc.html">vc</a></td></tr>
 <tr class="memitem:vc_3A_3Adevice" id="r_vc_3A_3Adevice"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html">vc::device</a></td></tr>
-<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html">DeviceRegistry</a>). <br /></td></tr>
+<tr class="memdesc:namespacevc_1_1device"><td class="mdescLeft">&#160;</td><td class="mdescRight">Device abstraction layer: concrete device family registration and lookup (see <a class="el" href="classvc_1_1device_1_1_device_registry.html" title="Static registry of known device sub-types (camera/PLC/vision-output/robot implementations) used to cr...">DeviceRegistry</a>). <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -157,13 +163,18 @@ Enumerations</h2></td></tr>
 <tr class="memitem:afb7e574428ba6ab2321b46dd3b2f388b" id="r_afb7e574428ba6ab2321b46dd3b2f388b"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">vc::device::PlcType</a> { <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388ba49892b07a1e6bc2ac5b6f952a1e2a04c">vc::device::PlcTypeNone</a>
 , <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388baa25d694a4292a9cebae1b1446e509f2c">vc::device::MitsubishiMc</a>
  }</td></tr>
+<tr class="memdesc:afb7e574428ba6ab2321b46dd3b2f388b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Family-level sub-type dispatch handle for the PLC family. Concrete vendors register a value here; <a class="el" href="classvc_1_1device_1_1_device_factory.html#a78ecad78e9d57552e6bccc7d732e548e" title="Creates a PLC device from the registry entry matching obj&#39;s sub-type.">DeviceFactory::createPlcDevice()</a> switches on this enum to pick the concrete subclass.  <a href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a53361024697e6b043078f42c7e7e6d7e" id="r_a53361024697e6b043078f42c7e7e6d7e"><td class="memItemLeft">static <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">PlcType</a>&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a53361024697e6b043078f42c7e7e6d7e">vc::device::PlcTypeFromString</a> (QString t)</td></tr>
 <tr class="memitem:ab3e171203abda47c515cf3ea8f91d73b" id="r_ab3e171203abda47c515cf3ea8f91d73b"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#ab3e171203abda47c515cf3ea8f91d73b">vc::device::PlcTypeToString</a> (<a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">PlcType</a> t)</td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract PLC device family: sub-type dispatch, the family-level config and device base classes, and the shared value-map interface. </p>
+
+<p class="definition">Definition in file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a70fb692b5ffa568bb95f94633a3214b6" name="a70fb692b5ffa568bb95f94633a3214b6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a70fb692b5ffa568bb95f94633a3214b6">&#9670;&#160;</a></span>PLC_TYPE_MITSUBISHI_MC</h2>
 
@@ -178,9 +189,9 @@ Functions</h2></td></tr>
 
 <p>JSON-persisted PlcType key for the Mitsubishi MC vendor sub-type. </p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00009">9</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00015">15</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00036">vc::device::PlcTypeFromString()</a>, and <a class="el" href="plc__device_8h_source.html#l00025">vc::device::PlcTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00043">vc::device::PlcTypeFromString()</a>, and <a class="el" href="plc__device_8h_source.html#l00032">vc::device::PlcTypeToString()</a>.</p>
 
 </div>
 </div>

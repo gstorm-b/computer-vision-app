@@ -3,12 +3,18 @@
 
 #include <string>
 
-/// Vision/matching module: ManagerResult, a lightweight ok/error result type returned by
-/// pattern/group manager mutation operations.
+/**
+ * @file manager_result.h
+ * @brief ManagerResult — lightweight ok/error result returned by pattern/group manager operations.
+ */
+
 namespace mtc {
 
-/// Lightweight ok/error result: `ok` reports success, `error` carries a human-readable
-/// failure message when `ok` is false.
+/**
+ * @struct ManagerResult
+ * @brief Lightweight ok/error result: `ok` reports success, `error` carries a human-readable
+ *        failure message when `ok` is false.
+ */
 struct ManagerResult {
     bool ok = true;         ///< True on success; false when the operation failed.
     std::wstring error;     ///< Failure message; empty when `ok` is true.
@@ -16,7 +22,11 @@ struct ManagerResult {
     /// Default-constructs a successful result (ok = true, empty error).
     ManagerResult() = default;
 
-    /// Constructs a result with an explicit success flag and optional error message.
+    /**
+     * @brief Constructs a result with an explicit success flag and optional error message.
+     * @param[in] ok    true for success, false for failure
+     * @param[in] error failure description; empty by default
+     */
     explicit ManagerResult(bool ok, const std::wstring &error = {})
         : ok(ok), error(error) {}
 
@@ -24,7 +34,11 @@ struct ManagerResult {
     static ManagerResult success()
     { return ManagerResult{true}; }
 
-    /// Returns a failed result carrying `reason` as the error message.
+    /**
+     * @brief Returns a failed result carrying `reason` as the error message.
+     * @param[in] reason failure description stored in the error field
+     * @return ManagerResult with ok = false and error = reason
+     */
     static ManagerResult fail(const std::wstring &reason)
     { return ManagerResult{false, reason}; }
 

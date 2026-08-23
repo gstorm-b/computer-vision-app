@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/calibration/calibration_board_factory.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/calibration/calibration_board_factory.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('calibration__b
   <div class="headertitle"><div class="title">calibration_board_factory.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>CalibrationBoardFactory — centralised allocator for CalibrationBoard subclasses.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="calibration__board_8h_source.html">calibration_board.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="fanuc__irvision__board_8h_source.html">fanuc_irvision_board.h</a>&quot;</code><br />
 <code>#include &lt;memory&gt;</code><br />
@@ -132,7 +135,7 @@ Include dependency graph for calibration_board_factory.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="calibration__board__factory_8h__dep__incl.svg" width="652" height="192"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="calibration__board__factory_8h__dep__incl.svg" width="566" height="192"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="calibration__board__factory_8h_source.html">Go to the source code of this file.</a></p>
@@ -140,11 +143,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:calib_3A_3ACalibrationBoardFactory" id="r_calib_3A_3ACalibrationBoardFactory"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classcalib_1_1_calibration_board_factory.html">calib::CalibrationBoardFactory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Centralised allocator for <a class="el" href="classcalib_1_1_calibration_board.html" title="Abstract base class for calibration board synthesis/detection.">CalibrationBoard</a> subclasses. Returns base-class std::unique_ptr&lt;CalibrationBoard&gt; so callers can stay board-agnostic.  <a href="classcalib_1_1_calibration_board_factory.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:calib" id="r_calib"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespacecalib.html">calib</a></td></tr>
-<tr class="memdesc:namespacecalib"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calibration board synthesis, detection, and factory types. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -152,7 +155,11 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aa21d7855d1fe4ab6a08379ffc43ad592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumerates the calibration board pattern types the factory can construct.  <a href="namespacecalib.html#aa21d7855d1fe4ab6a08379ffc43ad592">More...</a><br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>CalibrationBoardFactory — centralised allocator for CalibrationBoard subclasses. </p>
+
+<p class="definition">Definition in file <a class="el" href="calibration__board__factory_8h_source.html">calibration_board_factory.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

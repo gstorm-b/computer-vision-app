@@ -323,7 +323,7 @@ var searchData=
   ['running_320',['Running',['../classvc_1_1model_1_1_localization_runtime_controller.html#af8cab135e48e241b8e5d7ea86f93641fa5bda814c4aedb126839228f1a3d92f09',1,'vc::model::LocalizationRuntimeController']]],
   ['runningcycle_321',['RunningCycle',['../namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4aa5ea8f469c475345ae3b57f73135ce315',1,'vc::model']]],
   ['runtime_322',['Runtime',['../classvc_1_1runtime_1_1_task_runner.html#a13845e600fe91e054dde4c35059938f7abc366f2d0ba3d681e7a3899917c5d3de',1,'vc::runtime::TaskRunner']]],
-  ['runtime_20level_202_323',['Module: runtime (level 2)',['../md__c_1_2_d_g_b_2_project_2computer-vision-app_2src_2runtime_2_a_g_e_n_t_s.html',1,'']]],
+  ['runtime_20level_202_323',['Module: runtime (level 2)',['../md__c_1_2_d_g_b_2_project_2ncr__picking_2src_2runtime_2_a_g_e_n_t_s.html',1,'']]],
   ['runtime_20state_20machines_324',['08. Runtime State Machines',['../architecture_diagrams.html#diag_08',1,'']]],
   ['runtime_20threading_325',['03. Runtime Threading',['../architecture_diagrams.html#diag_03',1,'']]],
   ['runtimecontext_326',['RuntimeContext',['../structvc_1_1model_1_1_localization_runtime_controller_1_1_runtime_context.html',1,'vc::model::LocalizationRuntimeController']]],
@@ -338,5 +338,8 @@ var searchData=
   ['runtimestate_335',['runtimeState',['../classvc_1_1device_1_1_vision_tcpip_device_base.html#a0504443dd9a419b69cdedc1744dfe237',1,'vc::device::VisionTcpipDeviceBase']]],
   ['runtimestopped_336',['runtimeStopped',['../classvc_1_1model_1_1_i_task.html#a622d32ef49db21c840b63623680ad158',1,'vc::model::ITask']]],
   ['runtimethread_337',['runtimeThread',['../classvc_1_1runtime_1_1_task_runner.html#a0315d2ec20588f4024ff45a9598b36f9',1,'vc::runtime::TaskRunner']]],
-  ['rztz_338',['rzTz',['../namespace_robot_kinematics_1_1anonymous__namespace_02_dh_adapter_8cpp_03.html#a9c5a39e521010c6b1e41044c93a9b66d',1,'RobotKinematics::anonymous_namespace{DhAdapter.cpp}']]]
+  ['rx_338',['rx',['../structvc_1_1device_1_1_vision_output_position.html#a88e07fa8f0e570924373b97f7955f1e2',1,'vc::device::VisionOutputPosition']]],
+  ['ry_339',['ry',['../structvc_1_1device_1_1_vision_output_position.html#a8bc55c0a010169ca7148e3d4a209ba4a',1,'vc::device::VisionOutputPosition']]],
+  ['rz_340',['rz',['../structvc_1_1device_1_1_vision_output_position.html#a6783587bf7b927b42037a42430c14e37',1,'vc::device::VisionOutputPosition']]],
+  ['rztz_341',['rzTz',['../namespace_robot_kinematics_1_1anonymous__namespace_02_dh_adapter_8cpp_03.html#a9c5a39e521010c6b1e41044c93a9b66d',1,'RobotKinematics::anonymous_namespace{DhAdapter.cpp}']]]
 ];

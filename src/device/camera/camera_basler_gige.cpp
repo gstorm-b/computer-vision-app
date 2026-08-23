@@ -445,17 +445,25 @@ bool BaslerGigECamera::applyParametersChange() {
 GrabResult BaslerGigECamera::grabSingleShot() {
     GrabResult result;
     result.isGrabSuccess = false;
+
+    // CameraRunner resolves its in-flight CameraSingleShot command from grabFinished.
+    // EVERY exit path below must therefore emit exactly once — a silent return leaves
+    // the runner's command hanging until its watchdog fires, and (before the watchdog
+    // was corrected) wedged the runner against reconnect requests entirely.
     if (m_camera_instance == nullptr) {
         LOG_DEV_ERR << "grab single shot fail, camera instance is null";
-        result.msg = "grab single shot fail, camera instance is null";
+        result.msg = tr("Grab failed: camera instance is null.");
+        m_last_msg = result.msg;
+        emit grabFinished(result);
         return result;
     }
 
     if (m_camera_instance->IsGrabbing()) {
-        LOG_DEV_ERR << "grab single shot fail, camera already grabbing";
-        m_last_msg = "grab single shot fail, camera already grabbing";
-        result.msg = m_last_msg;
-        return result;
+        // Reachable when a previous grab threw and left the camera acquiring. Recover
+        // rather than refuse forever: without this, one exception made every later grab
+        // fail on this branch until the device was reconnected by hand.
+        LOG_DEV_ERR << "grab single shot: camera still grabbing, stopping previous acquisition";
+        m_camera_instance->StopGrabbing();
     }
 
     try {
@@ -467,40 +475,104 @@ GrabResult BaslerGigECamera::grabSingleShot() {
 
         // smart pointer receive the grab result data
         Pylon::CInstantCamera::GrabResultPtr_t ptrGrabResult;
-        m_camera_instance->GrabOne(5000, ptrGrabResult, TimeoutHandling_ThrowException);
+        // m_grab_timeout, not a literal: setGrabTimeout() has always written this member
+        // and nothing ever read it, so the configured timeout was silently ignored.
+        m_camera_instance->GrabOne(static_cast<unsigned int>(m_grab_timeout),
+                                   ptrGrabResult,
+                                   TimeoutHandling_ThrowException);
 
         // retrieve result
         if (ptrGrabResult->GrabSucceeded()) {
             cv::Mat image;
             pylon_image_to_mat(ptrGrabResult, image);
-            GrabResult result;
             result.frame = image.clone();
-            result.isGrabSuccess= true;
-            result.msg = "Grab Succesfull";
-            emit grabFinished(result);
-        } else {\
+            result.isGrabSuccess = true;
+            result.msg = tr("Grab successful.");
+        } else {
             LOG_DEV_ERR << "grab single shot error:"
                          << QString::number(ptrGrabResult->GetErrorCode(), 16)
                          << ptrGrabResult->GetErrorDescription();
             m_last_msg = tr("grab single shot failed, %1, %2")
                              .arg(QString::number(ptrGrabResult->GetErrorCode(), 16))
                              .arg(ptrGrabResult->GetErrorDescription().c_str());
-
-            result.msg = "Error";
-            emit grabFinished(result);
+            result.msg = m_last_msg;
         }
 
         if (m_config.m_autoBacklightControl) {
             setOutputLineState(m_config.m_autoBacklightLine, false);
         }
 
-    } catch (GenICam::GenericException &e) {
-        LOG_DEV_ERR << "An exception occurred while handle continuous shot";
+    } catch (const GenICam::GenericException &e) {
+        LOG_DEV_ERR << "An exception occurred during single shot grab";
         LOG_DEV_ERR << e.GetDescription();
-        m_last_msg = e.GetDescription();
+        m_last_msg = QString::fromUtf8(e.GetDescription());
+        result.isGrabSuccess = false;
+        result.msg = m_last_msg;
+
+        // GrabOne throws with acquisition still started; leaving it that way is what
+        // made the next grab hit the IsGrabbing() branch above.
+        try {
+            if (m_camera_instance->IsGrabbing()) {
+                m_camera_instance->StopGrabbing();
+            }
+        } catch (const GenICam::GenericException &stopError) {
+            LOG_DEV_ERR << "Failed to stop grabbing after grab exception:"
+                        << stopError.GetDescription();
+        }
+
+        // A pulled cable surfaces here and nowhere else: this camera has no removal
+        // callback or heartbeat, so without publishing a status the localization
+        // runtime never learned the camera was gone, never entered recovery, and never
+        // withdrew bTaskReady.
+        publishRemovalIfDetected();
     }
 
+    emit grabFinished(result);
     return result;
+}
+
+/// Checks whether the Pylon device backing this camera has been removed (cable pulled,
+/// power lost, device reset) and, if so, tears the instance down and publishes
+/// LostConnected so the localization recovery policy starts reconnecting.
+///
+/// This camera exposes no removal callback and no heartbeat, so removal is only ever
+/// noticed here — on a failed grab. A camera that disappears while the runtime is idle
+/// stays "connected" until the next trigger, which is when it matters.
+/// @return true if removal was detected and published
+bool BaslerGigECamera::publishRemovalIfDetected() {
+    if (m_camera_instance == nullptr) {
+        return false;
+    }
+
+    bool removed = false;
+    try {
+        removed = m_camera_instance->IsCameraDeviceRemoved();
+    } catch (const GenICam::GenericException &e) {
+        // Querying a torn-down instance can itself throw; treat that as removal.
+        LOG_DEV_ERR << "IsCameraDeviceRemoved() threw:" << e.GetDescription();
+        removed = true;
+    }
+
+    if (!removed) {
+        return false;
+    }
+
+    LOG_USER_ERR << tr("Camera %1 was removed.").arg(m_str_camera_id);
+    m_software_trigger_shot_ready = false;
+    m_continuous_shot_ready = false;
+
+    try {
+        if (m_camera_instance->IsOpen()) {
+            m_camera_instance->Close();
+        }
+    } catch (const GenICam::GenericException &e) {
+        LOG_DEV_ERR << "Closing a removed camera threw:" << e.GetDescription();
+    }
+
+    // LostConnected, not Disconnected: only the former is a recoverable status, and a
+    // removed camera is exactly what the reconnect loop exists for.
+    setConnectionStatus(ConnectStatus::LostConnected);
+    return true;
 }
 
 /// @note Not yet implemented: always returns false.

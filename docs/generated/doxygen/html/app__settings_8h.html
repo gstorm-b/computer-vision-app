@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/core/app_settings/app_settings.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/ncr_picking/src/core/app_settings/app_settings.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -119,6 +119,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('app__settings_
   <div class="headertitle"><div class="title">app_settings.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a> — singleton that persists application-wide preferences to a binary, integrity-checked file in the OS app-data directory, plus the <a class="el" href="namespace_app_key.html">AppKey</a>:: namespace of compile-time setting-key constants.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QObject&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
 <code>#include &lt;QVariant&gt;</code><br />
@@ -139,6 +142,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:AppSettings" id="r_AppSettings"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_app_settings.html">AppSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS app-data directory. The payload is XOR-obfuscated with a compile-time key and protected by a SHA-256 checksum; a failed check silently resets all values to their defaults.  <a href="class_app_settings.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -155,7 +159,17 @@ Variables</h2></td></tr>
 <tr class="memitem:a29552487d81d55bfcf00f6b81c9506ce" id="r_a29552487d81d55bfcf00f6b81c9506ce"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="namespace_app_key.html#a29552487d81d55bfcf00f6b81c9506ce">AppKey::Theme</a> [] = &quot;app.theme&quot;</td></tr>
 <tr class="memdesc:a29552487d81d55bfcf00f6b81c9506ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key for the persisted UI theme id.  <br /></td></tr>
 </table>
-</div><!-- contents -->
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a> — singleton that persists application-wide preferences to a binary, integrity-checked file in the OS app-data directory, plus the <a class="el" href="namespace_app_key.html">AppKey</a>:: namespace of compile-time setting-key constants. </p>
+<p>File format (all multi-byte integers big-endian): Offset Size Field 0 4 Magic: 0x4E435253 ("NCRS") 4 4 Schema version (uint32) 8 32 SHA-256 of the plain (pre-obfuscation) CBOR payload 40 N XOR-obfuscated CBOR-encoded QVariantMap</p>
+<p>Extending:</p><ol type="1">
+<li>Add a new key constant to <a class="el" href="namespace_app_key.html">AppKey</a>:: below.</li>
+<li>Add a default value in the <a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a> constructor.</li>
+<li>Add a typed getter/setter pair in the "Known settings" section. If a schema change is not backward-compatible, increment kVersion and add a migration branch in decode(). </li>
+</ol>
+
+<p class="definition">Definition in file <a class="el" href="app__settings_8h_source.html">app_settings.h</a>.</p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

@@ -135,6 +135,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partitions a score map into a grid of blocks (sized from the pattern size) and caches each block's local maximum, so repeated searches for the next-best match only need to rescan the blocks touched by a previously matched region (via UpdateMax) instead of the whole map.  <a href="classmtc_1_1_block_max.html#details">More...</a><br /></td></tr>
 <tr class="memitem:EdgeMatchConfig" id="r_EdgeMatchConfig"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_edge_match_config.html">EdgeMatchConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">All tunable parameters for gradient-direction edge template matching (the SIMD-accelerated algorithm in <a class="el" href="classmtc_1_1_image_matcher.html" title="Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape...">ImageMatcher</a>).  <a href="classmtc_1_1_edge_match_config.html#details">More...</a><br /></td></tr>
+<tr class="memitem:GripperBoxes" id="r_GripperBoxes"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_gripper_boxes.html">GripperBoxes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configured geometry of a gripper's two jaw boxes: the size of each jaw and the centre-to-centre distance between them.  <a href="structmtc_1_1_gripper_boxes.html#details">More...</a><br /></td></tr>
 <tr class="memitem:ImageMatcher" id="r_ImageMatcher"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_image_matcher.html">ImageMatcher</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edge-based template matching engine: runs an OpenCV pyramid, coarse-to-fine, rotation-searching shape/edge match for every registered pattern against a source image, then filters, sorts, and annotates the results.  <a href="classmtc_1_1_image_matcher.html#details">More...</a><br /></td></tr>
 <tr class="memitem:IMatchTypeConfig" id="r_IMatchTypeConfig"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classmtc_1_1_i_match_type_config.html">IMatchTypeConfig</a></td></tr>
@@ -170,7 +172,7 @@ Classes</h2></td></tr>
 <tr class="memitem:PatternPoint" id="r_PatternPoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_pattern_point.html">PatternPoint</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-edge-point sample extracted from a pattern's edges: pixel coordinate, gradient direction (Derivative) and gradient magnitude.  <a href="structmtc_1_1_pattern_point.html#details">More...</a><br /></td></tr>
 <tr class="memitem:WorldPickPose" id="r_WorldPickPose"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structmtc_1_1_world_pick_pose.html">WorldPickPose</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Neutral data-transfer pose: robot/world coordinates in millimetres, top-down pick rotation in degrees. Carries no robot-library or Qt types.  <a href="structmtc_1_1_world_pick_pose.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Neutral data-transfer pose: robot/world coordinates in millimetres, top-down pick rotation in degrees, plus the pattern's picking offset. Carries no robot-library or Qt types.  <a href="structmtc_1_1_world_pick_pose.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -347,7 +349,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00079">79</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l01199">mtc::ImageMatcher::SortPtWithCenter()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l01208">mtc::ImageMatcher::SortPtWithCenter()</a>.</p>
 
 </div>
 </div>
@@ -384,7 +386,7 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="match__params_8h_source.html#l00038">mtc::MatchParams::_matchScore</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l01143">mtc::ImageMatcher::FilterWithScore()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l01152">mtc::ImageMatcher::FilterWithScore()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
 </div>
 </div>
@@ -453,11 +455,11 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>summed normalized-gradient dot product over all <span class="tt">length</span> points </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00852">852</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="image__matcher_8cpp_source.html#l00861">861</a> of file <a class="el" href="image__matcher_8cpp_source.html">image_matcher.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="image__matcher_8cpp_source.html#l00852">edge_template_match_simd_omp()</a>.</p>
+<p class="reference">References <a class="el" href="image__matcher_8cpp_source.html#l00861">edge_template_match_simd_omp()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00852">edge_template_match_simd_omp()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00899">mtc::ImageMatcher::MatchEdgePattern_SIMD()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00861">edge_template_match_simd_omp()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00908">mtc::ImageMatcher::MatchEdgePattern_SIMD()</a>.</p>
 
 </div>
 </div>
@@ -537,7 +539,7 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="matching__types_8h_source.html#l00025">Correlation</a>, and <a class="el" href="matching__types_8h_source.html#l00024">EdgeBased</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">mtc::MatchConfigPropertyAdapter::buildTypeGroup()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00049">mtc::anonymous_namespace{pattern_group_manager.cpp}::matchingTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__config__property__adapter_8cpp_source.html#l00144">mtc::MatchConfigPropertyAdapter::buildTypeGroup()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00075">mtc::anonymous_namespace{pattern_group_manager.cpp}::matchingTypeToString()</a>.</p>
 
 </div>
 </div>

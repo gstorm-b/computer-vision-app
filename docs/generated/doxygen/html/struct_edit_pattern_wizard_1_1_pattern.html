@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('struct_edit_pa
 <div class="dynheader">
 Collaboration diagram for EditPatternWizard::Pattern:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="struct_edit_pattern_wizard_1_1_pattern__coll__graph.svg" width="136" height="267"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="struct_edit_pattern_wizard_1_1_pattern__coll__graph.svg" width="136" height="310"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -138,8 +138,18 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a625f994c56bd4c70b8d9474b0f112f66"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html" title="Editable snapshot of a single pattern: identity (name/number), pick point, picking-box geometry,...">Pattern</a> display name.  <br /></td></tr>
 <tr class="memitem:a07bd81eed220f244fce421c420f916e6" id="r_a07bd81eed220f244fce421c420f916e6"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a07bd81eed220f244fce421c420f916e6">number</a> {0}</td></tr>
 <tr class="memdesc:a07bd81eed220f244fce421c420f916e6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html" title="Editable snapshot of a single pattern: identity (name/number), pick point, picking-box geometry,...">Pattern</a> number; must be unique within its group.  <br /></td></tr>
+<tr class="memitem:aeecc8ed5eea967414c09b64ef538613b" id="r_aeecc8ed5eea967414c09b64ef538613b"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#aeecc8ed5eea967414c09b64ef538613b">offRX</a> {0}</td></tr>
+<tr class="memitem:a9e3e4e5df6ebc92a83cd13cb7772cd46" id="r_a9e3e4e5df6ebc92a83cd13cb7772cd46"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a9e3e4e5df6ebc92a83cd13cb7772cd46">offRY</a> {0}</td></tr>
+<tr class="memitem:af6cf88c941693b09b1184bf3a9d7ef45" id="r_af6cf88c941693b09b1184bf3a9d7ef45"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#af6cf88c941693b09b1184bf3a9d7ef45">offRZ</a> {0}</td></tr>
+<tr class="memdesc:af6cf88c941693b09b1184bf3a9d7ef45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pick rotation offset RX/RY/RZ, in degrees, applied in the TOOL frame.  <br /></td></tr>
+<tr class="memitem:a50832e70c6cc0787cf48375ec36b5233" id="r_a50832e70c6cc0787cf48375ec36b5233"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a50832e70c6cc0787cf48375ec36b5233">offX</a> {0}</td></tr>
+<tr class="memitem:afa5470bbdb7e1911efcf59d48ec526aa" id="r_afa5470bbdb7e1911efcf59d48ec526aa"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#afa5470bbdb7e1911efcf59d48ec526aa">offY</a> {0}</td></tr>
+<tr class="memitem:a07323c5723f36f52ec20a86f5e97ee9a" id="r_a07323c5723f36f52ec20a86f5e97ee9a"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a07323c5723f36f52ec20a86f5e97ee9a">offZ</a> {0}</td></tr>
+<tr class="memdesc:a07323c5723f36f52ec20a86f5e97ee9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pick offset XYZ, in millimetres.  <br /></td></tr>
+<tr class="memitem:aabb587bc9ed81cbe4330a256d895b76e" id="r_aabb587bc9ed81cbe4330a256d895b76e"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#aabb587bc9ed81cbe4330a256d895b76e">pickAngle</a> {0}</td></tr>
+<tr class="memdesc:aabb587bc9ed81cbe4330a256d895b76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Picking angle (degrees) — MatchPatternConfig::m_angle, added to every reported match angle.  <br /></td></tr>
 <tr class="memitem:a9e891b0048700292a1527d6499a1ca7c" id="r_a9e891b0048700292a1527d6499a1ca7c"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a9e891b0048700292a1527d6499a1ca7c">pickBoxAngle</a> {0}</td></tr>
-<tr class="memdesc:a9e891b0048700292a1527d6499a1ca7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Picking-box offset distance (px) and rotation (degrees), relative to the pick point.  <br /></td></tr>
+<tr class="memdesc:a9e891b0048700292a1527d6499a1ca7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Picking-box offset distance (px) and jaw rotation (degrees), relative to the pick point. Unrelated to pickAngle.  <br /></td></tr>
 <tr class="memitem:ae20b4f732fbe72f99b252b4089fd1686" id="r_ae20b4f732fbe72f99b252b4089fd1686"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ae20b4f732fbe72f99b252b4089fd1686">pickBoxDist</a> {90}</td></tr>
 <tr class="memitem:a5fa1d8bdbb1f66356e352d32b4be1c9c" id="r_a5fa1d8bdbb1f66356e352d32b4be1c9c"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a5fa1d8bdbb1f66356e352d32b4be1c9c">pickBoxH</a> {80}</td></tr>
 <tr class="memdesc:a5fa1d8bdbb1f66356e352d32b4be1c9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Picking-box width/height, in image pixels.  <br /></td></tr>
@@ -151,7 +161,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Editable snapshot of a single pattern: identity (name/number), pick point, picking-box geometry, and the already-learned template image. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00049">49</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00056">56</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a176ea9e463d99d80115329e089ccfcaa" name="a176ea9e463d99d80115329e089ccfcaa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a176ea9e463d99d80115329e089ccfcaa">&#9670;&#160;</a></span>image</h2>
@@ -167,9 +177,9 @@ Public Attributes</h2></td></tr>
 
 <p>Already-learned template image; locked (cannot be re-captured by this wizard). </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00055">55</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00065">65</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -187,9 +197,9 @@ Public Attributes</h2></td></tr>
 
 <p><a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html" title="Editable snapshot of a single pattern: identity (name/number), pick point, picking-box geometry,...">Pattern</a> display name. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00050">50</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00057">57</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -207,9 +217,141 @@ Public Attributes</h2></td></tr>
 
 <p><a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html" title="Editable snapshot of a single pattern: identity (name/number), pick point, picking-box geometry,...">Pattern</a> number; must be unique within its group. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00051">51</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00058">58</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
+
+</div>
+</div>
+<a id="aeecc8ed5eea967414c09b64ef538613b" name="aeecc8ed5eea967414c09b64ef538613b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeecc8ed5eea967414c09b64ef538613b">&#9670;&#160;</a></span>offRX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double EditPatternWizard::Pattern::offRX {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00064">64</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
+
+</div>
+</div>
+<a id="a9e3e4e5df6ebc92a83cd13cb7772cd46" name="a9e3e4e5df6ebc92a83cd13cb7772cd46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e3e4e5df6ebc92a83cd13cb7772cd46">&#9670;&#160;</a></span>offRY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double EditPatternWizard::Pattern::offRY {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00064">64</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
+
+</div>
+</div>
+<a id="af6cf88c941693b09b1184bf3a9d7ef45" name="af6cf88c941693b09b1184bf3a9d7ef45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6cf88c941693b09b1184bf3a9d7ef45">&#9670;&#160;</a></span>offRZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double EditPatternWizard::Pattern::offRZ {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pick rotation offset RX/RY/RZ, in degrees, applied in the TOOL frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00064">64</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
+
+</div>
+</div>
+<a id="a50832e70c6cc0787cf48375ec36b5233" name="a50832e70c6cc0787cf48375ec36b5233"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50832e70c6cc0787cf48375ec36b5233">&#9670;&#160;</a></span>offX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double EditPatternWizard::Pattern::offX {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00063">63</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
+
+</div>
+</div>
+<a id="afa5470bbdb7e1911efcf59d48ec526aa" name="afa5470bbdb7e1911efcf59d48ec526aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa5470bbdb7e1911efcf59d48ec526aa">&#9670;&#160;</a></span>offY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double EditPatternWizard::Pattern::offY {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00063">63</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
+
+</div>
+</div>
+<a id="a07323c5723f36f52ec20a86f5e97ee9a" name="a07323c5723f36f52ec20a86f5e97ee9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07323c5723f36f52ec20a86f5e97ee9a">&#9670;&#160;</a></span>offZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double EditPatternWizard::Pattern::offZ {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pick offset XYZ, in millimetres. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00063">63</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
+
+</div>
+</div>
+<a id="aabb587bc9ed81cbe4330a256d895b76e" name="aabb587bc9ed81cbe4330a256d895b76e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabb587bc9ed81cbe4330a256d895b76e">&#9670;&#160;</a></span>pickAngle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double EditPatternWizard::Pattern::pickAngle {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Picking angle (degrees) — MatchPatternConfig::m_angle, added to every reported match angle. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00060">60</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -225,11 +367,11 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Picking-box offset distance (px) and rotation (degrees), relative to the pick point. </p>
+<p>Picking-box offset distance (px) and jaw rotation (degrees), relative to the pick point. Unrelated to pickAngle. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00054">54</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00062">62</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -245,9 +387,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00054">54</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00062">62</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -265,9 +407,9 @@ Public Attributes</h2></td></tr>
 
 <p>Picking-box width/height, in image pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00053">53</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00061">61</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -283,9 +425,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00053">53</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00061">61</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -301,9 +443,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00052">52</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00059">59</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -321,14 +463,14 @@ Public Attributes</h2></td></tr>
 
 <p>Pick point, in locked-image pixel coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00052">52</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00059">59</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

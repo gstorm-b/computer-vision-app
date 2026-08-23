@@ -126,6 +126,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ad743c430019dfe651effd88226a482fe" id="r_ad743c430019dfe651effd88226a482fe"><td class="memItemLeft"><a class="el" href="class_i_device.html">IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ad743c430019dfe651effd88226a482fe">createKawasaki</a> (const QJsonObject &amp;obj, QObject *parent)</td></tr>
 <tr class="memitem:ac2641f61a108f7de9d3804e07249ff9c" id="r_ac2641f61a108f7de9d3804e07249ff9c"><td class="memItemLeft"><a class="el" href="class_i_device.html">IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ac2641f61a108f7de9d3804e07249ff9c">createMitsubishiMc</a> (const QJsonObject &amp;obj, QObject *parent)</td></tr>
 <tr class="memitem:a33a04e8979e41acc783a4eb5009efdd2" id="r_a33a04e8979e41acc783a4eb5009efdd2"><td class="memItemLeft"><a class="el" href="class_i_device.html">IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a33a04e8979e41acc783a4eb5009efdd2">createNachi</a> (const QJsonObject &amp;obj, QObject *parent)</td></tr>
+<tr class="memitem:ae8538732ff75cc6e0e11c4a873a2ea3b" id="r_ae8538732ff75cc6e0e11c4a873a2ea3b"><td class="memItemLeft"><a class="el" href="class_i_device.html">IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ae8538732ff75cc6e0e11c4a873a2ea3b">createVirtualCamera</a> (const QJsonObject &amp;obj, QObject *parent)</td></tr>
+<tr class="memitem:aee26e779fd4fedc61c3b265cce6e7fcf" id="r_aee26e779fd4fedc61c3b265cce6e7fcf"><td class="memItemLeft"><a class="el" href="class_i_device.html">IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aee26e779fd4fedc61c3b265cce6e7fcf">createVirtualPlc</a> (const QJsonObject &amp;obj, QObject *parent)</td></tr>
+<tr class="memitem:a0a7c84c5acddbda0c6ada3aed43a0a71" id="r_a0a7c84c5acddbda0c6ada3aed43a0a71"><td class="memItemLeft"><a class="el" href="class_i_device.html">IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a0a7c84c5acddbda0c6ada3aed43a0a71">createVirtualVisionOutput</a> (const QJsonObject &amp;obj, QObject *parent)</td></tr>
 <tr class="memitem:ab3981f5c9685c360a7de4e4f55c3b49a" id="r_ab3981f5c9685c360a7de4e4f55c3b49a"><td class="memItemLeft"><a class="el" href="class_i_device.html">IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#ab3981f5c9685c360a7de4e4f55c3b49a">createVisionTcpip</a> (const QJsonObject &amp;obj, QObject *parent)</td></tr>
 <tr class="memitem:a893dba9db42a74a3c5891f15748551d1" id="r_a893dba9db42a74a3c5891f15748551d1"><td class="memItemLeft"><a class="el" href="class_i_device.html">IDevice</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a893dba9db42a74a3c5891f15748551d1">createVisionTcpipClient</a> (const QJsonObject &amp;obj, QObject *parent)</td></tr>
 <tr class="memitem:a92938c21824a1e3e03147860f2837d88" id="r_a92938c21824a1e3e03147860f2837d88"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a92938c21824a1e3e03147860f2837d88">subTypeValueFrom</a> (const QJsonObject &amp;obj, const QString &amp;configJsonKey)</td></tr>
@@ -155,11 +158,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Basler GigE camera device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html" title="Basler GigE Vision camera device, implemented on top of the Pylon SDK (Pylon::CInstantCamera)....">BaslerGigECamera</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00023">23</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00026">26</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00023">createBaslerGige()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00026">createBaslerGige()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00023">createBaslerGige()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00026">createBaslerGige()</a>.</p>
 
 </div>
 </div>
@@ -183,11 +186,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Kawasaki robot device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_kawasaki_robot_device.html" title="Minimum concrete robot device for the Kawasaki vendor. All calls are stubs returning sensible default...">KawasakiRobotDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00099">99</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00159">159</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00099">createKawasaki()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00159">createKawasaki()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00099">createKawasaki()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00159">createKawasaki()</a>.</p>
 
 </div>
 </div>
@@ -211,11 +214,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Mitsubishi MC-protocol PLC device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html" title="Mitsubishi MC-protocol PLC device: owns the transport (McMsgInterface) and frame codec (MCFrameAbstra...">McProtocolDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00042">42</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00064">64</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00042">createMitsubishiMc()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00064">createMitsubishiMc()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00042">createMitsubishiMc()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00064">createMitsubishiMc()</a>.</p>
 
 </div>
 </div>
@@ -239,11 +242,95 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Nachi robot device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_nachi_robot_device.html" title="Minimum concrete robot device — Nachi vendor stub. See KawasakiRobotDevice for the equivalent pattern...">NachiRobotDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00118">118</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00178">178</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00118">createNachi()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00178">createNachi()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00118">createNachi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00178">createNachi()</a>.</p>
+
+</div>
+</div>
+<a id="ae8538732ff75cc6e0e11c4a873a2ea3b" name="ae8538732ff75cc6e0e11c4a873a2ea3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8538732ff75cc6e0e11c4a873a2ea3b">&#9670;&#160;</a></span>createVirtualCamera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_device.html">IDevice</a> * vc::device::anonymous_namespace{device_registry.cpp}::createVirtualCamera </td>
+          <td>(</td>
+          <td class="paramtype">const QJsonObject &amp;</td>          <td class="paramname"><span class="paramname"><em>obj</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a hardware-free virtual camera: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html" title="A CameraDevice whose frames come from a still image or a generated pattern.">VirtualCameraDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00045">45</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00045">createVirtualCamera()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00045">createVirtualCamera()</a>.</p>
+
+</div>
+</div>
+<a id="aee26e779fd4fedc61c3b265cce6e7fcf" name="aee26e779fd4fedc61c3b265cce6e7fcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee26e779fd4fedc61c3b265cce6e7fcf">&#9670;&#160;</a></span>createVirtualPlc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_device.html">IDevice</a> * vc::device::anonymous_namespace{device_registry.cpp}::createVirtualPlc </td>
+          <td>(</td>
+          <td class="paramtype">const QJsonObject &amp;</td>          <td class="paramname"><span class="paramname"><em>obj</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a hardware-free virtual PLC: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_virtual_plc_device.html" title="A PlcDevice that records what would have been written instead of writing it.">VirtualPlcDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00121">121</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00121">createVirtualPlc()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00121">createVirtualPlc()</a>.</p>
+
+</div>
+</div>
+<a id="a0a7c84c5acddbda0c6ada3aed43a0a71" name="a0a7c84c5acddbda0c6ada3aed43a0a71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a7c84c5acddbda0c6ada3aed43a0a71">&#9670;&#160;</a></span>createVirtualVisionOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_i_device.html">IDevice</a> * vc::device::anonymous_namespace{device_registry.cpp}::createVirtualVisionOutput </td>
+          <td>(</td>
+          <td class="paramtype">const QJsonObject &amp;</td>          <td class="paramname"><span class="paramname"><em>obj</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QObject *</td>          <td class="paramname"><span class="paramname"><em>parent</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a hardware-free virtual vision output: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_virtual_vision_output_device.html" title="A VisionOutputDevice that captures the positions it is sent instead of transmitting.">VirtualVisionOutputDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00140">140</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00140">createVirtualVisionOutput()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00140">createVirtualVisionOutput()</a>.</p>
 
 </div>
 </div>
@@ -267,11 +354,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Vision TCP/IP server output device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_vision_tcpip_device.html" title="TCP/IP server transport of the vision-output family: listens on two ports (main + heartbeat),...">VisionTcpipDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00061">61</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00083">83</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00061">createVisionTcpip()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00083">createVisionTcpip()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00061">createVisionTcpip()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00083">createVisionTcpip()</a>.</p>
 
 </div>
 </div>
@@ -295,11 +382,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p><a class="el" href="namespacevc_1_1device_1_1_factory.html">Factory</a> for a Vision TCP/IP client output device: requires a non-empty DeviceId in <span class="tt">obj</span>. </p><dl class="section return"><dt>Returns</dt><dd>the new <a class="el" href="classvc_1_1device_1_1_vision_tcpip_client_device.html" title="TCP/IP client transport of the vision-output family. Same protocol as VisionTcpipDevice,...">VisionTcpipClientDevice</a> (parented to <span class="tt">parent</span>, config applied via fromJson() when a DeviceConfig object is present), or nullptr if DeviceId is missing </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00080">80</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00102">102</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00080">createVisionTcpipClient()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
+<p class="reference">References <a class="el" href="device__registry_8cpp_source.html#l00102">createVisionTcpipClient()</a>, <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, <a class="el" href="idevice__config_8h_source.html#l00021">DEVICE_JSK_ID</a>, and <a class="el" href="idevice__config_8h_source.html#l00022">DEVICE_JSK_NAME</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00080">createVisionTcpipClient()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00102">createVisionTcpipClient()</a>.</p>
 
 </div>
 </div>
@@ -323,11 +410,11 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Reads the sub-type token identified by <span class="tt">configJsonKey</span> from <span class="tt">obj</span>, checking the top-level key first and falling back to the nested DeviceConfig object. </p><dl class="section return"><dt>Returns</dt><dd>the token value, or an empty string if configJsonKey is empty or not found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00178">178</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00261">261</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, and <a class="el" href="device__registry_8cpp_source.html#l00178">subTypeValueFrom()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00025">DEVICE_JSK_CONFIG</a>, and <a class="el" href="device__registry_8cpp_source.html#l00261">subTypeValueFrom()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00178">subTypeValueFrom()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="device__registry_8cpp_source.html#l00261">subTypeValueFrom()</a>.</p>
 
 </div>
 </div>
@@ -345,7 +432,7 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <p>Static table of every registered device sub-type, in lookup/listing order; backs <a class="el" href="classvc_1_1device_1_1_device_registry.html#ad2ceb6e35ac52ba5e7baa0b1152db6eb" title="Returns the full static list of registered device entries.">DeviceRegistry::entries()</a>/find()/displayNamesFor(). </p>
 
-<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00136">136</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="device__registry_8cpp_source.html#l00196">196</a> of file <a class="el" href="device__registry_8cpp_source.html">device_registry.cpp</a>.</p>
 
 </div>
 </div>

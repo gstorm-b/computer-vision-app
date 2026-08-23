@@ -195,9 +195,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:aec4826ffc67464e051855eeff628068e" id="r_aec4826ffc67464e051855eeff628068e"><td class="memItemLeft">cv::Point2f&#160;</td><td class="memItemRight"><a class="el" href="#aec4826ffc67464e051855eeff628068e">point_LT</a></td></tr>
 <tr class="memdesc:aec4826ffc67464e051855eeff628068e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top-left corner of the matched template footprint.  <br /></td></tr>
 <tr class="memitem:aeb58eae5672fc1bbb10e9de7c1ddd98e" id="r_aeb58eae5672fc1bbb10e9de7c1ddd98e"><td class="memItemLeft">cv::Point3f&#160;</td><td class="memItemRight"><a class="el" href="#aeb58eae5672fc1bbb10e9de7c1ddd98e">point_offset</a></td></tr>
-<tr class="memdesc:aeb58eae5672fc1bbb10e9de7c1ddd98e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pick offset copied from the pattern's config (<a class="el" href="structmtc_1_1_match_pattern_config.html#af436151c30901b3872f7b998042ff44e" title="XYZ offset applied to the pick position at picking time.">MatchPatternConfig::m_pickingOffset</a>).  <br /></td></tr>
+<tr class="memdesc:aeb58eae5672fc1bbb10e9de7c1ddd98e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pick XYZ offset (mm) copied from the pattern's config (<a class="el" href="structmtc_1_1_match_pattern_config.html#af436151c30901b3872f7b998042ff44e" title="XYZ offset (mm) applied to the pick position at picking time.">MatchPatternConfig::m_pickingOffset</a>).  <br /></td></tr>
 <tr class="memitem:ac47b10c26fb348a8a812875cc154c289" id="r_ac47b10c26fb348a8a812875cc154c289"><td class="memItemLeft">cv::Point2f&#160;</td><td class="memItemRight"><a class="el" href="#ac47b10c26fb348a8a812875cc154c289">point_RB</a></td></tr>
 <tr class="memdesc:ac47b10c26fb348a8a812875cc154c289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bottom-right corner of the matched template footprint.  <br /></td></tr>
+<tr class="memitem:afdab853d257e78ead4a4aedfb6e5b39c" id="r_afdab853d257e78ead4a4aedfb6e5b39c"><td class="memItemLeft">cv::Point3f&#160;</td><td class="memItemRight"><a class="el" href="#afdab853d257e78ead4a4aedfb6e5b39c">point_rotation_offset</a></td></tr>
+<tr class="memdesc:afdab853d257e78ead4a4aedfb6e5b39c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pick RX/RY/RZ offset (deg, TOOL frame) copied from <a class="el" href="structmtc_1_1_match_pattern_config.html#a7dd0b3d4bb300f1e99d0dcbba74adf1a" title="RX/RY/RZ rotation offset (deg) applied in the TOOL frame at picking time.">MatchPatternConfig::m_pickingRotationOffset</a>.  <br /></td></tr>
 <tr class="memitem:adcc1f8f9abf9b1a262a4049ac5f82a2b" id="r_adcc1f8f9abf9b1a262a4049ac5f82a2b"><td class="memItemLeft">cv::Point2f&#160;</td><td class="memItemRight"><a class="el" href="#adcc1f8f9abf9b1a262a4049ac5f82a2b">point_RT</a></td></tr>
 <tr class="memdesc:adcc1f8f9abf9b1a262a4049ac5f82a2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top-right corner of the matched template footprint.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -297,7 +299,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00052">52</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00395">m_hasCollision</a>, <a class="el" href="match__object_8h_source.html#l00397">m_isOutsideConditionRoi</a>, <a class="el" href="match__object_8h_source.html#l00392">m_parent</a>, <a class="el" href="match__object_8h_source.html#l00385">matched_Angle</a>, <a class="el" href="match__object_8h_source.html#l00386">matched_Score</a>, <a class="el" href="match__object_8h_source.html#l00388">pattern_index</a>, and <a class="el" href="match__object_8h_source.html#l00387">pattern_name</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00396">m_hasCollision</a>, <a class="el" href="match__object_8h_source.html#l00398">m_isOutsideConditionRoi</a>, <a class="el" href="match__object_8h_source.html#l00393">m_parent</a>, <a class="el" href="match__object_8h_source.html#l00386">matched_Angle</a>, <a class="el" href="match__object_8h_source.html#l00387">matched_Score</a>, <a class="el" href="match__object_8h_source.html#l00389">pattern_index</a>, and <a class="el" href="match__object_8h_source.html#l00388">pattern_name</a>.</p>
 
 </div>
 </div>
@@ -341,7 +343,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00161">161</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00393">m_collisionGeometry</a>, and <a class="el" href="match__object_8h_source.html#l00395">m_hasCollision</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00394">m_collisionGeometry</a>, and <a class="el" href="match__object_8h_source.html#l00396">m_hasCollision</a>.</p>
 
 </div>
 </div>
@@ -381,7 +383,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00198">198</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00048">Collision</a>, <a class="el" href="match__object_8h_source.html#l00301">fillJawInto()</a>, <a class="el" href="match__object_8h_source.html#l00048">Inside</a>, <a class="el" href="match__object_8h_source.html#l00393">m_collisionGeometry</a>, <a class="el" href="match__object_8h_source.html#l00394">m_collisionState</a>, <a class="el" href="match__object_8h_source.html#l00395">m_hasCollision</a>, and <a class="el" href="match__object_8h_source.html#l00048">Outside</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00048">Collision</a>, <a class="el" href="match__object_8h_source.html#l00301">fillJawInto()</a>, <a class="el" href="match__object_8h_source.html#l00048">Inside</a>, <a class="el" href="match__object_8h_source.html#l00394">m_collisionGeometry</a>, <a class="el" href="match__object_8h_source.html#l00395">m_collisionState</a>, <a class="el" href="match__object_8h_source.html#l00396">m_hasCollision</a>, and <a class="el" href="match__object_8h_source.html#l00048">Outside</a>.</p>
 
 </div>
 </div>
@@ -412,7 +414,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00289">289</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00393">m_collisionGeometry</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00394">m_collisionGeometry</a>.</p>
 
 </div>
 </div>
@@ -443,7 +445,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00248">248</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00394">m_collisionState</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00395">m_collisionState</a>.</p>
 
 </div>
 </div>
@@ -478,11 +480,11 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Computes both gripper jaw boxes at <span class="tt">distance</span> from point_Center along the (point_angle + angle) direction, each sized <span class="tt">box_size</span> and oriented at (point_angle + angle); also fills their corner-point vectors. </p>
+<p>Computes both gripper jaw boxes at <span class="tt">distance</span> from point_Center along the angle direction, each sized <span class="tt">box_size</span> and oriented at angle; also fills their corner-point vectors. </p>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00143">143</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00393">m_collisionGeometry</a>, <a class="el" href="match__object_8h_source.html#l00384">point_angle</a>, and <a class="el" href="match__object_8h_source.html#l00381">point_Center</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00394">m_collisionGeometry</a>, and <a class="el" href="match__object_8h_source.html#l00381">point_Center</a>.</p>
 
 </div>
 </div>
@@ -513,9 +515,9 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00085">85</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00385">matched_Angle</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00386">matched_Angle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
 </div>
 </div>
@@ -545,9 +547,9 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00097">97</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00385">matched_Angle</a>, and <a class="el" href="match__object_8h_source.html#l00384">point_angle</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00386">matched_Angle</a>, and <a class="el" href="match__object_8h_source.html#l00385">point_angle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
 </div>
 </div>
@@ -581,7 +583,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00128">128</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00389">image</a>, and <a class="el" href="match__object_8h_source.html#l00393">m_collisionGeometry</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00390">image</a>, and <a class="el" href="match__object_8h_source.html#l00394">m_collisionGeometry</a>.</p>
 
 </div>
 </div>
@@ -620,7 +622,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00318">318</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00389">image</a>, <a class="el" href="match__object_8h_source.html#l00385">matched_Angle</a>, <a class="el" href="match__object_8h_source.html#l00379">point_LB</a>, <a class="el" href="match__object_8h_source.html#l00377">point_LT</a>, <a class="el" href="match__object_8h_source.html#l00380">point_RB</a>, and <a class="el" href="match__object_8h_source.html#l00378">point_RT</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00390">image</a>, <a class="el" href="match__object_8h_source.html#l00386">matched_Angle</a>, <a class="el" href="match__object_8h_source.html#l00379">point_LB</a>, <a class="el" href="match__object_8h_source.html#l00377">point_LT</a>, <a class="el" href="match__object_8h_source.html#l00380">point_RB</a>, and <a class="el" href="match__object_8h_source.html#l00378">point_RT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00120">drawMaskPatternIntoImage()</a>, and <a class="el" href="match__object_8h_source.html#l00110">fillObjectIntoImage()</a>.</p>
 
@@ -652,7 +654,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00120">120</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="match__object_8h_source.html#l00389">image</a>, and <a class="el" href="match__object_8h_source.html#l00392">m_parent</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="match__object_8h_source.html#l00390">image</a>, and <a class="el" href="match__object_8h_source.html#l00393">m_parent</a>.</p>
 
 </div>
 </div>
@@ -739,7 +741,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00110">110</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="match__object_8h_source.html#l00389">image</a>, and <a class="el" href="match__object_8h_source.html#l00392">m_parent</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="match__object_8h_source.html#l00390">image</a>, and <a class="el" href="match__object_8h_source.html#l00393">m_parent</a>.</p>
 
 </div>
 </div>
@@ -769,9 +771,9 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00254">254</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00395">m_hasCollision</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00396">m_hasCollision</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00429">mtc::anonymous_namespace{image_matcher.cpp}::pickPriority()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00437">mtc::anonymous_namespace{image_matcher.cpp}::pickPriority()</a>.</p>
 
 </div>
 </div>
@@ -801,9 +803,9 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00273">273</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00397">m_isOutsideConditionRoi</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00398">m_isOutsideConditionRoi</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00429">mtc::anonymous_namespace{image_matcher.cpp}::pickPriority()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00437">mtc::anonymous_namespace{image_matcher.cpp}::pickPriority()</a>.</p>
 
 </div>
 </div>
@@ -829,11 +831,11 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns whether the robot was determined able to pick this object (see <a class="el" href="classmtc_1_1_image_matcher.html#a5b24181e2c6b1f22406f89870c508ad4">ImageMatcher::robotPossiblePickingCheck</a>). </p>
+<p>Returns whether the robot was determined able to pick this object (see <a class="el" href="classmtc_1_1_image_matcher.html#a218d80f4f1a836b296e7099312c78635" title="Whether the robot can actually pick this matched object. Sequential steps:">ImageMatcher::robotPossiblePickingCheck</a>). </p>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00279">279</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00396">m_isPossibleToPicking</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00397">m_isPossibleToPicking</a>.</p>
 
 </div>
 </div>
@@ -867,7 +869,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00261">261</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00397">m_isOutsideConditionRoi</a>, and <a class="el" href="match__object_8h_source.html#l00381">point_Center</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00398">m_isOutsideConditionRoi</a>, and <a class="el" href="match__object_8h_source.html#l00381">point_Center</a>.</p>
 
 </div>
 </div>
@@ -897,7 +899,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00070">70</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00392">m_parent</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00393">m_parent</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00064">setParent()</a>.</p>
 
@@ -930,9 +932,9 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00064">64</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00392">m_parent</a>, and <a class="el" href="match__object_8h_source.html#l00070">parent()</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00393">m_parent</a>, and <a class="el" href="match__object_8h_source.html#l00070">parent()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
 </div>
 </div>
@@ -963,7 +965,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00284">284</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">References <a class="el" href="match__object_8h_source.html#l00396">m_isPossibleToPicking</a>.</p>
+<p class="reference">References <a class="el" href="match__object_8h_source.html#l00397">m_isPossibleToPicking</a>.</p>
 
 </div>
 </div>
@@ -1037,7 +1039,7 @@ Friends</h2></td></tr>
 
 <p>Unused/reserved image slot (not populated by the matching pipeline). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00389">389</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00390">390</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00128">drawCollisionGeometryToImage()</a>, <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="match__object_8h_source.html#l00120">drawMaskPatternIntoImage()</a>, and <a class="el" href="match__object_8h_source.html#l00110">fillObjectIntoImage()</a>.</p>
 
@@ -1065,7 +1067,7 @@ Friends</h2></td></tr>
 
 <p>Computed gripper jaw geometry (see computeCollisionGeometry). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00393">393</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00394">394</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00161">checkCollisionObject()</a>, <a class="el" href="match__object_8h_source.html#l00198">checkCollisionObject2()</a>, <a class="el" href="match__object_8h_source.html#l00289">collisionGeometry()</a>, <a class="el" href="match__object_8h_source.html#l00143">computeCollisionGeometry()</a>, and <a class="el" href="match__object_8h_source.html#l00128">drawCollisionGeometryToImage()</a>.</p>
 
@@ -1093,7 +1095,7 @@ Friends</h2></td></tr>
 
 <p>Result of the last checkCollisionObject2 call. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00394">394</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00395">395</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00198">checkCollisionObject2()</a>, and <a class="el" href="match__object_8h_source.html#l00248">collisionState()</a>.</p>
 
@@ -1121,7 +1123,7 @@ Friends</h2></td></tr>
 
 <p>Result of the last collision check. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00395">395</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00396">396</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00161">checkCollisionObject()</a>, <a class="el" href="match__object_8h_source.html#l00198">checkCollisionObject2()</a>, <a class="el" href="match__object_8h_source.html#l00254">hasCollision()</a>, and <a class="el" href="match__object_8h_source.html#l00052">MatchedObject()</a>.</p>
 
@@ -1149,7 +1151,7 @@ Friends</h2></td></tr>
 
 <p>Result of the last outSideConditionRoiCheck call. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00397">397</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00398">398</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00273">isOutsideConditionRoi()</a>, <a class="el" href="match__object_8h_source.html#l00052">MatchedObject()</a>, and <a class="el" href="match__object_8h_source.html#l00261">outSideConditionRoiCheck()</a>.</p>
 
@@ -1177,7 +1179,7 @@ Friends</h2></td></tr>
 
 <p>Robot-pickability state (see isPossibleToPick/setPossibleToPick). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00396">396</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00397">397</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00279">isPossibleToPick()</a>, and <a class="el" href="match__object_8h_source.html#l00284">setPossibleToPick()</a>.</p>
 
@@ -1205,7 +1207,7 @@ Friends</h2></td></tr>
 
 <p>Non-owning pointer to the pattern this object was matched against. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00392">392</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00393">393</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00120">drawMaskPatternIntoImage()</a>, <a class="el" href="match__object_8h_source.html#l00110">fillObjectIntoImage()</a>, <a class="el" href="match__object_8h_source.html#l00052">MatchedObject()</a>, <a class="el" href="match__object_8h_source.html#l00070">parent()</a>, and <a class="el" href="match__object_8h_source.html#l00064">setParent()</a>.</p>
 
@@ -1225,7 +1227,7 @@ Friends</h2></td></tr>
 
 <p>Raw rotation angle at which the template matched, wrapped into (-180, 180] (see computeMatchAngle). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00385">385</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00386">386</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00085">computeMatchAngle()</a>, <a class="el" href="match__object_8h_source.html#l00097">computePointAngle()</a>, <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, and <a class="el" href="match__object_8h_source.html#l00052">MatchedObject()</a>.</p>
 
@@ -1245,9 +1247,9 @@ Friends</h2></td></tr>
 
 <p>Edge-match score of this candidate. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00386">386</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00387">387</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>, <a class="el" href="match__object_8h_source.html#l00052">MatchedObject()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00455">mtc::ImageMatcher::sortMatchedObjects()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>, <a class="el" href="match__object_8h_source.html#l00052">MatchedObject()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l00463">mtc::ImageMatcher::sortMatchedObjects()</a>.</p>
 
 </div>
 </div>
@@ -1265,7 +1267,7 @@ Friends</h2></td></tr>
 
 <p>Number of the matched pattern, copied from its config at match time. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00388">388</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00389">389</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00052">MatchedObject()</a>.</p>
 
@@ -1285,7 +1287,7 @@ Friends</h2></td></tr>
 
 <p>Name of the matched pattern, copied from its config at match time. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00387">387</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00388">388</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00052">MatchedObject()</a>.</p>
 
@@ -1305,7 +1307,7 @@ Friends</h2></td></tr>
 
 <p>Oriented picking-box rect, sized/positioned from the pattern's picking-box config. </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00383">383</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00384">384</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
 </div>
 </div>
@@ -1323,9 +1325,9 @@ Friends</h2></td></tr>
 
 <p>Absolute pick angle: matched_Angle plus the pattern's learned reference angle (see computePointAngle). </p>
 
-<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00384">384</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00385">385</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00143">computeCollisionGeometry()</a>, <a class="el" href="match__object_8h_source.html#l00097">computePointAngle()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01257">mtc::ImageMatcher::robotPossiblePickingCheck()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00097">computePointAngle()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01259">mtc::ImageMatcher::robotPossiblePickingCheck()</a>.</p>
 
 </div>
 </div>
@@ -1345,7 +1347,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00381">381</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00143">computeCollisionGeometry()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>, <a class="el" href="match__object_8h_source.html#l00261">outSideConditionRoiCheck()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01257">mtc::ImageMatcher::robotPossiblePickingCheck()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00143">computeCollisionGeometry()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>, <a class="el" href="match__object_8h_source.html#l00261">outSideConditionRoiCheck()</a>, <a class="el" href="image__matcher_8cpp_source.html#l01259">mtc::ImageMatcher::robotPossiblePickingCheck()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
 
 </div>
 </div>
@@ -1365,7 +1367,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00379">379</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
 
 </div>
 </div>
@@ -1385,7 +1387,7 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00377">377</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
 
 </div>
 </div>
@@ -1401,11 +1403,11 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pick offset copied from the pattern's config (<a class="el" href="structmtc_1_1_match_pattern_config.html#af436151c30901b3872f7b998042ff44e" title="XYZ offset applied to the pick position at picking time.">MatchPatternConfig::m_pickingOffset</a>). </p>
+<p>Pick XYZ offset (mm) copied from the pattern's config (<a class="el" href="structmtc_1_1_match_pattern_config.html#af436151c30901b3872f7b998042ff44e" title="XYZ offset (mm) applied to the pick position at picking time.">MatchPatternConfig::m_pickingOffset</a>). </p>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00382">382</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
 </div>
 </div>
@@ -1425,7 +1427,27 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00380">380</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
+
+</div>
+</div>
+<a id="afdab853d257e78ead4a4aedfb6e5b39c" name="afdab853d257e78ead4a4aedfb6e5b39c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdab853d257e78ead4a4aedfb6e5b39c">&#9670;&#160;</a></span>point_rotation_offset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cv::Point3f mtc::MatchedObject::point_rotation_offset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pick RX/RY/RZ offset (deg, TOOL frame) copied from <a class="el" href="structmtc_1_1_match_pattern_config.html#a7dd0b3d4bb300f1e99d0dcbba74adf1a" title="RX/RY/RZ rotation offset (deg) applied in the TOOL frame at picking time.">MatchPatternConfig::m_pickingRotationOffset</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00383">383</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>.</p>
 
 </div>
 </div>
@@ -1445,12 +1467,12 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="match__object_8h_source.html#l00378">378</a> of file <a class="el" href="match__object_8h_source.html">match_object.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00492">mtc::ImageMatcher::MatchEdge()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="match__object_8h_source.html#l00318">drawMaskIntoImage()</a>, <a class="el" href="image__matcher_8cpp_source.html#l00500">mtc::ImageMatcher::MatchEdge()</a>, and <a class="el" href="match__object_8h_source.html#l00076">translateByTopLeft()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="match__object_8h_source.html">match_object.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="match__object_8h_source.html">match_object.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

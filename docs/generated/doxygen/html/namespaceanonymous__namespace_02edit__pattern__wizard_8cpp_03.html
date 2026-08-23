@@ -126,6 +126,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:aafd77e0f713607728e5131a249aa8711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a small-caps-style uppercase section label (e.g. "PATTERN NAME") used above input fields.  <br /></td></tr>
 <tr class="memitem:a45cc7513c8e050ca321e6835be58f16b" id="r_a45cc7513c8e050ca321e6835be58f16b"><td class="memItemLeft">QFrame *&#160;</td><td class="memItemRight"><a class="el" href="#a45cc7513c8e050ca321e6835be58f16b">makeHSeparator</a> ()</td></tr>
 <tr class="memdesc:a45cc7513c8e050ca321e6835be58f16b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a thin 1px-tall horizontal divider line styled with the theme's border color.  <br /></td></tr>
+<tr class="memitem:af5f5ef14f41b6e6d3beb615d16c87f76" id="r_af5f5ef14f41b6e6d3beb615d16c87f76"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#af5f5ef14f41b6e6d3beb615d16c87f76">stepSublines</a> ()</td></tr>
+<tr class="memdesc:af5f5ef14f41b6e6d3beb615d16c87f76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-step rail sublines; index-aligned with <a class="el" href="#a3968ba8a876623ce352dbe6842dec737" title="Per-step rail titles; index-aligned with STEP_* above.">stepTitles()</a>.  <br /></td></tr>
+<tr class="memitem:a3968ba8a876623ce352dbe6842dec737" id="r_a3968ba8a876623ce352dbe6842dec737"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="#a3968ba8a876623ce352dbe6842dec737">stepTitles</a> ()</td></tr>
+<tr class="memdesc:a3968ba8a876623ce352dbe6842dec737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-step rail titles; index-aligned with STEP_* above.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -137,6 +141,15 @@ Variables</h2></td></tr>
 <tr class="memdesc:a696dd31091f64abe120ebc0d4752ffbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed dialog height, in pixels.  <br /></td></tr>
 <tr class="memitem:a7f7e48e5086358b7c767c99576273053" id="r_a7f7e48e5086358b7c767c99576273053"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7f7e48e5086358b7c767c99576273053">DIALOG_W</a> = 920</td></tr>
 <tr class="memdesc:a7f7e48e5086358b7c767c99576273053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed dialog width, in pixels.  <br /></td></tr>
+<tr class="memitem:a818b7ea95e1b2ab2f029a71990fa1c90" id="r_a818b7ea95e1b2ab2f029a71990fa1c90"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a818b7ea95e1b2ab2f029a71990fa1c90">STEP_BOX</a> = 2</td></tr>
+<tr class="memitem:a660f75f7d202c6dd97d55599e8b9460d" id="r_a660f75f7d202c6dd97d55599e8b9460d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a660f75f7d202c6dd97d55599e8b9460d">STEP_COUNT</a> = 5</td></tr>
+<tr class="memdesc:a660f75f7d202c6dd97d55599e8b9460d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of wizard steps; the rail, navigation bounds and subtitle all derive from this.  <br /></td></tr>
+<tr class="memitem:ac3608caf6b00b72067e4cf988ce6f8a2" id="r_ac3608caf6b00b72067e4cf988ce6f8a2"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#ac3608caf6b00b72067e4cf988ce6f8a2">STEP_FINISH</a> = 4</td></tr>
+<tr class="memitem:a7d1a2cccd7df094ac5c104cc2a3b4ade" id="r_a7d1a2cccd7df094ac5c104cc2a3b4ade"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a7d1a2cccd7df094ac5c104cc2a3b4ade">STEP_IDENTITY</a> = 0</td></tr>
+<tr class="memdesc:a7d1a2cccd7df094ac5c104cc2a3b4ade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero-based page indices, so the navigation reads by name rather than by number.  <br /></td></tr>
+<tr class="memitem:a1833e457b29a43a694055cae04dd75de" id="r_a1833e457b29a43a694055cae04dd75de"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a1833e457b29a43a694055cae04dd75de">STEP_LAST</a> = <a class="el" href="#a660f75f7d202c6dd97d55599e8b9460d">STEP_COUNT</a> - 1</td></tr>
+<tr class="memitem:adc717f3a3b24cd5c5445bb6a166bbb5b" id="r_adc717f3a3b24cd5c5445bb6a166bbb5b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#adc717f3a3b24cd5c5445bb6a166bbb5b">STEP_OFFSET</a> = 3</td></tr>
+<tr class="memitem:a64d90023dd43d406ffcf5e14e5ef806b" id="r_a64d90023dd43d406ffcf5e14e5ef806b"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a64d90023dd43d406ffcf5e14e5ef806b">STEP_PICK</a> = 1</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aafd77e0f713607728e5131a249aa8711" name="aafd77e0f713607728e5131a249aa8711"></a>
@@ -156,7 +169,7 @@ Variables</h2></td></tr>
 
 <p>Creates a small-caps-style uppercase section label (e.g. "PATTERN NAME") used above input fields. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00024">24</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00052">52</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
@@ -179,9 +192,51 @@ Variables</h2></td></tr>
 
 <p>Creates a thin 1px-tall horizontal divider line styled with the theme's border color. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00034">34</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00062">62</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>.</p>
+
+</div>
+</div>
+<a id="af5f5ef14f41b6e6d3beb615d16c87f76" name="af5f5ef14f41b6e6d3beb615d16c87f76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5f5ef14f41b6e6d3beb615d16c87f76">&#9670;&#160;</a></span>stepSublines()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList anonymous_namespace{edit_pattern_wizard.cpp}::stepSublines </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Per-step rail sublines; index-aligned with <a class="el" href="#a3968ba8a876623ce352dbe6842dec737" title="Per-step rail titles; index-aligned with STEP_* above.">stepTitles()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00043">43</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3968ba8a876623ce352dbe6842dec737" name="a3968ba8a876623ce352dbe6842dec737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3968ba8a876623ce352dbe6842dec737">&#9670;&#160;</a></span>stepTitles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QStringList anonymous_namespace{edit_pattern_wizard.cpp}::stepTitles </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Per-step rail titles; index-aligned with STEP_* above. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00037">37</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 </div>
 </div>
@@ -208,7 +263,7 @@ Variables</h2></td></tr>
 
 <p>Default/minimum height of the image canvas, in pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00019">19</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00021">21</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 </div>
 </div>
@@ -234,7 +289,7 @@ Variables</h2></td></tr>
 
 <p>Default/minimum width of the image canvas, in pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00018">18</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00020">20</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 </div>
 </div>
@@ -260,7 +315,7 @@ Variables</h2></td></tr>
 
 <p>Fixed dialog height, in pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00021">21</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00023">23</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 </div>
 </div>
@@ -286,7 +341,179 @@ Variables</h2></td></tr>
 
 <p>Fixed dialog width, in pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00020">20</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00022">22</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a818b7ea95e1b2ab2f029a71990fa1c90" name="a818b7ea95e1b2ab2f029a71990fa1c90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a818b7ea95e1b2ab2f029a71990fa1c90">&#9670;&#160;</a></span>STEP_BOX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anonymous_namespace{edit_pattern_wizard.cpp}::STEP_BOX = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00032">32</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a660f75f7d202c6dd97d55599e8b9460d" name="a660f75f7d202c6dd97d55599e8b9460d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a660f75f7d202c6dd97d55599e8b9460d">&#9670;&#160;</a></span>STEP_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anonymous_namespace{edit_pattern_wizard.cpp}::STEP_COUNT = 5</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of wizard steps; the rail, navigation bounds and subtitle all derive from this. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00026">26</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac3608caf6b00b72067e4cf988ce6f8a2" name="ac3608caf6b00b72067e4cf988ce6f8a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3608caf6b00b72067e4cf988ce6f8a2">&#9670;&#160;</a></span>STEP_FINISH</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anonymous_namespace{edit_pattern_wizard.cpp}::STEP_FINISH = 4</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00034">34</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d1a2cccd7df094ac5c104cc2a3b4ade" name="a7d1a2cccd7df094ac5c104cc2a3b4ade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d1a2cccd7df094ac5c104cc2a3b4ade">&#9670;&#160;</a></span>STEP_IDENTITY</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anonymous_namespace{edit_pattern_wizard.cpp}::STEP_IDENTITY = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zero-based page indices, so the navigation reads by name rather than by number. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00030">30</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1833e457b29a43a694055cae04dd75de" name="a1833e457b29a43a694055cae04dd75de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1833e457b29a43a694055cae04dd75de">&#9670;&#160;</a></span>STEP_LAST</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anonymous_namespace{edit_pattern_wizard.cpp}::STEP_LAST = <a class="el" href="#a660f75f7d202c6dd97d55599e8b9460d">STEP_COUNT</a> - 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00027">27</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adc717f3a3b24cd5c5445bb6a166bbb5b" name="adc717f3a3b24cd5c5445bb6a166bbb5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc717f3a3b24cd5c5445bb6a166bbb5b">&#9670;&#160;</a></span>STEP_OFFSET</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anonymous_namespace{edit_pattern_wizard.cpp}::STEP_OFFSET = 3</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00033">33</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a64d90023dd43d406ffcf5e14e5ef806b" name="a64d90023dd43d406ffcf5e14e5ef806b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64d90023dd43d406ffcf5e14e5ef806b">&#9670;&#160;</a></span>STEP_PICK</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int anonymous_namespace{edit_pattern_wizard.cpp}::STEP_PICK = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00031">31</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 </div>
 </div>

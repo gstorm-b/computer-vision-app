@@ -32,5 +32,6 @@ var classmtc_1_1_pattern_group_manager =
     [ "sortPatternsByNumber", "classmtc_1_1_pattern_group_manager.html#a2c38e2efaaf369098e24b61a4c1d786e", null ],
     [ "toJson", "classmtc_1_1_pattern_group_manager.html#a38c174059ba7974c8504d686e853294e", null ],
     [ "validateGroupConfig", "classmtc_1_1_pattern_group_manager.html#a8b8af64e3a4d0077ae29a845b6f44e28", null ],
+    [ "kSchemaVersion", "classmtc_1_1_pattern_group_manager.html#a411e04d070b61592097a5b6a5c9b4774", null ],
     [ "m_groups", "classmtc_1_1_pattern_group_manager.html#a34df5438e6a495aa9229181ed7212098", null ]
 ];

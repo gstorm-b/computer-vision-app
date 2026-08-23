@@ -127,12 +127,12 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_app_sett
 <div class="dynheader">
 Inheritance diagram for AppSettings:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_app_settings__inherit__graph.svg" width="183" height="582"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_app_settings__inherit__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for AppSettings:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_app_settings__coll__graph.svg" width="282" height="562"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="class_app_settings__coll__graph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
@@ -148,12 +148,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acd16c82f21a964883853b0d1fbcc5902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last folder path used in a generic folder-browse dialog.  <br /></td></tr>
 <tr class="memitem:a30c39913f156cae47d41f0d9eb597be5" id="r_a30c39913f156cae47d41f0d9eb597be5"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a30c39913f156cae47d41f0d9eb597be5">lastImageAccessDir</a> () const</td></tr>
 <tr class="memdesc:a30c39913f156cae47d41f0d9eb597be5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the last folder path used in an image-file dialog.  <br /></td></tr>
+<tr class="memitem:ad604cdd8d3be9f5219e30764b9520fa7" id="r_ad604cdd8d3be9f5219e30764b9520fa7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ad604cdd8d3be9f5219e30764b9520fa7">lastRuntimeProjectPath</a> () const</td></tr>
+<tr class="memdesc:ad604cdd8d3be9f5219e30764b9520fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the project file the operator runtime shell last ran successfully.  <br /></td></tr>
 <tr class="memitem:a1ff6c25e804a28b6c5e346c1da32c8c4" id="r_a1ff6c25e804a28b6c5e346c1da32c8c4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1ff6c25e804a28b6c5e346c1da32c8c4">setLanguage</a> (const QString &amp;localeCode)</td></tr>
 <tr class="memdesc:a1ff6c25e804a28b6c5e346c1da32c8c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Persists <span class="tt">localeCode</span> as the current UI language (via <a class="el" href="#a10c97faf62f3492700422473b6eec62f" title="Generic setter: stores val under key, persists to disk, and emits settingChanged() — but only when va...">setValue()</a>); no-op if unchanged.  <br /></td></tr>
 <tr class="memitem:a21731c510c17f32a6fbd7c5bbd278794" id="r_a21731c510c17f32a6fbd7c5bbd278794"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a21731c510c17f32a6fbd7c5bbd278794">setLastFolderAccessDir</a> (const QString &amp;dir)</td></tr>
 <tr class="memdesc:a21731c510c17f32a6fbd7c5bbd278794"><td class="mdescLeft">&#160;</td><td class="mdescRight">Persists <span class="tt">dir</span> as the last folder-browse-dialog path (via <a class="el" href="#a10c97faf62f3492700422473b6eec62f" title="Generic setter: stores val under key, persists to disk, and emits settingChanged() — but only when va...">setValue()</a>); no-op if unchanged.  <br /></td></tr>
 <tr class="memitem:ac0e48afd07937fcd9252f053b1be5431" id="r_ac0e48afd07937fcd9252f053b1be5431"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac0e48afd07937fcd9252f053b1be5431">setLastImageAccessDir</a> (const QString &amp;dir)</td></tr>
 <tr class="memdesc:ac0e48afd07937fcd9252f053b1be5431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Persists <span class="tt">dir</span> as the last image-file-dialog path (via <a class="el" href="#a10c97faf62f3492700422473b6eec62f" title="Generic setter: stores val under key, persists to disk, and emits settingChanged() — but only when va...">setValue()</a>); no-op if unchanged.  <br /></td></tr>
+<tr class="memitem:a1b3ab36a344e49e5bf1792a4c74bb371" id="r_a1b3ab36a344e49e5bf1792a4c74bb371"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1b3ab36a344e49e5bf1792a4c74bb371">setLastRuntimeProjectPath</a> (const QString &amp;path)</td></tr>
 <tr class="memitem:a8ebb024efc664259ddb12a628750b73e" id="r_a8ebb024efc664259ddb12a628750b73e"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8ebb024efc664259ddb12a628750b73e">setTheme</a> (const QString &amp;styleId)</td></tr>
 <tr class="memdesc:a8ebb024efc664259ddb12a628750b73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Persists <span class="tt">styleId</span> as the current theme (via <a class="el" href="#a10c97faf62f3492700422473b6eec62f" title="Generic setter: stores val under key, persists to disk, and emits settingChanged() — but only when va...">setValue()</a>); no-op if unchanged.  <br /></td></tr>
 <tr class="memitem:a10c97faf62f3492700422473b6eec62f" id="r_a10c97faf62f3492700422473b6eec62f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a10c97faf62f3492700422473b6eec62f">setValue</a> (const QString &amp;key, const QVariant &amp;val)</td></tr>
@@ -165,8 +168,16 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ade4e18afa169c4050b47003f2ca37acb" id="r_ade4e18afa169c4050b47003f2ca37acb"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#ade4e18afa169c4050b47003f2ca37acb">filePath</a> ()</td></tr>
+<tr class="memdesc:ade4e18afa169c4050b47003f2ca37acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the absolute path to the shared settings file.  <br /></td></tr>
 <tr class="memitem:aef178cc4ead6d20fb33931ed61f279ee" id="r_aef178cc4ead6d20fb33931ed61f279ee"><td class="memItemLeft">static <a class="el" href="class_app_settings.html">AppSettings</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aef178cc4ead6d20fb33931ed61f279ee">instance</a> ()</td></tr>
 <tr class="memdesc:aef178cc4ead6d20fb33931ed61f279ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the process-wide singleton, lazily constructing it (parented to qApp) on first call.  <br /></td></tr>
+<tr class="memitem:a00b5c21758e7e86d24f5e6030df2f659" id="r_a00b5c21758e7e86d24f5e6030df2f659"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#a00b5c21758e7e86d24f5e6030df2f659">legacyFilePath</a> ()</td></tr>
+<tr class="memdesc:a00b5c21758e7e86d24f5e6030df2f659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pre-Phase-7 application-scoped path for the current executable.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:abebbc15566b061c5f5a27c9811f6a214" id="r_abebbc15566b061c5f5a27c9811f6a214"><td class="memItemLeft">static constexpr char&#160;</td><td class="memItemRight"><a class="el" href="#abebbc15566b061c5f5a27c9811f6a214">kProductFolder</a> [] = &quot;NCRN Pick&quot;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -180,7 +191,6 @@ Static Private Member Functions</h2></td></tr>
 <tr class="memdesc:a4345dcac2286f28bb6422e187f9030f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates <span class="tt">raw</span> against the file format (magic, size, SHA-256 of the de-obfuscated payload) and, on success, decodes the CBOR payload into <span class="tt">out</span>.  <br /></td></tr>
 <tr class="memitem:aff0d4efcf1f0aba8f79851bd7ca8e6fd" id="r_aff0d4efcf1f0aba8f79851bd7ca8e6fd"><td class="memItemLeft">static QByteArray&#160;</td><td class="memItemRight"><a class="el" href="#aff0d4efcf1f0aba8f79851bd7ca8e6fd">encode</a> (const QVariantMap &amp;map)</td></tr>
 <tr class="memdesc:aff0d4efcf1f0aba8f79851bd7ca8e6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encodes <span class="tt">map</span> as CBOR, hashes it (SHA-256), XOR-obfuscates the CBOR bytes, and prepends the magic/version/hash header described in the class comment.  <br /></td></tr>
-<tr class="memitem:ade4e18afa169c4050b47003f2ca37acb" id="r_ade4e18afa169c4050b47003f2ca37acb"><td class="memItemLeft">static QString&#160;</td><td class="memItemRight"><a class="el" href="#ade4e18afa169c4050b47003f2ca37acb">filePath</a> ()</td></tr>
 <tr class="memitem:aa700d60b5dddc67a6f99cc0d987f8c06" id="r_aa700d60b5dddc67a6f99cc0d987f8c06"><td class="memItemLeft">static QByteArray&#160;</td><td class="memItemRight"><a class="el" href="#aa700d60b5dddc67a6f99cc0d987f8c06">obfuscate</a> (const QByteArray &amp;data)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-attribs" class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -196,7 +206,7 @@ Static Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS app-data directory. The payload is XOR-obfuscated with a compile-time key and protected by a SHA-256 checksum; a failed check silently resets all values to their defaults. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8h_source.html#l00047">47</a> of file <a class="el" href="app__settings_8h_source.html">app_settings.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8h_source.html#l00050">50</a> of file <a class="el" href="app__settings_8h_source.html">app_settings.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a65d82cc8020033318a3ae1c28d244714" name="a65d82cc8020033318a3ae1c28d244714"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65d82cc8020033318a3ae1c28d244714">&#9670;&#160;</a></span>AppSettings()</h2>
@@ -225,7 +235,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00052">52</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00035">AppKey::Language</a>, <a class="el" href="app__settings_8cpp_source.html#l00137">load()</a>, <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>, and <a class="el" href="app__settings_8h_source.html#l00034">AppKey::Theme</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00040">AppKey::adminPasswordHash</a>, <a class="el" href="app__settings_8h_source.html#l00039">AppKey::adminPasswordSalt</a>, <a class="el" href="app__settings_8h_source.html#l00035">AppKey::Language</a>, <a class="el" href="app__settings_8h_source.html#l00038">AppKey::lastRuntimeProjectPath</a>, <a class="el" href="app__settings_8cpp_source.html#l00180">load()</a>, <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>, and <a class="el" href="app__settings_8h_source.html#l00034">AppKey::Theme</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00043">instance()</a>.</p>
 
@@ -270,11 +280,11 @@ Static Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true if the header, hash, and CBOR all validated; false otherwise (<span class="tt">out</span> left untouched)</dd></dl>
 <p>Parses and validates a settings file previously produced by <a class="el" href="#aff0d4efcf1f0aba8f79851bd7ca8e6fd" title="Encodes map as CBOR, hashes it (SHA-256), XOR-obfuscates the CBOR bytes, and prepends the magic/versi...">encode()</a>: checks the magic number, de-obfuscates the payload, verifies its SHA-256 against the stored hash, then CBOR-decodes it into <span class="tt">out</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00194">194</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00246">246</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00018">kHeaderSize</a>, <a class="el" href="app__settings_8cpp_source.html#l00016">kMagic</a>, and <a class="el" href="app__settings_8cpp_source.html#l00221">obfuscate()</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00018">kHeaderSize</a>, <a class="el" href="app__settings_8cpp_source.html#l00016">kMagic</a>, and <a class="el" href="app__settings_8cpp_source.html#l00273">obfuscate()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00137">load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00180">load()</a>.</p>
 
 </div>
 </div>
@@ -311,11 +321,11 @@ Static Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>the full on-disk byte layout (header + obfuscated payload)</dd></dl>
 <p>Serializes <span class="tt">map</span> to the on-disk settings format: CBOR-encodes it, computes a SHA-256 of the plain CBOR payload, then prepends the magic/version/hash header to the XOR-obfuscated CBOR bytes (see the file-format layout documented on <a class="el" href="class_app_settings.html" title="Singleton that persists application-wide preferences to a binary, integrity-checked file in the OS ap...">AppSettings</a> in <a class="el" href="app__settings_8h.html" title="AppSettings — singleton that persists application-wide preferences to a binary, integrity-checked fil...">app_settings.h</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00169">169</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00221">221</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00018">kHeaderSize</a>, <a class="el" href="app__settings_8cpp_source.html#l00016">kMagic</a>, <a class="el" href="app__settings_8cpp_source.html#l00017">kVersion</a>, and <a class="el" href="app__settings_8cpp_source.html#l00221">obfuscate()</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00018">kHeaderSize</a>, <a class="el" href="app__settings_8cpp_source.html#l00016">kMagic</a>, <a class="el" href="app__settings_8cpp_source.html#l00017">kVersion</a>, and <a class="el" href="app__settings_8cpp_source.html#l00273">obfuscate()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00152">save()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00204">save()</a>.</p>
 
 </div>
 </div>
@@ -337,16 +347,23 @@ Static Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel private">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Returns the absolute path to the settings file ("settings.dat" under this application's OS app-data location).</p>
-<p>Returns the absolute path of the settings file ("settings.dat" in the OS application-data directory for this app). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00129">129</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p>Returns the absolute path to the shared settings file. </p>
+<p>"settings.dat" under a product-scoped folder. <b>Deliberately independent of QCoreApplication::applicationName()</b> — the commissioning shell and the operator runtime set different application names, and deriving the path from one gave them a settings file each, so a theme or language chosen in one was invisible to the other.</p>
+<p>Public so the architecture contract test can assert that property directly: changing the application name must not move this path.</p>
+<p>Returns the absolute path of the settings file: "settings.dat" under a PRODUCT-scoped folder in the OS application-data directory.</p>
+<p>Deliberately not derived from QCoreApplication::applicationName(). Doing so scopes the file to whichever shell wrote it, and the two shells set different application names — which is how the commissioning app and the operator runtime ended up with two separate settings files, so a theme or language chosen in one was invisible to the other (Phase 7 / A3). They are one product and they share one file.</p>
+<p>On Windows this resolves to the same APPDATA%\NCRN Pick\settings.dat the editor has always used, so existing settings are picked up with no migration. <a class="el" href="#a00b5c21758e7e86d24f5e6030df2f659" title="Returns the pre-Phase-7 application-scoped path for the current executable.">legacyFilePath()</a> covers the other direction. </p>
 
-<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00137">load()</a>, and <a class="el" href="app__settings_8cpp_source.html#l00152">save()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00158">158</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00148">kProductFolder</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00180">load()</a>, and <a class="el" href="app__settings_8cpp_source.html#l00204">save()</a>.</p>
 
 </div>
 </div>
@@ -378,9 +395,9 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00043">43</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00052">AppSettings()</a>, and <a class="el" href="app__settings_8h_source.html#l00136">s_instance</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00052">AppSettings()</a>, and <a class="el" href="app__settings_8h_source.html#l00143">s_instance</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00056">ThemeManager::applyStyle()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00116">MainWindow::handleCloseEvent()</a>, <a class="el" href="main_8cpp_source.html#l00027">main()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow::MainWindow()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00658">MainWindow::onLanguageAction()</a>, and <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager::ThemeManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00056">ThemeManager::applyStyle()</a>, <a class="el" href="runtime__shell__window_8cpp_source.html#l00087">RuntimeShellWindow::buildMenus()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00225">MainWindow::createToolBarActions()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00216">MainWindow::handleCloseEvent()</a>, <a class="el" href="settings__admin__credential__provider_8cpp_source.html#l00030">vc::auth::SettingsAdminCredentialProvider::isConfigured()</a>, <a class="el" href="app_2main_8cpp_source.html#l00036">main()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00141">MainWindow::MainWindow()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00771">MainWindow::onLanguageAction()</a>, <a class="el" href="runtime__shell__window_8cpp_source.html#l00170">RuntimeShellWindow::onLanguageActionTriggered()</a>, <a class="el" href="runtime__shell__window_8cpp_source.html#l00277">RuntimeShellWindow::onLoadProject()</a>, <a class="el" href="runtime__shell__window_8cpp_source.html#l00036">RuntimeShellWindow::RuntimeShellWindow()</a>, <a class="el" href="settings__admin__credential__provider_8cpp_source.html#l00069">vc::auth::SettingsAdminCredentialProvider::setPassword()</a>, <a class="el" href="runtime__shell__window_8cpp_source.html#l00377">RuntimeShellWindow::startProject()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00021">ThemeManager::ThemeManager()</a>, <a class="el" href="runtime__shell__window_8cpp_source.html#l00252">RuntimeShellWindow::tryStartRememberedProject()</a>, and <a class="el" href="settings__admin__credential__provider_8cpp_source.html#l00038">vc::auth::SettingsAdminCredentialProvider::verify()</a>.</p>
 
 </div>
 </div>
@@ -402,11 +419,11 @@ Static Private Attributes</h2></td></tr>
 <p>Returns the persisted UI locale code, defaulting to "en" if never set. </p>
 <p>Returns the current UI locale code (e.g. "en"); defaults to "en" until changed. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00071">71</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00079">79</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00035">AppKey::Language</a>, and <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00035">AppKey::Language</a>, and <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00125">MainWindow::createToolBarActions()</a>, and <a class="el" href="main_8cpp_source.html#l00027">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="runtime__shell__window_8cpp_source.html#l00087">RuntimeShellWindow::buildMenus()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00225">MainWindow::createToolBarActions()</a>, and <a class="el" href="app_2main_8cpp_source.html#l00036">main()</a>.</p>
 
 </div>
 </div>
@@ -428,11 +445,11 @@ Static Private Attributes</h2></td></tr>
 <p>Returns the last folder path used in a generic folder-browse dialog. </p>
 <p>Returns the last folder path the user browsed to in a folder-picker dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00076">76</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00084">84</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00036">AppKey::lastFolderAccessDir</a>, and <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00036">AppKey::lastFolderAccessDir</a>, and <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow::MainWindow()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00141">MainWindow::MainWindow()</a>.</p>
 
 </div>
 </div>
@@ -454,9 +471,68 @@ Static Private Attributes</h2></td></tr>
 <p>Returns the last folder path used in an image-file dialog. </p>
 <p>Returns the last folder path the user browsed to in an image-picker dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00081">81</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00089">89</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00037">AppKey::lastImageAccessDir</a>, and <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00037">AppKey::lastImageAccessDir</a>, and <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>.</p>
+
+</div>
+</div>
+<a id="ad604cdd8d3be9f5219e30764b9520fa7" name="ad604cdd8d3be9f5219e30764b9520fa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad604cdd8d3be9f5219e30764b9520fa7">&#9670;&#160;</a></span>lastRuntimeProjectPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString AppSettings::lastRuntimeProjectPath </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the project file the operator runtime shell last ran successfully. </p>
+<p>Returns the absolute path of the project file the operator runtime shell last ran successfully, or an empty string if it has never run one. Used by <span class="tt">ncr_runtime.exe</span> to skip the project-select page on startup. </p>
+
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00094">94</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00038">AppKey::lastRuntimeProjectPath</a>, and <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="runtime__shell__window_8cpp_source.html#l00277">RuntimeShellWindow::onLoadProject()</a>, <a class="el" href="runtime__shell__window_8cpp_source.html#l00036">RuntimeShellWindow::RuntimeShellWindow()</a>, and <a class="el" href="runtime__shell__window_8cpp_source.html#l00252">RuntimeShellWindow::tryStartRememberedProject()</a>.</p>
+
+</div>
+</div>
+<a id="a00b5c21758e7e86d24f5e6030df2f659" name="a00b5c21758e7e86d24f5e6030df2f659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00b5c21758e7e86d24f5e6030df2f659">&#9670;&#160;</a></span>legacyFilePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString AppSettings::legacyFilePath </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the pre-Phase-7 application-scoped path for the current executable. </p>
+<p>Where a shell whose application name differs from the product folder used to write. Read once as a fallback by <a class="el" href="#ae3bf80b2be511b9687de2d712ad4418a">load()</a> when the shared file is absent, so those settings survive the unification; never written to. Unlike <a class="el" href="#ade4e18afa169c4050b47003f2ca37acb" title="Returns the absolute path to the shared settings file.">filePath()</a>, this path <b>does</b> move with the application name — that is what makes it the legacy one.</p>
+<p>Returns the pre-Phase-7 application-scoped path for the CURRENT executable, which is where a shell whose application name differs from the product folder used to write. Read only as a fallback by <a class="el" href="#ae3bf80b2be511b9687de2d712ad4418a">load()</a>; nothing ever writes here again. </p>
+
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00167">167</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00180">load()</a>.</p>
 
 </div>
 </div>
@@ -483,11 +559,12 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Reads the settings file from disk, verifies it via <a class="el" href="#a4345dcac2286f28bb6422e187f9030f8" title="Validates raw against the file format (magic, size, SHA-256 of the de-obfuscated payload) and,...">decode()</a>, and merges recovered values over the compile-time defaults; leaves defaults untouched if the file is missing or fails validation.</p>
-<p>Reads and decodes the settings file at <a class="el" href="#ade4e18afa169c4050b47003f2ca37acb">filePath()</a>, merging decoded values on top of the current (default) m_data. Leaves m_data untouched (i.e. all defaults) if the file is missing, unreadable, or fails integrity/format checks in <a class="el" href="#a4345dcac2286f28bb6422e187f9030f8" title="Validates raw against the file format (magic, size, SHA-256 of the de-obfuscated payload) and,...">decode()</a>. </p>
+<p>Reads and decodes the settings file, merging decoded values on top of the current (default) m_data. Leaves m_data untouched (i.e. all defaults) if nothing is readable or the content fails the integrity/format checks in <a class="el" href="#a4345dcac2286f28bb6422e187f9030f8" title="Validates raw against the file format (magic, size, SHA-256 of the de-obfuscated payload) and,...">decode()</a>.</p>
+<p>Tries <a class="el" href="#ade4e18afa169c4050b47003f2ca37acb" title="Returns the absolute path to the shared settings file.">filePath()</a> first and <a class="el" href="#a00b5c21758e7e86d24f5e6030df2f659" title="Returns the pre-Phase-7 application-scoped path for the current executable.">legacyFilePath()</a> only if that produced nothing. A shell that used to write to its own application-scoped folder therefore keeps its settings on the first launch after the unification, and writes them back to the shared path on the next change. Both existing → the shared file wins; it is the one being maintained. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00137">137</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00180">180</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00194">decode()</a>, <a class="el" href="app__settings_8cpp_source.html#l00129">filePath()</a>, and <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00246">decode()</a>, <a class="el" href="app__settings_8cpp_source.html#l00158">filePath()</a>, <a class="el" href="app__settings_8cpp_source.html#l00167">legacyFilePath()</a>, and <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00052">AppSettings()</a>.</p>
 
@@ -518,11 +595,11 @@ Static Private Attributes</h2></td></tr>
 <p>XORs <span class="tt">data</span> with the compile-time obfuscation key byte-by-byte; symmetric, so calling it a second time reverses the obfuscation.</p>
 <p>XORs every byte of <span class="tt">data</span> against the repeating compile-time key kObfKey. Symmetric: calling this again on the result recovers the original bytes. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00221">221</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00273">273</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00024">kObfKey</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00194">decode()</a>, and <a class="el" href="app__settings_8cpp_source.html#l00169">encode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00246">decode()</a>, and <a class="el" href="app__settings_8cpp_source.html#l00221">encode()</a>.</p>
 
 </div>
 </div>
@@ -549,13 +626,13 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Serializes the current settings map via <a class="el" href="#aff0d4efcf1f0aba8f79851bd7ca8e6fd" title="Encodes map as CBOR, hashes it (SHA-256), XOR-obfuscates the CBOR bytes, and prepends the magic/versi...">encode()</a> and overwrites the settings file on disk, creating the containing directory first if needed.</p>
-<p>Encodes m_data and writes it (truncating any existing file) to <a class="el" href="#ade4e18afa169c4050b47003f2ca37acb">filePath()</a>, creating the parent directory first if needed. Silently does nothing if the file can't be opened. </p>
+<p>Encodes m_data and writes it (truncating any existing file) to <a class="el" href="#ade4e18afa169c4050b47003f2ca37acb" title="Returns the absolute path to the shared settings file.">filePath()</a>, creating the parent directory first if needed. Silently does nothing if the file can't be opened. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00152">152</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00204">204</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00169">encode()</a>, <a class="el" href="app__settings_8cpp_source.html#l00129">filePath()</a>, and <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00221">encode()</a>, <a class="el" href="app__settings_8cpp_source.html#l00158">filePath()</a>, and <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00116">setValue()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00135">setValue()</a>.</p>
 
 </div>
 </div>
@@ -577,11 +654,11 @@ Static Private Attributes</h2></td></tr>
 <p>Persists <span class="tt">localeCode</span> as the current UI language (via <a class="el" href="#a10c97faf62f3492700422473b6eec62f" title="Generic setter: stores val under key, persists to disk, and emits settingChanged() — but only when va...">setValue()</a>); no-op if unchanged. </p>
 <p>Sets the UI locale code and persists it (no-op if unchanged; see setValue). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00091">91</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00104">104</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00035">AppKey::Language</a>, and <a class="el" href="app__settings_8cpp_source.html#l00116">setValue()</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00035">AppKey::Language</a>, and <a class="el" href="app__settings_8cpp_source.html#l00135">setValue()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00658">MainWindow::onLanguageAction()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00771">MainWindow::onLanguageAction()</a>, and <a class="el" href="runtime__shell__window_8cpp_source.html#l00170">RuntimeShellWindow::onLanguageActionTriggered()</a>.</p>
 
 </div>
 </div>
@@ -603,11 +680,11 @@ Static Private Attributes</h2></td></tr>
 <p>Persists <span class="tt">dir</span> as the last folder-browse-dialog path (via <a class="el" href="#a10c97faf62f3492700422473b6eec62f" title="Generic setter: stores val under key, persists to disk, and emits settingChanged() — but only when va...">setValue()</a>); no-op if unchanged. </p>
 <p>Sets the last folder-picker access directory and persists it (no-op if unchanged; see setValue). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00096">96</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00109">109</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00036">AppKey::lastFolderAccessDir</a>, and <a class="el" href="app__settings_8cpp_source.html#l00116">setValue()</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00036">AppKey::lastFolderAccessDir</a>, and <a class="el" href="app__settings_8cpp_source.html#l00135">setValue()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00116">MainWindow::handleCloseEvent()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00216">MainWindow::handleCloseEvent()</a>.</p>
 
 </div>
 </div>
@@ -629,9 +706,34 @@ Static Private Attributes</h2></td></tr>
 <p>Persists <span class="tt">dir</span> as the last image-file-dialog path (via <a class="el" href="#a10c97faf62f3492700422473b6eec62f" title="Generic setter: stores val under key, persists to disk, and emits settingChanged() — but only when va...">setValue()</a>); no-op if unchanged. </p>
 <p>Sets the last image-picker access directory and persists it (no-op if unchanged; see setValue). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00101">101</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00114">114</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00037">AppKey::lastImageAccessDir</a>, and <a class="el" href="app__settings_8cpp_source.html#l00116">setValue()</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00037">AppKey::lastImageAccessDir</a>, and <a class="el" href="app__settings_8cpp_source.html#l00135">setValue()</a>.</p>
+
+</div>
+</div>
+<a id="a1b3ab36a344e49e5bf1792a4c74bb371" name="a1b3ab36a344e49e5bf1792a4c74bb371"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b3ab36a344e49e5bf1792a4c74bb371">&#9670;&#160;</a></span>setLastRuntimeProjectPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void AppSettings::setLastRuntimeProjectPath </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Persists <span class="tt">path</span> as the project the operator runtime shell last ran successfully. Written only after a load succeeds, so a corrupt or missing file never becomes the remembered one.</p>
+<p>Sets the operator runtime's remembered project path and persists it (no-op if unchanged; see setValue). </p>
+
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00120">120</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00038">AppKey::lastRuntimeProjectPath</a>, and <a class="el" href="app__settings_8cpp_source.html#l00135">setValue()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="runtime__shell__window_8cpp_source.html#l00377">RuntimeShellWindow::startProject()</a>.</p>
 
 </div>
 </div>
@@ -653,9 +755,9 @@ Static Private Attributes</h2></td></tr>
 <p>Persists <span class="tt">styleId</span> as the current theme (via <a class="el" href="#a10c97faf62f3492700422473b6eec62f" title="Generic setter: stores val under key, persists to disk, and emits settingChanged() — but only when va...">setValue()</a>); no-op if unchanged. </p>
 <p>Sets the UI theme id and persists it (no-op if unchanged; see setValue). </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00086">86</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00099">99</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00116">setValue()</a>, and <a class="el" href="app__settings_8h_source.html#l00034">AppKey::Theme</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8cpp_source.html#l00135">setValue()</a>, and <a class="el" href="app__settings_8h_source.html#l00034">AppKey::Theme</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="theme__manager_8cpp_source.html#l00056">ThemeManager::applyStyle()</a>.</p>
 
@@ -697,7 +799,7 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00116">setValue()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00135">setValue()</a>.</p>
 
 </div>
 </div>
@@ -730,11 +832,11 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <p>Sets the raw value for <span class="tt">key</span>, persists it to disk via <a class="el" href="#a937ef6b8b6c73263c56ab7aab2af65ae">save()</a>, and emits settingChanged. Does nothing (no save, no signal) if <span class="tt">val</span> equals the current value. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00116">116</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00135">135</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>, <a class="el" href="app__settings_8cpp_source.html#l00152">save()</a>, and <a class="el" href="#a084ff5a467a7b9d197e15bea4f517ddc">settingChanged()</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>, <a class="el" href="app__settings_8cpp_source.html#l00204">save()</a>, and <a class="el" href="#a084ff5a467a7b9d197e15bea4f517ddc">settingChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00091">setLanguage()</a>, <a class="el" href="app__settings_8cpp_source.html#l00096">setLastFolderAccessDir()</a>, <a class="el" href="app__settings_8cpp_source.html#l00101">setLastImageAccessDir()</a>, and <a class="el" href="app__settings_8cpp_source.html#l00086">setTheme()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00104">setLanguage()</a>, <a class="el" href="app__settings_8cpp_source.html#l00109">setLastFolderAccessDir()</a>, <a class="el" href="app__settings_8cpp_source.html#l00114">setLastImageAccessDir()</a>, <a class="el" href="app__settings_8cpp_source.html#l00120">setLastRuntimeProjectPath()</a>, <a class="el" href="settings__admin__credential__provider_8cpp_source.html#l00069">vc::auth::SettingsAdminCredentialProvider::setPassword()</a>, and <a class="el" href="app__settings_8cpp_source.html#l00099">setTheme()</a>.</p>
 
 </div>
 </div>
@@ -756,9 +858,9 @@ Static Private Attributes</h2></td></tr>
 <p>Returns the persisted UI theme id, defaulting to "light" if never set. </p>
 <p>Returns the current UI theme id (e.g. "light"/"dark"); defaults to "light" until changed. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00066">66</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00074">74</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>, and <a class="el" href="app__settings_8h_source.html#l00034">AppKey::Theme</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>, and <a class="el" href="app__settings_8h_source.html#l00034">AppKey::Theme</a>.</p>
 
 </div>
 </div>
@@ -792,13 +894,42 @@ Static Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the stored value, or <span class="tt">fallback</span> if <span class="tt">key</span> is absent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00110">110</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8cpp_source.html#l00129">129</a> of file <a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00135">m_data</a>.</p>
+<p class="reference">References <a class="el" href="app__settings_8h_source.html#l00142">m_data</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="settings__admin__credential__provider_8cpp_source.html#l00030">vc::auth::SettingsAdminCredentialProvider::isConfigured()</a>, and <a class="el" href="settings__admin__credential__provider_8cpp_source.html#l00038">vc::auth::SettingsAdminCredentialProvider::verify()</a>.</p>
 
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="abebbc15566b061c5f5a27c9811f6a214" name="abebbc15566b061c5f5a27c9811f6a214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abebbc15566b061c5f5a27c9811f6a214">&#9670;&#160;</a></span>kProductFolder</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char AppSettings::kProductFolder[] = &quot;NCRN Pick&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Folder name under the OS app-data directory that holds this PRODUCT's settings. Shared by both application shells on purpose — see <a class="el" href="#ade4e18afa169c4050b47003f2ca37acb" title="Returns the absolute path to the shared settings file.">filePath()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="app__settings_8h_source.html#l00148">148</a> of file <a class="el" href="app__settings_8h_source.html">app_settings.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00158">filePath()</a>.</p>
+
+</div>
+</div>
 <a id="a59da5714feb75661081ff992f6dc70fe" name="a59da5714feb75661081ff992f6dc70fe"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59da5714feb75661081ff992f6dc70fe">&#9670;&#160;</a></span>m_data</h2>
 
@@ -821,9 +952,9 @@ Static Private Attributes</h2></td></tr>
 
 <p>In-memory cache of all settings key/value pairs; the source of truth behind <a class="el" href="#a06729c1a41d7a39494cfb2cf343ba227" title="Generic lookup for one-off or future settings keys not covered by a typed accessor.">value()</a> and the typed getters. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8h_source.html#l00135">135</a> of file <a class="el" href="app__settings_8h_source.html">app_settings.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8h_source.html#l00142">142</a> of file <a class="el" href="app__settings_8h_source.html">app_settings.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00052">AppSettings()</a>, <a class="el" href="app__settings_8cpp_source.html#l00071">language()</a>, <a class="el" href="app__settings_8cpp_source.html#l00076">lastFolderAccessDir()</a>, <a class="el" href="app__settings_8cpp_source.html#l00081">lastImageAccessDir()</a>, <a class="el" href="app__settings_8cpp_source.html#l00137">load()</a>, <a class="el" href="app__settings_8cpp_source.html#l00152">save()</a>, <a class="el" href="app__settings_8cpp_source.html#l00116">setValue()</a>, <a class="el" href="app__settings_8cpp_source.html#l00066">theme()</a>, and <a class="el" href="app__settings_8cpp_source.html#l00110">value()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00052">AppSettings()</a>, <a class="el" href="app__settings_8cpp_source.html#l00079">language()</a>, <a class="el" href="app__settings_8cpp_source.html#l00084">lastFolderAccessDir()</a>, <a class="el" href="app__settings_8cpp_source.html#l00089">lastImageAccessDir()</a>, <a class="el" href="app__settings_8cpp_source.html#l00094">lastRuntimeProjectPath()</a>, <a class="el" href="app__settings_8cpp_source.html#l00180">load()</a>, <a class="el" href="app__settings_8cpp_source.html#l00204">save()</a>, <a class="el" href="app__settings_8cpp_source.html#l00135">setValue()</a>, <a class="el" href="app__settings_8cpp_source.html#l00074">theme()</a>, and <a class="el" href="app__settings_8cpp_source.html#l00129">value()</a>.</p>
 
 </div>
 </div>
@@ -849,15 +980,15 @@ Static Private Attributes</h2></td></tr>
 
 <p>Backing storage for the lazily-created singleton returned by <a class="el" href="#aef178cc4ead6d20fb33931ed61f279ee" title="Returns the process-wide singleton, lazily constructing it (parented to qApp) on first call.">instance()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="app__settings_8h_source.html#l00136">136</a> of file <a class="el" href="app__settings_8h_source.html">app_settings.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="app__settings_8h_source.html#l00143">143</a> of file <a class="el" href="app__settings_8h_source.html">app_settings.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="app__settings_8cpp_source.html#l00043">instance()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/ncr_picking/src/core/app_settings/<a class="el" href="app__settings_8h_source.html">app_settings.h</a></li>
-<li>C:/DGB/Project/ncr_picking/src/core/app_settings/<a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/core/app_settings/<a class="el" href="app__settings_8h_source.html">app_settings.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/core/app_settings/<a class="el" href="app__settings_8cpp_source.html">app_settings.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

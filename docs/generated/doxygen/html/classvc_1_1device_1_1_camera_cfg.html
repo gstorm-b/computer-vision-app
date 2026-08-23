@@ -190,7 +190,7 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Base configuration contract for a camera device: exposure/gain/frame-rate parameters, backlight control, calibration data and JSON (de)serialization. Concrete cameras (e.g. <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html" title="Basler GigE camera configuration: exposure/gain/frame-rate/backlight parameters plus camera identity ...">BaslerGigeCfg</a>) subclass this and add their own hardware-specific properties. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00069">69</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00082">82</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="aa54ff09907b9d765ba3153f149a9d5cc" name="aa54ff09907b9d765ba3153f149a9d5cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa54ff09907b9d765ba3153f149a9d5cc">&#9670;&#160;</a></span>acquisitionFrameRate()</h2>
@@ -228,7 +228,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#ad3957f44f060a00ae58c9ca9b50346b6">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#ad3957f44f060a00ae58c9ca9b50346b6">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a11b47991b304c3f601e30dcd93017560">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -256,9 +256,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the name of the calibration-board preset resolved by <a class="el" href="classcalib_1_1_calibration_board_factory.html" title="Centralised allocator for CalibrationBoard subclasses. Returns base-class std::unique_ptr&lt;Calibration...">calib::CalibrationBoardFactory</a> (e.g. dot-grid spacing/layout). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00172">172</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00185">185</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00197">m_calibBoardPreset</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00210">m_calibBoardPreset</a>.</p>
 
 </div>
 </div>
@@ -287,9 +287,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns the calibrator holding this camera's calibration state (intrinsics/board data). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00161">161</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00174">174</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00194">m_calibrator</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00207">m_calibrator</a>.</p>
 
 </div>
 </div>
@@ -317,9 +317,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Binarization threshold for calibration-board detection: -1 =&gt; auto (Otsu), 0..255 =&gt; fixed manual threshold. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00183">183</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00196">196</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00199">m_calibThreshold</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00212">m_calibThreshold</a>.</p>
 
 </div>
 </div>
@@ -348,9 +348,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns the concrete camera hardware family this config belongs to. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#aebed740ff29334ea606eec6cd7d0a68b">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#aebed740ff29334ea606eec6cd7d0a68b">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a38f9eab3b783f0cc205a93266ee7d8af">vc::device::VirtualCameraCfg</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00136">fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00149">fromJson()</a>, and <a class="el" href="camera__device_8h_source.html#l00136">toJson()</a>.</p>
 
 </div>
 </div>
@@ -379,7 +379,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Enables or disables the camera's auto-backlight control feature. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a5ec276618bce579ed679cba00b0f22c7">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a5ec276618bce579ed679cba00b0f22c7">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a2c5970861c8500225b8f9dd4523a2183">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -408,7 +408,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns the currently configured exposure time. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#aa7807799d4462b5b99096ff7f08238ad">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#aa7807799d4462b5b99096ff7f08238ad">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a961feebcf92f0ba034012c080fe5d857">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -448,7 +448,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a220e6e0bea432853915ddbd0be9b87f5">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a220e6e0bea432853915ddbd0be9b87f5">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a83846b22c4e5e85306e07eddab3b4ba4">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -478,13 +478,13 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#ab2110eaf63e41619a07dd83f86c32716">vc::device::IDeviceCfg</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a4a7aa2cb2f3788c17b9c4ba3e8c783b3">vc::device::BaslerGigeCfg</a>.</p>
+<p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a4a7aa2cb2f3788c17b9c4ba3e8c783b3">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a224573d0e32e17ef549b90e8373b4e41">vc::device::VirtualCameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00136">136</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00149">149</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a00a7cc82c5427757d4dd7b6d81161b05">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00052">vc::device::CameraTypeFromString()</a>, <a class="el" href="idevice__config_8h_source.html#l00028">DEVICE_JSK_CALIB_BOARD_PRESET</a>, <a class="el" href="idevice__config_8h_source.html#l00029">DEVICE_JSK_CALIB_THRESHOLD</a>, <a class="el" href="idevice__config_8h_source.html#l00027">DEVICE_JSK_CALIBRATOR</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="camera__device_8h_source.html#l00197">m_calibBoardPreset</a>, <a class="el" href="camera__device_8h_source.html#l00194">m_calibrator</a>, and <a class="el" href="camera__device_8h_source.html#l00199">m_calibThreshold</a>.</p>
+<p class="reference">References <a class="el" href="#a00a7cc82c5427757d4dd7b6d81161b05">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00063">vc::device::CameraTypeFromString()</a>, <a class="el" href="idevice__config_8h_source.html#l00028">DEVICE_JSK_CALIB_BOARD_PRESET</a>, <a class="el" href="idevice__config_8h_source.html#l00029">DEVICE_JSK_CALIB_THRESHOLD</a>, <a class="el" href="idevice__config_8h_source.html#l00027">DEVICE_JSK_CALIBRATOR</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="camera__device_8h_source.html#l00210">m_calibBoardPreset</a>, <a class="el" href="camera__device_8h_source.html#l00207">m_calibrator</a>, and <a class="el" href="camera__device_8h_source.html#l00212">m_calibThreshold</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">vc::device::BaslerGigeCfg::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00052">vc::device::BaslerGigeCfg::fromJson()</a>, and <a class="el" href="virtual__camera__config_8h_source.html#l00172">vc::device::VirtualCameraCfg::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -513,7 +513,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns the currently configured gain. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a334399702f22e3c91a90446c592a4aba">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a334399702f22e3c91a90446c592a4aba">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a7d30378590640a69b872c47aa3449c68">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -553,7 +553,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a2adca4e3464ab40dfeda5b96efa2b986">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a2adca4e3464ab40dfeda5b96efa2b986">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#ac0d5775a328b1ed9cd6964ac23b4bb7f">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -586,7 +586,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Enables/disables acquisition frame-rate limiting and sets its value. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a117a03b9704b78d7057530b13dcd6051">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a117a03b9704b78d7057530b13dcd6051">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a036d32082f8f423129447bbd6f444352">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -615,9 +615,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Sets the calibration-board preset name. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00177">177</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00190">190</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00197">m_calibBoardPreset</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00210">m_calibBoardPreset</a>.</p>
 
 </div>
 </div>
@@ -646,9 +646,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Replaces the calibrator with <span class="tt"><a class="el" href="namespacecalib.html">calib</a></span> (copied). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00166">166</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00179">179</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00194">m_calibrator</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00207">m_calibrator</a>.</p>
 
 </div>
 </div>
@@ -677,9 +677,9 @@ Protected Attributes</h2></td></tr>
 
 <p>Sets the binarization threshold, clamped to [-1, 255] (-1 = auto/Otsu, 0..255 = manual). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00188">188</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00201">201</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00199">m_calibThreshold</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00212">m_calibThreshold</a>.</p>
 
 </div>
 </div>
@@ -707,7 +707,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the exposure time (implementations typically clamp/reject values outside the configured min/max range). </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#aa5f7392c968ad1e11ec36c61235da061">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#aa5f7392c968ad1e11ec36c61235da061">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a750da02b560b222a34d5cf77ea101e46">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -740,7 +740,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Sets the allowed exposure-time range. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a46427cb5036ab374bc839f4a3f1b0ad5">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#a46427cb5036ab374bc839f4a3f1b0ad5">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a8ed04c7bfbc7ecd011d40cb7969752c9">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -768,7 +768,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Sets the gain (implementations typically clamp/reject values outside the configured min/max range). </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#acdc765382f6570c0ec11bee2c5b48603">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#acdc765382f6570c0ec11bee2c5b48603">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a81ae8e1f93fc26d5a0e81f74f6ef2e98">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -801,7 +801,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Sets the allowed gain range. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#ac2bb03100945bb5ddf56f47e7099a35e">vc::device::BaslerGigeCfg</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#ac2bb03100945bb5ddf56f47e7099a35e">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#aa9a5324821b8f09eeb42ac205bcee7c4">vc::device::VirtualCameraCfg</a>.</p>
 
 </div>
 </div>
@@ -831,13 +831,13 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html#a6287b4b385f2f48b51d6a5fe4940bc33">vc::device::IDeviceCfg</a>.</p>
 
-<p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#abe585230b8a52116896afa965e427872">vc::device::BaslerGigeCfg</a>.</p>
+<p>Reimplemented in <a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html#abe585230b8a52116896afa965e427872">vc::device::BaslerGigeCfg</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_cfg.html#a1e28fff74bcde4b178e17cff10573c21">vc::device::VirtualCameraCfg</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00123">123</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00136">136</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a00a7cc82c5427757d4dd7b6d81161b05">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>, <a class="el" href="idevice__config_8h_source.html#l00028">DEVICE_JSK_CALIB_BOARD_PRESET</a>, <a class="el" href="idevice__config_8h_source.html#l00029">DEVICE_JSK_CALIB_THRESHOLD</a>, <a class="el" href="idevice__config_8h_source.html#l00027">DEVICE_JSK_CALIBRATOR</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="camera__device_8h_source.html#l00197">m_calibBoardPreset</a>, <a class="el" href="camera__device_8h_source.html#l00194">m_calibrator</a>, and <a class="el" href="camera__device_8h_source.html#l00199">m_calibThreshold</a>.</p>
+<p class="reference">References <a class="el" href="#a00a7cc82c5427757d4dd7b6d81161b05">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeToString()</a>, <a class="el" href="idevice__config_8h_source.html#l00028">DEVICE_JSK_CALIB_BOARD_PRESET</a>, <a class="el" href="idevice__config_8h_source.html#l00029">DEVICE_JSK_CALIB_THRESHOLD</a>, <a class="el" href="idevice__config_8h_source.html#l00027">DEVICE_JSK_CALIBRATOR</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, <a class="el" href="camera__device_8h_source.html#l00210">m_calibBoardPreset</a>, <a class="el" href="camera__device_8h_source.html#l00207">m_calibrator</a>, and <a class="el" href="camera__device_8h_source.html#l00212">m_calibThreshold</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">vc::device::BaslerGigeCfg::toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00018">vc::device::BaslerGigeCfg::toJson()</a>, and <a class="el" href="virtual__camera__config_8h_source.html#l00145">vc::device::VirtualCameraCfg::toJson()</a>.</p>
 
 </div>
 </div>
@@ -863,9 +863,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Stored preset name (resolved by <a class="el" href="classcalib_1_1_calibration_board_factory.html" title="Centralised allocator for CalibrationBoard subclasses. Returns base-class std::unique_ptr&lt;Calibration...">calib::CalibrationBoardFactory</a>). Default matches iRVision 22.5 mm dot grid; UI lets the user change it. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00197">197</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00210">210</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00172">calibBoardPreset()</a>, <a class="el" href="camera__device_8h_source.html#l00136">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00177">setCalibBoardPreset()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00185">calibBoardPreset()</a>, <a class="el" href="camera__device_8h_source.html#l00149">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00190">setCalibBoardPreset()</a>, and <a class="el" href="camera__device_8h_source.html#l00136">toJson()</a>.</p>
 
 </div>
 </div>
@@ -890,9 +890,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Calibration state (intrinsics/board data) for this camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00194">194</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00207">207</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00161">calibrator()</a>, <a class="el" href="camera__device_8h_source.html#l00136">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00166">setCalibrator()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00174">calibrator()</a>, <a class="el" href="camera__device_8h_source.html#l00149">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00179">setCalibrator()</a>, and <a class="el" href="camera__device_8h_source.html#l00136">toJson()</a>.</p>
 
 </div>
 </div>
@@ -918,14 +918,14 @@ Protected Attributes</h2></td></tr>
 
 <p>Detection binarization threshold; -1 = auto (Otsu). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00199">199</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00212">212</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00183">calibThreshold()</a>, <a class="el" href="camera__device_8h_source.html#l00136">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00188">setCalibThreshold()</a>, and <a class="el" href="camera__device_8h_source.html#l00123">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00196">calibThreshold()</a>, <a class="el" href="camera__device_8h_source.html#l00149">fromJson()</a>, <a class="el" href="camera__device_8h_source.html#l00201">setCalibThreshold()</a>, and <a class="el" href="camera__device_8h_source.html#l00136">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/device/camera/<a class="el" href="camera__device_8h_source.html">camera_device.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/device/camera/<a class="el" href="camera__device_8h_source.html">camera_device.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

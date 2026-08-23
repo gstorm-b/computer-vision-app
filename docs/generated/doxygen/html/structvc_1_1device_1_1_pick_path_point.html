@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1de
 </div><!--header-->
 <div class="contents">
 
-<p>One waypoint of the picking path, expressed as a 6-axis offset from the matching (pick) pose, applied in the TOOL frame (pose = pick * offset). The posture branch fields hold preset-specific labels (e.g. "lefty"/"righty"); an empty label means "any
+<p>One waypoint of the picking path. By default each axis is an offset from the matching (pick) pose, applied in the TOOL frame (pose = pick * offset). Any axis whose abs* flag is set is instead an ABSOLUTE value in the robot BASE frame, replacing whatever the composition produced on that axis. The posture branch fields hold preset-specific labels (e.g. "lefty"/"righty"); an empty label means "any
        branch on that axis". The whole path is "pickable" only when every waypoint is reachable on the required posture branch (and collision-free when the collision check is enabled).  
  <a href="#details">More...</a></p>
 
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1de
 <div class="dynheader">
 Collaboration diagram for vc::device::PickPathPoint:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structvc_1_1device_1_1_pick_path_point__coll__graph.svg" width="172" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structvc_1_1device_1_1_pick_path_point__coll__graph.svg" width="172" height="400"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -138,14 +138,22 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:afc430188cc901c58ef8ec635f65f4079" id="r_afc430188cc901c58ef8ec635f65f4079"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afc430188cc901c58ef8ec635f65f4079">absPitch</a> = false</td></tr>
+<tr class="memitem:a05e63ab1bae64df7beb95eb686a7ce4a" id="r_a05e63ab1bae64df7beb95eb686a7ce4a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a05e63ab1bae64df7beb95eb686a7ce4a">absRoll</a> = false</td></tr>
+<tr class="memitem:aa736d15944d2190d02cd110ca05bfa83" id="r_aa736d15944d2190d02cd110ca05bfa83"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa736d15944d2190d02cd110ca05bfa83">absX</a> = false</td></tr>
+<tr class="memitem:af31133559091d9820d1796966d0fc34c" id="r_af31133559091d9820d1796966d0fc34c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af31133559091d9820d1796966d0fc34c">absY</a> = false</td></tr>
+<tr class="memitem:afd98e694412dfee32e9129e347654598" id="r_afd98e694412dfee32e9129e347654598"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afd98e694412dfee32e9129e347654598">absYaw</a> = false</td></tr>
+<tr class="memdesc:afd98e694412dfee32e9129e347654598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Treat dRoll/dPitch/dYaw as absolute base-frame rotations instead of offsets.  <br /></td></tr>
+<tr class="memitem:add1dad14da66f8b3199e968c3872be71" id="r_add1dad14da66f8b3199e968c3872be71"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#add1dad14da66f8b3199e968c3872be71">absZ</a> = false</td></tr>
+<tr class="memdesc:add1dad14da66f8b3199e968c3872be71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Treat dx/dy/dz as absolute base-frame positions instead of offsets.  <br /></td></tr>
 <tr class="memitem:ac2161b656a9285c895f688476fc95d82" id="r_ac2161b656a9285c895f688476fc95d82"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ac2161b656a9285c895f688476fc95d82">dPitch</a> = 0.0</td></tr>
 <tr class="memitem:ae615f8ecdd7794720845169a73c3ec92" id="r_ae615f8ecdd7794720845169a73c3ec92"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ae615f8ecdd7794720845169a73c3ec92">dRoll</a> = 0.0</td></tr>
 <tr class="memitem:a89730459ec6f3c043bc6ce43070ff25e" id="r_a89730459ec6f3c043bc6ce43070ff25e"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a89730459ec6f3c043bc6ce43070ff25e">dx</a> = 0.0</td></tr>
 <tr class="memitem:af24fd0aa4c95a99259aac302a1e2abd8" id="r_af24fd0aa4c95a99259aac302a1e2abd8"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#af24fd0aa4c95a99259aac302a1e2abd8">dy</a> = 0.0</td></tr>
 <tr class="memitem:ade952a66d239aabe3fa9fa07cd953e34" id="r_ade952a66d239aabe3fa9fa07cd953e34"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ade952a66d239aabe3fa9fa07cd953e34">dYaw</a> = 0.0</td></tr>
-<tr class="memdesc:ade952a66d239aabe3fa9fa07cd953e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">deg offset from pick pose  <br /></td></tr>
+<tr class="memdesc:ade952a66d239aabe3fa9fa07cd953e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">deg offset from pick pose, or absolute base-frame rotation when the matching abs flag is set  <br /></td></tr>
 <tr class="memitem:a16cb854e643702c2c597a016837d572a" id="r_a16cb854e643702c2c597a016837d572a"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a16cb854e643702c2c597a016837d572a">dz</a> = 0.0</td></tr>
-<tr class="memdesc:a16cb854e643702c2c597a016837d572a"><td class="mdescLeft">&#160;</td><td class="mdescRight">mm offset from pick pose  <br /></td></tr>
+<tr class="memdesc:a16cb854e643702c2c597a016837d572a"><td class="mdescLeft">&#160;</td><td class="mdescRight">mm offset from pick pose, or absolute base-frame position when the matching abs flag is set  <br /></td></tr>
 <tr class="memitem:ad95ec5b8f2fbe5a8fd8950e499e14d93" id="r_ad95ec5b8f2fbe5a8fd8950e499e14d93"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ad95ec5b8f2fbe5a8fd8950e499e14d93">elbow</a></td></tr>
 <tr class="memdesc:ad95ec5b8f2fbe5a8fd8950e499e14d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">preset label, "" = any  <br /></td></tr>
 <tr class="memitem:ae91cce9914ca337f07f9e672e983f81e" id="r_ae91cce9914ca337f07f9e672e983f81e"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ae91cce9914ca337f07f9e672e983f81e">shoulder</a></td></tr>
@@ -154,10 +162,13 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a9dec04285338b7f673d9cedf04f84e0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">preset label, "" = any  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>One waypoint of the picking path, expressed as a 6-axis offset from the matching (pick) pose, applied in the TOOL frame (pose = pick * offset). The posture branch fields hold preset-specific labels (e.g. "lefty"/"righty"); an empty label means "any
+<div class="textblock"><p>One waypoint of the picking path. By default each axis is an offset from the matching (pick) pose, applied in the TOOL frame (pose = pick * offset). Any axis whose abs* flag is set is instead an ABSOLUTE value in the robot BASE frame, replacing whatever the composition produced on that axis. The posture branch fields hold preset-specific labels (e.g. "lefty"/"righty"); an empty label means "any
        branch on that axis". The whole path is "pickable" only when every waypoint is reachable on the required posture branch (and collision-free when the collision check is enabled). </p>
+<dl class="section note"><dt>Note</dt><dd>Mixing absolute and relative axes cannot be expressed as a single transform product. RobotKinematicPickingChecker::isPickable composes the tool-frame offset first, decomposes the result to base-frame XYZ+RPY, overwrites the flagged axes, and rebuilds the pose. </dd>
+<dd>
+All flags default to false, which is exactly the pre-Phase-5 all-relative behaviour; documents written before the flags existed load that way. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00063">63</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00078">78</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
 <a id="a7cd4073ac947abeaa931b4dc58ab5c9e" name="a7cd4073ac947abeaa931b4dc58ab5c9e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7cd4073ac947abeaa931b4dc58ab5c9e">&#9670;&#160;</a></span>fromJson()</h2>
@@ -181,13 +192,13 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Restores this waypoint from JSON written by <a class="el" href="#a0d7c305ca94f8a44f62ae6d44d548eba">toJson()</a>; missing numeric fields default to 0.0, missing labels default to an empty string. </p>
+<p>Restores this waypoint from JSON written by <a class="el" href="#a0d7c305ca94f8a44f62ae6d44d548eba">toJson()</a>; missing numeric fields default to 0.0, missing labels default to an empty string, and missing abs* flags default to false (all-relative, the behaviour before the flags existed). </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00084">84</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00104">104</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__config_8h_source.html#l00065">dPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00065">dRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">dx</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">dy</a>, <a class="el" href="vision__output__config_8h_source.html#l00065">dYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">dz</a>, <a class="el" href="vision__output__config_8h_source.html#l00067">elbow</a>, <a class="el" href="vision__output__config_8h_source.html#l00066">shoulder</a>, and <a class="el" href="vision__output__config_8h_source.html#l00068">wrist</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__config_8h_source.html#l00082">absPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00082">absRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">absX</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">absY</a>, <a class="el" href="vision__output__config_8h_source.html#l00082">absYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">absZ</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">dPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">dRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">dx</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">dy</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">dYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">dz</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">elbow</a>, <a class="el" href="vision__output__config_8h_source.html#l00083">shoulder</a>, and <a class="el" href="vision__output__config_8h_source.html#l00085">wrist</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00137">vc::device::RobotKinematicCheckConfig::fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="vision__output__config_8h_source.html#l00163">vc::device::RobotKinematicCheckConfig::fromJson()</a>.</p>
 
 </div>
 </div>
@@ -213,15 +224,127 @@ Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Serializes this waypoint offset (dx/dy/dz/dRoll/dPitch/dYaw and the posture branch labels) to JSON. </p>
+<p>Serializes this waypoint (the six axis values, their absolute/relative flags, and the posture branch labels) to JSON. </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00072">72</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00089">89</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__config_8h_source.html#l00065">dPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00065">dRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">dx</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">dy</a>, <a class="el" href="vision__output__config_8h_source.html#l00065">dYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">dz</a>, <a class="el" href="vision__output__config_8h_source.html#l00067">elbow</a>, <a class="el" href="vision__output__config_8h_source.html#l00066">shoulder</a>, and <a class="el" href="vision__output__config_8h_source.html#l00068">wrist</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__config_8h_source.html#l00082">absPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00082">absRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">absX</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">absY</a>, <a class="el" href="vision__output__config_8h_source.html#l00082">absYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">absZ</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">dPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">dRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">dx</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">dy</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">dYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">dz</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">elbow</a>, <a class="el" href="vision__output__config_8h_source.html#l00083">shoulder</a>, and <a class="el" href="vision__output__config_8h_source.html#l00085">wrist</a>.</p>
 
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="afc430188cc901c58ef8ec635f65f4079" name="afc430188cc901c58ef8ec635f65f4079"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc430188cc901c58ef8ec635f65f4079">&#9670;&#160;</a></span>absPitch</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::device::PickPathPoint::absPitch = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00082">82</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
+
+</div>
+</div>
+<a id="a05e63ab1bae64df7beb95eb686a7ce4a" name="a05e63ab1bae64df7beb95eb686a7ce4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e63ab1bae64df7beb95eb686a7ce4a">&#9670;&#160;</a></span>absRoll</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::device::PickPathPoint::absRoll = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00082">82</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
+
+</div>
+</div>
+<a id="aa736d15944d2190d02cd110ca05bfa83" name="aa736d15944d2190d02cd110ca05bfa83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa736d15944d2190d02cd110ca05bfa83">&#9670;&#160;</a></span>absX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::device::PickPathPoint::absX = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00081">81</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
+
+</div>
+</div>
+<a id="af31133559091d9820d1796966d0fc34c" name="af31133559091d9820d1796966d0fc34c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af31133559091d9820d1796966d0fc34c">&#9670;&#160;</a></span>absY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::device::PickPathPoint::absY = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00081">81</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
+
+</div>
+</div>
+<a id="afd98e694412dfee32e9129e347654598" name="afd98e694412dfee32e9129e347654598"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd98e694412dfee32e9129e347654598">&#9670;&#160;</a></span>absYaw</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::device::PickPathPoint::absYaw = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Treat dRoll/dPitch/dYaw as absolute base-frame rotations instead of offsets. </p>
+
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00082">82</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
+
+</div>
+</div>
+<a id="add1dad14da66f8b3199e968c3872be71" name="add1dad14da66f8b3199e968c3872be71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add1dad14da66f8b3199e968c3872be71">&#9670;&#160;</a></span>absZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::device::PickPathPoint::absZ = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Treat dx/dy/dz as absolute base-frame positions instead of offsets. </p>
+
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00081">81</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
+
+</div>
+</div>
 <a id="ac2161b656a9285c895f688476fc95d82" name="ac2161b656a9285c895f688476fc95d82"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac2161b656a9285c895f688476fc95d82">&#9670;&#160;</a></span>dPitch</h2>
 
@@ -234,9 +357,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00065">65</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00080">80</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
@@ -252,9 +375,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00065">65</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00080">80</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
@@ -270,9 +393,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00064">64</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00079">79</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
@@ -288,9 +411,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00064">64</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00079">79</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
@@ -306,11 +429,11 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>deg offset from pick pose </p>
+<p>deg offset from pick pose, or absolute base-frame rotation when the matching abs flag is set </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00065">65</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00080">80</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
@@ -326,11 +449,11 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>mm offset from pick pose </p>
+<p>mm offset from pick pose, or absolute base-frame position when the matching abs flag is set </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00064">64</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00079">79</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
@@ -348,9 +471,9 @@ Public Attributes</h2></td></tr>
 
 <p>preset label, "" = any </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00067">67</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00084">84</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
@@ -368,9 +491,9 @@ Public Attributes</h2></td></tr>
 
 <p>preset label, "" = any </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00066">66</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00083">83</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
@@ -388,14 +511,14 @@ Public Attributes</h2></td></tr>
 
 <p>preset label, "" = any </p>
 
-<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00068">68</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="vision__output__config_8h_source.html#l00085">85</a> of file <a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00371">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00311">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00072">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00400">RobotKinematicCheckWidget::addPathRow()</a>, <a class="el" href="robot__kinematic__check__widget_8cpp_source.html#l00326">RobotKinematicCheckWidget::config()</a>, <a class="el" href="vision__output__config_8h_source.html#l00104">fromJson()</a>, <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>, and <a class="el" href="vision__output__config_8h_source.html#l00089">toJson()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/device/output_device/<a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/device/output_device/<a class="el" href="vision__output__config_8h_source.html">vision_output_config.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

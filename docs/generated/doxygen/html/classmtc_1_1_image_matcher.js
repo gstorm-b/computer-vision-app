@@ -19,7 +19,7 @@ var classmtc_1_1_image_matcher =
     [ "matching", "classmtc_1_1_image_matcher.html#ac4fb12785dc2d4e6a8a5a7147cdd5f7d", null ],
     [ "pointInBox", "classmtc_1_1_image_matcher.html#a26636ce454c01459f3fd0ebd0405a7ae", null ],
     [ "ptRotatePt2f", "classmtc_1_1_image_matcher.html#ae45bfa6edafadac6cb9bb3a2dc32e66a", null ],
-    [ "robotPossiblePickingCheck", "classmtc_1_1_image_matcher.html#a5b24181e2c6b1f22406f89870c508ad4", null ],
+    [ "robotPossiblePickingCheck", "classmtc_1_1_image_matcher.html#a218d80f4f1a836b296e7099312c78635", null ],
     [ "setImageSource", "classmtc_1_1_image_matcher.html#a31a3d0feb99034db711422c1cca618b2", null ],
     [ "setImageSource", "classmtc_1_1_image_matcher.html#a33da9cfc75f60f2445c08f0491f8d358", null ],
     [ "setMatchingConditionROI", "classmtc_1_1_image_matcher.html#acfab1d5a35168c812152c9df5c18a7ec", null ],

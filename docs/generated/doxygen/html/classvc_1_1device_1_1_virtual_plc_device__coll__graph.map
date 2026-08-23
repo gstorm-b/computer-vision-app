@@ -1,0 +1,27 @@
+<map id="vc::device::VirtualPlcDevice" name="vc::device::VirtualPlcDevice">
+<area shape="rect" id="Node000001" title="A PlcDevice that records what would have been written instead of writing it." alt="" coords="368,1571,544,1896"/>
+<area shape="rect" id="Node000002" href="$classvc_1_1device_1_1_plc_device.html" title="Abstract base for the PLC family. Concrete vendors (McProtocolDevice for Mitsubishi MC,..." alt="" coords="113,1312,252,1445"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,1455,267,1497,371,1628,366,1629,263,1500,236,1460"/>
+<area shape="rect" id="Node000003" href="$classvc_1_1device_1_1_i_device.html" title="Abstract base for every device family (camera/PLC/vision&#45;output/robot): owns the device&#39;s id/name/tas..." alt="" coords="64,713,216,1209"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="167,1222,179,1312,173,1312,167,1227"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,5,64,75"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="31,92,28,190,26,327,30,484,47,641,67,736,61,736,41,642,25,484,20,327,23,190,31,87"/>
+<area shape="rect" id="Node000006" href="$classvc_1_1device_1_1_device_manager.html" title="Device manager owned by a Project via shared pointer; tracks reserved/committed device instances by i..." alt="" coords="56,124,235,641"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="50,86,64,124,59,125,51,92"/>
+<area shape="rect" id="Node000005" href="$classvc_1_1device_1_1_i_device_cfg.html" title="Abstract configuration contract shared by every device family: JSON (de)serialization,..." alt="" coords="282,295,427,471"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="322,473,224,741,219,740,323,468"/>
+<area shape="rect" id="Node000019" href="$classvc_1_1device_1_1_plc_cfg.html" title="Abstract config for the PLC family. Carries only the family&#45;level dispatch field; concrete configs (M..." alt="" coords="306,895,425,1028"/>
+<area shape="poly" id="edge13_Node000019_Node000005" title=" " alt="" coords="357,483,367,895,361,894,356,488"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="135,638,137,689,137,697,132,696,132,689,135,644"/>
+<area shape="rect" id="Node000014" href="$classvc_1_1device_1_1_i_plc_tag_provider.html" title="Combined capability for PLC&#45;like devices that expose both digital and word tags by name." alt="" coords="467,1344,637,1413"/>
+<area shape="poly" id="edge7_Node000001_Node000014" title=" " alt="" coords="541,1425,502,1572,498,1570,537,1429"/>
+<area shape="rect" id="Node000015" href="$classvc_1_1device_1_1_i_digital_io_provider.html" title="Capability mix&#45;in for devices that expose named digital (bit) I/O tags/lines." alt="" coords="459,916,637,1007"/>
+<area shape="poly" id="edge8_Node000014_Node000015" title=" " alt="" coords="550,1020,554,1345,549,1344,547,1024"/>
+<area shape="rect" id="Node000016" href="$classvc_1_1device_1_1_i_word_io_provider.html" title="Capability mix&#45;in for devices that expose named word (register&#45;sized) I/O tags." alt="" coords="661,916,832,1007"/>
+<area shape="poly" id="edge9_Node000014_Node000016" title=" " alt="" coords="728,1018,695,1111,652,1210,613,1284,575,1346,571,1342,608,1281,647,1208,690,1109,725,1023"/>
+<area shape="rect" id="Node000017" href="$classvc_1_1device_1_1_i_plc_io_writer.html" title="Capability mix&#45;in for devices that accept writes to named PLC I/O tags." alt="" coords="662,1323,821,1435"/>
+<area shape="poly" id="edge10_Node000001_Node000017" title=" " alt="" coords="692,1445,651,1500,546,1629,542,1626,647,1497,688,1449"/>
+<area shape="rect" id="Node000018" href="$classvc_1_1device_1_1_virtual_plc_cfg.html" title="Configuration for a PLC with nothing on the other end." alt="" coords="277,1259,443,1499"/>
+<area shape="poly" id="edge11_Node000001_Node000018" title=" " alt="" coords="393,1496,410,1555,405,1554,391,1501"/>
+<area shape="poly" id="edge12_Node000018_Node000019" title=" " alt="" coords="365,1040,364,1259,359,1259,363,1045"/>
+</map>

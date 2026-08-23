@@ -120,18 +120,30 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structmtc_1_1_
 </div><!--header-->
 <div class="contents">
 
-<p>Neutral data-transfer pose: robot/world coordinates in millimetres, top-down pick rotation in degrees. Carries no robot-library or Qt types.  
+<p>Neutral data-transfer pose: robot/world coordinates in millimetres, top-down pick rotation in degrees, plus the pattern's picking offset. Carries no robot-library or Qt types.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mtc::WorldPickPose:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structmtc_1_1_world_pick_pose__coll__graph.svg" width="140" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structmtc_1_1_world_pick_pose__coll__graph.svg" width="140" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:ad8276afe3eac3b2701830e5932e1ec41" id="r_ad8276afe3eac3b2701830e5932e1ec41"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ad8276afe3eac3b2701830e5932e1ec41">offsetRx_deg</a> {0.0}</td></tr>
+<tr class="memdesc:ad8276afe3eac3b2701830e5932e1ec41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pattern picking rotation offset about the tool X axis, in degrees.  <br /></td></tr>
+<tr class="memitem:aa695d7f940b50a99734df0de7197d97f" id="r_aa695d7f940b50a99734df0de7197d97f"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#aa695d7f940b50a99734df0de7197d97f">offsetRy_deg</a> {0.0}</td></tr>
+<tr class="memdesc:aa695d7f940b50a99734df0de7197d97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pattern picking rotation offset about the tool Y axis, in degrees.  <br /></td></tr>
+<tr class="memitem:aa22f340f8f4140edb1ef0654de0c4308" id="r_aa22f340f8f4140edb1ef0654de0c4308"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#aa22f340f8f4140edb1ef0654de0c4308">offsetRz_deg</a> {0.0}</td></tr>
+<tr class="memdesc:aa22f340f8f4140edb1ef0654de0c4308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pattern picking rotation offset about the tool Z axis, in degrees.  <br /></td></tr>
+<tr class="memitem:afef56567618792f90948671135b05edd" id="r_afef56567618792f90948671135b05edd"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#afef56567618792f90948671135b05edd">offsetX_mm</a> {0.0}</td></tr>
+<tr class="memdesc:afef56567618792f90948671135b05edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pattern picking offset along the tool X axis, in millimetres.  <br /></td></tr>
+<tr class="memitem:a3b741d7576c90238982c9c204c1811da" id="r_a3b741d7576c90238982c9c204c1811da"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a3b741d7576c90238982c9c204c1811da">offsetY_mm</a> {0.0}</td></tr>
+<tr class="memdesc:a3b741d7576c90238982c9c204c1811da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pattern picking offset along the tool Y axis, in millimetres.  <br /></td></tr>
+<tr class="memitem:a9e1f9f55c38ccb05e0d2d8a4e29aea48" id="r_a9e1f9f55c38ccb05e0d2d8a4e29aea48"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a9e1f9f55c38ccb05e0d2d8a4e29aea48">offsetZ_mm</a> {0.0}</td></tr>
+<tr class="memdesc:a9e1f9f55c38ccb05e0d2d8a4e29aea48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pattern picking offset along the tool Z axis, in millimetres.  <br /></td></tr>
 <tr class="memitem:a78cd0fcd3110fa843e053efcc1bd533c" id="r_a78cd0fcd3110fa843e053efcc1bd533c"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a78cd0fcd3110fa843e053efcc1bd533c">r_deg</a> {0.0}</td></tr>
 <tr class="memdesc:a78cd0fcd3110fa843e053efcc1bd533c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top-down pick rotation, in degrees.  <br /></td></tr>
 <tr class="memitem:af9fde3f1fdf2012e9a221e0c887d11ea" id="r_af9fde3f1fdf2012e9a221e0c887d11ea"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#af9fde3f1fdf2012e9a221e0c887d11ea">x_mm</a> {0.0}</td></tr>
@@ -142,10 +154,132 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:afb9060413d40cecdc84947a4c6f4c2cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">World/robot Z coordinate, in millimetres.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Neutral data-transfer pose: robot/world coordinates in millimetres, top-down pick rotation in degrees. Carries no robot-library or Qt types. </p>
+<div class="textblock"><p>Neutral data-transfer pose: robot/world coordinates in millimetres, top-down pick rotation in degrees, plus the pattern's picking offset. Carries no robot-library or Qt types. </p>
+<p>The x/y/z/r fields are the bare matched pick point, as produced by <a class="el" href="classmtc_1_1_i_robot_picking_checker.html#a63fb8ac058cb548bdfbbe56712658a2b" title="Step 1 — converts an image pixel position + angle (in the matcher&#39;s image frame) to a world/robot pic...">IRobotPickingChecker::imageToWorld()</a>. The offset* fields are the owning pattern's picking offset, which the checker composes in the TOOL frame (pose = pick * offset) before testing reachability — the matching layer deliberately does not do that composition itself, so it needs no pose maths and no robot library.</p>
+<dl class="section note"><dt>Note</dt><dd>An all-zero offset makes the composition a no-op, giving the pre-Phase-5 behaviour of testing the bare pick point. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00017">17</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00027">27</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="ad8276afe3eac3b2701830e5932e1ec41" name="ad8276afe3eac3b2701830e5932e1ec41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8276afe3eac3b2701830e5932e1ec41">&#9670;&#160;</a></span>offsetRx_deg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mtc::WorldPickPose::offsetRx_deg {0.0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pattern picking rotation offset about the tool X axis, in degrees. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00036">36</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01259">mtc::ImageMatcher::robotPossiblePickingCheck()</a>.</p>
+
+</div>
+</div>
+<a id="aa695d7f940b50a99734df0de7197d97f" name="aa695d7f940b50a99734df0de7197d97f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa695d7f940b50a99734df0de7197d97f">&#9670;&#160;</a></span>offsetRy_deg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mtc::WorldPickPose::offsetRy_deg {0.0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pattern picking rotation offset about the tool Y axis, in degrees. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00037">37</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01259">mtc::ImageMatcher::robotPossiblePickingCheck()</a>.</p>
+
+</div>
+</div>
+<a id="aa22f340f8f4140edb1ef0654de0c4308" name="aa22f340f8f4140edb1ef0654de0c4308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa22f340f8f4140edb1ef0654de0c4308">&#9670;&#160;</a></span>offsetRz_deg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mtc::WorldPickPose::offsetRz_deg {0.0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pattern picking rotation offset about the tool Z axis, in degrees. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00038">38</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01259">mtc::ImageMatcher::robotPossiblePickingCheck()</a>.</p>
+
+</div>
+</div>
+<a id="afef56567618792f90948671135b05edd" name="afef56567618792f90948671135b05edd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afef56567618792f90948671135b05edd">&#9670;&#160;</a></span>offsetX_mm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mtc::WorldPickPose::offsetX_mm {0.0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pattern picking offset along the tool X axis, in millimetres. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00033">33</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01259">mtc::ImageMatcher::robotPossiblePickingCheck()</a>.</p>
+
+</div>
+</div>
+<a id="a3b741d7576c90238982c9c204c1811da" name="a3b741d7576c90238982c9c204c1811da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b741d7576c90238982c9c204c1811da">&#9670;&#160;</a></span>offsetY_mm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mtc::WorldPickPose::offsetY_mm {0.0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pattern picking offset along the tool Y axis, in millimetres. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00034">34</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01259">mtc::ImageMatcher::robotPossiblePickingCheck()</a>.</p>
+
+</div>
+</div>
+<a id="a9e1f9f55c38ccb05e0d2d8a4e29aea48" name="a9e1f9f55c38ccb05e0d2d8a4e29aea48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1f9f55c38ccb05e0d2d8a4e29aea48">&#9670;&#160;</a></span>offsetZ_mm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double mtc::WorldPickPose::offsetZ_mm {0.0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pattern picking offset along the tool Z axis, in millimetres. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00035">35</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>, and <a class="el" href="image__matcher_8cpp_source.html#l01259">mtc::ImageMatcher::robotPossiblePickingCheck()</a>.</p>
+
+</div>
+</div>
 <a id="a78cd0fcd3110fa843e053efcc1bd533c" name="a78cd0fcd3110fa843e053efcc1bd533c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78cd0fcd3110fa843e053efcc1bd533c">&#9670;&#160;</a></span>r_deg</h2>
 
@@ -160,9 +294,9 @@ Public Attributes</h2></td></tr>
 
 <p>Top-down pick rotation, in degrees. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00021">21</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00031">31</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00169">vc::model::RobotKinematicPickingChecker::imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">vc::model::RobotKinematicPickingChecker::isPickable()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00173">vc::model::RobotKinematicPickingChecker::imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>.</p>
 
 </div>
 </div>
@@ -180,9 +314,9 @@ Public Attributes</h2></td></tr>
 
 <p>World/robot X coordinate, in millimetres. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00018">18</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00028">28</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00169">vc::model::RobotKinematicPickingChecker::imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">vc::model::RobotKinematicPickingChecker::isPickable()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00173">vc::model::RobotKinematicPickingChecker::imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>.</p>
 
 </div>
 </div>
@@ -200,9 +334,9 @@ Public Attributes</h2></td></tr>
 
 <p>World/robot Y coordinate, in millimetres. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00019">19</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00029">29</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00169">vc::model::RobotKinematicPickingChecker::imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">vc::model::RobotKinematicPickingChecker::isPickable()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00173">vc::model::RobotKinematicPickingChecker::imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>.</p>
 
 </div>
 </div>
@@ -220,14 +354,14 @@ Public Attributes</h2></td></tr>
 
 <p>World/robot Z coordinate, in millimetres. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00020">20</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__picking__checker_8h_source.html#l00030">30</a> of file <a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00169">vc::model::RobotKinematicPickingChecker::imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">vc::model::RobotKinematicPickingChecker::isPickable()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00173">vc::model::RobotKinematicPickingChecker::imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">vc::model::RobotKinematicPickingChecker::isPickable()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="robot__picking__checker_8h_source.html">robot_picking_checker.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

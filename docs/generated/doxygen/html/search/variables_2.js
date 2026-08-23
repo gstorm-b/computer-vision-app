@@ -18,7 +18,8 @@ var searchData=
   ['box_5fleft_5fpts_15',['box_left_pts',['../structmtc_1_1_matched_object_1_1_collision_geometry.html#ad29cd4b917fd89b7c374ec314bef5cb2',1,'mtc::MatchedObject::CollisionGeometry']]],
   ['box_5fright_16',['box_right',['../structmtc_1_1_matched_object_1_1_collision_geometry.html#adcdf402534ecf434b7f7b1183c804c61',1,'mtc::MatchedObject::CollisionGeometry']]],
   ['box_5fright_5fpts_17',['box_right_pts',['../structmtc_1_1_matched_object_1_1_collision_geometry.html#a376ee5a2b0ffeac497114b9dc41ff844',1,'mtc::MatchedObject::CollisionGeometry']]],
-  ['btnaddrow_18',['btnAddRow',['../class_add_row_widget.html#a369f1c61384d2f5cde6db8735cdc51c8',1,'AddRowWidget']]],
-  ['btncancel_19',['btnCancel',['../class_add_row_widget.html#a0a71a480589ff404ef78a5725ec039f6',1,'AddRowWidget']]],
-  ['btndelete_20',['btnDelete',['../class_camera_row_widget.html#ae3d66d3a540f0241989efab77f3f2c03',1,'CameraRowWidget']]]
+  ['boxes_18',['boxes',['../structvc_1_1model_1_1_gripper_preset.html#a910329dda5a2a7dfce168485dd021019',1,'vc::model::GripperPreset']]],
+  ['btnaddrow_19',['btnAddRow',['../class_add_row_widget.html#a369f1c61384d2f5cde6db8735cdc51c8',1,'AddRowWidget']]],
+  ['btncancel_20',['btnCancel',['../class_add_row_widget.html#a0a71a480589ff404ef78a5725ec039f6',1,'AddRowWidget']]],
+  ['btndelete_21',['btnDelete',['../class_camera_row_widget.html#ae3d66d3a540f0241989efab77f3f2c03',1,'CameraRowWidget']]]
 ];

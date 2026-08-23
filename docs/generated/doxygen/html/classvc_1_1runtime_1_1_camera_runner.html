@@ -198,6 +198,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a447a588a4ee13b758258b95620abca33 pub_methods_classvc_1_1runtime_1_1_i_device_runner"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the worker thread exists and is currently running.  <br /></td></tr>
 <tr class="memitem:a56dde0882589498fc6190a2abd078c75 pub_methods_classvc_1_1runtime_1_1_i_device_runner" id="r_a56dde0882589498fc6190a2abd078c75"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a56dde0882589498fc6190a2abd078c75">~IDeviceRunner</a> () override=default</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a9780fcd9bf1f3cb65667af2c7d8f92ca" id="r_a9780fcd9bf1f3cb65667af2c7d8f92ca"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a9780fcd9bf1f3cb65667af2c7d8f92ca">kDefaultCommandTimeoutMs</a> = 3000</td></tr>
+<tr class="memdesc:a9780fcd9bf1f3cb65667af2c7d8f92ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Watchdog window for connect/disconnect/apply-params commands, in milliseconds.  <br /></td></tr>
+<tr class="memitem:a9193772a07781ec8a1bfb9f478b6ad2f" id="r_a9193772a07781ec8a1bfb9f478b6ad2f"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a9193772a07781ec8a1bfb9f478b6ad2f">kMaxGrabAttempts</a> = 6</td></tr>
+<tr class="memitem:a0f8c24f9022f9ff1a780a01bd05f5789" id="r_a0f8c24f9022f9ff1a780a01bd05f5789"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a0f8c24f9022f9ff1a780a01bd05f5789">kSingleShotTimeoutMs</a> = 8000</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a685c5b14c241b0b042d57f687c054a95" id="r_a685c5b14c241b0b042d57f687c054a95"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a685c5b14c241b0b042d57f687c054a95">unwireSignals</a> () override</td></tr>
@@ -214,7 +221,7 @@ Private Slots</h2></td></tr>
 <tr class="memitem:a4a318bf35c977c5d2549bd0735e8cf66" id="r_a4a318bf35c977c5d2549bd0735e8cf66"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4a318bf35c977c5d2549bd0735e8cf66">onConnectStatusChanged</a> (<a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
 <tr class="memdesc:a4a318bf35c977c5d2549bd0735e8cf66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the camera device's connectStatusChanged signal. If a Connect or Disconnect command is currently active, resolves it (succeeded/failed via <a class="el" href="#ac6dffafdd71dc140ca98632fb5e35355">finishActiveCommand()</a>) based on <span class="tt">status</span>; the status is then re-emitted as <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f" title="Forwarded from the device via Qt::QueuedConnection: notifies of a connection state change.">connectStatusChanged()</a> to listeners regardless of whether a command was active.  <br /></td></tr>
 <tr class="memitem:a0a435a8f13a1432282d2ffad0efc2d89" id="r_a0a435a8f13a1432282d2ffad0efc2d89"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0a435a8f13a1432282d2ffad0efc2d89">onGrabFinished</a> (<a class="el" href="structvc_1_1device_1_1_grab_result.html">vc::device::GrabResult</a> result)</td></tr>
-<tr class="memdesc:a0a435a8f13a1432282d2ffad0efc2d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the camera device's grabFinished signal. If a CameraSingleShot command is active, resolves it succeeded or failed based on <span class="tt">result.isGrabSuccess</span> (carrying <span class="tt">result.msg</span> in the result payload's "message" entry), then always re-emits <a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s grabFinished signal fires.">grabFinished()</a> with <span class="tt">result</span>.  <br /></td></tr>
+<tr class="memdesc:a0a435a8f13a1432282d2ffad0efc2d89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the camera device's grabFinished signal, applying the grab-retry policy.  <br /></td></tr>
 <tr class="memitem:a7a54eaaad695530eceb919a114cba90b" id="r_a7a54eaaad695530eceb919a114cba90b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7a54eaaad695530eceb919a114cba90b">onParametersApplied</a> (bool ok)</td></tr>
 <tr class="memdesc:a7a54eaaad695530eceb919a114cba90b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles the camera device's parametersApplied signal. If a CameraApplyParams command is active, resolves it succeeded or failed based on <span class="tt">ok</span>, then always re-emits <a class="el" href="#a6a4ea535ce0e5e16cf50f7806322b9da" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s parametersApplied signal fires.">parametersApplied()</a> with <span class="tt">ok</span>.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -233,7 +240,6 @@ Private Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-pri-static-methods" class="groupheader"><a id="pri-static-methods" name="pri-static-methods"></a>
 Static Private Member Functions</h2></td></tr>
 <tr class="memitem:a70f0348c37805af8c5c31bfcc0f70c50" id="r_a70f0348c37805af8c5c31bfcc0f70c50"><td class="memItemLeft">static int&#160;</td><td class="memItemRight"><a class="el" href="#a70f0348c37805af8c5c31bfcc0f70c50">activeTimeoutMs</a> (const <a class="el" href="structvc_1_1runtime_1_1_device_command.html">DeviceCommand</a> &amp;command)</td></tr>
-<tr class="memdesc:a70f0348c37805af8c5c31bfcc0f70c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <span class="tt">command.timeoutMs</span> if positive, otherwise a default timeout of 3000 ms.  <br /></td></tr>
 <tr class="memitem:a03414578b663839e738a0a1d5b314cb4" id="r_a03414578b663839e738a0a1d5b314cb4"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a03414578b663839e738a0a1d5b314cb4">isSupportedCommand</a> (<a class="el" href="namespacevc_1_1runtime.html#a84d5add00c3a68cf83759626ccba0208">DeviceCommandKind</a> kind)</td></tr>
 <tr class="memitem:afeb801504ccd55b38594ab8743ce920c" id="r_afeb801504ccd55b38594ab8743ce920c"><td class="memItemLeft">static <a class="el" href="namespacevc_1_1runtime.html#a896899a38d50bcd56b529f8bd1149abf">DeviceCommandQueuePolicy</a>&#160;</td><td class="memItemRight"><a class="el" href="#afeb801504ccd55b38594ab8743ce920c">queuePolicyFor</a> (<a class="el" href="namespacevc_1_1runtime.html#a84d5add00c3a68cf83759626ccba0208">DeviceCommandKind</a> kind)</td></tr>
 </table><table class="memberdecls">
@@ -245,6 +251,7 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a4e91dea85ef25016064eac6672166cae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single-shot timer that fails m_activeCommand if it doesn't finish in time.  <br /></td></tr>
 <tr class="memitem:a107ed4ba615574da7834bb399120c811" id="r_a107ed4ba615574da7834bb399120c811"><td class="memItemLeft"><a class="el" href="classvc_1_1runtime_1_1_device_command_queue.html">DeviceCommandQueue</a>&#160;</td><td class="memItemRight"><a class="el" href="#a107ed4ba615574da7834bb399120c811">m_commandQueue</a></td></tr>
 <tr class="memdesc:a107ed4ba615574da7834bb399120c811"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFO queue of camera commands awaiting dispatch.  <br /></td></tr>
+<tr class="memitem:a9e21a49f34be74cb4b8ec94d9198c35f" id="r_a9e21a49f34be74cb4b8ec94d9198c35f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a9e21a49f34be74cb4b8ec94d9198c35f">m_grabFailedCount</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -262,9 +269,16 @@ Additional Inherited Members</h2></td></tr>
 <p>Commission mode: widget code calls <a class="el" href="#a35df78b90e261509f69fa389c559b443" title="Submits a Connect command for this camera via submitCommand().">requestConnect()</a> / <a class="el" href="#a793717b58ef87e5f112e3699f10097f6">requestSingleShot()</a> etc. from the GUI thread. These emit queued signals that the camera device processes on its own thread; results arrive back via <a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s grabFinished signal fires.">grabFinished()</a>, <a class="el" href="#a6a4ea535ce0e5e16cf50f7806322b9da" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s parametersApplied signal fires.">parametersApplied()</a>, etc. (also queued, so safe for GUI slots).</p>
 <p>Runtime mode: the camera stays on its own thread while the task runtime thread triggers grabs and awaits <a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s grabFinished signal fires.">grabFinished()</a> via Qt::QueuedConnection; the runner remains the mediator so no direct cross-thread calls are needed.</p>
 <p>Camera requests route through the standard <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a> model, with queue and timeout behavior: Connect/Disconnect are rejected while another command is active, SingleShot is queued FIFO while busy, and ApplyParams keeps only the latest pending request.</p>
-<dl class="section note"><dt>Note</dt><dd>Threading: the wrapped camera device lives on its own worker QThread once attached (see <a class="el" href="classvc_1_1runtime_1_1_device_runner.html" title="CRTP template base for per-device thread runners — eliminates the duplication that used to exist betw...">DeviceRunner</a>); <a class="el" href="#a35df78b90e261509f69fa389c559b443" title="Submits a Connect command for this camera via submitCommand().">requestConnect()</a>/requestDisconnect()/requestSingleShot()/ <a class="el" href="#a8bbe18ce3fb7a61817efb7909e1aa8b7">requestApplyParams()</a>/submitCommand() are all safe to call from any thread, since they only touch this runner's own command queue/timer and dispatch to the device via Qt::QueuedConnection triggers (see <a class="el" href="#a3b48e0cfd494f47edfff67bc5221a527">wireSignals()</a>). </dd></dl>
+<p><b>Grab retry lives here, not in the caller.</b> A failed single-shot is re-issued up to kMaxGrabAttempts times before the command is failed, so one bad frame does not interrupt an automatic runtime cycle. Two consequences follow from that placement and are relied on upstream:</p><ul>
+<li>the caller observes exactly ONE outcome per command. <a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s grabFinished signal fires.">grabFinished()</a> is deliberately not re-emitted for an intermediate failure, so LocalizationRuntimeController never sees the retries and cannot mistake one for a finished cycle;</li>
+<li>reaching LocalizationFaultCode::CameraGrabTimeout therefore means every attempt failed, not that one did. A repeating 102 is a real hardware problem.</li>
+</ul>
+<p>The retry budget resets when a CameraSingleShot command starts, not when one succeeds, so failures during commissioning cannot consume the next runtime cycle's budget. Each attempt gets its own watchdog window (see kSingleShotTimeoutMs).</p>
+<dl class="section note"><dt>Note</dt><dd>The runner cannot rescue a camera whose own thread is blocked inside a driver call. Its watchdog only ends the <em>command</em>; the device is responsible for reporting every grab through <a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s grabFinished signal fires.">grabFinished()</a> and for publishing LostConnected when it detects removal (see BaslerGigECamera::publishRemovalIfDetected()).</dd>
+<dd>
+Threading: the wrapped camera device lives on its own worker QThread once attached (see <a class="el" href="classvc_1_1runtime_1_1_device_runner.html" title="CRTP template base for per-device thread runners — eliminates the duplication that used to exist betw...">DeviceRunner</a>); <a class="el" href="#a35df78b90e261509f69fa389c559b443" title="Submits a Connect command for this camera via submitCommand().">requestConnect()</a>/requestDisconnect()/requestSingleShot()/ <a class="el" href="#a8bbe18ce3fb7a61817efb7909e1aa8b7">requestApplyParams()</a>/submitCommand() are all safe to call from any thread, since they only touch this runner's own command queue/timer and dispatch to the device via Qt::QueuedConnection triggers (see <a class="el" href="#a3b48e0cfd494f47edfff67bc5221a527">wireSignals()</a>). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00043">43</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00062">62</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 </div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
 <a id="aa5f93722adbe52dfc292e3111b679e63" name="aa5f93722adbe52dfc292e3111b679e63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa5f93722adbe52dfc292e3111b679e63">&#9670;&#160;</a></span>TriggerSignal</h2>
@@ -287,7 +301,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Pointer-to-member-function type for the no-argument internal trigger signals (sig_connect, sig_disconnect, sig_singleShot, sig_applyParams). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00349">349</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00414">414</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
 </div>
 </div>
@@ -328,11 +342,11 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00055">55</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00093">93</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__runner_8h_source.html#l00040">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::DeviceRunner()</a>, <a class="el" href="camera__runner_8h_source.html#l00496">m_activeCommandTimer</a>, and <a class="el" href="camera__runner_8h_source.html#l00333">onActiveCommandTimedOut()</a>.</p>
+<p class="reference">References <a class="el" href="device__runner_8h_source.html#l00040">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::DeviceRunner()</a>, <a class="el" href="camera__runner_8h_source.html#l00574">m_activeCommandTimer</a>, <a class="el" href="camera__runner_8h_source.html#l00576">m_grabFailedCount</a>, and <a class="el" href="camera__runner_8h_source.html#l00398">onActiveCommandTimedOut()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00192">wireSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00231">wireSignals()</a>.</p>
 
 </div>
 </div>
@@ -359,14 +373,13 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Returns <span class="tt">command.timeoutMs</span> if positive, otherwise the per-kind default: kSingleShotTimeoutMs for a grab, kDefaultCommandTimeoutMs for everything else. </p>
 
-<p>Returns <span class="tt">command.timeoutMs</span> if positive, otherwise a default timeout of 3000 ms. </p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00513">513</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00440">440</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="camera__runner_8h_source.html#l00076">kDefaultCommandTimeoutMs</a>, <a class="el" href="device__command_8h_source.html#l00126">vc::runtime::DeviceCommand::kind</a>, <a class="el" href="camera__runner_8h_source.html#l00073">kSingleShotTimeoutMs</a>, and <a class="el" href="device__command_8h_source.html#l00128">vc::runtime::DeviceCommand::timeoutMs</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00128">vc::runtime::DeviceCommand::timeoutMs</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00396">runCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>.</p>
 
 </div>
 </div>
@@ -394,11 +407,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Resets m_activeCommand to a default-constructed (empty-id) <a class="el" href="structvc_1_1runtime_1_1_device_command.html" title="A single request submitted to a device runner (e.g. via IDeviceRunner::submitCommand()),...">DeviceCommand</a> and stops m_activeCommandTimer. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00478">478</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00556">556</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00497">m_activeCommand</a>, and <a class="el" href="camera__runner_8h_source.html#l00496">m_activeCommandTimer</a>.</p>
+<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00575">m_activeCommand</a>, and <a class="el" href="camera__runner_8h_source.html#l00574">m_activeCommandTimer</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">finishActiveCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00539">finishActiveCommand()</a>.</p>
 
 </div>
 </div>
@@ -426,11 +439,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>If no command is currently active and the queue has a pending entry, dequeues it and starts it via <a class="el" href="#a96f280e987f628af085e759278250111">runCommand()</a>. No-op otherwise. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00486">486</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00564">564</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00387">hasActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00495">m_commandQueue</a>, and <a class="el" href="camera__runner_8h_source.html#l00396">runCommand()</a>.</p>
+<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00452">hasActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00573">m_commandQueue</a>, and <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">finishActiveCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00539">finishActiveCommand()</a>.</p>
 
 </div>
 </div>
@@ -458,11 +471,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Completes the active command with <span class="tt">result</span>: stops m_activeCommandTimer, logs the outcome via LOG_USER_INFO, emits commandFinished(result), clears m_activeCommand, and dispatches the next queued command via <a class="el" href="#ab907cbfd88eaffbc65ca684560a3fa73">dispatchNextCommand()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00461">461</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00539">539</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00478">clearActiveCommand()</a>, <a class="el" href="device__command_8h_source.html#l00163">vc::runtime::DeviceCommandResult::code</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a4768a76460ee55e4ad605ef850fbf0b0">vc::runtime::IDeviceRunner::commandFinished()</a>, <a class="el" href="device__command_8h_source.html#l00159">vc::runtime::DeviceCommandResult::commandId</a>, <a class="el" href="device__command_8h_source.html#l00060">vc::runtime::deviceCommandKindToString()</a>, <a class="el" href="device__command_8h_source.html#l00097">vc::runtime::deviceCommandResultCodeToString()</a>, <a class="el" href="device__command_8h_source.html#l00080">vc::runtime::deviceCommandResultStatusToString()</a>, <a class="el" href="camera__runner_8h_source.html#l00486">dispatchNextCommand()</a>, <a class="el" href="device__command_8h_source.html#l00160">vc::runtime::DeviceCommandResult::kind</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__runner_8h_source.html#l00496">m_activeCommandTimer</a>, <a class="el" href="device__command_8h_source.html#l00164">vc::runtime::DeviceCommandResult::message</a>, <a class="el" href="device__command_8h_source.html#l00162">vc::runtime::DeviceCommandResult::status</a>, and <a class="el" href="device__command_8h_source.html#l00161">vc::runtime::DeviceCommandResult::targetDeviceId</a>.</p>
+<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00556">clearActiveCommand()</a>, <a class="el" href="device__command_8h_source.html#l00163">vc::runtime::DeviceCommandResult::code</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a4768a76460ee55e4ad605ef850fbf0b0">vc::runtime::IDeviceRunner::commandFinished()</a>, <a class="el" href="device__command_8h_source.html#l00159">vc::runtime::DeviceCommandResult::commandId</a>, <a class="el" href="device__command_8h_source.html#l00060">vc::runtime::deviceCommandKindToString()</a>, <a class="el" href="device__command_8h_source.html#l00097">vc::runtime::deviceCommandResultCodeToString()</a>, <a class="el" href="device__command_8h_source.html#l00080">vc::runtime::deviceCommandResultStatusToString()</a>, <a class="el" href="camera__runner_8h_source.html#l00564">dispatchNextCommand()</a>, <a class="el" href="device__command_8h_source.html#l00160">vc::runtime::DeviceCommandResult::kind</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__runner_8h_source.html#l00574">m_activeCommandTimer</a>, <a class="el" href="device__command_8h_source.html#l00164">vc::runtime::DeviceCommandResult::message</a>, <a class="el" href="device__command_8h_source.html#l00162">vc::runtime::DeviceCommandResult::status</a>, and <a class="el" href="device__command_8h_source.html#l00161">vc::runtime::DeviceCommandResult::targetDeviceId</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00333">onActiveCommandTimedOut()</a>, <a class="el" href="camera__runner_8h_source.html#l00265">onConnectionFailed()</a>, <a class="el" href="camera__runner_8h_source.html#l00232">onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00282">onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00312">onParametersApplied()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00398">onActiveCommandTimedOut()</a>, <a class="el" href="camera__runner_8h_source.html#l00304">onConnectionFailed()</a>, <a class="el" href="camera__runner_8h_source.html#l00271">onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00377">onParametersApplied()</a>.</p>
 
 </div>
 </div>
@@ -491,11 +504,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Logs a rejected command via LOG_USER_INFO and emits commandFinished(result). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00446">446</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00524">524</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
 <p class="reference">References <a class="el" href="device__command_8h_source.html#l00163">vc::runtime::DeviceCommandResult::code</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a4768a76460ee55e4ad605ef850fbf0b0">vc::runtime::IDeviceRunner::commandFinished()</a>, <a class="el" href="device__command_8h_source.html#l00159">vc::runtime::DeviceCommandResult::commandId</a>, <a class="el" href="device__command_8h_source.html#l00060">vc::runtime::deviceCommandKindToString()</a>, <a class="el" href="device__command_8h_source.html#l00097">vc::runtime::deviceCommandResultCodeToString()</a>, <a class="el" href="device__command_8h_source.html#l00080">vc::runtime::deviceCommandResultStatusToString()</a>, <a class="el" href="device__command_8h_source.html#l00160">vc::runtime::DeviceCommandResult::kind</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="device__command_8h_source.html#l00164">vc::runtime::DeviceCommandResult::message</a>, <a class="el" href="device__command_8h_source.html#l00162">vc::runtime::DeviceCommandResult::status</a>, and <a class="el" href="device__command_8h_source.html#l00161">vc::runtime::DeviceCommandResult::targetDeviceId</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00396">runCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -530,7 +543,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">BaslerCameraWidget::initCameraWiget()</a>, <a class="el" href="camera__runner_8h_source.html#l00282">onGrabFinished()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01512">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01381">LocalizationPatternsWidget::onTriggerCameraClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00372">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00885">vc::model::LocalizationRuntimeController::startCycle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="basler__camera__widget_8cpp_source.html#l00223">BaslerCameraWidget::initCameraWiget()</a>, <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01596">LocalizationPatternsWidget::onSetWorkspaceClicked()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01465">LocalizationPatternsWidget::onTriggerCameraClicked()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00373">LocalizationSettingWidget::onWorkspaceSetRequested()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00960">vc::model::LocalizationRuntimeController::startCycle()</a>.</p>
 
 </div>
 </div>
@@ -559,11 +572,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns true if a command is currently running (m_activeCommand has a non-empty id). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00387">387</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00452">452</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00497">m_activeCommand</a>.</p>
+<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00575">m_activeCommand</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00486">dispatchNextCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00333">onActiveCommandTimedOut()</a>, <a class="el" href="camera__runner_8h_source.html#l00265">onConnectionFailed()</a>, <a class="el" href="camera__runner_8h_source.html#l00232">onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00282">onGrabFinished()</a>, <a class="el" href="camera__runner_8h_source.html#l00312">onParametersApplied()</a>, and <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00564">dispatchNextCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00398">onActiveCommandTimedOut()</a>, <a class="el" href="camera__runner_8h_source.html#l00304">onConnectionFailed()</a>, <a class="el" href="camera__runner_8h_source.html#l00271">onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>, <a class="el" href="camera__runner_8h_source.html#l00377">onParametersApplied()</a>, and <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -591,11 +604,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns whether <span class="tt">kind</span> is one of the camera command kinds this runner accepts: Connect, Disconnect, CameraSingleShot, or CameraApplyParams. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00353">353</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00418">418</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
 <p class="reference">References <a class="el" href="device__command_8h_source.html#l00030">vc::runtime::CameraApplyParams</a>, <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="device__command_8h_source.html#l00027">vc::runtime::Connect</a>, <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Disconnect</a>, and <a class="el" href="device__command_8h_source.html#l00026">vc::runtime::Unknown</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -623,11 +636,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Slot invoked by m_activeCommandTimer's timeout: if a command is still active, fails it with <a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13a9541eb2348d883dd8e32ae0420274c4c" title="The command did not complete within its timeout.">DeviceCommandResultCode::TimedOut</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00333">333</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00398">398</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00387">hasActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00497">m_activeCommand</a>, and <a class="el" href="device__command_8h_source.html#l00054">vc::runtime::TimedOut</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00539">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00452">hasActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00575">m_activeCommand</a>, and <a class="el" href="device__command_8h_source.html#l00054">vc::runtime::TimedOut</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00055">CameraRunner()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00093">CameraRunner()</a>.</p>
 
 </div>
 </div>
@@ -655,9 +668,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Handles the camera device's connectionFailed signal: fails the currently active command (if any) with <a class="el" href="namespacevc_1_1runtime.html#ae06849a081be44a7aa2cca22c9448e13abe252e5b290c865b4d033fe4c4f88e9a" title="The device itself reported an error while executing the command.">DeviceCommandResultCode::DeviceError</a> using <span class="tt">msg</span>, then re-emits <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#ad14e5007f560c061bc1e8eb3126f9645" title="Forwarded from the device via Qt::QueuedConnection: reports an error message.">errorOccurred()</a> with <span class="tt">msg</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00265">265</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00304">304</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00053">vc::runtime::DeviceError</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#ad14e5007f560c061bc1e8eb3126f9645">vc::runtime::IDeviceRunner::errorOccurred()</a>, <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00387">hasActiveCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00497">m_activeCommand</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00053">vc::runtime::DeviceError</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#ad14e5007f560c061bc1e8eb3126f9645">vc::runtime::IDeviceRunner::errorOccurred()</a>, <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00539">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00452">hasActiveCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00575">m_activeCommand</a>.</p>
 
 </div>
 </div>
@@ -692,9 +705,9 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00232">232</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00271">271</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00027">vc::runtime::Connect</a>, <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f">vc::runtime::IDeviceRunner::connectStatusChanged()</a>, <a class="el" href="device__command_8h_source.html#l00053">vc::runtime::DeviceError</a>, <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Disconnect</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00387">hasActiveCommand()</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, <a class="el" href="camera__runner_8h_source.html#l00497">m_activeCommand</a>, <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>, and <a class="el" href="device__command_8h_source.html#l00203">vc::runtime::DeviceCommandResult::succeeded()</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00027">vc::runtime::Connect</a>, <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a9b6c63c4c8daad2bbd0fc5c7add2833f">vc::runtime::IDeviceRunner::connectStatusChanged()</a>, <a class="el" href="device__command_8h_source.html#l00053">vc::runtime::DeviceError</a>, <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Disconnect</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00539">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00452">hasActiveCommand()</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, <a class="el" href="camera__runner_8h_source.html#l00575">m_activeCommand</a>, <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>, and <a class="el" href="device__command_8h_source.html#l00203">vc::runtime::DeviceCommandResult::succeeded()</a>.</p>
 
 </div>
 </div>
@@ -721,17 +734,22 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Handles the camera device's grabFinished signal. If a CameraSingleShot command is active, resolves it succeeded or failed based on <span class="tt">result.isGrabSuccess</span> (carrying <span class="tt">result.msg</span> in the result payload's "message" entry), then always re-emits <a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s grabFinished signal fires.">grabFinished()</a> with <span class="tt">result</span>. </p>
+<p>Handles the camera device's grabFinished signal, applying the grab-retry policy. </p>
+<p>With a CameraSingleShot command active:</p><ul>
+<li>success resolves the command and clears the retry counter;</li>
+<li>failure re-issues the grab (restarting the watchdog for the new attempt) until kMaxGrabAttempts is reached, then fails the command.</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">result</td><td>the grab outcome reported by the camera device </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5" title="Re-emitted (GUI-thread side) whenever the camera device&#39;s grabFinished signal fires.">grabFinished()</a> is re-emitted only for the outcome the caller should act on — an intermediate failure returns early instead. That is what lets the runtime controller treat one command as one cycle result. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00282">282</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00327">327</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="device__command_8h_source.html#l00053">vc::runtime::DeviceError</a>, <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">finishActiveCommand()</a>, <a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5">grabFinished()</a>, <a class="el" href="camera__runner_8h_source.html#l00387">hasActiveCommand()</a>, <a class="el" href="camera__device_8h_source.html#l00208">vc::device::GrabResult::isGrabSuccess</a>, <a class="el" href="camera__runner_8h_source.html#l00497">m_activeCommand</a>, <a class="el" href="camera__device_8h_source.html#l00209">vc::device::GrabResult::msg</a>, and <a class="el" href="device__command_8h_source.html#l00203">vc::runtime::DeviceCommandResult::succeeded()</a>.</p>
+<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00513">activeTimeoutMs()</a>, <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="device__command_8h_source.html#l00053">vc::runtime::DeviceError</a>, <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00539">finishActiveCommand()</a>, <a class="el" href="#aea2e5075cb660e1d6e780c562a39e5e5">grabFinished()</a>, <a class="el" href="camera__runner_8h_source.html#l00452">hasActiveCommand()</a>, <a class="el" href="camera__device_8h_source.html#l00221">vc::device::GrabResult::isGrabSuccess</a>, <a class="el" href="camera__runner_8h_source.html#l00083">kMaxGrabAttempts</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="app__logger_8h_source.html#l00196">LOG_USER_WARN</a>, <a class="el" href="camera__runner_8h_source.html#l00575">m_activeCommand</a>, <a class="el" href="camera__runner_8h_source.html#l00574">m_activeCommandTimer</a>, <a class="el" href="camera__runner_8h_source.html#l00576">m_grabFailedCount</a>, <a class="el" href="camera__device_8h_source.html#l00222">vc::device::GrabResult::msg</a>, <a class="el" href="#aa15a78bd2ce20786018505b2cc7fa23a">sig_singleShot()</a>, and <a class="el" href="device__command_8h_source.html#l00203">vc::runtime::DeviceCommandResult::succeeded()</a>.</p>
 
 </div>
 </div>
@@ -766,9 +784,9 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00312">312</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00377">377</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00030">vc::runtime::CameraApplyParams</a>, <a class="el" href="device__command_8h_source.html#l00053">vc::runtime::DeviceError</a>, <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00387">hasActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00497">m_activeCommand</a>, <a class="el" href="#a6a4ea535ce0e5e16cf50f7806322b9da">parametersApplied()</a>, and <a class="el" href="device__command_8h_source.html#l00203">vc::runtime::DeviceCommandResult::succeeded()</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00030">vc::runtime::CameraApplyParams</a>, <a class="el" href="device__command_8h_source.html#l00053">vc::runtime::DeviceError</a>, <a class="el" href="device__command_8h_source.html#l00216">vc::runtime::DeviceCommandResult::failed()</a>, <a class="el" href="camera__runner_8h_source.html#l00539">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00452">hasActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00575">m_activeCommand</a>, <a class="el" href="#a6a4ea535ce0e5e16cf50f7806322b9da">parametersApplied()</a>, and <a class="el" href="device__command_8h_source.html#l00203">vc::runtime::DeviceCommandResult::succeeded()</a>.</p>
 
 </div>
 </div>
@@ -803,7 +821,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00312">onParametersApplied()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00377">onParametersApplied()</a>.</p>
 
 </div>
 </div>
@@ -831,11 +849,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the queueing policy to apply for <span class="tt">kind</span>: Connect/Disconnect reject while busy, CameraSingleShot queues FIFO while busy, CameraApplyParams replaces any pending command of the same kind, and unsupported/unknown kinds default to rejecting while busy. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00370">370</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00435">435</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
 <p class="reference">References <a class="el" href="device__command_8h_source.html#l00030">vc::runtime::CameraApplyParams</a>, <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="device__command_8h_source.html#l00027">vc::runtime::Connect</a>, <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Disconnect</a>, <a class="el" href="device__command__queue_8h_source.html#l00024">vc::runtime::QueueWhenBusy</a>, <a class="el" href="device__command__queue_8h_source.html#l00023">vc::runtime::RejectWhenBusy</a>, <a class="el" href="device__command__queue_8h_source.html#l00025">vc::runtime::ReplacePendingSameKind</a>, and <a class="el" href="device__command_8h_source.html#l00026">vc::runtime::Unknown</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -863,9 +881,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Submits a CameraApplyParams command for this camera via <a class="el" href="#acdcfbb5fe5d8351fa93b4485a1e9a5ff" title="Validates and submits command for execution. Rejects it (via finishRejectedCommand()) if its targetDe...">submitCommand()</a>; replaces any already-pending CameraApplyParams command rather than queuing behind it. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00092">92</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00131">131</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00030">vc::runtime::CameraApplyParams</a>, <a class="el" href="device__command_8h_source.html#l00138">vc::runtime::DeviceCommand::create()</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, and <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00030">vc::runtime::CameraApplyParams</a>, <a class="el" href="device__command_8h_source.html#l00138">vc::runtime::DeviceCommand::create()</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, and <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -894,9 +912,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Submits a Connect command for this camera via <a class="el" href="#acdcfbb5fe5d8351fa93b4485a1e9a5ff" title="Validates and submits command for execution. Rejects it (via finishRejectedCommand()) if its targetDe...">submitCommand()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00069">69</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00108">108</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00027">vc::runtime::Connect</a>, <a class="el" href="device__command_8h_source.html#l00138">vc::runtime::DeviceCommand::create()</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, and <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00027">vc::runtime::Connect</a>, <a class="el" href="device__command_8h_source.html#l00138">vc::runtime::DeviceCommand::create()</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, and <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -925,9 +943,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Submits a Disconnect command for this camera via <a class="el" href="#acdcfbb5fe5d8351fa93b4485a1e9a5ff" title="Validates and submits command for execution. Rejects it (via finishRejectedCommand()) if its targetDe...">submitCommand()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00076">76</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00115">115</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00138">vc::runtime::DeviceCommand::create()</a>, <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Disconnect</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, and <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00138">vc::runtime::DeviceCommand::create()</a>, <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Disconnect</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, and <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -955,11 +973,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Submits a CameraSingleShot (grab) command for this camera via <a class="el" href="#acdcfbb5fe5d8351fa93b4485a1e9a5ff" title="Validates and submits command for execution. Rejects it (via finishRejectedCommand()) if its targetDe...">submitCommand()</a>; queues FIFO behind any command already running. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00084">84</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00123">123</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="device__command_8h_source.html#l00138">vc::runtime::DeviceCommand::create()</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, and <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">References <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="device__command_8h_source.html#l00138">vc::runtime::DeviceCommand::create()</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, and <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01381">LocalizationPatternsWidget::onTriggerCameraClicked()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01465">LocalizationPatternsWidget::onTriggerCameraClicked()</a>.</p>
 
 </div>
 </div>
@@ -987,11 +1005,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Starts executing <span class="tt">command</span> on the camera thread: looks up its trigger signal via <a class="el" href="#aee7dc033e13dfb8b0b95fa10e900b974">triggerFor()</a>, rejects the command (<a class="el" href="#afe03c4bc83aa10cf8087053d41b70af2" title="Logs a rejected command via LOG_USER_INFO and emits commandFinished(result).">finishRejectedCommand()</a>) if no trigger exists, otherwise records it as m_activeCommand, (re)starts m_activeCommandTimer for activeTimeoutMs(command), logs the start via LOG_USER_INFO, and emits the trigger signal. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00396">396</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00461">461</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00440">activeTimeoutMs()</a>, <a class="el" href="device__command_8h_source.html#l00060">vc::runtime::deviceCommandKindToString()</a>, <a class="el" href="camera__runner_8h_source.html#l00446">finishRejectedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00125">vc::runtime::DeviceCommand::id</a>, <a class="el" href="device__command_8h_source.html#l00126">vc::runtime::DeviceCommand::kind</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__runner_8h_source.html#l00497">m_activeCommand</a>, <a class="el" href="camera__runner_8h_source.html#l00496">m_activeCommandTimer</a>, <a class="el" href="camera__runner_8h_source.html#l00495">m_commandQueue</a>, <a class="el" href="device__command_8h_source.html#l00191">vc::runtime::DeviceCommandResult::rejected()</a>, <a class="el" href="device__command_8h_source.html#l00127">vc::runtime::DeviceCommand::targetDeviceId</a>, <a class="el" href="camera__runner_8h_source.html#l00422">triggerFor()</a>, and <a class="el" href="device__command_8h_source.html#l00051">vc::runtime::UnsupportedCommand</a>.</p>
+<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00513">activeTimeoutMs()</a>, <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="device__command_8h_source.html#l00060">vc::runtime::deviceCommandKindToString()</a>, <a class="el" href="camera__runner_8h_source.html#l00524">finishRejectedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00125">vc::runtime::DeviceCommand::id</a>, <a class="el" href="device__command_8h_source.html#l00126">vc::runtime::DeviceCommand::kind</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__runner_8h_source.html#l00575">m_activeCommand</a>, <a class="el" href="camera__runner_8h_source.html#l00574">m_activeCommandTimer</a>, <a class="el" href="camera__runner_8h_source.html#l00573">m_commandQueue</a>, <a class="el" href="camera__runner_8h_source.html#l00576">m_grabFailedCount</a>, <a class="el" href="device__command_8h_source.html#l00191">vc::runtime::DeviceCommandResult::rejected()</a>, <a class="el" href="device__command_8h_source.html#l00127">vc::runtime::DeviceCommand::targetDeviceId</a>, <a class="el" href="camera__runner_8h_source.html#l00494">triggerFor()</a>, and <a class="el" href="device__command_8h_source.html#l00051">vc::runtime::UnsupportedCommand</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00486">dispatchNextCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00564">dispatchNextCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
 
 </div>
 </div>
@@ -1019,7 +1037,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Internal trigger, queued-connected (see <a class="el" href="#a3b48e0cfd494f47edfff67bc5221a527">wireSignals()</a>) to CameraDevice::applyParametersChange(); emitted by <a class="el" href="#a96f280e987f628af085e759278250111">runCommand()</a> to apply pending parameters on the camera thread. </p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00422">triggerFor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00494">triggerFor()</a>.</p>
 
 </div>
 </div>
@@ -1047,7 +1065,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Internal trigger, queued-connected (see <a class="el" href="#a3b48e0cfd494f47edfff67bc5221a527">wireSignals()</a>) to CameraDevice::deviceConnect(); emitted by <a class="el" href="#a96f280e987f628af085e759278250111">runCommand()</a> to start a connect attempt on the camera thread. </p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00422">triggerFor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00494">triggerFor()</a>.</p>
 
 </div>
 </div>
@@ -1075,7 +1093,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Internal trigger, queued-connected (see <a class="el" href="#a3b48e0cfd494f47edfff67bc5221a527">wireSignals()</a>) to CameraDevice::deviceDisconnect(); emitted by <a class="el" href="#a96f280e987f628af085e759278250111">runCommand()</a> to start a disconnect on the camera thread. </p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00422">triggerFor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00494">triggerFor()</a>.</p>
 
 </div>
 </div>
@@ -1103,7 +1121,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Internal trigger, queued-connected (see <a class="el" href="#a3b48e0cfd494f47edfff67bc5221a527">wireSignals()</a>) to CameraDevice::grabSingleShot(); emitted by <a class="el" href="#a96f280e987f628af085e759278250111">runCommand()</a> to start a single-shot grab on the camera thread. </p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00422">triggerFor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00494">triggerFor()</a>.</p>
 
 </div>
 </div>
@@ -1142,11 +1160,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1runtime_1_1_i_device_runner.html#a364d4cae549dca12e47387b04084fb39">vc::runtime::IDeviceRunner</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00112">112</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00151">151</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="device__command__queue_8h_source.html#l00034">vc::runtime::DeviceCommandEnqueueDecision::accepted</a>, <a class="el" href="device__command_8h_source.html#l00181">vc::runtime::DeviceCommandResult::accepted()</a>, <a class="el" href="device__command_8h_source.html#l00060">vc::runtime::deviceCommandKindToString()</a>, <a class="el" href="camera__runner_8h_source.html#l00446">finishRejectedCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00387">hasActiveCommand()</a>, <a class="el" href="device__command_8h_source.html#l00125">vc::runtime::DeviceCommand::id</a>, <a class="el" href="device__command_8h_source.html#l00052">vc::runtime::InvalidTarget</a>, <a class="el" href="camera__runner_8h_source.html#l00353">isSupportedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00126">vc::runtime::DeviceCommand::kind</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__runner_8h_source.html#l00495">m_commandQueue</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, <a class="el" href="device__command__queue_8h_source.html#l00037">vc::runtime::DeviceCommandEnqueueDecision::pendingCount</a>, <a class="el" href="camera__runner_8h_source.html#l00370">queuePolicyFor()</a>, <a class="el" href="device__command_8h_source.html#l00191">vc::runtime::DeviceCommandResult::rejected()</a>, <a class="el" href="device__command__queue_8h_source.html#l00038">vc::runtime::DeviceCommandEnqueueDecision::rejection</a>, <a class="el" href="device__command__queue_8h_source.html#l00036">vc::runtime::DeviceCommandEnqueueDecision::replacedPending</a>, <a class="el" href="camera__runner_8h_source.html#l00396">runCommand()</a>, <a class="el" href="device__command__queue_8h_source.html#l00035">vc::runtime::DeviceCommandEnqueueDecision::shouldRunNow</a>, <a class="el" href="device__command_8h_source.html#l00127">vc::runtime::DeviceCommand::targetDeviceId</a>, and <a class="el" href="device__command_8h_source.html#l00051">vc::runtime::UnsupportedCommand</a>.</p>
+<p class="reference">References <a class="el" href="device__command__queue_8h_source.html#l00034">vc::runtime::DeviceCommandEnqueueDecision::accepted</a>, <a class="el" href="device__command_8h_source.html#l00181">vc::runtime::DeviceCommandResult::accepted()</a>, <a class="el" href="device__command_8h_source.html#l00060">vc::runtime::deviceCommandKindToString()</a>, <a class="el" href="camera__runner_8h_source.html#l00524">finishRejectedCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00452">hasActiveCommand()</a>, <a class="el" href="device__command_8h_source.html#l00125">vc::runtime::DeviceCommand::id</a>, <a class="el" href="device__command_8h_source.html#l00052">vc::runtime::InvalidTarget</a>, <a class="el" href="camera__runner_8h_source.html#l00418">isSupportedCommand()</a>, <a class="el" href="device__command_8h_source.html#l00126">vc::runtime::DeviceCommand::kind</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__runner_8h_source.html#l00573">m_commandQueue</a>, <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>, <a class="el" href="device__command__queue_8h_source.html#l00037">vc::runtime::DeviceCommandEnqueueDecision::pendingCount</a>, <a class="el" href="camera__runner_8h_source.html#l00435">queuePolicyFor()</a>, <a class="el" href="device__command_8h_source.html#l00191">vc::runtime::DeviceCommandResult::rejected()</a>, <a class="el" href="device__command__queue_8h_source.html#l00038">vc::runtime::DeviceCommandEnqueueDecision::rejection</a>, <a class="el" href="device__command__queue_8h_source.html#l00036">vc::runtime::DeviceCommandEnqueueDecision::replacedPending</a>, <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>, <a class="el" href="device__command__queue_8h_source.html#l00035">vc::runtime::DeviceCommandEnqueueDecision::shouldRunNow</a>, <a class="el" href="device__command_8h_source.html#l00127">vc::runtime::DeviceCommand::targetDeviceId</a>, and <a class="el" href="device__command_8h_source.html#l00051">vc::runtime::UnsupportedCommand</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00092">requestApplyParams()</a>, <a class="el" href="camera__runner_8h_source.html#l00069">requestConnect()</a>, <a class="el" href="camera__runner_8h_source.html#l00076">requestDisconnect()</a>, and <a class="el" href="camera__runner_8h_source.html#l00084">requestSingleShot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00131">requestApplyParams()</a>, <a class="el" href="camera__runner_8h_source.html#l00108">requestConnect()</a>, <a class="el" href="camera__runner_8h_source.html#l00115">requestDisconnect()</a>, and <a class="el" href="camera__runner_8h_source.html#l00123">requestSingleShot()</a>.</p>
 
 </div>
 </div>
@@ -1174,11 +1192,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Maps <span class="tt">kind</span> to the internal trigger signal (sig_connect/sig_disconnect/sig_singleShot/ sig_applyParams) that starts it on the camera thread. </p><dl class="section return"><dt>Returns</dt><dd>the matching trigger signal, or nullptr if <span class="tt">kind</span> is unsupported </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00422">422</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00494">494</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
 <p class="reference">References <a class="el" href="device__command_8h_source.html#l00030">vc::runtime::CameraApplyParams</a>, <a class="el" href="device__command_8h_source.html#l00029">vc::runtime::CameraSingleShot</a>, <a class="el" href="device__command_8h_source.html#l00027">vc::runtime::Connect</a>, <a class="el" href="device__command_8h_source.html#l00028">vc::runtime::Disconnect</a>, <a class="el" href="#a15d9824cc01a6c192fb83a37add73fbd">sig_applyParams()</a>, <a class="el" href="#a6502458585822afbf3ef12a0d4425bf1">sig_connect()</a>, <a class="el" href="#a83b1ecdc1db2f070962afa3dcf91849e">sig_disconnect()</a>, <a class="el" href="#aa15a78bd2ce20786018505b2cc7fa23a">sig_singleShot()</a>, and <a class="el" href="device__command_8h_source.html#l00026">vc::runtime::Unknown</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00396">runCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>.</p>
 
 </div>
 </div>
@@ -1208,7 +1226,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#a12671223d758d4cdb96661fd8b79f58a">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00219">219</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00258">258</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
 <p class="reference">References <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>.</p>
 
@@ -1240,13 +1258,96 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1runtime_1_1_device_runner.html#abc9863612f4714a5601889d8a69a6289">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00192">192</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00231">231</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00055">CameraRunner()</a>, and <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>.</p>
+<p class="reference">References <a class="el" href="camera__runner_8h_source.html#l00093">CameraRunner()</a>, and <a class="el" href="device__runner_8h_source.html#l00108">vc::runtime::DeviceRunner&lt; vc::device::CameraDevice &gt;::m_device</a>.</p>
 
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a9780fcd9bf1f3cb65667af2c7d8f92ca" name="a9780fcd9bf1f3cb65667af2c7d8f92ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9780fcd9bf1f3cb65667af2c7d8f92ca">&#9670;&#160;</a></span>kDefaultCommandTimeoutMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vc::runtime::CameraRunner::kDefaultCommandTimeoutMs = 3000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Watchdog window for connect/disconnect/apply-params commands, in milliseconds. </p>
+
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00076">76</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00513">activeTimeoutMs()</a>.</p>
+
+</div>
+</div>
+<a id="a9193772a07781ec8a1bfb9f478b6ad2f" name="a9193772a07781ec8a1bfb9f478b6ad2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9193772a07781ec8a1bfb9f478b6ad2f">&#9670;&#160;</a></span>kMaxGrabAttempts</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vc::runtime::CameraRunner::kMaxGrabAttempts = 6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Total single-shot attempts before the command is failed. A transient grab failure is retried in the runner so one bad frame does not interrupt the automatic cycle; exhausting these attempts is what surfaces as LocalizationFaultCode::CameraGrabTimeout. </p><dl class="section note"><dt>Note</dt><dd>This is an attempt count, not a retry count: 6 means one initial grab plus five retries. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00083">83</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>.</p>
+
+</div>
+</div>
+<a id="a0f8c24f9022f9ff1a780a01bd05f5789" name="a0f8c24f9022f9ff1a780a01bd05f5789"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f8c24f9022f9ff1a780a01bd05f5789">&#9670;&#160;</a></span>kSingleShotTimeoutMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vc::runtime::CameraRunner::kSingleShotTimeoutMs = 8000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Watchdog window for a single-shot grab, in milliseconds.</p>
+<p>This MUST stay above the camera's own blocking-grab timeout (BaslerGigECamera::kDefaultGrabTimeoutMs, 5000 ms). It used to share the generic 3000 ms default, so the runner gave up while the camera was still legitimately waiting: the command was reported TimedOut and the real grabFinished then arrived with no active command to resolve. </p>
+
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00073">73</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00513">activeTimeoutMs()</a>.</p>
+
+</div>
+</div>
 <a id="a8a220b103bde4e064561269ed0ba8af1" name="a8a220b103bde4e064561269ed0ba8af1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a220b103bde4e064561269ed0ba8af1">&#9670;&#160;</a></span>m_activeCommand</h2>
 
@@ -1269,9 +1370,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Command currently running on the camera thread; empty id means none is active. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00497">497</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00575">575</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00478">clearActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00387">hasActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00333">onActiveCommandTimedOut()</a>, <a class="el" href="camera__runner_8h_source.html#l00265">onConnectionFailed()</a>, <a class="el" href="camera__runner_8h_source.html#l00232">onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00282">onGrabFinished()</a>, <a class="el" href="camera__runner_8h_source.html#l00312">onParametersApplied()</a>, and <a class="el" href="camera__runner_8h_source.html#l00396">runCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00556">clearActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00452">hasActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00398">onActiveCommandTimedOut()</a>, <a class="el" href="camera__runner_8h_source.html#l00304">onConnectionFailed()</a>, <a class="el" href="camera__runner_8h_source.html#l00271">onConnectStatusChanged()</a>, <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>, <a class="el" href="camera__runner_8h_source.html#l00377">onParametersApplied()</a>, and <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>.</p>
 
 </div>
 </div>
@@ -1297,9 +1398,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Single-shot timer that fails m_activeCommand if it doesn't finish in time. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00496">496</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00574">574</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00055">CameraRunner()</a>, <a class="el" href="camera__runner_8h_source.html#l00478">clearActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">finishActiveCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00396">runCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00093">CameraRunner()</a>, <a class="el" href="camera__runner_8h_source.html#l00556">clearActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00539">finishActiveCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>.</p>
 
 </div>
 </div>
@@ -1325,14 +1426,40 @@ Additional Inherited Members</h2></td></tr>
 
 <p>FIFO queue of camera commands awaiting dispatch. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00495">495</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00573">573</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00486">dispatchNextCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00396">runCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00112">submitCommand()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00564">dispatchNextCommand()</a>, <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>, and <a class="el" href="camera__runner_8h_source.html#l00151">submitCommand()</a>.</p>
+
+</div>
+</div>
+<a id="a9e21a49f34be74cb4b8ec94d9198c35f" name="a9e21a49f34be74cb4b8ec94d9198c35f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e21a49f34be74cb4b8ec94d9198c35f">&#9670;&#160;</a></span>m_grabFailedCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vc::runtime::CameraRunner::m_grabFailedCount</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="camera__runner_8h_source.html#l00576">576</a> of file <a class="el" href="camera__runner_8h_source.html">camera_runner.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="camera__runner_8h_source.html#l00093">CameraRunner()</a>, <a class="el" href="camera__runner_8h_source.html#l00327">onGrabFinished()</a>, and <a class="el" href="camera__runner_8h_source.html#l00461">runCommand()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/runtime/<a class="el" href="camera__runner_8h_source.html">camera_runner.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/runtime/<a class="el" href="camera__runner_8h_source.html">camera_runner.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

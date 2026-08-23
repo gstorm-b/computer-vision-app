@@ -3,6 +3,7 @@ var classvc_1_1model_1_1_task_localize_config_private =
     [ "TaskLocalizeConfigPrivate", "classvc_1_1model_1_1_task_localize_config_private.html#a78640bd829e77d38fa9f3739dbf1b8f7", null ],
     [ "TaskLocalizeConfigPrivate", "classvc_1_1model_1_1_task_localize_config_private.html#a5bbaadd66933ef63709461bc867ef654", null ],
     [ "m_bCameraValid", "classvc_1_1model_1_1_task_localize_config_private.html#a7b29576e237a8173d9e5406637b3a7ed", null ],
+    [ "m_bErrorReset", "classvc_1_1model_1_1_task_localize_config_private.html#ad0c3562c8c99afef0b15644de52fc7fc", null ],
     [ "m_bExecuteTrigger", "classvc_1_1model_1_1_task_localize_config_private.html#a72ab9a5e58c337edb2eedea95a9ec1f8", null ],
     [ "m_bMatchingBusy", "classvc_1_1model_1_1_task_localize_config_private.html#a2e17116ebdf48265d4d73e327561bad0", null ],
     [ "m_bMatchingDetected", "classvc_1_1model_1_1_task_localize_config_private.html#aabf74c5fe3af7cb656cff05c9d979f74", null ],

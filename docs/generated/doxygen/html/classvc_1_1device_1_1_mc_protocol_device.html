@@ -401,7 +401,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00054">54</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, <a class="el" href="plc__device_8h_source.html#l00116">vc::device::PlcDevice::PlcDevice()</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, <a class="el" href="plc__device_8h_source.html#l00125">vc::device::PlcDevice::PlcDevice()</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
 
 </div>
 </div>
@@ -455,7 +455,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_digital_io_provider.html#a1f572f0221d2677226f505b2668b0b4d">vc::device::IDigitalIoProvider</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00202">202</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00208">208</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00219">m_m_device_names</a>.</p>
 
@@ -489,7 +489,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_word_io_provider.html#ac66cc3b05a259c247c7f3bf202b2d3e7">vc::device::IWordIoProvider</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00207">207</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00213">213</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00220">m_d_device_names</a>.</p>
 
@@ -520,11 +520,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Diffs the freshly-polled M/D device maps against their "last" snapshots, emits <a class="el" href="#a9403dfad20e3bc6f22bc9d895415127f" title="Emitted when a polled M-device bit&#39;s value changes.">deviceMChanged()</a>/deviceDChanged()/valueChanged() for each changed address (suppressed on the very first polling pass), and updates the snapshots in place.</p>
 <p>Compares the freshly polled M and D device maps against their "last known value" shadows, emits <a class="el" href="#a9403dfad20e3bc6f22bc9d895415127f" title="Emitted when a polled M-device bit&#39;s value changes.">deviceMChanged()</a>/deviceDChanged() for each changed address (suppressed during the very first polling round), accumulates the changes into a single valueChanged(QMap) signal, and updates the shadow maps in place. </p><dl class="section note"><dt>Note</dt><dd>If a map's size changed since the last comparison, its shadow map is first resynced via <a class="el" href="#a8b2d6e0e0e7ea0ef325fef4f8da9aa34">update_last_m_map()</a>/update_last_d_map() before the value diff. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">648</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">659</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#ad7bab1876f378e8f667a29f7bb36b398">deviceDChanged()</a>, <a class="el" href="#a9403dfad20e3bc6f22bc9d895415127f">deviceMChanged()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00211">is_first_time_polling</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00217">m_last_device_D_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00216">m_last_device_M_map</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00714">update_last_d_map()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00701">update_last_m_map()</a>, and <a class="el" href="classvc_1_1device_1_1_plc_device.html#acc5aede34c811f0c7479ecac5f4d640d">vc::device::PlcDevice::valueChanged()</a>.</p>
+<p class="reference">References <a class="el" href="#ad7bab1876f378e8f667a29f7bb36b398">deviceDChanged()</a>, <a class="el" href="#a9403dfad20e3bc6f22bc9d895415127f">deviceMChanged()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00211">is_first_time_polling</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00217">m_last_device_D_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00216">m_last_device_M_map</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00725">update_last_d_map()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00712">update_last_m_map()</a>, and <a class="el" href="classvc_1_1device_1_1_plc_device.html#acc5aede34c811f0c7479ecac5f4d640d">vc::device::PlcDevice::valueChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>.</p>
 
 </div>
 </div>
@@ -588,7 +588,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00084">84</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00122">vc::device::McMsgInterface::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00115">vc::device::IDevice::connectStatus()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00203">m_polling_timer</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00132">releaseConnectionResources()</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00122">vc::device::McMsgInterface::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00115">vc::device::IDevice::connectStatus()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00203">m_polling_timer</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00138">releaseConnectionResources()</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
 
 </div>
 </div>
@@ -634,7 +634,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>.</p>
 
 </div>
 </div>
@@ -665,11 +665,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device.html#a39586f7714b7748a201b5a1b109b0cbc">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00122">122</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00128">128</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00153">teardownConnection()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00159">teardownConnection()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00069">deviceTerminate()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00069">deviceTerminate()</a>.</p>
 
 </div>
 </div>
@@ -715,7 +715,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>.</p>
 
 </div>
 </div>
@@ -747,7 +747,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00069">69</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__device_8cpp_source.html#l00122">deviceDisconnect()</a>, <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00046">isDeviceConnected()</a>, <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
+<p class="reference">References <a class="el" href="mc__protocol__device_8cpp_source.html#l00128">deviceDisconnect()</a>, <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00046">isDeviceConnected()</a>, <a class="el" href="app__logger_8h_source.html#l00189">LOG_DEV_DEBUG</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
 
 </div>
 </div>
@@ -811,9 +811,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_i_device.html#af76bf05d5362022bf4ced7bcea24f7ba">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00280">280</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00286">286</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00192">vc::device::IDevice::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00192">vc::device::IDevice::fromJson()</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>.</p>
 
 </div>
 </div>
@@ -842,9 +842,9 @@ Additional Inherited Members</h2></td></tr>
 <p>(Re)builds the transport and frame codec from m_config, resets polling/queue state, and (re)creates the polling timer with the configured refresh interval. </p><dl class="section return"><dt>Returns</dt><dd>false if the configured frame type or message interface type is unsupported</dd></dl>
 <p>(Re)builds the MC transport stack for the currently configured protocol: releases any previous transport, then constructs the frame codec and message interface matching the config's frame/message types, wires up the read-ready signal, (re)creates the polling timer on first use, refreshes its interval, recomputes the polling device map, and resets all per-session state (queues, counters, buffers). </p><dl class="section return"><dt>Returns</dt><dd>true if both the frame type and message-interface type are recognized/supported; false if either is unsupported, leaving the device unusable for connect. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">329</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">335</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00099">vc::device::mc::EthernetTCPIP</a>, <a class="el" href="mc__define_8h_source.html#l00087">vc::device::mc::Frame_3E</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00211">is_first_time_polling</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00208">m_comm_active_m_device</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00200">m_current_request</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00209">m_data_update_state</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00195">m_frame</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00203">m_polling_timer</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00222">m_read_buffer</a>, <a class="el" href="mc__context_8h_source.html#l00184">vc::device::McContext::m_refreshInterval</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00197">m_request_queue</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00210">m_update_command_index</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00305">onMsgInterfaceReadReady()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00289">onPollingTimerTimeOut()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00111">QueryTriggerByTimer</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00132">releaseConnectionResources()</a>.</p>
+<p class="reference">References <a class="el" href="mc__define_8h_source.html#l00099">vc::device::mc::EthernetTCPIP</a>, <a class="el" href="mc__define_8h_source.html#l00087">vc::device::mc::Frame_3E</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00211">is_first_time_polling</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00208">m_comm_active_m_device</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00200">m_current_request</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00209">m_data_update_state</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00195">m_frame</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00203">m_polling_timer</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00222">m_read_buffer</a>, <a class="el" href="mc__context_8h_source.html#l00184">vc::device::McContext::m_refreshInterval</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00197">m_request_queue</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00210">m_update_command_index</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00311">onMsgInterfaceReadReady()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00295">onPollingTimerTimeOut()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00111">QueryTriggerByTimer</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00138">releaseConnectionResources()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00084">deviceConnect()</a>.</p>
 
@@ -881,7 +881,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, and <a class="el" href="idevice_8h_source.html#l00115">vc::device::IDevice::connectStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00069">deviceTerminate()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00289">onPollingTimerTimeOut()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00164">setDeviceConfig()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00184">setMcProtocolConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00069">deviceTerminate()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00295">onPollingTimerTimeOut()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00170">setDeviceConfig()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00190">setMcProtocolConfig()</a>.</p>
 
 </div>
 </div>
@@ -902,7 +902,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns a copy of the current MC protocol configuration. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00197">197</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00203">203</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>.</p>
 
@@ -934,11 +934,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Transport readyRead handler: forwards to <a class="el" href="#a641c218f1a6f91de1262e3cc971fe587">response_handle()</a> to parse the pending reply. </p>
 <p>Slot for the message interface's readyRead signal; forwards to <a class="el" href="#a641c218f1a6f91de1262e3cc971fe587">response_handle()</a> to process the pending reply. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00305">305</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00311">311</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>.</p>
+<p class="reference">References <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>.</p>
 
 </div>
 </div>
@@ -967,11 +967,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Polling timer tick: stops the timer if the device is no longer connected, otherwise drives one step of the round-robin poll via <a class="el" href="#aa427818dab9791eddfc0588de76ed6f7">polling_query()</a>.</p>
 <p>Polling timer slot; stops the timer if the device is no longer connected, otherwise drives the next <a class="el" href="#aa427818dab9791eddfc0588de76ed6f7">polling_query()</a> step. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00289">289</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00295">295</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00046">isDeviceConnected()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00203">m_polling_timer</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>.</p>
+<p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00046">isDeviceConnected()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00203">m_polling_timer</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>.</p>
 
 </div>
 </div>
@@ -1000,11 +1000,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Queues a bit-write toggling the configured "comm active" M-device between 0 and 1, to signal liveness to the PLC each polling round.</p>
 <p>Queues a heartbeat write toggling the configured "active" M-bit device, then flips the cached value so the next call sends the opposite state. </p><dl class="section note"><dt>Note</dt><dd>Appends directly to m_request_queue without the m_mutex locking <a class="el" href="#aa28b0b79525301d329ba737d26bcad12">pushRequest()</a> uses; only safe because this runs on the same (polling) call path as the queue drain. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00313">313</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00319">319</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00208">m_comm_active_m_device</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00207">m_comm_active_m_device_value</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00197">m_request_queue</a>, and <a class="el" href="mc__request_8h_source.html#l00045">vc::device::MCRequest::WriteBit</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>.</p>
 
 </div>
 </div>
@@ -1033,11 +1033,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Rebuilds the device map's M/D address ranges and polling request queue from the current context's configured start/amount addresses.</p>
 <p>Rebuilds the device map's subscribed M/D address ranges from the current context, merges them into optimal contiguous ranges, and regenerates the polling request queue and per-tag name lists. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">565</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">576</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__context_8h_source.html#l00189">vc::device::McContext::m_amountDAddress</a>, <a class="el" href="mc__context_8h_source.html#l00187">vc::device::McContext::m_amountMAddress</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00198">m_polling_request_queue</a>, <a class="el" href="mc__context_8h_source.html#l00188">vc::device::McContext::m_startDAddress</a>, <a class="el" href="mc__context_8h_source.html#l00186">vc::device::McContext::m_startMAddress</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00612">update_d_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00579">update_m_map()</a>.</p>
+<p class="reference">References <a class="el" href="mc__context_8h_source.html#l00189">vc::device::McContext::m_amountDAddress</a>, <a class="el" href="mc__context_8h_source.html#l00187">vc::device::McContext::m_amountMAddress</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00198">m_polling_request_queue</a>, <a class="el" href="mc__context_8h_source.html#l00188">vc::device::McContext::m_startDAddress</a>, <a class="el" href="mc__context_8h_source.html#l00186">vc::device::McContext::m_startMAddress</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00623">update_d_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00590">update_m_map()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00280">fromJson()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00164">setDeviceConfig()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00184">setMcProtocolConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00286">fromJson()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00170">setDeviceConfig()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00190">setMcProtocolConfig()</a>.</p>
 
 </div>
 </div>
@@ -1070,7 +1070,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00051">51</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="plc__device_8h_source.html#l00027">vc::device::MitsubishiMc</a>.</p>
+<p class="reference">References <a class="el" href="plc__device_8h_source.html#l00031">vc::device::MitsubishiMc</a>.</p>
 
 </div>
 </div>
@@ -1099,11 +1099,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Drives one polling step: handles a pending response timeout via <a class="el" href="#a58ecb8aa1e21a80c99389a1ce2f0ae0b">retry_request_handle()</a>, otherwise pops the next ad-hoc request or advances the round-robin polling queue (and, on completing a full pass, emits <a class="el" href="classvc_1_1device_1_1_plc_device.html#a930dc253699a50da71f6172ca0cac201">pollingUpdate()</a> and queues the comm-active toggle) before dispatching it with <a class="el" href="#a8360781719949cd4472e2eb9abe0dffa">request_handle()</a>.</p>
 <p>Drives one step of the polling state machine: if a response is still outstanding, checks for timeout and retries; otherwise pops the next ad-hoc request (if any) or the next scheduled polling request round-robin, updates m_data_update_state accordingly (emitting <a class="el" href="classvc_1_1device_1_1_plc_device.html#a930dc253699a50da71f6172ca0cac201">pollingUpdate()</a> and queuing the heartbeat write when a full round completes), and dispatches it via <a class="el" href="#a8360781719949cd4472e2eb9abe0dffa">request_handle()</a>. </p><dl class="section note"><dt>Note</dt><dd>Locks m_mutex only while draining m_request_queue. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">401</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">407</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00211">is_first_time_polling</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00200">m_current_request</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00209">m_data_update_state</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00198">m_polling_request_queue</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00197">m_request_queue</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00205">m_sent_time_point</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00210">m_update_command_index</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00313">onSetCommActiveDevice()</a>, <a class="el" href="classvc_1_1device_1_1_plc_device.html#a930dc253699a50da71f6172ca0cac201">vc::device::PlcDevice::pollingUpdate()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00112">QueryContinue</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00113">QueryFinished</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00543">retry_request_handle()</a>.</p>
+<p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00211">is_first_time_polling</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00200">m_current_request</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00209">m_data_update_state</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00198">m_polling_request_queue</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00197">m_request_queue</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00205">m_sent_time_point</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00210">m_update_command_index</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00319">onSetCommActiveDevice()</a>, <a class="el" href="classvc_1_1device_1_1_plc_device.html#a930dc253699a50da71f6172ca0cac201">vc::device::PlcDevice::pollingUpdate()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00112">QueryContinue</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00113">QueryFinished</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00554">retry_request_handle()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00289">onPollingTimerTimeOut()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00295">onPollingTimerTimeOut()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>.</p>
 
 </div>
 </div>
@@ -1141,11 +1141,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device.html#a92b625620673d67ab1e6ad6998fb8bef">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00262">262</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00268">268</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="classvc_1_1device_1_1_i_request.html#a3d0361486815943bc2ced02ef15510d0">vc::device::IRequest::clone()</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00197">m_request_queue</a>, <a class="el" href="irequest_8h_source.html#l00018">vc::device::Request_MC</a>, and <a class="el" href="classvc_1_1device_1_1_i_request.html#a97665786222c2d520595cd3b5db911d3">vc::device::IRequest::type()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00216">writeDigitalIoByName()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00239">writeWordIoByName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00222">writeDigitalIoByName()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00245">writeWordIoByName()</a>.</p>
 
 </div>
 </div>
@@ -1174,11 +1174,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Frees the transport + frame and stops (but keeps) the polling timer. Does not change connection status. </p><dl class="section note"><dt>Note</dt><dd>caller must hold m_mutex.</dd></dl>
 <p>Stops (without deleting) the reused polling timer and destroys/releases the message-interface transport and frame codec, leaving the device ready for a clean reconnect. </p><dl class="section note"><dt>Note</dt><dd>Caller must hold m_mutex; safe to call from within the timer's own slot chain since the timer is only stopped, never deleted. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00132">132</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00138">138</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00195">m_frame</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, and <a class="el" href="mc__protocol__device_8h_source.html#l00203">m_polling_timer</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00084">deviceConnect()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00153">teardownConnection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00084">deviceConnect()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00159">teardownConnection()</a>.</p>
 
 </div>
 </div>
@@ -1207,11 +1207,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Encodes m_current_request into a frame via m_frame-&gt;makeSendFrame() and sends it through m_msg_interface; on send failure retries up to 5 times before disconnecting.</p>
 <p>Encodes m_current_request into a frame and sends it over the message interface; on send failure, retries up to 5 times before disconnecting; on success, records the send timestamp and marks the device as waiting for a response. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">448</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">454</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__device_8cpp_source.html#l00122">deviceDisconnect()</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00200">m_current_request</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00195">m_frame</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00205">m_sent_time_point</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00132">vc::device::McMsgInterface::NoError</a>, and <a class="el" href="mc__frame__abstract_8h_source.html#l00028">vc::device::MCFrameAbstract::RequestFrameOK</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00200">m_current_request</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00195">m_frame</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00205">m_sent_time_point</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00132">vc::device::McMsgInterface::NoError</a>, <a class="el" href="mc__frame__abstract_8h_source.html#l00028">vc::device::MCFrameAbstract::RequestFrameOK</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00738">setDeviceLostConnect()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00543">retry_request_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00554">retry_request_handle()</a>.</p>
 
 </div>
 </div>
@@ -1267,11 +1267,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Reads and parses the pending response frame; on success updates the device map via <a class="el" href="#a3ca4d56aac0dcf14a84024f4cb9f61b1">check_device_changed()</a>, on a still-incomplete frame stashes the partial bytes in m_read_buffer for the next call, and on completion (ok/error/invalid) clears state and, if mid-round, continues polling via <a class="el" href="#aa427818dab9791eddfc0588de76ed6f7">polling_query()</a>.</p>
 <p>Reads and parses the next reply for m_current_request, carrying over any partial bytes from a previous split read; on a complete response (ok/error/invalid) clears the read buffer and outstanding-request state, and on a still-incomplete frame stores the accumulated bytes back into m_read_buffer for the next call. </p><dl class="section note"><dt>Note</dt><dd>Continues the polling round via <a class="el" href="#aa427818dab9791eddfc0588de76ed6f7">polling_query()</a> when the state machine is mid-round (QueryContinue). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">489</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">500</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00135">vc::device::McMsgInterface::BufferEmpty</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00200">m_current_request</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00209">m_data_update_state</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00195">m_frame</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00222">m_read_buffer</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00132">vc::device::McMsgInterface::NoError</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00112">QueryContinue</a>, <a class="el" href="mc__frame__abstract_8h_source.html#l00032">vc::device::MCFrameAbstract::ResponseError</a>, <a class="el" href="mc__frame__abstract_8h_source.html#l00033">vc::device::MCFrameAbstract::ResponseInvalid</a>, <a class="el" href="mc__frame__abstract_8h_source.html#l00031">vc::device::MCFrameAbstract::ResponseOk</a>, and <a class="el" href="mc__frame__abstract_8h_source.html#l00030">vc::device::MCFrameAbstract::WaitingReceive</a>.</p>
+<p class="reference">References <a class="el" href="mc__msg__interface_8h_source.html#l00135">vc::device::McMsgInterface::BufferEmpty</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00200">m_current_request</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00209">m_data_update_state</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00195">m_frame</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00222">m_read_buffer</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__msg__interface_8h_source.html#l00132">vc::device::McMsgInterface::NoError</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00112">QueryContinue</a>, <a class="el" href="mc__frame__abstract_8h_source.html#l00032">vc::device::MCFrameAbstract::ResponseError</a>, <a class="el" href="mc__frame__abstract_8h_source.html#l00033">vc::device::MCFrameAbstract::ResponseInvalid</a>, <a class="el" href="mc__frame__abstract_8h_source.html#l00031">vc::device::MCFrameAbstract::ResponseOk</a>, and <a class="el" href="mc__frame__abstract_8h_source.html#l00030">vc::device::MCFrameAbstract::WaitingReceive</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00305">onMsgInterfaceReadReady()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00311">onMsgInterfaceReadReady()</a>.</p>
 
 </div>
 </div>
@@ -1300,11 +1300,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Handles a response timeout: gives up (via <a class="el" href="#aea1570b1c26b45ae13827ab955fb5d6e">setDeviceLostConnect()</a>) after more than 5 retries, otherwise clears the transport buffer/read buffer and resends the current request via <a class="el" href="#a8360781719949cd4472e2eb9abe0dffa">request_handle()</a>.</p>
 <p>Handles a response timeout: gives up (marks the device lost) after more than 5 retries, otherwise clears the transport's receive buffer and any partial frame, and resends the current request via <a class="el" href="#a8360781719949cd4472e2eb9abe0dffa">request_handle()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00543">543</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00554">554</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00222">m_read_buffer</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00727">setDeviceLostConnect()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00194">m_msg_interface</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00222">m_read_buffer</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00738">setDeviceLostConnect()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>.</p>
 
 </div>
 </div>
@@ -1341,9 +1341,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_i_device.html#a5ffcf0ff2dcaa799aa7f04acaa9eca9e">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00164">164</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00170">170</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__config_8h_source.html#l00065">vc::device::McProtocolConfig::context()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00046">isDeviceConnected()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
+<p class="reference">References <a class="el" href="mc__protocol__config_8h_source.html#l00065">vc::device::McProtocolConfig::context()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00046">isDeviceConnected()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
 
 </div>
 </div>
@@ -1372,11 +1372,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Tears down the connection and publishes <a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38a43489e9a3723de2dd603492caa12f997">ConnectStatus::LostConnected</a> after repeated response timeouts.</p>
 <p>Tears down the connection and publishes LostConnected status after repeated response timeouts. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00727">727</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00738">738</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00153">teardownConnection()</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00214">m_retry_count</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00212">m_wait_for_response</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00159">teardownConnection()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00543">retry_request_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00554">retry_request_handle()</a>.</p>
 
 </div>
 </div>
@@ -1402,9 +1402,9 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00184">184</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00190">190</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__protocol__config_8h_source.html#l00065">vc::device::McProtocolConfig::context()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00046">isDeviceConnected()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
+<p class="reference">References <a class="el" href="mc__protocol__config_8h_source.html#l00065">vc::device::McProtocolConfig::context()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00046">isDeviceConnected()</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00192">m_config</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
 
 </div>
 </div>
@@ -1438,11 +1438,11 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00153">153</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00159">159</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00132">releaseConnectionResources()</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00138">releaseConnectionResources()</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00122">deviceDisconnect()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00727">setDeviceLostConnect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00128">deviceDisconnect()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00738">setDeviceLostConnect()</a>.</p>
 
 </div>
 </div>
@@ -1471,11 +1471,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Rebuilds the D-device value/name maps and appends one ReadWord polling request per optimized D address range.</p>
 <p>Rebuilds the word (D) device-value map, its "last known value" shadow map, and the exposed tag-name list from the device map's subscribed D ranges, and appends one ReadWord polling request per range. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00612">612</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00623">623</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00220">m_d_device_names</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00217">m_last_device_D_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00198">m_polling_request_queue</a>, and <a class="el" href="mc__request_8h_source.html#l00046">vc::device::MCRequest::ReadWord</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>.</p>
 
 </div>
 </div>
@@ -1504,11 +1504,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Fills in any D-device map entries missing from the "last" snapshot (used after a size change) without disturbing existing entries.</p>
 <p>Adds any address present in the current D device map but missing from m_last_device_D_map, seeding it with the current value (used to resync the shadow map after a size change). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00714">714</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00725">725</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, and <a class="el" href="mc__protocol__device_8h_source.html#l00217">m_last_device_D_map</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>.</p>
 
 </div>
 </div>
@@ -1537,11 +1537,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Fills in any M-device map entries missing from the "last" snapshot (used after a size change) without disturbing existing entries.</p>
 <p>Adds any address present in the current M device map but missing from m_last_device_M_map, seeding it with the current value (used to resync the shadow map after a size change). </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00701">701</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00712">712</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, and <a class="el" href="mc__protocol__device_8h_source.html#l00216">m_last_device_M_map</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>.</p>
 
 </div>
 </div>
@@ -1570,11 +1570,11 @@ Additional Inherited Members</h2></td></tr>
 <p>Rebuilds the M-device value/name maps and appends one ReadBit polling request per optimized M address range.</p>
 <p>Rebuilds the digital (M) device-value map, its "last known value" shadow map, and the exposed tag-name list from the device map's subscribed M ranges, and appends one ReadBit polling request per range. </p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00579">579</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00590">590</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="mc__protocol__device_8h_source.html#l00202">m_device_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00216">m_last_device_M_map</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00219">m_m_device_names</a>, <a class="el" href="mc__protocol__device_8h_source.html#l00198">m_polling_request_queue</a>, and <a class="el" href="mc__request_8h_source.html#l00044">vc::device::MCRequest::ReadBit</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>.</p>
 
 </div>
 </div>
@@ -1616,9 +1616,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_plc_io_writer.html#ac56aa4f45f2d7444ad30fefc71c59deb">vc::device::IPlcIoWriter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00216">216</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00222">222</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00116">vc::device::MCRequest::buildWriteData_Bit_Device()</a>, <a class="el" href="mc__request_8h_source.html#l00110">vc::device::MCRequest::isValid()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00262">pushRequest()</a>, and <a class="el" href="mc__request_8h_source.html#l00045">vc::device::MCRequest::WriteBit</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00116">vc::device::MCRequest::buildWriteData_Bit_Device()</a>, <a class="el" href="mc__request_8h_source.html#l00110">vc::device::MCRequest::isValid()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00268">pushRequest()</a>, and <a class="el" href="mc__request_8h_source.html#l00045">vc::device::MCRequest::WriteBit</a>.</p>
 
 </div>
 </div>
@@ -1660,9 +1660,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_plc_io_writer.html#a7463eea824bb32a9cad777faeca615ff">vc::device::IPlcIoWriter</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00239">239</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mc__protocol__device_8cpp_source.html#l00245">245</a> of file <a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00132">vc::device::MCRequest::buildWriteData_Word_Device_Word()</a>, <a class="el" href="mc__request_8h_source.html#l00110">vc::device::MCRequest::isValid()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00262">pushRequest()</a>, and <a class="el" href="mc__request_8h_source.html#l00047">vc::device::MCRequest::WriteWord</a>.</p>
+<p class="reference">References <a class="el" href="mc__request_8h_source.html#l00132">vc::device::MCRequest::buildWriteData_Word_Device_Word()</a>, <a class="el" href="mc__request_8h_source.html#l00110">vc::device::MCRequest::isValid()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00268">pushRequest()</a>, and <a class="el" href="mc__request_8h_source.html#l00047">vc::device::MCRequest::WriteWord</a>.</p>
 
 </div>
 </div>
@@ -1691,7 +1691,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00211">211</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>.</p>
 
 </div>
 </div>
@@ -1719,7 +1719,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00208">208</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00313">onSetCommActiveDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00319">onSetCommActiveDevice()</a>.</p>
 
 </div>
 </div>
@@ -1747,7 +1747,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00207">207</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00313">onSetCommActiveDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00319">onSetCommActiveDevice()</a>.</p>
 
 </div>
 </div>
@@ -1775,7 +1775,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00192">192</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8h_source.html#l00057">currentFrameType()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00197">mcProtocolConfig()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00054">McProtocolDevice()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00164">setDeviceConfig()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00184">setMcProtocolConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8h_source.html#l00057">currentFrameType()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00203">mcProtocolConfig()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00054">McProtocolDevice()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00170">setDeviceConfig()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00190">setMcProtocolConfig()</a>.</p>
 
 </div>
 </div>
@@ -1803,7 +1803,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00200">200</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>.</p>
 
 </div>
 </div>
@@ -1831,7 +1831,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00220">220</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00207">availableWordIoNames()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00612">update_d_map()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00213">availableWordIoNames()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00623">update_d_map()</a>.</p>
 
 </div>
 </div>
@@ -1859,7 +1859,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00209">209</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>.</p>
 
 </div>
 </div>
@@ -1887,7 +1887,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00202">202</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00612">update_d_map()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00714">update_last_d_map()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00701">update_last_m_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00579">update_m_map()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00623">update_d_map()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00725">update_last_d_map()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00712">update_last_m_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00590">update_m_map()</a>.</p>
 
 </div>
 </div>
@@ -1915,7 +1915,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00195">195</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00132">releaseConnectionResources()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00138">releaseConnectionResources()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>.</p>
 
 </div>
 </div>
@@ -1943,7 +1943,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00217">217</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00612">update_d_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00714">update_last_d_map()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00623">update_d_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00725">update_last_d_map()</a>.</p>
 
 </div>
 </div>
@@ -1971,7 +1971,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00216">216</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">check_device_changed()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00701">update_last_m_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00579">update_m_map()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">check_device_changed()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00712">update_last_m_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00590">update_m_map()</a>.</p>
 
 </div>
 </div>
@@ -1999,7 +1999,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00219">219</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00202">availableDigitalIoNames()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00579">update_m_map()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00208">availableDigitalIoNames()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00590">update_m_map()</a>.</p>
 
 </div>
 </div>
@@ -2027,7 +2027,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00194">194</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00084">deviceConnect()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00132">releaseConnectionResources()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00543">retry_request_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00084">deviceConnect()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00138">releaseConnectionResources()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00554">retry_request_handle()</a>.</p>
 
 </div>
 </div>
@@ -2055,7 +2055,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00198">198</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00565">optimizeDeviceMap()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00612">update_d_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00579">update_m_map()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00576">optimizeDeviceMap()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00623">update_d_map()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00590">update_m_map()</a>.</p>
 
 </div>
 </div>
@@ -2083,7 +2083,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00203">203</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00084">deviceConnect()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00289">onPollingTimerTimeOut()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00132">releaseConnectionResources()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00084">deviceConnect()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00295">onPollingTimerTimeOut()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00138">releaseConnectionResources()</a>.</p>
 
 </div>
 </div>
@@ -2111,7 +2111,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00222">222</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00543">retry_request_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00554">retry_request_handle()</a>.</p>
 
 </div>
 </div>
@@ -2139,7 +2139,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00197">197</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00313">onSetCommActiveDevice()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00262">pushRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00319">onSetCommActiveDevice()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00268">pushRequest()</a>.</p>
 
 </div>
 </div>
@@ -2167,7 +2167,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00214">214</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00543">retry_request_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00554">retry_request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00738">setDeviceLostConnect()</a>.</p>
 
 </div>
 </div>
@@ -2195,7 +2195,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00205">205</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>.</p>
 
 </div>
 </div>
@@ -2223,7 +2223,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00210">210</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>.</p>
 
 </div>
 </div>
@@ -2251,13 +2251,13 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="mc__protocol__device_8h_source.html#l00212">212</a> of file <a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00329">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00448">request_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00489">response_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00543">retry_request_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00335">initialize_mc_device()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">polling_query()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00454">request_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00500">response_handle()</a>, <a class="el" href="mc__protocol__device_8cpp_source.html#l00554">retry_request_handle()</a>, and <a class="el" href="mc__protocol__device_8cpp_source.html#l00738">setDeviceLostConnect()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a></li>
-<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__protocol__device_8h_source.html">mc_protocol_device.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="mc__protocol__device_8cpp_source.html">mc_protocol_device.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

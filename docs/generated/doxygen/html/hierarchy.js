@@ -59,30 +59,41 @@ var hierarchy =
     [ "RobotKinematics::FrameRegistry", "class_robot_kinematics_1_1_frame_registry.html", null ],
     [ "vc::device::GrabResult", "structvc_1_1device_1_1_grab_result.html", null ],
     [ "calib::FanucIRvisionBoard::GridCell", "structcalib_1_1_fanuc_i_rvision_board_1_1_grid_cell.html", null ],
+    [ "mtc::GripperBoxes", "structmtc_1_1_gripper_boxes.html", null ],
+    [ "vc::model::GripperPreset", "structvc_1_1model_1_1_gripper_preset.html", null ],
+    [ "vc::model::GripperPresetStore", "classvc_1_1model_1_1_gripper_preset_store.html", null ],
+    [ "vc::auth::IAdminCredentialProvider", "classvc_1_1auth_1_1_i_admin_credential_provider.html", [
+      [ "vc::auth::SettingsAdminCredentialProvider", "classvc_1_1auth_1_1_settings_admin_credential_provider.html", null ]
+    ] ],
     [ "vc::device::IDeviceCfg", "classvc_1_1device_1_1_i_device_cfg.html", [
       [ "vc::device::CameraCfg", "classvc_1_1device_1_1_camera_cfg.html", [
-        [ "vc::device::BaslerGigeCfg", "classvc_1_1device_1_1_basler_gige_cfg.html", null ]
+        [ "vc::device::BaslerGigeCfg", "classvc_1_1device_1_1_basler_gige_cfg.html", null ],
+        [ "vc::device::VirtualCameraCfg", "classvc_1_1device_1_1_virtual_camera_cfg.html", null ]
       ] ],
       [ "vc::device::PlcCfg", "classvc_1_1device_1_1_plc_cfg.html", [
-        [ "vc::device::McProtocolConfig", "classvc_1_1device_1_1_mc_protocol_config.html", null ]
+        [ "vc::device::McProtocolConfig", "classvc_1_1device_1_1_mc_protocol_config.html", null ],
+        [ "vc::device::VirtualPlcCfg", "classvc_1_1device_1_1_virtual_plc_cfg.html", null ]
       ] ],
       [ "vc::device::RobotCfg", "classvc_1_1device_1_1_robot_cfg.html", [
         [ "vc::device::KawasakiRobotCfg", "classvc_1_1device_1_1_kawasaki_robot_cfg.html", null ],
         [ "vc::device::NachiRobotCfg", "classvc_1_1device_1_1_nachi_robot_cfg.html", null ]
       ] ],
       [ "vc::device::VisionOutputDeviceCfg", "classvc_1_1device_1_1_vision_output_device_cfg.html", [
+        [ "vc::device::VirtualVisionOutputCfg", "classvc_1_1device_1_1_virtual_vision_output_cfg.html", null ],
         [ "vc::device::VisionTcpipClientDeviceCfg", "classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html", null ],
         [ "vc::device::VisionTcpipDeviceCfg", "classvc_1_1device_1_1_vision_tcpip_device_cfg.html", null ]
       ] ]
     ] ],
     [ "vc::device::IDigitalIoProvider", "classvc_1_1device_1_1_i_digital_io_provider.html", [
       [ "vc::device::IPlcTagProvider", "classvc_1_1device_1_1_i_plc_tag_provider.html", [
-        [ "vc::device::McProtocolDevice", "classvc_1_1device_1_1_mc_protocol_device.html", null ]
+        [ "vc::device::McProtocolDevice", "classvc_1_1device_1_1_mc_protocol_device.html", null ],
+        [ "vc::device::VirtualPlcDevice", "classvc_1_1device_1_1_virtual_plc_device.html", null ]
       ] ]
     ] ],
     [ "vc::device::IImageSourceDevice", "classvc_1_1device_1_1_i_image_source_device.html", [
       [ "vc::device::CameraDevice", "classvc_1_1device_1_1_camera_device.html", [
-        [ "vc::device::BaslerGigECamera", "classvc_1_1device_1_1_basler_gig_e_camera.html", null ]
+        [ "vc::device::BaslerGigECamera", "classvc_1_1device_1_1_basler_gig_e_camera.html", null ],
+        [ "vc::device::VirtualCameraDevice", "classvc_1_1device_1_1_virtual_camera_device.html", null ]
       ] ]
     ] ],
     [ "RobotKinematics::IKOptions", "struct_robot_kinematics_1_1_i_k_options.html", null ],
@@ -103,7 +114,8 @@ var hierarchy =
       [ "mtc::EdgeMatchConfig", "classmtc_1_1_edge_match_config.html", null ]
     ] ],
     [ "vc::device::IPlcIoWriter", "classvc_1_1device_1_1_i_plc_io_writer.html", [
-      [ "vc::device::McProtocolDevice", "classvc_1_1device_1_1_mc_protocol_device.html", null ]
+      [ "vc::device::McProtocolDevice", "classvc_1_1device_1_1_mc_protocol_device.html", null ],
+      [ "vc::device::VirtualPlcDevice", "classvc_1_1device_1_1_virtual_plc_device.html", null ]
     ] ],
     [ "vc::device::IRequest", "classvc_1_1device_1_1_i_request.html", [
       [ "vc::device::MCRequest", "classvc_1_1device_1_1_m_c_request.html", null ],
@@ -111,6 +123,7 @@ var hierarchy =
     ] ],
     [ "vc::device::IResultOutputDevice", "classvc_1_1device_1_1_i_result_output_device.html", [
       [ "vc::device::VisionOutputDevice", "classvc_1_1device_1_1_vision_output_device.html", [
+        [ "vc::device::VirtualVisionOutputDevice", "classvc_1_1device_1_1_virtual_vision_output_device.html", null ],
         [ "vc::device::VisionTcpipDeviceBase", "classvc_1_1device_1_1_vision_tcpip_device_base.html", [
           [ "vc::device::VisionTcpipClientDevice", "classvc_1_1device_1_1_vision_tcpip_client_device.html", null ],
           [ "vc::device::VisionTcpipDevice", "classvc_1_1device_1_1_vision_tcpip_device.html", null ]
@@ -195,6 +208,7 @@ var hierarchy =
     ] ],
     [ "RobotKinematics::PostureResolverFactory", "class_robot_kinematics_1_1_posture_resolver_factory.html", null ],
     [ "RobotKinematics::PresetJsonLoader", "class_robot_kinematics_1_1_preset_json_loader.html", null ],
+    [ "ProjectRepository", "class_project_repository.html", null ],
     [ "vc::model::ProjectRepository", "classvc_1_1model_1_1_project_repository.html", null ],
     [ "PropGroup&lt; Config &gt;", "struct_prop_group.html", null ],
     [ "RobotKinematics::anonymous_namespace{StlPrimitiveAuthoringHelper.cpp}::ProposedGeometryData", "struct_robot_kinematics_1_1anonymous__namespace_02_stl_primitive_authoring_helper_8cpp_03_1_1_proposed_geometry_data.html", null ],
@@ -209,10 +223,12 @@ var hierarchy =
       [ "AddPatternDialog", "class_add_pattern_dialog.html", null ],
       [ "AddPatternImageDialog", "class_add_pattern_image_dialog.html", null ],
       [ "AddPatternWizard", "class_add_pattern_wizard.html", null ],
+      [ "AdminLoginDialog", "class_admin_login_dialog.html", null ],
       [ "BaslerCamSelectDialog", "class_basler_cam_select_dialog.html", null ],
       [ "CalibrationBoardDialog", "class_calibration_board_dialog.html", null ],
       [ "CalibrationThresholdDialog", "class_calibration_threshold_dialog.html", null ],
       [ "EditPatternWizard", "class_edit_pattern_wizard.html", null ],
+      [ "GripperRegisterDialog", "class_gripper_register_dialog.html", null ],
       [ "NewProjectDialog", "class_new_project_dialog.html", null ],
       [ "NewTaskDialog", "class_new_task_dialog.html", null ],
       [ "WorkspaceSettingDialog", "class_workspace_setting_dialog.html", null ],
@@ -249,6 +265,7 @@ var hierarchy =
     [ "QGraphicsView", null, [
       [ "ImageViewOnly", "class_image_view_only.html", null ],
       [ "ImageWidget", "class_image_widget.html", null ],
+      [ "PatternThumbnailView", "class_pattern_thumbnail_view.html", null ],
       [ "VisionCanvas", "class_vision_canvas.html", null ]
     ] ],
     [ "QIconEngine", null, [
@@ -276,20 +293,24 @@ var hierarchy =
       [ "SortableCameraItem", "class_sortable_camera_item.html", null ]
     ] ],
     [ "QMainWindow", null, [
-      [ "MainWindow", "class_main_window.html", null ]
+      [ "MainWindow", "class_main_window.html", null ],
+      [ "RuntimeShellWindow", "class_runtime_shell_window.html", null ]
     ] ],
     [ "QObject", null, [
       [ "AppLogger", "class_app_logger.html", null ],
       [ "AppSettings", "class_app_settings.html", null ],
       [ "ItemPickingCenter", "class_item_picking_center.html", null ],
+      [ "SingleInstanceGuard", "class_single_instance_guard.html", null ],
       [ "ThemeManager", "class_theme_manager.html", null ],
       [ "mtc::MatchConfigPropertyAdapter", "classmtc_1_1_match_config_property_adapter.html", null ],
       [ "mtc::PatternGroupManager", "classmtc_1_1_pattern_group_manager.html", null ],
+      [ "vc::auth::AccessControl", "classvc_1_1auth_1_1_access_control.html", null ],
       [ "vc::device::DeviceManager", "classvc_1_1device_1_1_device_manager.html", null ],
       [ "vc::device::IDevice", "classvc_1_1device_1_1_i_device.html", [
         [ "vc::device::CameraDevice", "classvc_1_1device_1_1_camera_device.html", null ],
         [ "vc::device::PlcDevice", "classvc_1_1device_1_1_plc_device.html", [
-          [ "vc::device::McProtocolDevice", "classvc_1_1device_1_1_mc_protocol_device.html", null ]
+          [ "vc::device::McProtocolDevice", "classvc_1_1device_1_1_mc_protocol_device.html", null ],
+          [ "vc::device::VirtualPlcDevice", "classvc_1_1device_1_1_virtual_plc_device.html", null ]
         ] ],
         [ "vc::device::RobotDevice", "classvc_1_1device_1_1_robot_device.html", [
           [ "vc::device::KawasakiRobotDevice", "classvc_1_1device_1_1_kawasaki_robot_device.html", null ],
@@ -367,6 +388,7 @@ var hierarchy =
       [ "IDeviceWidget", "class_i_device_widget.html", [
         [ "BaslerCameraWidget", "class_basler_camera_widget.html", null ],
         [ "MitsubishiMcDeviceWidget", "class_mitsubishi_mc_device_widget.html", null ],
+        [ "VirtualDeviceWidget", "class_virtual_device_widget.html", null ],
         [ "VisionTcpipClientDeviceWidget", "class_vision_tcpip_client_device_widget.html", null ],
         [ "VisionTcpipDeviceWidget", "class_vision_tcpip_device_widget.html", null ]
       ] ],
@@ -402,10 +424,13 @@ var hierarchy =
     [ "CameraWorkspaceWidget::Row", "struct_camera_workspace_widget_1_1_row.html", null ],
     [ "SignalsMapWidget::RowState", "struct_signals_map_widget_1_1_row_state.html", null ],
     [ "vc::model::LocalizationRuntimeController::RuntimeContext", "structvc_1_1model_1_1_localization_runtime_controller_1_1_runtime_context.html", null ],
+    [ "RuntimeLayoutController", "class_runtime_layout_controller.html", null ],
     [ "RobotKinematics::SerialRobotConfig", "struct_robot_kinematics_1_1_serial_robot_config.html", null ],
     [ "RobotKinematics::SerialRobotConfigBuilder", "class_robot_kinematics_1_1_serial_robot_config_builder.html", null ],
     [ "RobotKinematics::SerialRobotKinematics", "class_robot_kinematics_1_1_serial_robot_kinematics.html", null ],
     [ "vc::model::LocalizationRuntimeController::SetupResult", "structvc_1_1model_1_1_localization_runtime_controller_1_1_setup_result.html", null ],
+    [ "ShellHandoff", "class_shell_handoff.html", null ],
+    [ "vc::shell::ShellHandoff", "classvc_1_1shell_1_1_shell_handoff.html", null ],
     [ "anonymous_namespace{localization_dashboard_widget.cpp}::SignalRowSpec", "structanonymous__namespace_02localization__dashboard__widget_8cpp_03_1_1_signal_row_spec.html", null ],
     [ "anonymous_namespace{localization_setting_widget.cpp}::SignalRowSpec", "structanonymous__namespace_02localization__setting__widget_8cpp_03_1_1_signal_row_spec.html", null ],
     [ "RobotKinematics::anonymous_namespace{NumericalIKSolver.cpp}::SolveAttempt", "struct_robot_kinematics_1_1anonymous__namespace_02_numerical_i_k_solver_8cpp_03_1_1_solve_attempt.html", null ],

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/task_state_machine.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/task_state_machine.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -150,7 +150,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ab3915767aafc338ba34d830576eb4cda" id="r_ab3915767aafc338ba34d830576eb4cda"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#ab3915767aafc338ba34d830576eb4cda">vc::model::buildTaskStateTransitionMessage</a> (<a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> from, <a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> to, const QString &amp;reason=QString())</td></tr>
 <tr class="memdesc:ab3915767aafc338ba34d830576eb4cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a human-readable log message describing an accepted task state transition, in the form "Task state transition: &lt;from&gt; -&gt; &lt;to&gt;", optionally suffixed with "(reason)".  <br /></td></tr>
 <tr class="memitem:ae3e7c50d5cdaebecaf06c4ba6a6ce703" id="r_ae3e7c50d5cdaebecaf06c4ba6a6ce703"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model.html#ae3e7c50d5cdaebecaf06c4ba6a6ce703">vc::model::canTransitionTaskState</a> (<a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> from, <a class="el" href="namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a">TaskState</a> to)</td></tr>
-<tr class="memdesc:ae3e7c50d5cdaebecaf06c4ba6a6ce703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a task is allowed to move from state <span class="tt">from</span> to state <span class="tt">to</span> according to the task lifecycle graph (Idle -&gt; Commission* -&gt; Runtime* -&gt; Ready/RunningCycle/ Recovering -&gt; Stopping -&gt; Idle, with Faulted reachable from most states and only able to proceed to Stopping). Staying in the same state is always allowed.  <br /></td></tr>
+<tr class="memdesc:ae3e7c50d5cdaebecaf06c4ba6a6ce703"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a task is allowed to move from state <span class="tt">from</span> to state <span class="tt">to</span> according to the task lifecycle graph (Idle -&gt; Commission* -&gt; Runtime* -&gt; Ready/RunningCycle/ Recovering -&gt; Stopping -&gt; Idle, with Faulted reachable from most states and able to proceed to Ready (fault acknowledged or auto-cleared) or Stopping). Staying in the same state is always allowed.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Task model layer: per-task configuration types, state machines, and device/camera bindings for the picking application. </p>

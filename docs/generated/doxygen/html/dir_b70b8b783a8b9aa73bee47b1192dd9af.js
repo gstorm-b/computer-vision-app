@@ -1,6 +1,7 @@
 var dir_b70b8b783a8b9aa73bee47b1192dd9af =
 [
     [ "edge_match_config.h", "edge__match__config_8h.html", "edge__match__config_8h" ],
+    [ "gripper_boxes.h", "gripper__boxes_8h.html", "gripper__boxes_8h" ],
     [ "image_matcher.cpp", "image__matcher_8cpp.html", "image__matcher_8cpp" ],
     [ "image_matcher.h", "image__matcher_8h.html", "image__matcher_8h" ],
     [ "imatch_type_config.cpp", "imatch__type__config_8cpp.html", null ],

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/core/app_settings/app_settings.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/core/app_settings/app_settings.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -134,7 +134,7 @@ Include dependency graph for app_settings.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="app__settings_8h__dep__incl.svg" width="100%" height="432"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="app__settings_8h__dep__incl.svg" width="100%" height="444"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="app__settings_8h_source.html">Go to the source code of this file.</a></p>
@@ -150,12 +150,18 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:ad9fc2b40bff47e3393947f1ad48072b9" id="r_ad9fc2b40bff47e3393947f1ad48072b9"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="namespace_app_key.html#ad9fc2b40bff47e3393947f1ad48072b9">AppKey::adminPasswordHash</a> [] = &quot;auth.adminPasswordHash&quot;</td></tr>
+<tr class="memdesc:ad9fc2b40bff47e3393947f1ad48072b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hex-encoded SHA-256 of salt + admin password. Storing the hash means copying this file does not hand over the password.  <br /></td></tr>
+<tr class="memitem:a2352b104e927bb8d89d9b5e7499d9775" id="r_a2352b104e927bb8d89d9b5e7499d9775"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="namespace_app_key.html#a2352b104e927bb8d89d9b5e7499d9775">AppKey::adminPasswordSalt</a> [] = &quot;auth.adminPasswordSalt&quot;</td></tr>
+<tr class="memdesc:a2352b104e927bb8d89d9b5e7499d9775"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hex-encoded random salt for the admin credential; never the password itself.  <br /></td></tr>
 <tr class="memitem:ae083a917219a9dd630c29cb57400e8fe" id="r_ae083a917219a9dd630c29cb57400e8fe"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="namespace_app_key.html#ae083a917219a9dd630c29cb57400e8fe">AppKey::Language</a> [] = &quot;app.language&quot;</td></tr>
 <tr class="memdesc:ae083a917219a9dd630c29cb57400e8fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key for the persisted UI locale code.  <br /></td></tr>
 <tr class="memitem:a192c559a4efa72cf586f658531fd15bf" id="r_a192c559a4efa72cf586f658531fd15bf"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="namespace_app_key.html#a192c559a4efa72cf586f658531fd15bf">AppKey::lastFolderAccessDir</a> [] = &quot;app.lastFolderAccessDir&quot;</td></tr>
 <tr class="memdesc:a192c559a4efa72cf586f658531fd15bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key for the last folder path used in a generic folder-browse dialog.  <br /></td></tr>
 <tr class="memitem:a103912d3bce68c5f168af418d879e8d6" id="r_a103912d3bce68c5f168af418d879e8d6"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="namespace_app_key.html#a103912d3bce68c5f168af418d879e8d6">AppKey::lastImageAccessDir</a> [] = &quot;app.lastImageAccessDir&quot;</td></tr>
 <tr class="memdesc:a103912d3bce68c5f168af418d879e8d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key for the last folder path used in an image-file dialog.  <br /></td></tr>
+<tr class="memitem:a0da7eaf077228ffa73344352f0f80add" id="r_a0da7eaf077228ffa73344352f0f80add"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="namespace_app_key.html#a0da7eaf077228ffa73344352f0f80add">AppKey::lastRuntimeProjectPath</a> [] = &quot;app.lastRuntimeProjectPath&quot;</td></tr>
+<tr class="memdesc:a0da7eaf077228ffa73344352f0f80add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key for the project file the operator runtime shell last ran.  <br /></td></tr>
 <tr class="memitem:a29552487d81d55bfcf00f6b81c9506ce" id="r_a29552487d81d55bfcf00f6b81c9506ce"><td class="memItemLeft">constexpr char&#160;</td><td class="memItemRight"><a class="el" href="namespace_app_key.html#a29552487d81d55bfcf00f6b81c9506ce">AppKey::Theme</a> [] = &quot;app.theme&quot;</td></tr>
 <tr class="memdesc:a29552487d81d55bfcf00f6b81c9506ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key for the persisted UI theme id.  <br /></td></tr>
 </table>

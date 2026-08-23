@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/forms/pattern/add_pattern_wizard.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/add_pattern_wizard.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('add__pattern__
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="class_add_pattern_wizard.html" title="5-step modal dialog reimplementation of PatternWizard.jsx: Image (capture from camera or open file + ...">AddPatternWizard</a> — 5-step modal dialog for adding a new pattern.  
+<p><a class="el" href="class_add_pattern_wizard.html" title="6-step modal dialog reimplementation of PatternWizard.jsx: Image (capture from camera or open file + ...">AddPatternWizard</a> — 6-step modal dialog for adding a new pattern.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;QDialog&gt;</code><br />
 <code>#include &lt;QStringList&gt;</code><br />
@@ -129,10 +129,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('add__pattern__
 <code>#include &lt;QSize&gt;</code><br />
 <code>#include &lt;QRect&gt;</code><br />
 <code>#include &lt;opencv2/core.hpp&gt;</code><br />
+<code>#include &quot;<a class="el" href="gripper__preset__store_8h_source.html">model/gripper_preset_store.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for add_pattern_wizard.h:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="add__pattern__wizard_8h__incl.svg" width="100%" height="408"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="add__pattern__wizard_8h__incl.svg" width="100%" height="532"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -145,11 +146,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:AddPatternWizard" id="r_AddPatternWizard"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="class_add_pattern_wizard.html">AddPatternWizard</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">5-step modal dialog reimplementation of <span class="tt">PatternWizard.jsx</span>: Image (capture from camera or open file + name + number), Crop (drag rect on canvas, or "use original
-       frame"), Pick Point (click canvas to set pick X/Y), Picking Box (symmetric jaw pair — size + distance + angle), and Finish (preview + summary).  <a href="class_add_pattern_wizard.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">6-step modal dialog reimplementation of <span class="tt">PatternWizard.jsx</span>: Image (capture from camera or open file + name + number), Crop (drag rect on canvas, or "use original
+       frame"), Pick Point (click canvas to set pick X/Y, plus the picking angle), Picking Box (symmetric jaw pair — size + distance + angle), Offset (6-axis pick offset), and Finish (preview + summary).  <a href="class_add_pattern_wizard.html#details">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="class_add_pattern_wizard.html" title="5-step modal dialog reimplementation of PatternWizard.jsx: Image (capture from camera or open file + ...">AddPatternWizard</a> — 5-step modal dialog for adding a new pattern. </p>
+<div class="textblock"><p><a class="el" href="class_add_pattern_wizard.html" title="6-step modal dialog reimplementation of PatternWizard.jsx: Image (capture from camera or open file + ...">AddPatternWizard</a> — 6-step modal dialog for adding a new pattern. </p>
 
 <p class="definition">Definition in file <a class="el" href="add__pattern__wizard_8h_source.html">add_pattern_wizard.h</a>.</p>
 </div></div><!-- contents -->

@@ -218,12 +218,17 @@ Public Member Functions</h2></td></tr>
 <tr class="inherit_header pub_methods_classvc_1_1device_1_1_i_image_source_device"><td colspan="2">Public Member Functions inherited from <a class="el" href="classvc_1_1device_1_1_i_image_source_device.html">vc::device::IImageSourceDevice</a></td></tr>
 <tr class="memitem:a70a3960baf7cf9986a14281c9196d999 pub_methods_classvc_1_1device_1_1_i_image_source_device" id="r_a70a3960baf7cf9986a14281c9196d999"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="classvc_1_1device_1_1_i_image_source_device.html#a70a3960baf7cf9986a14281c9196d999">~IImageSourceDevice</a> ()=default</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a392b113a4cb30b5696155d75c0333230" id="r_a392b113a4cb30b5696155d75c0333230"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a392b113a4cb30b5696155d75c0333230">kDefaultGrabTimeoutMs</a> = 5000</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aeafb0c8696f1ba7af348b1f3fbb4c164" id="r_aeafb0c8696f1ba7af348b1f3fbb4c164"><td class="memItemLeft"><a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html">BaslerGigeCfg</a>&#160;</td><td class="memItemRight"><a class="el" href="#aeafb0c8696f1ba7af348b1f3fbb4c164">BaslerConfig</a> ()</td></tr>
 <tr class="memdesc:aeafb0c8696f1ba7af348b1f3fbb4c164"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a copy of the current Basler configuration.  <br /></td></tr>
 <tr class="memitem:abcd8ab5f8937c05c5b3827f746745d9a" id="r_abcd8ab5f8937c05c5b3827f746745d9a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abcd8ab5f8937c05c5b3827f746745d9a">initializeIOPort</a> ()</td></tr>
 <tr class="memitem:a31881e61aef5056a650e495c87cbfe41" id="r_a31881e61aef5056a650e495c87cbfe41"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a31881e61aef5056a650e495c87cbfe41">loadSettingToCamera</a> ()</td></tr>
+<tr class="memitem:a548f9c49ef5b983d96ef5fddaa69fdc4" id="r_a548f9c49ef5b983d96ef5fddaa69fdc4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a548f9c49ef5b983d96ef5fddaa69fdc4">publishRemovalIfDetected</a> ()</td></tr>
 <tr class="memitem:ae61e839668a578da4f1d7398f2a16670" id="r_ae61e839668a578da4f1d7398f2a16670"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae61e839668a578da4f1d7398f2a16670">pylon_image_to_mat</a> (Pylon::CInstantCamera::GrabResultPtr_t &amp;ptrGrabResult, cv::Mat &amp;mat)</td></tr>
 <tr class="memitem:aefde6ff63c47bdac19209a714ef4b71d" id="r_aefde6ff63c47bdac19209a714ef4b71d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aefde6ff63c47bdac19209a714ef4b71d">readCameraSetting</a> ()</td></tr>
 <tr class="memitem:a1def5f96b2808736e88776b36381693c" id="r_a1def5f96b2808736e88776b36381693c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1def5f96b2808736e88776b36381693c">SetBaslerConfig</a> (<a class="el" href="classvc_1_1device_1_1_basler_gige_cfg.html">BaslerGigeCfg</a> cfg)</td></tr>
@@ -242,8 +247,8 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:a6092d559781301fc776f11646d94ce13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current Basler configuration; registered as this device's <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html" title="Abstract configuration contract shared by every device family: JSON (de)serialization,...">IDeviceCfg</a>.  <br /></td></tr>
 <tr class="memitem:a1d84fe17bb03d1d4abc636b66aaf1c21" id="r_a1d84fe17bb03d1d4abc636b66aaf1c21"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1d84fe17bb03d1d4abc636b66aaf1c21">m_continuous_shot_ready</a> {false}</td></tr>
 <tr class="memdesc:a1d84fe17bb03d1d4abc636b66aaf1c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset to false on disconnect; not yet set true (continuous-shot start/stop are unimplemented).  <br /></td></tr>
-<tr class="memitem:aed251ba21a4dd191956404feff7848ad" id="r_aed251ba21a4dd191956404feff7848ad"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aed251ba21a4dd191956404feff7848ad">m_grab_timeout</a> {5000}</td></tr>
-<tr class="memdesc:aed251ba21a4dd191956404feff7848ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout (milliseconds) for grab calls.  <br /></td></tr>
+<tr class="memitem:aed251ba21a4dd191956404feff7848ad" id="r_aed251ba21a4dd191956404feff7848ad"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aed251ba21a4dd191956404feff7848ad">m_grab_timeout</a> {<a class="el" href="#a392b113a4cb30b5696155d75c0333230">kDefaultGrabTimeoutMs</a>}</td></tr>
+<tr class="memdesc:aed251ba21a4dd191956404feff7848ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout (milliseconds) for grab calls; set via <a class="el" href="#aaf75a3242bf8df572e751ef7dad09bcf" title="Sets the timeout (milliseconds) used for grab calls, under m_mutex.">setGrabTimeout()</a>.  <br /></td></tr>
 <tr class="memitem:a5342de04b74140c6b2799135f72eaf10" id="r_a5342de04b74140c6b2799135f72eaf10"><td class="memItemLeft">QList&lt; <a class="el" href="structvc_1_1device_1_1basler_1_1_basler_i_o_line.html">BaslerIOLine</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a5342de04b74140c6b2799135f72eaf10">m_io_lines</a></td></tr>
 <tr class="memdesc:a5342de04b74140c6b2799135f72eaf10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Digital I/O lines and their input/output capabilities, populated by <a class="el" href="#abcd8ab5f8937c05c5b3827f746745d9a">initializeIOPort()</a>.  <br /></td></tr>
 <tr class="memitem:a6e08edd6fb31f75fcba5c6118a24c200" id="r_a6e08edd6fb31f75fcba5c6118a24c200"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a6e08edd6fb31f75fcba5c6118a24c200">m_software_trigger_shot_ready</a> {false}</td></tr>
@@ -327,7 +332,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00099">99</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00224">vc::device::CameraDevice::CameraDevice()</a>, <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00237">vc::device::CameraDevice::CameraDevice()</a>, <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
 
 </div>
 </div>
@@ -362,7 +367,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00395">395</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00037">vc::device::basler::Exposure_Continuous</a>, <a class="el" href="basler__define_8h_source.html#l00035">vc::device::basler::Exposure_Off</a>, <a class="el" href="basler__define_8h_source.html#l00036">vc::device::basler::Exposure_Once</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>, and <a class="el" href="classvc_1_1device_1_1_camera_device.html#a053dfa1d92d31351eb93047d46816e59">vc::device::CameraDevice::parametersApplied()</a>.</p>
+<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00037">vc::device::basler::Exposure_Continuous</a>, <a class="el" href="basler__define_8h_source.html#l00035">vc::device::basler::Exposure_Off</a>, <a class="el" href="basler__define_8h_source.html#l00036">vc::device::basler::Exposure_Once</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>, and <a class="el" href="classvc_1_1device_1_1_camera_device.html#a053dfa1d92d31351eb93047d46816e59">vc::device::CameraDevice::parametersApplied()</a>.</p>
 
 </div>
 </div>
@@ -413,7 +418,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00241">241</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>.</p>
 
 </div>
 </div>
@@ -446,7 +451,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00220">220</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00030">vc::device::BaslerGigE</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00033">vc::device::BaslerGigE</a>.</p>
 
 </div>
 </div>
@@ -479,7 +484,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">123</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00571">initializeIOPort()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00325">m_camera_info</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00326">m_camera_ip_address</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00334">m_io_lines</a>, <a class="el" href="idevice_8h_source.html#l00258">vc::device::IDevice::m_last_msg</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00329">m_str_camera_id</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00635">readCameraSetting()</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00643">initializeIOPort()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00341">m_camera_info</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00342">m_camera_ip_address</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00350">m_io_lines</a>, <a class="el" href="idevice_8h_source.html#l00258">vc::device::IDevice::m_last_msg</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00345">m_str_camera_id</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00707">readCameraSetting()</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
 
 </div>
 </div>
@@ -512,7 +517,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">205</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00331">m_continuous_shot_ready</a>, <a class="el" href="idevice_8h_source.html#l00258">vc::device::IDevice::m_last_msg</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00332">m_software_trigger_shot_ready</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00329">m_str_camera_id</a>, <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00347">m_continuous_shot_ready</a>, <a class="el" href="idevice_8h_source.html#l00258">vc::device::IDevice::m_last_msg</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00348">m_software_trigger_shot_ready</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00345">m_str_camera_id</a>, <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00108">deviceTerminate()</a>.</p>
 
@@ -576,7 +581,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_i_device.html#af76bf05d5362022bf4ced7bcea24f7ba">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00282">282</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00290">290</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">References <a class="el" href="idevice_8h_source.html#l00192">vc::device::IDevice::fromJson()</a>.</p>
 
@@ -604,7 +609,7 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Performs a blocking single grab (optionally toggling the backlight line around it), converts the result to cv::Mat and emits <a class="el" href="classvc_1_1device_1_1_camera_device.html#a7140016ec99c21f96f87b43a7dcf8a9c" title="Emitted when a grab (single-shot or continuous) completes with result.">grabFinished()</a>.</p>
+<p>Performs a blocking single grab (optionally toggling the backlight line around it), converts the result to cv::Mat and emits <a class="el" href="classvc_1_1device_1_1_camera_device.html#a7140016ec99c21f96f87b43a7dcf8a9c" title="Emitted when a grab (single-shot or continuous) completes with result.">grabFinished()</a>. </p><dl class="section note"><dt>Note</dt><dd><a class="el" href="classvc_1_1device_1_1_camera_device.html#a7140016ec99c21f96f87b43a7dcf8a9c" title="Emitted when a grab (single-shot or continuous) completes with result.">grabFinished()</a> is emitted on EVERY path, success or failure, because CameraRunner resolves its in-flight command from it.</dd></dl>
 <p>Grabs a single frame synchronously (5000ms timeout via Pylon GrabOne), toggling the configured backlight output line on/off around the grab if auto-backlight-control is enabled, converting the result to a cv::Mat via <a class="el" href="#ae61e839668a578da4f1d7398f2a16670">pylon_image_to_mat()</a>, and emitting grabFinished with the outcome. </p><dl class="section note"><dt>Note</dt><dd>the success branch declares a local <span class="tt">result</span> that shadows the function-scope one; grabFinished is emitted with that local (isGrabSuccess=true, frame set), but the <a class="el" href="structvc_1_1device_1_1_grab_result.html" title="Result of a single camera grab: the captured frame plus success/error status.">GrabResult</a> actually returned by this function is the outer one, which is never updated to reflect success and so always reports isGrabSuccess=false. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="structvc_1_1device_1_1_grab_result.html" title="Result of a single camera grab: the captured frame plus success/error status.">GrabResult</a>; see note above regarding its isGrabSuccess field </dd></dl>
 
@@ -612,7 +617,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">445</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00207">vc::device::GrabResult::frame</a>, <a class="el" href="classvc_1_1device_1_1_camera_device.html#a7140016ec99c21f96f87b43a7dcf8a9c">vc::device::CameraDevice::grabFinished()</a>, <a class="el" href="camera__device_8h_source.html#l00208">vc::device::GrabResult::isGrabSuccess</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>, <a class="el" href="idevice_8h_source.html#l00258">vc::device::IDevice::m_last_msg</a>, <a class="el" href="camera__device_8h_source.html#l00209">vc::device::GrabResult::msg</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00727">pylon_image_to_mat()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00541">setOutputLineState()</a>.</p>
+<p class="reference">References <a class="el" href="camera__device_8h_source.html#l00220">vc::device::GrabResult::frame</a>, <a class="el" href="classvc_1_1device_1_1_camera_device.html#a7140016ec99c21f96f87b43a7dcf8a9c">vc::device::CameraDevice::grabFinished()</a>, <a class="el" href="camera__device_8h_source.html#l00221">vc::device::GrabResult::isGrabSuccess</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00339">m_grab_timeout</a>, <a class="el" href="idevice_8h_source.html#l00258">vc::device::IDevice::m_last_msg</a>, <a class="el" href="camera__device_8h_source.html#l00222">vc::device::GrabResult::msg</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00542">publishRemovalIfDetected()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00799">pylon_image_to_mat()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00613">setOutputLineState()</a>.</p>
 
 </div>
 </div>
@@ -672,9 +677,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Reads IO configuration from camera: enumerates LineSelector entries and, for each, records whether it can be Input/Output (and whether its mode is writable) into m_io_lines.</p>
 <p>Rebuilds m_io_lines (cleared first) by enumerating the camera's GenICam LineSelector symbolics and, for each line, querying its LineMode entries to determine whether it supports Input and/or Output and whether LineMode is writable; logs the discovered capability per line. Silently ignores any Pylon::GenericException. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00571">571</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00643">643</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00112">vc::device::basler::BaslerIOLine::can_be_input</a>, <a class="el" href="basler__define_8h_source.html#l00113">vc::device::basler::BaslerIOLine::can_be_output</a>, <a class="el" href="basler__define_8h_source.html#l00114">vc::device::basler::BaslerIOLine::is_writable</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00334">m_io_lines</a>, and <a class="el" href="basler__define_8h_source.html#l00115">vc::device::basler::BaslerIOLine::name</a>.</p>
+<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00112">vc::device::basler::BaslerIOLine::can_be_input</a>, <a class="el" href="basler__define_8h_source.html#l00113">vc::device::basler::BaslerIOLine::can_be_output</a>, <a class="el" href="basler__define_8h_source.html#l00114">vc::device::basler::BaslerIOLine::is_writable</a>, <a class="el" href="app__logger_8h_source.html#l00187">LOG_DEV_INFO</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00350">m_io_lines</a>, and <a class="el" href="basler__define_8h_source.html#l00115">vc::device::basler::BaslerIOLine::name</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>.</p>
 
@@ -771,9 +776,44 @@ Additional Inherited Members</h2></td></tr>
 <p>Pushes auto-exposure mode, exposure time, gain and acquisition frame rate from m_config to the camera's GenICam node map.</p>
 <p>Pushes the current m_config exposure/gain/frame-rate settings to the camera's GenApi node map (ExposureAuto, ExposureTimeAbs, GainRaw, AcquisitionFrameRateEnable/Abs). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00695">695</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00767">767</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>.</p>
+
+</div>
+</div>
+<a id="a548f9c49ef5b983d96ef5fddaa69fdc4" name="a548f9c49ef5b983d96ef5fddaa69fdc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a548f9c49ef5b983d96ef5fddaa69fdc4">&#9670;&#160;</a></span>publishRemovalIfDetected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::device::BaslerGigECamera::publishRemovalIfDetected </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Detects a removed Pylon device after a failed grab and, if removed, closes the instance and publishes <a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38a43489e9a3723de2dd603492caa12f997">ConnectStatus::LostConnected</a> so the runtime's recovery policy starts reconnecting. </p><dl class="section return"><dt>Returns</dt><dd>true if removal was detected and published </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This camera has no removal callback or heartbeat, so a pulled cable is only ever noticed here — on a grab that fails.</dd></dl>
+<p>Checks whether the Pylon device backing this camera has been removed (cable pulled, power lost, device reset) and, if so, tears the instance down and publishes LostConnected so the localization recovery policy starts reconnecting.</p>
+<p>This camera exposes no removal callback and no heartbeat, so removal is only ever noticed here — on a failed grab. A camera that disappears while the runtime is idle stays "connected" until the next trigger, which is when it matters. </p><dl class="section return"><dt>Returns</dt><dd>true if removal was detected and published </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00542">542</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00347">m_continuous_shot_ready</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00348">m_software_trigger_shot_ready</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00345">m_str_camera_id</a>, and <a class="el" href="idevice_8h_source.html#l00121">vc::device::IDevice::setConnectionStatus()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">grabSingleShot()</a>.</p>
 
 </div>
 </div>
@@ -812,7 +852,7 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00727">727</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00799">799</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>.</p>
 
@@ -845,9 +885,9 @@ Additional Inherited Members</h2></td></tr>
 <p>Reads exposure/gain limits, current exposure/gain/frame-rate and auto-exposure mode from the camera's GenICam node map into m_config (clamping stale config values that fall outside the camera-reported limits).</p>
 <p>Reads exposure/gain/frame-rate limits and current values, plus identity fields (model name, serial number, user-defined name, IP address), directly from the camera's GenApi node map into m_config. Falls back to the hardware-read exposure/gain values when the currently configured ones are outside the hardware's min/max range, and falls back the frame rate to the hardware-read value when the configured one is outside [1.0, 100.0]. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00635">635</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00707">707</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00037">vc::device::basler::Exposure_Continuous</a>, <a class="el" href="basler__define_8h_source.html#l00035">vc::device::basler::Exposure_Off</a>, <a class="el" href="basler__define_8h_source.html#l00036">vc::device::basler::Exposure_Once</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>.</p>
+<p class="reference">References <a class="el" href="basler__define_8h_source.html#l00037">vc::device::basler::Exposure_Continuous</a>, <a class="el" href="basler__define_8h_source.html#l00035">vc::device::basler::Exposure_Off</a>, <a class="el" href="basler__define_8h_source.html#l00036">vc::device::basler::Exposure_Once</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>.</p>
 
@@ -884,7 +924,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00328">328</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
 
 </div>
 </div>
@@ -918,7 +958,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00320">320</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classvc_1_1device_1_1_camera_device.html#a066070a5dba612ce2a44405318a8e6b3">vc::device::CameraDevice::backlightControlChanged()</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>.</p>
+<p class="reference">References <a class="el" href="classvc_1_1device_1_1_camera_device.html#a066070a5dba612ce2a44405318a8e6b3">vc::device::CameraDevice::backlightControlChanged()</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>.</p>
 
 </div>
 </div>
@@ -973,7 +1013,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00232">232</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
 
 </div>
 </div>
@@ -1011,7 +1051,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">249</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00182">vc::device::BaslerGigeCfg::m_autoBacklightControl</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00185">vc::device::BaslerGigeCfg::m_autoBacklightDelay</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00184">vc::device::BaslerGigeCfg::m_autoBacklightInvert</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00183">vc::device::BaslerGigeCfg::m_autoBacklightLine</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00173">vc::device::BaslerGigeCfg::m_autoExposureMode</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00179">vc::device::BaslerGigeCfg::m_enableAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00187">vc::device::BaslerGigeCfg::m_ioCapabilities</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00168">vc::device::BaslerGigeCfg::m_ipAddress</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00165">vc::device::BaslerGigeCfg::m_modelName</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00180">vc::device::BaslerGigeCfg::m_paramsAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00172">vc::device::BaslerGigeCfg::m_paramsExposureTime</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00177">vc::device::BaslerGigeCfg::m_paramsGain</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00167">vc::device::BaslerGigeCfg::m_serialNumber</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00166">vc::device::BaslerGigeCfg::m_userDefinedName</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00182">vc::device::BaslerGigeCfg::m_autoBacklightControl</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00185">vc::device::BaslerGigeCfg::m_autoBacklightDelay</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00184">vc::device::BaslerGigeCfg::m_autoBacklightInvert</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00183">vc::device::BaslerGigeCfg::m_autoBacklightLine</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00173">vc::device::BaslerGigeCfg::m_autoExposureMode</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00179">vc::device::BaslerGigeCfg::m_enableAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00187">vc::device::BaslerGigeCfg::m_ioCapabilities</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00168">vc::device::BaslerGigeCfg::m_ipAddress</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00165">vc::device::BaslerGigeCfg::m_modelName</a>, <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00180">vc::device::BaslerGigeCfg::m_paramsAcquisitionFrameRate</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00172">vc::device::BaslerGigeCfg::m_paramsExposureTime</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00177">vc::device::BaslerGigeCfg::m_paramsGain</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00167">vc::device::BaslerGigeCfg::m_serialNumber</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00166">vc::device::BaslerGigeCfg::m_userDefinedName</a>, and <a class="el" href="idevice_8h_source.html#l00138">vc::device::IDevice::setDeviceConfig()</a>.</p>
 
 </div>
 </div>
@@ -1050,7 +1090,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00290">290</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classvc_1_1device_1_1_camera_device.html#ab7fc6daaedade15541895a4921ac8af5">vc::device::CameraDevice::exposureChanged()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>, and <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>.</p>
+<p class="reference">References <a class="el" href="classvc_1_1device_1_1_camera_device.html#ab7fc6daaedade15541895a4921ac8af5">vc::device::CameraDevice::exposureChanged()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>, and <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>.</p>
 
 </div>
 </div>
@@ -1089,7 +1129,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00307">307</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classvc_1_1device_1_1_camera_device.html#a75f41e89217fd7a15ebfcde068c13418">vc::device::CameraDevice::gainChanged()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00324">m_config</a>, and <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>.</p>
+<p class="reference">References <a class="el" href="classvc_1_1device_1_1_camera_device.html#a75f41e89217fd7a15ebfcde068c13418">vc::device::CameraDevice::gainChanged()</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00340">m_config</a>, and <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>.</p>
 
 </div>
 </div>
@@ -1128,7 +1168,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00281">281</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00323">m_grab_timeout</a>, and <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>.</p>
+<p class="reference">References <a class="el" href="camera__basler__gige_8h_source.html#l00339">m_grab_timeout</a>, and <a class="el" href="idevice_8h_source.html#l00257">vc::device::IDevice::m_mutex</a>.</p>
 
 </div>
 </div>
@@ -1167,9 +1207,9 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00541">541</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00613">613</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, and <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">grabSingleShot()</a>.</p>
 
@@ -1203,7 +1243,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_device.html#ad45eef2cb1bb4cf3ff3f539e4622e6ba">vc::device::CameraDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00528">528</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00600">600</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
 </div>
 </div>
@@ -1235,7 +1275,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_device.html#af4fd65fa5cb20712b9d316145d0d16fc">vc::device::CameraDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00507">507</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00579">579</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
 </div>
 </div>
@@ -1267,7 +1307,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_device.html#a8bdaeb8856dab121462f4417232b2549">vc::device::CameraDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00518">518</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00590">590</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
 </div>
 </div>
@@ -1299,7 +1339,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_device.html#aa8d38a482271f717a04ef6249889863b">vc::device::CameraDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00513">513</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00585">585</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
 </div>
 </div>
@@ -1331,7 +1371,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_camera_device.html#aae1da5dd2dc899292849c9c90a221ce5">vc::device::CameraDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00523">523</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00595">595</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
 </div>
 </div>
@@ -1375,11 +1415,36 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__basler__gige_8cpp_source.html#l00362">362</a> of file <a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00328">m_camera_instance</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
+<p class="reference">References <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="camera__basler__gige_8h_source.html#l00344">m_camera_instance</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
 
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a392b113a4cb30b5696155d75c0333230" name="a392b113a4cb30b5696155d75c0333230"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a392b113a4cb30b5696155d75c0333230">&#9670;&#160;</a></span>kDefaultGrabTimeoutMs</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int vc::device::BaslerGigECamera::kDefaultGrabTimeoutMs = 5000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Default blocking-grab timeout handed to Pylon's GrabOne(), in milliseconds; overridable per device via <a class="el" href="#aaf75a3242bf8df572e751ef7dad09bcf" title="Sets the timeout (milliseconds) used for grab calls, under m_mutex.">setGrabTimeout()</a>. CameraRunner's own command watchdog must stay above this value, or it will always give up before the camera can possibly answer — see CameraRunner::kSingleShotTimeoutMs. </p>
+
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00268">268</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+
+</div>
+</div>
 <a id="a2764469701758c404fc5c8ec5f4d82a0" name="a2764469701758c404fc5c8ec5f4d82a0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2764469701758c404fc5c8ec5f4d82a0">&#9670;&#160;</a></span>m_camera_info</h2>
 
@@ -1402,7 +1467,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Pylon device-info record for the connected camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00325">325</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00341">341</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>.</p>
 
@@ -1430,9 +1495,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Owning handle to the opened Pylon camera instance; null when disconnected. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00328">328</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00344">344</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00395">applyParametersChange()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">deviceDisconnect()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">grabSingleShot()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00571">initializeIOPort()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00695">loadSettingToCamera()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00635">readCameraSetting()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00328">readIO()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00541">setOutputLineState()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00362">writeIO()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00395">applyParametersChange()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">deviceDisconnect()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">grabSingleShot()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00643">initializeIOPort()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00767">loadSettingToCamera()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00542">publishRemovalIfDetected()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00707">readCameraSetting()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00328">readIO()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00613">setOutputLineState()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00362">writeIO()</a>.</p>
 
 </div>
 </div>
@@ -1458,7 +1523,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>IP address used to find the camera on the last <a class="el" href="#a11b55776dd372d949936d5d070cda821">deviceConnect()</a> call. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00326">326</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00342">342</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>.</p>
 
@@ -1486,9 +1551,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Current Basler configuration; registered as this device's <a class="el" href="classvc_1_1device_1_1_i_device_cfg.html" title="Abstract configuration contract shared by every device family: JSON (de)serialization,...">IDeviceCfg</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00324">324</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00340">340</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00395">applyParametersChange()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00099">BaslerGigECamera()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00241">baslerGigeConfig()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">grabSingleShot()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00695">loadSettingToCamera()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00635">readCameraSetting()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00320">setBacklightControl()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00232">setBaslerGigeConfig()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">setDeviceConfig()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00290">setExposure()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00307">setGain()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00395">applyParametersChange()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00099">BaslerGigECamera()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00241">baslerGigeConfig()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">grabSingleShot()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00767">loadSettingToCamera()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00707">readCameraSetting()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00320">setBacklightControl()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00232">setBaslerGigeConfig()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00249">setDeviceConfig()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00290">setExposure()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00307">setGain()</a>.</p>
 
 </div>
 </div>
@@ -1514,9 +1579,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reset to false on disconnect; not yet set true (continuous-shot start/stop are unimplemented). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00331">331</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00347">347</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">deviceDisconnect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">deviceDisconnect()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00542">publishRemovalIfDetected()</a>.</p>
 
 </div>
 </div>
@@ -1530,7 +1595,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int vc::device::BaslerGigECamera::m_grab_timeout {5000}</td>
+          <td class="memname">int vc::device::BaslerGigECamera::m_grab_timeout {<a class="el" href="#a392b113a4cb30b5696155d75c0333230">kDefaultGrabTimeoutMs</a>}</td>
         </tr>
       </table>
   </td>
@@ -1540,11 +1605,11 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Timeout (milliseconds) for grab calls. </p>
+<p>Timeout (milliseconds) for grab calls; set via <a class="el" href="#aaf75a3242bf8df572e751ef7dad09bcf" title="Sets the timeout (milliseconds) used for grab calls, under m_mutex.">setGrabTimeout()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00323">323</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00339">339</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00281">setGrabTimeout()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">grabSingleShot()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00281">setGrabTimeout()</a>.</p>
 
 </div>
 </div>
@@ -1570,9 +1635,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Digital I/O lines and their input/output capabilities, populated by <a class="el" href="#abcd8ab5f8937c05c5b3827f746745d9a">initializeIOPort()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00334">334</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00350">350</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00571">initializeIOPort()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00643">initializeIOPort()</a>.</p>
 
 </div>
 </div>
@@ -1598,9 +1663,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reset to false on disconnect; not yet set true (software-trigger shot is unimplemented). </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00332">332</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00348">348</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">deviceDisconnect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">deviceDisconnect()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00542">publishRemovalIfDetected()</a>.</p>
 
 </div>
 </div>
@@ -1626,15 +1691,15 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Camera serial number, cached from device info after connect. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00329">329</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__basler__gige_8h_source.html#l00345">345</a> of file <a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">deviceDisconnect()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00123">deviceConnect()</a>, <a class="el" href="camera__basler__gige_8cpp_source.html#l00205">deviceDisconnect()</a>, and <a class="el" href="camera__basler__gige_8cpp_source.html#l00542">publishRemovalIfDetected()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/ncr_picking/src/device/camera/<a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a></li>
-<li>C:/DGB/Project/ncr_picking/src/device/camera/<a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/device/camera/<a class="el" href="camera__basler__gige_8h_source.html">camera_basler_gige.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/device/camera/<a class="el" href="camera__basler__gige_8cpp_source.html">camera_basler_gige.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

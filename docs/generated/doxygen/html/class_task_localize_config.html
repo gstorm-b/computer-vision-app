@@ -165,13 +165,13 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a6d002c57d9b185cbc98b46db42330c46" id="r_a6d002c57d9b185cbc98b46db42330c46"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a6d002c57d9b185cbc98b46db42330c46">kSchemaVersion</a> = 1</td></tr>
+<tr class="memitem:a6d002c57d9b185cbc98b46db42330c46" id="r_a6d002c57d9b185cbc98b46db42330c46"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a6d002c57d9b185cbc98b46db42330c46">kSchemaVersion</a> = 2</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Localization-task configuration: PLC signal-name bindings for camera/pattern selection and matching status flags, plus per-camera workspace (ROI) definitions. </p>
 <p>Exposed as a Q_GADGET so its bound signal names can be edited via the property-browser UI. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00063">63</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00064">64</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa17c7cdcfb33a63a37f5969b2d5ac4b2" name="aa17c7cdcfb33a63a37f5969b2d5ac4b2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa17c7cdcfb33a63a37f5969b2d5ac4b2">&#9670;&#160;</a></span>TaskLocalizeConfig() <span class="overload">[1/2]</span></h2>
@@ -197,9 +197,9 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>PLC signal name bound to the active-camera selection ("Camera selection"). </p>
-<p>PLC signal name bound to the active pattern-group selection ("Pattern group selection"). PLC signal name bound to the detected-object number ("Detected number"). PLC signal name bound to the task fault code ("Fault code"). PLC signal name bound to the "camera ready" flag ("Camera ready"). PLC signal name bound to the "pattern ready" flag ("Pattern ready"). PLC signal name bound to the "task ready" flag ("Task ready"). PLC signal name bound to the execute/trigger flag ("Trigger"). PLC signal name bound to the "matching finished" flag ("Finished"). PLC signal name bound to the "matching busy" flag ("Busy"). PLC signal name bound to the "matching detected" flag ("Detected"). PLC signal name bound to the "matching low area" flag ("Low Area"). PLC signal name bound to the "task fault" flag ("Task fault"). Constructs a config with all signal-name bindings empty and default (empty) device bindings/workspaces. </p>
+<p>PLC signal name bound to the active pattern-group selection ("Pattern group selection"). PLC signal name bound to the detected-object number ("Detected number"). PLC signal name bound to the task fault code ("Fault code"). PLC signal name bound to the "camera ready" flag ("Camera ready"). PLC signal name bound to the "pattern ready" flag ("Pattern ready"). PLC signal name bound to the "task ready" flag ("Task ready"). PLC signal name bound to the execute/trigger flag ("Trigger"). PLC signal name bound to the "matching finished" flag ("Finished"). PLC signal name bound to the "matching busy" flag ("Busy"). PLC signal name bound to the "matching detected" flag ("Detected"). PLC signal name bound to the "matching low area" flag ("Low Area"). PLC signal name bound to the "task fault" flag ("Task fault"). PLC signal name bound to the fault-acknowledge input ("Error reset"). Rising edge clears bTaskFault/nFaultCode and re-arms the runtime; leaving it unbound is valid, because a latched cycle fault also clears itself after LocalizationRuntimeController::kFaultAutoRecoverMs. Constructs a config with all signal-name bindings empty and default (empty) device bindings/workspaces. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00098">98</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00104">104</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -228,7 +228,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Shallow-copies <span class="tt">other</span>'s data pointer (QSharedDataPointer copy-on-write semantics). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00202">202</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00220">220</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -265,7 +265,7 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the camera's workspace, or a default-constructed (workspace-off) CameraWorkspace if <span class="tt">cameraId</span> has none configured </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00228">228</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00246">246</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -294,7 +294,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Returns all configured per-camera workspace (ROI) definitions. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00221">221</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00239">239</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -324,7 +324,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1model_1_1_i_task_config.html#accb0472e0759ff53fb00217ca4475483">vc::model::ITaskConfig</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00213">213</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00231">231</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -362,7 +362,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1model_1_1_i_task_config.html#a588b4ab3223befddf108af464486f6e4">vc::model::ITaskConfig</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00156">156</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00171">171</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -392,7 +392,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1model_1_1_i_task_config.html#a0b5e8424e3fef579f867c38f0dd6359c">vc::model::ITaskConfig</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00115">115</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00129">129</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -420,7 +420,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Assigns from <span class="tt">other</span>, sharing its underlying data pointer (copy-on-write). </p><dl class="section return"><dt>Returns</dt><dd>reference to this object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00206">206</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00224">224</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -460,7 +460,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00236">236</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00254">254</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -490,7 +490,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1model_1_1_i_task_config.html#ad32d5f95ee4cf000d0e46563076265ea">vc::model::ITaskConfig</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00108">108</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00122">122</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -520,7 +520,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1model_1_1_i_task_config.html#a8f55b79f911dd81b99633a95dbc7055f">vc::model::ITaskConfig</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00122">122</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00136">136</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -539,7 +539,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Implicitly-shared, copy-on-write private data. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00241">241</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00259">259</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
@@ -553,7 +553,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classvc_1_1model_1_1_task_localize_config.html#a6d002c57d9b185cbc98b46db42330c46">vc::model::TaskLocalizeConfig::kSchemaVersion</a> = 1</td>
+          <td class="memname">int <a class="el" href="classvc_1_1model_1_1_task_localize_config.html#a6d002c57d9b185cbc98b46db42330c46">vc::model::TaskLocalizeConfig::kSchemaVersion</a> = 2</td>
         </tr>
       </table>
   </td>
@@ -562,14 +562,15 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Persistence schema version. Bump when the on-disk shape changes in a way older readers cannot parse; add migration logic in <a class="el" href="#a6530bc53796d33dd0e74278687b4c22b" title="Loads all signal-name bindings, device bindings, and camera workspaces from obj. Rejects documents wh...">fromJson()</a>. A document with no "version" key is the pre-versioning legacy baseline (version 0). </p>
+<p>Persistence schema version. Bump when the on-disk shape changes in a way older readers cannot parse; add migration logic in <a class="el" href="#a6530bc53796d33dd0e74278687b4c22b" title="Loads all signal-name bindings, device bindings, and camera workspaces from obj. Rejects documents wh...">fromJson()</a>. A document with no "version" key is the pre-versioning legacy baseline (version 0).</p>
+<p>History: 0 — pre-versioning baseline (no "version" key). 1 — versioned; 13 signal bindings. 2 — adds "bErrorReset". A v1 document loads unchanged (the key is absent, so the acknowledge input is simply unbound). The bump exists so a v1-era build refuses a v2 document outright instead of loading it with the acknowledge silently dropped. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00104">104</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__localization__config_8h_source.html#l00118">118</a> of file <a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="task__localization__config_8h_source.html">task_localization_config.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/model/localization_runtime_controller.cpp File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/model/localization_runtime_controller.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -127,6 +127,8 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('localization__
 <code>#include &quot;<a class="el" href="match__group_8h_source.html">matching/match_group.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="match__pattern_8h_source.html">matching/match_pattern.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="robot__kinematic__picking__checker_8h_source.html">model/robot_kinematic_picking_checker.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_pose_8h_source.html">RobotKinematics/Core/Pose.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_units_8h_source.html">RobotKinematics/Core/Units.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="camera__runner_8h_source.html">runtime/camera_runner.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="plc__runner_8h_source.html">runtime/plc_runner.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="vision__output__runner_8h_source.html">runtime/vision_output_runner.h</a>&quot;</code><br />
@@ -147,8 +149,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac6497dc51450fee8c58451a9e476dfb1" id="r_ac6497dc51450fee8c58451a9e476dfb1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#ac6497dc51450fee8c58451a9e476dfb1">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryProgressMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, int retryCount, <a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
-<tr class="memitem:a01efcba1414a53c1607aa10ca8721ac7" id="r_a01efcba1414a53c1607aa10ca8721ac7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a01efcba1414a53c1607aa10ca8721ac7">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryReadyMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, int retryCount)</td></tr>
+<tr class="memitem:a5fc55b47b00b76ca558857d02733f715" id="r_a5fc55b47b00b76ca558857d02733f715"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a5fc55b47b00b76ca558857d02733f715">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryProgressMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, <a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
+<tr class="memitem:a086e96ae179b5b37ff6cf7f8e9361796" id="r_a086e96ae179b5b37ff6cf7f8e9361796"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a086e96ae179b5b37ff6cf7f8e9361796">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::buildRecoveryReadyMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, int retryCount, const QDateTime &amp;outageStartedAt)</td></tr>
 <tr class="memitem:a32da36dd795db9a4d7286ef6843a447a" id="r_a32da36dd795db9a4d7286ef6843a447a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a32da36dd795db9a4d7286ef6843a447a">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::connectStatusName</a> (<a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
 <tr class="memitem:a29b8f68f582cf66e8d31b8c42013bb3a" id="r_a29b8f68f582cf66e8d31b8c42013bb3a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a29b8f68f582cf66e8d31b8c42013bb3a">vc::model::anonymous_namespace{localization_runtime_controller.cpp}::isHealthyStatus</a> (<a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
 </table>

@@ -120,22 +120,33 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('structvc_1_1mo
 </div><!--header-->
 <div class="contents">
 
-<p>One picking-path waypoint, prepared from a config PickPathPoint: a 6-axis tool-frame offset (mm/deg) plus required posture branch signs (-1/+1, or 0 for "any") resolved from the preset's posture labels at construction.  
+<p>One picking-path waypoint, prepared from a config PickPathPoint: a 6-axis offset (mm/deg) plus per-axis absolute flags and the required posture branch signs (-1/+1, or 0 for "any") resolved from the preset's posture labels at construction.  
  <a href="#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for vc::model::RobotKinematicPickingChecker::Waypoint:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structvc_1_1model_1_1_robot_kinematic_picking_checker_1_1_waypoint__coll__graph.svg" width="180" height="267"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="structvc_1_1model_1_1_robot_kinematic_picking_checker_1_1_waypoint__coll__graph.svg" width="180" height="395"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a7abdb1e09d756c8034ee684abad29cdc" id="r_a7abdb1e09d756c8034ee684abad29cdc"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a7abdb1e09d756c8034ee684abad29cdc">allRelative</a> () const</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a3fe7f2196f9a2dc3514e77abc483b73c" id="r_a3fe7f2196f9a2dc3514e77abc483b73c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a3fe7f2196f9a2dc3514e77abc483b73c">absPitch</a></td></tr>
+<tr class="memitem:ab327dd66e07d14dbfaf11586d8d77c78" id="r_ab327dd66e07d14dbfaf11586d8d77c78"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ab327dd66e07d14dbfaf11586d8d77c78">absRoll</a></td></tr>
+<tr class="memitem:a4745794ed016162ed0f9e2611a5a06df" id="r_a4745794ed016162ed0f9e2611a5a06df"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4745794ed016162ed0f9e2611a5a06df">absX</a></td></tr>
+<tr class="memitem:a5c710a868ea42ae113fbafa435cbfedb" id="r_a5c710a868ea42ae113fbafa435cbfedb"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5c710a868ea42ae113fbafa435cbfedb">absY</a></td></tr>
+<tr class="memitem:a36ba26adb702869713c2bce18193c281" id="r_a36ba26adb702869713c2bce18193c281"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a36ba26adb702869713c2bce18193c281">absYaw</a></td></tr>
+<tr class="memdesc:a36ba26adb702869713c2bce18193c281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-axis "value is absolute in the base frame" flags.  <br /></td></tr>
+<tr class="memitem:aa799267f290f9b12a1c2d4fb56627085" id="r_aa799267f290f9b12a1c2d4fb56627085"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa799267f290f9b12a1c2d4fb56627085">absZ</a></td></tr>
 <tr class="memitem:a028a43837f10cd5da4250de1c4248abc" id="r_a028a43837f10cd5da4250de1c4248abc"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a028a43837f10cd5da4250de1c4248abc">dPitch</a></td></tr>
 <tr class="memitem:a2ca8705d169a1555b77570954dae386c" id="r_a2ca8705d169a1555b77570954dae386c"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a2ca8705d169a1555b77570954dae386c">dRoll</a></td></tr>
 <tr class="memitem:a9bbee09f1bbda41e21babef76e0b71da" id="r_a9bbee09f1bbda41e21babef76e0b71da"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a9bbee09f1bbda41e21babef76e0b71da">dx</a></td></tr>
 <tr class="memitem:ac1bb7297abc48584e0da42eaf2b9aea7" id="r_ac1bb7297abc48584e0da42eaf2b9aea7"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#ac1bb7297abc48584e0da42eaf2b9aea7">dy</a></td></tr>
 <tr class="memitem:af8dcf1db98039c61ff8491a37c040525" id="r_af8dcf1db98039c61ff8491a37c040525"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#af8dcf1db98039c61ff8491a37c040525">dYaw</a></td></tr>
-<tr class="memdesc:af8dcf1db98039c61ff8491a37c040525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tool-frame offset from the pick pose: translation in mm, rotation in degrees.  <br /></td></tr>
+<tr class="memdesc:af8dcf1db98039c61ff8491a37c040525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset from the pick pose (tool frame), or absolute base-frame value where the matching abs flag is set: translation in mm, rotation in degrees.  <br /></td></tr>
 <tr class="memitem:a6dd441ead4313c8f8eed08112191cd7f" id="r_a6dd441ead4313c8f8eed08112191cd7f"><td class="memItemLeft">double&#160;</td><td class="memItemRight"><a class="el" href="#a6dd441ead4313c8f8eed08112191cd7f">dz</a></td></tr>
 <tr class="memitem:a7fa7acae3bb93f7f0409ee4510021739" id="r_a7fa7acae3bb93f7f0409ee4510021739"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a7fa7acae3bb93f7f0409ee4510021739">elbow</a></td></tr>
 <tr class="memitem:ab2386cf86b2ad23d6a20a7f5981e0a80" id="r_ab2386cf86b2ad23d6a20a7f5981e0a80"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ab2386cf86b2ad23d6a20a7f5981e0a80">shoulder</a></td></tr>
@@ -143,10 +154,152 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a3ea4f95f564fd9070d25543f4f9f289e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required posture branch sign per axis (-1/+1), or 0 for "any branch".  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>One picking-path waypoint, prepared from a config PickPathPoint: a 6-axis tool-frame offset (mm/deg) plus required posture branch signs (-1/+1, or 0 for "any") resolved from the preset's posture labels at construction. </p>
+<div class="textblock"><p>One picking-path waypoint, prepared from a config PickPathPoint: a 6-axis offset (mm/deg) plus per-axis absolute flags and the required posture branch signs (-1/+1, or 0 for "any") resolved from the preset's posture labels at construction. </p>
+<p>An axis with its abs flag clear is a TOOL-frame offset from the pick pose; an axis with it set is an absolute value in the robot BASE frame. See <a class="el" href="classvc_1_1model_1_1_robot_kinematic_picking_checker.html#a4dc08332e8166723f3a19dcc2a179f29" title="Checks whether every pick-path waypoint has a reachable IK solution on its required posture branch,...">isPickable()</a> for how the two are combined. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00079">79</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00099">99</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a7abdb1e09d756c8034ee684abad29cdc" name="a7abdb1e09d756c8034ee684abad29cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7abdb1e09d756c8034ee684abad29cdc">&#9670;&#160;</a></span>allRelative()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::model::RobotKinematicPickingChecker::Waypoint::allRelative </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if no axis is absolute, i.e. the waypoint is a pure tool-frame offset. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00105">105</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+
+<p class="reference">References <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">absPitch</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">absRoll</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">absX</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">absY</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">absYaw</a>, and <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">absZ</a>.</p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a3fe7f2196f9a2dc3514e77abc483b73c" name="a3fe7f2196f9a2dc3514e77abc483b73c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fe7f2196f9a2dc3514e77abc483b73c">&#9670;&#160;</a></span>absPitch</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::model::RobotKinematicPickingChecker::Waypoint::absPitch</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">101</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00105">allRelative()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
+
+</div>
+</div>
+<a id="ab327dd66e07d14dbfaf11586d8d77c78" name="ab327dd66e07d14dbfaf11586d8d77c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab327dd66e07d14dbfaf11586d8d77c78">&#9670;&#160;</a></span>absRoll</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::model::RobotKinematicPickingChecker::Waypoint::absRoll</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">101</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00105">allRelative()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
+
+</div>
+</div>
+<a id="a4745794ed016162ed0f9e2611a5a06df" name="a4745794ed016162ed0f9e2611a5a06df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4745794ed016162ed0f9e2611a5a06df">&#9670;&#160;</a></span>absX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::model::RobotKinematicPickingChecker::Waypoint::absX</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">101</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00105">allRelative()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
+
+</div>
+</div>
+<a id="a5c710a868ea42ae113fbafa435cbfedb" name="a5c710a868ea42ae113fbafa435cbfedb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c710a868ea42ae113fbafa435cbfedb">&#9670;&#160;</a></span>absY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::model::RobotKinematicPickingChecker::Waypoint::absY</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">101</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00105">allRelative()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
+
+</div>
+</div>
+<a id="a36ba26adb702869713c2bce18193c281" name="a36ba26adb702869713c2bce18193c281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36ba26adb702869713c2bce18193c281">&#9670;&#160;</a></span>absYaw</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::model::RobotKinematicPickingChecker::Waypoint::absYaw</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Per-axis "value is absolute in the base frame" flags. </p>
+
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">101</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00105">allRelative()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
+
+</div>
+</div>
+<a id="aa799267f290f9b12a1c2d4fb56627085" name="aa799267f290f9b12a1c2d4fb56627085"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa799267f290f9b12a1c2d4fb56627085">&#9670;&#160;</a></span>absZ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool vc::model::RobotKinematicPickingChecker::Waypoint::absZ</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">101</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00105">allRelative()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
+
+</div>
+</div>
 <a id="a028a43837f10cd5da4250de1c4248abc" name="a028a43837f10cd5da4250de1c4248abc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a028a43837f10cd5da4250de1c4248abc">&#9670;&#160;</a></span>dPitch</h2>
 
@@ -159,7 +312,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">80</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">100</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
@@ -177,7 +330,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">80</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">100</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
@@ -195,7 +348,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">80</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">100</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
@@ -213,7 +366,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">80</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">100</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
@@ -231,9 +384,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Tool-frame offset from the pick pose: translation in mm, rotation in degrees. </p>
+<p>Offset from the pick pose (tool frame), or absolute base-frame value where the matching abs flag is set: translation in mm, rotation in degrees. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">80</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">100</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
@@ -251,7 +404,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">80</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">100</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
@@ -269,7 +422,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00081">81</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00102">102</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
@@ -287,7 +440,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00081">81</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00102">102</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
@@ -307,14 +460,14 @@ Public Attributes</h2></td></tr>
 
 <p>Required posture branch sign per axis (-1/+1), or 0 for "any branch". </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00081">81</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00102">102</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">vc::model::RobotKinematicPickingChecker::RobotKinematicPickingChecker()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -46,5 +46,6 @@ var classmtc_1_1_matched_object =
     [ "point_LT", "classmtc_1_1_matched_object.html#aec4826ffc67464e051855eeff628068e", null ],
     [ "point_offset", "classmtc_1_1_matched_object.html#aeb58eae5672fc1bbb10e9de7c1ddd98e", null ],
     [ "point_RB", "classmtc_1_1_matched_object.html#ac47b10c26fb348a8a812875cc154c289", null ],
+    [ "point_rotation_offset", "classmtc_1_1_matched_object.html#afdab853d257e78ead4a4aedfb6e5b39c", null ],
     [ "point_RT", "classmtc_1_1_matched_object.html#adcc1f8f9abf9b1a262a4049ac5f82a2b", null ]
 ];

@@ -1,8 +1,8 @@
 var namespacevc_1_1model =
 [
     [ "anonymous_namespace{localization_runtime_controller.cpp}", "namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html", [
-      [ "buildRecoveryProgressMessage", "namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#ac6497dc51450fee8c58451a9e476dfb1", null ],
-      [ "buildRecoveryReadyMessage", "namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a01efcba1414a53c1607aa10ca8721ac7", null ],
+      [ "buildRecoveryProgressMessage", "namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a5fc55b47b00b76ca558857d02733f715", null ],
+      [ "buildRecoveryReadyMessage", "namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a086e96ae179b5b37ff6cf7f8e9361796", null ],
       [ "connectStatusName", "namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a32da36dd795db9a4d7286ef6843a447a", null ],
       [ "isHealthyStatus", "namespacevc_1_1model_1_1anonymous__namespace_02localization__runtime__controller_8cpp_03.html#a29b8f68f582cf66e8d31b8c42013bb3a", null ]
     ] ],
@@ -28,6 +28,8 @@ var namespacevc_1_1model =
     [ "CameraMapEntry", "classvc_1_1model_1_1_camera_map_entry.html", "classvc_1_1model_1_1_camera_map_entry" ],
     [ "CameraWorkspace", "structvc_1_1model_1_1_camera_workspace.html", "structvc_1_1model_1_1_camera_workspace" ],
     [ "CameraWorkspaceMap", "classvc_1_1model_1_1_camera_workspace_map.html", "classvc_1_1model_1_1_camera_workspace_map" ],
+    [ "GripperPreset", "structvc_1_1model_1_1_gripper_preset.html", "structvc_1_1model_1_1_gripper_preset" ],
+    [ "GripperPresetStore", "classvc_1_1model_1_1_gripper_preset_store.html", "classvc_1_1model_1_1_gripper_preset_store" ],
     [ "ISignalGroup", "classvc_1_1model_1_1_i_signal_group.html", "classvc_1_1model_1_1_i_signal_group" ],
     [ "ITask", "classvc_1_1model_1_1_i_task.html", "classvc_1_1model_1_1_i_task" ],
     [ "ITaskConfig", "classvc_1_1model_1_1_i_task_config.html", "classvc_1_1model_1_1_i_task_config" ],
@@ -63,8 +65,7 @@ var namespacevc_1_1model =
     ] ],
     [ "LocalizationRecoveryAction", "namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394", [
       [ "Ignore", "namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394afd038fc7f319e48f3115d92bf5bdbef9", null ],
-      [ "RetryScheduled", "namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394a7c64d0111e86f669fd35c12335e1ad7d", null ],
-      [ "EscalateFault", "namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394a61d97bf694e2e29acfc38f6a834329d3", null ]
+      [ "RetryScheduled", "namespacevc_1_1model.html#a81e02d492b58b6ab94fd21af7fea5394a7c64d0111e86f669fd35c12335e1ad7d", null ]
     ] ],
     [ "TaskDeviceRole", "namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0", [
       [ "Unknown", "namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0a88183b946cc5f0e8c96b2e66e1c74a7e", null ],
@@ -90,11 +91,10 @@ var namespacevc_1_1model =
       [ "InspectTask", "namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732baa658b386689f99c0b0fead272a370430", null ]
     ] ],
     [ "buildInvalidTaskStateTransitionMessage", "namespacevc_1_1model.html#a776571bcfc72ff92cc7dc9f5d30e24b4", null ],
-    [ "buildRecoveryFaultMessage", "namespacevc_1_1model.html#aa953b6b24c8ba62225ce733b47f8d9bf", null ],
     [ "buildTaskStateTransitionMessage", "namespacevc_1_1model.html#ab3915767aafc338ba34d830576eb4cda", null ],
     [ "canTransitionTaskState", "namespacevc_1_1model.html#ae3e7c50d5cdaebecaf06c4ba6a6ce703", null ],
     [ "closeDB", "namespacevc_1_1model.html#af3499b458bf4f11209c88a2465de95ef", null ],
-    [ "decideRecoveryAction", "namespacevc_1_1model.html#aecb4f79c3782248ee930f9ea40049359", null ],
+    [ "decideRecoveryAction", "namespacevc_1_1model.html#a25705f78a714ed002e173ec46963c207", null ],
     [ "defaultCameraRecoveryPolicy", "namespacevc_1_1model.html#ae73bd980fc96aec7f4e6925565187dd5", null ],
     [ "defaultPlcRecoveryPolicy", "namespacevc_1_1model.html#ab9377468a19738d76abab42809123a63", null ],
     [ "defaultVisionOutputRecoveryPolicy", "namespacevc_1_1model.html#aa7f56bcd34cc7c604f02e8d0236d015b", null ],

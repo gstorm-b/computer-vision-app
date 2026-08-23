@@ -15,5 +15,7 @@ var searchData=
   ['row_12',['Row',['../struct_camera_workspace_widget_1_1_row.html',1,'CameraWorkspaceWidget']]],
   ['rowstate_13',['RowState',['../struct_signals_map_widget_1_1_row_state.html',1,'SignalsMapWidget']]],
   ['rowwidget_14',['RowWidget',['../class_row_widget.html',1,'RowWidget'],['../classvc_1_1widgets_1_1sm__internal_1_1_row_widget.html',1,'vc::widgets::sm_internal::RowWidget']]],
-  ['runtimecontext_15',['RuntimeContext',['../structvc_1_1model_1_1_localization_runtime_controller_1_1_runtime_context.html',1,'vc::model::LocalizationRuntimeController']]]
+  ['runtimecontext_15',['RuntimeContext',['../structvc_1_1model_1_1_localization_runtime_controller_1_1_runtime_context.html',1,'vc::model::LocalizationRuntimeController']]],
+  ['runtimelayoutcontroller_16',['RuntimeLayoutController',['../class_runtime_layout_controller.html',1,'']]],
+  ['runtimeshellwindow_17',['RuntimeShellWindow',['../class_runtime_shell_window.html',1,'']]]
 ];

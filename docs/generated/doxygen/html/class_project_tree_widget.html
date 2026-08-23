@@ -206,7 +206,7 @@ Private Attributes</h2></td></tr>
 <div class="line">        PLC_Mitsu_01      [PLC]  [device]</div>
 <div class="line">    ▾ Task_Loc_02         [LOC]  [task]</div>
 <div class="line">        ...</div>
-<div class="ttc" id="amainwindow_8cpp_html_a9592e851a59b094b3a71a34b3a733efa"><div class="ttname"><a href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa">Project</a></div><div class="ttdeci">vc::model::Project Project</div><div class="ttdoc">Shorthand for the project model type managed by this window.</div><div class="ttdef"><b>Definition</b> <a href="mainwindow_8cpp_source.html#l00040">mainwindow.cpp:40</a></div></div>
+<div class="ttc" id="amainwindow_8cpp_html_a9592e851a59b094b3a71a34b3a733efa"><div class="ttname"><a href="mainwindow_8cpp.html#a9592e851a59b094b3a71a34b3a733efa">Project</a></div><div class="ttdeci">vc::model::Project Project</div><div class="ttdoc">Shorthand for the project model type managed by this window.</div><div class="ttdef"><b>Definition</b> <a href="mainwindow_8cpp_source.html#l00133">mainwindow.cpp:133</a></div></div>
 </div><!-- fragment --><p>Signals emitted (<a class="el" href="class_main_window.html">MainWindow</a> connects these): taskDoubleClicked(taskId, widgetName) opens the task dock; deviceDoubleClicked(deviceId) opens the device config dock; addDeviceToTaskRequested(taskId) shows the <a class="el" href="class_add_device_wizard.html" title="Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager.">AddDeviceWizard</a>; moveDeviceRequested(taskId, deviceId) shows the move-to-task dialog; deleteDeviceRequested(taskId, deviceId) and deleteTaskRequested(taskId) request deletion of the corresponding row.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_project_tree_delegate.html" title="Item delegate that paints the default row content shrunk to leave room on the right,...">ProjectTreeDelegate</a> </dd></dl>
 
@@ -237,9 +237,9 @@ Private Attributes</h2></td></tr>
 <p>Builds the tree view + model, installs <a class="el" href="class_project_tree_delegate.html" title="Item delegate that paints the default row content shrunk to leave room on the right,...">ProjectTreeDelegate</a>, creates the "No Project" root placeholder item, wires double-click/context-menu/ theme-change handling, and disables the widget until a project is set via <a class="el" href="#ac1fb91f5debe49fd5841096b363b9fe8" title="Adopts proj as the active project (or clears the tree if proj is null), caches its device manager,...">setProject()</a>.</p>
 <p>Builds the tree view + model, installs <a class="el" href="class_project_tree_delegate.html" title="Item delegate that paints the default row content shrunk to leave room on the right,...">ProjectTreeDelegate</a>, creates the "No Project" root placeholder item, wires double-click/context-menu/theme-change handling, and disables the widget until a project is set via <a class="el" href="#ac1fb91f5debe49fd5841096b363b9fe8" title="Adopts proj as the active project (or clears the tree if proj is null), caches its device manager,...">setProject()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00129">129</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00141">141</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="project__tree__widget_8h_source.html#l00211">m_model</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, <a class="el" href="project__tree__widget_8h_source.html#l00210">m_treeView</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00330">onItemDoubleClicked()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="project__tree__widget_8h_source.html#l00211">m_model</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, <a class="el" href="project__tree__widget_8h_source.html#l00210">m_treeView</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00342">onItemDoubleClicked()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
 
 </div>
 </div>
@@ -268,7 +268,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted from the task context menu's "Add Device..." action so the host can show the <a class="el" href="class_add_device_wizard.html" title="Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager.">AddDeviceWizard</a> for <span class="tt">taskId</span>. </p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00466">onContextAddDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00141">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00478">onContextAddDevice()</a>.</p>
 
 </div>
 </div>
@@ -305,11 +305,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Creates a device row (type-specific icon, name, id, kind, parent task id, chip data) and appends it as a child of <span class="tt">taskItem</span>. No-op if <span class="tt">device</span> or <span class="tt">taskItem</span> is null. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00282">282</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00294">294</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="project__tree__widget_8h_source.html#l00031">TreeItemRole::ChipColor</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00028">chipForDeviceType()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00030">TreeItemRole::ChipText</a>, <a class="el" href="project__tree__widget_8h_source.html#l00039">Device</a>, <a class="el" href="classvc_1_1device_1_1_i_device.html#aba9d7b47e93488cf3f5d0426c56cdd6d">vc::device::IDevice::deviceType()</a>, <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="project__tree__widget_8h_source.html#l00027">TreeItemRole::ItemId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, <a class="el" href="project__tree__widget_8h_source.html#l00029">TreeItemRole::ParentId</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00025">ChipInfo::text</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00025">ChipInfo::token</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="project__tree__widget_8h_source.html#l00031">TreeItemRole::ChipColor</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00036">chipForDevice()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00030">TreeItemRole::ChipText</a>, <a class="el" href="project__tree__widget_8h_source.html#l00039">Device</a>, <a class="el" href="classvc_1_1device_1_1_i_device.html#aba9d7b47e93488cf3f5d0426c56cdd6d">vc::device::IDevice::deviceType()</a>, <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="project__tree__widget_8h_source.html#l00027">TreeItemRole::ItemId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>, <a class="el" href="project__tree__widget_8h_source.html#l00029">TreeItemRole::ParentId</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00027">ChipInfo::text</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00027">ChipInfo::token</a>, and <a class="el" href="idevice__config_8h_source.html#l00062">vc::device::VisionOutput</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">buildTaskItem()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00265">buildTaskItem()</a>.</p>
 
 </div>
 </div>
@@ -337,11 +337,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Creates a task row (icon, name, id, kind, chip data) under the root item, records it in m_taskItems, then adds a child row for each of the task's assigned devices that still exists in the device manager. No-op if <span class="tt">task</span> is null or no device manager is set. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00253">253</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00265">265</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="itask_8h_source.html#l00165">vc::model::ITask::assignedDeviceIds()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00282">buildDeviceItem()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00031">TreeItemRole::ChipColor</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00037">chipForTaskType()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00030">TreeItemRole::ChipText</a>, <a class="el" href="itask_8h_source.html#l00077">vc::model::ITask::id()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00027">TreeItemRole::ItemId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="project__tree__widget_8h_source.html#l00215">m_dvManager</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, <a class="el" href="project__tree__widget_8h_source.html#l00217">m_taskItems</a>, <a class="el" href="itask_8h_source.html#l00043">vc::model::ITask::name</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00039">Task</a>, <a class="el" href="classvc_1_1model_1_1_i_task.html#aed904be374dda9643ff50d3443f1d8f9">vc::model::ITask::taskType()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00025">ChipInfo::text</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00025">ChipInfo::token</a>.</p>
+<p class="reference">References <a class="el" href="itask_8h_source.html#l00165">vc::model::ITask::assignedDeviceIds()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00294">buildDeviceItem()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00031">TreeItemRole::ChipColor</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00049">chipForTaskType()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00030">TreeItemRole::ChipText</a>, <a class="el" href="itask_8h_source.html#l00077">vc::model::ITask::id()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00027">TreeItemRole::ItemId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="project__tree__widget_8h_source.html#l00215">m_dvManager</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, <a class="el" href="project__tree__widget_8h_source.html#l00217">m_taskItems</a>, <a class="el" href="itask_8h_source.html#l00043">vc::model::ITask::name</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00039">Task</a>, <a class="el" href="classvc_1_1model_1_1_i_task.html#aed904be374dda9643ff50d3443f1d8f9">vc::model::ITask::taskType()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00027">ChipInfo::text</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00027">ChipInfo::token</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00226">refreshTree()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00238">refreshTree()</a>.</p>
 
 </div>
 </div>
@@ -361,7 +361,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Updates the root item's displayed label to <span class="tt">name</span> (or "Project" if empty), without touching the rest of the tree. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00208">208</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00220">220</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>.</p>
 
@@ -392,7 +392,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00116">116</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="project__tree__widget_8cpp_source.html#l00192">clearProject()</a>.</p>
+<p class="reference">References <a class="el" href="project__tree__widget_8cpp_source.html#l00204">clearProject()</a>.</p>
 
 </div>
 </div>
@@ -412,11 +412,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Releases the current project and device manager, blocks context-menu/ double-click actions, removes all task/device rows, resets the root item's label to "No Project", and disables the widget. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00192">192</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00204">204</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="project__tree__widget_8h_source.html#l00208">m_accessBlock</a>, <a class="el" href="project__tree__widget_8h_source.html#l00215">m_dvManager</a>, <a class="el" href="project__tree__widget_8h_source.html#l00214">m_project</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, and <a class="el" href="project__tree__widget_8h_source.html#l00217">m_taskItems</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8h_source.html#l00116">clearManager()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00176">setProject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8h_source.html#l00116">clearManager()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00188">setProject()</a>.</p>
 
 </div>
 </div>
@@ -448,7 +448,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted from the device context menu's "Remove Device" action so the host can delete <span class="tt">deviceId</span> from <span class="tt">taskId</span>. </p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00478">onContextDeleteDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00141">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00490">onContextDeleteDevice()</a>.</p>
 
 </div>
 </div>
@@ -476,7 +476,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted from the task context menu's "Delete Task" action so the host can delete <span class="tt">taskId</span>. </p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00472">onContextDeleteTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00141">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00484">onContextDeleteTask()</a>.</p>
 
 </div>
 </div>
@@ -504,7 +504,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted on double-click of a device row (or "Open Configuration" in its context menu) so the host can open its device config dock. </p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow::MainWindow()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00330">onItemDoubleClicked()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00141">MainWindow::MainWindow()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00342">onItemDoubleClicked()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
@@ -537,7 +537,7 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00217">217</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00229">229</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="project__tree__widget_8h_source.html#l00208">m_accessBlock</a>.</p>
 
@@ -567,7 +567,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Looks up the task's row item by id. </p><dl class="section return"><dt>Returns</dt><dd>the QStandardItem for <span class="tt">taskId</span>, or nullptr if not found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00319">319</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00331">331</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="project__tree__widget_8h_source.html#l00217">m_taskItems</a>.</p>
 
@@ -601,7 +601,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted from the device context menu's "Move to Task..." action so the host can show a dialog to move <span class="tt">deviceId</span> off <span class="tt">taskId</span>. </p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00486">onContextMoveDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00141">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00498">onContextMoveDevice()</a>.</p>
 
 </div>
 </div>
@@ -630,11 +630,11 @@ Private Attributes</h2></td></tr>
 
 <p>Requests that the host add a device to <span class="tt">taskId</span> (shows <a class="el" href="class_add_device_wizard.html" title="Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager.">AddDeviceWizard</a>). </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00466">466</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00478">478</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="#a93f5c0545e8ea0bb45a3ff4f991e58a1">addDeviceToTaskRequested()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
@@ -667,11 +667,11 @@ Private Attributes</h2></td></tr>
 
 <p>Requests that the host remove <span class="tt">deviceId</span> from <span class="tt">taskId</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00478">478</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00490">490</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="#a00d8a3337febcde9bcc8f0cb9d772078">deleteDeviceRequested()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
@@ -700,11 +700,11 @@ Private Attributes</h2></td></tr>
 
 <p>Requests that the host delete the task <span class="tt">taskId</span>. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00472">472</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00484">484</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="#a3c68d1a107b5b84c343f65f5882d8a49">deleteTaskRequested()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
@@ -736,11 +736,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Requests that the host show a dialog to move <span class="tt">deviceId</span> (currently under <span class="tt">taskId</span>) to a different task. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00486">486</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00498">498</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="#a9142f85c69fcc9dd1b5ad9a3f9ca0d5a">moveDeviceRequested()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
@@ -769,11 +769,11 @@ Private Attributes</h2></td></tr>
 <p>Prompts for a new task name (re-prompting on empty or duplicate names until valid or cancelled), then creates a <a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">vc::model::TaskLocalization</a> and adds it to the project. No-op if there is no current project.</p>
 <p>Prompts for a new task name (re-prompting on empty or duplicate names until valid or cancelled), then creates a <a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">vc::model::TaskLocalization</a> and adds it to the project. The project's tasksChanged signal is expected to trigger <a class="el" href="#a2e8c245738faee67302d6ba8437da11b">refreshTree()</a> via <a class="el" href="class_main_window.html">MainWindow</a>. No-op if there is no current project. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00436">436</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00448">448</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="app__logger_8h_source.html#l00194">LOG_USER_INFO</a>, and <a class="el" href="project__tree__widget_8h_source.html#l00214">m_project</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
@@ -801,11 +801,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Handles a tree row double-click: emits <a class="el" href="#aa98638ee34b2aaf05d33872b46227f8c" title="Emitted on double-click of a task row so the host can open its task dock.">taskDoubleClicked()</a> for a task row or <a class="el" href="#a5757636042807dcfb5dd4b984853d45e">deviceDoubleClicked()</a> for a device row. No-op if access is blocked (see m_accessBlock), the index is invalid, or no item resolves from it. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00330">330</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00342">342</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="project__tree__widget_8h_source.html#l00039">Device</a>, <a class="el" href="#a5757636042807dcfb5dd4b984853d45e">deviceDoubleClicked()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00027">TreeItemRole::ItemId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="project__tree__widget_8h_source.html#l00208">m_accessBlock</a>, <a class="el" href="project__tree__widget_8h_source.html#l00211">m_model</a>, <a class="el" href="project__tree__widget_8h_source.html#l00039">Task</a>, and <a class="el" href="#aa98638ee34b2aaf05d33872b46227f8c">taskDoubleClicked()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00141">ProjectTreeWidget()</a>.</p>
 
 </div>
 </div>
@@ -885,11 +885,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Removes all task/device rows and rebuilds them from the current project's tasks (and each task's assigned devices), then expands the whole tree. No-op if there is no root item or no current project. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00226">226</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00238">238</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__tree__widget_8cpp_source.html#l00253">buildTaskItem()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00214">m_project</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, <a class="el" href="project__tree__widget_8h_source.html#l00217">m_taskItems</a>, and <a class="el" href="project__tree__widget_8h_source.html#l00210">m_treeView</a>.</p>
+<p class="reference">References <a class="el" href="project__tree__widget_8cpp_source.html#l00265">buildTaskItem()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00214">m_project</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, <a class="el" href="project__tree__widget_8h_source.html#l00217">m_taskItems</a>, and <a class="el" href="project__tree__widget_8h_source.html#l00210">m_treeView</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00402">MainWindow::connectProjectSignals()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00767">MainWindow::onTaskCreated()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00176">setProject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00491">MainWindow::connectProjectSignals()</a>, <a class="el" href="mainwindow_8cpp_source.html#l00880">MainWindow::onTaskCreated()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00188">setProject()</a>.</p>
 
 </div>
 </div>
@@ -922,9 +922,9 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00176">176</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00188">188</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__tree__widget_8cpp_source.html#l00192">clearProject()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00208">m_accessBlock</a>, <a class="el" href="project__tree__widget_8h_source.html#l00215">m_dvManager</a>, <a class="el" href="project__tree__widget_8h_source.html#l00214">m_project</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00226">refreshTree()</a>.</p>
+<p class="reference">References <a class="el" href="project__tree__widget_8cpp_source.html#l00204">clearProject()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00208">m_accessBlock</a>, <a class="el" href="project__tree__widget_8h_source.html#l00215">m_dvManager</a>, <a class="el" href="project__tree__widget_8h_source.html#l00214">m_project</a>, <a class="el" href="project__tree__widget_8h_source.html#l00212">m_rootItem</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00238">refreshTree()</a>.</p>
 
 </div>
 </div>
@@ -965,11 +965,11 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00358">358</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00370">370</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="project__tree__widget_8h_source.html#l00039">Device</a>, <a class="el" href="#a5757636042807dcfb5dd4b984853d45e">deviceDoubleClicked()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00027">TreeItemRole::ItemId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="project__tree__widget_8h_source.html#l00208">m_accessBlock</a>, <a class="el" href="project__tree__widget_8h_source.html#l00211">m_model</a>, <a class="el" href="project__tree__widget_8h_source.html#l00210">m_treeView</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00466">onContextAddDevice()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00478">onContextDeleteDevice()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00472">onContextDeleteTask()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00486">onContextMoveDevice()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00436">onContextNewTask()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00029">TreeItemRole::ParentId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00039">Root</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, and <a class="el" href="project__tree__widget_8h_source.html#l00039">Task</a>.</p>
+<p class="reference">References <a class="el" href="project__tree__widget_8h_source.html#l00039">Device</a>, <a class="el" href="#a5757636042807dcfb5dd4b984853d45e">deviceDoubleClicked()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00027">TreeItemRole::ItemId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00028">TreeItemRole::ItemKind</a>, <a class="el" href="project__tree__widget_8h_source.html#l00208">m_accessBlock</a>, <a class="el" href="project__tree__widget_8h_source.html#l00211">m_model</a>, <a class="el" href="project__tree__widget_8h_source.html#l00210">m_treeView</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00478">onContextAddDevice()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00490">onContextDeleteDevice()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00484">onContextDeleteTask()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00498">onContextMoveDevice()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00448">onContextNewTask()</a>, <a class="el" href="project__tree__widget_8h_source.html#l00029">TreeItemRole::ParentId</a>, <a class="el" href="project__tree__widget_8h_source.html#l00039">Root</a>, <a class="el" href="windows__helper_8h_source.html#l00194">svgIcon()</a>, and <a class="el" href="project__tree__widget_8h_source.html#l00039">Task</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00141">ProjectTreeWidget()</a>.</p>
 
 </div>
 </div>
@@ -1002,7 +1002,7 @@ Private Attributes</h2></td></tr>
 
 <p>Emitted on double-click of a task row so the host can open its task dock. </p>
 
-<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00048">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00330">onItemDoubleClicked()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00141">MainWindow::MainWindow()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00342">onItemDoubleClicked()</a>.</p>
 
 </div>
 </div>
@@ -1031,7 +1031,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00208">208</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00192">clearProject()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00217">enableProjectTree()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00330">onItemDoubleClicked()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00176">setProject()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00204">clearProject()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00229">enableProjectTree()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00342">onItemDoubleClicked()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00188">setProject()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
@@ -1059,7 +1059,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00215">215</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">buildTaskItem()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00192">clearProject()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00176">setProject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00265">buildTaskItem()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00204">clearProject()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00188">setProject()</a>.</p>
 
 </div>
 </div>
@@ -1087,7 +1087,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00211">211</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00330">onItemDoubleClicked()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00342">onItemDoubleClicked()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00141">ProjectTreeWidget()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
@@ -1115,7 +1115,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00214">214</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00192">clearProject()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00436">onContextNewTask()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00226">refreshTree()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00176">setProject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00204">clearProject()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00448">onContextNewTask()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00238">refreshTree()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00188">setProject()</a>.</p>
 
 </div>
 </div>
@@ -1143,7 +1143,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00212">212</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">buildTaskItem()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00208">changeProjectName()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00192">clearProject()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00226">refreshTree()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00176">setProject()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00265">buildTaskItem()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00220">changeProjectName()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00204">clearProject()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00141">ProjectTreeWidget()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00238">refreshTree()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00188">setProject()</a>.</p>
 
 </div>
 </div>
@@ -1169,7 +1169,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00217">217</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">buildTaskItem()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00192">clearProject()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00319">findTaskItem()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00226">refreshTree()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00265">buildTaskItem()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00204">clearProject()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00331">findTaskItem()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00238">refreshTree()</a>.</p>
 
 </div>
 </div>
@@ -1197,13 +1197,13 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="project__tree__widget_8h_source.html#l00210">210</a> of file <a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00129">ProjectTreeWidget()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00226">refreshTree()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00358">showContextMenu()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00141">ProjectTreeWidget()</a>, <a class="el" href="project__tree__widget_8cpp_source.html#l00238">refreshTree()</a>, and <a class="el" href="project__tree__widget_8cpp_source.html#l00370">showContextMenu()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a></li>
-<li>C:/DGB/Project/ncr_picking/src/ui/widgets/<a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/ui/widgets/<a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

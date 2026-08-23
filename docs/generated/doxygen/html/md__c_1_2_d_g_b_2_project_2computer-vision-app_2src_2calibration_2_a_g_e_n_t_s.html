@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__c_1_2_d_g_
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
 <p><b>Purpose.</b> Camera-to-robot calibration: calibration boards (Fanuc iRVision board implemented), board factory, and the homography/plane <span class="tt">Calibrator</span> (OpenCV).</p>
-<p><b>Public surface.</b> <span class="tt"><a class="el" href="calibration__board_8h.html">calibration_board.h</a></span>, <span class="tt"><a class="el" href="calibration__board__factory_8h.html">calibration_board_factory.h</a></span>, <span class="tt"><a class="el" href="calibrator_8h.html">calibrator.h</a></span>, <span class="tt"><a class="el" href="fanuc__irvision__board_8h.html">fanuc_irvision_board.h</a></span>.</p>
+<p><b>Public surface.</b> <span class="tt"><a class="el" href="calibration__board_8h.html" title="CalibrationBoard — abstract base for calibration board synthesis/detection.">calibration_board.h</a></span>, <span class="tt"><a class="el" href="calibration__board__factory_8h.html" title="CalibrationBoardFactory — centralised allocator for CalibrationBoard subclasses.">calibration_board_factory.h</a></span>, <span class="tt"><a class="el" href="calibrator_8h.html" title="Calibrator — planar 2D↔3D camera/robot calibration via homography + work-plane fitting.">calibrator.h</a></span>, <span class="tt"><a class="el" href="fanuc__irvision__board_8h.html" title="FanucIRvisionBoard — Fanuc iRVision-style dot grid calibration board.">fanuc_irvision_board.h</a></span>.</p>
 <p><b>May include.</b> Qt, OpenCV, <span class="tt">core/</span>, other <span class="tt">calibration/</span> headers. <b>Must NOT include.</b> UI, <span class="tt">model/</span>, <span class="tt">runtime/</span>, <span class="tt">device/</span>, <span class="tt">matching/</span>. Enforced by the architecture contract test. (Consumed by <span class="tt">device/camera</span> — cameras own a <span class="tt">Calibrator</span> — and by <span class="tt">model</span>; never depend back on them.)</p>
 <p><b>Invariants.</b></p><ul>
 <li><span class="tt">Calibrator</span> persists via YAML and JSON round-trips that preserve H and plane bit-exact (covered by tests).</li>
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__c_1_2_d_g_
 </ul>
 <p><b>Verify.</b> <span class="tt">tests/calibration_test</span> (qmake + <span class="tt">nmake /nologo -f
 Makefile.Debug compiler_moc_source_make_all</span> + <span class="tt">nmake /nologo</span>; run <span class="tt">calibration_test.exe</span>), plus root app build.</p>
-<p><b>Build registration.</b> <span class="tt">src/calibration/calibration.pri</span> only.</p>
+<p><b>Build registration.</b> <span class="tt">src/calibration/calibration.pri</span> only. That <span class="tt">.pri</span> is consumed by <span class="tt">src/src.pro</span>, which compiles every module <b>once</b> into the <span class="tt">ncr_shared</span> static library that both shells link. No shell <span class="tt">.pro</span> lists module sources, so a file added anywhere else is simply not built.</p>
 <p><b>Docs.</b> <span class="tt">docs/domains/calibration/calibration_module.md</span>. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

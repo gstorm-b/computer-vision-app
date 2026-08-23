@@ -1,19 +1,33 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" title=" " alt="" coords="5,183,74,209"/>
-<area shape="rect" id="Node000001" href="$class_device_nav_dot.html" title="Thin QFrame subclass giving the small connect&#45;status indicator dot inside DeviceNavItemWidget a disti..." alt="" coords="150,5,257,32"/>
-<area shape="poly" id="edge20_Node000000_Node000001" title=" " alt="" coords="46,167,72,104,93,71,120,42,151,27,148,31,123,46,97,74,77,107,51,169"/>
-<area shape="rect" id="Node000002" href="$class_device_nav_item_widget.html" title="A single clickable device entry (icon + name + short type label + connect&#45;status dot) in a device nav..." alt="" coords="127,56,280,83"/>
-<area shape="poly" id="edge21_Node000000_Node000002" title=" " alt="" coords="54,168,82,129,120,92,145,81,142,85,123,97,86,132,58,170"/>
-<area shape="rect" id="Node000003" href="$class_frame_box.html" title="Thin QFrame subclass used as a general&#45;purpose styled panel container; QSS targets it directly and vi..." alt="" coords="163,107,244,133"/>
-<area shape="poly" id="edge22_Node000000_Node000003" title=" " alt="" coords="70,172,121,143,164,128,160,132,123,148,74,176"/>
-<area shape="rect" id="Node000004" href="$class_group_frame.html" title="QFrame subclass that paints a colored header bar with a title across the top of the widget." alt="" coords="157,157,250,184"/>
-<area shape="poly" id="edge23_Node000000_Node000004" title=" " alt="" coords="88,186,158,176,155,180,90,191"/>
-<area shape="rect" id="Node000005" href="$class_group_frame_widget.html" title="QFrame subclass that paints a colored header bar with a title across the top of the widget and hosts ..." alt="" coords="136,208,270,235"/>
-<area shape="poly" id="edge24_Node000000_Node000005" title=" " alt="" coords="89,201,138,209,134,213,90,206"/>
-<area shape="rect" id="Node000006" href="$class_status_lamp.html" title="Read&#45;only status lamp widget: stacks an uppercase name label above a severity&#45;coloured state label in..." alt="" coords="158,259,249,285"/>
-<area shape="poly" id="edge25_Node000000_Node000006" title=" " alt="" coords="72,216,123,244,160,259,155,261,121,249,72,221"/>
-<area shape="rect" id="Node000007" href="$class_status_lamp_dot.html" title="Empty QFrame subclass whose sole purpose is to provide a distinct class name for QSS selectors and De..." alt="" coords="147,309,260,336"/>
-<area shape="poly" id="edge26_Node000000_Node000007" title=" " alt="" coords="56,220,86,260,123,295,149,309,144,311,120,300,82,263,56,225"/>
-<area shape="rect" id="Node000008" href="$classvc_1_1widgets_1_1sm__internal_1_1_row_widget.html" title=" " alt="" coords="122,360,285,403"/>
-<area shape="poly" id="edge27_Node000000_Node000008" title=" " alt="" coords="50,222,78,285,98,317,123,346,140,359,135,359,120,350,94,321,73,287,48,227"/>
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,360,74,387"/>
+<area shape="rect" id="Node000001" href="$class_add_device_wizard.html" title="Modal wizard dialog for adding a new device (Camera, PLC, or VisionOutput) to a DeviceManager." alt="" coords="147,5,274,32"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="42,344,52,273,68,183,91,98,104,65,120,42,148,26,145,30,124,46,109,68,96,100,73,184,57,274,47,345"/>
+<area shape="rect" id="Node000002" href="$class_add_group_dialog.html" title="Modal dialog for creating/editing a pattern group&#39;s name and activation index (1&#45;32),..." alt="" coords="152,56,268,83"/>
+<area shape="poly" id="edge7_Node000000_Node000002" title=" " alt="" coords="38,344,41,291,53,224,63,188,78,154,96,121,120,93,134,82,154,75,150,79,137,86,124,97,101,124,82,156,68,190,58,225,47,292,43,345"/>
+<area shape="rect" id="Node000003" href="$class_add_pattern_dialog.html" title="Modal dialog for creating/editing a pattern&#39;s name and activation index (1&#45;4), validating both fields..." alt="" coords="149,107,272,133"/>
+<area shape="poly" id="edge8_Node000000_Node000003" title=" " alt="" coords="40,345,46,301,60,247,83,191,100,166,120,143,150,127,147,132,123,147,104,169,88,194,65,248,52,302,45,345"/>
+<area shape="rect" id="Node000004" href="$class_add_pattern_image_dialog.html" title="Modal dialog for building a single pattern image: the user either triggers a camera capture (requestI..." alt="" coords="131,157,290,184"/>
+<area shape="poly" id="edge9_Node000000_Node000004" title=" " alt="" coords="44,344,53,310,68,269,90,229,120,194,141,182,138,187,123,198,94,232,73,271,58,311,49,345"/>
+<area shape="rect" id="Node000005" href="$class_add_pattern_wizard.html" title="6&#45;step modal dialog reimplementation of PatternWizard.jsx: Image (capture from camera or open file + ..." alt="" coords="147,208,274,235"/>
+<area shape="poly" id="edge10_Node000000_Node000005" title=" " alt="" coords="49,345,76,294,96,267,120,245,148,231,145,236,123,249,100,271,81,296,54,347"/>
+<area shape="rect" id="Node000006" href="$class_admin_login_dialog.html" title="Modal password prompt that elevates vc::auth::AccessControl to Admin." alt="" coords="147,259,274,285"/>
+<area shape="poly" id="edge11_Node000000_Node000006" title=" " alt="" coords="59,347,87,320,120,295,149,284,146,288,123,300,90,324,64,350"/>
+<area shape="rect" id="Node000007" href="$class_basler_cam_select_dialog.html" title="Modal dialog that lists reachable Basler GigE cameras (queried asynchronously via GetDevicesWorker) i..." alt="" coords="130,309,290,336"/>
+<area shape="poly" id="edge12_Node000000_Node000007" title=" " alt="" coords="87,356,121,345,162,335,159,339,122,351,90,360"/>
+<area shape="rect" id="Node000008" href="$class_calibration_board_dialog.html" title="Small modal dialog that lets the user pick a calibration board from the presets registered in calib::..." alt="" coords="133,360,288,387"/>
+<area shape="poly" id="edge13_Node000000_Node000008" title=" " alt="" coords="88,371,135,372,131,375,91,376"/>
+<area shape="rect" id="Node000009" href="$class_calibration_threshold_dialog.html" title="Modal dialog that tunes the calibration&#45;board binarization threshold on a live camera frame...." alt="" coords="122,411,299,437"/>
+<area shape="poly" id="edge14_Node000000_Node000009" title=" " alt="" coords="87,386,122,396,163,409,158,411,121,401,90,391"/>
+<area shape="rect" id="Node000010" href="$class_edit_pattern_wizard.html" title="5&#45;step modal dialog reimplementation of EditPatternWizard.jsx for editing an already&#45;learned pattern." alt="" coords="147,461,274,488"/>
+<area shape="poly" id="edge15_Node000000_Node000010" title=" " alt="" coords="61,396,90,423,123,447,150,460,145,462,120,452,87,427,62,401"/>
+<area shape="rect" id="Node000011" href="$class_gripper_register_dialog.html" title="Modal table editor for vc::model::GripperPresetStore: add, edit and remove named gripper geometries." alt="" coords="136,512,285,539"/>
+<area shape="poly" id="edge16_Node000000_Node000011" title=" " alt="" coords="51,398,81,450,100,476,123,498,145,511,140,512,120,502,96,480,76,453,52,404"/>
+<area shape="rect" id="Node000012" href="$class_new_project_dialog.html" title="Modal dialog that collects a name and description for a new project; on success the values are read b..." alt="" coords="147,563,274,589"/>
+<area shape="poly" id="edge17_Node000000_Node000012" title=" " alt="" coords="46,399,58,435,73,475,94,515,123,549,149,564,144,566,120,553,90,518,68,477,53,437,46,405"/>
+<area shape="rect" id="Node000013" href="$class_new_task_dialog.html" title="Modal dialog that lets the user pick a save path (.vtask file) and name for a new task; the values ar..." alt="" coords="154,613,267,640"/>
+<area shape="poly" id="edge18_Node000000_Node000013" title=" " alt="" coords="43,399,52,445,65,498,88,553,104,578,123,599,138,609,156,618,151,620,135,614,120,603,100,581,83,555,60,500,46,446,43,404"/>
+<area shape="rect" id="Node000014" href="$class_workspace_setting_dialog.html" title="Dialog for defining up to two axis&#45;aligned ROIs on one reference image: the working ROI (crop region,..." alt="" coords="128,664,292,691"/>
+<area shape="poly" id="edge19_Node000000_Node000014" title=" " alt="" coords="41,400,47,455,58,522,68,557,82,591,101,622,123,650,140,663,135,664,120,654,96,625,78,593,63,558,53,523,41,456,40,405"/>
+<area shape="rect" id="Node000015" href="$classvc_1_1widgets_1_1sm__internal_1_1_modify_value_dialog.html" title=" " alt="" coords="129,715,292,757"/>
+<area shape="poly" id="edge20_Node000000_Node000015" title=" " alt="" coords="45,399,57,472,74,562,97,646,110,678,124,701,138,714,132,714,120,704,105,681,92,647,69,563,52,473,44,405"/>
 </map>

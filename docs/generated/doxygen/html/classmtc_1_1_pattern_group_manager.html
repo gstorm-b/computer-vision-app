@@ -127,12 +127,12 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classmtc_1_1_p
 <div class="dynheader">
 Inheritance diagram for mtc::PatternGroupManager:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classmtc_1_1_pattern_group_manager__inherit__graph.svg" width="179" height="432"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classmtc_1_1_pattern_group_manager__inherit__graph.svg" width="179" height="454"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Collaboration diagram for mtc::PatternGroupManager:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classmtc_1_1_pattern_group_manager__coll__graph.svg" width="179" height="432"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classmtc_1_1_pattern_group_manager__coll__graph.svg" width="179" height="454"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-signals" class="groupheader"><a id="signals" name="signals"></a>
@@ -186,6 +186,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a38c174059ba7974c8504d686e853294e" id="r_a38c174059ba7974c8504d686e853294e"><td class="memItemLeft">QJsonObject&#160;</td><td class="memItemRight"><a class="el" href="#a38c174059ba7974c8504d686e853294e">toJson</a> () const</td></tr>
 <tr class="memitem:a0cf6c3b074fc9b0210dd67d206c1e42e" id="r_a0cf6c3b074fc9b0210dd67d206c1e42e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0cf6c3b074fc9b0210dd67d206c1e42e">~PatternGroupManager</a> ()</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a411e04d070b61592097a5b6a5c9b4774" id="r_a411e04d070b61592097a5b6a5c9b4774"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a411e04d070b61592097a5b6a5c9b4774">kSchemaVersion</a> = 2</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-methods" class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a8b8af64e3a4d0077ae29a845b6f44e28" id="r_a8b8af64e3a4d0077ae29a845b6f44e28"><td class="memItemLeft"><a class="el" href="structmtc_1_1_manager_result.html">ManagerResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a8b8af64e3a4d0077ae29a845b6f44e28">validateGroupConfig</a> (const <a class="el" href="struct_match_group_config.html">MatchGroupConfig</a> &amp;cfg, const QString &amp;excludeName={}) const</td></tr>
@@ -227,7 +231,7 @@ Private Attributes</h2></td></tr>
 <p>Constructs an empty manager with no groups. </p>
 <p>Constructs an empty manager (no groups) with the given optional QObject parent. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00216">216</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00273">273</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
 </div>
 </div>
@@ -248,7 +252,7 @@ Private Attributes</h2></td></tr>
 <p>Destroys the manager; each held <a class="el" href="classmtc_1_1_match_group.html" title="Owns one named/numbered group of patterns plus their shared MatchGroupConfig: pattern CRUD (add/remov...">MatchGroup</a> is released when its shared_ptr in m_groups goes out of scope.</p>
 <p>Default destructor; m_groups' shared_ptrs release their <a class="el" href="classmtc_1_1_match_group.html" title="Owns one named/numbered group of patterns plus their shared MatchGroupConfig: pattern CRUD (add/remov...">MatchGroup</a> instances as the list is destroyed. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00223">223</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00280">280</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
 </div>
 </div>
@@ -271,11 +275,11 @@ Private Attributes</h2></td></tr>
 <p>Create a new group. Fails if name or number already exists. </p>
 <p>Validates <span class="tt">config</span> (see <a class="el" href="#a8b8af64e3a4d0077ae29a845b6f44e28" title="Validates cfg before it is used to add or replace a group: rejects an empty name and rejects a name/n...">validateGroupConfig()</a>), then constructs a new <a class="el" href="classmtc_1_1_match_group.html" title="Owns one named/numbered group of patterns plus their shared MatchGroupConfig: pattern CRUD (add/remov...">MatchGroup</a>, appends it to m_groups, and emits <a class="el" href="#a774e5757562b6ad122a382e8e044d4b6" title="Emitted after a group is successfully added.">groupAdded()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00270">270</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00327">327</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#a774e5757562b6ad122a382e8e044d4b6">groupAdded()</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>, <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00538">validateGroupConfig()</a>.</p>
+<p class="reference">References <a class="el" href="#a774e5757562b6ad122a382e8e044d4b6">groupAdded()</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>, <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00595">validateGroupConfig()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00574">fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00632">fromJson()</a>.</p>
 
 </div>
 </div>
@@ -300,11 +304,11 @@ Private Attributes</h2></td></tr>
 <p>Adds a new pattern with <span class="tt">config</span> to the group <span class="tt">groupName</span> (delegates uniqueness validation to <a class="el" href="classmtc_1_1_match_group.html#a3e01d2209b257dc31057707be634a158">MatchGroup::addPattern</a>).</p>
 <p>Delegates to <a class="el" href="classmtc_1_1_match_group.html#a3e01d2209b257dc31057707be634a158">MatchGroup::addPattern()</a> on group <span class="tt">groupName</span>, then emits <a class="el" href="#abd860e62e1937b617fab1c33036120a3" title="Emitted after a pattern is successfully added to group.">patternAdded()</a> unconditionally (using group-&gt;lastPatternAccess(), which is only meaningful when the add actually succeeded). </p><dl class="section note"><dt>Note</dt><dd>patternAdded is emitted even when <span class="tt">result</span> is a failure; callers must still check the returned <a class="el" href="structmtc_1_1_manager_result.html" title="Lightweight ok/error result: ok reports success, error carries a human-readable failure message when ...">ManagerResult</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00391">391</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00448">448</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, and <a class="el" href="#abd860e62e1937b617fab1c33036120a3">patternAdded()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, and <a class="el" href="#abd860e62e1937b617fab1c33036120a3">patternAdded()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00574">fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00632">fromJson()</a>.</p>
 
 </div>
 </div>
@@ -324,11 +328,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if a group named <span class="tt">name</span> exists. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00252">252</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00309">309</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00333">renameGroup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00390">renameGroup()</a>.</p>
 
 </div>
 </div>
@@ -348,11 +352,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if a group numbered <span class="tt">number</span> exists. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00257">257</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00314">314</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00245">findGroupByNumber()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00302">findGroupByNumber()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00362">renumberGroup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00419">renumberGroup()</a>.</p>
 
 </div>
 </div>
@@ -373,11 +377,11 @@ Private Attributes</h2></td></tr>
 <p>Finds the group whose name matches <span class="tt">name</span> exactly. </p><dl class="section return"><dt>Returns</dt><dd>the matching group, or nullptr if none exists.</dd></dl>
 <p>Linear search for the group whose name matches <span class="tt">name</span> exactly. </p><dl class="section return"><dt>Returns</dt><dd>the matching group, or nullptr if none exists. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">237</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">294</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00391">addPattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00252">containsGroupName()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00285">removeGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00407">removePattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00333">renameGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00440">renamePattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00362">renumberGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00460">renumberPattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00313">setGroupConfig()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00420">setPatternConfig()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00480">setPatternImage()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00514">sortPatternsByNumber()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00448">addPattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00309">containsGroupName()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00342">removeGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00464">removePattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00390">renameGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00497">renamePattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00419">renumberGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00517">renumberPattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00370">setGroupConfig()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00477">setPatternConfig()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00537">setPatternImage()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00571">sortPatternsByNumber()</a>.</p>
 
 </div>
 </div>
@@ -398,11 +402,11 @@ Private Attributes</h2></td></tr>
 <p>Finds the group whose number matches <span class="tt">number</span>. </p><dl class="section return"><dt>Returns</dt><dd>the matching group, or nullptr if none exists.</dd></dl>
 <p>Linear search for the group whose number matches <span class="tt">number</span>. </p><dl class="section return"><dt>Returns</dt><dd>the matching group, or nullptr if none exists. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00245">245</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00302">302</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00257">containsGroupNumber()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00301">removeGroupByNumber()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00314">containsGroupNumber()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00358">removeGroupByNumber()</a>.</p>
 
 </div>
 </div>
@@ -431,9 +435,11 @@ Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true if every group and pattern loaded without error; on partial failure the load continues and errors are logged via LOG_DEV_ERR</dd></dl>
 <p>Clears every existing group, then rebuilds the library from <span class="tt">obj</span> (schema produced by <a class="el" href="#a38c174059ba7974c8504d686e853294e">toJson()</a>): decodes and <a class="el" href="#a6e4c32075c46b76afc8b885212eacb16" title="Create a new group. Fails if name or number already exists.">addGroup()</a>s each group, then <a class="el" href="#a6354bf59a3e2d6b7f90951ce9bdbd69a">addPattern()</a>s each of its patterns. Failures on individual groups/ patterns are logged via LOG_DEV_ERR and skipped rather than aborting the whole load. </p><dl class="section return"><dt>Returns</dt><dd>true only if every group and pattern loaded without error. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00574">574</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00632">632</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00270">addGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00391">addPattern()</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="match__group_8h_source.html#l00041">mtc::MatchGroupConfig::m_groupName</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00301">removeGroupByNumber()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00327">addGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00448">addPattern()</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00040">kSchemaVersion</a>, <a class="el" href="app__logger_8h_source.html#l00191">LOG_DEV_ERR</a>, <a class="el" href="app__logger_8h_source.html#l00198">LOG_USER_ERR</a>, <a class="el" href="match__group_8h_source.html#l00041">mtc::MatchGroupConfig::m_groupName</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00358">removeGroupByNumber()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00087">anonymous_namespace{mainwindow.cpp}::phase5VerifyPatternSchema()</a>.</p>
 
 </div>
 </div>
@@ -462,7 +468,7 @@ Private Attributes</h2></td></tr>
 
 <p>Emitted after a group is successfully added. </p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00270">addGroup()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00327">addGroup()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00597">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
 </div>
 </div>
@@ -494,7 +500,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted after any successful group mutation; <span class="tt">field</span> names the changed aspect ("*" for a full config replace, "name", "number", …). </p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00333">renameGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00362">renumberGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00313">setGroupConfig()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00514">sortPatternsByNumber()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00390">renameGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00419">renumberGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00370">setGroupConfig()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00571">sortPatternsByNumber()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00597">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
 </div>
 </div>
@@ -515,9 +521,9 @@ Private Attributes</h2></td></tr>
 
 <p>Returns the number of groups currently held. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00262">262</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00319">319</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>.</p>
 
 </div>
 </div>
@@ -545,7 +551,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted after a group is removed, carrying a copy of its config as it was just before removal. </p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00285">removeGroup()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00342">removeGroup()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00597">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
 </div>
 </div>
@@ -566,9 +572,11 @@ Private Attributes</h2></td></tr>
 <p>Returns the current list of groups, in internal (not necessarily numeric) order.</p>
 <p>Returns the current list of groups (a copy of the internal list of shared_ptrs, so iterating it is safe even if the manager is mutated concurrently by the caller). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00231">231</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00288">288</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00060">anonymous_namespace{mainwindow.cpp}::phase5PatternSignatures()</a>.</p>
 
 </div>
 </div>
@@ -597,7 +605,7 @@ Private Attributes</h2></td></tr>
 
 <p>Emitted after <a class="el" href="#a158350a14efd2f777714bc8b7c4f4657" title="Sort all groups in-place by number ascending and re-emit groupsReordered.">sortGroupsByNumber()</a> with the new group order. </p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00501">sortGroupsByNumber()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00558">sortGroupsByNumber()</a>.</p>
 
 </div>
 </div>
@@ -630,7 +638,7 @@ Private Attributes</h2></td></tr>
 
 <p>Emitted after a pattern is successfully added to <span class="tt">group</span>. </p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00391">addPattern()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00448">addPattern()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00597">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
 </div>
 </div>
@@ -667,7 +675,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted after any successful pattern mutation; <span class="tt">field</span> names the changed aspect ("*", "name", "number", "image", …). </p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00440">renamePattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00460">renumberPattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00420">setPatternConfig()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00480">setPatternImage()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00497">renamePattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00517">renumberPattern()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00477">setPatternConfig()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00537">setPatternImage()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00597">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
 </div>
 </div>
@@ -699,7 +707,7 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Declared for symmetry with patternAdded/patternChanged, carrying a copy of the removed pattern's config. </p><dl class="section note"><dt>Note</dt><dd><a class="el" href="#add6eee5fea3237ac339a701ce7af4085" title="Removes the pattern named patternName from group groupName.">removePattern()</a> currently does not emit this signal. </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00563">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00597">LocalizationPatternsWidget::wireManagerSignals()</a>.</p>
 
 </div>
 </div>
@@ -721,11 +729,11 @@ Private Attributes</h2></td></tr>
 <p>Remove the group with the given name (and all its patterns). </p>
 <p>Finds the group named <span class="tt">groupName</span>, removes it from m_groups, and emits <a class="el" href="#a5798c19558a6fed8a9adcc849de5eb45">groupRemoved()</a> with a copy of its config as it was before removal. </p><dl class="section return"><dt>Returns</dt><dd>failure if no group named <span class="tt">groupName</span> exists. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00285">285</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00342">342</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, <a class="el" href="#a5798c19558a6fed8a9adcc849de5eb45">groupRemoved()</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, <a class="el" href="#a5798c19558a6fed8a9adcc849de5eb45">groupRemoved()</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00301">removeGroupByNumber()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00358">removeGroupByNumber()</a>.</p>
 
 </div>
 </div>
@@ -747,11 +755,11 @@ Private Attributes</h2></td></tr>
 <p>Convenience: remove by number. </p>
 <p>Resolves <span class="tt">number</span> to a group name and delegates to <a class="el" href="#accc799808fec96aca0d1bcfad0b55def" title="Remove the group with the given name (and all its patterns).">removeGroup()</a>. </p><dl class="section return"><dt>Returns</dt><dd>failure if no group with <span class="tt">number</span> exists. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00301">301</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00358">358</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00245">findGroupByNumber()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00285">removeGroup()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00302">findGroupByNumber()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00342">removeGroup()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00574">fromJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00632">fromJson()</a>.</p>
 
 </div>
 </div>
@@ -777,9 +785,9 @@ Private Attributes</h2></td></tr>
 <p>Removes the pattern named <span class="tt">patternName</span> from group <span class="tt">groupName</span>. </p>
 <p>Delegates to <a class="el" href="classmtc_1_1_match_group.html#a1639377b4e6b271f68d6b4459d53d101" title="Remove by name.">MatchGroup::removePattern()</a> on group <span class="tt">groupName</span>. </p><dl class="section note"><dt>Note</dt><dd>unlike the other pattern mutators, this does not emit patternRemoved (see the signal's declaration in <a class="el" href="pattern__group__manager_8h.html" title="PatternGroupManager — owns the full library of MatchGroup/MatchPattern instances for a task,...">pattern_group_manager.h</a>). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00407">407</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00464">464</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>.</p>
 
 </div>
 </div>
@@ -804,9 +812,9 @@ Private Attributes</h2></td></tr>
 <p>Renames the group <span class="tt">currentName</span> to <span class="tt">newName</span>. No-op success if the names are identical; fails if <span class="tt">newName</span> is blank or already used by another group.</p>
 <p>Renames the group <span class="tt">currentName</span> to <span class="tt">newName</span>: succeeds as a no-op if the names are equal, fails if <span class="tt">newName</span> is blank/whitespace-only or already used by another group, otherwise renames and emits groupChanged(group, "name"). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00333">333</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00390">390</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00252">containsGroupName()</a>, <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, <a class="el" href="#a2d03ba6d3632882bd423eb2500941166">groupChanged()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00309">containsGroupName()</a>, <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, <a class="el" href="#a2d03ba6d3632882bd423eb2500941166">groupChanged()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -837,9 +845,9 @@ Private Attributes</h2></td></tr>
 <p>Renames pattern <span class="tt">currentName</span> to <span class="tt">newName</span> inside group <span class="tt">groupName</span>. </p>
 <p>Delegates to <a class="el" href="classmtc_1_1_match_group.html#ac4794a53c54aa66476cf8383403165d1" title="Targeted field setters — avoids shipping the whole config just to rename.">MatchGroup::renamePattern()</a> on group <span class="tt">groupName</span>; on success, resolves the pattern by its new name and emits patternChanged(group, pattern, "name"). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00440">440</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00497">497</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, and <a class="el" href="#a0ae3c5f87490de440936ea2269f4f8c0">patternChanged()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, and <a class="el" href="#a0ae3c5f87490de440936ea2269f4f8c0">patternChanged()</a>.</p>
 
 </div>
 </div>
@@ -864,9 +872,9 @@ Private Attributes</h2></td></tr>
 <p>Reassigns the number of group <span class="tt">groupName</span> to <span class="tt">newNumber</span>. No-op success if unchanged; fails if <span class="tt">newNumber</span> is already used by another group.</p>
 <p>Reassigns the number of group <span class="tt">groupName</span> to <span class="tt">newNumber</span>: succeeds as a no-op if unchanged, fails if <span class="tt">newNumber</span> is already used by another group, otherwise renumbers and emits groupChanged(group, "number"). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00362">362</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00419">419</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00257">containsGroupNumber()</a>, <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, <a class="el" href="#a2d03ba6d3632882bd423eb2500941166">groupChanged()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8cpp_source.html#l00314">containsGroupNumber()</a>, <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, <a class="el" href="#a2d03ba6d3632882bd423eb2500941166">groupChanged()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -896,9 +904,9 @@ Private Attributes</h2></td></tr>
 <p>Reassigns the number of pattern <span class="tt">patternName</span> inside group <span class="tt">groupName</span> to <span class="tt">newNumber</span>.</p>
 <p>Delegates to <a class="el" href="classmtc_1_1_match_group.html#a39c63bb640ca2e3140f6560933cc7674" title="Changes a pattern&#39;s number; fails if newNumber is already used by another pattern in the group.">MatchGroup::renumberPattern()</a> on group <span class="tt">groupName</span>; on success, resolves the pattern (name is unchanged by a renumber) and emits patternChanged(group, pattern, "number"). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00460">460</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00517">517</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, and <a class="el" href="#a0ae3c5f87490de440936ea2269f4f8c0">patternChanged()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, and <a class="el" href="#a0ae3c5f87490de440936ea2269f4f8c0">patternChanged()</a>.</p>
 
 </div>
 </div>
@@ -924,9 +932,9 @@ Private Attributes</h2></td></tr>
 <p>Replace the full config of the group identified by currentName. </p>
 <p>Finds the group named <span class="tt">currentName</span>, validates <span class="tt">newConfig</span> (excluding the group's own current name from the collision check), then replaces its config and emits groupChanged(group, "*") on success. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00313">313</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00370">370</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, <a class="el" href="#a2d03ba6d3632882bd423eb2500941166">groupChanged()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00538">validateGroupConfig()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, <a class="el" href="#a2d03ba6d3632882bd423eb2500941166">groupChanged()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00595">validateGroupConfig()</a>.</p>
 
 </div>
 </div>
@@ -956,9 +964,9 @@ Private Attributes</h2></td></tr>
 <p>Replaces the full config of the pattern currently named <span class="tt">currentPatternName</span> inside group <span class="tt">groupName</span>.</p>
 <p>Delegates to <a class="el" href="classmtc_1_1_match_group.html#a0ed5f9a5f31391badeebe02013f2aab7">MatchGroup::setPatternConfig()</a> on group <span class="tt">groupName</span>; on success, resolves the pattern by its (possibly new) name from <span class="tt">newConfig</span> and emits patternChanged(group, pattern, "*"). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00420">420</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00477">477</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, <a class="el" href="match__pattern__config_8h_source.html#l00047">mtc::MatchPatternConfig::m_patternName</a>, and <a class="el" href="#a0ae3c5f87490de440936ea2269f4f8c0">patternChanged()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, <a class="el" href="match__pattern__config_8h_source.html#l00049">mtc::MatchPatternConfig::m_patternName</a>, and <a class="el" href="#a0ae3c5f87490de440936ea2269f4f8c0">patternChanged()</a>.</p>
 
 </div>
 </div>
@@ -988,9 +996,9 @@ Private Attributes</h2></td></tr>
 <p>Sets the training image of pattern <span class="tt">patternName</span> inside group <span class="tt">groupName</span>.</p>
 <p>Delegates to <a class="el" href="classmtc_1_1_match_group.html#a1176fd7dfc8307e7ed2ba704bf697dac" title="Replaces a pattern&#39;s reference/template image.">MatchGroup::setPatternImage()</a> on group <span class="tt">groupName</span>; on success, resolves the pattern by name and emits patternChanged(group, pattern, "image"). </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00480">480</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00537">537</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, and <a class="el" href="#a0ae3c5f87490de440936ea2269f4f8c0">patternChanged()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, and <a class="el" href="#a0ae3c5f87490de440936ea2269f4f8c0">patternChanged()</a>.</p>
 
 </div>
 </div>
@@ -1012,9 +1020,9 @@ Private Attributes</h2></td></tr>
 <p>Sort all groups in-place by number ascending and re-emit groupsReordered. </p>
 <p>Sorts m_groups in-place by ascending <a class="el" href="classmtc_1_1_match_group.html#a40a3d2068c6eebca33ad3f97785a74d9" title="Returns the group&#39;s numeric index.">MatchGroup::number()</a> and emits <a class="el" href="#ab6ea2c194362395e34b9022260629a77" title="Emitted after sortGroupsByNumber() with the new group order.">groupsReordered()</a> with the new order. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00501">501</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00558">558</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="#ab6ea2c194362395e34b9022260629a77">groupsReordered()</a>, and <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="#ab6ea2c194362395e34b9022260629a77">groupsReordered()</a>, and <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>.</p>
 
 </div>
 </div>
@@ -1036,9 +1044,9 @@ Private Attributes</h2></td></tr>
 <p>Sort patterns inside a single group by number ascending. </p>
 <p>Sorts the patterns of group <span class="tt">groupName</span> in-place by ascending <a class="el" href="classmtc_1_1_match_pattern.html#a83d02186a2d57a4e3d7e710c12e7d227" title="Returns the pattern&#39;s index within its group.">MatchPattern::number()</a> (reaching into <a class="el" href="classmtc_1_1_match_group.html#aa365a90f09c0fd6873bad23f9a116ca3" title="Live patterns registered in this group.">MatchGroup::m_patterns</a> directly via friend access) and emits groupChanged(group, "patternsReordered"). </p><dl class="section return"><dt>Returns</dt><dd>failure if no group named <span class="tt">groupName</span> exists. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00514">514</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00571">571</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, <a class="el" href="#a2d03ba6d3632882bd423eb2500941166">groupChanged()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, <a class="el" href="#a2d03ba6d3632882bd423eb2500941166">groupChanged()</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
 </div>
 </div>
@@ -1057,11 +1065,13 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Serialises every group (and its patterns) to the <span class="tt">{ "<a class="el" href="#a38253f7d9026441b5a18b12129185ca3">groups</a>": [ {…, "patterns": […]} ] }</span> schema documented above groupToJson() in <a class="el" href="pattern__group__manager_8cpp.html">pattern_group_manager.cpp</a>. Training images are not included; they travel separately through the project_images BLOB table.</p>
-<p>Builds the <span class="tt">{ "<a class="el" href="#a38253f7d9026441b5a18b12129185ca3">groups</a>": [...] }</span> document for the whole library by mapping groupToJson() over every group in m_groups. </p>
+<p>Builds the <span class="tt">{ "version", "<a class="el" href="#a38253f7d9026441b5a18b12129185ca3">groups</a>": [...] }</span> document for the whole library by mapping groupToJson() over every group in m_groups. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00558">558</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00615">615</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>.</p>
+<p class="reference">References <a class="el" href="pattern__group__manager_8h_source.html#l00040">kSchemaVersion</a>, and <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="mainwindow_8cpp_source.html#l00087">anonymous_namespace{mainwindow.cpp}::phase5VerifyPatternSchema()</a>.</p>
 
 </div>
 </div>
@@ -1103,15 +1113,42 @@ Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>success, or a failure describing the first violated constraint</dd></dl>
 <p>Rejects <span class="tt">cfg</span> if its name is empty, or if any existing group other than <span class="tt">excludeName</span> already has the same name or the same number. <span class="tt">excludeName</span> is passed by callers that are reconfiguring/renaming a group in place, so the group does not collide with its own prior state. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00538">538</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8cpp_source.html#l00595">595</a> of file <a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8h_source.html#l00042">mtc::MatchGroupConfig::m_groupIndex</a>, <a class="el" href="match__group_8h_source.html#l00041">mtc::MatchGroupConfig::m_groupName</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00169">m_groups</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
+<p class="reference">References <a class="el" href="manager__result_8h_source.html#l00042">mtc::ManagerResult::fail()</a>, <a class="el" href="match__group_8h_source.html#l00042">mtc::MatchGroupConfig::m_groupIndex</a>, <a class="el" href="match__group_8h_source.html#l00041">mtc::MatchGroupConfig::m_groupName</a>, <a class="el" href="pattern__group__manager_8h_source.html#l00178">m_groups</a>, and <a class="el" href="manager__result_8h_source.html#l00034">mtc::ManagerResult::success()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00270">addGroup()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00313">setGroupConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00327">addGroup()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00370">setGroupConfig()</a>.</p>
 
 </div>
 </div>
 <a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<a id="a411e04d070b61592097a5b6a5c9b4774" name="a411e04d070b61592097a5b6a5c9b4774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a411e04d070b61592097a5b6a5c9b4774">&#9670;&#160;</a></span>kSchemaVersion</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mtc::PatternGroupManager::kSchemaVersion = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Persistence schema version for the pattern library. Bump when the on-disk shape changes in a way older readers cannot parse, and extend the compatibility read in <a class="el" href="pattern__group__manager_8cpp.html">pattern_group_manager.cpp</a>. A document with no "version" key is the pre-versioning legacy baseline (version 0), whose gripper geometry lived in three flat keys. v2 moved the jaw angle back out of the nested "gripperBoxes" object; the bump matters because a v1-era build reading a v2 document would find no nested angle, silently load 0, and ignore the flat key that actually holds it. </p>
+
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8h_source.html#l00040">40</a> of file <a class="el" href="pattern__group__manager_8h_source.html">pattern_group_manager.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00632">fromJson()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00615">toJson()</a>.</p>
+
+</div>
+</div>
 <a id="a34df5438e6a495aa9229181ed7212098" name="a34df5438e6a495aa9229181ed7212098"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a34df5438e6a495aa9229181ed7212098">&#9670;&#160;</a></span>m_groups</h2>
 
@@ -1134,15 +1171,15 @@ Private Attributes</h2></td></tr>
 
 <p>All groups owned by this manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8h_source.html#l00169">169</a> of file <a class="el" href="pattern__group__manager_8h_source.html">pattern_group_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="pattern__group__manager_8h_source.html#l00178">178</a> of file <a class="el" href="pattern__group__manager_8h_source.html">pattern_group_manager.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00270">addGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00237">findGroupByName()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00245">findGroupByNumber()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00574">fromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00262">groupCount()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00231">groups()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00285">removeGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00501">sortGroupsByNumber()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00558">toJson()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00538">validateGroupConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="pattern__group__manager_8cpp_source.html#l00327">addGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00294">findGroupByName()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00302">findGroupByNumber()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00632">fromJson()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00319">groupCount()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00288">groups()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00342">removeGroup()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00558">sortGroupsByNumber()</a>, <a class="el" href="pattern__group__manager_8cpp_source.html#l00615">toJson()</a>, and <a class="el" href="pattern__group__manager_8cpp_source.html#l00595">validateGroupConfig()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="pattern__group__manager_8h_source.html">pattern_group_manager.h</a></li>
-<li>C:/DGB/Project/ncr_picking/src/matching/<a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="pattern__group__manager_8h_source.html">pattern_group_manager.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/matching/<a class="el" href="pattern__group__manager_8cpp_source.html">pattern_group_manager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

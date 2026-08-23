@@ -1,5 +1,112 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classvc_1_1device_1_1_m_c_frame_abstract.html" title="Abstract MC&#45;protocol frame codec: builds outgoing request frames and parses incoming response frames ..." alt="" coords="5,5,202,32"/>
-<area shape="rect" id="Node000001" href="$classvc_1_1device_1_1_frame3_e.html" title="Concrete MC&#45;protocol frame codec for the 3E frame: builds/parses the binary 3E read/write (bit and wo..." alt="" coords="250,5,392,32"/>
-<area shape="poly" id="edge159_Node000000_Node000001" title=" " alt="" coords="217,16,252,19,247,19,217,21"/>
+<area shape="rect" id="Node000000" href="$classvc_1_1device_1_1_i_digital_io_provider.html" title="Capability mix&#45;in for devices that expose named digital (bit) I/O tags/lines." alt="" coords="170,56,360,83"/>
+<area shape="rect" id="Node000001" href="$classvc_1_1device_1_1_i_plc_tag_provider.html" title="Combined capability for PLC&#45;like devices that expose both digital and word tags by name." alt="" coords="439,57,620,84"/>
+<area shape="poly" id="edge116_Node000000_Node000001" title=" " alt="" coords="374,68,441,69,436,72,377,72"/>
+<area shape="rect" id="Node000002" href="$classvc_1_1device_1_1_mc_protocol_device.html" title="Mitsubishi MC&#45;protocol PLC device: owns the transport (McMsgInterface) and frame codec (MCFrameAbstra..." alt="" coords="708,80,904,107"/>
+<area shape="poly" id="edge117_Node000001_Node000002" title=" " alt="" coords="635,77,710,84,705,87,637,82"/>
+<area shape="rect" id="Node000004" href="$classvc_1_1device_1_1_virtual_plc_device.html" title="A PlcDevice that records what would have been written instead of writing it." alt="" coords="713,131,899,157"/>
+<area shape="poly" id="edge118_Node000001_Node000004" title=" " alt="" coords="604,86,645,97,693,116,738,129,733,131,692,121,643,103,606,91"/>
+<area shape="rect" id="Node000010" href="$classvc_1_1device_1_1_i_image_source_device.html" title="Marker capability for devices that can act as a source of images (e.g. cameras)." alt="" coords="180,259,350,301"/>
+<area shape="rect" id="Node000007" href="$classvc_1_1device_1_1_camera_device.html" title="Abstract base for all camera devices: adds exposure/gain/backlight/IO control and single&#45;shot,..." alt="" coords="442,267,618,293"/>
+<area shape="poly" id="edge119_Node000010_Node000007" title=" " alt="" coords="364,278,443,278,439,282,367,282"/>
+<area shape="rect" id="Node000008" href="$classvc_1_1device_1_1_basler_gig_e_camera.html" title="Basler GigE Vision camera device, implemented on top of the Pylon SDK (Pylon::CInstantCamera)...." alt="" coords="705,267,907,293"/>
+<area shape="poly" id="edge120_Node000007_Node000008" title=" " alt="" coords="632,278,707,279,703,281,635,282"/>
+<area shape="rect" id="Node000009" href="$classvc_1_1device_1_1_virtual_camera_device.html" title="A CameraDevice whose frames come from a still image or a generated pattern." alt="" coords="720,200,892,243"/>
+<area shape="poly" id="edge121_Node000007_Node000009" title=" " alt="" coords="610,261,721,238,717,241,612,265"/>
+<area shape="rect" id="Node000003" href="$classvc_1_1device_1_1_i_plc_io_writer.html" title="Capability mix&#45;in for devices that accept writes to named PLC I/O tags." alt="" coords="451,112,608,139"/>
+<area shape="poly" id="edge122_Node000003_Node000002" title=" " alt="" coords="622,112,709,103,705,106,625,117"/>
+<area shape="poly" id="edge123_Node000003_Node000004" title=" " alt="" coords="623,129,715,136,710,139,625,134"/>
+<area shape="rect" id="Node000019" href="$classvc_1_1device_1_1_i_result_output_device.html" title="Marker capability for devices that can output/consume processing results." alt="" coords="180,544,350,587"/>
+<area shape="rect" id="Node000014" href="$classvc_1_1device_1_1_vision_output_device.html" title="Abstract base for the vision&#45;output device family. Concrete vendors (VisionTcpipDevice,..." alt="" coords="448,448,612,491"/>
+<area shape="poly" id="edge124_Node000019_Node000014" title=" " alt="" coords="347,536,366,529,414,511,474,489,470,493,416,516,368,535,350,540"/>
+<area shape="rect" id="Node000015" href="$classvc_1_1device_1_1_virtual_vision_output_device.html" title="A VisionOutputDevice that captures the positions it is sent instead of transmitting." alt="" coords="725,485,887,528"/>
+<area shape="poly" id="edge125_Node000014_Node000015" title=" " alt="" coords="626,480,727,495,722,497,628,485"/>
+<area shape="rect" id="Node000016" href="$classvc_1_1device_1_1_vision_tcpip_device_base.html" title="Shared protocol core for the TCP/IP vision&#45;output transports (server + client)." alt="" coords="692,435,920,461"/>
+<area shape="poly" id="edge126_Node000014_Node000016" title=" " alt="" coords="626,459,694,456,689,458,628,464"/>
+<area shape="rect" id="Node000017" href="$classvc_1_1device_1_1_vision_tcpip_client_device.html" title="TCP/IP client transport of the vision&#45;output family. Same protocol as VisionTcpipDevice,..." alt="" coords="971,397,1162,440"/>
+<area shape="poly" id="edge127_Node000016_Node000017" title=" " alt="" coords="934,431,973,428,968,430,936,436"/>
+<area shape="rect" id="Node000018" href="$classvc_1_1device_1_1_vision_tcpip_device.html" title="TCP/IP server transport of the vision&#45;output family: listens on two ports (main + heartbeat),..." alt="" coords="968,464,1165,491"/>
+<area shape="poly" id="edge128_Node000016_Node000018" title=" " alt="" coords="934,460,970,465,965,467,936,465"/>
+<area shape="rect" id="Node000053" href="$classvc_1_1device_1_1_i_word_io_provider.html" title="Capability mix&#45;in for devices that expose named word (register&#45;sized) I/O tags." alt="" coords="174,5,356,32"/>
+<area shape="poly" id="edge129_Node000053_Node000001" title=" " alt="" coords="350,33,460,55,456,58,353,38"/>
+<area shape="rect" id="Node000024" title=" " alt="" coords="5,132,115,159"/>
+<area shape="rect" id="Node000025" href="$class_item_gripper_box.html" title="Movable/selectable QGraphicsItem drawing a pair of gripper &quot;finger&quot; squares placed symmetrically at m..." alt="" coords="209,107,321,133"/>
+<area shape="poly" id="edge130_Node000024_Node000025" title=" " alt="" coords="128,135,210,125,206,129,132,139"/>
+<area shape="rect" id="Node000023" href="$class_item_picking_center.html" title="Selectable/movable QGraphicsItem marking a picking position: draws an X/Y axis cross with arrowheads ..." alt="" coords="200,157,330,184"/>
+<area shape="poly" id="edge131_Node000024_Node000023" title=" " alt="" coords="129,152,202,161,197,164,132,156"/>
+<area shape="rect" id="Node000050" title=" " alt="" coords="196,712,334,739"/>
+<area shape="rect" id="Node000049" href="$class_item_roi.html" title="Resizable, movable, axis&#45;aligned rectangular region&#45;of&#45;interest item for a QGraphicsScene: renders a ..." alt="" coords="496,843,563,869"/>
+<area shape="poly" id="edge132_Node000050_Node000049" title=" " alt="" coords="348,737,369,749,386,769,393,790,400,810,417,829,435,839,456,846,498,855,493,856,454,851,433,844,413,833,396,813,388,792,382,772,365,753,349,742"/>
+<area shape="rect" id="Node000051" href="$class_item_roi_rotated.html" title="Resizable, movable, and rotatable rectangular region&#45;of&#45;interest item for a QGraphicsScene: renders a..." alt="" coords="473,792,586,819"/>
+<area shape="poly" id="edge134_Node000050_Node000051" title=" " alt="" coords="347,741,368,748,392,763,416,778,475,796,470,797,414,782,390,768,366,753,349,746"/>
+<area shape="rect" id="Node000048" href="$classvision__canvas__detail_1_1_vision_rect_roi_item.html" title=" " alt="" coords="735,883,877,925"/>
+<area shape="poly" id="edge133_Node000049_Node000048" title=" " alt="" coords="578,862,737,891,732,892,579,867"/>
+<area shape="rect" id="Node000052" href="$classvision__canvas__detail_1_1_vision_rotated_roi_item.html" title=" " alt="" coords="727,795,885,837"/>
+<area shape="poly" id="edge135_Node000051_Node000052" title=" " alt="" coords="601,805,730,812,725,814,602,811"/>
+<area shape="rect" id="Node000020" title=" " alt="" coords="25,763,95,789"/>
+<area shape="poly" id="edge138_Node000020_Node000023" title=" " alt="" coords="60,747,66,628,83,462,96,378,113,301,134,238,147,213,161,194,178,181,202,173,198,177,181,185,165,198,151,216,139,240,118,303,101,379,88,463,72,628,65,748"/>
+<area shape="rect" id="Node000021" href="$class_app_logger.html" title="Application&#45;wide logging facade (singleton): routes user&#45; and developer&#45;facing messages to a rotating..." alt="" coords="223,763,306,789"/>
+<area shape="poly" id="edge136_Node000020_Node000021" title=" " alt="" coords="109,774,224,774,221,778,111,778"/>
+<area shape="rect" id="Node000022" href="$class_app_settings.html" title="Singleton that persists application&#45;wide preferences to a binary, integrity&#45;checked file in the OS ap..." alt="" coords="219,813,311,840"/>
+<area shape="poly" id="edge137_Node000020_Node000022" title=" " alt="" coords="109,786,220,814,216,817,111,791"/>
+<area shape="rect" id="Node000026" href="$class_single_instance_guard.html" title="Ensures only one process per instance key runs, and lets a second launch bring the running window for..." alt="" coords="194,864,336,891"/>
+<area shape="poly" id="edge139_Node000020_Node000026" title=" " alt="" coords="87,798,123,825,164,850,196,862,191,865,162,854,120,830,88,803"/>
+<area shape="rect" id="Node000027" href="$class_theme_manager.html" title="Application&#45;wide theme/style manager: owns the registry of ThemeStyle entries, applies the active sty..." alt="" coords="209,915,320,941"/>
+<area shape="poly" id="edge140_Node000020_Node000027" title=" " alt="" coords="76,800,113,853,137,879,164,900,186,911,211,920,206,922,184,916,161,905,133,883,109,856,76,806"/>
+<area shape="rect" id="Node000028" href="$classmtc_1_1_match_config_property_adapter.html" title="Bridges a group&#39;s algorithm config (MatchGroupConfig::typeConfig) to a QtVariantPropertyManager/Brows..." alt="" coords="178,965,352,1008"/>
+<area shape="poly" id="edge141_Node000020_Node000028" title=" " alt="" coords="70,801,86,837,105,877,132,917,164,951,183,964,177,965,161,955,127,920,101,880,81,839,70,807"/>
+<area shape="rect" id="Node000029" href="$classmtc_1_1_pattern_group_manager.html" title="Owns the full library of MatchGroup instances (and, transitively, their MatchPattern children) for a ..." alt="" coords="176,1032,354,1059"/>
+<area shape="poly" id="edge142_Node000020_Node000029" title=" " alt="" coords="65,802,77,851,94,909,123,968,142,995,164,1018,183,1031,178,1032,161,1022,138,998,118,971,89,911,72,852,65,807"/>
+<area shape="rect" id="Node000030" href="$classvc_1_1auth_1_1_access_control.html" title="Process&#45;wide current access role, and the only place a role is granted." alt="" coords="184,1083,346,1109"/>
+<area shape="poly" id="edge143_Node000020_Node000030" title=" " alt="" coords="63,802,72,861,87,932,100,970,117,1006,138,1039,164,1069,186,1084,180,1084,161,1073,134,1043,112,1008,95,972,82,934,66,862,62,808"/>
+<area shape="rect" id="Node000031" href="$classvc_1_1device_1_1_device_manager.html" title="Device manager owned by a Project via shared pointer; tracks reserved/committed device instances by i..." alt="" coords="175,1200,355,1227"/>
+<area shape="poly" id="edge144_Node000020_Node000031" title=" " alt="" coords="65,802,79,892,99,1007,128,1116,145,1158,165,1186,181,1200,176,1199,161,1190,141,1160,123,1118,94,1008,74,893,64,807"/>
+<area shape="rect" id="Node000006" href="$classvc_1_1device_1_1_i_device.html" title="Abstract base for every device family (camera/PLC/vision&#45;output/robot): owns the device&#39;s id/name/tas..." alt="" coords="198,376,332,403"/>
+<area shape="poly" id="edge145_Node000020_Node000006" title=" " alt="" coords="58,747,60,679,73,589,86,541,104,495,129,451,161,413,177,401,199,394,195,398,180,405,164,417,133,454,109,497,91,543,78,590,65,680,63,747"/>
+<area shape="rect" id="Node000032" href="$classvc_1_1model_1_1_i_signal_group.html" title="Abstract base for a QObject&#45;derived signal group that can be (de)serialized to/from JSON." alt="" coords="184,325,346,352"/>
+<area shape="poly" id="edge154_Node000020_Node000032" title=" " alt="" coords="62,747,74,659,94,544,123,434,141,392,161,362,185,347,182,352,165,366,145,394,128,436,99,545,79,660,67,748"/>
+<area shape="rect" id="Node000033" href="$classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task." alt="" coords="206,208,324,235"/>
+<area shape="poly" id="edge155_Node000020_Node000033" title=" " alt="" coords="60,747,68,637,86,487,99,411,116,341,136,284,161,245,181,230,207,223,204,227,184,235,165,248,141,286,121,343,105,412,92,488,74,638,66,748"/>
+<area shape="rect" id="Node000035" href="$classvc_1_1model_1_1_localization_runtime_controller.html" title="Runs one localization task at runtime." alt="" coords="163,427,367,469"/>
+<area shape="poly" id="edge157_Node000020_Node000035" title=" " alt="" coords="60,747,67,691,84,619,97,582,114,545,135,510,161,479,179,468,176,472,165,483,139,513,118,547,102,584,89,621,73,692,66,747"/>
+<area shape="rect" id="Node000036" href="$classvc_1_1model_1_1_project.html" title="Aggregate root of a picking&#45;configuration project." alt="" coords="201,493,328,520"/>
+<area shape="poly" id="edge158_Node000020_Node000036" title=" " alt="" coords="62,747,72,700,89,641,118,581,138,554,161,530,179,518,202,511,199,515,182,523,164,534,142,557,123,584,94,643,77,701,67,748"/>
+<area shape="rect" id="Node000037" href="$classvc_1_1runtime_1_1_i_device_runner.html" title="Abstract interface for per&#45;device thread controllers. Concrete implementations (CameraRunner,..." alt="" coords="174,611,356,637"/>
+<area shape="poly" id="edge159_Node000020_Node000037" title=" " alt="" coords="73,748,109,696,133,669,161,647,188,636,184,640,164,652,137,673,113,699,78,750"/>
+<area shape="rect" id="Node000045" href="$classvc_1_1runtime_1_1_task_runner.html" title="Owned by ITask. Central manager for all device threads belonging to one task, driving the three&#45;phase..." alt="" coords="183,661,347,688"/>
+<area shape="poly" id="edge167_Node000020_Node000045" title=" " alt="" coords="85,750,120,722,162,698,195,687,191,691,164,702,123,727,90,753"/>
+<area shape="rect" id="Node000046" href="$classvision__canvas__detail_1_1_vision_canvas_item_base.html" title=" " alt="" coords="182,1133,348,1176"/>
+<area shape="poly" id="edge168_Node000020_Node000046" title=" " alt="" coords="61,802,68,869,82,953,95,998,113,1042,136,1083,165,1119,184,1135,179,1135,161,1123,131,1086,108,1044,90,1000,77,954,63,870,61,808"/>
+<area shape="poly" id="edge146_Node000006_Node000007" title=" " alt="" coords="343,369,366,362,443,326,508,292,504,296,446,331,368,366,347,373"/>
+<area shape="poly" id="edge153_Node000006_Node000014" title=" " alt="" coords="338,405,368,412,470,446,465,449,366,417,341,409"/>
+<area shape="rect" id="Node000005" href="$classvc_1_1device_1_1_plc_device.html" title="Abstract base for the PLC family. Concrete vendors (McProtocolDevice for Mitsubishi MC,..." alt="" coords="455,215,604,241"/>
+<area shape="poly" id="edge147_Node000006_Node000005" title=" " alt="" coords="344,375,365,362,377,349,383,336,388,309,393,280,401,266,413,253,433,240,457,233,453,237,435,245,417,257,405,269,399,282,394,310,388,338,381,352,369,366,348,379"/>
+<area shape="rect" id="Node000011" href="$classvc_1_1device_1_1_robot_device.html" title="Abstract base for the robot device family. Carries only the minimum IDevice surface area; vendor&#45;spec..." alt="" coords="447,376,612,403"/>
+<area shape="poly" id="edge150_Node000006_Node000011" title=" " alt="" coords="346,387,449,388,444,391,349,392"/>
+<area shape="poly" id="edge148_Node000005_Node000002" title=" " alt="" coords="617,214,643,201,659,181,666,160,673,138,691,117,714,105,710,109,694,121,677,140,671,161,664,184,646,205,621,218"/>
+<area shape="poly" id="edge149_Node000005_Node000004" title=" " alt="" coords="614,208,644,200,773,156,769,160,645,205,617,213"/>
+<area shape="rect" id="Node000012" href="$classvc_1_1device_1_1_kawasaki_robot_device.html" title="Minimum concrete robot device for the Kawasaki vendor. All calls are stubs returning sensible default..." alt="" coords="715,317,897,360"/>
+<area shape="poly" id="edge151_Node000011_Node000012" title=" " alt="" coords="620,370,717,354,713,357,623,375"/>
+<area shape="rect" id="Node000013" href="$classvc_1_1device_1_1_nachi_robot_device.html" title="Minimum concrete robot device — Nachi vendor stub. See KawasakiRobotDevice for the equivalent pattern..." alt="" coords="706,384,906,411"/>
+<area shape="poly" id="edge152_Node000011_Node000013" title=" " alt="" coords="627,390,708,393,704,396,629,395"/>
+<area shape="rect" id="Node000034" href="$classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation." alt="" coords="438,164,621,191"/>
+<area shape="poly" id="edge156_Node000033_Node000034" title=" " alt="" coords="338,207,447,189,443,193,341,211"/>
+<area shape="rect" id="Node000038" href="$classvc_1_1runtime_1_1_device_runner.html" title=" " alt="" coords="430,659,630,701"/>
+<area shape="poly" id="edge160_Node000037_Node000038" title=" " alt="" coords="346,639,431,658,427,660,347,644"/>
+<area shape="rect" id="Node000040" href="$classvc_1_1runtime_1_1_device_runner.html" title=" " alt="" coords="441,725,618,768"/>
+<area shape="poly" id="edge162_Node000037_Node000040" title=" " alt="" coords="358,642,369,647,385,663,394,680,402,696,417,711,443,727,438,728,413,715,397,699,389,682,381,666,365,651,359,647"/>
+<area shape="rect" id="Node000042" href="$classvc_1_1runtime_1_1_device_runner.html" title=" " alt="" coords="415,525,644,568"/>
+<area shape="poly" id="edge164_Node000037_Node000042" title=" " alt="" coords="340,604,366,596,414,577,453,567,449,570,416,583,368,601,343,608"/>
+<area shape="rect" id="Node000044" href="$classvc_1_1runtime_1_1_device_runner.html" title="CRTP template base for per&#45;device thread runners — eliminates the duplication that used to exist betw..." alt="" coords="441,592,618,635"/>
+<area shape="poly" id="edge166_Node000037_Node000044" title=" " alt="" coords="370,617,443,615,438,618,372,622"/>
+<area shape="rect" id="Node000039" href="$classvc_1_1runtime_1_1_camera_runner.html" title="Per&#45;camera thread runner (replaces the legacy CameraWorker that previously lived in src/model); media..." alt="" coords="715,667,897,693"/>
+<area shape="poly" id="edge161_Node000038_Node000039" title=" " alt="" coords="644,677,717,679,712,681,646,683"/>
+<area shape="rect" id="Node000041" href="$classvc_1_1runtime_1_1_plc_runner.html" title="Family&#45;level runner for the PLC device family; holds a PlcDevice* (the abstract base) so the runner s..." alt="" coords="728,733,884,760"/>
+<area shape="poly" id="edge163_Node000040_Node000041" title=" " alt="" coords="633,744,731,746,726,748,635,749"/>
+<area shape="rect" id="Node000043" href="$classvc_1_1runtime_1_1_vision_output_runner.html" title="Per&#45;device thread controller for vc::device::VisionOutputDevice: exposes thread&#45;safe request*() entry..." alt="" coords="721,552,891,595"/>
+<area shape="poly" id="edge165_Node000042_Node000043" title=" " alt="" coords="659,557,723,564,718,566,661,562"/>
+<area shape="rect" id="Node000047" href="$classvision__canvas__detail_1_1_roi_item_base.html" title="Internal (private&#45;implementation) interface for a selectable/editable ROI graphics item hosted on the..." alt="" coords="458,893,601,936"/>
+<area shape="poly" id="edge169_Node000046_Node000047" title=" " alt="" coords="359,1123,365,1119,416,1075,459,1024,492,974,515,938,519,934,497,977,463,1027,420,1079,369,1123,362,1128"/>
+<area shape="poly" id="edge170_Node000047_Node000048" title=" " alt="" coords="616,909,737,906,732,908,617,914"/>
+<area shape="poly" id="edge171_Node000047_Node000052" title=" " alt="" coords="615,888,643,879,757,837,752,839,645,884,617,893"/>
 </map>

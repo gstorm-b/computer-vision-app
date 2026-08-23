@@ -4,9 +4,12 @@ var dir_396f756d01c6ae6d2d18bacd90e731fa =
     [ "pattern", "dir_019f7cc3343dcbc653e627ca65f59c21.html", "dir_019f7cc3343dcbc653e627ca65f59c21" ],
     [ "plc", "dir_af9a72933be85384d4717ae7a213b8ef.html", "dir_af9a72933be85384d4717ae7a213b8ef" ],
     [ "task", "dir_e3f8314b72b1e1e4c335a64ed4f79b48.html", "dir_e3f8314b72b1e1e4c335a64ed4f79b48" ],
+    [ "virtual", "dir_48e05c7b4d92fb1b455ee58d57cf46fe.html", "dir_48e05c7b4d92fb1b455ee58d57cf46fe" ],
     [ "vision_output", "dir_cc860ef59de5be47c41762b3d9a58c5a.html", "dir_cc860ef59de5be47c41762b3d9a58c5a" ],
     [ "add_device_wizard.cpp", "add__device__wizard_8cpp.html", null ],
     [ "add_device_wizard.h", "add__device__wizard_8h.html", "add__device__wizard_8h" ],
+    [ "admin_login_dialog.cpp", "admin__login__dialog_8cpp.html", "admin__login__dialog_8cpp" ],
+    [ "admin_login_dialog.h", "admin__login__dialog_8h.html", "admin__login__dialog_8h" ],
     [ "device_widget.h", "device__widget_8h.html", "device__widget_8h" ],
     [ "device_widget_factory.cpp", "device__widget__factory_8cpp.html", null ],
     [ "device_widget_factory.h", "device__widget__factory_8h.html", "device__widget__factory_8h" ],
@@ -16,5 +19,9 @@ var dir_396f756d01c6ae6d2d18bacd90e731fa =
     [ "new_task_dialog.h", "new__task__dialog_8h.html", "new__task__dialog_8h" ],
     [ "project_infor_setting.cpp", "project__infor__setting_8cpp.html", null ],
     [ "project_infor_setting.h", "project__infor__setting_8h.html", "project__infor__setting_8h" ],
+    [ "shell_startup.cpp", "shell__startup_8cpp.html", "shell__startup_8cpp" ],
+    [ "shell_startup.h", "shell__startup_8h.html", "shell__startup_8h" ],
+    [ "system_log_form.cpp", "system__log__form_8cpp.html", "system__log__form_8cpp" ],
+    [ "system_log_form.h", "system__log__form_8h.html", "system__log__form_8h" ],
     [ "task_widget.h", "task__widget_8h.html", "task__widget_8h" ]
 ];

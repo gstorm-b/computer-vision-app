@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/widgets/project_tree_widget.cpp File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/widgets/project_tree_widget.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('project__tree_
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="project__tree__widget_8h_source.html">project_tree_widget.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="virtual__device_8h_source.html">device/virtual/virtual_device.h</a>&quot;</code><br />
 <code>#include &lt;QPainter&gt;</code><br />
 <code>#include &lt;QVBoxLayout&gt;</code><br />
 <code>#include &lt;QMenu&gt;</code><br />
@@ -150,8 +151,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ae49f349caf48aa5171f77a2c62d5237d" id="r_ae49f349caf48aa5171f77a2c62d5237d"><td class="memItemLeft">static <a class="el" href="struct_chip_info.html">ChipInfo</a>&#160;</td><td class="memItemRight"><a class="el" href="#ae49f349caf48aa5171f77a2c62d5237d">chipForDeviceType</a> (<a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">vc::device::DeviceType</a> t)</td></tr>
-<tr class="memdesc:ae49f349caf48aa5171f77a2c62d5237d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps a device type to its chip label ("CAM"/"PLC"/"DEV") and theme color token.  <br /></td></tr>
+<tr class="memitem:a6a625ec231ffd83fd0cf9619e7a3c92f" id="r_a6a625ec231ffd83fd0cf9619e7a3c92f"><td class="memItemLeft">static <a class="el" href="struct_chip_info.html">ChipInfo</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6a625ec231ffd83fd0cf9619e7a3c92f">chipForDevice</a> (const <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a> *device)</td></tr>
 <tr class="memitem:af7e26a09104382c2cd684b35f13f2f8d" id="r_af7e26a09104382c2cd684b35f13f2f8d"><td class="memItemLeft">static <a class="el" href="struct_chip_info.html">ChipInfo</a>&#160;</td><td class="memItemRight"><a class="el" href="#af7e26a09104382c2cd684b35f13f2f8d">chipForTaskType</a> (<a class="el" href="namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b">vc::model::TaskType</a> t)</td></tr>
 <tr class="memdesc:af7e26a09104382c2cd684b35f13f2f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps a task type to its chip label ("LOC"/"PICK"/"INSP") and theme color token.  <br /></td></tr>
 </table><table class="memberdecls">
@@ -165,8 +165,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:ad242c23ace3325f8f8c6f3cac909dad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chip badge width in pixels.  <br /></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ae49f349caf48aa5171f77a2c62d5237d" name="ae49f349caf48aa5171f77a2c62d5237d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae49f349caf48aa5171f77a2c62d5237d">&#9670;&#160;</a></span>chipForDeviceType()</h2>
+<a id="a6a625ec231ffd83fd0cf9619e7a3c92f" name="a6a625ec231ffd83fd0cf9619e7a3c92f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a625ec231ffd83fd0cf9619e7a3c92f">&#9670;&#160;</a></span>chipForDevice()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,9 +175,9 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_chip_info.html">ChipInfo</a> chipForDeviceType </td>
+          <td class="memname"><a class="el" href="struct_chip_info.html">ChipInfo</a> chipForDevice </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="namespacevc_1_1device.html#a5e4b92126958c1282be32aade9950cb6">vc::device::DeviceType</a></td>          <td class="paramname"><span class="paramname"><em>t</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classvc_1_1device_1_1_i_device.html">vc::device::IDevice</a> *</td>          <td class="paramname"><span class="paramname"><em>device</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -187,14 +187,14 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Maps a device to its chip label ("CAM"/"PLC"/"DEV") and theme color token.</p>
+<p>A virtual device gets "VIRT" instead of its family label, deliberately replacing it rather than sitting beside it. The chip is the one piece of per-device text in the tree that the operator did not choose — the device NAME is theirs, and nothing stops them calling a simulated camera "Camera 1". Risk R8 is a station handed over "working" while running on nothing; the marker has to survive whatever the device was named. </p>
 
-<p>Maps a device type to its chip label ("CAM"/"PLC"/"DEV") and theme color token. </p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00036">36</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00028">28</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, <a class="el" href="classvc_1_1device_1_1_i_device.html#aba9d7b47e93488cf3f5d0426c56cdd6d">vc::device::IDevice::deviceType()</a>, <a class="el" href="virtual__device_8h_source.html#l00028">vc::device::isVirtualDevice()</a>, <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>, and <a class="el" href="idevice__config_8h_source.html#l00059">vc::device::UserType</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>, and <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00282">ProjectTreeWidget::buildDeviceItem()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00294">ProjectTreeWidget::buildDeviceItem()</a>.</p>
 
 </div>
 </div>
@@ -223,11 +223,11 @@ Variables</h2></td></tr>
 
 <p>Maps a task type to its chip label ("LOC"/"PICK"/"INSP") and theme color token. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00037">37</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00049">49</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="task__define_8h_source.html#l00034">vc::model::InspectTask</a>, <a class="el" href="task__define_8h_source.html#l00032">vc::model::LocalizationTask</a>, and <a class="el" href="task__define_8h_source.html#l00033">vc::model::PickPlaceTask</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00253">ProjectTreeWidget::buildTaskItem()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00265">ProjectTreeWidget::buildTaskItem()</a>.</p>
 
 </div>
 </div>
@@ -254,9 +254,9 @@ Variables</h2></td></tr>
 
 <p>Chip badge height in pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00050">50</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00062">62</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00057">ProjectTreeDelegate::paint()</a>, and <a class="el" href="device__row__delegate_8cpp_source.html#l00193">vc::widgets::DeviceRowDelegate::paintChip()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00069">ProjectTreeDelegate::paint()</a>, and <a class="el" href="device__row__delegate_8cpp_source.html#l00193">vc::widgets::DeviceRowDelegate::paintChip()</a>.</p>
 
 </div>
 </div>
@@ -282,9 +282,9 @@ Variables</h2></td></tr>
 
 <p>Spacing in pixels between the chip and the row edge/text. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00051">51</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00063">63</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00057">ProjectTreeDelegate::paint()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00069">ProjectTreeDelegate::paint()</a>.</p>
 
 </div>
 </div>
@@ -310,9 +310,9 @@ Variables</h2></td></tr>
 
 <p>Chip badge width in pixels. </p>
 
-<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00049">49</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="project__tree__widget_8cpp_source.html#l00061">61</a> of file <a class="el" href="project__tree__widget_8cpp_source.html">project_tree_widget.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00057">ProjectTreeDelegate::paint()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="project__tree__widget_8cpp_source.html#l00069">ProjectTreeDelegate::paint()</a>.</p>
 
 </div>
 </div>

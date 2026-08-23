@@ -17,6 +17,8 @@ var robot__kinematic__check__widget_8cpp =
     [ "anonymous_namespace{robot_kinematic_check_widget.cpp}::simplifiedMeshProfile", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#ac15314e2295fd29f49e1749343c4f49e", null ],
     [ "anonymous_namespace{robot_kinematic_check_widget.cpp}::statusToString", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#af1851cfeec4976780fa7385afcd32f75", null ],
     [ "anonymous_namespace{robot_kinematic_check_widget.cpp}::kNachiMz04dPreset", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#aa6d723d73ad04144e28066b784e68431", null ],
+    [ "anonymous_namespace{robot_kinematic_check_widget.cpp}::kPathFirstAxisCol", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a9573dd4997f19bef9bb818e08347b787", null ],
+    [ "anonymous_namespace{robot_kinematic_check_widget.cpp}::kPathFirstPostureCol", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a0cf6f457a18608ef510511129b29542e", null ],
     [ "anonymous_namespace{robot_kinematic_check_widget.cpp}::kPickingToolId", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a3a403943196914a6fd4aa7c52a974e82", null ],
     [ "anonymous_namespace{robot_kinematic_check_widget.cpp}::kSimplifiedProfileDeployedRel", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a83fb4b56b9ada70f786a0959f771d491", null ],
     [ "anonymous_namespace{robot_kinematic_check_widget.cpp}::kSimplifiedProfileSourceRel", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#aedc822116c22bfd990707b2e3c6b253e", null ]

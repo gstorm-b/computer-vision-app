@@ -198,7 +198,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><span class="keyword">auto</span> *p = <a class="code hl_variable" href="#a5965ce907c7efa589d15d1809256fb94">m_variantManager</a>-&gt;addProperty(QMetaType::QString, <span class="stringliteral">&quot;Tag&quot;</span>);</div>
 <div class="line"><a class="code hl_variable" href="#a5965ce907c7efa589d15d1809256fb94">m_variantManager</a>-&gt;setAttribute(p, <span class="stringliteral">&quot;completer&quot;</span>,</div>
 <div class="line">                               QStringList{<span class="stringliteral">&quot;alpha&quot;</span>, <span class="stringliteral">&quot;beta&quot;</span>, <span class="stringliteral">&quot;gamma&quot;</span>});</div>
-<div class="ttc" id="aclass_i_task_widget_html_a5965ce907c7efa589d15d1809256fb94"><div class="ttname"><a href="#a5965ce907c7efa589d15d1809256fb94">ITaskWidget::m_variantManager</a></div><div class="ttdeci">QtVariantPropertyManager * m_variantManager</div><div class="ttdoc">Alias into m_propBrowser&#39;s variant manager; do not delete.</div><div class="ttdef"><b>Definition</b> <a href="task__widget_8h_source.html#l00282">task_widget.h:282</a></div></div>
+<div class="ttc" id="aclass_i_task_widget_html_a5965ce907c7efa589d15d1809256fb94"><div class="ttname"><a href="#a5965ce907c7efa589d15d1809256fb94">ITaskWidget::m_variantManager</a></div><div class="ttdeci">QtVariantPropertyManager * m_variantManager</div><div class="ttdoc">Alias into m_propBrowser&#39;s variant manager; do not delete.</div><div class="ttdef"><b>Definition</b> <a href="task__widget_8h_source.html#l00292">task_widget.h:292</a></div></div>
 </div><!-- fragment --> 
 <p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00048">48</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -237,9 +237,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00054">54</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00274">m_dock</a>, and <a class="el" href="task__widget_8h_source.html#l00275">m_task</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00284">m_dock</a>, and <a class="el" href="task__widget_8h_source.html#l00285">m_task</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00149">LocalizationDashboardWidget::LocalizationDashboardWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00338">LocalizationPatternsWidget::LocalizationPatternsWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00159">LocalizationSettingWidget::LocalizationSettingWidget()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00056">LocalizationTaskWidget::LocalizationTaskWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00149">LocalizationDashboardWidget::LocalizationDashboardWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00375">LocalizationPatternsWidget::LocalizationPatternsWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00160">LocalizationSettingWidget::LocalizationSettingWidget()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00056">LocalizationTaskWidget::LocalizationTaskWidget()</a>.</p>
 
 </div>
 </div>
@@ -302,7 +302,7 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the created QtVariantProperty, or nullptr if creation failed or the property is <span class="tt">objectName</span> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00204">204</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00214">214</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
 </div>
 </div>
@@ -330,11 +330,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Switches m_browserStackWidget back to the default m_propBrowser, lazily creating it (and adding it to the stack) on first use. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00161">161</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00171">171</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00287">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00278">m_propBrowser</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00297">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00288">m_propBrowser</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00875">LocalizationTaskWidget::populateBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserWidget()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00875">LocalizationTaskWidget::populateBrowser()</a>.</p>
 
 </div>
 </div>
@@ -364,7 +364,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00148">148</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00287">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00288">m_propertyBrowserWidgets</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00171">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00297">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00298">m_propertyBrowserWidgets</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00875">LocalizationTaskWidget::populateBrowser()</a>.</p>
 
@@ -403,7 +403,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00123">123</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00278">m_propBrowser</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00288">m_propBrowser</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>.</p>
 
@@ -435,7 +435,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00136">136</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00286">m_browserBox</a>, and <a class="el" href="task__widget_8h_source.html#l00287">m_browserStackWidget</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00296">m_browserBox</a>, and <a class="el" href="task__widget_8h_source.html#l00297">m_browserStackWidget</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>.</p>
 
@@ -474,9 +474,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00104">104</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00123">embedBrowserInWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00278">m_propBrowser</a>, <a class="el" href="task__widget_8h_source.html#l00284">m_variantEditor</a>, <a class="el" href="task__widget_8h_source.html#l00283">m_variantFactory</a>, and <a class="el" href="task__widget_8h_source.html#l00282">m_variantManager</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00123">embedBrowserInWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00288">m_propBrowser</a>, <a class="el" href="task__widget_8h_source.html#l00294">m_variantEditor</a>, <a class="el" href="task__widget_8h_source.html#l00293">m_variantFactory</a>, and <a class="el" href="task__widget_8h_source.html#l00292">m_variantManager</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00406">LocalizationPatternsWidget::initWidget()</a>.</p>
 
 </div>
 </div>
@@ -564,7 +564,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00087">87</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00075">ThemeManager::isDark()</a>, <a class="el" href="task__widget_8h_source.html#l00291">m_darkQssPath</a>, and <a class="el" href="task__widget_8h_source.html#l00292">m_lightQssPath</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="theme__manager_8cpp_source.html#l00075">ThemeManager::isDark()</a>, <a class="el" href="task__widget_8h_source.html#l00301">m_darkQssPath</a>, and <a class="el" href="task__widget_8h_source.html#l00302">m_lightQssPath</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00076">setupThemeReload()</a>.</p>
 
@@ -594,9 +594,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Removes <span class="tt">wg</span> from m_browserStackWidget and from m_propertyBrowserWidgets. No-op if <span class="tt">wg</span> isn't currently tracked. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00171">171</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00181">181</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00287">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00288">m_propertyBrowserWidgets</a>.</p>
+<p class="reference">References <a class="el" href="task__widget_8h_source.html#l00297">m_browserStackWidget</a>, and <a class="el" href="task__widget_8h_source.html#l00298">m_propertyBrowserWidgets</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00460">LocalizationTaskWidget::onTaskDevicesChanged()</a>.</p>
 
@@ -640,9 +640,9 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00076">76</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="task__widget_8h_source.html#l00291">m_darkQssPath</a>, <a class="el" href="task__widget_8h_source.html#l00292">m_lightQssPath</a>, <a class="el" href="task__widget_8h_source.html#l00087">reloadStyleSheet()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
+<p class="reference">References <a class="el" href="theme__manager_8cpp_source.html#l00015">ThemeManager::instance()</a>, <a class="el" href="task__widget_8h_source.html#l00301">m_darkQssPath</a>, <a class="el" href="task__widget_8h_source.html#l00302">m_lightQssPath</a>, <a class="el" href="task__widget_8h_source.html#l00087">reloadStyleSheet()</a>, and <a class="el" href="class_theme_manager.html#a10019fd138b43615dafbf26f70db0574">ThemeManager::themeChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00149">LocalizationDashboardWidget::LocalizationDashboardWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00406">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, and <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00149">LocalizationDashboardWidget::LocalizationDashboardWidget()</a>.</p>
 
 </div>
 </div>
@@ -669,7 +669,7 @@ Private Attributes</h2></td></tr>
 
 <p>Zero-margin layout created by <a class="el" href="#a5f1b0800b45f464ac947560ec69a6aa0">initBrowserInWidget()</a> to host m_browserStackWidget. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00286">286</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00296">296</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00136">initBrowserInWidget()</a>.</p>
 
@@ -697,9 +697,9 @@ Private Attributes</h2></td></tr>
 
 <p>Stack switched between multiple <a class="el" href="class_property_browser_widget.html" title="A self-contained property inspector composed of three zones: a search/filter bar, the QtTreePropertyB...">PropertyBrowserWidget</a> instances by <a class="el" href="#a10a14337d5a3fc21d68cbc7d30a07435">changePropertyBrowserWidget()</a>/changePropertyBrowserDefault(). </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00287">287</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00297">297</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00161">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00136">initBrowserInWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00171">removePropertyBrowserWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00171">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00136">initBrowserInWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00181">removePropertyBrowserWidget()</a>.</p>
 
 </div>
 </div>
@@ -725,7 +725,7 @@ Private Attributes</h2></td></tr>
 
 <p>Resource path to the dark-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611" title="Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths,...">setupThemeReload()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00291">291</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00301">301</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00087">reloadStyleSheet()</a>, and <a class="el" href="task__widget_8h_source.html#l00076">setupThemeReload()</a>.</p>
 
@@ -753,7 +753,7 @@ Private Attributes</h2></td></tr>
 
 <p>Owning dock widget, if any; not owned by this widget. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00274">274</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00284">284</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00054">ITaskWidget()</a>.</p>
 
@@ -781,7 +781,7 @@ Private Attributes</h2></td></tr>
 
 <p>Resource path to the light-theme QSS file passed to <a class="el" href="#a386d4bb80424ed2c1f3fb252da639611" title="Call once from the subclass constructor when the widget has a per-form QSS pair. Stores the paths,...">setupThemeReload()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00292">292</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00302">302</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00087">reloadStyleSheet()</a>, and <a class="el" href="task__widget_8h_source.html#l00076">setupThemeReload()</a>.</p>
 
@@ -809,9 +809,9 @@ Private Attributes</h2></td></tr>
 
 <p>Default property browser (search + tree + description), created by <a class="el" href="#a359284998e5564a7ad6092d9d6999f52" title="Creates the PropertyBrowserWidget (m_propBrowser) and its manager/ factory/editor pointers,...">initPropertyBrowser()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00278">278</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00288">288</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00161">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00123">embedBrowserInWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00171">changePropertyBrowserDefault()</a>, <a class="el" href="task__widget_8h_source.html#l00123">embedBrowserInWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>.</p>
 
 </div>
 </div>
@@ -837,9 +837,9 @@ Private Attributes</h2></td></tr>
 
 <p>Non-default property browsers currently tracked in m_browserStackWidget. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00288">288</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00298">298</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00171">removePropertyBrowserWidget()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00148">changePropertyBrowserWidget()</a>, and <a class="el" href="task__widget_8h_source.html#l00181">removePropertyBrowserWidget()</a>.</p>
 
 </div>
 </div>
@@ -865,9 +865,9 @@ Private Attributes</h2></td></tr>
 
 <p>The task this widget configures. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00275">275</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00285">285</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">LocalizationTaskWidget::initNavPanel()</a>, <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00173">LocalizationDashboardWidget::initWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00179">LocalizationSettingWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00054">ITaskWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">LocalizationTaskWidget::showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">LocalizationTaskWidget::showPatternsPage()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00644">LocalizationTaskWidget::showSettingsPage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__task__widget_8cpp_source.html#l00194">LocalizationTaskWidget::initNavPanel()</a>, <a class="el" href="localization__dashboard__widget_8cpp_source.html#l00173">LocalizationDashboardWidget::initWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00406">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__setting__widget_8cpp_source.html#l00180">LocalizationSettingWidget::initWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00096">LocalizationTaskWidget::initWidget()</a>, <a class="el" href="task__widget_8h_source.html#l00054">ITaskWidget()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00614">LocalizationTaskWidget::showDashboardPage()</a>, <a class="el" href="localization__task__widget_8cpp_source.html#l00677">LocalizationTaskWidget::showPatternsPage()</a>, and <a class="el" href="localization__task__widget_8cpp_source.html#l00644">LocalizationTaskWidget::showSettingsPage()</a>.</p>
 
 </div>
 </div>
@@ -893,9 +893,9 @@ Private Attributes</h2></td></tr>
 
 <p>Alias into m_propBrowser's tree browser; do not delete. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00284">284</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00294">294</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00723">LocalizationPatternsWidget::clearPropertyBrowserState()</a>, <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00777">LocalizationPatternsWidget::rebuildPropertyBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00757">LocalizationPatternsWidget::clearPropertyBrowserState()</a>, <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00811">LocalizationPatternsWidget::rebuildPropertyBrowser()</a>.</p>
 
 </div>
 </div>
@@ -921,7 +921,7 @@ Private Attributes</h2></td></tr>
 
 <p>Alias into m_propBrowser's variant factory; do not delete. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00283">283</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00293">293</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>.</p>
 
@@ -949,14 +949,14 @@ Private Attributes</h2></td></tr>
 
 <p>Alias into m_propBrowser's variant manager; do not delete. </p>
 
-<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00282">282</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="task__widget_8h_source.html#l00292">292</a> of file <a class="el" href="task__widget_8h_source.html">task_widget.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00761">LocalizationPatternsWidget::buildCommonProperties()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00746">LocalizationPatternsWidget::buildGroupProperties()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01832">LocalizationPatternsWidget::commitWorkingGroupConfig()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01797">LocalizationPatternsWidget::commitWorkingPatternConfig()</a>, <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00369">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00777">LocalizationPatternsWidget::rebuildPropertyBrowser()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00708">LocalizationPatternsWidget::wirePropertyBrowser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l00795">LocalizationPatternsWidget::buildCommonProperties()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00780">LocalizationPatternsWidget::buildGroupProperties()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01916">LocalizationPatternsWidget::commitWorkingGroupConfig()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l01881">LocalizationPatternsWidget::commitWorkingPatternConfig()</a>, <a class="el" href="task__widget_8h_source.html#l00104">initPropertyBrowser()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00406">LocalizationPatternsWidget::initWidget()</a>, <a class="el" href="localization__patterns__widget_8cpp_source.html#l00811">LocalizationPatternsWidget::rebuildPropertyBrowser()</a>, and <a class="el" href="localization__patterns__widget_8cpp_source.html#l00742">LocalizationPatternsWidget::wirePropertyBrowser()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/ui/forms/<a class="el" href="task__widget_8h_source.html">task_widget.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/ui/forms/<a class="el" href="task__widget_8h_source.html">task_widget.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

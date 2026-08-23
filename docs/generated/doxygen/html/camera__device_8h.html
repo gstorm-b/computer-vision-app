@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/camera/camera_device.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/camera/camera_device.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -159,13 +159,18 @@ Macros</h2></td></tr>
 <tr class="memitem:ac470a8718f3d9c57a817a4e752689bba" id="r_ac470a8718f3d9c57a817a4e752689bba"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac470a8718f3d9c57a817a4e752689bba">CAM_TYPE_BASLER_GIGE</a>&#160;&#160;&#160;&quot;Basler_GigE&quot;</td></tr>
 <tr class="memitem:a78c8f916d5e398eae7500c2d1a32f043" id="r_a78c8f916d5e398eae7500c2d1a32f043"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a78c8f916d5e398eae7500c2d1a32f043">CAM_TYPE_BASLER_USB</a>&#160;&#160;&#160;&quot;Basler_USB&quot;</td></tr>
 <tr class="memitem:a1292cfeddb35b5ba383972a478f73b8c" id="r_a1292cfeddb35b5ba383972a478f73b8c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1292cfeddb35b5ba383972a478f73b8c">CAM_TYPE_REALSENSE</a>&#160;&#160;&#160;&quot;Realsense&quot;</td></tr>
+<tr class="memitem:a6f6ecfe10712ad340d26a4796f85f816" id="r_a6f6ecfe10712ad340d26a4796f85f816"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6f6ecfe10712ad340d26a4796f85f816">CAM_TYPE_VIRTUAL</a>&#160;&#160;&#160;&quot;Virtual&quot;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a7494bab370855403ce45bc7070b18e38" id="r_a7494bab370855403ce45bc7070b18e38"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38">vc::device::CameraType</a> { <a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38ae82d3bd7b927728b2602cc333e855394">vc::device::CamType</a>
+<tr class="memitem:a7494bab370855403ce45bc7070b18e38" id="r_a7494bab370855403ce45bc7070b18e38"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38">vc::device::CameraType</a> { <br />
+&#160;&#160;<a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38ae82d3bd7b927728b2602cc333e855394">vc::device::CamType</a>
 , <a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38a58fd2e801e13415ea9e7850e17682489">vc::device::Realsense</a>
 , <a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38abe47d320a3803f16f5c6c720fdded2e9">vc::device::BaslerGigE</a>
 , <a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38a9ac02d8ae6da9bed67cdbc45ae6f152b">vc::device::BaslerUSB</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38ad585eda2624dbcb6879e55c0c625ccce">vc::device::VirtualCamera</a>
+<br />
  }</td></tr>
 <tr class="memdesc:a7494bab370855403ce45bc7070b18e38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies the concrete camera implementation/hardware family behind a <a class="el" href="classvc_1_1device_1_1_camera_device.html" title="Abstract base for all camera devices: adds exposure/gain/backlight/IO control and single-shot,...">CameraDevice</a>.  <a href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -193,7 +198,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00018">18</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00052">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00063">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -211,7 +216,7 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00019">19</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00052">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00063">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeToString()</a>.</p>
 
 </div>
 </div>
@@ -230,7 +235,26 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00017">17</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00052">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00063">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeToString()</a>.</p>
+
+</div>
+</div>
+<a id="a6f6ecfe10712ad340d26a4796f85f816" name="a6f6ecfe10712ad340d26a4796f85f816"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f6ecfe10712ad340d26a4796f85f816">&#9670;&#160;</a></span>CAM_TYPE_VIRTUAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CAM_TYPE_VIRTUAL&#160;&#160;&#160;&quot;Virtual&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Hardware-free camera. This token is written into customer project files and can never be changed once one has been saved. </p>
+
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00022">22</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00063">vc::device::CameraTypeFromString()</a>, and <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeToString()</a>.</p>
 
 </div>
 </div>

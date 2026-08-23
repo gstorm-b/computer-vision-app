@@ -4,10 +4,20 @@ var namespaces_dup =
       [ "makeFieldLabel", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a19c0b1ebf19778bc8195d51d92724949", null ],
       [ "makeHSeparator", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#ab45bee1b37e5f27f6d87d5f12a4de47f", null ],
       [ "makeVSeparator", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a4d1f0d7a9feca3823ba3e0d4048c0127", null ],
+      [ "stepSublines", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#ad425b300dde87a46e131c105fc4f6ebc", null ],
+      [ "stepTitles", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a1b7a041192cd7e9bd497efa3fca8f6bd", null ],
       [ "CH", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a600c835626fb35e55bf511e44f33ced4", null ],
       [ "CW", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#aabf6266dcb3d775464f662b6696cefd4", null ],
       [ "DIALOG_H", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a37ccd14b6a48c4583d6aa1504045924c", null ],
-      [ "DIALOG_W", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#ad0bcc5083998a613bac2c736c3b39581", null ]
+      [ "DIALOG_W", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#ad0bcc5083998a613bac2c736c3b39581", null ],
+      [ "STEP_BOX", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a11b1629c7bdcc315ec6ab8fb6b881dab", null ],
+      [ "STEP_COUNT", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a5e1e811d345c0d9a5170cde574e3a72c", null ],
+      [ "STEP_CROP", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a59b6a5b3739be97d7bb3048a0c4d4ace", null ],
+      [ "STEP_FINISH", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a437685cf2d942963b1a3bd4e896c1e93", null ],
+      [ "STEP_IMAGE", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a8e9b79bea1ea9b5dee83ee597f5c53af", null ],
+      [ "STEP_LAST", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a3347d830b29fc2aeeaf79a8b56cf4c92", null ],
+      [ "STEP_OFFSET", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#aaebc35041caee3d4dea5f152f421ae81", null ],
+      [ "STEP_PICK", "namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a3a1b2e38344b2a7c046ed9e14419c6db", null ]
     ] ],
     [ "anonymous_namespace{calibration_points_table.cpp}", "namespaceanonymous__namespace_02calibration__points__table_8cpp_03.html", [
       [ "kColCount", "namespaceanonymous__namespace_02calibration__points__table_8cpp_03.html#a9eb42bf48d4fb5bf8d840927e2573305", null ],
@@ -34,10 +44,28 @@ var namespaces_dup =
     [ "anonymous_namespace{edit_pattern_wizard.cpp}", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html", [
       [ "makeFieldLabel", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#aafd77e0f713607728e5131a249aa8711", null ],
       [ "makeHSeparator", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a45cc7513c8e050ca321e6835be58f16b", null ],
+      [ "stepSublines", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#af5f5ef14f41b6e6d3beb615d16c87f76", null ],
+      [ "stepTitles", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a3968ba8a876623ce352dbe6842dec737", null ],
       [ "CH", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a4b3a7d04a2140117d678def9cb7c30be", null ],
       [ "CW", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a1befbbb7d0ff29588f15191d19a31e28", null ],
       [ "DIALOG_H", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a696dd31091f64abe120ebc0d4752ffbb", null ],
-      [ "DIALOG_W", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a7f7e48e5086358b7c767c99576273053", null ]
+      [ "DIALOG_W", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a7f7e48e5086358b7c767c99576273053", null ],
+      [ "STEP_BOX", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a818b7ea95e1b2ab2f029a71990fa1c90", null ],
+      [ "STEP_COUNT", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a660f75f7d202c6dd97d55599e8b9460d", null ],
+      [ "STEP_FINISH", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#ac3608caf6b00b72067e4cf988ce6f8a2", null ],
+      [ "STEP_IDENTITY", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a7d1a2cccd7df094ac5c104cc2a3b4ade", null ],
+      [ "STEP_LAST", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a1833e457b29a43a694055cae04dd75de", null ],
+      [ "STEP_OFFSET", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#adc717f3a3b24cd5c5445bb6a166bbb5b", null ],
+      [ "STEP_PICK", "namespaceanonymous__namespace_02edit__pattern__wizard_8cpp_03.html#a64d90023dd43d406ffcf5e14e5ef806b", null ]
+    ] ],
+    [ "anonymous_namespace{gripper_register_dialog.cpp}", "namespaceanonymous__namespace_02gripper__register__dialog_8cpp_03.html", [
+      [ "makeSpin", "namespaceanonymous__namespace_02gripper__register__dialog_8cpp_03.html#affd20cf5dc7e20b9138da4ae6a12288c", null ],
+      [ "spinValue", "namespaceanonymous__namespace_02gripper__register__dialog_8cpp_03.html#aef7bfe788fbd8bf5e2086ff0d44215f7", null ],
+      [ "kColDistance", "namespaceanonymous__namespace_02gripper__register__dialog_8cpp_03.html#a96b3a34179a302091e776e02e75a62d0", null ],
+      [ "kColHeight", "namespaceanonymous__namespace_02gripper__register__dialog_8cpp_03.html#a6f9cb5aa46a6b2672b745ed8ac71a068", null ],
+      [ "kColName", "namespaceanonymous__namespace_02gripper__register__dialog_8cpp_03.html#a53cbaeaf1c7d5e879a6ada97e9d06c3a", null ],
+      [ "kColumnCount", "namespaceanonymous__namespace_02gripper__register__dialog_8cpp_03.html#a4c525bc28219f5c560c071590c72cb48", null ],
+      [ "kColWidth", "namespaceanonymous__namespace_02gripper__register__dialog_8cpp_03.html#af7b5a7a237af68b03434b9b190b1164a", null ]
     ] ],
     [ "anonymous_namespace{localization_dashboard_widget.cpp}", "namespaceanonymous__namespace_02localization__dashboard__widget_8cpp_03.html", "namespaceanonymous__namespace_02localization__dashboard__widget_8cpp_03" ],
     [ "anonymous_namespace{localization_patterns_widget.cpp}", "namespaceanonymous__namespace_02localization__patterns__widget_8cpp_03.html", [
@@ -53,6 +81,10 @@ var namespaces_dup =
       [ "kPillBase", "namespaceanonymous__namespace_02localization__patterns__widget_8cpp_03.html#ae5a7277734a456c0cc536de8dca35c7e", null ]
     ] ],
     [ "anonymous_namespace{localization_setting_widget.cpp}", "namespaceanonymous__namespace_02localization__setting__widget_8cpp_03.html", "namespaceanonymous__namespace_02localization__setting__widget_8cpp_03" ],
+    [ "anonymous_namespace{mainwindow.cpp}", "namespaceanonymous__namespace_02mainwindow_8cpp_03.html", [
+      [ "phase5PatternSignatures", "namespaceanonymous__namespace_02mainwindow_8cpp_03.html#abfaf60f29dfc4d604a866c1de48afa67", null ],
+      [ "phase5VerifyPatternSchema", "namespaceanonymous__namespace_02mainwindow_8cpp_03.html#adf948edba43aef7835065ea8a4e955a8", null ]
+    ] ],
     [ "anonymous_namespace{pattern_canvas.cpp}", "namespaceanonymous__namespace_02pattern__canvas_8cpp_03.html", [
       [ "kHandleHitSlack", "namespaceanonymous__namespace_02pattern__canvas_8cpp_03.html#adc17967aaa3784b6dfcc75fe389c0e17", null ],
       [ "kHandleVisSize", "namespaceanonymous__namespace_02pattern__canvas_8cpp_03.html#aebf65ecf91acf1f9e21290fb4ffb4b8b", null ],
@@ -60,6 +92,11 @@ var namespaces_dup =
       [ "kMinZoom", "namespaceanonymous__namespace_02pattern__canvas_8cpp_03.html#a43e88eaf0d8a74bcbd24d14d94a4cc2b", null ],
       [ "kRotateHandleStandoff", "namespaceanonymous__namespace_02pattern__canvas_8cpp_03.html#a7ba2bd1784880d32a63a79d4fce4de48", null ],
       [ "kZoomStep", "namespaceanonymous__namespace_02pattern__canvas_8cpp_03.html#a907ae857d96be179a5ee4d729fc511d8", null ]
+    ] ],
+    [ "anonymous_namespace{pattern_thumbnail_view.cpp}", "namespaceanonymous__namespace_02pattern__thumbnail__view_8cpp_03.html", [
+      [ "kMaxZoom", "namespaceanonymous__namespace_02pattern__thumbnail__view_8cpp_03.html#a122ba0058681f90e791bf529e706bf44", null ],
+      [ "kMinZoom", "namespaceanonymous__namespace_02pattern__thumbnail__view_8cpp_03.html#a55dc386f63d47178ce2d55a219ca33bd", null ],
+      [ "kZoomStep", "namespaceanonymous__namespace_02pattern__thumbnail__view_8cpp_03.html#a5ffd7e8ad9167c244c83ba2979368db0", null ]
     ] ],
     [ "anonymous_namespace{robot_kinematic_check_widget.cpp}", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html", [
       [ "CollisionState", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a8407caf464c44a7667bffa7df42b88a9", [
@@ -79,17 +116,26 @@ var namespaces_dup =
       [ "simplifiedMeshProfile", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#ac15314e2295fd29f49e1749343c4f49e", null ],
       [ "statusToString", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#af1851cfeec4976780fa7385afcd32f75", null ],
       [ "kNachiMz04dPreset", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#aa6d723d73ad04144e28066b784e68431", null ],
+      [ "kPathFirstAxisCol", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a9573dd4997f19bef9bb818e08347b787", null ],
+      [ "kPathFirstPostureCol", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a0cf6f457a18608ef510511129b29542e", null ],
       [ "kPickingToolId", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a3a403943196914a6fd4aa7c52a974e82", null ],
       [ "kSimplifiedProfileDeployedRel", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#a83fb4b56b9ada70f786a0959f771d491", null ],
       [ "kSimplifiedProfileSourceRel", "namespaceanonymous__namespace_02robot__kinematic__check__widget_8cpp_03.html#aedc822116c22bfd990707b2e3c6b253e", null ]
     ] ],
     [ "anonymous_namespace{signals_map_widget.cpp}", "namespaceanonymous__namespace_02signals__map__widget_8cpp_03.html", "namespaceanonymous__namespace_02signals__map__widget_8cpp_03" ],
+    [ "anonymous_namespace{single_instance_guard.cpp}", "namespaceanonymous__namespace_02single__instance__guard_8cpp_03.html", [
+      [ "kNotifyTimeoutMs", "namespaceanonymous__namespace_02single__instance__guard_8cpp_03.html#a9918907b7f4a9cb9023ce072664304a0", null ],
+      [ "kRaiseRequest", "namespaceanonymous__namespace_02single__instance__guard_8cpp_03.html#af52f19559e65fcff4bbee7819e9c56e7", null ]
+    ] ],
     [ "anonymous_namespace{system_log_form.cpp}", "namespaceanonymous__namespace_02system__log__form_8cpp_03.html", [
       [ "levelLabel", "namespaceanonymous__namespace_02system__log__form_8cpp_03.html#a8613fa320b8ba4ad75cdf62707898561", null ],
       [ "severityColor", "namespaceanonymous__namespace_02system__log__form_8cpp_03.html#a259a8b30a439fce089052241fbb2d9cf", null ],
       [ "tokenValue", "namespaceanonymous__namespace_02system__log__form_8cpp_03.html#afa1462ff5d928f8788995f120e0c6b15", null ]
     ] ],
     [ "anonymous_namespace{theme_manager.cpp}", "namespaceanonymous__namespace_02theme__manager_8cpp_03.html", "namespaceanonymous__namespace_02theme__manager_8cpp_03" ],
+    [ "anonymous_namespace{virtual_device_widget.cpp}", "namespaceanonymous__namespace_02virtual__device__widget_8cpp_03.html", [
+      [ "addRow", "namespaceanonymous__namespace_02virtual__device__widget_8cpp_03.html#a832c4e769d9e1f13a2028e5f48f7ddc6", null ]
+    ] ],
     [ "anonymous_namespace{vision_canvas.cpp}", "namespaceanonymous__namespace_02vision__canvas_8cpp_03.html", [
       [ "addArrowMarker", "namespaceanonymous__namespace_02vision__canvas_8cpp_03.html#a8cc45860fef7d40e6668304a9acbb9c9", null ],
       [ "addOverlayChip", "namespaceanonymous__namespace_02vision__canvas_8cpp_03.html#acd18983a1d3e88a448fab07f60c31e01", null ],
@@ -130,9 +176,12 @@ var namespaces_dup =
       [ "kWorkingSelected", "namespaceanonymous__namespace_02workspace__setting__dialog_8cpp_03.html#ae3ae8981999b03c369eb0a440d324393", null ]
     ] ],
     [ "AppKey", "namespace_app_key.html", [
+      [ "adminPasswordHash", "namespace_app_key.html#ad9fc2b40bff47e3393947f1ad48072b9", null ],
+      [ "adminPasswordSalt", "namespace_app_key.html#a2352b104e927bb8d89d9b5e7499d9775", null ],
       [ "Language", "namespace_app_key.html#ae083a917219a9dd630c29cb57400e8fe", null ],
       [ "lastFolderAccessDir", "namespace_app_key.html#a192c559a4efa72cf586f658531fd15bf", null ],
       [ "lastImageAccessDir", "namespace_app_key.html#a103912d3bce68c5f168af418d879e8d6", null ],
+      [ "lastRuntimeProjectPath", "namespace_app_key.html#a0da7eaf077228ffa73344352f0f80add", null ],
       [ "Theme", "namespace_app_key.html#a29552487d81d55bfcf00f6b81c9506ce", null ]
     ] ],
     [ "calib", "namespacecalib.html", "namespacecalib" ],
@@ -145,6 +194,18 @@ var namespaces_dup =
       [ "Size2f2Json", "namespacejsu.html#ac538926e1433a114fb9aa1263682b19e", null ]
     ] ],
     [ "mtc", "namespacemtc.html", "namespacemtc" ],
+    [ "pick_overlay", "namespacepick__overlay.html", [
+      [ "drawJawPair", "namespacepick__overlay.html#aecd76acb9bc8cca253f86fdb5d999438", null ],
+      [ "drawOrientationGizmo", "namespacepick__overlay.html#aa41c882ab56102f91b52770748320067", null ],
+      [ "drawPickCrosshair", "namespacepick__overlay.html#ab489813022fd5a7e630c28876ae4418a", null ],
+      [ "drawPickRing", "namespacepick__overlay.html#a2529b29108e216b73a1f48452755fd42", null ],
+      [ "knobOffset", "namespacepick__overlay.html#ae2e58d8efc51fdf2d39cbd580b0f40d1", null ],
+      [ "kArrowBarb", "namespacepick__overlay.html#a60c76a61e74b079a3e8f4547963a4ee1", null ],
+      [ "kAxisLen", "namespacepick__overlay.html#a9ba15ddf26689dc6994cc0c1b826439e", null ],
+      [ "kHandleBearing", "namespacepick__overlay.html#a05e57da1b3cf3d31b3e1e04a223170f8", null ],
+      [ "kHandleDistance", "namespacepick__overlay.html#a03c5d74fc2dba0aa61f3490d9ee32f6b", null ],
+      [ "kHandleRadius", "namespacepick__overlay.html#a53264804aaf60a874f280bd8c4cb4f69", null ]
+    ] ],
     [ "PropSpecHelper", "namespace_prop_spec_helper.html", [
       [ "applyAttributes", "namespace_prop_spec_helper.html#ac3f190006310d153396b4aa38330f091", null ],
       [ "buildGroup", "namespace_prop_spec_helper.html#a844706010ec703aabaeb463951d59c37", null ],

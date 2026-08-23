@@ -6,6 +6,8 @@ var dir_019f7cc3343dcbc653e627ca65f59c21 =
     [ "add_pattern_wizard.h", "add__pattern__wizard_8h.html", "add__pattern__wizard_8h" ],
     [ "edit_pattern_wizard.cpp", "edit__pattern__wizard_8cpp.html", "edit__pattern__wizard_8cpp" ],
     [ "edit_pattern_wizard.h", "edit__pattern__wizard_8h.html", "edit__pattern__wizard_8h" ],
+    [ "gripper_register_dialog.cpp", "gripper__register__dialog_8cpp.html", "gripper__register__dialog_8cpp" ],
+    [ "gripper_register_dialog.h", "gripper__register__dialog_8h.html", "gripper__register__dialog_8h" ],
     [ "pattern_canvas.cpp", "pattern__canvas_8cpp.html", "pattern__canvas_8cpp" ],
     [ "pattern_canvas.h", "pattern__canvas_8h.html", "pattern__canvas_8h" ],
     [ "pattern_manager_dialog.h", "pattern__manager__dialog_8h.html", "pattern__manager__dialog_8h" ],

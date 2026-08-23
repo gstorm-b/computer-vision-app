@@ -105,6 +105,7 @@ package "Camera" {
     Realsense
     BaslerGigE
     BaslerUSB
+    VirtualCamera
   }
 
   abstract class CameraCfg {
@@ -145,6 +146,7 @@ package "PLC" {
   enum PlcType {
     PlcTypeNone
     MitsubishiMc
+    VirtualPlc
   }
 
   abstract class PlcCfg {
@@ -204,6 +206,7 @@ package "VisionOutput" {
     VisionTCPIP
     VisionTcpipClient
     VisionSerial
+    VirtualVisionOutput
   }
 
   abstract class VisionOutputDeviceCfg {
@@ -326,6 +329,66 @@ package "Robot" {
   class NachiRobotDevice <<QObject>>
 }
 
+package "Virtual (hardware-free)" #FFF6E5 {
+  class VirtualCameraCfg <<Q_GADGET>> {
+    +cameraType() : VirtualCamera
+    +imagePath : QString
+    +frameWidth / frameHeight : int
+    +frameGreyLevel : int
+    +millimetresPerPixel : double
+    +originXMm / originYMm : double
+    +workPlaneZMm : double
+  }
+
+  class VirtualCameraDevice <<QObject>> {
+    +cameraType() : VirtualCamera
+    +grabSingleShot() : GrabResult
+    +setDeviceConfig(cfg) : void
+    +fromJson(obj) : bool
+    -rebuildFrame() : void
+    -rebuildCalibration() : void
+    -- simulation controls --
+    +connectSucceeds : bool
+    +grabSucceeds : bool
+  }
+
+  class VirtualPlcCfg <<Q_GADGET>> {
+    +plcType() : VirtualPlc
+    +digitalTagCount : int
+    +wordTagCount : int
+  }
+
+  class VirtualPlcDevice <<QObject>> {
+    +plcType() : VirtualPlc
+    +availableDigitalIoNames() : QStringList
+    +availableWordIoNames() : QStringList
+    +writeDigitalIoByName(tag, value) : bool
+    +writeWordIoByName(tag, value) : bool
+    +setDeviceConfig(cfg) : void
+    -- simulation controls --
+    +connectSucceeds : bool
+  }
+
+  class VirtualVisionOutputCfg <<Q_GADGET>> {
+    +visionOutputType() : VirtualVisionOutput
+    +robotKinematicCheck : RobotKinematicCheckConfig
+  }
+
+  class VirtualVisionOutputDevice <<QObject>> {
+    +visionOutputType() : VirtualVisionOutput
+    +pushRequest(request) : bool
+    +capturedPositions() : QList<Position>
+    +setDeviceConfig(cfg) : void
+    -- simulation controls --
+    +connectSucceeds : bool
+    +sendSucceeds : bool
+  }
+
+  class "isVirtualDevice()" as IsVirtualDevice <<free function>> {
+    +isVirtualDevice(device) : bool
+  }
+}
+
 IDeviceCfg <|-- CameraCfg
 IDeviceCfg <|-- PlcCfg
 IDeviceCfg <|-- VisionOutputDeviceCfg
@@ -372,6 +435,24 @@ RobotCfg <|-- NachiRobotCfg
 RobotDevice <|-- KawasakiRobotDevice
 RobotDevice <|-- NachiRobotDevice
 
+CameraCfg <|-- VirtualCameraCfg
+CameraDevice <|-- VirtualCameraDevice
+VirtualCameraDevice *-- VirtualCameraCfg
+
+PlcCfg <|-- VirtualPlcCfg
+PlcDevice <|-- VirtualPlcDevice
+IPlcTagProvider <|.. VirtualPlcDevice
+IPlcIoWriter <|.. VirtualPlcDevice
+VirtualPlcDevice *-- VirtualPlcCfg
+
+VisionOutputDeviceCfg <|-- VirtualVisionOutputCfg
+VisionOutputDevice <|-- VirtualVisionOutputDevice
+VirtualVisionOutputDevice *-- VirtualVisionOutputCfg
+
+IsVirtualDevice ..> VirtualCameraDevice
+IsVirtualDevice ..> VirtualPlcDevice
+IsVirtualDevice ..> VirtualVisionOutputDevice
+
 IDevice --> DeviceType
 IDevice --> ConnectStatus
 IDevice o-- IDeviceCfg
@@ -417,6 +498,42 @@ end note
 note bottom of RobotDevice
   Robot family exists, but vendor devices are
   minimum stubs and no RobotRunner is wired.
+end note
+
+note bottom of IsVirtualDevice
+  R8 - a virtual device must never pass for a real one.
+  Three markers (project-tree VIRT chip, device-panel
+  banner, per-runtime-start log warning) all read this
+  one predicate so they cannot disagree.
+  There is deliberately no virtual Robot: nothing
+  consumes one.
+end note
+
+note right of VirtualCameraDevice
+  Sub-type token is "Virtual" in all three families
+  (tokens are family-local). Enumerators cannot be:
+  these are unscoped enums, so all three would collide
+  in vc::device - hence VirtualCamera / VirtualPlc /
+  VirtualVisionOutput.
+
+  Calibration is SYNTHETIC: the homography is really
+  fitted by calib::Calibrator, but the scene (flat,
+  axis-aligned, at millimetresPerPixel) is asserted.
+  millimetresPerPixel = 0 leaves it uncalibrated, and
+  the runtime then refuses it exactly as it refuses a
+  real uncalibrated camera.
+end note
+
+note right of VirtualPlcDevice
+  IPlcTagProvider is what makes it usable:
+  LocalizationSettingWidget clears both signal-map
+  lists for a device implementing neither tag
+  interface. Advertises M0..M<n-1> / D0..D<n-1>.
+  Writes to invalid MC addresses are rejected, not
+  merely accepted.
+
+  Known gap (backlog #43): values cannot be injected
+  IN, so a task reaches Ready and no further.
 end note
 
 @enduml

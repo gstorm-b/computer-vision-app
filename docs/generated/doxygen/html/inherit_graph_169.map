@@ -1,3 +1,29 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structvc_1_1device_1_1_mc_device_range_1_1_device_range.html" title="A contiguous, inclusive span of subscribed addresses." alt="" coords="5,5,192,48"/>
+<area shape="rect" id="Node000000" href="$classvc_1_1device_1_1_i_device_cfg.html" title="Abstract configuration contract shared by every device family: JSON (de)serialization,..." alt="" coords="5,183,161,209"/>
+<area shape="rect" id="Node000001" href="$classvc_1_1device_1_1_camera_cfg.html" title="Base configuration contract for a camera device: exposure/gain/frame&#45;rate parameters,..." alt="" coords="213,56,369,83"/>
+<area shape="poly" id="edge103_Node000000_Node000001" title=" " alt="" coords="118,172,268,81,266,86,121,176"/>
+<area shape="rect" id="Node000004" href="$classvc_1_1device_1_1_plc_cfg.html" title="Abstract config for the PLC family. Carries only the family&#45;level dispatch field; concrete configs (M..." alt="" coords="226,157,356,184"/>
+<area shape="poly" id="edge106_Node000000_Node000004" title=" " alt="" coords="175,182,228,177,224,180,177,187"/>
+<area shape="rect" id="Node000007" href="$classvc_1_1device_1_1_robot_cfg.html" title="Abstract config for the robot family. Carries only the family&#45;level dispatch (RobotType) and the fami..." alt="" coords="218,208,364,235"/>
+<area shape="poly" id="edge109_Node000000_Node000007" title=" " alt="" coords="175,205,220,211,215,214,177,210"/>
+<area shape="rect" id="Node000010" href="$classvc_1_1device_1_1_vision_output_device_cfg.html" title="Abstract config for the vision&#45;output device family. Carries only the family&#45;level dispatch field (vi..." alt="" coords="209,343,373,385"/>
+<area shape="poly" id="edge112_Node000000_Node000010" title=" " alt="" coords="114,217,265,341,261,344,112,222"/>
+<area shape="rect" id="Node000002" href="$classvc_1_1device_1_1_basler_gige_cfg.html" title="Basler GigE camera configuration: exposure/gain/frame&#45;rate/backlight parameters plus camera identity ..." alt="" coords="443,5,617,32"/>
+<area shape="poly" id="edge104_Node000001_Node000002" title=" " alt="" coords="371,50,466,31,462,34,373,55"/>
+<area shape="rect" id="Node000003" href="$classvc_1_1device_1_1_virtual_camera_cfg.html" title="Configuration for a camera with no hardware behind it." alt="" coords="434,56,627,83"/>
+<area shape="poly" id="edge105_Node000001_Node000003" title=" " alt="" coords="384,67,435,68,431,70,386,72"/>
+<area shape="rect" id="Node000005" href="$classvc_1_1device_1_1_mc_protocol_config.html" title="MC&#45;protocol device configuration: holds a cloned McContext (frame type plus its addressing/timing par..." alt="" coords="434,107,627,133"/>
+<area shape="poly" id="edge107_Node000004_Node000005" title=" " alt="" coords="369,151,466,133,461,135,372,156"/>
+<area shape="rect" id="Node000006" href="$classvc_1_1device_1_1_virtual_plc_cfg.html" title="Configuration for a PLC with nothing on the other end." alt="" coords="447,157,613,184"/>
+<area shape="poly" id="edge108_Node000004_Node000006" title=" " alt="" coords="370,168,449,170,444,172,371,173"/>
+<area shape="rect" id="Node000008" href="$classvc_1_1device_1_1_kawasaki_robot_cfg.html" title="Minimum config skeleton for a Kawasaki robot. Carries only the family/sub&#45;type dispatch so it round&#45;t..." alt="" coords="429,208,631,235"/>
+<area shape="poly" id="edge110_Node000007_Node000008" title=" " alt="" coords="378,219,431,220,426,222,380,224"/>
+<area shape="rect" id="Node000009" href="$classvc_1_1device_1_1_nachi_robot_cfg.html" title="Minimum config skeleton for a Nachi robot — mirror of KawasakiRobotCfg. Vendor&#45;specific fields will b..." alt="" coords="440,259,620,285"/>
+<area shape="poly" id="edge111_Node000007_Node000009" title=" " alt="" coords="372,236,466,257,461,259,372,241"/>
+<area shape="rect" id="Node000011" href="$classvc_1_1device_1_1_virtual_vision_output_cfg.html" title="Configuration for a vision&#45;output device that transmits nothing." alt="" coords="449,309,611,352"/>
+<area shape="poly" id="edge113_Node000010_Node000011" title=" " alt="" coords="388,348,451,341,446,343,389,353"/>
+<area shape="rect" id="Node000012" href="$classvc_1_1device_1_1_vision_tcpip_client_device_cfg.html" title="Concrete config for the TCP/IP client transport of VisionOutput. Same protocol as the server transpor..." alt="" coords="435,376,625,419"/>
+<area shape="poly" id="edge114_Node000010_Node000012" title=" " alt="" coords="389,375,437,384,432,384,389,380"/>
+<area shape="rect" id="Node000013" href="$classvc_1_1device_1_1_vision_tcpip_device_cfg.html" title="Concrete config for the TCP/IP server transport of VisionOutput: listen address, main and heartbeat p..." alt="" coords="421,443,639,469"/>
+<area shape="poly" id="edge115_Node000010_Node000013" title=" " alt="" coords="342,391,422,428,461,442,456,442,420,433,341,396"/>
 </map>

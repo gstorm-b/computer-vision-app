@@ -20,10 +20,20 @@ marked explicitly when the implementation is not wired yet.
 | `07_persistence_sequence.puml` | Project save/load sequence through repository, task factory, device factory, JSON, and image BLOBs. |
 | `08_runtime_state_machines.puml` | Task runner phase, localization task state, and localization runtime cycle state transitions. |
 | `09_robot_kinematics.puml` | Current `components/RobotKinematics` component: solver hierarchy, config, results, collision backends, presets, and Vision Output integration. |
+| `11_runtime_shell.puml` | Operator runtime executable (`ncr_runtime.exe`): shell window, dock/layout controller, shared startup and hand-off helpers, and its relationship to the commissioning shell. |
+
+There is no `10_*.puml`; the numbering has a gap and that is not a missing file.
 
 ## Current Architecture Notes
 
 - The project is a Qt 6 / C++17 / OpenCV application built with qmake.
+- It ships as **two peer executables**: `ncr_picking.exe` (`app/`, commissioning) and
+  `ncr_runtime.exe` (`runtime_app/`, operator runtime). Neither shell may include
+  the other; both link the same `ncr_shared` static library built from `src/`.
+- Each device family except `Robot` has a hardware-free `Virtual*` sub-type in
+  `src/device/virtual/`. These are **shipped code, not test doubles** — the
+  architecture contract test drives these classes rather than its own copies.
+  See `docs/domains/virtual_devices/virtual_devices.md`.
 - `Project` owns tasks and a `DeviceManager`.
 - `DeviceManager` owns device instances as `std::shared_ptr<IDevice>`.
 - Device families are grouped by top-level `DeviceType`: `Camera`, `PLC`,
@@ -58,6 +68,9 @@ marked explicitly when the implementation is not wired yet.
 - `RobotType::Huayan` is declared but has no concrete implementation.
 - `KawasakiRobotDevice` and `NachiRobotDevice` are minimum stubs.
 - `TaskRunner` does not create a `RobotRunner`.
+- There is deliberately no virtual `Robot` sub-type — nothing consumes one.
+- `VirtualPlcDevice` records what the runtime *writes* but nothing can drive a
+  value *in*, so a task reaches `Ready` and no further (backlog #43).
 - `RobotKinematics` is packaged for build-folder runs, but customer installer
   packaging is still open (see `docs/backlog/later_todo_list.md` #27).
 - `RobotKinematics` currently exposes the Nachi MZ04D production preset plus

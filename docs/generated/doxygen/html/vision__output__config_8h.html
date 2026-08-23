@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/output_device/vision_output_config.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/output_device/vision_output_config.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -144,7 +144,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3APickPathPoint" id="r_vc_3A_3Adevice_3A_3APickPathPoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1device_1_1_pick_path_point.html">vc::device::PickPathPoint</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One waypoint of the picking path, expressed as a 6-axis offset from the matching (pick) pose, applied in the TOOL frame (pose = pick * offset). The posture branch fields hold preset-specific labels (e.g. "lefty"/"righty"); an empty label means "any
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One waypoint of the picking path. By default each axis is an offset from the matching (pick) pose, applied in the TOOL frame (pose = pick * offset). Any axis whose abs* flag is set is instead an ABSOLUTE value in the robot BASE frame, replacing whatever the composition produced on that axis. The posture branch fields hold preset-specific labels (e.g. "lefty"/"righty"); an empty label means "any
        branch on that axis". The whole path is "pickable" only when every waypoint is reachable on the required posture branch (and collision-free when the collision check is enabled).  <a href="structvc_1_1device_1_1_pick_path_point.html#details">More...</a><br /></td></tr>
 <tr class="memitem:vc_3A_3Adevice_3A_3ARobotKinematicCheckConfig" id="r_vc_3A_3Adevice_3A_3ARobotKinematicCheckConfig"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1device_1_1_robot_kinematic_check_config.html">vc::device::RobotKinematicCheckConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional reachability/singularity gate: when enabled, the vision output device runs inverse kinematics on each outgoing pick pose (built from x,y,z,r via the top-down pick convention, at the configured TCP) using the selected robot preset, and flags poses that are out of reach / out of joint limits / singular. When collisionCheckEnabled is also set, each reachable solution is additionally run through the Coal mesh self-collision check. Plain value type (no <a class="el" href="namespace_robot_kinematics.html" title="Robot kinematics core: configuration model, forward/inverse solvers, and JSON preset loading.">RobotKinematics</a> dependency) so the config header stays light; the device builds the solver from these fields. Custom presets are not authored here (preset selection only, by name; the only built-in preset is "Nachi MZ04D").  <a href="structvc_1_1device_1_1_robot_kinematic_check_config.html#details">More...</a><br /></td></tr>
@@ -159,10 +159,14 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ab0eb5e5497ce518451d9d2c567fa6190" id="r_ab0eb5e5497ce518451d9d2c567fa6190"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190">vc::device::VisionOutputType</a> : int { <a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190aaaaad18e414c4324a8a0e9628a9dbe5e">vc::device::VisionOutputTypeNone</a>
+<tr class="memitem:ab0eb5e5497ce518451d9d2c567fa6190" id="r_ab0eb5e5497ce518451d9d2c567fa6190"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190">vc::device::VisionOutputType</a> : int { <br />
+&#160;&#160;<a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190aaaaad18e414c4324a8a0e9628a9dbe5e">vc::device::VisionOutputTypeNone</a>
 , <a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190aab044006e7cceed02a7ff0907e30bd65">vc::device::VisionTCPIP</a>
 , <a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190a4e201dcb3836b55fd91ade1df0ed4e55">vc::device::VisionTcpipClient</a>
 , <a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190a2cce2b609516cb1847494913e381adfc">vc::device::VisionSerial</a>
+, <br />
+&#160;&#160;<a class="el" href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190a269498eee519a74bcb18c62cfe3e8768">vc::device::VirtualVisionOutput</a>
+<br />
  }</td></tr>
 <tr class="memdesc:ab0eb5e5497ce518451d9d2c567fa6190"><td class="mdescLeft">&#160;</td><td class="mdescRight">Family-level sub-type dispatch handle. Mirrors <a class="el" href="namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38" title="Identifies the concrete camera implementation/hardware family behind a CameraDevice.">CameraType</a> / <a class="el" href="namespacevc_1_1device.html#ab2aaf4bdb5e7bf24d44ea43dcefaccc9" title="Top-level dispatch handle for the robot family. Each vendor implementation registers a value here; De...">RobotType</a>. Concrete vendors register a value here; DeviceFactory::createVisionOutput() switches on this enum to pick the concrete subclass.  <a href="namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190">More...</a><br /></td></tr>
 </table><table class="memberdecls">

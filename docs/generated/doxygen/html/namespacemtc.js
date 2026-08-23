@@ -16,6 +16,7 @@ var namespacemtc =
     ] ],
     [ "BlockMax", "classmtc_1_1_block_max.html", "classmtc_1_1_block_max" ],
     [ "EdgeMatchConfig", "classmtc_1_1_edge_match_config.html", "classmtc_1_1_edge_match_config" ],
+    [ "GripperBoxes", "structmtc_1_1_gripper_boxes.html", "structmtc_1_1_gripper_boxes" ],
     [ "ImageMatcher", "classmtc_1_1_image_matcher.html", "classmtc_1_1_image_matcher" ],
     [ "IMatchTypeConfig", "classmtc_1_1_i_match_type_config.html", "classmtc_1_1_i_match_type_config" ],
     [ "IRobotPickingChecker", "classmtc_1_1_i_robot_picking_checker.html", "classmtc_1_1_i_robot_picking_checker" ],

@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__c_1_2_d_g_
 <li>Runners validate requests (e.g. <span class="tt">PlcRunner</span> rejects invalid tag writes) and surface failures via signals, not silent drops.</li>
 </ul>
 <p><b>Verify.</b> <span class="tt">tests/architecture_contract_test</span> (runner behavior tests), root app build.</p>
-<p><b>Build registration.</b> <span class="tt">src/runtime/runtime.pri</span> only. </p>
+<p><b>Build registration.</b> <span class="tt">src/runtime/runtime.pri</span> only. That <span class="tt">.pri</span> is consumed by <span class="tt">src/src.pro</span>, which compiles every module <b>once</b> into the <span class="tt">ncr_shared</span> static library that both shells link. No shell <span class="tt">.pro</span> lists module sources, so a file added anywhere else is simply not built. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

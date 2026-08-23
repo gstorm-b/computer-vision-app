@@ -13,9 +13,10 @@ var searchData=
   ['plc_5fprotocol_5fdata_5fcode_10',['PLC_PROTOCOL_DATA_CODE',['../setting__keys_8h.html#ad071dada2953d914185961b7043b1e8f',1,'setting_keys.h']]],
   ['plc_5fprotocol_5fframe_5ftype_11',['PLC_PROTOCOL_FRAME_TYPE',['../setting__keys_8h.html#a0d482fc19d601742b8e4dfa5ba96ab74',1,'setting_keys.h']]],
   ['plc_5ftype_5fmitsubishi_5fmc_12',['PLC_TYPE_MITSUBISHI_MC',['../plc__device_8h.html#a70fb692b5ffa568bb95f94633a3214b6',1,'plc_device.h']]],
-  ['print_5fdebug_5finfo_13',['PRINT_DEBUG_INFO',['../image__widget_8cpp.html#a556df99688933273f28067e576e8be13',1,'image_widget.cpp']]],
-  ['pt_5fgroup_5findex_5fmax_14',['PT_GROUP_INDEX_MAX',['../pattern__manager__dialog_8h.html#aa8e14426483d0ea41b4d2e757f1aed7b',1,'pattern_manager_dialog.h']]],
-  ['pt_5fgroup_5findex_5fmin_15',['PT_GROUP_INDEX_MIN',['../pattern__manager__dialog_8h.html#a34b2ab832bec0e42bdeca2f49147ec34',1,'pattern_manager_dialog.h']]],
-  ['pt_5fpattern_5findex_5fmax_16',['PT_PATTERN_INDEX_MAX',['../pattern__manager__dialog_8h.html#a5442b2fc249cb63a20ff3b6c9ebdbf3f',1,'pattern_manager_dialog.h']]],
-  ['pt_5fpattern_5findex_5fmin_17',['PT_PATTERN_INDEX_MIN',['../pattern__manager__dialog_8h.html#ae61b80ae08869828ee8e0c9d153f8344',1,'pattern_manager_dialog.h']]]
+  ['plc_5ftype_5fvirtual_13',['PLC_TYPE_VIRTUAL',['../plc__device_8h.html#a9b84d64133d48454e6f96216e8e89544',1,'plc_device.h']]],
+  ['print_5fdebug_5finfo_14',['PRINT_DEBUG_INFO',['../image__widget_8cpp.html#a556df99688933273f28067e576e8be13',1,'image_widget.cpp']]],
+  ['pt_5fgroup_5findex_5fmax_15',['PT_GROUP_INDEX_MAX',['../pattern__manager__dialog_8h.html#aa8e14426483d0ea41b4d2e757f1aed7b',1,'pattern_manager_dialog.h']]],
+  ['pt_5fgroup_5findex_5fmin_16',['PT_GROUP_INDEX_MIN',['../pattern__manager__dialog_8h.html#a34b2ab832bec0e42bdeca2f49147ec34',1,'pattern_manager_dialog.h']]],
+  ['pt_5fpattern_5findex_5fmax_17',['PT_PATTERN_INDEX_MAX',['../pattern__manager__dialog_8h.html#a5442b2fc249cb63a20ff3b6c9ebdbf3f',1,'pattern_manager_dialog.h']]],
+  ['pt_5fpattern_5findex_5fmin_18',['PT_PATTERN_INDEX_MIN',['../pattern__manager__dialog_8h.html#ae61b80ae08869828ee8e0c9d153f8344',1,'pattern_manager_dialog.h']]]
 ];

@@ -1003,6 +1003,39 @@ goal. The remaining half is one capability — value injection — on one device
 
 ---
 
+## Close-out: generated reference rebuilt (2026-08-23)
+
+The Doxygen reference under `docs/generated/doxygen/` was last built **2026-07-29** — before
+Phase 6 and Phase 7. Rebuilding it was not a no-op: three things had to be fixed first, and each
+one was silent.
+
+| Drift | Effect | Fix |
+|---|---|---|
+| `runtime_app/` was never added to the Doxyfile `INPUT` | The entire second shell — Phase 6's headline deliverable — was absent from the reference. `RECURSIVE = YES` only descends into roots already listed, so a new top-level source root stays invisible until named | `INPUT` now includes `$(NCR_PICKING_ROOT)/runtime_app` |
+| `uml/11_runtime_shell.puml` was rendered but never published | `build_docs.bat` renders every `uml/*.puml`, so `runtime_shell.svg` was produced and copied into the HTML on every build — and unreachable, because nothing on `architecture_diagrams.dox` linked to it | `@section diag_11` added |
+| `uml/02_device_families.puml` predated Phase D | The device diagram showed no virtual sub-type, and its three enums were missing `VirtualCamera`, `VirtualPlc`, `VirtualVisionOutput` | Virtual package added: six classes, the `isVirtualDevice()` predicate, inheritance and capability edges, plus notes on token-vs-enumerator spelling, the synthetic calibration and the `IPlcTagProvider` requirement |
+
+`mainpage.dox` was also stale in a way that mattered: it still described "one application with
+explicit Commission and Runtime modes," which is the architecture Phase 7 replaced. It now
+documents two peer executables, the `ncr_shared` build rule, and the virtual devices.
+
+**One real code defect surfaced by the rebuild.** Adding `runtime_app/` to the input produced
+`runtime_shell_window.cpp:572: warning: end of file with unbalanced grouping commands`. A comment
+describing the QSS theme tokens wrote `@{token}` literally, which Doxygen parsed as the
+open-group command `@{` and never saw closed — so it swallowed the rest of the file into an
+unterminated group. Escaped to `` `\@{token}` ``. Comment-only change; the warning is gone.
+
+**Result:** exit 0, 8,629 HTML files (was 7,828), warnings 151 with none from `src/device/virtual`
+or `runtime_app`. Verified present: `RuntimeShellWindow`, `RuntimeLayoutController`, all three
+`Virtual*Device`/`Virtual*Cfg` pairs, `VirtualDeviceWidget`, and diagram 11.
+
+Two unrelated findings were carried to the backlog rather than fixed here: **#44** (the script's
+tool defaults point at `C:\BAO`, which does not exist on this machine — the build ran via the
+documented environment-variable override) and **#45** (`AGENTS.md` scope cards produce 3
+unresolvable `\ref` warnings; pre-existing).
+
+---
+
 ## Risks
 
 | # | Risk | Impact | Handling |

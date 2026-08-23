@@ -8,6 +8,9 @@ var namespacevc_1_1device =
       [ "createKawasaki", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#ad743c430019dfe651effd88226a482fe", null ],
       [ "createMitsubishiMc", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#ac2641f61a108f7de9d3804e07249ff9c", null ],
       [ "createNachi", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#a33a04e8979e41acc783a4eb5009efdd2", null ],
+      [ "createVirtualCamera", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#ae8538732ff75cc6e0e11c4a873a2ea3b", null ],
+      [ "createVirtualPlc", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#aee26e779fd4fedc61c3b265cce6e7fcf", null ],
+      [ "createVirtualVisionOutput", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#a0a7c84c5acddbda0c6ada3aed43a0a71", null ],
       [ "createVisionTcpip", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#ab3981f5c9685c360a7de4e4f55c3b49a", null ],
       [ "createVisionTcpipClient", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#a893dba9db42a74a3c5891f15748551d1", null ],
       [ "subTypeValueFrom", "namespacevc_1_1device_1_1anonymous__namespace_02device__registry_8cpp_03.html#a92938c21824a1e3e03147860f2837d88", null ],
@@ -15,6 +18,10 @@ var namespacevc_1_1device =
     ] ],
     [ "anonymous_namespace{mc_protocol_device.cpp}", "namespacevc_1_1device_1_1anonymous__namespace_02mc__protocol__device_8cpp_03.html", [
       [ "parseMcTag", "namespacevc_1_1device_1_1anonymous__namespace_02mc__protocol__device_8cpp_03.html#aa6e3f07ba56bb6882f651a14d7f644c9", null ]
+    ] ],
+    [ "anonymous_namespace{virtual_plc_device.cpp}", "namespacevc_1_1device_1_1anonymous__namespace_02virtual__plc__device_8cpp_03.html", [
+      [ "isMcTag", "namespacevc_1_1device_1_1anonymous__namespace_02virtual__plc__device_8cpp_03.html#a630c9410d8cb1f3220573b3ad8eb6ac8", null ],
+      [ "tagRange", "namespacevc_1_1device_1_1anonymous__namespace_02virtual__plc__device_8cpp_03.html#adac4229f99601ceefc5b6e37c1cc25e4", null ]
     ] ],
     [ "anonymous_namespace{vision_tcpip_device_base.cpp}", "namespacevc_1_1device_1_1anonymous__namespace_02vision__tcpip__device__base_8cpp_03.html", [
       [ "buildRobotConfig", "namespacevc_1_1device_1_1anonymous__namespace_02vision__tcpip__device__base_8cpp_03.html#a530b879f00ad7d0e5e35b1c220317d51", null ],
@@ -102,6 +109,12 @@ var namespacevc_1_1device =
     [ "RobotKinematicCheckConfig", "structvc_1_1device_1_1_robot_kinematic_check_config.html", "structvc_1_1device_1_1_robot_kinematic_check_config" ],
     [ "ValueContainer", "classvc_1_1device_1_1_value_container.html", "classvc_1_1device_1_1_value_container" ],
     [ "ValueContainerAbstract", "classvc_1_1device_1_1_value_container_abstract.html", "classvc_1_1device_1_1_value_container_abstract" ],
+    [ "VirtualCameraCfg", "classvc_1_1device_1_1_virtual_camera_cfg.html", "classvc_1_1device_1_1_virtual_camera_cfg" ],
+    [ "VirtualCameraDevice", "classvc_1_1device_1_1_virtual_camera_device.html", "classvc_1_1device_1_1_virtual_camera_device" ],
+    [ "VirtualPlcCfg", "classvc_1_1device_1_1_virtual_plc_cfg.html", "classvc_1_1device_1_1_virtual_plc_cfg" ],
+    [ "VirtualPlcDevice", "classvc_1_1device_1_1_virtual_plc_device.html", "classvc_1_1device_1_1_virtual_plc_device" ],
+    [ "VirtualVisionOutputCfg", "classvc_1_1device_1_1_virtual_vision_output_cfg.html", "classvc_1_1device_1_1_virtual_vision_output_cfg" ],
+    [ "VirtualVisionOutputDevice", "classvc_1_1device_1_1_virtual_vision_output_device.html", "classvc_1_1device_1_1_virtual_vision_output_device" ],
     [ "VisionOutputDevice", "classvc_1_1device_1_1_vision_output_device.html", "classvc_1_1device_1_1_vision_output_device" ],
     [ "VisionOutputDeviceCfg", "classvc_1_1device_1_1_vision_output_device_cfg.html", "classvc_1_1device_1_1_vision_output_device_cfg" ],
     [ "VisionOutputPosition", "structvc_1_1device_1_1_vision_output_position.html", "structvc_1_1device_1_1_vision_output_position" ],
@@ -118,7 +131,8 @@ var namespacevc_1_1device =
       [ "CamType", "namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38ae82d3bd7b927728b2602cc333e855394", null ],
       [ "Realsense", "namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38a58fd2e801e13415ea9e7850e17682489", null ],
       [ "BaslerGigE", "namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38abe47d320a3803f16f5c6c720fdded2e9", null ],
-      [ "BaslerUSB", "namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38a9ac02d8ae6da9bed67cdbc45ae6f152b", null ]
+      [ "BaslerUSB", "namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38a9ac02d8ae6da9bed67cdbc45ae6f152b", null ],
+      [ "VirtualCamera", "namespacevc_1_1device.html#a7494bab370855403ce45bc7070b18e38ad585eda2624dbcb6879e55c0c625ccce", null ]
     ] ],
     [ "ConnectStatus", "namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38", [
       [ "NoConnection", "namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38a778cf069590261767879971b97062e3d", null ],
@@ -137,7 +151,8 @@ var namespacevc_1_1device =
     ] ],
     [ "PlcType", "namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b", [
       [ "PlcTypeNone", "namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388ba49892b07a1e6bc2ac5b6f952a1e2a04c", null ],
-      [ "MitsubishiMc", "namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388baa25d694a4292a9cebae1b1446e509f2c", null ]
+      [ "MitsubishiMc", "namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388baa25d694a4292a9cebae1b1446e509f2c", null ],
+      [ "VirtualPlc", "namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388ba84f644e0b8bb47b8770471100b38faee", null ]
     ] ],
     [ "PLCValueType", "namespacevc_1_1device.html#a49692b4c55899bbb84a6426e0d419029", [
       [ "Int", "namespacevc_1_1device.html#a49692b4c55899bbb84a6426e0d419029a1686a6c336b71b36d77354cea19a8b52", null ],
@@ -159,7 +174,8 @@ var namespacevc_1_1device =
       [ "VisionOutputTypeNone", "namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190aaaaad18e414c4324a8a0e9628a9dbe5e", null ],
       [ "VisionTCPIP", "namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190aab044006e7cceed02a7ff0907e30bd65", null ],
       [ "VisionTcpipClient", "namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190a4e201dcb3836b55fd91ade1df0ed4e55", null ],
-      [ "VisionSerial", "namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190a2cce2b609516cb1847494913e381adfc", null ]
+      [ "VisionSerial", "namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190a2cce2b609516cb1847494913e381adfc", null ],
+      [ "VirtualVisionOutput", "namespacevc_1_1device.html#ab0eb5e5497ce518451d9d2c567fa6190a269498eee519a74bcb18c62cfe3e8768", null ]
     ] ],
     [ "appendToByteArray_uint16", "namespacevc_1_1device.html#a67c9fa92aa6a458249be79b4938b845b", null ],
     [ "appendToByteArray_uint32", "namespacevc_1_1device.html#a598dd4adaf7fa6fc314c126927b0e9b3", null ],
@@ -170,6 +186,7 @@ var namespacevc_1_1device =
     [ "DeviceTypeToString", "namespacevc_1_1device.html#a280e3d5a44d2fd2213b79cd93653656f", null ],
     [ "doubleToReal64", "namespacevc_1_1device.html#aa257ab0754c9af82b11243ec22ef067f", null ],
     [ "floatToReal32", "namespacevc_1_1device.html#a2be035f969a81c1dfed1c4e6704b5126", null ],
+    [ "isVirtualDevice", "namespacevc_1_1device.html#a8cbbd1f3633a431e9bf65035fb407b96", null ],
     [ "make_command_data", "namespacevc_1_1device.html#a38253be0a838c061ebd8497a84aad655", null ],
     [ "make_device_data", "namespacevc_1_1device.html#a02aeecdd0bff2a35b35757ba5d148472", null ],
     [ "PlcTypeFromString", "namespacevc_1_1device.html#a53361024697e6b043078f42c7e7e6d7e", null ],

@@ -48,6 +48,7 @@ var class_localization_patterns_widget =
     [ "onTreeAddPatternRequested", "class_localization_patterns_widget.html#aea8d890a09a11d1a8c72200810541adb", null ],
     [ "onTreeDeleteGroupRequested", "class_localization_patterns_widget.html#a7598704df373bc2f015b11d3c67e0005", null ],
     [ "onTreeDeletePatternRequested", "class_localization_patterns_widget.html#a15114503d6e59771eb70055692cb1627", null ],
+    [ "onTreeGripperRequested", "class_localization_patterns_widget.html#ab8ce62a7b04a42826bbf304e8a22a100", null ],
     [ "onTreeGroupChanged", "class_localization_patterns_widget.html#a181ea9f093f205a92b484ea42835a45f", null ],
     [ "onTreeGroupClicked", "class_localization_patterns_widget.html#a6427c61ad297f5e2596bf1b006467537", null ],
     [ "onTreeGroupsChanged", "class_localization_patterns_widget.html#a4f307318754e544715dfe76b6d4c518a", null ],
@@ -104,8 +105,6 @@ var class_localization_patterns_widget =
     [ "m_resultViewer", "class_localization_patterns_widget.html#a3823381253cd53caced185f620447d30", null ],
     [ "m_selectedGroupIndex", "class_localization_patterns_widget.html#adaed96d64d148f61899f81e4a2945d15", null ],
     [ "m_selectedPatternIndex", "class_localization_patterns_widget.html#a7b8ccf5477cbbdb6bc641cc8438792fc", null ],
-    [ "m_thumbPixmap", "class_localization_patterns_widget.html#a0b9740a470455f622a633e2fc35908a9", null ],
-    [ "m_thumbScene", "class_localization_patterns_widget.html#afb51dc85388274cec50a7c435e0dd575", null ],
     [ "m_workingGroupConfig", "class_localization_patterns_widget.html#aebcd64cf5b6a9910bd1e0dabe3fb47ad", null ],
     [ "m_workingPatternCfg", "class_localization_patterns_widget.html#ac9f0a218b6115120d506bdf854136133", null ],
     [ "ui", "class_localization_patterns_widget.html#a11e5be09ab1eb97daa5135789ed5bff9", null ]

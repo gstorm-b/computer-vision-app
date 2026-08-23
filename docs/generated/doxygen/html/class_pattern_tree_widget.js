@@ -13,6 +13,7 @@ var class_pattern_tree_widget =
     [ "deletePatternRequested", "class_pattern_tree_widget.html#a34c141740e6bc086e72f0669cc916006", null ],
     [ "editPatternRequested", "class_pattern_tree_widget.html#acf488b9afb22eda325f754f405cb1e71", null ],
     [ "expandedGroupIndices", "class_pattern_tree_widget.html#aa26b8dcc07c6e4cbfe8256ca09b286af", null ],
+    [ "gripperRequested", "class_pattern_tree_widget.html#a4cfc69b3724e5efd66b4df56fa6487b7", null ],
     [ "groupChanged", "class_pattern_tree_widget.html#af6b5692698597a346aec383b33efb6ca", null ],
     [ "groupClicked", "class_pattern_tree_widget.html#afd16e0e7991149bd3cde8ffac253a43d", null ],
     [ "groups", "class_pattern_tree_widget.html#a5f86a1836fa132c45e7ef66987073ec2", null ],

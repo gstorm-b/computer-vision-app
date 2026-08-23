@@ -1,83 +1,100 @@
-<map id="C:/DGB/Project/ncr_picking/src/device/output_device/vision_output_request.h" name="C:/DGB/Project/ncr_picking/src/device/output_device/vision_output_request.h">
-<area shape="rect" id="Node000001" title="Request/payload types for the vision&#45;output device family: matching&#45;result positions and the wire&#45;for..." alt="" coords="1042,5,1186,80"/>
-<area shape="rect" id="Node000002" href="$vision__output__device_8h.html" title="Abstract device classes for the vision&#45;output device family (the software side that streams matching ..." alt="" coords="511,128,656,203"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1024,65,657,150,655,145,1029,62"/>
-<area shape="rect" id="Node000017" href="$vision__tcpip__device__base_8h.html" title="Shared protocol core for the vision&#45;output TCP/IP transports (server + client)." alt="" coords="736,251,884,325"/>
-<area shape="poly" id="edge30_Node000001_Node000017" title=" " alt="" coords="1059,89,857,252,854,248,1054,91"/>
-<area shape="rect" id="Node000019" href="$vision__output__runner_8h.html" title="VisionOutputRunner — per&#45;device thread runner for the VisionOutput device family: thread lifecycle,..." alt="" coords="1190,259,1347,317"/>
-<area shape="poly" id="edge51_Node000001_Node000019" title=" " alt="" coords="1146,91,1253,259,1248,258,1144,95"/>
-<area shape="rect" id="Node000023" href="$localization__runtime__controller_8h.html" title="LocalizationRuntimeController — runs one localization task at runtime: per&#45;cycle state machine,..." alt="" coords="1889,136,2088,195"/>
-<area shape="poly" id="edge31_Node000001_Node000023" title=" " alt="" coords="1201,53,1891,149,1886,151,1201,59"/>
-<area shape="rect" id="Node000003" href="$device__manager_8cpp.html" title=" " alt="" coords="5,259,151,317"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="494,182,343,211,171,253,149,260,146,256,169,248,342,206,498,178"/>
-<area shape="rect" id="Node000004" href="$vision__tcpip__client__config_8h.html" title="Concrete config for the TCP/IP client transport of VisionOutput (VisionTcpipClientDeviceCfg)." alt="" coords="338,251,485,325"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="516,214,465,252,462,248,521,210"/>
-<area shape="rect" id="Node000008" href="$vision__tcpip__client__device__widget_8h.html" title="VisionTcpipClientDeviceWidget — device configuration/monitoring widget for the TCP&#45;transport Vision O..." alt="" coords="491,496,686,571"/>
-<area shape="poly" id="edge28_Node000002_Node000008" title=" " alt="" coords="493,175,452,185,407,200,364,222,328,253,292,301,280,324,273,348,271,372,275,396,285,421,301,446,313,457,330,467,377,486,433,502,493,516,488,517,432,507,375,491,327,472,310,461,297,450,280,423,270,397,266,372,268,347,275,322,287,298,324,249,361,218,405,195,451,180,498,172"/>
-<area shape="rect" id="Node000009" href="$device__widget__factory_8cpp.html" title=" " alt="" coords="610,619,789,677"/>
-<area shape="poly" id="edge27_Node000002_Node000009" title=" " alt="" coords="493,180,431,194,365,210,309,229,289,240,275,252,244,301,236,323,233,346,235,370,241,394,266,447,296,489,334,524,378,554,425,579,473,598,521,614,612,636,607,636,520,619,471,603,422,584,375,559,331,529,292,492,261,449,236,396,229,370,228,346,231,322,239,298,271,249,286,236,307,224,363,204,430,188,498,178"/>
-<area shape="rect" id="Node000011" href="$add__device__wizard_8cpp.html" title=" " alt="" coords="328,381,489,440"/>
-<area shape="poly" id="edge26_Node000002_Node000011" title=" " alt="" coords="563,215,535,272,499,327,473,357,445,383,442,379,469,353,495,324,530,269,559,219"/>
-<area shape="rect" id="Node000012" href="$vision__tcpip__config_8h.html" title="Concrete config for the TCP/IP server transport of VisionOutput (VisionTcpipDeviceCfg)...." alt="" coords="567,251,712,325"/>
-<area shape="poly" id="edge9_Node000002_Node000012" title=" " alt="" coords="608,215,625,251,620,250,606,220"/>
-<area shape="rect" id="Node000015" href="$vision__tcpip__device__widget_8h.html" title="VisionTcpipDeviceWidget — device configuration/monitoring widget for the TCP&#45;transport Vision Output ..." alt="" coords="731,496,889,571"/>
-<area shape="poly" id="edge29_Node000002_Node000015" title=" " alt="" coords="671,169,775,185,833,200,892,220,949,246,1002,279,1047,321,1083,372,1093,393,1097,412,1094,430,1083,450,1064,470,1043,487,993,512,940,527,889,534,889,529,939,522,991,507,1040,483,1061,466,1078,446,1089,428,1091,412,1088,394,1078,375,1043,325,999,284,947,251,890,224,832,205,774,190,671,174"/>
-<area shape="poly" id="edge15_Node000002_Node000017" title=" " alt="" coords="666,208,743,250,738,250,666,213"/>
-<area shape="poly" id="edge19_Node000002_Node000019" title=" " alt="" coords="670,175,879,205,1125,248,1193,265,1187,266,1124,253,878,210,671,180"/>
-<area shape="rect" id="Node000005" href="$vision__tcpip__client__device_8h.html" title="TCP/IP client transport of the vision&#45;output family (VisionTcpipClientDevice)." alt="" coords="514,373,664,448"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="478,332,537,373,532,373,478,337"/>
-<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="345,334,331,355,319,375,311,395,307,412,309,428,319,446,335,465,353,480,397,504,444,519,493,529,488,530,443,524,395,509,350,485,331,469,314,450,304,430,302,412,306,393,314,372,326,352,342,338"/>
-<area shape="poly" id="edge7_Node000004_Node000011" title=" " alt="" coords="411,339,412,382,407,380,409,343"/>
-<area shape="poly" id="edge5_Node000005_Node000008" title=" " alt="" coords="590,462,591,497,586,494,587,466"/>
-<area shape="poly" id="edge6_Node000008_Node000009" title=" " alt="" coords="636,579,674,619,669,617,634,584"/>
-<area shape="poly" id="edge13_Node000012_Node000011" title=" " alt="" coords="553,334,465,383,462,378,558,332"/>
-<area shape="rect" id="Node000013" href="$vision__tcpip__device_8h.html" title="TCP/IP server transport of the vision&#45;output family (VisionTcpipDevice)." alt="" coords="738,373,882,448"/>
-<area shape="poly" id="edge10_Node000012_Node000013" title=" " alt="" coords="704,332,761,373,756,373,703,337"/>
-<area shape="poly" id="edge14_Node000012_Node000015" title=" " alt="" coords="663,337,693,392,728,446,772,496,766,495,724,450,688,394,661,342"/>
-<area shape="poly" id="edge11_Node000013_Node000015" title=" " alt="" coords="812,462,812,497,808,494,808,466"/>
-<area shape="poly" id="edge12_Node000015_Node000009" title=" " alt="" coords="766,580,729,621,726,616,761,583"/>
-<area shape="poly" id="edge16_Node000017_Node000005" title=" " alt="" coords="731,332,657,375,655,370,727,334"/>
-<area shape="poly" id="edge17_Node000017_Node000013" title=" " alt="" coords="812,339,812,374,808,371,808,343"/>
-<area shape="rect" id="Node000018" href="$vision__tcpip__device__base_8cpp.html" title=" " alt="" coords="907,373,1068,448"/>
-<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="877,332,936,373,931,373,876,337"/>
-<area shape="poly" id="edge24_Node000019_Node000008" title=" " alt="" coords="1229,326,1143,404,1082,450,1030,470,985,481,943,486,904,487,822,487,775,490,720,499,687,506,686,501,719,493,774,485,822,481,904,482,943,481,984,476,1028,465,1079,446,1139,400,1224,329"/>
-<area shape="poly" id="edge23_Node000019_Node000009" title=" " alt="" coords="1350,323,1377,345,1398,372,1407,393,1411,412,1408,430,1397,450,1380,468,1357,485,1295,517,1217,546,1129,571,946,611,789,637,789,632,945,606,1128,566,1216,541,1293,512,1354,481,1377,464,1393,446,1403,428,1406,412,1402,394,1393,375,1373,349,1349,328"/>
-<area shape="poly" id="edge25_Node000019_Node000015" title=" " alt="" coords="1251,330,1215,401,1195,431,1177,450,1143,471,1107,489,1031,514,956,528,889,534,889,529,955,523,1030,509,1105,484,1141,467,1174,446,1191,427,1210,398,1247,333"/>
-<area shape="rect" id="Node000020" href="$localization__runtime__controller_8cpp.html" title=" " alt="" coords="1458,381,1658,440"/>
-<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="1352,321,1492,381,1486,381,1351,326"/>
-<area shape="rect" id="Node000021" href="$task__localization_8cpp.html" title=" " alt="" coords="1682,381,1842,440"/>
-<area shape="poly" id="edge21_Node000019_Node000021" title=" " alt="" coords="1362,302,1509,330,1671,371,1695,381,1690,381,1669,376,1507,335,1362,307"/>
-<area shape="rect" id="Node000022" href="$task__runner_8cpp.html" title=" " alt="" coords="1245,381,1383,440"/>
-<area shape="poly" id="edge22_Node000019_Node000022" title=" " alt="" coords="1286,330,1306,382,1301,380,1283,334"/>
-<area shape="poly" id="edge32_Node000023_Node000020" title=" " alt="" coords="1927,202,1610,383,1607,378,1922,203"/>
-<area shape="rect" id="Node000024" href="$task__localization_8h.html" title="Task model layer: TaskLocalization, the localization ITask implementation that owns the pattern libra..." alt="" coords="2093,259,2252,317"/>
-<area shape="poly" id="edge33_Node000023_Node000024" title=" " alt="" coords="2046,201,2131,258,2126,258,2044,206"/>
-<area shape="rect" id="Node000036" href="$vision__result__adapter_8h.html" title="VisionResultAdapter — translates matcher/runtime result types into the UI&#45;facing VisionResultOverlay." alt="" coords="3061,381,3258,440"/>
-<area shape="poly" id="edge47_Node000023_Node000036" title=" " alt="" coords="2104,182,2287,212,2523,255,2786,308,3049,371,3078,381,3072,381,3048,376,2785,314,2522,260,2286,217,2104,187"/>
-<area shape="poly" id="edge36_Node000024_Node000021" title=" " alt="" coords="2080,311,1971,342,1855,376,1833,383,1832,378,1853,371,1969,336,2075,312"/>
-<area shape="rect" id="Node000025" href="$mainwindow_8cpp.html" title=" " alt="" coords="2196,512,2390,555"/>
-<area shape="poly" id="edge34_Node000024_Node000025" title=" " alt="" coords="2119,326,2098,350,2083,375,2075,395,2071,412,2073,428,2083,446,2105,471,2133,491,2164,505,2198,518,2192,518,2162,510,2130,495,2102,475,2078,450,2068,430,2066,412,2070,393,2078,372,2094,347,2114,329"/>
-<area shape="rect" id="Node000026" href="$task__factory_8cpp.html" title=" " alt="" coords="2093,381,2252,440"/>
-<area shape="poly" id="edge35_Node000024_Node000026" title=" " alt="" coords="2174,331,2175,382,2171,379,2171,335"/>
-<area shape="rect" id="Node000027" href="$localization__dashboard__widget_8h.html" title="LocalizationDashboardWidget — read&#45;only operator dashboard for a TaskLocalization task." alt="" coords="2653,373,2839,448"/>
-<area shape="poly" id="edge37_Node000024_Node000027" title=" " alt="" coords="2268,299,2443,328,2543,348,2641,371,2655,377,2650,376,2640,376,2541,353,2442,333,2268,305"/>
-<area shape="rect" id="Node000030" href="$localization__patterns__widget_8h.html" title="LocalizationPatternsWidget — task widget for managing localization pattern groups/patterns and runnin..." alt="" coords="2863,373,3037,448"/>
-<area shape="poly" id="edge40_Node000024_Node000030" title=" " alt="" coords="2268,292,2386,301,2533,316,2693,339,2852,371,2866,377,2861,376,2851,376,2692,344,2532,321,2386,306,2268,297"/>
-<area shape="rect" id="Node000032" href="$localization__setting__widget_8h.html" title="LocalizationSettingWidget — task settings widget for a localization task." alt="" coords="2277,373,2442,448"/>
-<area shape="poly" id="edge43_Node000024_Node000032" title=" " alt="" coords="2230,323,2305,373,2300,372,2229,328"/>
-<area shape="rect" id="Node000034" href="$localization__task__widget_8h.html" title="LocalizationTaskWidget — task&#45;configuration widget for a LocalizationTask." alt="" coords="1866,373,2018,448"/>
-<area shape="poly" id="edge44_Node000024_Node000034" title=" " alt="" coords="2107,324,2013,375,2012,370,2102,326"/>
-<area shape="rect" id="Node000035" href="$project__tree__widget_8cpp.html" title=" " alt="" coords="2466,381,2629,440"/>
-<area shape="poly" id="edge46_Node000024_Node000035" title=" " alt="" coords="2268,313,2455,371,2477,381,2472,380,2453,376,2267,318"/>
-<area shape="poly" id="edge38_Node000027_Node000025" title=" " alt="" coords="2640,448,2505,487,2389,514,2388,509,2503,482,2635,449"/>
-<area shape="rect" id="Node000028" href="$localization__dashboard__widget_8cpp.html" title=" " alt="" coords="2653,496,2839,571"/>
-<area shape="poly" id="edge39_Node000027_Node000028" title=" " alt="" coords="2748,462,2748,497,2744,494,2744,466"/>
-<area shape="poly" id="edge41_Node000030_Node000025" title=" " alt="" coords="2851,448,2722,479,2598,500,2390,526,2390,521,2597,495,2721,473,2846,449"/>
-<area shape="rect" id="Node000031" href="$localization__patterns__widget_8cpp.html" title=" " alt="" coords="2863,496,3037,571"/>
-<area shape="poly" id="edge42_Node000030_Node000031" title=" " alt="" coords="2952,462,2952,497,2948,494,2948,466"/>
-<area shape="poly" id="edge45_Node000034_Node000025" title=" " alt="" coords="2032,444,2038,445,2230,512,2224,511,2036,451,2032,449"/>
-<area shape="poly" id="edge48_Node000036_Node000028" title=" " alt="" coords="3062,444,3049,451,2951,474,2852,499,2840,502,2839,497,2851,493,2949,469,3048,445,3057,445"/>
-<area shape="poly" id="edge49_Node000036_Node000031" title=" " alt="" coords="3099,447,3015,498,3013,493,3094,449"/>
-<area shape="rect" id="Node000037" href="$vision__result__adapter_8cpp.html" title=" " alt="" coords="3060,504,3272,563"/>
-<area shape="poly" id="edge50_Node000036_Node000037" title=" " alt="" coords="3164,454,3166,505,3162,502,3160,458"/>
+<map id="C:/DGB/Project/computer&#45;vision&#45;app/src/device/output_device/vision_output_request.h" name="C:/DGB/Project/computer&#45;vision&#45;app/src/device/output_device/vision_output_request.h">
+<area shape="rect" id="Node000001" title="Request/payload types for the vision&#45;output device family: matching&#45;result positions and the wire&#45;for..." alt="" coords="995,5,1182,80"/>
+<area shape="rect" id="Node000002" href="$vision__output__device_8h.html" title="Abstract device classes for the vision&#45;output device family (the software side that streams matching ..." alt="" coords="995,128,1182,203"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1090,94,1091,129,1086,126,1087,98"/>
+<area shape="rect" id="Node000017" href="$vision__tcpip__device__base_8h.html" title="Shared protocol core for the vision&#45;output TCP/IP transports (server + client)." alt="" coords="345,251,525,325"/>
+<area shape="poly" id="edge39_Node000001_Node000017" title=" " alt="" coords="978,86,526,256,524,251,981,82"/>
+<area shape="rect" id="Node000022" href="$virtual__vision__output__device_8h.html" title="VirtualVisionOutputDevice — a vision&#45;output sink that binds no port." alt="" coords="136,251,307,325"/>
+<area shape="poly" id="edge40_Node000001_Node000022" title=" " alt="" coords="977,62,827,91,660,131,565,159,470,192,309,253,307,249,469,187,563,154,658,125,826,86,982,59"/>
+<area shape="rect" id="Node000024" href="$vision__output__runner_8h.html" title="VisionOutputRunner — per&#45;device thread runner for the VisionOutput device family: thread lifecycle,..." alt="" coords="1385,259,1557,317"/>
+<area shape="poly" id="edge63_Node000001_Node000024" title=" " alt="" coords="1159,86,1429,258,1423,258,1158,91"/>
+<area shape="rect" id="Node000027" href="$localization__runtime__controller_8h.html" title="LocalizationRuntimeController — runs one localization task at runtime: per&#45;cycle state machine,..." alt="" coords="2180,136,2391,195"/>
+<area shape="poly" id="edge41_Node000001_Node000027" title=" " alt="" coords="1197,52,2182,152,2177,155,1197,58"/>
+<area shape="rect" id="Node000003" href="$device__manager_8cpp.html" title=" " alt="" coords="753,259,925,317"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1001,209,900,260,897,256,996,211"/>
+<area shape="rect" id="Node000004" href="$vision__tcpip__client__config_8h.html" title="Concrete config for the TCP/IP client transport of VisionOutput (VisionTcpipClientDeviceCfg)." alt="" coords="549,251,729,325"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="977,191,865,220,742,253,730,257,728,252,741,248,864,215,982,189"/>
+<area shape="rect" id="Node000008" href="$vision__tcpip__client__device__widget_8h.html" title="VisionTcpipClientDeviceWidget — device configuration/monitoring widget for the TCP&#45;transport Vision O..." alt="" coords="645,496,820,571"/>
+<area shape="poly" id="edge37_Node000002_Node000008" title=" " alt="" coords="1030,211,989,252,975,273,966,292,956,310,938,328,911,342,885,347,836,346,813,345,791,348,770,357,749,375,733,403,726,434,725,466,727,497,723,494,719,466,721,433,728,401,745,372,767,352,790,342,813,340,836,341,884,342,909,336,935,323,952,307,961,289,970,270,985,249,1025,214"/>
+<area shape="rect" id="Node000009" href="$device__widget__factory_8cpp.html" title=" " alt="" coords="1233,619,1413,677"/>
+<area shape="poly" id="edge36_Node000002_Node000009" title=" " alt="" coords="1196,207,1223,226,1245,249,1274,295,1295,346,1310,398,1320,451,1329,547,1327,620,1323,617,1323,548,1315,452,1305,399,1290,347,1269,298,1241,252,1220,230,1195,212"/>
+<area shape="rect" id="Node000011" href="$add__device__wizard_8cpp.html" title=" " alt="" coords="963,381,1134,440"/>
+<area shape="poly" id="edge35_Node000002_Node000011" title=" " alt="" coords="1161,210,1179,229,1192,249,1200,270,1204,288,1201,306,1192,327,1164,359,1128,383,1126,378,1161,355,1187,324,1196,305,1198,288,1195,272,1187,252,1175,232,1160,215"/>
+<area shape="rect" id="Node000012" href="$vision__tcpip__config_8h.html" title="Concrete config for the TCP/IP server transport of VisionOutput (VisionTcpipDeviceCfg)...." alt="" coords="999,251,1178,325"/>
+<area shape="poly" id="edge10_Node000002_Node000012" title=" " alt="" coords="1090,216,1091,252,1086,249,1087,221"/>
+<area shape="rect" id="Node000015" href="$vision__tcpip__device__widget_8h.html" title="VisionTcpipDeviceWidget — device configuration/monitoring widget for the TCP&#45;transport Vision Output ..." alt="" coords="1110,496,1285,571"/>
+<area shape="poly" id="edge38_Node000002_Node000015" title=" " alt="" coords="1181,209,1201,228,1216,249,1229,281,1236,314,1239,348,1238,382,1228,445,1213,498,1209,494,1223,444,1232,381,1234,348,1231,315,1224,282,1211,252,1197,232,1180,215"/>
+<area shape="poly" id="edge17_Node000002_Node000017" title=" " alt="" coords="977,182,739,218,622,236,538,253,526,256,524,252,537,248,622,231,738,212,982,180"/>
+<area shape="rect" id="Node000019" href="$virtual__device_8h.html" title="isVirtualDevice() — the single answer to &quot;is this device simulated?&quot;." alt="" coords="1973,259,2145,317"/>
+<area shape="poly" id="edge21_Node000002_Node000019" title=" " alt="" coords="1197,177,1975,275,1970,277,1197,183"/>
+<area shape="poly" id="edge25_Node000002_Node000022" title=" " alt="" coords="977,173,848,184,686,199,510,222,334,253,309,259,306,255,333,248,509,216,686,194,848,178,982,171"/>
+<area shape="poly" id="edge28_Node000002_Node000024" title=" " alt="" coords="1197,198,1388,259,1382,260,1197,203"/>
+<area shape="rect" id="Node000005" href="$vision__tcpip__client__device_8h.html" title="TCP/IP client transport of the vision&#45;output family (VisionTcpipClientDevice)." alt="" coords="455,373,634,448"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="603,336,575,375,571,371,599,340"/>
+<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="660,338,721,496,716,495,657,342"/>
+<area shape="poly" id="edge8_Node000004_Node000011" title=" " alt="" coords="744,323,849,347,950,371,975,381,970,381,949,376,848,352,744,328"/>
+<area shape="rect" id="Node000006" href="$device__registry_8cpp.html" title=" " alt="" coords="449,504,621,563"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="542,462,539,505,535,502,539,466"/>
+<area shape="poly" id="edge6_Node000005_Node000008" title=" " alt="" coords="615,454,678,496,673,495,614,459"/>
+<area shape="poly" id="edge7_Node000008_Node000009" title=" " alt="" coords="835,552,1235,629,1230,630,835,557"/>
+<area shape="poly" id="edge15_Node000012_Node000011" title=" " alt="" coords="1073,338,1060,383,1056,379,1069,342"/>
+<area shape="rect" id="Node000013" href="$vision__tcpip__device_8h.html" title="TCP/IP server transport of the vision&#45;output family (VisionTcpipDevice)." alt="" coords="759,373,938,448"/>
+<area shape="poly" id="edge11_Node000012_Node000013" title=" " alt="" coords="1004,332,923,375,921,370,999,334"/>
+<area shape="poly" id="edge16_Node000012_Node000015" title=" " alt="" coords="1126,336,1148,372,1174,436,1191,497,1187,494,1169,438,1143,375,1124,341"/>
+<area shape="poly" id="edge12_Node000013_Node000006" title=" " alt="" coords="747,451,611,506,609,501,742,453"/>
+<area shape="poly" id="edge13_Node000013_Node000015" title=" " alt="" coords="953,446,1112,502,1107,502,953,451"/>
+<area shape="poly" id="edge14_Node000015_Node000009" title=" " alt="" coords="1250,578,1294,619,1289,617,1249,583"/>
+<area shape="poly" id="edge18_Node000017_Node000005" title=" " alt="" coords="479,335,514,373,508,373,478,340"/>
+<area shape="poly" id="edge19_Node000017_Node000013" title=" " alt="" coords="540,323,761,386,756,388,540,329"/>
+<area shape="rect" id="Node000018" href="$vision__tcpip__device__base_8cpp.html" title=" " alt="" coords="251,373,430,448"/>
+<area shape="poly" id="edge20_Node000017_Node000018" title=" " alt="" coords="399,336,371,375,367,371,395,340"/>
+<area shape="poly" id="edge23_Node000019_Node000009" title=" " alt="" coords="2085,329,2098,358,2105,390,2105,421,2092,450,2072,470,2046,488,1976,522,1889,552,1790,577,1585,616,1413,640,1413,634,1585,611,1789,572,1887,547,1974,517,2043,484,2069,465,2087,446,2099,420,2100,390,2093,360,2082,333"/>
+<area shape="rect" id="Node000020" href="$task__localization_8cpp.html" title=" " alt="" coords="1907,381,2078,440"/>
+<area shape="poly" id="edge22_Node000019_Node000020" title=" " alt="" coords="2038,329,2010,383,2007,379,2034,332"/>
+<area shape="rect" id="Node000021" href="$project__tree__widget_8cpp.html" title=" " alt="" coords="2152,381,2323,440"/>
+<area shape="poly" id="edge24_Node000019_Node000021" title=" " alt="" coords="2114,324,2198,381,2192,380,2113,329"/>
+<area shape="poly" id="edge26_Node000022_Node000006" title=" " alt="" coords="214,338,216,368,219,396,227,423,241,446,254,457,273,468,326,487,388,503,452,518,446,519,387,509,324,493,271,473,251,462,237,450,222,425,214,397,210,368,213,343"/>
+<area shape="rect" id="Node000023" href="$virtual__vision__output__device_8cpp.html" title=" " alt="" coords="5,373,177,448"/>
+<area shape="poly" id="edge27_Node000022_Node000023" title=" " alt="" coords="169,338,133,375,129,371,172,334"/>
+<area shape="poly" id="edge33_Node000024_Node000008" title=" " alt="" coords="1396,323,1290,376,1220,416,1189,433,1147,451,1062,477,975,497,821,524,820,519,974,492,1060,472,1145,445,1186,428,1217,411,1287,371,1391,325"/>
+<area shape="poly" id="edge32_Node000024_Node000009" title=" " alt="" coords="1549,323,1576,345,1596,372,1605,392,1608,411,1605,429,1596,449,1578,479,1556,507,1504,554,1447,592,1393,621,1392,615,1444,588,1500,550,1552,503,1574,476,1591,447,1600,427,1602,411,1600,394,1591,375,1572,349,1548,329"/>
+<area shape="poly" id="edge34_Node000024_Node000015" title=" " alt="" coords="1430,327,1240,498,1237,493,1425,328"/>
+<area shape="poly" id="edge30_Node000024_Node000020" title=" " alt="" coords="1572,302,1726,330,1896,371,1922,381,1916,381,1894,376,1725,336,1572,307"/>
+<area shape="rect" id="Node000025" href="$localization__runtime__controller_8cpp.html" title=" " alt="" coords="1657,381,1882,440"/>
+<area shape="poly" id="edge29_Node000024_Node000025" title=" " alt="" coords="1557,321,1701,381,1696,381,1556,326"/>
+<area shape="rect" id="Node000026" href="$task__runner_8cpp.html" title=" " alt="" coords="1411,381,1582,440"/>
+<area shape="poly" id="edge31_Node000024_Node000026" title=" " alt="" coords="1482,330,1493,382,1488,379,1479,335"/>
+<area shape="poly" id="edge42_Node000027_Node000025" title=" " alt="" coords="2167,184,2064,213,2012,231,1963,253,1914,283,1869,317,1797,383,1795,378,1865,313,1911,278,1960,248,2010,226,2062,208,2162,186"/>
+<area shape="rect" id="Node000028" href="$task__localization_8h.html" title="Task model layer: TaskLocalization, the localization ITask implementation that owns the pattern libra..." alt="" coords="2605,259,2777,317"/>
+<area shape="poly" id="edge43_Node000027_Node000028" title=" " alt="" coords="2397,197,2607,261,2602,261,2397,202"/>
+<area shape="rect" id="Node000040" href="$vision__result__adapter_8h.html" title="VisionResultAdapter — translates matcher/runtime result types into the UI&#45;facing VisionResultOverlay." alt="" coords="3443,381,3640,440"/>
+<area shape="poly" id="edge59_Node000027_Node000040" title=" " alt="" coords="2407,180,2604,209,2860,251,3146,305,3432,371,3460,381,3455,380,3430,376,3145,310,2859,256,2603,214,2407,185"/>
+<area shape="poly" id="edge47_Node000028_Node000020" title=" " alt="" coords="2587,302,2382,334,2141,376,2079,390,2078,384,2140,371,2381,329,2592,302"/>
+<area shape="poly" id="edge58_Node000028_Node000021" title=" " alt="" coords="2593,309,2469,340,2337,376,2314,383,2313,378,2336,371,2468,335,2588,310"/>
+<area shape="rect" id="Node000029" href="$mainwindow_8cpp.html" title=" " alt="" coords="2770,512,2980,555"/>
+<area shape="poly" id="edge44_Node000028_Node000029" title=" " alt="" coords="2710,329,2740,387,2780,446,2813,481,2849,512,2844,511,2810,485,2776,450,2736,390,2708,334"/>
+<area shape="rect" id="Node000030" href="$runtime__shell__window_8cpp.html" title=" " alt="" coords="3003,504,3195,563"/>
+<area shape="poly" id="edge45_Node000028_Node000030" title=" " alt="" coords="2793,289,2901,296,3018,310,3073,321,3120,334,3159,351,3185,372,3196,391,3198,409,3185,449,3166,480,3140,506,3138,501,3162,477,3181,447,3193,408,3191,392,3181,375,3156,356,3119,339,3071,326,3017,316,2901,301,2793,294"/>
+<area shape="rect" id="Node000031" href="$task__factory_8cpp.html" title=" " alt="" coords="2348,381,2519,440"/>
+<area shape="poly" id="edge46_Node000028_Node000031" title=" " alt="" coords="2619,323,2496,383,2494,378,2614,325"/>
+<area shape="rect" id="Node000032" href="$localization__dashboard__widget_8h.html" title="LocalizationDashboardWidget — read&#45;only operator dashboard for a TaskLocalization task." alt="" coords="2984,373,3171,448"/>
+<area shape="poly" id="edge48_Node000028_Node000032" title=" " alt="" coords="2792,316,2973,371,2987,377,2981,377,2972,376,2791,321"/>
+<area shape="rect" id="Node000035" href="$localization__patterns__widget_8h.html" title="LocalizationPatternsWidget — task widget for managing localization pattern groups/patterns and runnin..." alt="" coords="3246,373,3419,448"/>
+<area shape="poly" id="edge52_Node000028_Node000035" title=" " alt="" coords="2792,297,2995,325,3112,345,3228,371,3248,379,3243,378,3226,376,3111,351,2994,330,2792,303"/>
+<area shape="rect" id="Node000037" href="$localization__setting__widget_8h.html" title="LocalizationSettingWidget — task settings widget for a localization task." alt="" coords="2544,373,2715,448"/>
+<area shape="poly" id="edge55_Node000028_Node000037" title=" " alt="" coords="2672,330,2650,375,2647,371,2667,333"/>
+<area shape="rect" id="Node000039" href="$localization__task__widget_8h.html" title="LocalizationTaskWidget — task&#45;configuration widget for a LocalizationTask." alt="" coords="2789,373,2961,448"/>
+<area shape="poly" id="edge56_Node000028_Node000039" title=" " alt="" coords="2748,323,2821,373,2816,372,2746,328"/>
+<area shape="poly" id="edge49_Node000032_Node000029" title=" " alt="" coords="3005,456,2910,514,2909,509,3000,457"/>
+<area shape="poly" id="edge50_Node000032_Node000030" title=" " alt="" coords="3089,462,3096,505,3092,502,3085,466"/>
+<area shape="rect" id="Node000033" href="$localization__dashboard__widget_8cpp.html" title=" " alt="" coords="3219,496,3406,571"/>
+<area shape="poly" id="edge51_Node000032_Node000033" title=" " alt="" coords="3163,453,3243,496,3238,495,3162,458"/>
+<area shape="poly" id="edge53_Node000035_Node000029" title=" " alt="" coords="3233,436,2992,499,2939,514,2938,509,2990,493,3228,437"/>
+<area shape="rect" id="Node000036" href="$localization__patterns__widget_8cpp.html" title=" " alt="" coords="3430,496,3603,571"/>
+<area shape="poly" id="edge54_Node000035_Node000036" title=" " alt="" coords="3402,454,3463,496,3458,495,3400,459"/>
+<area shape="poly" id="edge57_Node000039_Node000029" title=" " alt="" coords="2877,462,2877,513,2873,510,2873,466"/>
+<area shape="poly" id="edge60_Node000040_Node000033" title=" " alt="" coords="3477,447,3383,498,3382,493,3471,448"/>
+<area shape="poly" id="edge61_Node000040_Node000036" title=" " alt="" coords="3535,454,3526,498,3522,494,3531,457"/>
+<area shape="rect" id="Node000041" href="$vision__result__adapter_8cpp.html" title=" " alt="" coords="3627,504,3838,563"/>
+<area shape="poly" id="edge62_Node000040_Node000041" title=" " alt="" coords="3600,446,3689,504,3684,503,3599,451"/>
 </map>

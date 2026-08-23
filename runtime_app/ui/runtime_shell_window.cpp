@@ -200,7 +200,7 @@ void RuntimeShellWindow::buildDockHost()
 
 /// Loads and applies this window's stylesheet for the active theme.
 ///
-/// One sheet for both themes: every colour in it is a @{token} and tokens resolve per
+/// One sheet for both themes: every colour in it is a `\@{token}` and tokens resolve per
 /// theme, so a light and a dark copy would be identical. The RESOLVED output still differs,
 /// which is why this runs again on every theme change.
 void RuntimeShellWindow::reloadStyleSheet()

@@ -2,6 +2,8 @@ var dir_5dd65160827af56e6353642206b80129 =
 [
     [ "camera_map_entry.h", "camera__map__entry_8h.html", "camera__map__entry_8h" ],
     [ "camera_workspace.h", "camera__workspace_8h.html", "camera__workspace_8h" ],
+    [ "gripper_preset_store.cpp", "gripper__preset__store_8cpp.html", null ],
+    [ "gripper_preset_store.h", "gripper__preset__store_8h.html", "gripper__preset__store_8h" ],
     [ "isignal_group.h", "isignal__group_8h.html", "isignal__group_8h" ],
     [ "itask.cpp", "itask_8cpp.html", null ],
     [ "itask.h", "itask_8h.html", "itask_8h" ],

@@ -1604,3 +1604,60 @@ Two things to decide when doing it:
 **Related.** [`docs/domains/virtual_devices/virtual_devices.md`](../domains/virtual_devices/virtual_devices.md)
 "Known gap", and the PLC signal contract in
 [`docs/domains/task_localization/plc_signal_contract.md`](../domains/task_localization/plc_signal_contract.md).
+
+---
+
+## 44. `build_docs.bat` tool defaults point at a path that does not exist
+
+**Found:** 2026-08-23, rebuilding the Doxygen reference for the Phase 7 close-out.
+**Severity:** Low — loud failure, trivial workaround. **Effort:** minutes.
+
+Commit `51469ecf` changed the three tool defaults in
+[`docs/doxygen/build_docs.bat`](../doxygen/build_docs.bat) from `C:\build_packages\...` to
+`C:\BAO\...`. On this machine `C:\BAO` does not exist and `C:\build_packages` does, so the script
+exits 1 at its first guard:
+
+```
+[build_docs] DOXYGEN_EXE not found: C:\BAO\doxygen-1.17.0-win64\doxygen.exe
+```
+
+The Phase 7 rebuild ran by setting `DOXYGEN_EXE`, `GRAPHVIZ_DOT_DIR` and `PLANTUML_JAR` explicitly
+— the documented override path, and the reason this is Low rather than a blocker.
+
+Left alone deliberately: the change was the project owner's own, and which of the two roots is
+canonical is their call, not something to guess at. It may be correct for a machine this repo is
+also used on.
+
+**Decide one of:**
+- `C:\build_packages` is canonical → restore the defaults.
+- `C:\BAO` is canonical → the tools need to move/symlink there on this machine.
+- Neither → drop the hard-coded defaults and make the three variables required, which is closest
+  to `AGENT.md`'s "local machine paths come from environment variables" rule.
+
+The guard behaviour itself is right and should stay: it fails loudly instead of emitting a
+partial reference.
+
+---
+
+## 45. `AGENTS.md` scope cards produce unresolvable `\ref` warnings in the Doxygen build
+
+**Found:** 2026-08-23, same rebuild. **Severity:** Low — cosmetic. **Effort:** minutes.
+
+The Doxyfile's `FILE_PATTERNS` includes `*.md` with `RECURSIVE = YES`, so all 17 module
+`AGENTS.md` scope cards are parsed as Doxygen pages and appear in the generated reference. That is
+useful and worth keeping — a reader lands on the module's own boundary rules.
+
+The side effect is that their relative Markdown links to files *outside* the Doxygen input
+(`docs/domains/...`) cannot be resolved, giving 3 warnings of the form:
+
+```
+app/AGENTS.md:20: warning: unable to resolve reference to
+  '.../docs/domains/runtime_app/runtime_shell.md' for \ref command
+```
+
+Pre-existing — not introduced by Phase 7; adding `runtime_app/` to `INPUT` merely added one more.
+
+**Options,** cheapest first: leave it (the links work for anyone reading the repo, which is who
+`AGENTS.md` is for); or make the offending links absolute URLs so Doxygen stops treating them as
+`\ref`; or add `docs/domains` to `INPUT` so the targets resolve — the largest change, and it pulls
+the whole domain-doc tree into the API reference.

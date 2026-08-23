@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/ui/forms/pattern/add_pattern_wizard.cpp File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/add_pattern_wizard.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -126,6 +126,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('add__pattern__
 <code>#include &lt;QLineEdit&gt;</code><br />
 <code>#include &lt;QSpinBox&gt;</code><br />
 <code>#include &lt;QDoubleSpinBox&gt;</code><br />
+<code>#include &lt;QComboBox&gt;</code><br />
 <code>#include &lt;QPushButton&gt;</code><br />
 <code>#include &lt;QStackedWidget&gt;</code><br />
 <code>#include &lt;QHBoxLayout&gt;</code><br />
@@ -135,13 +136,14 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('add__pattern__
 <code>#include &lt;QCheckBox&gt;</code><br />
 <code>#include &lt;QFileDialog&gt;</code><br />
 <code>#include &lt;QFileInfo&gt;</code><br />
+<code>#include &lt;QKeyEvent&gt;</code><br />
 <code>#include &lt;QPainter&gt;</code><br />
 <code>#include &lt;opencv2/imgcodecs.hpp&gt;</code><br />
 <code>#include &lt;opencv2/opencv.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for add_pattern_wizard.cpp:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="add__pattern__wizard_8cpp__incl.svg" width="100%" height="464"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="add__pattern__wizard_8cpp__incl.svg" width="100%" height="588"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="add__pattern__wizard_8cpp_source.html">Go to the source code of this file.</a></p>
@@ -157,6 +159,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:ab45bee1b37e5f27f6d87d5f12a4de47f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 1px-tall QFrame styled as a horizontal divider line.  <br /></td></tr>
 <tr class="memitem:a4d1f0d7a9feca3823ba3e0d4048c0127" id="r_a4d1f0d7a9feca3823ba3e0d4048c0127"><td class="memItemLeft">QFrame *&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a4d1f0d7a9feca3823ba3e0d4048c0127">anonymous_namespace{add_pattern_wizard.cpp}::makeVSeparator</a> ()</td></tr>
 <tr class="memdesc:a4d1f0d7a9feca3823ba3e0d4048c0127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 1px-wide QFrame styled as a vertical divider line.  <br /></td></tr>
+<tr class="memitem:ad425b300dde87a46e131c105fc4f6ebc" id="r_ad425b300dde87a46e131c105fc4f6ebc"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#ad425b300dde87a46e131c105fc4f6ebc">anonymous_namespace{add_pattern_wizard.cpp}::stepSublines</a> ()</td></tr>
+<tr class="memdesc:ad425b300dde87a46e131c105fc4f6ebc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-step rail sublines; index-aligned with <a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a1b7a041192cd7e9bd497efa3fca8f6bd" title="Per-step rail titles; index-aligned with STEP_* above.">stepTitles()</a>.  <br /></td></tr>
+<tr class="memitem:a1b7a041192cd7e9bd497efa3fca8f6bd" id="r_a1b7a041192cd7e9bd497efa3fca8f6bd"><td class="memItemLeft">QStringList&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a1b7a041192cd7e9bd497efa3fca8f6bd">anonymous_namespace{add_pattern_wizard.cpp}::stepTitles</a> ()</td></tr>
+<tr class="memdesc:a1b7a041192cd7e9bd497efa3fca8f6bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Per-step rail titles; index-aligned with STEP_* above.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -168,6 +174,15 @@ Variables</h2></td></tr>
 <tr class="memdesc:a37ccd14b6a48c4583d6aa1504045924c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed overall wizard dialog height (px).  <br /></td></tr>
 <tr class="memitem:ad0bcc5083998a613bac2c736c3b39581" id="r_ad0bcc5083998a613bac2c736c3b39581"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#ad0bcc5083998a613bac2c736c3b39581">anonymous_namespace{add_pattern_wizard.cpp}::DIALOG_W</a> = 920</td></tr>
 <tr class="memdesc:ad0bcc5083998a613bac2c736c3b39581"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixed overall wizard dialog width (px).  <br /></td></tr>
+<tr class="memitem:a11b1629c7bdcc315ec6ab8fb6b881dab" id="r_a11b1629c7bdcc315ec6ab8fb6b881dab"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a11b1629c7bdcc315ec6ab8fb6b881dab">anonymous_namespace{add_pattern_wizard.cpp}::STEP_BOX</a> = 3</td></tr>
+<tr class="memitem:a5e1e811d345c0d9a5170cde574e3a72c" id="r_a5e1e811d345c0d9a5170cde574e3a72c"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a5e1e811d345c0d9a5170cde574e3a72c">anonymous_namespace{add_pattern_wizard.cpp}::STEP_COUNT</a> = 6</td></tr>
+<tr class="memitem:a59b6a5b3739be97d7bb3048a0c4d4ace" id="r_a59b6a5b3739be97d7bb3048a0c4d4ace"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a59b6a5b3739be97d7bb3048a0c4d4ace">anonymous_namespace{add_pattern_wizard.cpp}::STEP_CROP</a> = 1</td></tr>
+<tr class="memitem:a437685cf2d942963b1a3bd4e896c1e93" id="r_a437685cf2d942963b1a3bd4e896c1e93"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a437685cf2d942963b1a3bd4e896c1e93">anonymous_namespace{add_pattern_wizard.cpp}::STEP_FINISH</a> = 5</td></tr>
+<tr class="memitem:a8e9b79bea1ea9b5dee83ee597f5c53af" id="r_a8e9b79bea1ea9b5dee83ee597f5c53af"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a8e9b79bea1ea9b5dee83ee597f5c53af">anonymous_namespace{add_pattern_wizard.cpp}::STEP_IMAGE</a> = 0</td></tr>
+<tr class="memdesc:a8e9b79bea1ea9b5dee83ee597f5c53af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zero-based page indices, so the navigation reads by name rather than by number.  <br /></td></tr>
+<tr class="memitem:a3347d830b29fc2aeeaf79a8b56cf4c92" id="r_a3347d830b29fc2aeeaf79a8b56cf4c92"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a3347d830b29fc2aeeaf79a8b56cf4c92">anonymous_namespace{add_pattern_wizard.cpp}::STEP_LAST</a> = <a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a5e1e811d345c0d9a5170cde574e3a72c">STEP_COUNT</a> - 1</td></tr>
+<tr class="memitem:aaebc35041caee3d4dea5f152f421ae81" id="r_aaebc35041caee3d4dea5f152f421ae81"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#aaebc35041caee3d4dea5f152f421ae81">anonymous_namespace{add_pattern_wizard.cpp}::STEP_OFFSET</a> = 4</td></tr>
+<tr class="memitem:a3a1b2e38344b2a7c046ed9e14419c6db" id="r_a3a1b2e38344b2a7c046ed9e14419c6db"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="namespaceanonymous__namespace_02add__pattern__wizard_8cpp_03.html#a3a1b2e38344b2a7c046ed9e14419c6db">anonymous_namespace{add_pattern_wizard.cpp}::STEP_PICK</a> = 2</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

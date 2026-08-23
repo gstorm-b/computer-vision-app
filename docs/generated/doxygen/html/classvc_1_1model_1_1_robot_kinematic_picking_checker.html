@@ -138,7 +138,7 @@ Collaboration diagram for vc::model::RobotKinematicPickingChecker:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:Waypoint" id="r_Waypoint"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structvc_1_1model_1_1_robot_kinematic_picking_checker_1_1_waypoint.html">Waypoint</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One picking-path waypoint, prepared from a config PickPathPoint: a 6-axis tool-frame offset (mm/deg) plus required posture branch signs (-1/+1, or 0 for "any") resolved from the preset's posture labels at construction.  <a href="structvc_1_1model_1_1_robot_kinematic_picking_checker_1_1_waypoint.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One picking-path waypoint, prepared from a config PickPathPoint: a 6-axis offset (mm/deg) plus per-axis absolute flags and the required posture branch signs (-1/+1, or 0 for "any") resolved from the preset's posture labels at construction.  <a href="structvc_1_1model_1_1_robot_kinematic_picking_checker_1_1_waypoint.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -203,7 +203,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">146</a> of file <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="vision__output__config_8h_source.html#l00065">vc::device::PickPathPoint::dPitch</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">vc::model::RobotKinematicPickingChecker::Waypoint::dPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00065">vc::device::PickPathPoint::dRoll</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">vc::model::RobotKinematicPickingChecker::Waypoint::dRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">vc::device::PickPathPoint::dx</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">vc::model::RobotKinematicPickingChecker::Waypoint::dx</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">vc::device::PickPathPoint::dy</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">vc::model::RobotKinematicPickingChecker::Waypoint::dy</a>, <a class="el" href="vision__output__config_8h_source.html#l00065">vc::device::PickPathPoint::dYaw</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">vc::model::RobotKinematicPickingChecker::Waypoint::dYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00064">vc::device::PickPathPoint::dz</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00080">vc::model::RobotKinematicPickingChecker::Waypoint::dz</a>, <a class="el" href="vision__output__config_8h_source.html#l00067">vc::device::PickPathPoint::elbow</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00081">vc::model::RobotKinematicPickingChecker::Waypoint::elbow</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00084">m_calibrator</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00085">m_config</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00086">m_robot</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00087">m_robotValid</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00088">m_waypoints</a>, <a class="el" href="vision__output__config_8h_source.html#l00066">vc::device::PickPathPoint::shoulder</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00081">vc::model::RobotKinematicPickingChecker::Waypoint::shoulder</a>, <a class="el" href="vision__output__config_8h_source.html#l00068">vc::device::PickPathPoint::wrist</a>, and <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00081">vc::model::RobotKinematicPickingChecker::Waypoint::wrist</a>.</p>
+<p class="reference">References <a class="el" href="vision__output__config_8h_source.html#l00082">vc::device::PickPathPoint::absPitch</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">vc::model::RobotKinematicPickingChecker::Waypoint::absPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00082">vc::device::PickPathPoint::absRoll</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">vc::model::RobotKinematicPickingChecker::Waypoint::absRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">vc::device::PickPathPoint::absX</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">vc::model::RobotKinematicPickingChecker::Waypoint::absX</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">vc::device::PickPathPoint::absY</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">vc::model::RobotKinematicPickingChecker::Waypoint::absY</a>, <a class="el" href="vision__output__config_8h_source.html#l00082">vc::device::PickPathPoint::absYaw</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">vc::model::RobotKinematicPickingChecker::Waypoint::absYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00081">vc::device::PickPathPoint::absZ</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00101">vc::model::RobotKinematicPickingChecker::Waypoint::absZ</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">vc::device::PickPathPoint::dPitch</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">vc::model::RobotKinematicPickingChecker::Waypoint::dPitch</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">vc::device::PickPathPoint::dRoll</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">vc::model::RobotKinematicPickingChecker::Waypoint::dRoll</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">vc::device::PickPathPoint::dx</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">vc::model::RobotKinematicPickingChecker::Waypoint::dx</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">vc::device::PickPathPoint::dy</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">vc::model::RobotKinematicPickingChecker::Waypoint::dy</a>, <a class="el" href="vision__output__config_8h_source.html#l00080">vc::device::PickPathPoint::dYaw</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">vc::model::RobotKinematicPickingChecker::Waypoint::dYaw</a>, <a class="el" href="vision__output__config_8h_source.html#l00079">vc::device::PickPathPoint::dz</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00100">vc::model::RobotKinematicPickingChecker::Waypoint::dz</a>, <a class="el" href="vision__output__config_8h_source.html#l00084">vc::device::PickPathPoint::elbow</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00102">vc::model::RobotKinematicPickingChecker::Waypoint::elbow</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00110">m_calibrator</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00111">m_config</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00112">m_robot</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00113">m_robotValid</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00114">m_waypoints</a>, <a class="el" href="vision__output__config_8h_source.html#l00083">vc::device::PickPathPoint::shoulder</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00102">vc::model::RobotKinematicPickingChecker::Waypoint::shoulder</a>, <a class="el" href="vision__output__config_8h_source.html#l00085">vc::device::PickPathPoint::wrist</a>, and <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00102">vc::model::RobotKinematicPickingChecker::Waypoint::wrist</a>.</p>
 
 </div>
 </div>
@@ -235,9 +235,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classmtc_1_1_i_robot_picking_checker.html#a0895296b8145d87670f44f3ca967da6f">mtc::IRobotPickingChecker</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00185">185</a> of file <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">189</a> of file <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00085">m_config</a>.</p>
+<p class="reference">References <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00111">m_config</a>.</p>
 
 </div>
 </div>
@@ -292,9 +292,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classmtc_1_1_i_robot_picking_checker.html#a63fb8ac058cb548bdfbbe56712658a2b">mtc::IRobotPickingChecker</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00169">169</a> of file <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00173">173</a> of file <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00084">m_calibrator</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00021">mtc::WorldPickPose::r_deg</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00018">mtc::WorldPickPose::x_mm</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00019">mtc::WorldPickPose::y_mm</a>, and <a class="el" href="robot__picking__checker_8h_source.html#l00020">mtc::WorldPickPose::z_mm</a>.</p>
+<p class="reference">References <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00110">m_calibrator</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00031">mtc::WorldPickPose::r_deg</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00028">mtc::WorldPickPose::x_mm</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00029">mtc::WorldPickPose::y_mm</a>, and <a class="el" href="robot__picking__checker_8h_source.html#l00030">mtc::WorldPickPose::z_mm</a>.</p>
 
 </div>
 </div>
@@ -333,13 +333,27 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>false if the preset is invalid or any waypoint has no valid (reachable, correctly-postured, collision-free) IK solution </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>false if the preset is invalid or any waypoint has no valid (reachable, correctly-postured, collision-free) IK solution</dd></dl>
+<p>Runs the whole picking path and reports whether every waypoint is reachable.</p>
+<p>Composition order per waypoint:</p><ol type="1">
+<li><span class="tt">basePose = pick * patternOffset</span> — the pattern's 6-axis picking offset from <span class="tt">pose</span>, applied in the TOOL frame (matches what the runtime actually emits);</li>
+<li><span class="tt">target = basePose * waypointOffset</span> — the waypoint's tool-frame offset;</li>
+<li>any waypoint axis flagged absolute replaces its component of <span class="tt">target</span> with the configured base-frame value (decompose → patch → rebuild).</li>
+</ol>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">pose</td><td>world pick pose plus the pattern's picking offset </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">withCollision</td><td>when true, reachable solutions must also be collision-free </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true only when EVERY waypoint has a reachable solution on its required posture branch; false if the robot preset is invalid </dd></dl>
 
 <p>Implements <a class="el" href="classmtc_1_1_i_robot_picking_checker.html#a9d21bda5b6fc815f05c3fafad760ba0b">mtc::IRobotPickingChecker</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">189</a> of file <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">193</a> of file <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_collision_backend_8cpp_source.html#l00128">RobotKinematics::CollisionBackends::checkMesh()</a>, <a class="el" href="_pose_8cpp_source.html#l00047">RobotKinematics::Pose::fromXYZRPY_mm_deg()</a>, <a class="el" href="_collision_checker_8h_source.html#l00035">RobotKinematics::CollisionCheckResult::hasCollision</a>, <a class="el" href="_pose_8cpp_source.html#l00059">RobotKinematics::Pose::isometry()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00052">RobotKinematics::IKSolution::joints</a>, <a class="el" href="_collision_backend_8h_source.html#l00034">RobotKinematics::MeshCollisionCheckRequest::joints</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00086">m_robot</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00087">m_robotValid</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00088">m_waypoints</a>, <a class="el" href="_collision_checker_8h_source.html#l00040">RobotKinematics::CollisionCheckResult::ok()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00066">RobotKinematics::IKResult::ok()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00053">RobotKinematics::IKSolution::posture</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00021">mtc::WorldPickPose::r_deg</a>, <a class="el" href="_arm_posture_8h_source.html#l00016">RobotKinematics::ArmPosture::shoulder</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00062">RobotKinematics::IKResult::solutions</a>, <a class="el" href="_serial_robot_kinematics_8cpp_source.html#l00075">RobotKinematics::SerialRobotKinematics::solveAll()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00032">RobotKinematics::IKRequest::targetPose</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00037">RobotKinematics::IKRequest::tool</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00018">mtc::WorldPickPose::x_mm</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00019">mtc::WorldPickPose::y_mm</a>, and <a class="el" href="robot__picking__checker_8h_source.html#l00020">mtc::WorldPickPose::z_mm</a>.</p>
+<p class="reference">References <a class="el" href="_collision_backend_8cpp_source.html#l00128">RobotKinematics::CollisionBackends::checkMesh()</a>, <a class="el" href="_pose_8cpp_source.html#l00047">RobotKinematics::Pose::fromXYZRPY_mm_deg()</a>, <a class="el" href="_collision_checker_8h_source.html#l00035">RobotKinematics::CollisionCheckResult::hasCollision</a>, <a class="el" href="_pose_8cpp_source.html#l00059">RobotKinematics::Pose::isometry()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00052">RobotKinematics::IKSolution::joints</a>, <a class="el" href="_collision_backend_8h_source.html#l00034">RobotKinematics::MeshCollisionCheckRequest::joints</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00112">m_robot</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00113">m_robotValid</a>, <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00114">m_waypoints</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00036">mtc::WorldPickPose::offsetRx_deg</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00037">mtc::WorldPickPose::offsetRy_deg</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00038">mtc::WorldPickPose::offsetRz_deg</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00033">mtc::WorldPickPose::offsetX_mm</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00034">mtc::WorldPickPose::offsetY_mm</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00035">mtc::WorldPickPose::offsetZ_mm</a>, <a class="el" href="_collision_checker_8h_source.html#l00040">RobotKinematics::CollisionCheckResult::ok()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00066">RobotKinematics::IKResult::ok()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00053">RobotKinematics::IKSolution::posture</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00031">mtc::WorldPickPose::r_deg</a>, <a class="el" href="_arm_posture_8h_source.html#l00016">RobotKinematics::ArmPosture::shoulder</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00062">RobotKinematics::IKResult::solutions</a>, <a class="el" href="_serial_robot_kinematics_8cpp_source.html#l00075">RobotKinematics::SerialRobotKinematics::solveAll()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00032">RobotKinematics::IKRequest::targetPose</a>, <a class="el" href="_units_8cpp_source.html#l00036">RobotKinematics::units::toDeg()</a>, <a class="el" href="_units_8cpp_source.html#l00030">RobotKinematics::units::toMm()</a>, <a class="el" href="_inverse_kinematics_8h_source.html#l00037">RobotKinematics::IKRequest::tool</a>, <a class="el" href="_pose_8cpp_source.html#l00065">RobotKinematics::Pose::translation_m()</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00028">mtc::WorldPickPose::x_mm</a>, <a class="el" href="robot__picking__checker_8h_source.html#l00029">mtc::WorldPickPose::y_mm</a>, and <a class="el" href="robot__picking__checker_8h_source.html#l00030">mtc::WorldPickPose::z_mm</a>.</p>
 
 </div>
 </div>
@@ -366,9 +380,9 @@ Private Attributes</h2></td></tr>
 
 <p>Copy of the calibrator used by <a class="el" href="#adb5eecf73e0412ff387b775460658ef8" title="Converts an image-space pick pose to a world/robot-frame pose via the calibrator, negating the calibr...">imageToWorld()</a> (lifetime-safe). </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00084">84</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00110">110</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00169">imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00173">imageToWorld()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
 
 </div>
 </div>
@@ -394,9 +408,9 @@ Private Attributes</h2></td></tr>
 
 <p>Preset name, TCP offset, collision toggle, and pick path as configured. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00085">85</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00111">111</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00185">collisionCheckEnabled()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">collisionCheckEnabled()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
 
 </div>
 </div>
@@ -422,9 +436,9 @@ Private Attributes</h2></td></tr>
 
 <p>Resolved preset + picking TCP; valid only when m_robotValid. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00086">86</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00112">112</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">isPickable()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">isPickable()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
 
 </div>
 </div>
@@ -450,9 +464,9 @@ Private Attributes</h2></td></tr>
 
 <p>False when m_config.presetName did not match a known preset. </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00087">87</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00113">113</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">isPickable()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">isPickable()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
 
 </div>
 </div>
@@ -478,15 +492,15 @@ Private Attributes</h2></td></tr>
 
 <p>Prepared pick path (always &gt;=1 entry). </p>
 
-<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00088">88</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="robot__kinematic__picking__checker_8h_source.html#l00114">114</a> of file <a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00189">isPickable()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00193">isPickable()</a>, and <a class="el" href="robot__kinematic__picking__checker_8cpp_source.html#l00146">RobotKinematicPickingChecker()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a></li>
-<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="robot__kinematic__picking__checker_8h_source.html">robot_kinematic_picking_checker.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="robot__kinematic__picking__checker_8cpp_source.html">robot_kinematic_picking_checker.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

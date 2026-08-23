@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.17.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ncr_picking: C:/DGB/Project/ncr_picking/src/device/plc/plc_device.h File Reference</title>
+<title>ncr_picking: C:/DGB/Project/computer-vision-app/src/device/plc/plc_device.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -157,11 +157,13 @@ Namespaces</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a70fb692b5ffa568bb95f94633a3214b6" id="r_a70fb692b5ffa568bb95f94633a3214b6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a70fb692b5ffa568bb95f94633a3214b6">PLC_TYPE_MITSUBISHI_MC</a>&#160;&#160;&#160;&quot;MitsubishiMc&quot;</td></tr>
 <tr class="memdesc:a70fb692b5ffa568bb95f94633a3214b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON-persisted PlcType key for the Mitsubishi MC vendor sub-type.  <br /></td></tr>
+<tr class="memitem:a9b84d64133d48454e6f96216e8e89544" id="r_a9b84d64133d48454e6f96216e8e89544"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9b84d64133d48454e6f96216e8e89544">PLC_TYPE_VIRTUAL</a>&#160;&#160;&#160;&quot;Virtual&quot;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:afb7e574428ba6ab2321b46dd3b2f388b" id="r_afb7e574428ba6ab2321b46dd3b2f388b"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">vc::device::PlcType</a> { <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388ba49892b07a1e6bc2ac5b6f952a1e2a04c">vc::device::PlcTypeNone</a>
 , <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388baa25d694a4292a9cebae1b1446e509f2c">vc::device::MitsubishiMc</a>
+, <a class="el" href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388ba84f644e0b8bb47b8770471100b38faee">vc::device::VirtualPlc</a>
  }</td></tr>
 <tr class="memdesc:afb7e574428ba6ab2321b46dd3b2f388b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Family-level sub-type dispatch handle for the PLC family. Concrete vendors register a value here; <a class="el" href="classvc_1_1device_1_1_device_factory.html#a78ecad78e9d57552e6bccc7d732e548e" title="Creates a PLC device from the registry entry matching obj&#39;s sub-type.">DeviceFactory::createPlcDevice()</a> switches on this enum to pick the concrete subclass.  <a href="namespacevc_1_1device.html#afb7e574428ba6ab2321b46dd3b2f388b">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -191,7 +193,26 @@ Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00015">15</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00043">vc::device::PlcTypeFromString()</a>, and <a class="el" href="plc__device_8h_source.html#l00032">vc::device::PlcTypeToString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00051">vc::device::PlcTypeFromString()</a>, and <a class="el" href="plc__device_8h_source.html#l00039">vc::device::PlcTypeToString()</a>.</p>
+
+</div>
+</div>
+<a id="a9b84d64133d48454e6f96216e8e89544" name="a9b84d64133d48454e6f96216e8e89544"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b84d64133d48454e6f96216e8e89544">&#9670;&#160;</a></span>PLC_TYPE_VIRTUAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PLC_TYPE_VIRTUAL&#160;&#160;&#160;&quot;Virtual&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Hardware-free PLC. Tokens are family-local — the camera family has its own <span class="tt">"Virtual"</span> under a different JSON key — so there is no collision. This token is written into customer project files and can never be changed once one has been saved. </p>
+
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00019">19</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00051">vc::device::PlcTypeFromString()</a>, and <a class="el" href="plc__device_8h_source.html#l00039">vc::device::PlcTypeToString()</a>.</p>
 
 </div>
 </div>

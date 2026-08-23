@@ -19,6 +19,7 @@ var class_add_device_wizard =
     [ "repolish", "class_add_device_wizard.html#adbbd58190108d9a71c7e6c1a6991298e", null ],
     [ "selectCard", "class_add_device_wizard.html#af6338f5d205815357e762003eb75fea5", null ],
     [ "showWizard", "class_add_device_wizard.html#abb1e1c9094cf1eb9446c9ab7cbdf2ec3", null ],
+    [ "updatePlcSubTypeFields", "class_add_device_wizard.html#a9538896614374e642190f4a2c82c77f4", null ],
     [ "m_cards", "class_add_device_wizard.html#ab2c13643c262cf71aeda4793a790303a", null ],
     [ "m_manager", "class_add_device_wizard.html#a9bf3dd00351d1f7e475f7f231a8eda5d", null ],
     [ "m_pendingDeviceId", "class_add_device_wizard.html#ac495d4e28e640215ec49b219678df9ca", null ],

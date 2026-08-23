@@ -1,6 +1,6 @@
 # Documentation Build Guide
 
-**Last updated:** 2026-07-26
+**Last updated:** 2026-08-23 (Phase 7 close-out rebuild)
 
 ## Overview
 
@@ -9,9 +9,14 @@
 - **Hand-written docs** under `docs/` (architecture notes, domain docs, rules, backlog). These
   remain the source of truth for *why* and for anything a generator cannot infer.
 - **Generated Doxygen API reference** under `docs/generated/doxygen/`, built from the `///`
-  Doxygen comments in `src/`, `app/`, and `components/RobotKinematics/` (see
+  Doxygen comments in `src/`, `app/`, `runtime_app/`, and `components/RobotKinematics/` (see
   [design_rules.md](design_rules.md) §18 for the comment style), plus the hand-authored UML
   under `uml/` rendered to SVG and embedded with pan/zoom.
+
+> ⚠️ **A new top-level source root does not appear in the reference by itself.** `runtime_app/`
+> was added in Phase 6 and stayed invisible in the generated output until Phase 7 close-out,
+> because the Doxyfile's `INPUT` lists roots explicitly (`RECURSIVE` only descends into the roots
+> already listed). Add the root to `INPUT` in the same change that creates it.
 
 The generated reference complements, not replaces, `docs/generated/architecture_docs/` (manually
 curated Markdown, may drift — see `AGENT.md`).
@@ -25,6 +30,12 @@ Three external tools are required, none of them vendored in the repository:
 | Doxygen | Parses `///` comments, generates the HTML reference | `C:\build_packages\doxygen-1.17.0-win64\doxygen.exe` |
 | Graphviz (`dot`) | Renders Doxygen's class/collaboration/include graphs | `C:\build_packages\Graphviz-15.1.0-win64\bin\dot.exe` |
 | PlantUML (`.jar`, needs a JVM) | Renders `uml/*.puml` to SVG | `C:\build_packages\plantuml\plantuml-java8-SNAPSHOT.jar` |
+
+> ⚠️ **`build_docs.bat`'s built-in defaults currently point at `C:\BAO\...`, which does not exist
+> on this machine** (changed in commit `51469ecf`). Until the script and the machine agree, the
+> build only runs with the three environment variables set explicitly — see below. The script
+> fails loudly (`[build_docs] DOXYGEN_EXE not found: ...`, exit 1) rather than producing a partial
+> reference, so this cannot pass unnoticed.
 
 **Java note.** The local machine only has Java 8 (`java -version` → `1.8.0_501`). The newer
 `plantuml-1.2026.6.jar` in the same folder requires Java 11+ (it fails with
@@ -56,12 +67,21 @@ running `doxygen` by hand instead of through the wrapper script.
 docs\doxygen\build_docs.bat
 ```
 
+On this machine the defaults do not resolve (see the warning above), so set the three tool
+variables first:
+
+```bat
+set "DOXYGEN_EXE=C:\build_packages\doxygen-1.17.0-win64\doxygen.exe" && set "GRAPHVIZ_DOT_DIR=C:\build_packages\Graphviz-15.1.0-win64\bin" && set "PLANTUML_JAR=C:\build_packages\plantuml\plantuml-java8-SNAPSHOT.jar" && docs\doxygen\build_docs.bat
+```
+
 This:
 1. Renders every `uml/*.puml` to SVG (`docs/generated/doxygen/uml_svg/`) via PlantUML +
    Graphviz.
-2. Runs Doxygen over `src/`, `app/`, and `components/RobotKinematics/{include,src}` (see
-   `docs/doxygen/Doxyfile`), plus the custom pages in `docs/doxygen/pages/`.
-3. Copies the rendered UML SVGs into the HTML output so
+2. Patches each rendered SVG for pan/zoom (see below).
+3. Runs Doxygen over `src/`, `app/`, `runtime_app/`, and
+   `components/RobotKinematics/{include,src}` (see `docs/doxygen/Doxyfile`), plus the custom pages
+   in `docs/doxygen/pages/`.
+4. Copies the rendered UML SVGs into the HTML output so
    [architecture_diagrams.dox](../doxygen/pages/architecture_diagrams.dox) can reference them by
    plain filename (Doxygen's `HTML_EXTRA_FILES` does not recursively copy a directory's contents
    in this Doxygen version, so this is done as an explicit post-copy step instead).
@@ -74,15 +94,32 @@ under it.
 
 ## Architecture Diagrams (Pan/Zoom)
 
-`docs/doxygen/pages/architecture_diagrams.dox` embeds each rendered `uml/*.puml` SVG in a small
-self-contained pan/zoom viewer (`docs/doxygen/assets/uml_pan_zoom.{css,js}` — vanilla JS, no
-external dependency, wheel-to-zoom / drag-to-pan / reset button, one `<img>` per diagram inside a
-`.uml-viewer` container so the JS never needs to reach into the SVG's own DOM).
+The rendered UML uses **Doxygen's own `svg.min.js`** — the same `INTERACTIVE_SVG` mechanism its
+generated class and collaboration graphs use — rather than a custom viewer.
+`docs/doxygen/scripts/patch_uml_svg.ps1` gives each PlantUML-rendered SVG the structure that
+script expects (`id="main"` + `onload="init(evt)"` on the root, the `viewWidth`/`viewHeight`/
+`sectionId` globals, `id="viewport"` on the content `<g>`, and the on-canvas zoom/pan/reset
+overlay). `architecture_diagrams.dox` then embeds each diagram in an `<iframe>`.
 
-**Adding a new diagram:** after adding `uml/NN_new_diagram.puml`, add a matching
-`@section`/viewer block to `architecture_diagrams.dox` (copy an existing block; the `<img
-src="...">` must match the SVG's `@startuml <name>` diagram name, not the `.puml` source
-filename — check `docs/generated/doxygen/uml_svg/` after rendering to confirm the output name).
+**This replaced a hand-rolled `<img>` + CSS-transform viewer** (`assets/uml_pan_zoom.{css,js}`,
+now deleted) for two concrete reasons, both recorded in the script's header comment: an SVG
+embedded as `<img>` is rasterized once at layout size, so CSS `scale()` zoom blurs it; and a pan
+handler that never calls `preventDefault()` gets hijacked by the browser's native text-selection
+drag after the first drag. The Doxygen script zooms via a native SVG `transform="matrix(...)"`, so
+it stays vector-crisp, and calls `preventDefault()` throughout.
+
+The patch script is safe to re-run: a file already carrying `id="main"` is skipped. It also
+refuses rather than guesses — an SVG whose width/height it cannot read, or that does not have
+exactly one top-level content `<g>`, is warned about and left alone.
+
+**Adding a new diagram:** after adding `uml/NN_new_diagram.puml`, add a matching `@section` +
+`@htmlonly`/`<iframe>` block to `architecture_diagrams.dox` (copy an existing block; the `src="..."`
+must match the SVG's `@startuml <name>` diagram name, **not** the `.puml` source filename — check
+`docs/generated/doxygen/uml_svg/` after rendering to confirm the output name).
+
+> Rendering a `.puml` is not the same as publishing it. `11_runtime_shell.puml` rendered correctly
+> from the day it was written and was still absent from the reference, because nothing on
+> `architecture_diagrams.dox` pointed at it. The two steps are separate; do both.
 
 ## Auditing Doc Coverage
 

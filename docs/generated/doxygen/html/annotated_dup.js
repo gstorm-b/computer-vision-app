@@ -25,6 +25,7 @@ var annotated_dup =
     [ "mtc", "namespacemtc.html", [
       [ "BlockMax", "classmtc_1_1_block_max.html", "classmtc_1_1_block_max" ],
       [ "EdgeMatchConfig", "classmtc_1_1_edge_match_config.html", "classmtc_1_1_edge_match_config" ],
+      [ "GripperBoxes", "structmtc_1_1_gripper_boxes.html", "structmtc_1_1_gripper_boxes" ],
       [ "ImageMatcher", "classmtc_1_1_image_matcher.html", "classmtc_1_1_image_matcher" ],
       [ "IMatchTypeConfig", "classmtc_1_1_i_match_type_config.html", "classmtc_1_1_i_match_type_config" ],
       [ "IRobotPickingChecker", "classmtc_1_1_i_robot_picking_checker.html", "classmtc_1_1_i_robot_picking_checker" ],
@@ -148,6 +149,11 @@ var annotated_dup =
       [ "UserFrame", "struct_robot_kinematics_1_1_user_frame.html", "struct_robot_kinematics_1_1_user_frame" ]
     ] ],
     [ "vc", "namespacevc.html", [
+      [ "auth", "namespacevc_1_1auth.html", [
+        [ "AccessControl", "classvc_1_1auth_1_1_access_control.html", "classvc_1_1auth_1_1_access_control" ],
+        [ "IAdminCredentialProvider", "classvc_1_1auth_1_1_i_admin_credential_provider.html", "classvc_1_1auth_1_1_i_admin_credential_provider" ],
+        [ "SettingsAdminCredentialProvider", "classvc_1_1auth_1_1_settings_admin_credential_provider.html", "classvc_1_1auth_1_1_settings_admin_credential_provider" ]
+      ] ],
       [ "device", "namespacevc_1_1device.html", [
         [ "basler", "namespacevc_1_1device_1_1basler.html", [
           [ "BaslerIOLine", "structvc_1_1device_1_1basler_1_1_basler_i_o_line.html", "structvc_1_1device_1_1basler_1_1_basler_i_o_line" ]
@@ -197,6 +203,12 @@ var annotated_dup =
         [ "RobotKinematicCheckConfig", "structvc_1_1device_1_1_robot_kinematic_check_config.html", "structvc_1_1device_1_1_robot_kinematic_check_config" ],
         [ "ValueContainer", "classvc_1_1device_1_1_value_container.html", "classvc_1_1device_1_1_value_container" ],
         [ "ValueContainerAbstract", "classvc_1_1device_1_1_value_container_abstract.html", "classvc_1_1device_1_1_value_container_abstract" ],
+        [ "VirtualCameraCfg", "classvc_1_1device_1_1_virtual_camera_cfg.html", "classvc_1_1device_1_1_virtual_camera_cfg" ],
+        [ "VirtualCameraDevice", "classvc_1_1device_1_1_virtual_camera_device.html", "classvc_1_1device_1_1_virtual_camera_device" ],
+        [ "VirtualPlcCfg", "classvc_1_1device_1_1_virtual_plc_cfg.html", "classvc_1_1device_1_1_virtual_plc_cfg" ],
+        [ "VirtualPlcDevice", "classvc_1_1device_1_1_virtual_plc_device.html", "classvc_1_1device_1_1_virtual_plc_device" ],
+        [ "VirtualVisionOutputCfg", "classvc_1_1device_1_1_virtual_vision_output_cfg.html", "classvc_1_1device_1_1_virtual_vision_output_cfg" ],
+        [ "VirtualVisionOutputDevice", "classvc_1_1device_1_1_virtual_vision_output_device.html", "classvc_1_1device_1_1_virtual_vision_output_device" ],
         [ "VisionOutputDevice", "classvc_1_1device_1_1_vision_output_device.html", "classvc_1_1device_1_1_vision_output_device" ],
         [ "VisionOutputDeviceCfg", "classvc_1_1device_1_1_vision_output_device_cfg.html", "classvc_1_1device_1_1_vision_output_device_cfg" ],
         [ "VisionOutputPosition", "structvc_1_1device_1_1_vision_output_position.html", "structvc_1_1device_1_1_vision_output_position" ],
@@ -213,6 +225,8 @@ var annotated_dup =
         [ "CameraMapEntry", "classvc_1_1model_1_1_camera_map_entry.html", "classvc_1_1model_1_1_camera_map_entry" ],
         [ "CameraWorkspace", "structvc_1_1model_1_1_camera_workspace.html", "structvc_1_1model_1_1_camera_workspace" ],
         [ "CameraWorkspaceMap", "classvc_1_1model_1_1_camera_workspace_map.html", "classvc_1_1model_1_1_camera_workspace_map" ],
+        [ "GripperPreset", "structvc_1_1model_1_1_gripper_preset.html", "structvc_1_1model_1_1_gripper_preset" ],
+        [ "GripperPresetStore", "classvc_1_1model_1_1_gripper_preset_store.html", "classvc_1_1model_1_1_gripper_preset_store" ],
         [ "ISignalGroup", "classvc_1_1model_1_1_i_signal_group.html", "classvc_1_1model_1_1_i_signal_group" ],
         [ "ITask", "classvc_1_1model_1_1_i_task.html", "classvc_1_1model_1_1_i_task" ],
         [ "ITaskConfig", "classvc_1_1model_1_1_i_task_config.html", "classvc_1_1model_1_1_i_task_config" ],
@@ -243,6 +257,9 @@ var annotated_dup =
         [ "TaskRunner", "classvc_1_1runtime_1_1_task_runner.html", "classvc_1_1runtime_1_1_task_runner" ],
         [ "VisionOutputRunner", "classvc_1_1runtime_1_1_vision_output_runner.html", "classvc_1_1runtime_1_1_vision_output_runner" ]
       ] ],
+      [ "shell", "namespacevc_1_1shell.html", [
+        [ "ShellHandoff", "classvc_1_1shell_1_1_shell_handoff.html", "classvc_1_1shell_1_1_shell_handoff" ]
+      ] ],
       [ "widgets", "namespacevc_1_1widgets.html", [
         [ "sm_internal", "namespacevc_1_1widgets_1_1sm__internal.html", [
           [ "ModifyValueDialog", "classvc_1_1widgets_1_1sm__internal_1_1_modify_value_dialog.html", "classvc_1_1widgets_1_1sm__internal_1_1_modify_value_dialog" ],
@@ -258,6 +275,7 @@ var annotated_dup =
       [ "VisionRectRoiItem", "classvision__canvas__detail_1_1_vision_rect_roi_item.html", "classvision__canvas__detail_1_1_vision_rect_roi_item" ],
       [ "VisionRotatedRoiItem", "classvision__canvas__detail_1_1_vision_rotated_roi_item.html", "classvision__canvas__detail_1_1_vision_rotated_roi_item" ]
     ] ],
+    [ "AccessControl", "class_access_control.html", "class_access_control" ],
     [ "AddDeviceWizard", "class_add_device_wizard.html", "class_add_device_wizard" ],
     [ "AddGroupDialog", "class_add_group_dialog.html", "class_add_group_dialog" ],
     [ "AddPatternDialog", "class_add_pattern_dialog.html", "class_add_pattern_dialog" ],
@@ -265,6 +283,7 @@ var annotated_dup =
     [ "AddPatternImageDialog", "class_add_pattern_image_dialog.html", "class_add_pattern_image_dialog" ],
     [ "AddPatternWizard", "class_add_pattern_wizard.html", "class_add_pattern_wizard" ],
     [ "AddRowWidget", "class_add_row_widget.html", "class_add_row_widget" ],
+    [ "AdminLoginDialog", "class_admin_login_dialog.html", "class_admin_login_dialog" ],
     [ "AppLogger", "class_app_logger.html", "class_app_logger" ],
     [ "AppSettings", "class_app_settings.html", "class_app_settings" ],
     [ "BaslerCameraWidget", "class_basler_camera_widget.html", "class_basler_camera_widget" ],
@@ -290,6 +309,7 @@ var annotated_dup =
     [ "FooterItemWidget", "class_footer_item_widget.html", "class_footer_item_widget" ],
     [ "FrameBox", "class_frame_box.html", "class_frame_box" ],
     [ "GetDevicesWorker", "class_get_devices_worker.html", "class_get_devices_worker" ],
+    [ "GripperRegisterDialog", "class_gripper_register_dialog.html", "class_gripper_register_dialog" ],
     [ "GroupFrame", "class_group_frame.html", "class_group_frame" ],
     [ "GroupFrameWidget", "class_group_frame_widget.html", "class_group_frame_widget" ],
     [ "IDevice", "class_i_device.html", "class_i_device" ],
@@ -319,13 +339,16 @@ var annotated_dup =
     [ "NoWheelSpinBox", "class_no_wheel_spin_box.html", "class_no_wheel_spin_box" ],
     [ "PatternGroupItemWidget", "class_pattern_group_item_widget.html", "class_pattern_group_item_widget" ],
     [ "PatternItemWidget", "class_pattern_item_widget.html", "class_pattern_item_widget" ],
+    [ "PatternThumbnailView", "class_pattern_thumbnail_view.html", "class_pattern_thumbnail_view" ],
     [ "PatternTreeWidget", "class_pattern_tree_widget.html", "class_pattern_tree_widget" ],
     [ "PixmapBoundingLine", "class_pixmap_bounding_line.html", "class_pixmap_bounding_line" ],
     [ "PlcMitsuDeviceWizard", "class_plc_mitsu_device_wizard.html", "class_plc_mitsu_device_wizard" ],
     [ "PointFPropertyManager", "class_point_f_property_manager.html", "class_point_f_property_manager" ],
     [ "PointPropertyManager", "class_point_property_manager.html", "class_point_property_manager" ],
     [ "PositionPropertyManager", "class_position_property_manager.html", "class_position_property_manager" ],
+    [ "Project", "class_project.html", "class_project" ],
     [ "ProjectInforSetting", "class_project_infor_setting.html", "class_project_infor_setting" ],
+    [ "ProjectRepository", "class_project_repository.html", "class_project_repository" ],
     [ "ProjectTreeDelegate", "class_project_tree_delegate.html", "class_project_tree_delegate" ],
     [ "ProjectTreeWidget", "class_project_tree_widget.html", "class_project_tree_widget" ],
     [ "PropertyBrowserWidget", "class_property_browser_widget.html", "class_property_browser_widget" ],
@@ -333,9 +356,13 @@ var annotated_dup =
     [ "PropSpec", "struct_prop_spec.html", "struct_prop_spec" ],
     [ "RobotKinematicCheckWidget", "class_robot_kinematic_check_widget.html", "class_robot_kinematic_check_widget" ],
     [ "RowWidget", "class_row_widget.html", "class_row_widget" ],
+    [ "RuntimeLayoutController", "class_runtime_layout_controller.html", "class_runtime_layout_controller" ],
+    [ "RuntimeShellWindow", "class_runtime_shell_window.html", "class_runtime_shell_window" ],
     [ "SendStateHintLabel", "class_send_state_hint_label.html", "class_send_state_hint_label" ],
+    [ "ShellHandoff", "class_shell_handoff.html", "class_shell_handoff" ],
     [ "SignalsMapWidget", "class_signals_map_widget.html", "class_signals_map_widget" ],
     [ "SignalsMonitorWidget", "class_signals_monitor_widget.html", "class_signals_monitor_widget" ],
+    [ "SingleInstanceGuard", "class_single_instance_guard.html", "class_single_instance_guard" ],
     [ "SizePropertyManager", "class_size_property_manager.html", "class_size_property_manager" ],
     [ "SortableCameraItem", "class_sortable_camera_item.html", "class_sortable_camera_item" ],
     [ "StatePillLabel", "class_state_pill_label.html", "class_state_pill_label" ],
@@ -355,6 +382,7 @@ var annotated_dup =
     [ "UIDeviceEntry", "struct_u_i_device_entry.html", "struct_u_i_device_entry" ],
     [ "UITaskEntry", "struct_u_i_task_entry.html", "struct_u_i_task_entry" ],
     [ "ValidatingLineEdit", "class_validating_line_edit.html", "class_validating_line_edit" ],
+    [ "VirtualDeviceWidget", "class_virtual_device_widget.html", "class_virtual_device_widget" ],
     [ "VisionCanvas", "class_vision_canvas.html", "class_vision_canvas" ],
     [ "VisionNumericInspector", "class_vision_numeric_inspector.html", "class_vision_numeric_inspector" ],
     [ "VisionOverlayVisibility", "struct_vision_overlay_visibility.html", "struct_vision_overlay_visibility" ],

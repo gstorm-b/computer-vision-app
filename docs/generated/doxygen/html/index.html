@@ -121,12 +121,23 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('index.html',''
 <div class="contents">
 <div class="textblock"><h1 class="doxsection"><a class="anchor" id="mp_overview"></a>
 Project Snapshot</h1>
-<p><span class="tt">ncr_picking</span> is a Qt/C++ industrial vision-picking application. The first commercial path is one application with explicit Commission and Runtime modes, centered on <span class="tt"><a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">vc::model::ITask</a></span> / <span class="tt"><a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">vc::model::TaskLocalization</a></span>.</p>
+<p><span class="tt">ncr_picking</span> is a Qt/C++ industrial vision-picking application, centered on <span class="tt"><a class="el" href="classvc_1_1model_1_1_i_task.html" title="Abstract base for a configurable, stateful vision task.">vc::model::ITask</a></span> / <span class="tt"><a class="el" href="classvc_1_1model_1_1_task_localization.html" title="Localization ITask implementation.">vc::model::TaskLocalization</a></span>.</p>
+<p>It ships as <b>two peer executables</b>, not one application with a mode switch:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Executable  </th><th class="markdownTableHeadNone">Source  </th><th class="markdownTableHeadNone">Audience  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">ncr_picking.exe</span>  </td><td class="markdownTableBodyNone"><span class="tt">app/</span>  </td><td class="markdownTableBodyNone">Commissioning &mdash; build the project, configure devices, calibrate, teach patterns  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">ncr_runtime.exe</span>  </td><td class="markdownTableBodyNone"><span class="tt">runtime_app/</span>  </td><td class="markdownTableBodyNone">Operator runtime &mdash; load a commissioned project and run it  </td></tr>
+</table>
+<p>Neither shell may include the other. Both link the same <span class="tt">ncr_shared</span> static library built from <span class="tt">src/</span>, and each can hand off to the other (see <span class="tt"><a class="el" href="namespacevc_1_1ui.html#a5e0e888217987805cb8da6dd838a7338" title="Shows window, and claims the foreground when this process replaced a sibling.">vc::ui::presentShellWindow</a></span>).</p>
 <p>First-release integrations:</p><ul>
 <li>Basler GigE camera (<span class="tt">vc::device::CameraBaslerGige</span>)</li>
 <li>Mitsubishi MC PLC (<span class="tt"><a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html" title="Mitsubishi MC-protocol PLC device: owns the transport (McMsgInterface) and frame codec (MCFrameAbstra...">vc::device::McProtocolDevice</a></span>)</li>
 <li>VisionOutput TCP/IP server/client (<span class="tt"><a class="el" href="classvc_1_1device_1_1_vision_tcpip_device.html" title="TCP/IP server transport of the vision-output family: listens on two ports (main + heartbeat),...">vc::device::VisionTcpipDevice</a></span>)</li>
 <li>Advisory <a class="el" href="namespace_robot_kinematics.html" title="Robot kinematics core: configuration model, forward/inverse solvers, and JSON preset loading.">RobotKinematics</a> checking for outgoing pick poses (<span class="tt"><a class="el" href="class_robot_kinematics_1_1_serial_robot_kinematics.html">RobotKinematics::SerialRobotKinematics</a></span>)</li>
+<li>Hardware-free stand-ins for camera, PLC and vision output (<span class="tt"><a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html" title="A CameraDevice whose frames come from a still image or a generated pattern.">vc::device::VirtualCameraDevice</a></span>, <span class="tt"><a class="el" href="classvc_1_1device_1_1_virtual_plc_device.html" title="A PlcDevice that records what would have been written instead of writing it.">vc::device::VirtualPlcDevice</a></span>, <span class="tt"><a class="el" href="classvc_1_1device_1_1_virtual_vision_output_device.html" title="A VisionOutputDevice that captures the positions it is sent instead of transmitting.">vc::device::VirtualVisionOutputDevice</a></span>) &mdash; shipped code, not test doubles; see <span class="tt"><a class="el" href="namespacevc_1_1device.html#a8cbbd1f3633a431e9bf65035fb407b96" title="True when device is one of the hardware-free virtual sub-types.">vc::device::isVirtualDevice()</a></span> and <span class="tt">docs/domains/virtual_devices/virtual_devices.md</span></li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="mp_modules"></a>
 Module Map</h1>
@@ -148,11 +159,14 @@ Module Map</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">ui (forms + widgets)  </td><td class="markdownTableBodyNone"><span class="tt">src/ui/</span>  </td><td class="markdownTableBodyNone">UI  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">app shell (+translations)  </td><td class="markdownTableBodyNone"><span class="tt">app/</span>  </td><td class="markdownTableBodyNone">top  </td></tr>
+<td class="markdownTableBodyNone">commissioning shell (+translations)  </td><td class="markdownTableBodyNone"><span class="tt">app/</span>  </td><td class="markdownTableBodyNone">top  </td></tr>
 <tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">operator runtime shell  </td><td class="markdownTableBodyNone"><span class="tt">runtime_app/</span>  </td><td class="markdownTableBodyNone">top  </td></tr>
+<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><a class="el" href="namespace_robot_kinematics.html" title="Robot kinematics core: configuration model, forward/inverse solvers, and JSON preset loading.">RobotKinematics</a>  </td><td class="markdownTableBodyNone"><span class="tt">components/RobotKinematics/</span>  </td><td class="markdownTableBodyNone">component  </td></tr>
 </table>
-<p>Lower levels must not include higher ones; <span class="tt">model</span> and <span class="tt">runtime</span> may include each other; <span class="tt">device</span> may include <span class="tt">calibration</span>; <span class="tt">ui</span> may include every non-UI module; only <span class="tt">app/</span> may include everything. Enforced by <span class="tt">tests/architecture_contract_test</span>.</p>
+<p>Lower levels must not include higher ones; <span class="tt">model</span> and <span class="tt">runtime</span> may include each other; <span class="tt">device</span> may include <span class="tt">calibration</span>; <span class="tt">ui</span> may include every non-UI module; only the two top-level shells may include everything, and neither may include the other. Enforced by <span class="tt">tests/architecture_contract_test</span>.</p>
+<dl class="section note"><dt>Note</dt><dd><span class="tt">src/</span> is compiled exactly once, into the <span class="tt">ncr_shared</span> static library, by <span class="tt">src/src.pro</span> via the per-module <span class="tt">.pri</span> files. No shell <span class="tt">.pro</span> lists module sources &mdash; a file registered anywhere else is simply not built.</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="mp_diagrams"></a>
 Where To Start</h1>
 <ul>

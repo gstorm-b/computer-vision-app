@@ -30,7 +30,11 @@ var classvc_1_1runtime_1_1_camera_runner =
     [ "triggerFor", "classvc_1_1runtime_1_1_camera_runner.html#aee7dc033e13dfb8b0b95fa10e900b974", null ],
     [ "unwireSignals", "classvc_1_1runtime_1_1_camera_runner.html#a685c5b14c241b0b042d57f687c054a95", null ],
     [ "wireSignals", "classvc_1_1runtime_1_1_camera_runner.html#a3b48e0cfd494f47edfff67bc5221a527", null ],
+    [ "kDefaultCommandTimeoutMs", "classvc_1_1runtime_1_1_camera_runner.html#a9780fcd9bf1f3cb65667af2c7d8f92ca", null ],
+    [ "kMaxGrabAttempts", "classvc_1_1runtime_1_1_camera_runner.html#a9193772a07781ec8a1bfb9f478b6ad2f", null ],
+    [ "kSingleShotTimeoutMs", "classvc_1_1runtime_1_1_camera_runner.html#a0f8c24f9022f9ff1a780a01bd05f5789", null ],
     [ "m_activeCommand", "classvc_1_1runtime_1_1_camera_runner.html#a8a220b103bde4e064561269ed0ba8af1", null ],
     [ "m_activeCommandTimer", "classvc_1_1runtime_1_1_camera_runner.html#a4e91dea85ef25016064eac6672166cae", null ],
-    [ "m_commandQueue", "classvc_1_1runtime_1_1_camera_runner.html#a107ed4ba615574da7834bb399120c811", null ]
+    [ "m_commandQueue", "classvc_1_1runtime_1_1_camera_runner.html#a107ed4ba615574da7834bb399120c811", null ],
+    [ "m_grabFailedCount", "classvc_1_1runtime_1_1_camera_runner.html#a9e21a49f34be74cb4b8ec94d9198c35f", null ]
 ];

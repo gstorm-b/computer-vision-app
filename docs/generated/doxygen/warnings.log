@@ -1,79 +1,83 @@
-C:/DGB/Project/ncr_picking/src/ui/forms/pattern/pattern_theme.h:156: warning: Reached end of file while still inside a (nested) comment. Nesting level 2 (possible line reference(s): 12, 7)
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:169: warning: no matching class member found for 
+C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/pattern_theme.h:156: warning: Reached end of file while still inside a (nested) comment. Nesting level 2 (possible line reference(s): 12, 7)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:169: warning: no matching class member found for 
   void mtc::ImageMatcher::matching(Mat &image, bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)
 Possible candidates:
-  'void mtc::ImageMatcher::matching(cv::Mat &image, bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)' at line 86 of file C:/DGB/Project/ncr_picking/src/matching/image_matcher.h
-  'void mtc::ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)' at line 99 of file C:/DGB/Project/ncr_picking/src/matching/image_matcher.h
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:1023: warning: no matching class member found for 
+  'void mtc::ImageMatcher::matching(cv::Mat &image, bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)' at line 86 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+  'void mtc::ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool usingRoi, bool usingConditionRoi)' at line 99 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1032: warning: no matching class member found for 
   Point mtc::ImageMatcher::GetNextMaxLoc(Mat &matResult, Point ptMaxLoc, Size sizeTemplate, double &maxValue, double maxOverlap)
 Possible candidates:
-  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap)' at line 223 of file C:/DGB/Project/ncr_picking/src/matching/image_matcher.h
-  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap, BlockMax &blockMax)' at line 237 of file C:/DGB/Project/ncr_picking/src/matching/image_matcher.h
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:1048: warning: no matching class member found for 
+  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap)' at line 237 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap, BlockMax &blockMax)' at line 251 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1057: warning: no matching class member found for 
   Point mtc::ImageMatcher::GetNextMaxLoc(Mat &matResult, Point ptMaxLoc, Size sizeTemplate, double &maxValue, double maxOverlap, BlockMax &blockMax)
 Possible candidates:
-  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap)' at line 223 of file C:/DGB/Project/ncr_picking/src/matching/image_matcher.h
-  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap, BlockMax &blockMax)' at line 237 of file C:/DGB/Project/ncr_picking/src/matching/image_matcher.h
-C:/DGB/Project/ncr_picking/src/matching/utils_block_max.cpp:12: warning: no matching class member found for 
+  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap)' at line 237 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+  'cv::Point mtc::ImageMatcher::GetNextMaxLoc(cv::Mat &matResult, cv::Point ptMaxLoc, cv::Size sizeTemplate, double &maxValue, double maxOverlap, BlockMax &blockMax)' at line 251 of file C:/DGB/Project/computer-vision-app/src/matching/image_matcher.h
+C:/DGB/Project/computer-vision-app/src/matching/utils_block_max.cpp:12: warning: no matching class member found for 
   mtc::MatchBlock::MatchBlock(Rect rect, double val_max, Point ptMaxLoc)
 Possible candidates:
-  'mtc::MatchBlock::MatchBlock()' at line 23 of file C:/DGB/Project/ncr_picking/src/matching/utils_block_max.h
-  'mtc::MatchBlock::MatchBlock(cv::Rect rect, double val_max, cv::Point ptMaxLoc)' at line 30 of file C:/DGB/Project/ncr_picking/src/matching/utils_block_max.h
-C:/DGB/Project/ncr_picking/src/ui/forms/plc/mitsubishi_mc_device_widget.cpp:12: warning: The following parameter of addPropertyToBrowser(const QMetaObject &meta, QMetaProperty &prop, QVariant &value, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) is not documented:
+  'mtc::MatchBlock::MatchBlock()' at line 23 of file C:/DGB/Project/computer-vision-app/src/matching/utils_block_max.h
+  'mtc::MatchBlock::MatchBlock(cv::Rect rect, double val_max, cv::Point ptMaxLoc)' at line 30 of file C:/DGB/Project/computer-vision-app/src/matching/utils_block_max.h
+C:/DGB/Project/computer-vision-app/src/ui/forms/plc/mitsubishi_mc_device_widget.cpp:12: warning: The following parameter of addPropertyToBrowser(const QMetaObject &meta, QMetaProperty &prop, QVariant &value, QtVariantPropertyManager *manager, QtTreePropertyBrowser *browser) is not documented:
   parameter 'browser'
-C:/DGB/Project/ncr_picking/src/core/logger/app_logger.h:77: warning: The following parameters of AppLogger::LogStream::LogStream(LogLevel level, AppLogger *logger, QString ctx=QString()) are not documented:
+C:/DGB/Project/computer-vision-app/src/device/AGENTS.md:34: warning: unable to resolve reference to 'C:/DGB/Project/computer-vision-app/docs/domains/virtual_devices/virtual_devices.md' for \ref command
+C:/DGB/Project/computer-vision-app/app/AGENTS.md:20: warning: unable to resolve reference to 'C:/DGB/Project/computer-vision-app/docs/domains/runtime_app/runtime_shell.md' for \ref command
+C:/DGB/Project/computer-vision-app/runtime_app/AGENTS.md:84: warning: unable to resolve reference to 'C:/DGB/Project/computer-vision-app/docs/domains/runtime_app/runtime_shell.md' for \ref command
+C:/DGB/Project/computer-vision-app/src/core/logger/app_logger.h:77: warning: The following parameters of AppLogger::LogStream::LogStream(LogLevel level, AppLogger *logger, QString ctx=QString()) are not documented:
   parameter 'level'
   parameter 'logger'
-C:/DGB/Project/ncr_picking/src/ui/forms/camera/basler_cam_select_dialog.cpp:163: warning: argument info from the argument list of BaslerCamSelectDialog::cameraTableViewAddNewRow has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/forms/camera/basler_cam_select_dialog.cpp:163: warning: too many @param commands for function BaslerCamSelectDialog::cameraTableViewAddNewRow. Found 2 while function has 1 parameter
-C:/DGB/Project/ncr_picking/src/ui/forms/camera/basler_cam_select_dialog.cpp:103: warning: argument state from the argument list of BaslerCamSelectDialog::dialogClosing has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/forms/camera/basler_cam_select_dialog.cpp:103: warning: too many @param commands for function BaslerCamSelectDialog::dialogClosing. Found 2 while function has 1 parameter
-C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/item_roi.cpp:138: warning: argument change from the argument list of ItemRoi::itemChange has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/item_roi.cpp:138: warning: argument value from the argument list of ItemRoi::itemChange has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/item_roi.cpp:138: warning: too many @param commands for function ItemRoi::itemChange. Found 4 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/item_roi_rotated.cpp:125: warning: argument change from the argument list of ItemRoiRotated::itemChange has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/item_roi_rotated.cpp:125: warning: argument value from the argument list of ItemRoiRotated::itemChange has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/image_widget/item_roi_rotated.cpp:125: warning: too many @param commands for function ItemRoiRotated::itemChange. Found 4 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/ui/forms/task/localization_patterns_widget.cpp:1941: warning: argument state from the argument list of LocalizationPatternsWidget::setState has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/forms/task/localization_patterns_widget.cpp:1941: warning: too many @param commands for function LocalizationPatternsWidget::setState. Found 3 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/ui/widgets/no_wheel_combobox.cpp:9: warning: argument enable from the argument list of NoWheelComboBox::setAllowSelection has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/no_wheel_combobox.cpp:9: warning: too many @param commands for function NoWheelComboBox::setAllowSelection. Found 2 while function has 1 parameter
-C:/DGB/Project/ncr_picking/src/ui/widgets/no_wheel_combobox.cpp:16: warning: argument color from the argument list of NoWheelComboBox::setBackGroundColor has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/no_wheel_combobox.cpp:16: warning: too many @param commands for function NoWheelComboBox::setBackGroundColor. Found 2 while function has 1 parameter
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:346: warning: argument groupIndex from the argument list of PatternTreeWidget::addPattern has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:346: warning: too many @param commands for function PatternTreeWidget::addPattern. Found 3 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:307: warning: argument groupIndex from the argument list of PatternTreeWidget::removeGroup has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:307: warning: too many @param commands for function PatternTreeWidget::removeGroup. Found 2 while function has 1 parameter
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:368: warning: argument groupIndex from the argument list of PatternTreeWidget::removePattern has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:368: warning: too many @param commands for function PatternTreeWidget::removePattern. Found 3 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:325: warning: argument groupIndex from the argument list of PatternTreeWidget::updateGroup has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:325: warning: too many @param commands for function PatternTreeWidget::updateGroup. Found 3 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:388: warning: argument groupIndex from the argument list of PatternTreeWidget::updatePattern has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/pattern_tree_widget.cpp:388: warning: too many @param commands for function PatternTreeWidget::updatePattern. Found 4 while function has 3 parameters
-C:/DGB/Project/ncr_picking/src/ui/forms/project_infor_setting.cpp:4: warning: The following parameter of ProjectInforSetting::ProjectInforSetting(std::shared_ptr< vc::model::Project > proj, QWidget *parent=nullptr) is not documented:
+C:/DGB/Project/computer-vision-app/src/core/app_settings/app_settings.cpp:163: warning: Found unknown command '\NCRN'
+C:/DGB/Project/computer-vision-app/src/ui/forms/camera/basler_cam_select_dialog.cpp:163: warning: argument info from the argument list of BaslerCamSelectDialog::cameraTableViewAddNewRow has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/forms/camera/basler_cam_select_dialog.cpp:163: warning: too many @param commands for function BaslerCamSelectDialog::cameraTableViewAddNewRow. Found 2 while function has 1 parameter
+C:/DGB/Project/computer-vision-app/src/ui/forms/camera/basler_cam_select_dialog.cpp:103: warning: argument state from the argument list of BaslerCamSelectDialog::dialogClosing has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/forms/camera/basler_cam_select_dialog.cpp:103: warning: too many @param commands for function BaslerCamSelectDialog::dialogClosing. Found 2 while function has 1 parameter
+C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/item_roi.cpp:138: warning: argument change from the argument list of ItemRoi::itemChange has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/item_roi.cpp:138: warning: argument value from the argument list of ItemRoi::itemChange has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/item_roi.cpp:138: warning: too many @param commands for function ItemRoi::itemChange. Found 4 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/item_roi_rotated.cpp:125: warning: argument change from the argument list of ItemRoiRotated::itemChange has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/item_roi_rotated.cpp:125: warning: argument value from the argument list of ItemRoiRotated::itemChange has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/image_widget/item_roi_rotated.cpp:125: warning: too many @param commands for function ItemRoiRotated::itemChange. Found 4 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/ui/forms/task/localization_patterns_widget.cpp:2025: warning: argument state from the argument list of LocalizationPatternsWidget::setState has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/forms/task/localization_patterns_widget.cpp:2025: warning: too many @param commands for function LocalizationPatternsWidget::setState. Found 3 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/ui/widgets/no_wheel_combobox.cpp:9: warning: argument enable from the argument list of NoWheelComboBox::setAllowSelection has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/no_wheel_combobox.cpp:9: warning: too many @param commands for function NoWheelComboBox::setAllowSelection. Found 2 while function has 1 parameter
+C:/DGB/Project/computer-vision-app/src/ui/widgets/no_wheel_combobox.cpp:16: warning: argument color from the argument list of NoWheelComboBox::setBackGroundColor has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/no_wheel_combobox.cpp:16: warning: too many @param commands for function NoWheelComboBox::setBackGroundColor. Found 2 while function has 1 parameter
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:355: warning: argument groupIndex from the argument list of PatternTreeWidget::addPattern has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:355: warning: too many @param commands for function PatternTreeWidget::addPattern. Found 3 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:316: warning: argument groupIndex from the argument list of PatternTreeWidget::removeGroup has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:316: warning: too many @param commands for function PatternTreeWidget::removeGroup. Found 2 while function has 1 parameter
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:377: warning: argument groupIndex from the argument list of PatternTreeWidget::removePattern has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:377: warning: too many @param commands for function PatternTreeWidget::removePattern. Found 3 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:334: warning: argument groupIndex from the argument list of PatternTreeWidget::updateGroup has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:334: warning: too many @param commands for function PatternTreeWidget::updateGroup. Found 3 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:397: warning: argument groupIndex from the argument list of PatternTreeWidget::updatePattern has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/pattern_tree_widget.cpp:397: warning: too many @param commands for function PatternTreeWidget::updatePattern. Found 4 while function has 3 parameters
+C:/DGB/Project/computer-vision-app/src/ui/forms/project_infor_setting.cpp:4: warning: The following parameter of ProjectInforSetting::ProjectInforSetting(std::shared_ptr< vc::model::Project > proj, QWidget *parent=nullptr) is not documented:
   parameter 'parent'
-C:/DGB/Project/ncr_picking/src/ui/widgets/project_tree_widget.cpp:214: warning: argument ena from the argument list of ProjectTreeWidget::enableProjectTree has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/project_tree_widget.cpp:214: warning: too many @param commands for function ProjectTreeWidget::enableProjectTree. Found 2 while function has 1 parameter
-C:/DGB/Project/ncr_picking/src/ui/widgets/project_tree_widget.cpp:172: warning: argument proj from the argument list of ProjectTreeWidget::setProject has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/widgets/project_tree_widget.cpp:172: warning: too many @param commands for function ProjectTreeWidget::setProject. Found 2 while function has 1 parameter
-C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/property_browser_widget.h:43: warning: explicit link request to 'searchBar' could not be resolved
-C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/property_browser_widget.h:44: warning: explicit link request to 'searchEdit' could not be resolved
-C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/property_browser_widget.h:45: warning: explicit link request to 'descFrame' could not be resolved
-C:/DGB/Project/ncr_picking/src/ui/widgets/property_browser/property_browser_widget.h:46: warning: explicit link request to 'descLabel' could not be resolved
-C:/DGB/Project/ncr_picking/src/matching/vision_utils.h:189: warning: The following parameters of vsu::drawAxes2Img(cv::Mat &img, cv::Point position, double angle, bool radian, int length, double hookSize=0.4, cv::Scalar xColour=DEFAULT_COLOR_BLUE, cv::Scalar yColour=DEFAULT_COLOR_RED, cv::Scalar centerColour=DEFAULT_COLOR_YELLOW) are not documented:
+C:/DGB/Project/computer-vision-app/src/ui/widgets/project_tree_widget.cpp:226: warning: argument ena from the argument list of ProjectTreeWidget::enableProjectTree has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/project_tree_widget.cpp:226: warning: too many @param commands for function ProjectTreeWidget::enableProjectTree. Found 2 while function has 1 parameter
+C:/DGB/Project/computer-vision-app/src/ui/widgets/project_tree_widget.cpp:184: warning: argument proj from the argument list of ProjectTreeWidget::setProject has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/widgets/project_tree_widget.cpp:184: warning: too many @param commands for function ProjectTreeWidget::setProject. Found 2 while function has 1 parameter
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/property_browser_widget.h:43: warning: explicit link request to 'searchBar' could not be resolved
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/property_browser_widget.h:44: warning: explicit link request to 'searchEdit' could not be resolved
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/property_browser_widget.h:45: warning: explicit link request to 'descFrame' could not be resolved
+C:/DGB/Project/computer-vision-app/src/ui/widgets/property_browser/property_browser_widget.h:46: warning: explicit link request to 'descLabel' could not be resolved
+C:/DGB/Project/computer-vision-app/src/matching/vision_utils.h:189: warning: The following parameters of vsu::drawAxes2Img(cv::Mat &img, cv::Point position, double angle, bool radian, int length, double hookSize=0.4, cv::Scalar xColour=DEFAULT_COLOR_BLUE, cv::Scalar yColour=DEFAULT_COLOR_RED, cv::Scalar centerColour=DEFAULT_COLOR_YELLOW) are not documented:
   parameter 'xColour'
   parameter 'yColour'
   parameter 'centerColour'
-C:/DGB/Project/ncr_picking/src/ui/forms/task/workspace_setting_dialog.cpp:116: warning: argument image from the argument list of WorkspaceSettingDialog::setInitial has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/forms/task/workspace_setting_dialog.cpp:116: warning: argument workingRoi from the argument list of WorkspaceSettingDialog::setInitial has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/forms/task/workspace_setting_dialog.cpp:116: warning: argument conditionRoi from the argument list of WorkspaceSettingDialog::setInitial has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/ui/forms/task/workspace_setting_dialog.cpp:116: warning: too many @param commands for function WorkspaceSettingDialog::setInitial. Found 6 while function has 3 parameters
-C:/DGB/Project/ncr_picking/src/ui/widgets/vision/vision_tool_palette.cpp:11: warning: The following parameters of anonymous_namespace{vision_tool_palette.cpp}::makeButton(const QString &text, const QString &toolTip, bool checkable=false) are not documented:
+C:/DGB/Project/computer-vision-app/src/ui/forms/task/workspace_setting_dialog.cpp:116: warning: argument image from the argument list of WorkspaceSettingDialog::setInitial has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/forms/task/workspace_setting_dialog.cpp:116: warning: argument workingRoi from the argument list of WorkspaceSettingDialog::setInitial has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/forms/task/workspace_setting_dialog.cpp:116: warning: argument conditionRoi from the argument list of WorkspaceSettingDialog::setInitial has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/ui/forms/task/workspace_setting_dialog.cpp:116: warning: too many @param commands for function WorkspaceSettingDialog::setInitial. Found 6 while function has 3 parameters
+C:/DGB/Project/computer-vision-app/src/ui/widgets/vision/vision_tool_palette.cpp:11: warning: The following parameters of anonymous_namespace{vision_tool_palette.cpp}::makeButton(const QString &text, const QString &toolTip, bool checkable=false) are not documented:
   parameter 'text'
   parameter 'toolTip'
-C:/DGB/Project/ncr_picking/src/calibration/calibration_board.cpp:41: warning: argument usedThreshold from the argument list of calib::CalibrationBoard::binarize has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/calibration/calibration_board.cpp:41: warning: too many @param commands for function calib::CalibrationBoard::binarize. Found 3 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/calibration/calibrator.cpp:85: warning: The following parameters of calib::anonymous_namespace{calibrator.cpp}::writeStateTo(cv::FileStorage &fs, const cv::Mat &H, const cv::Vec4d &plane, const cv::Point2f &imgC, const cv::Point2f &robC, const std::vector< cv::Point2f > &imagePts, const std::vector< cv::Point3f > &robotPts, double reprojErrPx, double reprojErrMm, double planeFitMaxErr, bool calibrated) are not documented:
+C:/DGB/Project/computer-vision-app/src/calibration/calibration_board.cpp:41: warning: argument usedThreshold from the argument list of calib::CalibrationBoard::binarize has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/calibration/calibration_board.cpp:41: warning: too many @param commands for function calib::CalibrationBoard::binarize. Found 3 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/calibration/calibrator.cpp:85: warning: The following parameters of calib::anonymous_namespace{calibrator.cpp}::writeStateTo(cv::FileStorage &fs, const cv::Mat &H, const cv::Vec4d &plane, const cv::Point2f &imgC, const cv::Point2f &robC, const std::vector< cv::Point2f > &imagePts, const std::vector< cv::Point3f > &robotPts, double reprojErrPx, double reprojErrMm, double planeFitMaxErr, bool calibrated) are not documented:
   parameter 'H'
   parameter 'plane'
   parameter 'imgC'
@@ -83,60 +87,65 @@ C:/DGB/Project/ncr_picking/src/calibration/calibrator.cpp:85: warning: The follo
   parameter 'reprojErrPx'
   parameter 'reprojErrMm'
   parameter 'planeFitMaxErr'
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:484: warning: argument 'imgEdge' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:484: warning: argument 'pattern' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:484: warning: argument 'matchObjs' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:484: warning: The following parameters of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs) are not documented:
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:492: warning: argument 'imgEdge' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:492: warning: argument 'pattern' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:492: warning: argument 'matchObjs' of command @param is not found in the argument list of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:492: warning: The following parameters of mtc::ImageMatcher::MatchEdge(cv::Mat &img_edge, MatchPattern *edgePattern, std::vector< MatchedObject > &match_objs) are not documented:
   parameter 'img_edge'
   parameter 'edgePattern'
   parameter 'match_objs'
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:885: warning: argument matSrc from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:885: warning: argument model from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:885: warning: argument matResult from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:885: warning: argument layer from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:885: warning: argument minScore from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:885: warning: too many @param commands for function mtc::ImageMatcher::MatchEdgePattern_SIMD. Found 10 while function has 5 parameters
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:1002: warning: argument 'in' of command @param is not found in the argument list of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle)
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:1002: warning: argument 'org' of command @param is not found in the argument list of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle)
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:1002: warning: The following parameters of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle) are not documented:
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:894: warning: argument matSrc from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:894: warning: argument model from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:894: warning: argument matResult from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:894: warning: argument layer from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:894: warning: argument minScore from the argument list of mtc::ImageMatcher::MatchEdgePattern_SIMD has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:894: warning: too many @param commands for function mtc::ImageMatcher::MatchEdgePattern_SIMD. Found 10 while function has 5 parameters
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1011: warning: argument 'in' of command @param is not found in the argument list of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1011: warning: argument 'org' of command @param is not found in the argument list of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1011: warning: The following parameters of mtc::ImageMatcher::ptRotatePt2f(cv::Point2f ptInput, cv::Point2f ptOrg, double angle) are not documented:
   parameter 'ptInput'
   parameter 'ptOrg'
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:1087: warning: argument 'iMaxScoreIndex' of command @param is not found in the argument list of mtc::ImageMatcher::SubPixEsimation(std::vector< MatchParams > *vec, double *dNewX, double *dNewY, double *dNewAngle, double dAngleStep, int iMaxIdx)
-C:/DGB/Project/ncr_picking/src/matching/image_matcher.cpp:1087: warning: The following parameter of mtc::ImageMatcher::SubPixEsimation(std::vector< MatchParams > *vec, double *dNewX, double *dNewY, double *dNewAngle, double dAngleStep, int iMaxIdx) is not documented:
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1096: warning: argument 'iMaxScoreIndex' of command @param is not found in the argument list of mtc::ImageMatcher::SubPixEsimation(std::vector< MatchParams > *vec, double *dNewX, double *dNewY, double *dNewAngle, double dAngleStep, int iMaxIdx)
+C:/DGB/Project/computer-vision-app/src/matching/image_matcher.cpp:1096: warning: The following parameter of mtc::ImageMatcher::SubPixEsimation(std::vector< MatchParams > *vec, double *dNewX, double *dNewY, double *dNewAngle, double dAngleStep, int iMaxIdx) is not documented:
   parameter 'iMaxIdx'
-C:/DGB/Project/ncr_picking/components/RobotKinematics/src/Kinematics/ForwardKinematics.cpp:23: warning: argument joints from the argument list of RobotKinematics::ForwardKinematics::computeChain has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/components/RobotKinematics/src/Kinematics/ForwardKinematics.cpp:23: warning: The following parameter of RobotKinematics::ForwardKinematics::computeChain(const SerialRobotConfig &config, const JointVector &joints) is not documented:
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Kinematics/ForwardKinematics.cpp:23: warning: argument joints from the argument list of RobotKinematics::ForwardKinematics::computeChain has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Kinematics/ForwardKinematics.cpp:23: warning: The following parameter of RobotKinematics::ForwardKinematics::computeChain(const SerialRobotConfig &config, const JointVector &joints) is not documented:
   parameter 'config'
-C:/DGB/Project/ncr_picking/components/RobotKinematics/src/Posture/PostureResolver.cpp:48: warning: The following parameter of RobotKinematics::Serial6DofSignPostureResolver::classify(const SerialRobotConfig &config, const JointVector &joints) const is not documented:
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Posture/PostureResolver.cpp:48: warning: The following parameter of RobotKinematics::Serial6DofSignPostureResolver::classify(const SerialRobotConfig &config, const JointVector &joints) const is not documented:
   parameter 'config'
-C:/DGB/Project/ncr_picking/components/RobotKinematics/src/Model/RobotModelValidator.cpp:40: warning: The following parameters of RobotKinematics::anonymous_namespace{RobotModelValidator.cpp}::addIssue(ModelValidationResult &result, const std::string &field, const std::string &message, KinematicsStatus status=KinematicsStatus::InvalidRobotConfig) are not documented:
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Model/RobotModelValidator.cpp:40: warning: The following parameters of RobotKinematics::anonymous_namespace{RobotModelValidator.cpp}::addIssue(ModelValidationResult &result, const std::string &field, const std::string &message, KinematicsStatus status=KinematicsStatus::InvalidRobotConfig) are not documented:
   parameter 'field'
   parameter 'message'
-C:/DGB/Project/ncr_picking/components/RobotKinematics/src/Collision/StlMeshLoader.cpp:63: warning: The following parameters of RobotKinematics::anonymous_namespace{StlMeshLoader.cpp}::appendTriangle(TriangleMesh &mesh, const Eigen::Vector3d &a, const Eigen::Vector3d &b, const Eigen::Vector3d &c, const StlMeshLoadOptions &options, std::string &error) are not documented:
+C:/DGB/Project/computer-vision-app/components/RobotKinematics/src/Collision/StlMeshLoader.cpp:63: warning: The following parameters of RobotKinematics::anonymous_namespace{StlMeshLoader.cpp}::appendTriangle(TriangleMesh &mesh, const Eigen::Vector3d &a, const Eigen::Vector3d &b, const Eigen::Vector3d &c, const StlMeshLoadOptions &options, std::string &error) are not documented:
   parameter 'a'
   parameter 'b'
   parameter 'c'
   parameter 'options'
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:74: warning: argument obj from the argument list of vc::device::DeviceFactory::createCamera has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:74: warning: argument parent from the argument list of vc::device::DeviceFactory::createCamera has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:74: warning: too many @param commands for function vc::device::DeviceFactory::createCamera. Found 4 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:82: warning: argument obj from the argument list of vc::device::DeviceFactory::createPlcDevice has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:82: warning: argument parent from the argument list of vc::device::DeviceFactory::createPlcDevice has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:82: warning: too many @param commands for function vc::device::DeviceFactory::createPlcDevice. Found 4 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:99: warning: argument obj from the argument list of vc::device::DeviceFactory::createRobotDevice has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:99: warning: argument parent from the argument list of vc::device::DeviceFactory::createRobotDevice has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:99: warning: too many @param commands for function vc::device::DeviceFactory::createRobotDevice. Found 4 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:90: warning: argument obj from the argument list of vc::device::DeviceFactory::createVisionOutputDevice has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:90: warning: argument parent from the argument list of vc::device::DeviceFactory::createVisionOutputDevice has multiple @param documentation sections
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:90: warning: too many @param commands for function vc::device::DeviceFactory::createVisionOutputDevice. Found 4 while function has 2 parameters
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:38: warning: argument 'o' of command @param is not found in the argument list of vc::device::DeviceFactory::fromJson(const QJsonObject &obj, QObject *parent=nullptr)
-C:/DGB/Project/ncr_picking/src/device/device_factory.cpp:38: warning: The following parameter of vc::device::DeviceFactory::fromJson(const QJsonObject &obj, QObject *parent=nullptr) is not documented:
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:74: warning: argument obj from the argument list of vc::device::DeviceFactory::createCamera has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:74: warning: argument parent from the argument list of vc::device::DeviceFactory::createCamera has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:74: warning: too many @param commands for function vc::device::DeviceFactory::createCamera. Found 4 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:82: warning: argument obj from the argument list of vc::device::DeviceFactory::createPlcDevice has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:82: warning: argument parent from the argument list of vc::device::DeviceFactory::createPlcDevice has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:82: warning: too many @param commands for function vc::device::DeviceFactory::createPlcDevice. Found 4 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:99: warning: argument obj from the argument list of vc::device::DeviceFactory::createRobotDevice has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:99: warning: argument parent from the argument list of vc::device::DeviceFactory::createRobotDevice has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:99: warning: too many @param commands for function vc::device::DeviceFactory::createRobotDevice. Found 4 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:90: warning: argument obj from the argument list of vc::device::DeviceFactory::createVisionOutputDevice has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:90: warning: argument parent from the argument list of vc::device::DeviceFactory::createVisionOutputDevice has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:90: warning: too many @param commands for function vc::device::DeviceFactory::createVisionOutputDevice. Found 4 while function has 2 parameters
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:38: warning: argument 'o' of command @param is not found in the argument list of vc::device::DeviceFactory::fromJson(const QJsonObject &obj, QObject *parent=nullptr)
+C:/DGB/Project/computer-vision-app/src/device/device_factory.cpp:38: warning: The following parameter of vc::device::DeviceFactory::fromJson(const QJsonObject &obj, QObject *parent=nullptr) is not documented:
   parameter 'obj'
-C:/DGB/Project/ncr_picking/src/device/device_manager.cpp:24: warning: The following parameter of vc::device::DeviceManager::DeviceManager(vc::model::Project *proj=nullptr, QObject *parent=nullptr) is not documented:
+C:/DGB/Project/computer-vision-app/src/device/device_manager.cpp:24: warning: The following parameter of vc::device::DeviceManager::DeviceManager(vc::model::Project *proj=nullptr, QObject *parent=nullptr) is not documented:
   parameter 'parent'
-C:/DGB/Project/ncr_picking/src/device/plc/mc_fame_3e.cpp:168: warning: argument 'byte' of command @param is not found in the argument list of vc::device::Frame3E::make_send_data(Context_Mc3E *ctx, QByteArray &data)
-C:/DGB/Project/ncr_picking/src/device/plc/mc_fame_3e.cpp:168: warning: The following parameter of vc::device::Frame3E::make_send_data(Context_Mc3E *ctx, QByteArray &data) is not documented:
+C:/DGB/Project/computer-vision-app/src/device/plc/mc_fame_3e.cpp:168: warning: argument 'byte' of command @param is not found in the argument list of vc::device::Frame3E::make_send_data(Context_Mc3E *ctx, QByteArray &data)
+C:/DGB/Project/computer-vision-app/src/device/plc/mc_fame_3e.cpp:168: warning: The following parameter of vc::device::Frame3E::make_send_data(Context_Mc3E *ctx, QByteArray &data) is not documented:
   parameter 'data'
-C:/DGB/Project/ncr_picking/src/device/plc/mc_request.h:62: warning: The following parameters of vc::device::MCRequest::MCRequest(RqType rqtype, QString head_device, int amount) are not documented:
+C:/DGB/Project/computer-vision-app/src/device/plc/mc_request.h:62: warning: The following parameters of vc::device::MCRequest::MCRequest(RqType rqtype, QString head_device, int amount) are not documented:
   parameter 'rqtype'
   parameter 'amount'
+C:/DGB/Project/computer-vision-app/src/model/localization_runtime_controller.cpp:1068: warning: argument reason from the argument list of vc::model::LocalizationRuntimeController::recoverFromFault has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/model/localization_runtime_controller.cpp:1068: warning: too many @param commands for function vc::model::LocalizationRuntimeController::recoverFromFault. Found 2 while function has 1 parameter
+C:/DGB/Project/computer-vision-app/src/model/robot_kinematic_picking_checker.h:71: warning: argument pose from the argument list of vc::model::RobotKinematicPickingChecker::isPickable has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/model/robot_kinematic_picking_checker.h:71: warning: argument withCollision from the argument list of vc::model::RobotKinematicPickingChecker::isPickable has multiple @param documentation sections
+C:/DGB/Project/computer-vision-app/src/model/robot_kinematic_picking_checker.h:71: warning: too many @param commands for function vc::model::RobotKinematicPickingChecker::isPickable. Found 4 while function has 2 parameters

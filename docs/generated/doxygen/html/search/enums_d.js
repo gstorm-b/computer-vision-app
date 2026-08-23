@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['taskdevicerole_0',['TaskDeviceRole',['../namespacevc_1_1model.html#a7c5fea3b88292e703016de7d1b6403c0',1,'vc::model']]],
-  ['taskeventlevel_1',['TaskEventLevel',['../task__event__log__widget_8h.html#ae51ae63dbc3c329dfbd2bc2abbf68c86',1,'task_event_log_widget.h']]],
-  ['taskstate_2',['TaskState',['../namespacevc_1_1model.html#a21959032ea3574b1810cbacdc48dec4a',1,'vc::model']]],
-  ['tasktype_3',['TaskType',['../namespacevc_1_1model.html#a94f47c545035c5f0ddfab57c75c7732b',1,'vc::model']]],
-  ['toolmode_4',['ToolMode',['../class_vision_tool_palette.html#a688ca3c7a6ef016e6848d04e0ac1dbda',1,'VisionToolPalette']]],
-  ['treeitemkind_5',['TreeItemKind',['../project__tree__widget_8h.html#aa8383ec8251036f278da8fb417ae327b',1,'project_tree_widget.h']]],
-  ['type_6',['Type',['../class_signals_map_widget.html#a119c86d6902fec8a6216cc9c6115266f',1,'SignalsMapWidget::Type'],['../class_signals_monitor_widget.html#aa47b88f9e86aef13ad714e13ac397444',1,'SignalsMonitorWidget::Type']]]
+  ['shellkind_0',['ShellKind',['../namespacevc_1_1shell.html#a00d60916b396c97cd953baf9a9417668',1,'vc::shell::ShellKind'],['../shell__startup_8cpp.html#a00d60916b396c97cd953baf9a9417668',1,'ShellKind:&#160;shell_handoff.h']]],
+  ['startupdecision_1',['StartupDecision',['../namespacevc_1_1ui.html#a165cbb44e20005977c2e80d7e3c75155',1,'vc::ui']]],
+  ['state_2',['State',['../class_localization_patterns_widget.html#a8f21ff6f70a9180743ee162b4f180a9b',1,'LocalizationPatternsWidget']]],
+  ['status_3',['Status',['../class_status_lamp.html#a5f98903d7bbd457887fd53596daaa9d0',1,'StatusLamp::Status'],['../class_lamp_button.html#a6afbb031726cf4c932ce0c9ee4196e1e',1,'LampButton::Status']]],
+  ['stlfileformat_4',['StlFileFormat',['../namespace_robot_kinematics.html#adc914a228f3198b515c137ac7dc6e515',1,'RobotKinematics']]],
+  ['subbutton_5',['SubButton',['../classvc_1_1widgets_1_1_device_row_delegate.html#ad40aa17cf27e5605c351086bc988db6f',1,'vc::widgets::DeviceRowDelegate']]]
 ];

@@ -4,6 +4,7 @@ var dir_16dc92632bab467dc50b01bd02b3341a =
     [ "output_device", "dir_05ec11f654bd1727582012ac24a6fbaf.html", "dir_05ec11f654bd1727582012ac24a6fbaf" ],
     [ "plc", "dir_41cb425db6d968e5847cc51dc1b8a54b.html", "dir_41cb425db6d968e5847cc51dc1b8a54b" ],
     [ "robot", "dir_49bd44c39623bfcea987b447a95be98b.html", "dir_49bd44c39623bfcea987b447a95be98b" ],
+    [ "virtual", "dir_1b0819abf1a82764cc22429112fc8357.html", "dir_1b0819abf1a82764cc22429112fc8357" ],
     [ "communication_device.h", "communication__device_8h.html", null ],
     [ "device_capabilities.h", "device__capabilities_8h.html", "device__capabilities_8h" ],
     [ "device_factory.cpp", "device__factory_8cpp.html", "device__factory_8cpp" ],

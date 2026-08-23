@@ -213,7 +213,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base for the PLC family. Concrete vendors (<a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html" title="Mitsubishi MC-protocol PLC device: owns the transport (McMsgInterface) and frame codec (MCFrameAbstra...">McProtocolDevice</a> for Mitsubishi MC, future OmronFinsDevice, SiemensS7Device, …) inherit from this base. The base only carries the family-level dispatch (<a class="el" href="#ad9eccb918418cd4792815f2a4ca23b13">plcType()</a>) and the family JSON header; vendor-specific surface lives entirely on the concrete subclass. </p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00110">110</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00119">119</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae7d153d0845ac85d80851b0983f3fa3e" name="ae7d153d0845ac85d80851b0983f3fa3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae7d153d0845ac85d80851b0983f3fa3e">&#9670;&#160;</a></span>PlcDevice()</h2>
@@ -248,11 +248,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructs the device with its family-level identity; vendor-specific setup happens in the concrete subclass. </p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00116">116</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00125">125</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 
 <p class="reference">References <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="idevice_8h_source.html#l00058">vc::device::IDevice::IDevice()</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00054">vc::device::McProtocolDevice::McProtocolDevice()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00054">vc::device::McProtocolDevice::McProtocolDevice()</a>, and <a class="el" href="virtual__plc__device_8cpp_source.html#l00028">vc::device::VirtualPlcDevice::VirtualPlcDevice()</a>.</p>
 
 </div>
 </div>
@@ -284,7 +284,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device.html#aba9d7b47e93488cf3f5d0426c56cdd6d">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00119">119</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00128">128</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 
 <p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00061">vc::device::PLC</a>.</p>
 
@@ -314,9 +314,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the concrete vendor sub-type this device implements. </dd></dl>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html#ae40b4d5817e6e7fe2e107623108e38e0">vc::device::McProtocolDevice</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_mc_protocol_device.html#ae40b4d5817e6e7fe2e107623108e38e0">vc::device::McProtocolDevice</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_plc_device.html#a4b9944cd1fa09af49bda88db94382e26">vc::device::VirtualPlcDevice</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00128">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="plc__device_8h_source.html#l00137">toJson()</a>.</p>
 
 </div>
 </div>
@@ -344,7 +344,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Emitted after a polling cycle with a snapshot of the current register values. </p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00401">vc::device::McProtocolDevice::polling_query()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00407">vc::device::McProtocolDevice::polling_query()</a>.</p>
 
 </div>
 </div>
@@ -374,9 +374,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_i_device.html#a85f6299b65727195fb760f96ad1e99ff">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00128">128</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="plc__device_8h_source.html#l00137">137</a> of file <a class="el" href="plc__device_8h_source.html">plc_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00035">DEVICE_JSK_PLC_TYPE</a>, <a class="el" href="#ad9eccb918418cd4792815f2a4ca23b13">plcType()</a>, <a class="el" href="plc__device_8h_source.html#l00032">vc::device::PlcTypeToString()</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
+<p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00035">DEVICE_JSK_PLC_TYPE</a>, <a class="el" href="#ad9eccb918418cd4792815f2a4ca23b13">plcType()</a>, <a class="el" href="plc__device_8h_source.html#l00039">vc::device::PlcTypeToString()</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -405,12 +405,12 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Emitted when tracked signal values change, keyed by signal name. </p>
 
-<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00648">vc::device::McProtocolDevice::check_device_changed()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="mc__protocol__device_8cpp_source.html#l00659">vc::device::McProtocolDevice::check_device_changed()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/device/plc/<a class="el" href="plc__device_8h_source.html">plc_device.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/device/plc/<a class="el" href="plc__device_8h_source.html">plc_device.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

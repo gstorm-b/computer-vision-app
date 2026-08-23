@@ -251,7 +251,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract base for all camera devices: adds exposure/gain/backlight/IO control and single-shot, software-triggered and continuous grab operations on top of <a class="el" href="classvc_1_1device_1_1_i_device.html" title="Abstract base for every device family (camera/PLC/vision-output/robot): owns the device&#39;s id/name/tas...">IDevice</a>, and marks the device as an <a class="el" href="classvc_1_1device_1_1_i_image_source_device.html" title="Marker capability for devices that can act as a source of images (e.g. cameras).">IImageSourceDevice</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00218">218</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00231">231</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afc1766aeee75496fad7bad534a7239a6" name="afc1766aeee75496fad7bad534a7239a6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afc1766aeee75496fad7bad534a7239a6">&#9670;&#160;</a></span>CameraDevice()</h2>
@@ -286,11 +286,11 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Constructs the camera device with the given id/name; connects to hardware only on <a class="el" href="classvc_1_1device_1_1_i_device.html#ade3606e5118d050e2bac466e5e8d7130">deviceConnect()</a>, not here. </p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00224">224</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00237">237</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
 <p class="reference">References <a class="el" href="idevice_8h_source.html#l00052">vc::device::IDevice::id</a>, <a class="el" href="idevice_8h_source.html#l00058">vc::device::IDevice::IDevice()</a>, and <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00099">vc::device::BaslerGigECamera::BaslerGigECamera()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00099">vc::device::BaslerGigECamera::BaslerGigECamera()</a>, and <a class="el" href="virtual__camera__device_8cpp_source.html#l00010">vc::device::VirtualCameraDevice::VirtualCameraDevice()</a>.</p>
 
 </div>
 </div>
@@ -319,7 +319,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Pushes the currently configured exposure/gain/frame-rate parameters down to the physical camera hardware. </p><dl class="section return"><dt>Returns</dt><dd>true if the parameters were applied successfully. </dd></dl>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#abcadcc4d796b2a53f66b8dcda5db05ce">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#abcadcc4d796b2a53f66b8dcda5db05ce">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#acb42f1650901f5da2696c81af3ee655c">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -377,9 +377,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns the concrete camera hardware family (Basler GigE/USB, Realsense, ...). </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a5130b97b6279538f489886e7b6e6c1df">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a5130b97b6279538f489886e7b6e6c1df">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#addd9d644dfb953b8cce20bafa4824da8">vc::device::VirtualCameraDevice</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00279">toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__device_8h_source.html#l00292">toJson()</a>.</p>
 
 </div>
 </div>
@@ -410,7 +410,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device.html#aba9d7b47e93488cf3f5d0426c56cdd6d">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00228">228</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00241">241</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
 <p class="reference">References <a class="el" href="idevice__config_8h_source.html#l00060">vc::device::Camera</a>.</p>
 
@@ -499,7 +499,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Emitted when a grab (single-shot or continuous) completes with <span class="tt">result</span>. </p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">vc::device::BaslerGigECamera::grabSingleShot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00445">vc::device::BaslerGigECamera::grabSingleShot()</a>, and <a class="el" href="virtual__camera__device_8cpp_source.html#l00133">vc::device::VirtualCameraDevice::grabSingleShot()</a>.</p>
 
 </div>
 </div>
@@ -528,7 +528,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Performs a single blocking grab and returns its result. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a9148ab244e92e0c116e9aed96a5ca49c">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a9148ab244e92e0c116e9aed96a5ca49c">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a521ae4c040636b4e9a5f5ba0501a45ae">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -557,7 +557,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns true if this camera exposes digital I/O lines (readIO/writeIO usable). </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a4c5aedced9cf8057d950db8302106aa1">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a4c5aedced9cf8057d950db8302106aa1">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a411c596028fd46c7124b6bb1ef25c18e">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -586,7 +586,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Returns true if this camera captures color (RGB/BGR) frames rather than mono. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#ac38fea7071dbde3bd9937cbdcb855b0a">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#ac38fea7071dbde3bd9937cbdcb855b0a">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a35ab531bfa1256dd22530528368aeaee">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -615,7 +615,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Emitted after <a class="el" href="#a232463e64eb29e87a3ee9fb760eaaea9">applyParametersChange()</a> runs, with its outcome. </p>
 
-<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00395">vc::device::BaslerGigECamera::applyParametersChange()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="camera__basler__gige_8cpp_source.html#l00395">vc::device::BaslerGigECamera::applyParametersChange()</a>, and <a class="el" href="virtual__camera__device_8cpp_source.html#l00123">vc::device::VirtualCameraDevice::applyParametersChange()</a>.</p>
 
 </div>
 </div>
@@ -646,7 +646,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classvc_1_1device_1_1_i_device.html#a92b625620673d67ab1e6ad6998fb8bef">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00273">273</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00286">286</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
 </div>
 </div>
@@ -675,7 +675,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reads the current state of the named digital I/O line. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a43f645961124173bf351286070e4e3df">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a43f645961124173bf351286070e4e3df">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a1b77a6bca37df66682f32d63cfa3af0b">vc::device::VirtualCameraDevice</a>.</p>
 
 <p class="reference">References <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
 
@@ -706,7 +706,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Enables/disables the auto-backlight control feature. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a433ab44dc56d2c037bb12e3ad4e34519">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a433ab44dc56d2c037bb12e3ad4e34519">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a79346e1fc514059bd004753f7204a25f">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -735,7 +735,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Sets the exposure time; returns false if <span class="tt">exposure</span> is outside the configured limits. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#aa1b4ac9cbc349a8301da87f94d1bcd44">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#aa1b4ac9cbc349a8301da87f94d1bcd44">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a9e1854c7e15333e09410a69a2d27010a">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -764,7 +764,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Sets the gain; returns false if <span class="tt">gain</span> is outside the configured limits. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a00899c3d9cf16d9bf384ed178295c7f0">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a00899c3d9cf16d9bf384ed178295c7f0">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a93631bcebb1747ab8313353391e14e67">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -793,7 +793,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Sets the timeout (in milliseconds) used when waiting for a grab to complete. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#aaf75a3242bf8df572e751ef7dad09bcf">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#aaf75a3242bf8df572e751ef7dad09bcf">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#af497ce69728904db9749660152ab06b7">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -822,7 +822,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Arms/performs a software-triggered grab and returns its result. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a40776eb2930f25dc85db9df0979ea7a5">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a40776eb2930f25dc85db9df0979ea7a5">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#aed88f4b93ec08c528ce2b54528ff8f54">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -850,7 +850,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Starts free-running (hardware/software-timed) continuous acquisition with automatic frame delivery via the <a class="el" href="#a7140016ec99c21f96f87b43a7dcf8a9c" title="Emitted when a grab (single-shot or continuous) completes with result.">grabFinished()</a> signal. </p><dl class="section return"><dt>Returns</dt><dd>true if continuous acquisition was started successfully. </dd></dl>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a9663d7efcd1237843a3a21254c59cfd7">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a9663d7efcd1237843a3a21254c59cfd7">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#aa7c67ee847411860cec6bb40a25aa2fe">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -878,7 +878,7 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Starts continuous acquisition driven by explicit grab calls rather than free-running. </p><dl class="section return"><dt>Returns</dt><dd>true if continuous acquisition was started successfully. </dd></dl>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a8ed0f7c74ea9ac249f069dac19413ea3">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a8ed0f7c74ea9ac249f069dac19413ea3">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a8061152e88d6ce589aebf4da5d4d8fbf">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -907,7 +907,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Stops the auto-continuous acquisition started by <a class="el" href="#af4fd65fa5cb20712b9d316145d0d16fc">startAutoContinuousShot()</a>. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a2a6d24d96eb2c35d45039c36a3f2e0af">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a2a6d24d96eb2c35d45039c36a3f2e0af">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#aac50a53d6d02e54fa662a2b994cfd1ce">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -936,7 +936,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Stops the continuous acquisition started by <a class="el" href="#a8bdaeb8856dab121462f4417232b2549">startContinuousShot()</a>. </p>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#af650d7950be1fb99e07e39b006ee0257">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#af650d7950be1fb99e07e39b006ee0257">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a204ee4ffa7b39244f77dbc547c6e6db9">vc::device::VirtualCameraDevice</a>.</p>
 
 </div>
 </div>
@@ -967,9 +967,9 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classvc_1_1device_1_1_i_device.html#a85f6299b65727195fb760f96ad1e99ff">vc::device::IDevice</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00279">279</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="camera__device_8h_source.html#l00292">292</a> of file <a class="el" href="camera__device_8h_source.html">camera_device.h</a>.</p>
 
-<p class="reference">References <a class="el" href="#a6f0f1e5ff2001daaa40c69b30afa827e">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00036">vc::device::CameraTypeToString()</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
+<p class="reference">References <a class="el" href="#a6f0f1e5ff2001daaa40c69b30afa827e">cameraType()</a>, <a class="el" href="camera__device_8h_source.html#l00045">vc::device::CameraTypeToString()</a>, <a class="el" href="idevice__config_8h_source.html#l00026">DEVICE_JSK_CAM_TYPE</a>, and <a class="el" href="idevice_8h_source.html#l00169">vc::device::IDevice::toJson()</a>.</p>
 
 </div>
 </div>
@@ -1001,14 +1001,14 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>Writes <span class="tt">value</span> to the named digital I/O line. </p><dl class="section return"><dt>Returns</dt><dd>true if the write succeeded. </dd></dl>
 
-<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a015147d7bda962fc50b5f3194e83a02b">vc::device::BaslerGigECamera</a>.</p>
+<p>Implemented in <a class="el" href="classvc_1_1device_1_1_basler_gig_e_camera.html#a015147d7bda962fc50b5f3194e83a02b">vc::device::BaslerGigECamera</a>, and <a class="el" href="classvc_1_1device_1_1_virtual_camera_device.html#a7110b8c1c4d83e169b8a9a22a1599fb6">vc::device::VirtualCameraDevice</a>.</p>
 
 <p class="reference">References <a class="el" href="idevice_8h_source.html#l00049">vc::device::IDevice::name</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/device/camera/<a class="el" href="camera__device_8h_source.html">camera_device.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/device/camera/<a class="el" href="camera__device_8h_source.html">camera_device.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

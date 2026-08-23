@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('class_edit_pat
 </div><!--header-->
 <div class="contents">
 
-<p>4-step modal dialog reimplementation of <span class="tt">EditPatternWizard.jsx</span> for editing an already-learned pattern.  
+<p>5-step modal dialog reimplementation of <span class="tt">EditPatternWizard.jsx</span> for editing an already-learned pattern.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>&gt;</code></p>
@@ -145,7 +145,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab5d902a90287e0c9c6f36595197733b2" id="r_ab5d902a90287e0c9c6f36595197733b2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab5d902a90287e0c9c6f36595197733b2">EditPatternWizard</a> (const QString &amp;groupName, const <a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html">Pattern</a> &amp;pattern, const QStringList &amp;usedNames, const QList&lt; int &gt; &amp;usedNumbers, QWidget *parent=nullptr)</td></tr>
 <tr class="memdesc:ab5d902a90287e0c9c6f36595197733b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the wizard pre-filled with <code class="param">pattern's</code> current values; step 1 (Identity) is shown first via goToStep(0) in the .cpp constructor body.  <br /></td></tr>
 <tr class="memitem:a2b2b7676e82a5b2790c74397e08e17dc" id="r_a2b2b7676e82a5b2790c74397e08e17dc"><td class="memItemLeft"><a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html">Pattern</a>&#160;</td><td class="memItemRight"><a class="el" href="#a2b2b7676e82a5b2790c74397e08e17dc">result</a> () const</td></tr>
+<tr class="memitem:a8596e00ade810fa4111d81630847c2c7" id="r_a8596e00ade810fa4111d81630847c2c7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8596e00ade810fa4111d81630847c2c7">setGripperPresets</a> (const <a class="el" href="classvc_1_1model_1_1_gripper_preset_store.html">vc::model::GripperPresetStore</a> &amp;presets)</td></tr>
+<tr class="memdesc:a8596e00ade810fa4111d81630847c2c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offers <span class="tt">presets</span> as ready-made picking-box geometries on the box step.  <br /></td></tr>
 <tr class="memitem:afc7f974e97882634be861c287c7b5062" id="r_afc7f974e97882634be861c287c7b5062"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afc7f974e97882634be861c287c7b5062">~EditPatternWizard</a> () override=default</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ad0ddb1b9c16d71843964900af914c2f8" id="r_ad0ddb1b9c16d71843964900af914c2f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad0ddb1b9c16d71843964900af914c2f8">keyPressEvent</a> (QKeyEvent *event) override</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pri-slots" class="groupheader"><a id="pri-slots" name="pri-slots"></a>
 Private Slots</h2></td></tr>
@@ -167,6 +173,10 @@ Private Slots</h2></td></tr>
 <tr class="memdesc:a467d7bdd0d4478cce50383c7b39fe3af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances to the next step, unless already on the last step.  <br /></td></tr>
 <tr class="memitem:a82005d1938339e9e771b1d26c5a84583" id="r_a82005d1938339e9e771b1d26c5a84583"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a82005d1938339e9e771b1d26c5a84583">onNumberChanged</a> (int v)</td></tr>
 <tr class="memdesc:a82005d1938339e9e771b1d26c5a84583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates m_new.number from the number field, refreshes the duplicate-number error label, and updates the footer status.  <br /></td></tr>
+<tr class="memitem:a54b76c38b9ccf8f6a30a10af065aa9b9" id="r_a54b76c38b9ccf8f6a30a10af065aa9b9"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a54b76c38b9ccf8f6a30a10af065aa9b9">onOffsetChanged</a> ()</td></tr>
+<tr class="memdesc:a54b76c38b9ccf8f6a30a10af065aa9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the six offset spin boxes into m_new and updates the footer status.  <br /></td></tr>
+<tr class="memitem:ac1bbd95cf194e984147fd6f68616f633" id="r_ac1bbd95cf194e984147fd6f68616f633"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac1bbd95cf194e984147fd6f68616f633">onOffsetReset</a> ()</td></tr>
+<tr class="memdesc:ac1bbd95cf194e984147fd6f68616f633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Zeroes all six offset axes and applies via <a class="el" href="#a54b76c38b9ccf8f6a30a10af065aa9b9" title="Reads the six offset spin boxes into m_new and updates the footer status.">onOffsetChanged()</a>.  <br /></td></tr>
 <tr class="memitem:a3b9983a2da5ecc664870adf24f0f9b2c" id="r_a3b9983a2da5ecc664870adf24f0f9b2c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3b9983a2da5ecc664870adf24f0f9b2c">onPickCenter</a> ()</td></tr>
 <tr class="memdesc:a3b9983a2da5ecc664870adf24f0f9b2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the pick point to the center of the locked image (or of the CW x CH default canvas size if there is no image).  <br /></td></tr>
 <tr class="memitem:aa4357750188ce4b2052435bad769a3d5" id="r_aa4357750188ce4b2052435bad769a3d5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa4357750188ce4b2052435bad769a3d5">onPickChanged</a> (const QPoint &amp;p)</td></tr>
@@ -179,23 +189,27 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a7eca3d8c04952f941c1352b019d5b8fa" id="r_a7eca3d8c04952f941c1352b019d5b8fa"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a7eca3d8c04952f941c1352b019d5b8fa">buildHeader</a> ()</td></tr>
 <tr class="memdesc:a7eca3d8c04952f941c1352b019d5b8fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the title/subtitle header bar with its close button.  <br /></td></tr>
 <tr class="memitem:aa9ff6e8148b3a1457779726939e3f45e" id="r_aa9ff6e8148b3a1457779726939e3f45e"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#aa9ff6e8148b3a1457779726939e3f45e">buildStepBox</a> ()</td></tr>
-<tr class="memdesc:aa9ff6e8148b3a1457779726939e3f45e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the Picking Box step page: locked image canvas in box mode plus size/offset spin boxes and Reset/Rotate buttons.  <br /></td></tr>
+<tr class="memdesc:aa9ff6e8148b3a1457779726939e3f45e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the Picking Box step page: locked image canvas in box mode plus the preset selector, size/offset spin boxes and Reset/Rotate buttons.  <br /></td></tr>
 <tr class="memitem:a2968bdb68d9a220eef5ffaa949afd695" id="r_a2968bdb68d9a220eef5ffaa949afd695"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a2968bdb68d9a220eef5ffaa949afd695">buildStepFinish</a> ()</td></tr>
 <tr class="memdesc:a2968bdb68d9a220eef5ffaa949afd695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the Finish step page: locked image canvas in finish mode plus the old-vs-new diff summary.  <br /></td></tr>
 <tr class="memitem:a624c0153d0efce7c5c5ba7a79e1bd24e" id="r_a624c0153d0efce7c5c5ba7a79e1bd24e"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a624c0153d0efce7c5c5ba7a79e1bd24e">buildStepIdentity</a> ()</td></tr>
 <tr class="memdesc:a624c0153d0efce7c5c5ba7a79e1bd24e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the Identity step page: locked image canvas plus editable name/number fields.  <br /></td></tr>
+<tr class="memitem:a40fcdf12f1044e2581ce052cfa2c0659" id="r_a40fcdf12f1044e2581ce052cfa2c0659"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a40fcdf12f1044e2581ce052cfa2c0659">buildStepOffset</a> ()</td></tr>
+<tr class="memdesc:a40fcdf12f1044e2581ce052cfa2c0659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the Offset step page: the six pick-offset axes (X/Y/Z in mm, RX/RY/RZ in degrees, TOOL frame).  <br /></td></tr>
 <tr class="memitem:a4c7dc7cc175d46968de9adbc2a27ca25" id="r_a4c7dc7cc175d46968de9adbc2a27ca25"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a4c7dc7cc175d46968de9adbc2a27ca25">buildStepPick</a> ()</td></tr>
-<tr class="memdesc:a4c7dc7cc175d46968de9adbc2a27ca25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the Pick Point step page: locked image canvas in pick mode plus X/Y spin boxes and a Center button.  <br /></td></tr>
+<tr class="memdesc:a4c7dc7cc175d46968de9adbc2a27ca25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the Pick Point step page: locked image canvas in pick mode plus X/Y and picking-angle spin boxes and a Center button.  <br /></td></tr>
 <tr class="memitem:a607690f47fd4b323035fd59528e038a4" id="r_a607690f47fd4b323035fd59528e038a4"><td class="memItemLeft">QWidget *&#160;</td><td class="memItemRight"><a class="el" href="#a607690f47fd4b323035fd59528e038a4">buildStepRail</a> ()</td></tr>
-<tr class="memdesc:a607690f47fd4b323035fd59528e038a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the horizontal step rail showing all 4 steps with numbered bubbles and labels.  <br /></td></tr>
+<tr class="memdesc:a607690f47fd4b323035fd59528e038a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the horizontal step rail showing every step with numbered bubbles and labels.  <br /></td></tr>
 <tr class="memitem:a6509a31eb289e9e5f90751b50fe72be1" id="r_a6509a31eb289e9e5f90751b50fe72be1"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a6509a31eb289e9e5f90751b50fe72be1">buildUi</a> ()</td></tr>
 <tr class="memdesc:a6509a31eb289e9e5f90751b50fe72be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assembles the dialog layout: header, step rail, stacked step pages, and footer.  <br /></td></tr>
 <tr class="memitem:af23f7760c6383accf915a0561d4ad6c7" id="r_af23f7760c6383accf915a0561d4ad6c7"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#af23f7760c6383accf915a0561d4ad6c7">currentStepValid</a> () const</td></tr>
 <tr class="memdesc:af23f7760c6383accf915a0561d4ad6c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the current step's inputs are valid enough to advance; only step 0 (Identity) enforces non-empty/unique name and number, other steps always return true.  <br /></td></tr>
 <tr class="memitem:a20321c933f9c61352ff40e57c2fdb06d" id="r_a20321c933f9c61352ff40e57c2fdb06d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a20321c933f9c61352ff40e57c2fdb06d">goToStep</a> (int step)</td></tr>
-<tr class="memdesc:a20321c933f9c61352ff40e57c2fdb06d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches the wizard to <span class="tt">step</span> (0-3): validates the current step before advancing, syncs step-specific canvases/fields, updates the step rail, footer, and Next/Back buttons.  <br /></td></tr>
+<tr class="memdesc:a20321c933f9c61352ff40e57c2fdb06d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches the wizard to <span class="tt">step</span>: validates the current step before advancing, syncs step-specific canvases/fields, updates the step rail, footer, and Next/Back buttons.  <br /></td></tr>
 <tr class="memitem:a348419350a20cbfb8585a797f4b8d80c" id="r_a348419350a20cbfb8585a797f4b8d80c"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a348419350a20cbfb8585a797f4b8d80c">makeStepBubble</a> (int idx)</td></tr>
 <tr class="memdesc:a348419350a20cbfb8585a797f4b8d80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates one numbered step-rail bubble label (1-based display) styled as active if <span class="tt">idx == 0</span>.  <br /></td></tr>
+<tr class="memitem:ad539cfa327cecaa4e879e9ea70e8e48b" id="r_ad539cfa327cecaa4e879e9ea70e8e48b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad539cfa327cecaa4e879e9ea70e8e48b">markGripperPresetCustom</a> ()</td></tr>
+<tr class="memdesc:ad539cfa327cecaa4e879e9ea70e8e48b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the gripper-preset selector to "Custom" after a manual geometry edit.  <br /></td></tr>
 <tr class="memitem:a4ca4c5b1b7ca895e5d4a04dce49dc0cd" id="r_a4ca4c5b1b7ca895e5d4a04dce49dc0cd"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4ca4c5b1b7ca895e5d4a04dce49dc0cd">refreshDiff</a> ()</td></tr>
 <tr class="memdesc:a4ca4c5b1b7ca895e5d4a04dce49dc0cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rebuilds the Finish-step diff HTML by comparing every m_old/m_new field and highlighting changed ones.  <br /></td></tr>
 <tr class="memitem:a46e9038ede11470345d8a930cd7f327c" id="r_a46e9038ede11470345d8a930cd7f327c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a46e9038ede11470345d8a930cd7f327c">updateFooterStatus</a> ()</td></tr>
@@ -222,13 +236,15 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a344163987dfef34f60712f3100093335" id="r_a344163987dfef34f60712f3100093335"><td class="memItemLeft">QPushButton *&#160;</td><td class="memItemRight"><a class="el" href="#a344163987dfef34f60712f3100093335">m_btnNext</a> {nullptr}</td></tr>
 <tr class="memdesc:a344163987dfef34f60712f3100093335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Footer "Next"/"Apply Changes" button; label and slot connection change on the Finish step.  <br /></td></tr>
 <tr class="memitem:a180c1f1492cdecd18d30887ea10a580f" id="r_a180c1f1492cdecd18d30887ea10a580f"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a180c1f1492cdecd18d30887ea10a580f">m_currentStep</a> {0}</td></tr>
-<tr class="memdesc:a180c1f1492cdecd18d30887ea10a580f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index (0-3) of the currently displayed step.  <br /></td></tr>
+<tr class="memdesc:a180c1f1492cdecd18d30887ea10a580f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Index of the currently displayed step.  <br /></td></tr>
 <tr class="memitem:a660a6fc305ee09946d518543de11f13b" id="r_a660a6fc305ee09946d518543de11f13b"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a660a6fc305ee09946d518543de11f13b">m_diffSummary</a> {nullptr}</td></tr>
 <tr class="memdesc:a660a6fc305ee09946d518543de11f13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rich-text summary listing each changed field as "old -&gt; new".  <br /></td></tr>
 <tr class="memitem:aeb38eb906b754f45770828cba73ef212" id="r_aeb38eb906b754f45770828cba73ef212"><td class="memItemLeft"><a class="el" href="class_add_pattern_image_canvas.html">AddPatternImageCanvas</a> *&#160;</td><td class="memItemRight"><a class="el" href="#aeb38eb906b754f45770828cba73ef212">m_finishCanvas</a> {nullptr}</td></tr>
 <tr class="memdesc:aeb38eb906b754f45770828cba73ef212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image canvas in Finish mode, showing the final pick point and picking box.  <br /></td></tr>
 <tr class="memitem:a10c84b9f02c58b04973075a25140d02d" id="r_a10c84b9f02c58b04973075a25140d02d"><td class="memItemLeft">QLabel *&#160;</td><td class="memItemRight"><a class="el" href="#a10c84b9f02c58b04973075a25140d02d">m_footerStatus</a> {nullptr}</td></tr>
 <tr class="memdesc:a10c84b9f02c58b04973075a25140d02d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Footer label showing validation/status text for the current step.  <br /></td></tr>
+<tr class="memitem:a5756283cf8cdd3a78a9fbe4e3ebb9f08" id="r_a5756283cf8cdd3a78a9fbe4e3ebb9f08"><td class="memItemLeft"><a class="el" href="classvc_1_1model_1_1_gripper_preset_store.html">vc::model::GripperPresetStore</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5756283cf8cdd3a78a9fbe4e3ebb9f08">m_gripperPresets</a></td></tr>
+<tr class="memdesc:a5756283cf8cdd3a78a9fbe4e3ebb9f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Presets offered by the selector (see <a class="el" href="#a8596e00ade810fa4111d81630847c2c7" title="Offers presets as ready-made picking-box geometries on the box step.">setGripperPresets()</a>).  <br /></td></tr>
 <tr class="memitem:a6b2cd07bac1cfa3222bf9761e62852f6" id="r_a6b2cd07bac1cfa3222bf9761e62852f6"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a6b2cd07bac1cfa3222bf9761e62852f6">m_groupName</a></td></tr>
 <tr class="memdesc:a6b2cd07bac1cfa3222bf9761e62852f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the group the edited pattern belongs to.  <br /></td></tr>
 <tr class="memitem:a67db8e2c0ad7122ed409642e919f9b1e" id="r_a67db8e2c0ad7122ed409642e919f9b1e"><td class="memItemLeft">QLineEdit *&#160;</td><td class="memItemRight"><a class="el" href="#a67db8e2c0ad7122ed409642e919f9b1e">m_inputName</a> {nullptr}</td></tr>
@@ -243,16 +259,32 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ad572d25860edc3471cbc6915af014e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locked (non-editable) image canvas shown on the Identity step.  <br /></td></tr>
 <tr class="memitem:a0277b7ebd3fb30990126df9a1a4a8c80" id="r_a0277b7ebd3fb30990126df9a1a4a8c80"><td class="memItemLeft"><a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html">Pattern</a>&#160;</td><td class="memItemRight"><a class="el" href="#a0277b7ebd3fb30990126df9a1a4a8c80">m_new</a></td></tr>
 <tr class="memdesc:a0277b7ebd3fb30990126df9a1a4a8c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Edited copy of the pattern values, mutated by the wizard steps and returned by <a class="el" href="#a2b2b7676e82a5b2790c74397e08e17dc">result()</a>.  <br /></td></tr>
+<tr class="memitem:afe695bde51b0f9d7ab9d737c51eefb76" id="r_afe695bde51b0f9d7ab9d737c51eefb76"><td class="memItemLeft">QDoubleSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#afe695bde51b0f9d7ab9d737c51eefb76">m_offRXSpin</a> {nullptr}</td></tr>
+<tr class="memdesc:afe695bde51b0f9d7ab9d737c51eefb76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation-offset RX spin box (deg).  <br /></td></tr>
+<tr class="memitem:ae36efafed9a8b82420ead3a0dd737e1e" id="r_ae36efafed9a8b82420ead3a0dd737e1e"><td class="memItemLeft">QDoubleSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#ae36efafed9a8b82420ead3a0dd737e1e">m_offRYSpin</a> {nullptr}</td></tr>
+<tr class="memdesc:ae36efafed9a8b82420ead3a0dd737e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation-offset RY spin box (deg).  <br /></td></tr>
+<tr class="memitem:af7a97191abe361574999889cecf96d36" id="r_af7a97191abe361574999889cecf96d36"><td class="memItemLeft">QDoubleSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#af7a97191abe361574999889cecf96d36">m_offRZSpin</a> {nullptr}</td></tr>
+<tr class="memdesc:af7a97191abe361574999889cecf96d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation-offset RZ spin box (deg).  <br /></td></tr>
+<tr class="memitem:ac7d71869248678a60bdef70b3e918096" id="r_ac7d71869248678a60bdef70b3e918096"><td class="memItemLeft">QDoubleSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#ac7d71869248678a60bdef70b3e918096">m_offXSpin</a> {nullptr}</td></tr>
+<tr class="memdesc:ac7d71869248678a60bdef70b3e918096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset-X spin box (mm).  <br /></td></tr>
+<tr class="memitem:ae07c200de46edcd819ab293769a82ec8" id="r_ae07c200de46edcd819ab293769a82ec8"><td class="memItemLeft">QDoubleSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#ae07c200de46edcd819ab293769a82ec8">m_offYSpin</a> {nullptr}</td></tr>
+<tr class="memdesc:ae07c200de46edcd819ab293769a82ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset-Y spin box (mm).  <br /></td></tr>
+<tr class="memitem:a1be21ac499d78e7538a5bbac1f31a751" id="r_a1be21ac499d78e7538a5bbac1f31a751"><td class="memItemLeft">QDoubleSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#a1be21ac499d78e7538a5bbac1f31a751">m_offZSpin</a> {nullptr}</td></tr>
+<tr class="memdesc:a1be21ac499d78e7538a5bbac1f31a751"><td class="mdescLeft">&#160;</td><td class="mdescRight">Offset-Z spin box (mm).  <br /></td></tr>
 <tr class="memitem:a702ff25484b10b537d8f2fa2e882d511" id="r_a702ff25484b10b537d8f2fa2e882d511"><td class="memItemLeft"><a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html">Pattern</a>&#160;</td><td class="memItemRight"><a class="el" href="#a702ff25484b10b537d8f2fa2e882d511">m_old</a></td></tr>
 <tr class="memdesc:a702ff25484b10b537d8f2fa2e882d511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Original pattern values, read-only; used for "was:" labels and the diff view.  <br /></td></tr>
+<tr class="memitem:a6b4c122dc224ec35b8f3942c0e66d131" id="r_a6b4c122dc224ec35b8f3942c0e66d131"><td class="memItemLeft">QDoubleSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#a6b4c122dc224ec35b8f3942c0e66d131">m_pickAngleSpin</a> {nullptr}</td></tr>
+<tr class="memdesc:a6b4c122dc224ec35b8f3942c0e66d131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Picking-angle spin box (<a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html#aabb587bc9ed81cbe4330a256d895b76e" title="Picking angle (degrees) — MatchPatternConfig::m_angle, added to every reported match angle.">Pattern::pickAngle</a>).  <br /></td></tr>
 <tr class="memitem:a7b56870b171285c3c24f320cede34702" id="r_a7b56870b171285c3c24f320cede34702"><td class="memItemLeft"><a class="el" href="class_add_pattern_image_canvas.html">AddPatternImageCanvas</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7b56870b171285c3c24f320cede34702">m_pickCanvas</a> {nullptr}</td></tr>
 <tr class="memdesc:a7b56870b171285c3c24f320cede34702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image canvas in Pick mode; lets the user click to set the pick point.  <br /></td></tr>
 <tr class="memitem:a0ead55d98e3126d6d2c0539613633dd2" id="r_a0ead55d98e3126d6d2c0539613633dd2"><td class="memItemLeft">QSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#a0ead55d98e3126d6d2c0539613633dd2">m_pickXSpin</a> {nullptr}</td></tr>
 <tr class="memdesc:a0ead55d98e3126d6d2c0539613633dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pick-point X spin box, kept in sync with the canvas.  <br /></td></tr>
 <tr class="memitem:af236d0ee666c7aa079155e50c048baa2" id="r_af236d0ee666c7aa079155e50c048baa2"><td class="memItemLeft">QSpinBox *&#160;</td><td class="memItemRight"><a class="el" href="#af236d0ee666c7aa079155e50c048baa2">m_pickYSpin</a> {nullptr}</td></tr>
 <tr class="memdesc:af236d0ee666c7aa079155e50c048baa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pick-point Y spin box, kept in sync with the canvas.  <br /></td></tr>
+<tr class="memitem:ade0f617977e30d12643774c77accc633" id="r_ade0f617977e30d12643774c77accc633"><td class="memItemLeft">QComboBox *&#160;</td><td class="memItemRight"><a class="el" href="#ade0f617977e30d12643774c77accc633">m_presetCombo</a> {nullptr}</td></tr>
+<tr class="memdesc:ade0f617977e30d12643774c77accc633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gripper-preset selector; index 0 is "Custom".  <br /></td></tr>
 <tr class="memitem:aa8e4ebf2200d2524e1ee536264a2913d" id="r_aa8e4ebf2200d2524e1ee536264a2913d"><td class="memItemLeft">QStackedWidget *&#160;</td><td class="memItemRight"><a class="el" href="#aa8e4ebf2200d2524e1ee536264a2913d">m_stack</a> {nullptr}</td></tr>
-<tr class="memdesc:aa8e4ebf2200d2524e1ee536264a2913d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stacked widget holding the 4 step pages.  <br /></td></tr>
+<tr class="memdesc:aa8e4ebf2200d2524e1ee536264a2913d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stacked widget holding the step pages.  <br /></td></tr>
 <tr class="memitem:ac788f990c7db15c1fd8d6756ea099e99" id="r_ac788f990c7db15c1fd8d6756ea099e99"><td class="memItemLeft">QList&lt; QLabel * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ac788f990c7db15c1fd8d6756ea099e99">m_stepBubbles</a></td></tr>
 <tr class="memdesc:ac788f990c7db15c1fd8d6756ea099e99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numbered/checkmark bubble labels in the step rail, one per step.  <br /></td></tr>
 <tr class="memitem:a6aaa2ea62812927bc1370da833c88695" id="r_a6aaa2ea62812927bc1370da833c88695"><td class="memItemLeft">QList&lt; QLabel * &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a6aaa2ea62812927bc1370da833c88695">m_stepLabels</a></td></tr>
@@ -265,17 +297,19 @@ Private Attributes</h2></td></tr>
 <tr class="memdesc:ab87b7fee504e0ad6ecac835d986e84cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Numbers already used by other patterns in the group (uniqueness check).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>4-step modal dialog reimplementation of <span class="tt">EditPatternWizard.jsx</span> for editing an already-learned pattern. </p>
-<p>The learned image is LOCKED (cannot be re-captured); the user can only edit identity, pick point, and picking-box config.</p>
+<div class="textblock"><p>5-step modal dialog reimplementation of <span class="tt">EditPatternWizard.jsx</span> for editing an already-learned pattern. </p>
+<p>The learned image is LOCKED (cannot be re-captured); the user can only edit identity, pick point and angle, picking-box config, and the 6-axis pick offset.</p>
 <p>Steps:</p><ol type="1">
 <li>Identity - locked image (purple scrim) + editable name/number</li>
-<li>Pick Point - same canvas; pre-filled from saved pickX/pickY</li>
-<li>Picking Box - same as Add wizard; pre-filled from saved box config</li>
+<li>Pick Point - same canvas; pre-filled from saved pickX/pickY + picking angle</li>
+<li>Picking Box - same as Add wizard; pre-filled from saved box config, preset picker</li>
+<li>Offset - 6-axis pick offset (X/Y/Z mm, RX/RY/RZ deg, TOOL frame)</li>
 <li>Finish - diff view: changed fields show "old -&gt; new"</li>
 </ol>
-<p>Lock color: #6a5acd (purple), per design tokens. </p>
+<p>Lock color: #6a5acd (purple), per design tokens.</p>
+<dl class="section note"><dt>Note</dt><dd>Enter and Escape are deliberately inert, matching <a class="el" href="class_add_pattern_wizard.html" title="6-step modal dialog reimplementation of PatternWizard.jsx: Image (capture from camera or open file + ...">AddPatternWizard</a>: a stray keystroke must not discard or prematurely commit an edit in progress. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00041">41</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00048">48</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab5d902a90287e0c9c6f36595197733b2" name="ab5d902a90287e0c9c6f36595197733b2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab5d902a90287e0c9c6f36595197733b2">&#9670;&#160;</a></span>EditPatternWizard()</h2>
@@ -332,9 +366,9 @@ Private Attributes</h2></td></tr>
 </dl>
 <p>Constructs the wizard fixed-size, modal, applies the pattern theme stylesheet, builds every step page, and jumps to Step 1 (Identity). </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00044">44</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00072">72</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00059">ptn::baseStyleSheet()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00135">m_groupName</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00136">m_usedNames</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00137">m_usedNumbers</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00059">ptn::baseStyleSheet()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00171">m_groupName</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00172">m_usedNames</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00173">m_usedNumbers</a>.</p>
 
 </div>
 </div>
@@ -390,11 +424,11 @@ Private Attributes</h2></td></tr>
 <p>Builds the footer bar containing the status label and Cancel/Back/Next buttons. </p>
 <p>Builds the fixed-height footer bar: status label (updated by <a class="el" href="#a46e9038ede11470345d8a930cd7f327c" title="Refreshes the footer status text to reflect validation state or current values of the active step.">updateFooterStatus()</a>) plus Cancel/Back/Next buttons wired to their slots. </p><dl class="section return"><dt>Returns</dt><dd>the constructed footer frame, ready to add to the root layout </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">186</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">210</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00026">ptn::HD</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00148">m_btnBack</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00150">m_btnCancel</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00149">m_btnNext</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00147">m_footerStatus</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00689">onBack()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00691">onCancel()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00687">onNext()</a>, <a class="el" href="pattern__theme_8h_source.html#l00111">ptn::primaryButtonStyle()</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00026">ptn::HD</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00184">m_btnBack</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00186">m_btnCancel</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00185">m_btnNext</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00183">m_footerStatus</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00932">onBack()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00934">onCancel()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00930">onNext()</a>, <a class="el" href="pattern__theme_8h_source.html#l00111">ptn::primaryButtonStyle()</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>.</p>
 
 </div>
 </div>
@@ -422,13 +456,13 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Builds the title/subtitle header bar with its close button. </p>
-<p>Builds the fixed-height title bar: wizard title, subtitle label (updated per-step by <a class="el" href="#a20321c933f9c61352ff40e57c2fdb06d" title="Switches the wizard to step (0-3): validates the current step before advancing, syncs step-specific c...">goToStep()</a>), and a close button wired to <a class="el" href="#af00e3302e7903ecd145ef11951fcf441" title="Rejects the dialog, discarding all edits.">onCancel()</a>. </p><dl class="section return"><dt>Returns</dt><dd>the constructed header frame, ready to add to the root layout </dd></dl>
+<p>Builds the fixed-height title bar: wizard title, subtitle label (updated per-step by <a class="el" href="#a20321c933f9c61352ff40e57c2fdb06d" title="Switches the wizard to step: validates the current step before advancing, syncs step-specific canvase...">goToStep()</a>), and a close button wired to <a class="el" href="#af00e3302e7903ecd145ef11951fcf441" title="Rejects the dialog, discarding all edits.">onCancel()</a>. </p><dl class="section return"><dt>Returns</dt><dd>the constructed header frame, ready to add to the root layout </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00092">92</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00121">121</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00026">ptn::HD</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00146">m_subtitleLabel</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00691">onCancel()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00026">ptn::HD</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00182">m_subtitleLabel</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00934">onCancel()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>.</p>
 
 </div>
 </div>
@@ -455,14 +489,14 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Builds the Picking Box step page: locked image canvas in box mode plus size/offset spin boxes and Reset/Rotate buttons. </p>
+<p>Builds the Picking Box step page: locked image canvas in box mode plus the preset selector, size/offset spin boxes and Reset/Rotate buttons. </p>
 <p>Builds Step 3 ("Picking Box"): the locked image canvas in Box mode plus a right-hand column with width/height and distance/angle spin boxes (ranged to the locked image size), Reset / Rotate +90 shortcut buttons, and the previous box configuration. Wires the canvas' boxChanged/pickChanged signals back into the spin boxes and m_new state. </p><dl class="section return"><dt>Returns</dt><dd>the constructed step page, ready to add to the step stack </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">372</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">460</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::Box</a>, <a class="el" href="class_add_pattern_image_canvas.html#a4b68cd0099a090359b28369b62505da9">AddPatternImageCanvas::boxChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00169">m_boxAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00165">m_boxCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00168">m_boxDistSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00167">m_boxHSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00166">m_boxWSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00161">m_pickXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00162">m_pickYSpin</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00765">onBoxReset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00779">onBoxRotate90()</a>, <a class="el" href="class_add_pattern_image_canvas.html#a78594f7c5d66d2b55cd13eb8f6ed1910">AddPatternImageCanvas::pickChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00054">AddPatternImageCanvas::Box</a>, <a class="el" href="class_add_pattern_image_canvas.html#a4b68cd0099a090359b28369b62505da9">AddPatternImageCanvas::boxChanged()</a>, <a class="el" href="gripper__boxes_8h_source.html#l00034">mtc::GripperBoxes::distance</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00208">m_boxAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00202">m_boxCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00207">m_boxDistSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00206">m_boxHSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00205">m_boxWSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00204">m_gripperPresets</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00197">m_pickXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00198">m_pickYSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00203">m_presetCombo</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00447">markGripperPresetCustom()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01029">onBoxReset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01043">onBoxRotate90()</a>, <a class="el" href="class_add_pattern_image_canvas.html#a78594f7c5d66d2b55cd13eb8f6ed1910">AddPatternImageCanvas::pickChanged()</a>, <a class="el" href="gripper__boxes_8h_source.html#l00033">mtc::GripperBoxes::size</a>, <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>.</p>
 
 </div>
 </div>
@@ -490,13 +524,13 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Builds the Finish step page: locked image canvas in finish mode plus the old-vs-new diff summary. </p>
-<p>Builds Step 4 ("Finish"): the read-only finish canvas plus a right-hand column with the "CHANGES" header and the HTML diff summary label (refreshed by <a class="el" href="#a4ca4c5b1b7ca895e5d4a04dce49dc0cd" title="Rebuilds the Finish-step diff HTML by comparing every m_old/m_new field and highlighting changed ones...">refreshDiff()</a>). </p><dl class="section return"><dt>Returns</dt><dd>the constructed step page, ready to add to the step stack </dd></dl>
+<p>Builds Step 5 ("Finish"): the read-only finish canvas plus a right-hand column with the "CHANGES" header and the HTML diff summary label (refreshed by <a class="el" href="#a4ca4c5b1b7ca895e5d4a04dce49dc0cd" title="Rebuilds the Finish-step diff HTML by comparing every m_old/m_new field and highlighting changed ones...">refreshDiff()</a>). </p><dl class="section return"><dt>Returns</dt><dd>the constructed step page, ready to add to the step stack </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00493">493</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00692">692</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::Finish</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00172">m_diffSummary</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00173">m_finishCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__canvas_8h_source.html#l00054">AddPatternImageCanvas::Finish</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00219">m_diffSummary</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00220">m_finishCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>.</p>
 
 </div>
 </div>
@@ -526,11 +560,45 @@ Private Attributes</h2></td></tr>
 <p>Builds the Identity step page: locked image canvas plus editable name/number fields. </p>
 <p>Builds Step 1 ("Identity"): the locked image canvas on the left plus a right-hand column with the editable name/number fields, their "was: ..." previous-value labels, and validation-error labels. </p><dl class="section return"><dt>Returns</dt><dd>the constructed step page, ready to add to the step stack </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">226</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">255</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00043">ptn::ERR</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00047">ptn::LOCK</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00154">m_inputName</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00155">m_inputNumber</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00156">m_lblNameError</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00157">m_lblNumberError</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00153">m_lockedCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::None</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00700">onNameChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00716">onNumberChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00043">ptn::ERR</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00047">ptn::LOCK</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00190">m_inputName</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00191">m_inputNumber</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00192">m_lblNameError</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00193">m_lblNumberError</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00189">m_lockedCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="pattern__canvas_8h_source.html#l00054">AddPatternImageCanvas::None</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00964">onNameChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00980">onNumberChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>.</p>
+
+</div>
+</div>
+<a id="a40fcdf12f1044e2581ce052cfa2c0659" name="a40fcdf12f1044e2581ce052cfa2c0659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40fcdf12f1044e2581ce052cfa2c0659">&#9670;&#160;</a></span>buildStepOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QWidget * EditPatternWizard::buildStepOffset </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Builds the Offset step page: the six pick-offset axes (X/Y/Z in mm, RX/RY/RZ in degrees, TOOL frame). </p>
+<p>Builds Step 4 ("Offset"): the six pick-offset axes, seeded from the pattern's saved values. Purely numeric — the offset is applied in the robot's TOOL frame after the 2D match has been transformed into world coordinates, so there is nothing to draw on the locked image. </p><dl class="section return"><dt>Returns</dt><dd>the constructed step page, ready to add to the step stack </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">615</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00023">ptn::BG</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00214">m_offRXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00215">m_offRYSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00216">m_offRZSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00211">m_offXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00212">m_offYSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00213">m_offZSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">onOffsetReset()</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>.</p>
 
 </div>
 </div>
@@ -557,14 +625,14 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Builds the Pick Point step page: locked image canvas in pick mode plus X/Y spin boxes and a Center button. </p>
+<p>Builds the Pick Point step page: locked image canvas in pick mode plus X/Y and picking-angle spin boxes and a Center button. </p>
 <p>Builds Step 2 ("Pick Point"): the locked image canvas in Pick mode plus a right-hand column with X/Y spin boxes (ranged to the locked image size), a Center shortcut, and the previous pick-point value. </p><dl class="section return"><dt>Returns</dt><dd>the constructed step page, ready to add to the step stack </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">293</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">322</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00040">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00023">ptn::BG</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00160">m_pickCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00161">m_pickXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00162">m_pickYSpin</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00742">onPickCenter()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00729">onPickChanged()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00052">AddPatternImageCanvas::Pick</a>, <a class="el" href="class_add_pattern_image_canvas.html#a78594f7c5d66d2b55cd13eb8f6ed1910">AddPatternImageCanvas::pickChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00040">ptn::ACC</a>, <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00023">ptn::BG</a>, <a class="el" href="pattern__theme_8h_source.html#l00123">ptn::ghostButtonStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00095">ptn::inputStyle()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00220">m_finishCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00199">m_pickAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00196">m_pickCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00197">m_pickXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00198">m_pickYSpin</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01006">onPickCenter()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00993">onPickChanged()</a>, <a class="el" href="pattern__canvas_8h_source.html#l00054">AddPatternImageCanvas::Pick</a>, <a class="el" href="class_add_pattern_image_canvas.html#ae1941455be44029138a65ddecd6646de">AddPatternImageCanvas::pickAngleChanged()</a>, <a class="el" href="class_add_pattern_image_canvas.html#a78594f7c5d66d2b55cd13eb8f6ed1910">AddPatternImageCanvas::pickChanged()</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>.</p>
 
 </div>
 </div>
@@ -591,14 +659,14 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Builds the horizontal step rail showing all 4 steps with numbered bubbles and labels. </p>
-<p>Builds the horizontal 4-cell step rail (bubble + title + subline per step) and populates m_stepBubbles / m_stepLabels for later restyling by <a class="el" href="#a5b53feb513d98949baaba8b89a086d86" title="Refreshes all step-rail bubble/label styles (done/current/pending) to match m_currentStep.">updateStepRail()</a>. </p><dl class="section return"><dt>Returns</dt><dd>the constructed step-rail frame, ready to add to the root layout </dd></dl>
+<p>Builds the horizontal step rail showing every step with numbered bubbles and labels. </p>
+<p>Builds the horizontal step rail (bubble + title + subline per step, STEP_COUNT cells) and populates m_stepBubbles / m_stepLabels for later restyling by <a class="el" href="#a5b53feb513d98949baaba8b89a086d86" title="Refreshes all step-rail bubble/label styles (done/current/pending) to match m_currentStep.">updateStepRail()</a>. </p><dl class="section return"><dt>Returns</dt><dd>the constructed step-rail frame, ready to add to the root layout </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00142">142</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00170">170</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00023">ptn::BG</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00144">m_stepBubbles</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00145">m_stepLabels</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00130">makeStepBubble()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="pattern__theme_8h_source.html#l00023">ptn::BG</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00180">m_stepBubbles</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00181">m_stepLabels</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00159">makeStepBubble()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>.</p>
 
 </div>
 </div>
@@ -628,11 +696,11 @@ Private Attributes</h2></td></tr>
 <p>Assembles the dialog layout: header, step rail, stacked step pages, and footer. </p>
 <p>Assembles the dialog's top-level layout (header, step rail, stacked step pages, footer). </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">70</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">98</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">buildFooter()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00092">buildHeader()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00493">buildStepFinish()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00142">buildStepRail()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00143">m_stack</a>, and <a class="el" href="pattern__theme_8h_source.html#l00025">ptn::SURF2</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">buildFooter()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00121">buildHeader()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00692">buildStepFinish()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00170">buildStepRail()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00179">m_stack</a>, and <a class="el" href="pattern__theme_8h_source.html#l00025">ptn::SURF2</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00044">EditPatternWizard()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00072">EditPatternWizard()</a>.</p>
 
 </div>
 </div>
@@ -660,13 +728,13 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns whether the current step's inputs are valid enough to advance; only step 0 (Identity) enforces non-empty/unique name and number, other steps always return true. </p>
-<p>Checks whether the current step's inputs are complete enough to advance. Only step 0 (Identity) is gated: requires a non-empty name that either matches the original or is unused elsewhere in the group, and a number &gt;= 1 that either matches the original or is unused elsewhere in the group. Steps 1-3 have no blocking requirement. </p><dl class="section return"><dt>Returns</dt><dd>true if the wizard may move forward from the current step </dd></dl>
+<p>Checks whether the current step's inputs are complete enough to advance. Only step 0 (Identity) is gated: requires a non-empty name that either matches the original or is unused elsewhere in the group, and a number &gt;= 1 that either matches the original or is unused elsewhere in the group. Every later step has no blocking requirement. </p><dl class="section return"><dt>Returns</dt><dd>true if the wizard may move forward from the current step </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00605">605</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00808">808</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00142">m_currentStep</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00136">m_usedNames</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00137">m_usedNumbers</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00178">m_currentStep</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00172">m_usedNames</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00173">m_usedNumbers</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
 
 </div>
 </div>
@@ -693,19 +761,49 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Switches the wizard to <span class="tt">step</span> (0-3): validates the current step before advancing, syncs step-specific canvases/fields, updates the step rail, footer, and Next/Back buttons. </p>
+<p>Switches the wizard to <span class="tt">step</span>: validates the current step before advancing, syncs step-specific canvases/fields, updates the step rail, footer, and Next/Back buttons. </p>
 <p>Navigates the wizard to <span class="tt">step</span> (0-3): rejects moves forward past an invalid step (see <a class="el" href="#af23f7760c6383accf915a0561d4ad6c7" title="Returns whether the current step&#39;s inputs are valid enough to advance; only step 0 (Identity) enforce...">currentStepValid()</a>), switches the visible stack page, pushes the accumulated m_new state (pick point/box config) into the canvas being entered, refreshes the diff on the Finish step, and updates the step rail, footer status, subtitle, and Back/Next button state (rewiring Next to Apply on the final step). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">step</td><td>target step index; out-of-range values (not 0-3) are ignored </td></tr>
+    <tr><td class="paramname">step</td><td>target step index; out-of-range values are ignored </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">537</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">736</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00605">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00165">m_boxCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00148">m_btnBack</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00149">m_btnNext</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00142">m_currentStep</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00173">m_finishCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00135">m_groupName</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00160">m_pickCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00143">m_stack</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00146">m_subtitleLabel</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00693">onApply()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00687">onNext()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00650">refreshDiff()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00587">updateStepRail()</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00808">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00202">m_boxCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00184">m_btnBack</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00185">m_btnNext</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00178">m_currentStep</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00220">m_finishCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00171">m_groupName</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00196">m_pickCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00179">m_stack</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00182">m_subtitleLabel</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00936">onApply()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00930">onNext()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00864">refreshDiff()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00790">updateStepRail()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00044">EditPatternWizard()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00689">onBack()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00687">onNext()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00072">EditPatternWizard()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00932">onBack()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00930">onNext()</a>.</p>
+
+</div>
+</div>
+<a id="ad0ddb1b9c16d71843964900af914c2f8" name="ad0ddb1b9c16d71843964900af914c2f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0ddb1b9c16d71843964900af914c2f8">&#9670;&#160;</a></span>keyPressEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EditPatternWizard::keyPressEvent </td>
+          <td>(</td>
+          <td class="paramtype">QKeyEvent *</td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel override">override</span><span class="mlabel protected">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Swallows Return/Enter and Escape so neither closes the dialog; every other key is forwarded to QDialog. See the class note — a stray keystroke must not discard an edit in progress.</p>
+<p>Drops Return/Enter and Escape on the floor, letting every other key through.</p>
+<p>QDialog maps Return to accept() and Escape to reject(). Both are wrong here: Return is a reflex after typing into a field and would commit a half-reviewed edit, and Escape would discard the whole thing. Closing stays deliberate — Cancel or the header button. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00915">915</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 </div>
 </div>
@@ -741,11 +839,45 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the constructed bubble label, not yet added to a layout </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00130">130</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00159">159</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00141">ptn::stepBubbleStyle()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00142">buildStepRail()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00170">buildStepRail()</a>.</p>
+
+</div>
+</div>
+<a id="ad539cfa327cecaa4e879e9ea70e8e48b" name="ad539cfa327cecaa4e879e9ea70e8e48b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad539cfa327cecaa4e879e9ea70e8e48b">&#9670;&#160;</a></span>markGripperPresetCustom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EditPatternWizard::markGripperPresetCustom </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the gripper-preset selector to "Custom" after a manual geometry edit. </p>
+<p>Returns the selector to "Custom" after a manual geometry edit. No-op when it is already there, so this is cheap to call from every value-changed path. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00447">447</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00203">m_presetCombo</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>.</p>
 
 </div>
 </div>
@@ -773,11 +905,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Accepts the dialog, committing m_new as the final <a class="el" href="#a2b2b7676e82a5b2790c74397e08e17dc">result()</a>. </p>
-<p>Confirms the wizard (Apply Changes on step 3), closing the dialog with QDialog::Accepted. </p>
+<p>Confirms the wizard (Apply Changes on the Finish step), closing the dialog with QDialog::Accepted. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00693">693</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00936">936</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -807,11 +939,11 @@ Private Attributes</h2></td></tr>
 <p>Returns to the previous step. </p>
 <p>Moves the wizard back to the previous step (Back button; no-op before step 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00689">689</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00932">932</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00142">m_currentStep</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00178">m_currentStep</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">buildFooter()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">buildFooter()</a>.</p>
 
 </div>
 </div>
@@ -841,11 +973,11 @@ Private Attributes</h2></td></tr>
 <p>Reads the current values from the box/offset spin boxes into m_new, pushes them to the box canvas, and updates the footer status. </p>
 <p>Pulls the current width/height/distance/angle values out of the Step 3 spin boxes (when present) into m_new, pushes them into the box canvas, and refreshes the footer status. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">751</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">1015</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00169">m_boxAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00165">m_boxCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00168">m_boxDistSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00167">m_boxHSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00166">m_boxWSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00208">m_boxAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00202">m_boxCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00207">m_boxDistSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00206">m_boxHSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00205">m_boxWSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00765">onBoxReset()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00779">onBoxRotate90()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01029">onBoxReset()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01043">onBoxRotate90()</a>.</p>
 
 </div>
 </div>
@@ -875,11 +1007,11 @@ Private Attributes</h2></td></tr>
 <p>Resets the picking-box geometry to the default jaw dimensions (120x80, d=90, angle=0), mirroring the Add wizard, then applies via <a class="el" href="#a45306e76d664e1e2aa66b1c5096c6002" title="Reads the current values from the box/offset spin boxes into m_new, pushes them to the box canvas,...">onBoxChanged()</a>. </p>
 <p>Resets the picking box to its default size/offset (120x80, distance 90, angle 0), writes the values into the Step 3 spin boxes (when present), and applies them via <a class="el" href="#a45306e76d664e1e2aa66b1c5096c6002" title="Reads the current values from the box/offset spin boxes into m_new, pushes them to the box canvas,...">onBoxChanged()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00765">765</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01029">1029</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00169">m_boxAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00168">m_boxDistSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00167">m_boxHSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00166">m_boxWSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00208">m_boxAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00207">m_boxDistSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00206">m_boxHSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00205">m_boxWSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>.</p>
 
 </div>
 </div>
@@ -909,11 +1041,11 @@ Private Attributes</h2></td></tr>
 <p>Rotates the picking-box angle by +90 degrees, wrapping into the [-180, 180] range, then applies via <a class="el" href="#a45306e76d664e1e2aa66b1c5096c6002" title="Reads the current values from the box/offset spin boxes into m_new, pushes them to the box canvas,...">onBoxChanged()</a>. </p>
 <p>Rotates the picking box by +90 degrees, wrapping the result back into the [-180, 180] range, writes it into the angle spin box (when present), and applies it via <a class="el" href="#a45306e76d664e1e2aa66b1c5096c6002" title="Reads the current values from the box/offset spin boxes into m_new, pushes them to the box canvas,...">onBoxChanged()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00779">779</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01043">1043</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00169">m_boxAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00208">m_boxAngleSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>.</p>
 
 </div>
 </div>
@@ -943,9 +1075,9 @@ Private Attributes</h2></td></tr>
 <p>Rejects the dialog, discarding all edits. </p>
 <p>Cancels the wizard, closing the dialog with QDialog::Rejected. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00691">691</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00934">934</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00092">buildHeader()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00121">buildHeader()</a>.</p>
 
 </div>
 </div>
@@ -980,11 +1112,11 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00700">700</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00964">964</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00156">m_lblNameError</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00136">m_usedNames</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00192">m_lblNameError</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00172">m_usedNames</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>.</p>
 
 </div>
 </div>
@@ -1012,13 +1144,13 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Advances to the next step, unless already on the last step. </p>
-<p>Advances the wizard to the next step (Next button; no-op past step 3). </p>
+<p>Advances the wizard to the next step (Next button; no-op past the last step). </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00687">687</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00930">930</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00142">m_currentStep</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00178">m_currentStep</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -1053,11 +1185,79 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00716">716</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00980">980</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00157">m_lblNumberError</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00137">m_usedNumbers</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00193">m_lblNumberError</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00173">m_usedNumbers</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>.</p>
+
+</div>
+</div>
+<a id="a54b76c38b9ccf8f6a30a10af065aa9b9" name="a54b76c38b9ccf8f6a30a10af065aa9b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54b76c38b9ccf8f6a30a10af065aa9b9">&#9670;&#160;</a></span>onOffsetChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EditPatternWizard::onOffsetChanged </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads the six offset spin boxes into m_new and updates the footer status. </p>
+<p>Copies all six offset spin boxes into m_new and refreshes the footer status. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">939</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00214">m_offRXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00215">m_offRYSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00216">m_offRZSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00211">m_offXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00212">m_offYSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00213">m_offZSpin</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">onOffsetReset()</a>.</p>
+
+</div>
+</div>
+<a id="ac1bbd95cf194e984147fd6f68616f633" name="ac1bbd95cf194e984147fd6f68616f633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1bbd95cf194e984147fd6f68616f633">&#9670;&#160;</a></span>onOffsetReset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EditPatternWizard::onOffsetReset </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span><span class="mlabel slot">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Zeroes all six offset axes and applies via <a class="el" href="#a54b76c38b9ccf8f6a30a10af065aa9b9" title="Reads the six offset spin boxes into m_new and updates the footer status.">onOffsetChanged()</a>. </p>
+<p>Zeroes all six offset axes, writes them into the spin boxes, and applies via <a class="el" href="#a54b76c38b9ccf8f6a30a10af065aa9b9" title="Reads the six offset spin boxes into m_new and updates the footer status.">onOffsetChanged()</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">951</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00214">m_offRXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00215">m_offRYSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00216">m_offRZSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00211">m_offXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00212">m_offYSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00213">m_offZSpin</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>.</p>
 
 </div>
 </div>
@@ -1087,11 +1287,11 @@ Private Attributes</h2></td></tr>
 <p>Sets the pick point to the center of the locked image (or of the CW x CH default canvas size if there is no image). </p>
 <p>Centers the pick point within the locked image (falling back to the default CW x CH canvas size if no image is loaded), then applies it via <a class="el" href="#aa4357750188ce4b2052435bad769a3d5" title="Updates m_new pick coordinates from p, syncs the pick spin boxes and pick canvas (signals blocked to ...">onPickChanged()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00742">742</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01006">1006</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00729">onPickChanged()</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00993">onPickChanged()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">buildStepPick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>.</p>
 
 </div>
 </div>
@@ -1126,11 +1326,11 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00729">729</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00993">993</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00160">m_pickCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00161">m_pickXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00162">m_pickYSpin</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00196">m_pickCanvas</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00197">m_pickXSpin</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00198">m_pickYSpin</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">buildStepPick()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00742">onPickCenter()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01006">onPickCenter()</a>.</p>
 
 </div>
 </div>
@@ -1160,11 +1360,11 @@ Private Attributes</h2></td></tr>
 <p>Rebuilds the Finish-step diff HTML by comparing every m_old/m_new field and highlighting changed ones. </p>
 <p>Rebuilds the Step 4 HTML diff summary (name, number, pick point, box width/height, and offset distance/angle), rendering each field as a plain value when unchanged or as a struck-through "old -&gt; new" line when it differs between m_old and m_new. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00650">650</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00864">864</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00172">m_diffSummary</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">m_old</a>, <a class="el" href="pattern__theme_8h_source.html#l00041">ptn::OK</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>, <a class="el" href="pattern__theme_8h_source.html#l00036">ptn::TXT4</a>, and <a class="el" href="pattern__theme_8h_source.html#l00042">ptn::WARN</a>.</p>
+<p class="reference">References <a class="el" href="pattern__theme_8h_source.html#l00029">ptn::BD</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00219">m_diffSummary</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">m_old</a>, <a class="el" href="pattern__theme_8h_source.html#l00041">ptn::OK</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>, <a class="el" href="pattern__theme_8h_source.html#l00036">ptn::TXT4</a>, and <a class="el" href="pattern__theme_8h_source.html#l00042">ptn::WARN</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -1192,11 +1392,42 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns the edited pattern values (m_new). Only meaningful after the dialog has been accepted, i.e. after "Apply Changes" was clicked on the Finish step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00076">76</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00086">86</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01168">LocalizationPatternsWidget::editPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
+
+</div>
+</div>
+<a id="a8596e00ade810fa4111d81630847c2c7" name="a8596e00ade810fa4111d81630847c2c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8596e00ade810fa4111d81630847c2c7">&#9670;&#160;</a></span>setGripperPresets()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void EditPatternWizard::setGripperPresets </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classvc_1_1model_1_1_gripper_preset_store.html">vc::model::GripperPresetStore</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>presets</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Offers <span class="tt">presets</span> as ready-made picking-box geometries on the box step. </p>
+<p>Call before exec(). Mirrors <a class="el" href="class_add_pattern_wizard.html#a2ace1a0e499ee213c7a232d4f99e772b" title="Offers presets as ready-made picking-box geometries on the box step.">AddPatternWizard::setGripperPresets()</a>: choosing a preset copies its jaw size and distance into the spin boxes, editing any of them switches the selector back to "Custom", and the wizard always returns whatever the spin boxes hold. The selector starts on "Custom" because an existing pattern holds resolved values with no record of which preset (if any) they came from. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">presets</td><td>the task's registered gripper geometries </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00433">433</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00204">m_gripperPresets</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00203">m_presetCombo</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="localization__patterns__widget_8cpp_source.html#l01236">LocalizationPatternsWidget::editPattern()</a>.</p>
 
 </div>
 </div>
@@ -1226,11 +1457,11 @@ Private Attributes</h2></td></tr>
 <p>Refreshes the footer status text to reflect validation state or current values of the active step. </p>
 <p>Recomputes the footer status text for the current step: an actionable hint when Identity is invalid, or a "checkmark ..." summary of the current pick-point/box/review state for the other steps. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">621</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">824</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00605">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00142">m_currentStep</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00147">m_footerStatus</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">m_new</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00808">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00178">m_currentStep</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00183">m_footerStatus</a>, and <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">m_new</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00700">onNameChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00716">onNumberChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00729">onPickChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00964">onNameChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00980">onNumberChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00993">onPickChanged()</a>.</p>
 
 </div>
 </div>
@@ -1260,11 +1491,11 @@ Private Attributes</h2></td></tr>
 <p>Refreshes all step-rail bubble/label styles (done/current/pending) to match m_currentStep. </p>
 <p>Restyles every step bubble/label to reflect the current step: done (checkmark), current (highlighted), or upcoming (muted). </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00587">587</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00790">790</a> of file <a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00142">m_currentStep</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00144">m_stepBubbles</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00145">m_stepLabels</a>, <a class="el" href="pattern__theme_8h_source.html#l00141">ptn::stepBubbleStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
+<p class="reference">References <a class="el" href="edit__pattern__wizard_8h_source.html#l00178">m_currentStep</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00180">m_stepBubbles</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00181">m_stepLabels</a>, <a class="el" href="pattern__theme_8h_source.html#l00141">ptn::stepBubbleStyle()</a>, <a class="el" href="pattern__theme_8h_source.html#l00033">ptn::TXT</a>, <a class="el" href="pattern__theme_8h_source.html#l00034">ptn::TXT2</a>, and <a class="el" href="pattern__theme_8h_source.html#l00035">ptn::TXT3</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -1291,9 +1522,9 @@ Private Attributes</h2></td></tr>
 
 <p>Picking-box rotation-angle spin box, kept in sync with the canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00169">169</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00208">208</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00765">onBoxReset()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00779">onBoxRotate90()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01029">onBoxReset()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01043">onBoxRotate90()</a>.</p>
 
 </div>
 </div>
@@ -1319,9 +1550,9 @@ Private Attributes</h2></td></tr>
 
 <p>Image canvas in Box mode; lets the user drag the picking box and its rotation handle. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00165">165</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00202">202</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>.</p>
 
 </div>
 </div>
@@ -1347,9 +1578,9 @@ Private Attributes</h2></td></tr>
 
 <p>Picking-box offset-distance spin box, kept in sync with the canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00168">168</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00207">207</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00765">onBoxReset()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01029">onBoxReset()</a>.</p>
 
 </div>
 </div>
@@ -1375,9 +1606,9 @@ Private Attributes</h2></td></tr>
 
 <p>Picking-box height spin box, kept in sync with the canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00167">167</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00206">206</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00765">onBoxReset()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01029">onBoxReset()</a>.</p>
 
 </div>
 </div>
@@ -1403,9 +1634,9 @@ Private Attributes</h2></td></tr>
 
 <p>Picking-box width spin box, kept in sync with the canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00166">166</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00205">205</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00765">onBoxReset()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01029">onBoxReset()</a>.</p>
 
 </div>
 </div>
@@ -1431,9 +1662,9 @@ Private Attributes</h2></td></tr>
 
 <p>Footer "Back" button; disabled on step 0. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00148">148</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00184">184</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -1459,9 +1690,9 @@ Private Attributes</h2></td></tr>
 
 <p>Footer "Cancel" button; rejects the dialog. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00150">150</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00186">186</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">buildFooter()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">buildFooter()</a>.</p>
 
 </div>
 </div>
@@ -1487,9 +1718,9 @@ Private Attributes</h2></td></tr>
 
 <p>Footer "Next"/"Apply Changes" button; label and slot connection change on the Finish step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00149">149</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00185">185</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -1513,11 +1744,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Index (0-3) of the currently displayed step. </p>
+<p>Index of the currently displayed step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00142">142</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00178">178</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00605">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00689">onBack()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00687">onNext()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00587">updateStepRail()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00808">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00932">onBack()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00930">onNext()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00790">updateStepRail()</a>.</p>
 
 </div>
 </div>
@@ -1543,9 +1774,9 @@ Private Attributes</h2></td></tr>
 
 <p>Rich-text summary listing each changed field as "old -&gt; new". </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00172">172</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00219">219</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00493">buildStepFinish()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00650">refreshDiff()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00692">buildStepFinish()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00864">refreshDiff()</a>.</p>
 
 </div>
 </div>
@@ -1571,9 +1802,9 @@ Private Attributes</h2></td></tr>
 
 <p>Image canvas in Finish mode, showing the final pick point and picking box. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00173">173</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00220">220</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00493">buildStepFinish()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00692">buildStepFinish()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -1599,9 +1830,37 @@ Private Attributes</h2></td></tr>
 
 <p>Footer label showing validation/status text for the current step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00147">147</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00183">183</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00186">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00210">buildFooter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
+
+</div>
+</div>
+<a id="a5756283cf8cdd3a78a9fbe4e3ebb9f08" name="a5756283cf8cdd3a78a9fbe4e3ebb9f08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5756283cf8cdd3a78a9fbe4e3ebb9f08">&#9670;&#160;</a></span>m_gripperPresets</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classvc_1_1model_1_1_gripper_preset_store.html">vc::model::GripperPresetStore</a> EditPatternWizard::m_gripperPresets</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Presets offered by the selector (see <a class="el" href="#a8596e00ade810fa4111d81630847c2c7" title="Offers presets as ready-made picking-box geometries on the box step.">setGripperPresets()</a>). </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00204">204</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00433">setGripperPresets()</a>.</p>
 
 </div>
 </div>
@@ -1627,9 +1886,9 @@ Private Attributes</h2></td></tr>
 
 <p>Name of the group the edited pattern belongs to. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00135">135</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00171">171</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00044">EditPatternWizard()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00072">EditPatternWizard()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -1655,9 +1914,9 @@ Private Attributes</h2></td></tr>
 
 <p>Editable pattern-name field on the Identity step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00154">154</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00190">190</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>.</p>
 
 </div>
 </div>
@@ -1683,9 +1942,9 @@ Private Attributes</h2></td></tr>
 
 <p>Editable pattern-number field on the Identity step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00155">155</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00191">191</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>.</p>
 
 </div>
 </div>
@@ -1711,9 +1970,9 @@ Private Attributes</h2></td></tr>
 
 <p>Shows a duplicate-name validation message, empty when the name is valid. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00156">156</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00192">192</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00700">onNameChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00964">onNameChanged()</a>.</p>
 
 </div>
 </div>
@@ -1739,9 +1998,9 @@ Private Attributes</h2></td></tr>
 
 <p>Shows a duplicate-number validation message, empty when the number is valid. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00157">157</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00193">193</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00716">onNumberChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00980">onNumberChanged()</a>.</p>
 
 </div>
 </div>
@@ -1767,9 +2026,9 @@ Private Attributes</h2></td></tr>
 
 <p>Locked (non-editable) image canvas shown on the Identity step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00153">153</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00189">189</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>.</p>
 
 </div>
 </div>
@@ -1795,9 +2054,177 @@ Private Attributes</h2></td></tr>
 
 <p>Edited copy of the pattern values, mutated by the wizard steps and returned by <a class="el" href="#a2b2b7676e82a5b2790c74397e08e17dc">result()</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00140">140</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00176">176</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00605">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00044">EditPatternWizard()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00751">onBoxChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00765">onBoxReset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00779">onBoxRotate90()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00700">onNameChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00716">onNumberChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00729">onPickChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00650">refreshDiff()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00076">result()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00621">updateFooterStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00808">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00072">EditPatternWizard()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01015">onBoxChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01029">onBoxReset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01043">onBoxRotate90()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00964">onNameChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00980">onNumberChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00993">onPickChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00864">refreshDiff()</a>, <a class="el" href="edit__pattern__wizard_8h_source.html#l00086">result()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00824">updateFooterStatus()</a>.</p>
+
+</div>
+</div>
+<a id="afe695bde51b0f9d7ab9d737c51eefb76" name="afe695bde51b0f9d7ab9d737c51eefb76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe695bde51b0f9d7ab9d737c51eefb76">&#9670;&#160;</a></span>m_offRXSpin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDoubleSpinBox* EditPatternWizard::m_offRXSpin {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rotation-offset RX spin box (deg). </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00214">214</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">onOffsetReset()</a>.</p>
+
+</div>
+</div>
+<a id="ae36efafed9a8b82420ead3a0dd737e1e" name="ae36efafed9a8b82420ead3a0dd737e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae36efafed9a8b82420ead3a0dd737e1e">&#9670;&#160;</a></span>m_offRYSpin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDoubleSpinBox* EditPatternWizard::m_offRYSpin {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rotation-offset RY spin box (deg). </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00215">215</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">onOffsetReset()</a>.</p>
+
+</div>
+</div>
+<a id="af7a97191abe361574999889cecf96d36" name="af7a97191abe361574999889cecf96d36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7a97191abe361574999889cecf96d36">&#9670;&#160;</a></span>m_offRZSpin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDoubleSpinBox* EditPatternWizard::m_offRZSpin {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rotation-offset RZ spin box (deg). </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00216">216</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">onOffsetReset()</a>.</p>
+
+</div>
+</div>
+<a id="ac7d71869248678a60bdef70b3e918096" name="ac7d71869248678a60bdef70b3e918096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7d71869248678a60bdef70b3e918096">&#9670;&#160;</a></span>m_offXSpin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDoubleSpinBox* EditPatternWizard::m_offXSpin {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Offset-X spin box (mm). </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00211">211</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">onOffsetReset()</a>.</p>
+
+</div>
+</div>
+<a id="ae07c200de46edcd819ab293769a82ec8" name="ae07c200de46edcd819ab293769a82ec8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae07c200de46edcd819ab293769a82ec8">&#9670;&#160;</a></span>m_offYSpin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDoubleSpinBox* EditPatternWizard::m_offYSpin {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Offset-Y spin box (mm). </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00212">212</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">onOffsetReset()</a>.</p>
+
+</div>
+</div>
+<a id="a1be21ac499d78e7538a5bbac1f31a751" name="a1be21ac499d78e7538a5bbac1f31a751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be21ac499d78e7538a5bbac1f31a751">&#9670;&#160;</a></span>m_offZSpin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDoubleSpinBox* EditPatternWizard::m_offZSpin {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Offset-Z spin box (mm). </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00213">213</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00939">onOffsetChanged()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00951">onOffsetReset()</a>.</p>
 
 </div>
 </div>
@@ -1823,9 +2250,37 @@ Private Attributes</h2></td></tr>
 
 <p>Original pattern values, read-only; used for "was:" labels and the diff view. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00139">139</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00175">175</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00493">buildStepFinish()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00226">buildStepIdentity()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00605">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00044">EditPatternWizard()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00700">onNameChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00716">onNumberChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00742">onPickCenter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00650">refreshDiff()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00692">buildStepFinish()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00255">buildStepIdentity()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00615">buildStepOffset()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00808">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00072">EditPatternWizard()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00964">onNameChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00980">onNumberChanged()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l01006">onPickCenter()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00864">refreshDiff()</a>.</p>
+
+</div>
+</div>
+<a id="a6b4c122dc224ec35b8f3942c0e66d131" name="a6b4c122dc224ec35b8f3942c0e66d131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b4c122dc224ec35b8f3942c0e66d131">&#9670;&#160;</a></span>m_pickAngleSpin</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDoubleSpinBox* EditPatternWizard::m_pickAngleSpin {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Picking-angle spin box (<a class="el" href="struct_edit_pattern_wizard_1_1_pattern.html#aabb587bc9ed81cbe4330a256d895b76e" title="Picking angle (degrees) — MatchPatternConfig::m_angle, added to every reported match angle.">Pattern::pickAngle</a>). </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00199">199</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>.</p>
 
 </div>
 </div>
@@ -1851,9 +2306,9 @@ Private Attributes</h2></td></tr>
 
 <p>Image canvas in Pick mode; lets the user click to set the pick point. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00160">160</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00196">196</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00729">onPickChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00993">onPickChanged()</a>.</p>
 
 </div>
 </div>
@@ -1879,9 +2334,9 @@ Private Attributes</h2></td></tr>
 
 <p>Pick-point X spin box, kept in sync with the canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00161">161</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00197">197</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">buildStepPick()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00729">onPickChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00993">onPickChanged()</a>.</p>
 
 </div>
 </div>
@@ -1907,9 +2362,37 @@ Private Attributes</h2></td></tr>
 
 <p>Pick-point Y spin box, kept in sync with the canvas. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00162">162</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00198">198</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00372">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00293">buildStepPick()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00729">onPickChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00322">buildStepPick()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00993">onPickChanged()</a>.</p>
+
+</div>
+</div>
+<a id="ade0f617977e30d12643774c77accc633" name="ade0f617977e30d12643774c77accc633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade0f617977e30d12643774c77accc633">&#9670;&#160;</a></span>m_presetCombo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QComboBox* EditPatternWizard::m_presetCombo {nullptr}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel private">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gripper-preset selector; index 0 is "Custom". </p>
+
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00203">203</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00460">buildStepBox()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00447">markGripperPresetCustom()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00433">setGripperPresets()</a>.</p>
 
 </div>
 </div>
@@ -1933,11 +2416,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Stacked widget holding the 4 step pages. </p>
+<p>Stacked widget holding the step pages. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00143">143</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00179">179</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00070">buildUi()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00098">buildUi()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -1963,9 +2446,9 @@ Private Attributes</h2></td></tr>
 
 <p>Numbered/checkmark bubble labels in the step rail, one per step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00144">144</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00180">180</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00142">buildStepRail()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00587">updateStepRail()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00170">buildStepRail()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00790">updateStepRail()</a>.</p>
 
 </div>
 </div>
@@ -1991,9 +2474,9 @@ Private Attributes</h2></td></tr>
 
 <p>Step-name labels in the step rail, one per step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00145">145</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00181">181</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00142">buildStepRail()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00587">updateStepRail()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00170">buildStepRail()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00790">updateStepRail()</a>.</p>
 
 </div>
 </div>
@@ -2019,9 +2502,9 @@ Private Attributes</h2></td></tr>
 
 <p>Header subtitle showing group name and current step. </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00146">146</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00182">182</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00092">buildHeader()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00537">goToStep()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00121">buildHeader()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00736">goToStep()</a>.</p>
 
 </div>
 </div>
@@ -2047,9 +2530,9 @@ Private Attributes</h2></td></tr>
 
 <p>Names already used by other patterns in the group (uniqueness check). </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00136">136</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00172">172</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00605">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00044">EditPatternWizard()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00700">onNameChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00808">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00072">EditPatternWizard()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00964">onNameChanged()</a>.</p>
 
 </div>
 </div>
@@ -2075,15 +2558,15 @@ Private Attributes</h2></td></tr>
 
 <p>Numbers already used by other patterns in the group (uniqueness check). </p>
 
-<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00137">137</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="edit__pattern__wizard_8h_source.html#l00173">173</a> of file <a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00605">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00044">EditPatternWizard()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00716">onNumberChanged()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00808">currentStepValid()</a>, <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00072">EditPatternWizard()</a>, and <a class="el" href="edit__pattern__wizard_8cpp_source.html#l00980">onNumberChanged()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a></li>
-<li>C:/DGB/Project/ncr_picking/src/ui/forms/pattern/<a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="edit__pattern__wizard_8h_source.html">edit_pattern_wizard.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/ui/forms/pattern/<a class="el" href="edit__pattern__wizard_8cpp_source.html">edit_pattern_wizard.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

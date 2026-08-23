@@ -160,7 +160,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Snapshot of a task's device/pattern/calibration bindings, supplied to <a class="el" href="classvc_1_1model_1_1_localization_runtime_controller.html#a19ebcd411126a763ad78372d948bb159" title="Binds context&#39;s role runners/cameras/patterns/calibration, validates them, and, if valid,...">setup()</a> and rebuilt by the owner whenever roles or the active camera/pattern-group selection change. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00068">68</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00069">69</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 </div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a4b2debbeb9e2b76fc038b709caec3e30" name="a4b2debbeb9e2b76fc038b709caec3e30"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4b2debbeb9e2b76fc038b709caec3e30">&#9670;&#160;</a></span>activeCameraNumber</h2>
@@ -176,9 +176,9 @@ Public Attributes</h2></td></tr>
 
 <p>Camera number to activate at setup; -1 selects the first available. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00082">82</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00083">83</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -196,7 +196,7 @@ Public Attributes</h2></td></tr>
 
 <p>Workspace crop/offset settings for the active camera. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00081">81</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00082">82</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
 </div>
 </div>
@@ -214,9 +214,9 @@ Public Attributes</h2></td></tr>
 
 <p>Pattern group number to activate at setup; -1 selects the first available. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00083">83</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00084">84</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -233,9 +233,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Calibrator keyed by camera number, used to map image points to robot/world coordinates. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00077">77</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00078">78</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>.</p>
 
 </div>
 </div>
@@ -253,9 +253,9 @@ Public Attributes</h2></td></tr>
 
 <p>Camera device id keyed by configured camera number. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00074">74</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00075">75</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -273,9 +273,9 @@ Public Attributes</h2></td></tr>
 
 <p>Camera runner keyed by camera number. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00075">75</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00076">76</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -293,9 +293,9 @@ Public Attributes</h2></td></tr>
 
 <p>Localization task configuration used for this runtime session. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00069">69</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00070">70</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -313,9 +313,9 @@ Public Attributes</h2></td></tr>
 
 <p>Pattern match group keyed by pattern-group number. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00076">76</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00077">77</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -333,9 +333,9 @@ Public Attributes</h2></td></tr>
 
 <p>Device id bound to the "primary_plc" role. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00070">70</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00071">71</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -353,9 +353,9 @@ Public Attributes</h2></td></tr>
 
 <p>Runner for the primary PLC role; null if not available. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00072">72</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00073">73</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -372,9 +372,9 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Robot kinematic check settings snapshotted from the assigned vision output device; drives the per-object robotPossiblePickingCheck. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00080">80</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00081">81</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>.</p>
 
 </div>
 </div>
@@ -392,9 +392,9 @@ Public Attributes</h2></td></tr>
 
 <p>Device id bound to the "vision_output" role. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00071">71</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00072">72</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
@@ -412,14 +412,14 @@ Public Attributes</h2></td></tr>
 
 <p>Runner for the vision output role; null if not available. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00073">73</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8h_source.html#l00074">74</a> of file <a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00633">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00219">vc::model::LocalizationRuntimeController::setup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="task__localization_8cpp_source.html#l00680">vc::model::TaskLocalization::buildRuntimeContext()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00253">vc::model::LocalizationRuntimeController::setup()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>C:/DGB/Project/ncr_picking/src/model/<a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a></li>
+<li>C:/DGB/Project/computer-vision-app/src/model/<a class="el" href="localization__runtime__controller_8h_source.html">localization_runtime_controller.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

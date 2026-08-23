@@ -122,16 +122,16 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('namespacevc_1_
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac6497dc51450fee8c58451a9e476dfb1" id="r_ac6497dc51450fee8c58451a9e476dfb1"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ac6497dc51450fee8c58451a9e476dfb1">buildRecoveryProgressMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, int retryCount, <a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
-<tr class="memitem:a01efcba1414a53c1607aa10ca8721ac7" id="r_a01efcba1414a53c1607aa10ca8721ac7"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a01efcba1414a53c1607aa10ca8721ac7">buildRecoveryReadyMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, int retryCount)</td></tr>
+<tr class="memitem:a5fc55b47b00b76ca558857d02733f715" id="r_a5fc55b47b00b76ca558857d02733f715"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a5fc55b47b00b76ca558857d02733f715">buildRecoveryProgressMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, <a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
+<tr class="memitem:a086e96ae179b5b37ff6cf7f8e9361796" id="r_a086e96ae179b5b37ff6cf7f8e9361796"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a086e96ae179b5b37ff6cf7f8e9361796">buildRecoveryReadyMessage</a> (const <a class="el" href="structvc_1_1model_1_1_localization_recovery_policy.html">LocalizationRecoveryPolicy</a> &amp;policy, const QString &amp;deviceId, int retryCount, const QDateTime &amp;outageStartedAt)</td></tr>
 <tr class="memitem:a32da36dd795db9a4d7286ef6843a447a" id="r_a32da36dd795db9a4d7286ef6843a447a"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a32da36dd795db9a4d7286ef6843a447a">connectStatusName</a> (<a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
 <tr class="memitem:a29b8f68f582cf66e8d31b8c42013bb3a" id="r_a29b8f68f582cf66e8d31b8c42013bb3a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a29b8f68f582cf66e8d31b8c42013bb3a">isHealthyStatus</a> (<a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a> status)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Internal helpers used only within this translation unit: connection-status health checks/naming and recovery log-message formatting. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ac6497dc51450fee8c58451a9e476dfb1" name="ac6497dc51450fee8c58451a9e476dfb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6497dc51450fee8c58451a9e476dfb1">&#9670;&#160;</a></span>buildRecoveryProgressMessage()</h2>
+<a id="a5fc55b47b00b76ca558857d02733f715" name="a5fc55b47b00b76ca558857d02733f715"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fc55b47b00b76ca558857d02733f715">&#9670;&#160;</a></span>buildRecoveryProgressMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,27 +149,22 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>retryCount</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="namespacevc_1_1device.html#a1986db0aa9ddc757a07ebc444b6abe38">vc::device::ConnectStatus</a></td>          <td class="paramname"><span class="paramname"><em>status</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Formats a "recovering" log/status message reporting the role, target device, current connection status, retry count vs. the configured maximum, and the retry interval. </p><dl class="section return"><dt>Returns</dt><dd>the formatted message string </dd></dl>
+<p>Formats a "recovering" log/status message reporting the role, target device, current connection status, and the retry interval. There is no retry budget to report: the runtime retries until it is torn down. </p><dl class="section return"><dt>Returns</dt><dd>the formatted message string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">57</a> of file <a class="el" href="localization__runtime__controller_8cpp_source.html">localization_runtime_controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8cpp_source.html#l00060">60</a> of file <a class="el" href="localization__runtime__controller_8cpp_source.html">localization_runtime_controller.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">buildRecoveryProgressMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00034">connectStatusName()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00034">vc::model::LocalizationRecoveryPolicy::maxRetries</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00035">vc::model::LocalizationRecoveryPolicy::retryIntervalMs</a>, and <a class="el" href="localization__recovery__policy_8h_source.html#l00033">vc::model::LocalizationRecoveryPolicy::roleName</a>.</p>
+<p class="reference">References <a class="el" href="localization__runtime__controller_8cpp_source.html#l00060">buildRecoveryProgressMessage()</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00036">connectStatusName()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00051">vc::model::LocalizationRecoveryPolicy::retryIntervalMs</a>, and <a class="el" href="localization__recovery__policy_8h_source.html#l00050">vc::model::LocalizationRecoveryPolicy::roleName</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">buildRecoveryProgressMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00060">buildRecoveryProgressMessage()</a>.</p>
 
 </div>
 </div>
-<a id="a01efcba1414a53c1607aa10ca8721ac7" name="a01efcba1414a53c1607aa10ca8721ac7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01efcba1414a53c1607aa10ca8721ac7">&#9670;&#160;</a></span>buildRecoveryReadyMessage()</h2>
+<a id="a086e96ae179b5b37ff6cf7f8e9361796" name="a086e96ae179b5b37ff6cf7f8e9361796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a086e96ae179b5b37ff6cf7f8e9361796">&#9670;&#160;</a></span>buildRecoveryReadyMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,17 +182,22 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>retryCount</em></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>retryCount</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QDateTime &amp;</td>          <td class="paramname"><span class="paramname"><em>outageStartedAt</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Formats a "ready again" log/status message announcing that a role recovered after <span class="tt">retryCount</span> retries. </p><dl class="section return"><dt>Returns</dt><dd>the formatted message string </dd></dl>
+<p>Formats a "ready again" message announcing that a role recovered, reporting how many attempts it took and how long the outage lasted. The elapsed time is the number an operator actually wants after the fact; the attempt count alone does not give it, because attempts are no longer capped at a known maximum. </p><dl class="section return"><dt>Returns</dt><dd>the formatted message string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8cpp_source.html#l00074">74</a> of file <a class="el" href="localization__runtime__controller_8cpp_source.html">localization_runtime_controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8cpp_source.html#l00076">76</a> of file <a class="el" href="localization__runtime__controller_8cpp_source.html">localization_runtime_controller.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="localization__runtime__controller_8cpp_source.html#l00074">buildRecoveryReadyMessage()</a>, <a class="el" href="localization__recovery__policy_8h_source.html#l00034">vc::model::LocalizationRecoveryPolicy::maxRetries</a>, and <a class="el" href="localization__recovery__policy_8h_source.html#l00033">vc::model::LocalizationRecoveryPolicy::roleName</a>.</p>
+<p class="reference">References <a class="el" href="localization__runtime__controller_8cpp_source.html#l00076">buildRecoveryReadyMessage()</a>, and <a class="el" href="localization__recovery__policy_8h_source.html#l00050">vc::model::LocalizationRecoveryPolicy::roleName</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00074">buildRecoveryReadyMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00076">buildRecoveryReadyMessage()</a>.</p>
 
 </div>
 </div>
@@ -217,11 +217,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Maps a ConnectStatus value to its human-readable name for log/status messages. </p><dl class="section return"><dt>Returns</dt><dd>the status name, or "Unknown" for any value not covered by the switch </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8cpp_source.html#l00034">34</a> of file <a class="el" href="localization__runtime__controller_8cpp_source.html">localization_runtime_controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8cpp_source.html#l00036">36</a> of file <a class="el" href="localization__runtime__controller_8cpp_source.html">localization_runtime_controller.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00036">vc::device::Connecting</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00034">connectStatusName()</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, and <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, <a class="el" href="idevice_8h_source.html#l00035">vc::device::ConnectFailed</a>, <a class="el" href="idevice_8h_source.html#l00036">vc::device::Connecting</a>, <a class="el" href="localization__runtime__controller_8cpp_source.html#l00036">connectStatusName()</a>, <a class="el" href="idevice_8h_source.html#l00032">vc::device::Disconnected</a>, <a class="el" href="idevice_8h_source.html#l00034">vc::device::LostConnected</a>, and <a class="el" href="idevice_8h_source.html#l00031">vc::device::NoConnection</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00057">buildRecoveryProgressMessage()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00034">connectStatusName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00060">buildRecoveryProgressMessage()</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00036">connectStatusName()</a>.</p>
 
 </div>
 </div>
@@ -241,11 +241,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns true only for ConnectStatus::Connected; every other status (including LostConnected/Connecting) is treated as unhealthy for readiness purposes. </p>
 
-<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8cpp_source.html#l00027">27</a> of file <a class="el" href="localization__runtime__controller_8cpp_source.html">localization_runtime_controller.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="localization__runtime__controller_8cpp_source.html#l00029">29</a> of file <a class="el" href="localization__runtime__controller_8cpp_source.html">localization_runtime_controller.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00027">isHealthyStatus()</a>.</p>
+<p class="reference">References <a class="el" href="idevice_8h_source.html#l00033">vc::device::Connected</a>, and <a class="el" href="localization__runtime__controller_8cpp_source.html#l00029">isHealthyStatus()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00027">isHealthyStatus()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="localization__runtime__controller_8cpp_source.html#l00029">isHealthyStatus()</a>.</p>
 
 </div>
 </div>

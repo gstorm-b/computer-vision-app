@@ -3,15 +3,27 @@
 
 @section mp_overview Project Snapshot
 
-`ncr_picking` is a Qt/C++ industrial vision-picking application. The first commercial path is
-one application with explicit Commission and Runtime modes, centered on `vc::model::ITask` /
+`ncr_picking` is a Qt/C++ industrial vision-picking application, centered on `vc::model::ITask` /
 `vc::model::TaskLocalization`.
+
+It ships as **two peer executables**, not one application with a mode switch:
+
+| Executable | Source | Audience |
+|---|---|---|
+| `ncr_picking.exe` | `app/` | Commissioning &mdash; build the project, configure devices, calibrate, teach patterns |
+| `ncr_runtime.exe` | `runtime_app/` | Operator runtime &mdash; load a commissioned project and run it |
+
+Neither shell may include the other. Both link the same `ncr_shared` static library built from
+`src/`, and each can hand off to the other (see `vc::ui::presentShellWindow`).
 
 First-release integrations:
 - Basler GigE camera (`vc::device::CameraBaslerGige`)
 - Mitsubishi MC PLC (`vc::device::McProtocolDevice`)
 - VisionOutput TCP/IP server/client (`vc::device::VisionTcpipDevice`)
 - Advisory RobotKinematics checking for outgoing pick poses (`RobotKinematics::SerialRobotKinematics`)
+- Hardware-free stand-ins for camera, PLC and vision output (`vc::device::VirtualCameraDevice`,
+  `vc::device::VirtualPlcDevice`, `vc::device::VirtualVisionOutputDevice`) &mdash; shipped code, not
+  test doubles; see `vc::device::isVirtualDevice()` and `docs/domains/virtual_devices/virtual_devices.md`
 
 @section mp_modules Module Map
 
@@ -24,12 +36,18 @@ First-release integrations:
 | model | `src/model/` | 2 |
 | runtime | `src/runtime/` | 2 |
 | ui (forms + widgets) | `src/ui/` | UI |
-| app shell (+translations) | `app/` | top |
+| commissioning shell (+translations) | `app/` | top |
+| operator runtime shell | `runtime_app/` | top |
 | RobotKinematics | `components/RobotKinematics/` | component |
 
 Lower levels must not include higher ones; `model` and `runtime` may include each other;
-`device` may include `calibration`; `ui` may include every non-UI module; only `app/` may
-include everything. Enforced by `tests/architecture_contract_test`.
+`device` may include `calibration`; `ui` may include every non-UI module; only the two top-level
+shells may include everything, and neither may include the other. Enforced by
+`tests/architecture_contract_test`.
+
+@note `src/` is compiled exactly once, into the `ncr_shared` static library, by `src/src.pro` via
+the per-module `.pri` files. No shell `.pro` lists module sources &mdash; a file registered anywhere
+else is simply not built.
 
 @section mp_diagrams Where To Start
 

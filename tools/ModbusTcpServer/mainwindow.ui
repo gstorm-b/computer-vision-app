@@ -1,0 +1,1255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1240</width>
+    <height>820</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1000</width>
+    <height>640</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Modbus TCP Server Demo</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="centralLayout">
+    <item>
+     <widget class="QSplitter" name="mainSplitter">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="topWidget" native="true">
+       <layout class="QHBoxLayout" name="topLayout">
+        <property name="leftMargin">
+         <number>0</number>
+        </property>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QGroupBox" name="serverGroup">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Modbus TCP server</string>
+          </property>
+          <layout class="QFormLayout" name="serverFormLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="addressLabel">
+             <property name="text">
+              <string>Listen address:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QComboBox" name="addressCombo">
+             <property name="editable">
+              <bool>true</bool>
+             </property>
+             <property name="toolTip">
+              <string>0.0.0.0 listens on every network interface. Only numeric IPv4 addresses are accepted.</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>0.0.0.0</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>127.0.0.1</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="portLabel">
+             <property name="text">
+              <string>TCP port:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="portSpin">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>65535</number>
+             </property>
+             <property name="value">
+              <number>502</number>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="unitIdLabel">
+             <property name="text">
+              <string>Unit ID:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QSpinBox" name="unitIdSpin">
+             <property name="toolTip">
+              <string>Modbus server address (unit identifier). Qt silently drops every request that carries a different unit id, so the client must use exactly this value.</string>
+             </property>
+             <property name="maximum">
+              <number>255</number>
+             </property>
+             <property name="value">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QCheckBox" name="acceptConnectionsCheck">
+             <property name="toolTip">
+              <string>When unchecked, incoming TCP connections are refused. Clients already connected stay.</string>
+             </property>
+             <property name="text">
+              <string>Accept new clients</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="serverButtonLayout">
+             <item>
+              <widget class="QPushButton" name="startButton">
+               <property name="text">
+                <string>Start server</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="stopButton">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string>Stop server</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="statusGroup">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Status</string>
+          </property>
+          <layout class="QFormLayout" name="statusFormLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="stateCaptionLabel">
+             <property name="text">
+              <string>State:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="stateValueLabel">
+             <property name="text">
+              <string>Stopped</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="clientsCaptionLabel">
+             <property name="text">
+              <string>Connected clients:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="clientsValueLabel">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="readsCaptionLabel">
+             <property name="text">
+              <string>Read requests:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="readsValueLabel">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="writesCaptionLabel">
+             <property name="text">
+              <string>Write requests:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="writesValueLabel">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="exceptionsCaptionLabel">
+             <property name="text">
+              <string>Exception responses:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="exceptionsValueLabel">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="logGroup">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Event log</string>
+          </property>
+          <layout class="QVBoxLayout" name="logLayout">
+           <item>
+            <layout class="QHBoxLayout" name="logToolLayout">
+             <item>
+              <widget class="QLabel" name="logLevelLabel">
+               <property name="text">
+                <string>Minimum level:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="logLevelCombo">
+               <property name="toolTip">
+                <string>Messages below this level are dropped in the worker thread. Select Debug to also see read requests.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="autoScrollCheck">
+               <property name="text">
+                <string>Auto scroll</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="logToolSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="clearLogButton">
+               <property name="text">
+                <string>Clear</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="saveLogButton">
+               <property name="text">
+                <string>Save...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPlainTextEdit" name="logView">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>120</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>Consolas</family>
+              </font>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="lineWrapMode">
+              <enum>QPlainTextEdit::NoWrap</enum>
+             </property>
+             <property name="maximumBlockCount">
+              <number>5000</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QTabWidget" name="areaTabs">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="coilsTab">
+        <attribute name="title">
+         <string>Coils (0x)</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="coilsTabLayout">
+         <item>
+          <layout class="QHBoxLayout" name="coilsInfoLayout">
+           <item>
+            <widget class="QLabel" name="coilsInfoLabel">
+             <property name="text">
+              <string>Read/write bits - FC01 read, FC05 / FC15 write.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="coilsInfoSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="coilsPlcRefCheck">
+             <property name="toolTip">
+              <string>Show the PLC reference column and choose the number the area starts at.</string>
+             </property>
+             <property name="text">
+              <string>PLC ref from</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="coilsPlcBaseSpin">
+             <property name="maximum">
+              <number>999999</number>
+             </property>
+             <property name="value">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="coilsToolLayout">
+           <item>
+            <spacer name="coilsToolSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="Line" name="coilsToolLine">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="coilsFillLabel">
+             <property name="text">
+              <string>Raw value:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="coilsFillSpin">
+             <property name="maximum">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="coilsFillButton">
+             <property name="text">
+              <string>Set all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="coilsClearButton">
+             <property name="text">
+              <string>Clear all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="coilsRandomButton">
+             <property name="text">
+              <string>Randomize</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="coilsTable">
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Address</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>PLC ref</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>State</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="discreteInputsTab">
+        <attribute name="title">
+         <string>Discrete Inputs (1x)</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="discreteInputsTabLayout">
+         <item>
+          <layout class="QHBoxLayout" name="discreteInputsInfoLayout">
+           <item>
+            <widget class="QLabel" name="discreteInputsInfoLabel">
+             <property name="text">
+              <string>Read only bits for the client - FC02. Edit them here to simulate field inputs.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="discreteInputsInfoSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="discreteInputsPlcRefCheck">
+             <property name="toolTip">
+              <string>Show the PLC reference column and choose the number the area starts at.</string>
+             </property>
+             <property name="text">
+              <string>PLC ref from</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="discreteInputsPlcBaseSpin">
+             <property name="maximum">
+              <number>999999</number>
+             </property>
+             <property name="value">
+              <number>10001</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="discreteInputsToolLayout">
+           <item>
+            <spacer name="discreteInputsToolSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="Line" name="discreteInputsToolLine">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="discreteInputsFillLabel">
+             <property name="text">
+              <string>Raw value:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="discreteInputsFillSpin">
+             <property name="maximum">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="discreteInputsFillButton">
+             <property name="text">
+              <string>Set all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="discreteInputsClearButton">
+             <property name="text">
+              <string>Clear all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="discreteInputsRandomButton">
+             <property name="text">
+              <string>Randomize</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="discreteInputsTable">
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Address</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>PLC ref</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>State</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="inputRegistersTab">
+        <attribute name="title">
+         <string>Input Registers (3x)</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="inputRegistersTabLayout">
+         <item>
+          <layout class="QHBoxLayout" name="inputRegistersInfoLayout">
+           <item>
+            <widget class="QLabel" name="inputRegistersInfoLabel">
+             <property name="text">
+              <string>Read only words for the client - FC04. Edit them here to simulate measurements.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="inputRegistersInfoSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="inputRegistersPlcRefCheck">
+             <property name="toolTip">
+              <string>Show the PLC reference column and choose the number the area starts at.</string>
+             </property>
+             <property name="text">
+              <string>PLC ref from</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="inputRegistersPlcBaseSpin">
+             <property name="maximum">
+              <number>999999</number>
+             </property>
+             <property name="value">
+              <number>30001</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="inputRegistersToolLayout">
+           <item>
+            <widget class="QLabel" name="inputRegistersFormatLabel">
+             <property name="text">
+              <string>Display:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="inputRegistersFormatCombo">
+             <property name="toolTip">
+              <string>How the Value column shows and accepts data. A 32 or 64 bit format groups consecutive registers into one row.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="inputRegistersOrderCombo">
+             <property name="toolTip">
+              <string>Byte order used for formats that span more than one register.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="inputRegistersToolSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="Line" name="inputRegistersToolLine">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="inputRegistersFillLabel">
+             <property name="text">
+              <string>Raw value:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="inputRegistersFillSpin">
+             <property name="maximum">
+              <number>65535</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="inputRegistersFillButton">
+             <property name="text">
+              <string>Set all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="inputRegistersClearButton">
+             <property name="text">
+              <string>Clear all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="inputRegistersRandomButton">
+             <property name="text">
+              <string>Randomize</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="inputRegistersTable">
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Address</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>PLC ref</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Raw</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="holdingRegistersTab">
+        <attribute name="title">
+         <string>Holding Registers (4x)</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="holdingRegistersTabLayout">
+         <item>
+          <layout class="QHBoxLayout" name="holdingRegistersInfoLayout">
+           <item>
+            <widget class="QLabel" name="holdingRegistersInfoLabel">
+             <property name="text">
+              <string>Read/write words - FC03 read, FC06 / FC16 write.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="holdingRegistersInfoSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="holdingRegistersPlcRefCheck">
+             <property name="toolTip">
+              <string>Show the PLC reference column and choose the number the area starts at.</string>
+             </property>
+             <property name="text">
+              <string>PLC ref from</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="holdingRegistersPlcBaseSpin">
+             <property name="maximum">
+              <number>999999</number>
+             </property>
+             <property name="value">
+              <number>40001</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="holdingRegistersToolLayout">
+           <item>
+            <widget class="QLabel" name="holdingRegistersFormatLabel">
+             <property name="text">
+              <string>Display:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="holdingRegistersFormatCombo">
+             <property name="toolTip">
+              <string>How the Value column shows and accepts data. A 32 or 64 bit format groups consecutive registers into one row.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="holdingRegistersOrderCombo">
+             <property name="toolTip">
+              <string>Byte order used for formats that span more than one register.</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="holdingRegistersToolSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="Line" name="holdingRegistersToolLine">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="holdingRegistersFillLabel">
+             <property name="text">
+              <string>Raw value:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="holdingRegistersFillSpin">
+             <property name="maximum">
+              <number>65535</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="holdingRegistersFillButton">
+             <property name="text">
+              <string>Set all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="holdingRegistersClearButton">
+             <property name="text">
+              <string>Clear all</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="holdingRegistersRandomButton">
+             <property name="text">
+              <string>Randomize</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="holdingRegistersTable">
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Address</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>PLC ref</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Value</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Raw</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="monitorTab">
+        <attribute name="title">
+         <string>Data Monitor</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="monitorTabLayout">
+         <item>
+          <widget class="QGroupBox" name="monitorDefinitionGroup">
+           <property name="title">
+            <string>Watch list - pick individual addresses and follow them as typed values</string>
+           </property>
+           <layout class="QGridLayout" name="monitorDefinitionLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="monitorNameLabel">
+              <property name="text">
+               <string>Name</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="monitorAreaLabel">
+              <property name="text">
+               <string>Area</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="monitorAddressLabel">
+              <property name="text">
+               <string>Start address</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="monitorTypeLabel">
+              <property name="text">
+               <string>Data type</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="monitorOrderLabel">
+              <property name="text">
+               <string>Byte order</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QLabel" name="monitorLengthLabel">
+              <property name="text">
+               <string>Registers</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="monitorNameEdit">
+              <property name="placeholderText">
+               <string>e.g. Temperature</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="monitorAreaCombo"/>
+            </item>
+            <item row="1" column="2">
+             <widget class="QSpinBox" name="monitorAddressSpin">
+              <property name="maximum">
+               <number>65535</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QComboBox" name="monitorTypeCombo"/>
+            </item>
+            <item row="1" column="4">
+             <widget class="QComboBox" name="monitorOrderCombo">
+              <property name="toolTip">
+               <string>How a multi register value is laid out. CDAB (word swapped) is what most PLCs use for 32 bit values.</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QSpinBox" name="monitorLengthSpin">
+              <property name="toolTip">
+               <string>Only used by ASCII text: 2 characters per register.</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>64</number>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="6">
+             <layout class="QHBoxLayout" name="monitorButtonLayout">
+              <item>
+               <widget class="QPushButton" name="monitorAddButton">
+                <property name="text">
+                 <string>Add value</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="monitorRemoveButton">
+                <property name="text">
+                 <string>Remove selected</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="monitorClearButton">
+                <property name="text">
+                 <string>Remove all</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="monitorButtonSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="monitorWriteButton">
+                <property name="toolTip">
+                 <string>Encodes the text in the &quot;Write value&quot; column and stores it in the selected rows.</string>
+                </property>
+                <property name="text">
+                 <string>Write selected</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTableWidget" name="monitorTable">
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
+           </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>Name</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Area</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Address</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Data type</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Byte order</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Registers</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Current value</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Write value</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1240</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionSaveLog"/>
+    <addaction name="actionClearLog"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionAboutQt"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSaveLog">
+   <property name="text">
+    <string>&amp;Save log...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionClearLog">
+   <property name="text">
+    <string>&amp;Clear log</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>&amp;About this demo</string>
+   </property>
+  </action>
+  <action name="actionAboutQt">
+   <property name="text">
+    <string>About &amp;Qt</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -47,7 +47,7 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS = shared editor runtime
+SUBDIRS = shared editor runtime translations
 
 # Paths MUST stay relative. With an absolute $$PWD/... path qmake resolves the editor
 # subproject's makefile to plain "Makefile" — the same name as this umbrella's own — and
@@ -56,6 +56,22 @@ SUBDIRS = shared editor runtime
 shared.file  = src/src.pro
 editor.file  = ncr_picking.pro
 runtime.file = runtime_app/ncr_runtime.pro
+
+# Listed so that Qt Creator's *Update Translations*, and lupdate from the command line,
+# reach a project whose source set is the WHOLE product. Without it lupdate sees only what
+# the shells compile — a few dozen strings out of ~974 — and marks everything else vanished.
+#
+# no_default_target is LOAD-BEARING, not tidiness. lupdate only reads SOURCES from a project
+# that looks buildable (a TEMPLATE = subdirs project contributes nothing to lupdate —
+# measured: 27 strings vs 0), but this one must never actually be built: it lists all of
+# src/ plus both shells and would be a third compilation of everything. Excluding it from
+# the default target is what lets it be both. Verified: `first:` depends on `make_first:`,
+# which qmake leaves with no dependencies at all.
+#
+# The gap: `nmake all` still reaches it, and that build fails. Every documented recipe here
+# and Qt Creator's own build step use the default target, so nothing in normal use hits it.
+translations.file    = translations/ncr_translations.pro
+translations.CONFIG += no_default_target
 
 # The two shells remain peers with no dependency between them — a parallel-capable make can
 # still build them concurrently — but both link the library, so it has to exist first.

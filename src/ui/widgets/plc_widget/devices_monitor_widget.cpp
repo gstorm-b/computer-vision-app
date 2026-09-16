@@ -24,6 +24,9 @@ namespace vc::widgets {
 /// ThemeManager reports a theme change.
 DevicesMonitorWidget::DevicesMonitorWidget(Mode mode, QWidget *parent)
     : QWidget(parent), m_mode(mode) {
+    // The Mitsubishi scheme this widget was written for. Other families override it through
+    // setAddressFormat(); a panel that does not call that is unchanged by its introduction.
+    m_addressPrefix = (m_mode == Mode::Bit) ? QStringLiteral("M") : QStringLiteral("D");
     setupUi();
     reloadStyleSheet();
     connect(ThemeManager::instance(), &ThemeManager::themeChanged,
@@ -180,11 +183,25 @@ void DevicesMonitorWidget::clearRows() {
     recountActive();
 }
 
-/// Builds the display name for `address`: 'M' prefix in Bit mode or 'D' prefix
-/// in Word mode, followed by the zero-padded 4-digit address.
+/// Builds the display name for `address`: the configured prefix and zero-padded width, which
+/// default to the Mitsubishi scheme ('M' in Bit mode, 'D' in Word mode, 4 digits).
 QString DevicesMonitorWidget::formatName(int address) const {
-    const QChar prefix = m_mode == Mode::Bit ? QLatin1Char('M') : QLatin1Char('D');
-    return QString("%1%2").arg(prefix).arg(address, 4, 10, QChar('0'));
+    return QString("%1%2").arg(m_addressPrefix).arg(address, m_addressDigits, 10, QChar('0'));
+}
+
+void DevicesMonitorWidget::setAddressFormat(const QString &prefix, int digits) {
+    if (prefix.isEmpty() || digits <= 0) {
+        return;
+    }
+    if (m_addressPrefix == prefix && m_addressDigits == digits) {
+        return;
+    }
+    m_addressPrefix = prefix;
+    m_addressDigits = digits;
+    // Rebuild rather than trust the caller to call setRange() afterwards. Leaving the existing
+    // rows alone would put the new prefix in the header while the address column still showed the
+    // old one — a worse lie than a uniformly wrong panel, because it looks deliberate.
+    rebuildRows();
 }
 
 /// Converts a device address to its row index (address - m_start), or -1 if
@@ -237,6 +254,9 @@ void DevicesMonitorWidget::buildRow(int row, int address) {
     auto *addrItem = new QTableWidgetItem;
     addrItem->setFlags(addrItem->flags() & ~Qt::ItemIsEditable);
     addrItem->setData(R::AddressRole, address);
+    // The spelled-out tag, so the delegate paints what the operator would type rather than
+    // recomputing the Mitsubishi M/D scheme for every family that reuses this widget.
+    addrItem->setData(R::AddressTextRole, formatName(address));
     m_table->setItem(row, 0, addrItem);
 
     // Column 1 — Description (editable text via Qt::DisplayRole).

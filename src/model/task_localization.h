@@ -181,28 +181,19 @@ public slots:
     /// controller is valid and the task state is Ready or RunningCycle.
     void executeLocalization();
 
-    /// Switches the active camera by its configured number, after validating the
-    /// task is in the runtime phase, the number resolves to an assigned camera
-    /// device id, and that device is actually a Camera. Queues the change onto the
-    /// runtime controller; logs a warning and does nothing on any validation failure.
-    void setCameraNumber(int number);
-
-    /// Queues activation of the given pattern-group number on the runtime controller.
-    void setPatternNumber(int number);
+    // Phase 9 / C5 deleted a third active-index entry point here: setCameraNumber(),
+    // setPatternNumber() and the two onSignalChange* slots that called them. The slots had no
+    // connect() site anywhere and the two methods had no other caller, so all four were reachable
+    // only by name. A dead entry point that looks live is what made backlog item 58's "the setters
+    // have two entry points" read as safer than it was. The live paths are
+    // LocalizationRuntimeController::handlePlcValues() for the PLC and queueSetActive*() for a
+    // manual change.
 
 private slots:
     // ── Signals value change method ───────────────────────────────────────
     /// Forwards a batch of changed PLC signal values to the runtime controller
     /// (queued via queueHandlePlcValues()).
     void onCommDeviceValueChanged(QMap<QString, QVariant> values);
-
-    /// Parses `value` as an int and calls setCameraNumber(); logs a warning if the
-    /// value isn't convertible.
-    void onSignalChangeCameraNumber(QVariant value);
-
-    /// Parses `value` as an int and calls setPatternNumber(); logs a warning if the
-    /// value isn't convertible.
-    void onSignalChangePatternNumber(QVariant value);
 
     /// Transitions the task state to RunningCycle.
     void onRuntimeCycleStarted(const QString &message);
@@ -248,8 +239,12 @@ private:
 
     /// Assembles a RuntimeContext snapshot for LocalizationRuntimeController::setup():
     /// current config, resolved PLC/vision-output/camera runners, per-camera
-    /// calibrators, the robot kinematic-check config from the assigned vision output
-    /// device, and deep-copied pattern-group snapshots (see snapshotPatternGroup()).
+    /// calibrators, the TASK's robot pick-check settings (TaskLocalizeConfig::robotCheckConfig(),
+    /// never the bound device's — Phase 9 / F1), the PLC register snapshot read by
+    /// awaitPrimaryPlcSnapshot(), and deep-copied pattern-group snapshots (see
+    /// snapshotPatternGroup()). The active camera and pattern group are left as the -1 sentinel
+    /// for setup() to resolve, because only setup() can tell "commanded by the PLC" from "the
+    /// project default".
     LocalizationRuntimeController::RuntimeContext buildRuntimeContext() const;
 
     /// Deep-copies a pattern group (group config + per-pattern config incl. the
@@ -338,6 +333,29 @@ private:
     QMap<device::DeviceType, int> m_limitDeviceMap;   ///< Per-device-type assignment caps, checked by isReachLimitOfDeviceType().
 
     bool m_isValid{false};   ///< Result of the last setupTask() call; see isValid().
+
+    /// The most recent whole-register snapshot the primary PLC published, or null before the
+    /// first one arrives. Handed to setup() through RuntimeContext::plcSnapshot so the runtime
+    /// resolves the two active-index signals from the device that owns them (Phase 9 / C6).
+    ///
+    /// Null is meaningful and means "not read yet" — never "the PLC holds 0".
+    std::shared_ptr<vc::device::PlcValueMap> m_plcSnapshot;
+    /// Subscription to the primary PLC runner's pollingUpdate, dropped on every rebind.
+    QMetaObject::Connection m_plcSnapshotConnection;
+
+    /// How long beginRuntime() waits for the primary PLC to publish its first snapshot.
+    ///
+    /// Bounded, and its expiry is reported rather than swallowed: without a bound a PLC that
+    /// never answers turns a startup into a hang, which is a worse failure than the wrong
+    /// camera. On expiry the runtime falls back to the project default exactly as it does for
+    /// an unmapped signal — the honest reading of "the PLC has not told us anything".
+    static constexpr int kPlcSnapshotWaitMs = 2000;
+
+    /// Connects the primary PLC and vision-output roles and waits, bounded, for the PLC's first
+    /// snapshot. The camera role is deliberately not touched: which camera to bind is a value
+    /// only the PLC can supply, so it cannot be resolved before the PLC has spoken.
+    /// @return true when a snapshot arrived within kPlcSnapshotWaitMs.
+    bool awaitPrimaryPlcSnapshot();
 
     TaskLocalizeConfig m_config;   ///< Task's persisted configuration (signal name bindings, device bindings, camera workspaces).
 

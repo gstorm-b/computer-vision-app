@@ -49,6 +49,26 @@ public:
     /// reflect it.
     void loadConfigToWidget() override;
 
+    /**
+     * @brief Offers to purge the signal map's orphaned rows, before the project is saved.
+     *
+     * An orphan is a tag that is no longer in the bound PLC's list — most often because the
+     * device's configured range shrank, or the device was swapped for one that speaks a
+     * different address space. Since Phase 9 / C4 the runtime refuses to start on one, so a
+     * project saved with orphans is a project that will not run.
+     *
+     * **Required rows are never purged without the operator being told what that costs.** The
+     * rows are classified against LocalizationRuntimeController::requiredSignalNames(), and
+     * clearing a required one converts "the tag is wrong" into "the signal is unmapped" —
+     * which is still a refusal, just a less informative one.
+     *
+     * @return false only when the operator chose to abandon the save; true when there was
+     *         nothing to ask about, or the question was answered.
+     * @note Purging writes "" back into the config through the existing signalMappingChanged
+     *       wiring, for the confirmed rows only.
+     */
+    bool confirmOrphanedSignalsBeforeSave();
+
 private:
     // ── Build / wire-up ─────────────────────────────────────────────────
     /// One-time setup: resolves m_localizeTask, loads the initial config,
@@ -97,6 +117,23 @@ private:
 
     /// Push the current workspace state of one camera to its row widget.
     void refreshWorkspaceRow(const QString &cameraId);
+
+    // ── Robot pick check ────────────────────────────────────────────────
+    /**
+     * @brief Opens the RobotKinematicCheckWidget on the TASK's pick-check settings.
+     *
+     * Hosted in a dialog rather than inline, following the camera-workspace precedent
+     * (onWorkspaceSetRequested()): the editor carries a pick-path table and an FK/IK tester
+     * and is far taller than the other frames on this page, which has no scroll area of its
+     * own.
+     *
+     * The vision-output device widgets keep their own copies of this editor, bound to their
+     * own device configs. Those drive the device-side advisory check only; since Phase 9 / F1
+     * the localization runtime reads the task's setting — this one.
+     */
+    void onRobotCheckSetRequested();
+    /// Updates the one-line summary next to the "Set…" button from m_config.
+    void refreshRobotCheckSummary();
 
 private:
     Ui::LocalizationSettingWidget *ui;  ///< Generated UI accessor; owned by this widget.

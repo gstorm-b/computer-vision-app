@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 rem ---------------------------------------------------------------------
 rem Builds the Doxygen developer reference for ncr_picking:
 rem   1. Renders uml/*.puml to SVG (PlantUML + Graphviz).
-rem   2. Runs Doxygen over src/, app/, and components/RobotKinematics.
+rem   2. Runs Doxygen over src/, components/app/, runtime_app/ and components/RobotKinematics.
 rem
 rem All tool locations are environment variables so this works across
 rem machines (see docs/rules/documentation_build.md). Defaults below match

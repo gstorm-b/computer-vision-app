@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VirtualPlcInputPanel</class>
+ <widget class="QWidget" name="VirtualPlcInputPanel">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>420</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="layout_root">
+   <property name="spacing">
+    <number>8</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="lbl_title">
+     <property name="text">
+      <string>Drive PLC inputs</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="lbl_hint">
+     <property name="text">
+      <string>Stands in for the PLC program. A cycle starts on a rising edge, so set the trigger tag to 1, then back to 0. M tags are bits (0 or 1); D tags are 16-bit words.</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layout_drive">
+     <property name="spacing">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QComboBox" name="cbx_tag">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+       <property name="minimumWidth">
+        <number>120</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spin_value">
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_set">
+       <property name="text">
+        <string>Set</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacer_drive">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QTableWidget" name="tbl_inputs">
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::NoSelection</enum>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Tag</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Delivered value</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -54,6 +54,26 @@ class VirtualCameraCfg : public CameraCfg {
     G_PROPERTY_NUMBER_READWRITE(double, paramsAcquisitionFrameRate, 1.0, 100.0, "Acquisition rate")///< Stored, never applied.
     G_PROPERTY_BOOL_READWRITE(bool, autoBacklightControl, "Enable auto backlight")                 ///< Stored, never applied.
 
+    /// Translation markers for the display names above. Not read by any code: lupdate cannot
+    /// see Q_CLASSINFO, so without this table these labels never enter the .ts. The context
+    /// must be this class's className(). See TaskLocalizeConfig::kDisplayNameSources for the
+    /// full reasoning; the contract test asserts this list and the properties agree.
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Still image path"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Frame width (px)"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Frame height (px)"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Frame grey level"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Millimetres per pixel"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Origin X (mm)"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Origin Y (mm)"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Work plane Z (mm)"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Exposure time"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Gain"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Enable acquisition rate"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Acquisition rate"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualCameraCfg", "Enable auto backlight"),
+    };
+
 public:
     /// Constructs a default-initialized config (see the field initializers below).
     explicit VirtualCameraCfg()

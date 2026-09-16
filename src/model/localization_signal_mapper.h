@@ -54,6 +54,21 @@ public:
     /// @return true if configure() has not been called (or clear() was), i.e. no tags are mapped.
     bool isEmpty() const { return m_tagToSignalName.isEmpty(); }
 
+    /// Every TaskLocalizeConfig property eligible for PLC-tag mapping, in declaration order.
+    ///
+    /// Exposed so the setup-time signal-map gate checks exactly the list this mapper maps. A
+    /// second copy of the list would drift the first time a signal is added, and the drift would
+    /// be silent: the new signal would map at runtime and be exempt from the gate.
+    static QStringList signalFieldNames();
+
+    /// Reads the tag configured for `signalName` directly from `config`, **including empty ones**.
+    ///
+    /// tagForSignalName() cannot answer this: configure() skips empty tags, so an unmapped signal
+    /// and an unknown one are indistinguishable through it — and telling those apart is the whole
+    /// job of the gate.
+    /// @return the trimmed tag, or an empty string if unmapped or not a known signal property.
+    static QString configuredTag(const TaskLocalizeConfig &config, const QString &signalName);
+
 private:
     QMap<QString, QString> m_tagToSignalName; ///< PLC tag -> TaskLocalizeConfig signal name.
     QMap<QString, QString> m_signalNameToTag; ///< TaskLocalizeConfig signal name -> PLC tag.

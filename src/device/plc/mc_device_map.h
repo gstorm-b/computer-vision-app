@@ -95,6 +95,12 @@ public:
         return std::make_shared<McDeviceMap>(*this);
     }
 
+    /// Reads a polled `M<addr>` (bit) or `D<addr>` (word) value; see PlcValueMap::valueForTag().
+    ///
+    /// Only M and D are answered, because only those two are what a task's signal map can bind:
+    /// X and Y are subscription ranges the poll planner uses, and no tag names them.
+    bool valueForTag(const QString &tag, QVariant *value) const override;
+
     /**
      * @brief Adds a range of devices of the given type to that type's subscription list.
      * @param[in] device device type in uppercase: 'X', 'Y', 'M', or 'D' (others are ignored)

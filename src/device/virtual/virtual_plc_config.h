@@ -32,6 +32,15 @@ class VirtualPlcCfg : public PlcCfg {
     G_PROPERTY_NUMBER_READWRITE(int, digitalTagCount, 0, 8192, "Digital tags (M0…)")  ///< How many M tags the signal-map editor is offered.
     G_PROPERTY_NUMBER_READWRITE(int, wordTagCount, 0, 8192, "Word tags (D0…)")        ///< How many D tags the signal-map editor is offered.
 
+    /// Translation markers for the display names above. Not read by any code: lupdate cannot
+    /// see Q_CLASSINFO, so without this table these labels never enter the .ts. The context
+    /// must be this class's className(). See TaskLocalizeConfig::kDisplayNameSources for the
+    /// full reasoning; the contract test asserts this list and the properties agree.
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::VirtualPlcCfg", "Digital tags (M0…)"),
+        QT_TRANSLATE_NOOP("vc::device::VirtualPlcCfg", "Word tags (D0…)"),
+    };
+
 public:
     /// Constructs the config with a tag space large enough for a typical localization task.
     explicit VirtualPlcCfg() = default;

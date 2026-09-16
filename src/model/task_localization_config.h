@@ -7,6 +7,7 @@
 #include "model/itask_config.h"
 #include "model/task_device_binding.h"
 #include "model/camera_workspace.h"
+#include "device/robot_kinematic_check_config.h"
 #include "matching/pattern_group_manager.h"
 #include "core/qgadget_macro.h"
 #include "core/logger/app_logger.h"
@@ -34,6 +35,16 @@ public:
     // number signals
     QString m_nActiveCamera;        ///< PLC signal name bound to the active-camera number.
     QString m_nActivePatternGroup;  ///< PLC signal name bound to the active pattern-group number.
+    /// PLC signal name the runtime REPORTS the adopted camera number on. Optional.
+    ///
+    /// Separate from m_nActiveCamera because that one is a **command register the master owns**.
+    /// The runtime used to echo the accepted number straight back onto it, which is a write race
+    /// against the master on a server binding and is refused outright on a client binding whose
+    /// command registers are input registers (backlog item 60).
+    QString m_nActiveCameraStatus;
+    /// PLC signal name the runtime REPORTS the adopted pattern group on. Optional; see
+    /// m_nActiveCameraStatus.
+    QString m_nActivePatternGroupStatus;
     QString m_nDetectedNumber;      ///< PLC signal name bound to the detected-object number.
     QString m_nFaultCode;           ///< PLC signal name bound to the task fault code.
 
@@ -52,6 +63,10 @@ public:
 
     TaskDeviceBindings m_deviceBindings;    ///< Device (PLC) bindings configured for this task.
     CameraWorkspaceMap m_cameraWorkspaces;  ///< Per-camera workspace (ROI) definitions.
+    /// Robot reachability/pick-path gate the runtime applies to every candidate. Owned by the
+    /// TASK, not by whichever device happens to carry the vision_output role — see
+    /// TaskLocalizeConfig::robotCheckConfig().
+    vc::device::RobotKinematicCheckConfig m_robotCheckConfig;
 };
 
 /**
@@ -68,6 +83,12 @@ class TaskLocalizeConfig : public ITaskConfig {
     P_PROPERTY_STRING_READWRITE(QString, nActiveCamera, "Camera selection")
     /// PLC signal name bound to the active pattern-group selection ("Pattern group selection").
     P_PROPERTY_STRING_READWRITE(QString, nActivePatternGroup, "Pattern group selection")
+    /// PLC signal name the runtime reports the adopted camera on ("Active camera (status)").
+    /// Optional: left empty, the value is still published to the UI but never written to the PLC.
+    P_PROPERTY_STRING_READWRITE(QString, nActiveCameraStatus, "Active camera (status)")
+    /// PLC signal name the runtime reports the adopted pattern group on
+    /// ("Active pattern group (status)"). Optional; see nActiveCameraStatus.
+    P_PROPERTY_STRING_READWRITE(QString, nActivePatternGroupStatus, "Active pattern group (status)")
     /// PLC signal name bound to the detected-object number ("Detected number").
     P_PROPERTY_STRING_READWRITE(QString, nDetectedNumber, "Detected number")
     /// PLC signal name bound to the task fault code ("Fault code").
@@ -98,6 +119,40 @@ class TaskLocalizeConfig : public ITaskConfig {
     /// LocalizationRuntimeController::kFaultAutoRecoverMs.
     P_PROPERTY_STRING_READWRITE(QString, bErrorReset, "Error reset")
 
+    /// Translation markers for the display names above. **Not read by any code.**
+    ///
+    /// Those names reach the UI through Q_CLASSINFO, and `lupdate` does not read
+    /// Q_CLASSINFO — so without this table they never enter the .ts and can never be
+    /// translated, no matter how the translation pipeline is run. Marking them at the macro
+    /// call site is not possible either: moc rejects QT_TRANSLATE_NOOP inside Q_CLASSINFO,
+    /// and putting it in the macro definition is invisible because lupdate does not expand
+    /// user macros. Both were measured, not assumed — see the Phase 7 / E6 plan.
+    ///
+    /// The context MUST be this class's `staticMetaObject.className()`, because that is what
+    /// `vc::gadget_meta::displayName()` passes to QCoreApplication::translate(). A different
+    /// spelling compiles, extracts, translates — and is never found at runtime.
+    ///
+    /// Every string here must appear exactly once above, and vice versa. The architecture
+    /// contract test asserts both directions; adding a property without a marker fails it.
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Camera selection"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Pattern group selection"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Active camera (status)"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Active pattern group (status)"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Detected number"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Fault code"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Camera ready"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Pattern ready"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Task ready"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Trigger"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Finished"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Busy"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Detected"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Low Area"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Task fault"),
+        QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Error reset"),
+    };
+
 public:
     /// Constructs a config with all signal-name bindings empty and default (empty) device
     /// bindings/workspaces.
@@ -115,7 +170,17 @@ public:
     ///       so the acknowledge input is simply unbound). The bump exists so a v1-era
     ///       build refuses a v2 document outright instead of loading it with the
     ///       acknowledge silently dropped.
-    static constexpr int kSchemaVersion = 2;
+    ///   3 — adds the two active-selection status tags. A v2 document loads with both
+    ///       unbound, which is a supported configuration. A v3 document is refused by a
+    ///       v2-era build, which is the point of the bump: that build would echo the
+    ///       adopted index back onto the master's command register (backlog item 60).
+    ///   4 — adds "robotCheckConfig". A v3 document loads with the check DISABLED, which
+    ///       is the same behaviour a v3-era build produced whenever the bound output device
+    ///       was not of the vision-output family. The bump exists because a v3-era build
+    ///       reading a v4 document would ignore the key and go back to reading the check
+    ///       off the device — i.e. silently un-commission a station that was signed off
+    ///       with reachability checking (backlog item 57).
+    static constexpr int kSchemaVersion = 4;
 
     /// Identifies this config as belonging to a localization task.
     /// @return TaskType::LocalizationTask
@@ -138,6 +203,8 @@ public:
         obj["version"]             = kSchemaVersion;
         obj["nActiveCamera"]       = d->m_nActiveCamera;
         obj["nActivePatternGroup"] = d->m_nActivePatternGroup;
+        obj["nActiveCameraStatus"] = d->m_nActiveCameraStatus;
+        obj["nActivePatternGroupStatus"] = d->m_nActivePatternGroupStatus;
         obj["nDetectedNumber"]     = d->m_nDetectedNumber;
         obj["nFaultCode"]          = d->m_nFaultCode;
 
@@ -154,6 +221,7 @@ public:
 
         obj["deviceBindings"]   = d->m_deviceBindings.toJson();
         obj["cameraWorkspaces"] = d->m_cameraWorkspaces.toJson();
+        obj["robotCheckConfig"] = d->m_robotCheckConfig.toJson();
 
         return obj;
     }
@@ -189,6 +257,10 @@ public:
 
         d->m_nActiveCamera       = obj["nActiveCamera"].toString("");
         d->m_nActivePatternGroup = obj["nActivePatternGroup"].toString("");
+        // Absent in v0..v2 documents; an empty tag means the runtime reports the adopted index
+        // to the UI only and writes nothing to the PLC, which is a supported configuration.
+        d->m_nActiveCameraStatus = obj["nActiveCameraStatus"].toString("");
+        d->m_nActivePatternGroupStatus = obj["nActivePatternGroupStatus"].toString("");
         d->m_nDetectedNumber     = obj["nDetectedNumber"].toString("");
         d->m_nFaultCode          = obj["nFaultCode"].toString("");
 
@@ -212,6 +284,12 @@ public:
         // Workspace map is optional (older projects predate it); a parse error
         // is tolerated as "no workspaces" rather than failing the whole load.
         d->m_cameraWorkspaces.fromJson(obj["cameraWorkspaces"]);
+
+        // Absent in v0..v3 documents. RobotKinematicCheckConfig::fromJson() defaults every
+        // field, so a missing key loads as "check disabled" — the safe reading, and the one
+        // a v3-era project already behaved as whenever the output role was not a
+        // vision-output device.
+        d->m_robotCheckConfig.fromJson(obj["robotCheckConfig"].toObject());
 
         return true;
     }
@@ -253,6 +331,31 @@ public:
      */
     void setCameraWorkspace(const QString &cameraId, const CameraWorkspace &ws) {
         d->m_cameraWorkspaces.setWorkspace(cameraId, ws);
+    }
+
+    // ── Robot pick check ──────────────────────────────────────────────────
+    /**
+     * @brief Returns the robot reachability/pick-path gate commissioned on this TASK.
+     *
+     * This is what `TaskLocalization::buildRuntimeContext()` reads. It used to come from the
+     * device bound to the `vision_output` role, through
+     * `IResultOutputDevice::robotKinematicCheckConfig()` — which meant the setting belonged to
+     * a *transport*. Binding a PLC to that role then left the check at its default (disabled)
+     * with nothing said, so a cell commissioned with reachability checking quietly stopped
+     * doing it (backlog item 57).
+     *
+     * @note Deliberately **not** a `P_PROPERTY_*`. The value carries a nested
+     *       `QVector<PickPathPoint>` that the property browser cannot render, so a property
+     *       would add a display name, a `kDisplayNameSources[]` entry and `totalNames` churn
+     *       for a control nobody could use. It is edited by `RobotKinematicCheckWidget`
+     *       instead.
+     */
+    vc::device::RobotKinematicCheckConfig robotCheckConfig() const {
+        return d->m_robotCheckConfig;
+    }
+    /// Replaces the task's robot pick-check settings. See robotCheckConfig().
+    void setRobotCheckConfig(const vc::device::RobotKinematicCheckConfig &cfg) {
+        d->m_robotCheckConfig = cfg;
     }
 
 public:

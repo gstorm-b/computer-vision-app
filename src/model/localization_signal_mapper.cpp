@@ -2,6 +2,8 @@
 
 #include <QMetaProperty>
 
+#include <iterator>
+
 #include "core/logger/app_logger.h"
 
 /// Application data-model types: tasks, device bindings, and localization signal mapping.
@@ -15,6 +17,8 @@ namespace {
 constexpr const char *kSignalFields[] = {
     "nActiveCamera",
     "nActivePatternGroup",
+    "nActiveCameraStatus",
+    "nActivePatternGroupStatus",
     "nDetectedNumber",
     "nFaultCode",
     "bCameraValid",
@@ -69,6 +73,22 @@ void LocalizationSignalMapper::configure(const TaskLocalizeConfig &config)
         m_tagToSignalName.insert(tag, signalName);
         m_signalNameToTag.insert(signalName, tag);
     }
+}
+
+QStringList LocalizationSignalMapper::signalFieldNames()
+{
+    QStringList names;
+    names.reserve(int(std::size(kSignalFields)));
+    for (const char *fieldName : kSignalFields) {
+        names.append(QString::fromUtf8(fieldName));
+    }
+    return names;
+}
+
+QString LocalizationSignalMapper::configuredTag(const TaskLocalizeConfig &config,
+                                                const QString &signalName)
+{
+    return readSignalTag(config, signalName.toUtf8().constData()).trimmed();
 }
 
 void LocalizationSignalMapper::clear()

@@ -29,6 +29,15 @@ class McMsgEthernetTcpCfg : public McMsgItfConfig {
     G_PROPERTY_STRING_READWRITE(QString, ipAddress, "IP Address")   ///< Q_GADGET property backed by m_ipAddress; PLC IP address to connect to.
     G_PROPERTY_NUMBER_READWRITE(int, portNumber, 0, 100000, "Port number")   ///< Q_GADGET property backed by m_portNumber; PLC TCP port to connect to.
 
+    /// Translation markers for the display names above. Not read by any code: lupdate cannot
+    /// see Q_CLASSINFO, so without this table these labels never enter the .ts. The context
+    /// must be this class's className(). See TaskLocalizeConfig::kDisplayNameSources for the
+    /// full reasoning; the contract test asserts this list and the properties agree.
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::McMsgEthernetTcpCfg", "IP Address"),
+        QT_TRANSLATE_NOOP("vc::device::McMsgEthernetTcpCfg", "Port number"),
+    };
+
 public:
     /// Default-constructs the config with the member-initializer defaults (192.168.0.1:5000).
     explicit McMsgEthernetTcpCfg() {

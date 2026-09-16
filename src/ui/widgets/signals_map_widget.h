@@ -40,8 +40,8 @@ class QStyledItemDelegate;
  * When a tag list is replaced, any currently-selected tag that is not in
  * the new list is kept visible (so the user sees what was there) but the
  * row is flagged as a warning (background tint + tooltip). The orphan is
- * not auto-cleared. checkEmpty() is the explicit point where orphans get
- * purged to "" so the caller can report which signals need re-mapping.
+ * not auto-cleared. orphanRowNames() reports them and clearRowTags() purges
+ * the ones the caller decided to purge — two steps, deliberately.
  *
  * @par Conflict handling
  * Tags already chosen by other rows are rendered in the dropdown with a
@@ -114,11 +114,26 @@ public:
      */
     void setBoolTags(const QStringList &tags);
 
-    /// Clears the tag of every warning-flagged (orphaned) row to "" and emits
-    /// signalMappingChanged() for each one cleared.
-    /// @return internalNames of every row whose current tag is now empty
-    /// (freshly cleared or already empty beforehand).
-    QStringList checkEmpty();
+    /**
+     * @brief Reports every warning-flagged (orphaned) row **without changing anything**.
+     * @return internalNames of the rows whose current tag is not in their type's tag list.
+     *
+     * This replaced `checkEmpty()`, which cleared every orphan and *then* returned the
+     * names — so a caller could not classify them before the damage was done. It had no
+     * caller anywhere (backlog item 1), and the blind-clear contract is why: wiring it at
+     * project save would have silently unmapped an orphaned required signal and bricked
+     * the next runtime start. Query first, purge second.
+     */
+    QStringList orphanRowNames() const;
+
+    /**
+     * @brief Clears the tag of each named row to "" and emits signalMappingChanged() for it.
+     * @param[in] internalNames rows to purge; names that match no row are ignored.
+     *
+     * The caller decides which rows these are. Nothing here consults the warning state, so
+     * a row the operator chose to keep is kept.
+     */
+    void clearRowTags(const QStringList &internalNames);
 
     /// Returns the displayName of the row (other than `excludeRow`) that
     /// currently has `tag` selected; used by the combobox popup's item

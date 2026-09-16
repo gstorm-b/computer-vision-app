@@ -72,6 +72,10 @@ package "vc::device core" {
     +writeWordIoByName(tag, value) : bool
   }
   interface IResultOutputDevice
+  interface IPlcInputSimulator {
+    +injectInputValue(tag, value, error) : bool
+    +simulatedInputs() : QMap<QString,QVariant>
+  }
 
   class DeviceRegistry <<static>> {
     +entries() : QList<DeviceRegistryEntry>
@@ -105,6 +109,7 @@ package "Camera" {
     Realsense
     BaslerGigE
     BaslerUSB
+    JaiGigE
     VirtualCamera
   }
 
@@ -123,7 +128,20 @@ package "Camera" {
     +softwareTriggerShot() : GrabResult
     +startContinuousShot() : bool
     +stopContinuousShot() : void
+    +isContinuousActive() : bool
+    +setBacklightOverride(on) : bool
+    +isBacklightOverridden() : bool
+    -- signals --
+    +continuousFrameReady(result)
+    +continuousStateChanged(active)
+    +backlightStateChanged(on)
   }
+  note right of CameraDevice
+    continuousStateChanged and backlightStateChanged are
+    NOT edge signals. The device reports after EVERY
+    request, including ones that changed nothing, because
+    CameraRunner resolves its commands from them.
+  end note
 
   class BaslerGigeCfg <<Q_GADGET>> {
     +cameraType() : BaslerGigE
@@ -140,12 +158,64 @@ package "Camera" {
     +grabSingleShot() : GrabResult
     +softwareTriggerShot() : GrabResult
   }
+
+  class JaiGigeCfg <<Q_GADGET>> {
+    +cameraType() : JaiGigE
+    +toJson() : QJsonObject
+    +fromJson(obj) : bool
+    +clone() : IDeviceCfg*
+    -- backlight --
+    +autoBacklightControl : bool
+    +autoBacklightLine : QString
+    +autoBacklightInvert : bool
+    +autoBacklightDelay : int
+  }
+
+  class JaiGigECamera <<QObject>> {
+    +cameraType() : JaiGigE
+    +deviceConnect() : bool
+    +deviceDisconnect() : bool
+    +grabSingleShot() : GrabResult
+    -- continuous (live view) --
+    +startContinuousShot() : bool
+    +stopContinuousShot() : void
+    -pumpContinuousFrame() : void
+    -- backlight --
+    +setBacklightOverride(on) : bool
+    -setAutoBacklightState(on) : bool
+    -setBacklightState(on) : void
+    -configureBacklightOutput() : void
+    -- diagnostics --
+    +streamDiagnostics() : QString
+    +backlightDiagnostics() : QString
+  }
+  note bottom of JaiGigECamera
+    Pleora eBUS SDK. Two traps encoded here:
+    (1) pumpContinuousFrame() RE-POSTS itself queued,
+        one frame per event-loop trip. A while-loop
+        starves the device thread and stop never arrives.
+    (2) Every automatic backlight write goes through the
+        single funnel setAutoBacklightState(), so a manual
+        override cannot be forgotten by a new grab path.
+  end note
+
+  class JaiGenICamRuntime <<free function>> {
+    +ensureGenICamRuntime(detail) : bool
+  }
+  note right of JaiGenICamRuntime
+    Must run before any eBUS call that needs a node map.
+    The delay-loaded GenICam DLLs are NOT on PATH, and a
+    miss raises SEH 0xC06D007E, which catch(...) cannot
+    see: the process dies with an empty log.
+  end note
 }
 
 package "PLC" {
   enum PlcType {
     PlcTypeNone
     MitsubishiMc
+    ModbusTcpClient
+    ModbusTcpServer
     VirtualPlc
   }
 
@@ -198,6 +268,71 @@ package "PLC" {
   class Frame3E
   class McDeviceMap
   class MCRequest
+
+  abstract class ModbusConfig <<Q_GADGET>> {
+    +unitId : int
+    +coilStart / coilCount : int
+    +discreteStart / discreteCount : int
+    +holdingStart / holdingCount : int
+    +inputStart / inputCount : int
+    +resultStartAddress : int
+    +range(area) : ModbusRange
+    +resultArea() : ModbusArea
+    +resultRange() : ModbusRange
+  }
+
+  class ModbusTcpClientCfg <<Q_GADGET>> {
+    +plcType() : ModbusTcpClient
+    +host / port / pollInterval
+  }
+
+  class ModbusTcpServerCfg <<Q_GADGET>> {
+    +plcType() : ModbusTcpServer
+    +listenAddress / port
+  }
+
+  class ModbusTcpClientDevice <<QObject>> {
+    +plcType() : ModbusTcpClient
+    +writeDigitalIoByName(tag, value) : bool
+    +writeWordIoByName(tag, value) : bool
+    -pollOnce() : void
+  }
+
+  class ModbusTcpServerDevice <<QObject>> {
+    +plcType() : ModbusTcpServer
+    +writeDigitalIoByName(tag, value) : bool
+    +writeWordIoByName(tag, value) : bool
+    +sendVisionResult(positions) : bool
+    -onDataWritten(table, address, size) : void
+    -servedRange(area) : ModbusRange
+  }
+  note bottom of ModbusTcpServerDevice
+    servedRange() is the UNION of the mapped span and the
+    result block, because the server must own every
+    register a master may touch. isConfigured() covers only
+    the MAPPED span, so a write into the gap is ACKed on
+    the wire and then dropped. onDataWritten() reports
+    "delivered=N of M" at USER level for exactly that.
+  end note
+
+  class ModbusRegisterMap {
+    +isConfigured(area, address) : bool
+    +setWord(area, address, value) : bool
+    +takeChangedValues() : QMap<QString, QVariant>
+    +adoptCurrentAsBaseline() : void
+  }
+
+  class ModbusResultLayout <<static>> {
+    +encodePayload(positions, max, truncated) : QList<quint16>
+    +encodeHeader(count, sequence, flags) : QList<quint16>
+    +decodeAxis(highWord, lowWord) : double
+  }
+  note right of ModbusResultLayout
+    Scaled int32, HIGH word first, kScale = 100.
+    Frozen once a master reads it. Mitsubishi MC packs
+    32-bit values LOW word first, so the two families in
+    this codebase disagree and only MC can express it.
+  end note
 }
 
 package "VisionOutput" {
@@ -405,8 +540,20 @@ IPlcTagProvider <|.. McProtocolDevice
 IPlcIoWriter <|.. McProtocolDevice
 IResultOutputDevice <|.. VisionOutputDevice
 
+' Result output is NOT a vision-output-family privilege. A Modbus TCP server implements it too,
+' so one device can hold the PLC role and the vision-output role at once. Reading this capability
+' off the FAMILY rather than off the DEVICE is a shipped defect: it cost Checkpoint B its
+' 2026-09-01 blocker, where PlcRunner refused a device that was perfectly able to output results.
+' See src/runtime/AGENTS.md.
+IResultOutputDevice <|.. ModbusTcpServerDevice
+
 CameraCfg <|-- BaslerGigeCfg
 CameraDevice <|-- BaslerGigECamera
+
+CameraCfg <|-- JaiGigeCfg
+CameraDevice <|-- JaiGigECamera
+JaiGigECamera *-- JaiGigeCfg
+JaiGigECamera ..> JaiGenICamRuntime : ensureGenICamRuntime() before any node-map call
 
 PlcCfg <|-- McProtocolConfig
 PlcDevice <|-- McProtocolDevice
@@ -418,6 +565,21 @@ McProtocolDevice *-- McProtocolConfig
 McProtocolDevice *-- McMsgInterface
 McProtocolDevice *-- MCFrameAbstract
 McProtocolDevice *-- McDeviceMap
+
+PlcCfg <|-- ModbusConfig
+ModbusConfig <|-- ModbusTcpClientCfg
+ModbusConfig <|-- ModbusTcpServerCfg
+PlcDevice <|-- ModbusTcpClientDevice
+PlcDevice <|-- ModbusTcpServerDevice
+IPlcTagProvider <|.. ModbusTcpClientDevice
+IPlcIoWriter <|.. ModbusTcpClientDevice
+IPlcTagProvider <|.. ModbusTcpServerDevice
+IPlcIoWriter <|.. ModbusTcpServerDevice
+ModbusTcpClientDevice *-- ModbusTcpClientCfg
+ModbusTcpServerDevice *-- ModbusTcpServerCfg
+ModbusTcpClientDevice *-- ModbusRegisterMap
+ModbusTcpServerDevice *-- ModbusRegisterMap
+ModbusTcpServerDevice ..> ModbusResultLayout
 
 VisionOutputDeviceCfg <|-- VisionTcpipDeviceCfg
 VisionOutputDeviceCfg <|-- VisionTcpipClientDeviceCfg
@@ -443,6 +605,7 @@ PlcCfg <|-- VirtualPlcCfg
 PlcDevice <|-- VirtualPlcDevice
 IPlcTagProvider <|.. VirtualPlcDevice
 IPlcIoWriter <|.. VirtualPlcDevice
+IPlcInputSimulator <|.. VirtualPlcDevice
 VirtualPlcDevice *-- VirtualPlcCfg
 
 VisionOutputDeviceCfg <|-- VirtualVisionOutputCfg
@@ -532,8 +695,17 @@ note right of VirtualPlcDevice
   Writes to invalid MC addresses are rejected, not
   merely accepted.
 
-  Known gap (backlog #43): values cannot be injected
-  IN, so a task reaches Ready and no further.
+  IPlcInputSimulator is what lets a hardware-free
+  project run a CYCLE rather than stop at Ready:
+  every runtime state past Ready begins with the PLC
+  changing an input. Injected inputs are a SEPARATE
+  store from the recorded writes - a value the
+  runtime wrote must never read back as an input, or
+  the handshake completes itself.
+
+  This is the ONE interface here no real device may
+  implement. A PLC whose inputs this software could
+  forge would be lying about the plant.
 end note
 
 @enduml

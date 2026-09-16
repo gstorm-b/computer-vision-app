@@ -119,6 +119,13 @@ note right of SerialRobotKinematics
   preset "Nachi MZ04D" + TCP). RobotKinematicCheckWidget
   edits it (FK via ForwardKinematics::toolPose, IK via
   SerialRobotKinematics::solve).
+
+  Phase 9 / F1: the localization runtime's pickability
+  gate reads the TASK's own copy,
+  TaskLocalizeConfig::robotCheckConfig(), never the
+  bound device's. The device copy now drives only the
+  advisory check below. Two editors for one kind of
+  setting is deferred (later_todo_list.md item 66).
   VisionTcpipDeviceBase::runKinematicCheck() runs IK per
   outgoing pick on the send path, and when collision is
   enabled also runs Coal mesh self-collision on each

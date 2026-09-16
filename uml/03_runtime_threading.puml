@@ -62,7 +62,7 @@ package "vc::model" {
   class RuntimeContext {
     +config : TaskLocalizeConfig
     +primaryPlcRunner : PlcRunner*
-    +visionOutputRunner : VisionOutputRunner*
+    +visionOutputRunner : IDeviceRunner*
     +cameraRunners : QMap<int, CameraRunner*>
     +patternGroups : QMap<int, MatchGroup>
     +cameraCalibrators : QMap<int, Calibrator>
@@ -71,18 +71,14 @@ package "vc::model" {
   enum LocalizationRecoveryAction {
     Ignore
     RetryScheduled
-    EscalateFault
   }
 
   class LocalizationRecoveryPolicy {
     +roleName : QString
-    +maxRetries : int
     +retryIntervalMs : int
-    +connectTimeoutMs : int
     +retryOnConnectFailed : bool
     +retryOnLostConnected : bool
     +isRecoverableStatus(status) : bool
-    +canRetry(currentRetryCount) : bool
   }
 
   class LocalizationSignalMapper {
@@ -108,7 +104,17 @@ package "vc::runtime" {
     Disconnect
     CameraSingleShot
     CameraApplyParams
+    CameraContinuousStart
+    CameraContinuousStop
+    CameraBacklightOn
+    CameraBacklightOff
   }
+  note right of DeviceCommandKind
+    The backlight pair is two kinds rather than one kind
+    carrying a bool, following the continuous pair: the
+    runner's trigger signals are no-argument so they fit
+    triggerFor()'s TriggerSignal type.
+  end note
 
   enum DeviceCommandResultStatus {
     Accepted
@@ -170,6 +176,13 @@ package "vc::runtime" {
     +isAttached() : bool
     +isRunning() : bool
     +submitCommand(command) : DeviceCommandResult
+    +requestConnect()
+    +requestDisconnect()
+    ..
+    +supportsResultOutput() : bool = false
+    +requestSendResult(positions)
+    --
+    +resultRequestFinished(ok, message)
   }
 
   abstract class "DeviceRunner<TDevice>" as DeviceRunner {
@@ -199,21 +212,54 @@ package "vc::runtime" {
     +requestDisconnect()
     +requestSingleShot()
     +requestApplyParams()
+    +requestContinuousStart()
+    +requestContinuousStop()
+    +requestBacklight(on)
+    -- signals --
+    +continuousFrameReady(result)
+    +continuousStateChanged(active)
+    +backlightStateChanged(on)
   }
+  note bottom of CameraRunner
+    Continuous and backlight commands resolve on the
+    device's STATE report, never on a frame. A continuous
+    frame reaching grabFinished() would resolve a command
+    that is not running and spend a retry budget that is
+    not its own. requestBacklight() refuses up front when
+    the camera answers hasIOPort() false, so the caller
+    gets a reason instead of a watchdog timeout.
+  end note
 
   class PlcRunner <<QObject>> {
     +requestConnect()
     +requestDisconnect()
     +requestWriteDigitalIo(tag, value)
     +requestWriteWordIo(tag, value)
+    +supportsResultOutput() : per DEVICE
+    +requestSendResult(positions)
+    +supportsInputSimulation() : per DEVICE
+    +requestInjectInputValue(tag, value)
   }
+  note bottom of PlcRunner
+    Both supports*() ask the DEVICE with a dynamic_cast,
+    not the family. The PLC family is mixed.
+
+    supportsResultOutput(): a Modbus TCP server can output
+    results, an MC PLC cannot. Answering per family would
+    accept an MC PLC for the vision_output role and then
+    hang the first cycle waiting on resultRequestFinished.
+
+    supportsInputSimulation(): ONLY the hardware-free PLC
+    may answer true. It is what lets a project with no PLC
+    on the network run a cycle instead of stopping at
+    Ready. requestInjectInputValue() queues onto the device
+    thread - a device panel must never call the device
+    directly, the trap ModbusDeviceWidget already paid for.
+  end note
 
   class VisionOutputRunner <<QObject>> {
-    +requestConnect()
-    +requestDisconnect()
+    +supportsResultOutput() : true
     +requestSendResult(positions)
-    --
-    +resultRequestFinished(ok, message)
   }
 }
 

@@ -62,6 +62,9 @@ protected:
     bool startTransport() override;
     /// Detaches any live sockets and closes/deletes both listening servers.
     void stopTransport() override;
+    /// Republishes startTransport()'s own predicate for the current state: both listeners
+    /// open ⇒ Connected. Reports ConnectFailed if active without listeners.
+    void publishCurrentConnectStatus() override;
 
     /// Main-channel listen port, sourced from m_config.
     int cfgMainPort() const override            { return m_config.m_mainPort; }

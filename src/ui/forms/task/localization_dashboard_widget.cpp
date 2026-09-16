@@ -65,6 +65,9 @@ constexpr SignalRowSpec kSignalRows[] = {
     // Number signals
     { "nActiveCamera",       "Active camera",       SignalsMonitorWidget::Type::Number },
     { "nActivePatternGroup", "Active pattern group", SignalsMonitorWidget::Type::Number },
+    { "nActiveCameraStatus", "Active camera (status)", SignalsMonitorWidget::Type::Number },
+    { "nActivePatternGroupStatus", "Active pattern group (status)",
+      SignalsMonitorWidget::Type::Number },
     { "nDetectedNumber",     "Detected count",      SignalsMonitorWidget::Type::Number },
     { "nFaultCode",          "Fault code",          SignalsMonitorWidget::Type::Number },
     // Bool signals
@@ -77,6 +80,9 @@ constexpr SignalRowSpec kSignalRows[] = {
     { "bMatchingDetected", "Matching detected", SignalsMonitorWidget::Type::Bool   },
     { "bMatchingLowArea",  "Low binary area",   SignalsMonitorWidget::Type::Bool   },
     { "bTaskFault",        "Task fault",        SignalsMonitorWidget::Type::Bool   },
+    // Missing until Phase 9 / C3. Its absence made typeOf() fall back to Number, so every
+    // acknowledge logged a USER-level "refreshNumber unknown signal bErrorReset" warn.
+    { "bErrorReset",       "Error reset",       SignalsMonitorWidget::Type::Bool   },
 };
 
 /// Reads `internalName` as a Q_GADGET property off TaskLocalizeConfig via QMetaObject, converting
@@ -207,6 +213,52 @@ void LocalizationDashboardWidget::initWidget() {
 
     // ── React to assignment changes from the task ──────────────────────
     connect(m_localizeTask, &vc::model::ITask::devicesChanged,
+            this, [this] {
+        m_config = m_localizeTask->taskLocalizeConfig();
+        pushSignalTagsFromConfig();
+        updateTaskContext();
+        rebuildConnectionWiring();
+    });
+
+    // ── Cause 1 (backlog item 25): the runners do not exist yet at construction ──
+    //
+    // This widget is built at runtime_shell_window.cpp:472, NINE LINES before beginRuntime() at
+    // :481. So setupConnectionLamps() -> rebuildConnectionWiring() -> wireConnectionLamp()
+    // resolves taskRunner()->runnerFor(id) to null on all three roles, sets "—", and never
+    // retries: every connection lamp stays dead for the life of the runtime.
+    //
+    // Do NOT assume C3 already fixed this. nActiveCamera's handler calls
+    // rebuildConnectionWiring(), and C3's setup-time status publish now lands after this widget
+    // has subscribed — so the lamps may come alive as a side effect. That is a coincidence, not
+    // a wiring: it leaves the PLC and output lamps depending on a camera signal firing.
+    connect(m_localizeTask, &vc::model::ITask::runtimeStarted,
+            this, [this] { rebuildConnectionWiring(); });
+    // phaseChanged covers the return to Idle as well, and needs no re-resolution: m_taskRunner is
+    // constructed with the task and lives as long as it (itask.h:390). On Idle the runners are
+    // gone, so wireConnectionLamp() resolves null and drops each lamp back to "—" rather than
+    // freezing it on the last colour it happened to show.
+    if (auto *taskRunner = m_localizeTask->taskRunner()) {
+        connect(taskRunner, &vc::runtime::TaskRunner::phaseChanged,
+                this, [this](vc::runtime::TaskRunner::Phase) { rebuildConnectionWiring(); });
+    }
+
+    // ── Cause 2 (backlog item 61), and re-wiring alone does NOT fix it ──
+    //
+    // m_config is a COPY taken at construction (:186) and refreshed in exactly one place above:
+    // the devicesChanged handler. But devicesChanged fires only on assigning or unassigning a
+    // device (itask.h:158, :168) — never on a role-binding change. Editing "primary PLC" or
+    // "vision output" goes localization_setting_widget.cpp:202/210 -> :545 ->
+    // task_localization.cpp:101 -> ITask::setTaskConfig() -> configChanged() (itask.h:344), and
+    // nothing here was connected to that. In the editor shell the widget is built once and cached
+    // (localization_task_widget.cpp:619-625), so the stale copy lives as long as the window.
+    //
+    // Everything read through m_config.d->m_deviceBindings was then wrong: the device name labels
+    // (:421-422), which device each lamp watches (:290-292), and resolveActiveCameraDeviceId()
+    // (:365-373). Field-confirmed 2026-09-08 — a Modbus client came up
+    // (app_log_2026-09-08.txt:705) and the dashboard showed neither the PLC nor the output device.
+    // Re-wiring on runtimeStarted/phaseChanged would have re-read the SAME stale bindings and
+    // shown the same nothing.
+    connect(m_localizeTask, &vc::model::ITask::configChanged,
             this, [this] {
         m_config = m_localizeTask->taskLocalizeConfig();
         pushSignalTagsFromConfig();
@@ -486,7 +538,16 @@ void LocalizationDashboardWidget::applySignalToDashboard(const QString &name,
     } else if (name == QLatin1String("nFaultCode")) {
         m_lastFaultCode = value.toInt();
         ui->lbl_val_fault_code->setText(faultCodeText(m_lastFaultCode));
-    } else if (name == QLatin1String("nActiveCamera")) {
+    } else if (name == QLatin1String("nActiveCamera") ||
+               name == QLatin1String("nActiveCameraStatus")) {
+        // BOTH names, and the status one is the load-bearing half.
+        //
+        // Phase 9 / C3 stopped the runtime echoing the adopted index back onto nActiveCamera,
+        // which is the master's command register. handlePlcValues() still emits signalChanged for
+        // the *input*, so a master-written change reaches here as before — but a selection the
+        // runtime adopted without being told (the startup resolution, or a UI-driven change)
+        // arrives only on the status signal. Matching one name and not the other silently stops
+        // the camera lamp following the task.
         const int number = value.toInt();
         ui->lbl_val_camera->setText(QString::number(number));
         if (number != m_activeCameraNumber) {
@@ -494,7 +555,8 @@ void LocalizationDashboardWidget::applySignalToDashboard(const QString &name,
             // The camera lamp follows the active camera; re-resolve its device.
             rebuildConnectionWiring();
         }
-    } else if (name == QLatin1String("nActivePatternGroup")) {
+    } else if (name == QLatin1String("nActivePatternGroup") ||
+               name == QLatin1String("nActivePatternGroupStatus")) {
         ui->lbl_val_pattern_group->setText(QString::number(value.toInt()));
     }
 }
@@ -566,6 +628,14 @@ void LocalizationDashboardWidget::updateCycleResult(
     ui->lbl_kpi_detected_val->setText(QString::number(result.detectedNumber));
     ui->lbl_kpi_sent_val->setText(QString::number(result.sentNumber));
     ui->lbl_kpi_cycle_time_val->setText(QStringLiteral("%1 ms").arg(result.matchingTimeMs, 0, 'f', 1));
+    // End-to-end cycle time (Phase 9 / F3). Kept SEPARATE from the "Matching time" tile above
+    // rather than replacing it: the matcher's own number is what a vision engineer tunes against,
+    // and the total is what answers "what is my cycle time". Shown as "—" when the cycle did not
+    // reach its last boundary, never as 0 — a faulted cycle did not take no time.
+    ui->lbl_kpi_cycle_total_val->setText(
+        result.timings.outputsPublishedMs
+            ? QStringLiteral("%1 ms").arg(*result.timings.outputsPublishedMs, 0, 'f', 1)
+            : QStringLiteral("—"));
     ui->lbl_kpi_low_area_val->setText(result.lowArea ? tr("Yes") : tr("No"));
 
     if (m_resultViewer) {

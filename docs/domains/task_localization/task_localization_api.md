@@ -39,17 +39,25 @@ void stopAll() override;
 `mergeToTaskThread` is passed as true, localization logs a warning and keeps
 per-device threads.
 
-Runtime startup order:
+Runtime startup order (`TaskLocalization::beginRuntime()`):
 
 1. Transition task state to `RuntimeStarting`.
-2. Sync task runners with assigned devices.
+2. Sync task runners with assigned devices, and log one warning per virtual device in use.
 3. Enter `TaskRunner` runtime in per-device-thread mode.
-4. Create the runtime controller if needed.
-5. Move the controller to `TaskRunner::runtimeThread()`.
-6. Build `RuntimeContext`.
-7. Setup the controller using a blocking queued call when needed.
-8. Enter `Ready` only after runtime setup succeeds and required roles become
-   healthy.
+4. **Read the PLC first** (`awaitPrimaryPlcSnapshot()`): connect the primary PLC and
+   vision-output roles, then wait — bounded by `kPlcSnapshotWaitMs` (2000 ms) — for the PLC's first
+   whole-register snapshot. The active camera and pattern group are inputs the PLC owns, so they
+   cannot be resolved before it has been read. Expiry is logged, not failed: `setup()` then falls
+   back to the project defaults.
+5. Create the runtime controller if needed and move it to `TaskRunner::runtimeThread()`.
+6. Build `RuntimeContext` and set up the controller (`setupTask()`), with a blocking queued call
+   when the controller is on another thread.
+7. If setup is invalid, transition to `Faulted` (*"Runtime start aborted: setupTask failed"*) and
+   **do not** emit `runtimeStarted()`.
+8. Otherwise emit `ITask::runtimeStarted()`. It is emitted only after the runners are registered
+   and attached, so a listener that resolves `taskRunner()->runnerFor(id)` on it gets a runner — the
+   dashboard's connection lamps depend on exactly that. The task reaches `Ready` once every required
+   role is healthy.
 
 `endRuntime()` and `stopAll()` destroy the runtime controller before entering
 idle, then recreate a fresh controller in the task thread for the next session.
@@ -98,8 +106,6 @@ controller through `runtimeMatchingRequested(...)`.
 public slots:
     void setupTask();
     void executeLocalization();
-    void setCameraNumber(int number);
-    void setPatternNumber(int number);
 ```
 
 `setupTask()` builds the runtime context and calls controller setup.
@@ -108,13 +114,19 @@ public slots:
 Manual execution is accepted only when the task is in `Ready` or
 `RunningCycle`.
 
-`setCameraNumber()` only validates that the logical camera number maps to an
-assigned camera device. It does not call `CameraDevice::deviceConnect()` or
-`CameraDevice::deviceDisconnect()`. The accepted request is queued to
-`LocalizationRuntimeController::setActiveCameraNumber()`.
+**There is no task-level setter for the active camera or pattern group.** `setCameraNumber()`,
+`setPatternNumber()` and the two `onSignalChange*` slots were deleted in Phase 9 / C5: nothing
+connected the slots and nothing else called the methods, so they were live-looking entry points
+reachable only by name. The two real paths are:
 
-`setPatternNumber()` queues
-`LocalizationRuntimeController::setActivePatternGroupNumber()`.
+- **the PLC** — `onCommDeviceValueChanged()` → `queueHandlePlcValues()` →
+  `LocalizationRuntimeController::handlePlcValues()`, which passes each index to its setter
+  unfiltered;
+- **a manual change** — the private `queueSetActiveCameraNumber()` /
+  `queueSetActivePatternGroupNumber()`, queued onto the controller's thread.
+
+Both end in the controller's setters, which validate range then registration and never touch a
+device directly.
 
 ### Signals
 
@@ -137,13 +149,17 @@ controller needs:
 
 - copied `TaskLocalizeConfig`
 - primary PLC device id and `PlcRunner`
-- vision-output device id and `VisionOutputRunner`
+- vision-output device id and its runner, held as `IDeviceRunner` (the role is a
+  capability, so the runner may come from any device family)
 - camera number to device id map
 - camera number to `CameraRunner` map
 - camera number to camera calibrator map
 - pattern group snapshots
-- active camera number
-- active pattern group number
+- the **task's** robot pick-check settings, `TaskLocalizeConfig::robotCheckConfig()` — never the
+  output device's (Phase 9 / F1)
+- the PLC register snapshot read by `awaitPrimaryPlcSnapshot()`, or null if none arrived
+- the active camera and pattern group left at `-1`, for `setup()` to resolve: only it can tell
+  "commanded by the PLC" from "the project default" and report which one it used
 
 The controller must not call back into `TaskLocalization` to resolve runtime
 data after setup.

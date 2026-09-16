@@ -4,6 +4,8 @@
 #include <QDoubleSpinBox>
 #include <QHeaderView>
 
+#include "core/qgadget_macro.h"
+
 /// Builds one QtVariantProperty for the property browser from a QMetaProperty/value pair:
 /// creates an enum-typed property (with translated enum names) for enum properties or a
 /// plain variant property otherwise, then applies the display name and min/maximum
@@ -29,15 +31,9 @@ static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaPro
     if (prop.isEnumType()) {
         variantProp = manager->addProperty(QtVariantPropertyManager::enumTypeId(), propName);
 
-        // get enum names
-        QStringList enumNames;
-        QMetaEnum metaEnum = prop.enumerator();
-        for (int j = 0; j < metaEnum.keyCount(); ++j) {
-            const char* key = metaEnum.key(j);
-            QString translatedName = QCoreApplication::translate(meta.className(), key);
-            enumNames << translatedName;
-        }
-        variantProp->setAttribute(QLatin1String("enumNames"), enumNames);
+        // Enum labels, translated in the enum's own scope — see vc::gadget_meta::enumKeyNames.
+        variantProp->setAttribute(QLatin1String("enumNames"),
+                                  vc::gadget_meta::enumKeyNames(prop));
         // set enum value
         variantProp->setValue(value.toInt());
 
@@ -54,13 +50,10 @@ static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaPro
         return nullptr;
     }
 
-    int displayNameIdx = meta.indexOfClassInfo(QString("%1_name").arg(propName).toUtf8());
-    if (displayNameIdx != -1) {
-        const QString displayName = meta.classInfo(displayNameIdx).value();
-        if (!displayName.isEmpty()) {
-            variantProp->setDisplayName(displayName);
-        }
-    }
+    // Resolved and translated by the one helper that reads "<prop>_name"; it falls back to
+    // the property name the property was created with, so this is a no-op when the config
+    // declares no display name.
+    variantProp->setDisplayName(vc::gadget_meta::displayName(meta, prop.name()));
 
     // --- set attributes---
     int minIdx = meta.indexOfClassInfo(QString("%1_min").arg(propName).toUtf8());

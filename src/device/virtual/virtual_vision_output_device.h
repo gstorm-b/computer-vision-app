@@ -56,6 +56,20 @@ public:
     /// Captures the request's positions, counts the push, and returns sendSucceeds.
     bool pushRequest(IRequest *request) override;
 
+    /**
+     * @brief Queues a connection-status change, as if the link had changed on its own.
+     *
+     * Queued rather than immediate so the change is delivered through the event loop, the way
+     * a real device's status arrives from its own thread — a direct setConnectionStatus() from
+     * a caller's thread would emit connectStatusChanged() off the device's own thread and let
+     * that caller observe an ordering the hardware can never produce.
+     *
+     * Same contract, and the same wording, as VirtualCameraDevice::forceConnectionStatus().
+     * It exists here because losing the output link is a runtime case with its own fault code
+     * (LocalizationFaultCode::VisionOutputLost) and there was no hardware-free way to produce one.
+     */
+    void forceConnectionStatus(ConnectStatus status);
+
     bool sendSucceeds{true};   ///< When false, pushRequest() reports a failed send.
     int requestCount{0};       ///< How many pushes have been made, accepted or not.
     QVector<VisionOutputPosition> capturedPositions;  ///< Positions from the most recent request.

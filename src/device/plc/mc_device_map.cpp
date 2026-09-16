@@ -99,6 +99,47 @@ McDeviceMap::~McDeviceMap() {
 
 /// Dispatches to the SubscribeDevice() call of the McDeviceRange matching
 /// `device`; unrecognized device letters are silently ignored.
+/// Reads a polled M (bit) or D (word) value by tag name. See PlcValueMap::valueForTag() for why
+/// "absent" and "zero" must stay distinguishable.
+bool McDeviceMap::valueForTag(const QString &tag, QVariant *value) const {
+    const QString trimmed = tag.trimmed().toUpper();
+    if (trimmed.size() < 2) {
+        return false;
+    }
+
+    bool ok = false;
+    const int address = trimmed.mid(1).toInt(&ok, 10);
+    if (!ok || address < 0) {
+        return false;
+    }
+
+    if (trimmed.at(0) == QLatin1Char('M')) {
+        const auto it = device_map_m.find(address);
+        if (it == device_map_m.end()) {
+            return false;
+        }
+        if (value) {
+            // Bit area: a bool, so a number signal bound to an M tag is reported as the type
+            // mismatch it is rather than silently converting to 0/1.
+            *value = QVariant(it->second != 0);
+        }
+        return true;
+    }
+
+    if (trimmed.at(0) == QLatin1Char('D')) {
+        const auto it = device_map_d.find(address);
+        if (it == device_map_d.end()) {
+            return false;
+        }
+        if (value) {
+            *value = QVariant(static_cast<int>(it->second));
+        }
+        return true;
+    }
+
+    return false;
+}
+
 void McDeviceMap::Subscribe_deivce(char device, int address, int amount, bool optimal) {
     switch (device) {
     case 'X':

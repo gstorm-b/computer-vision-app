@@ -17,6 +17,9 @@
 #define CAM_TYPE_REALSENSE       "Realsense"
 #define CAM_TYPE_BASLER_GIGE     "Basler_GigE"
 #define CAM_TYPE_BASLER_USB      "Basler_USB"
+/// JAI GigE Vision camera, driven through the Pleora eBUS SDK. Written into customer project
+/// files; frozen from the first save.
+#define CAM_TYPE_JAI_GIGE        "Jai_GigE"
 /// Hardware-free camera. This token is written into customer project files and can never be
 /// changed once one has been saved.
 #define CAM_TYPE_VIRTUAL         "Virtual"
@@ -32,6 +35,7 @@ enum CameraType {
     Realsense,
     BaslerGigE,
     BaslerUSB,
+    JaiGigE,
     /// No hardware: frames come from a still image or a generated pattern. Named
     /// `VirtualCamera`, not `Virtual`, because these enums are UNSCOPED — every enumerator
     /// lands in `vc::device`, so the PLC and vision-output families cannot each have a
@@ -50,6 +54,8 @@ enum CameraType {
         return CAM_TYPE_BASLER_GIGE;
     case vc::device::CameraType::BaslerUSB:
         return CAM_TYPE_BASLER_USB;
+    case vc::device::CameraType::JaiGigE:
+        return CAM_TYPE_JAI_GIGE;
     case vc::device::CameraType::VirtualCamera:
         return CAM_TYPE_VIRTUAL;
     case CamType:
@@ -67,6 +73,8 @@ enum CameraType {
         return CameraType::BaslerGigE;
     } else if (t == CAM_TYPE_BASLER_USB) {
         return CameraType::BaslerUSB;
+    } else if (t == CAM_TYPE_JAI_GIGE) {
+        return CameraType::JaiGigE;
     } else if (t == CAM_TYPE_VIRTUAL) {
         return CameraType::VirtualCamera;
     }
@@ -274,11 +282,59 @@ public:
     virtual bool startAutoContinuousShot() = 0;
     /// Stops the auto-continuous acquisition started by startAutoContinuousShot().
     virtual void stopAutoContinousShot() = 0;
-    /// Starts continuous acquisition driven by explicit grab calls rather than free-running.
-    /// @return true if continuous acquisition was started successfully.
+    /// Starts continuous acquisition, delivering frames via continuousFrameReady().
+    ///
+    /// A **commissioning aid** — a live image for setting focus, aperture and lighting. The
+    /// localization runtime triggers on a PLC handshake and must never see a free-running camera.
+    ///
+    /// @warning Frames arrive on continuousFrameReady(), **not** grabFinished(). CameraRunner resolves
+    /// its in-flight command from grabFinished and applies the single-shot retry budget to it, so
+    /// a stream arriving there would resolve commands that are not running and spend a budget
+    /// that is not theirs.
+    ///
+    /// @return true if streaming started, or was already running (idempotent: a widget cannot
+    ///         always know, and refusing a double click would look like a fault).
     virtual bool startContinuousShot() = 0;
-    /// Stops the continuous acquisition started by startContinuousShot().
+    /// Stops the continuous acquisition started by startContinuousShot(). Idempotent.
+    /// @note Implementations must leave the camera able to grabSingleShot() immediately after.
     virtual void stopContinuousShot() = 0;
+    /// Whether continuous acquisition is currently running.
+    /// @note The authority for UI state. A toggle button that tracks its own last click drifts
+    ///       out of step the moment streaming stops for a reason the widget did not cause — a
+    ///       pulled cable, a disconnect, or a single shot pre-empting it.
+    virtual bool isContinuousActive() const { return false; }
+
+    /**
+     * @brief Drives the backlight manually and takes it away from the auto-backlight sequence.
+     *
+     * The commissioning aid behind the widget's backlight button: the operator turns the lamp on
+     * to set exposure and see the part, the way live view exists to set focus.
+     *
+     * @warning **The override must win over auto-backlight, not merely race it.** A grab with
+     * `autoBacklightControl` enabled switches the lamp on before the trigger and off afterwards.
+     * If a manual "on" left that sequence alone, the button would appear to work and then undo
+     * itself at the next trigger, which reads as a hardware fault rather than as software.
+     * Implementations therefore suppress the auto sequence's writes entirely while overridden.
+     *
+     * @param[in] on true to force the lamp on, false to release the override and switch it off.
+     * @return false when the camera has no usable backlight output, is not connected, or the write
+     *         failed. Implementations must still report the lamp's resulting state via
+     *         backlightStateChanged() on both paths — see that signal's warning.
+     */
+    virtual bool setBacklightOverride(bool on)
+    {
+        Q_UNUSED(on);
+        // Reports "off" rather than staying silent, so a runner waiting on the signal resolves the
+        // command now instead of at its watchdog. A camera that answers hasIOPort() true and does
+        // not override this reaches here and always fails — deliberately loud, because the two
+        // answers contradict each other and only the subclass can say which is right.
+        LOG_DEV_ERR << "Backlight override is not implemented by this camera.";
+        emit backlightStateChanged(false);
+        return false;
+    }
+    /// Whether the operator's manual override currently owns the backlight.
+    virtual bool isBacklightOverridden() const { return false; }
+
     /// Arms/performs a software-triggered grab and returns its result.
     virtual GrabResult softwareTriggerShot() = 0;
 
@@ -296,7 +352,26 @@ public:
     }
 
 signals:
-    void grabFinished(vc::device::GrabResult result);      ///< Emitted when a grab (single-shot or continuous) completes with `result`.
+    void grabFinished(vc::device::GrabResult result);      ///< Emitted when a SINGLE-SHOT grab completes with `result`; resolves a CameraRunner command.
+    void continuousFrameReady(vc::device::GrabResult result); ///< Emitted per frame while continuous acquisition runs; carries no command outcome.
+    /// Reports whether continuous acquisition is running, after **every** start/stop request —
+    /// including requests that changed nothing — and whenever streaming stops on its own.
+    ///
+    /// @warning Not an edge signal. CameraRunner resolves its continuous commands from this, so an
+    /// idempotent stop that stayed silent would leave that command hanging until its watchdog
+    /// fired. It is also the authority a toggle button should follow.
+    void continuousStateChanged(bool active);
+
+    /// Reports the backlight's driven level after **every** request to change it, including
+    /// requests that changed nothing or failed.
+    ///
+    /// @warning Not an edge signal, for the same reason continuousStateChanged() is not:
+    /// CameraRunner resolves its backlight commands from this, so a refused or redundant request
+    /// that stayed silent would leave that command hanging until its watchdog fired. It is also
+    /// the authority a backlight toggle button should follow — the lamp is switched by the
+    /// auto-backlight sequence too, which no widget click can predict.
+    void backlightStateChanged(bool on);
+
     void exposureChanged(double value);                     ///< Emitted after the exposure time is changed to `value`.
     void gainChanged(double value);                         ///< Emitted after the gain is changed to `value`.
     void backlightControlChanged(bool ena);                 ///< Emitted after auto-backlight control is enabled/disabled.

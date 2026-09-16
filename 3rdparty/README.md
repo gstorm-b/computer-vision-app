@@ -31,9 +31,17 @@ or an existing working clone into exactly these paths:
 (`ROBOTKINEMATICS_3RDPARTY = $$PWD/../../3rdparty`), so no environment
 variables are needed for these trees — the folders just have to exist here.
 
-OpenCV and Basler Pylon are NOT under `3rdparty/`; they are located through
-environment variables (`OPENCV_*`, `PYLON_*`) — see
+OpenCV, Basler Pylon and the JAI/Pleora eBUS SDK are NOT under `3rdparty/`; they
+are located through environment variables (`OPENCV_*`, `PYLON_*`, and
+`PUREGEV_ROOT` / `EBUS_*`) — see
 [docs/rules/build_and_verification.md](../docs/rules/build_and_verification.md).
+
+The eBUS SDK is the only one of the three whose installer already exports what
+qmake needs (`PUREGEV_ROOT`), so a machine with it installed needs no setup at
+all. It is a **hard** build requirement, the same standing as Pylon: the JAI
+camera device compiles against it, so a machine without it cannot build
+`ncr_shared`. qmake says so by name rather than letting the link fail on an
+unresolved `Pv*` symbol.
 
 ## Verify your provisioning
 

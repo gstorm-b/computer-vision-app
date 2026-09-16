@@ -4,12 +4,21 @@
 
 SOURCES += \
     $$PWD/camera/camera_basler_gige.cpp \
+    $$PWD/camera/camera_jai_gige.cpp \
+    $$PWD/camera/jai_runtime.cpp \
     $$PWD/device_factory.cpp \
     $$PWD/device_manager.cpp \
     $$PWD/device_registry.cpp \
     $$PWD/plc/mc_device_map.cpp \
     $$PWD/plc/mc_fame_3e.cpp \
+    $$PWD/plc/mc_frame_1c.cpp \
+    $$PWD/plc/mc_frame_3c.cpp \
     $$PWD/plc/mc_protocol_device.cpp \
+    $$PWD/plc/modbus/modbus_register_map.cpp \
+    $$PWD/plc/modbus/modbus_result_layout.cpp \
+    $$PWD/plc/modbus/modbus_trace.cpp \
+    $$PWD/plc/modbus/modbus_tcp_client_device.cpp \
+    $$PWD/plc/modbus/modbus_tcp_server_device.cpp \
     $$PWD/output_device/vision_tcpip_device_base.cpp \
     $$PWD/output_device/vision_tcpip_device.cpp \
     $$PWD/output_device/vision_tcpip_client_device.cpp \
@@ -22,7 +31,11 @@ SOURCES += \
 HEADERS += \
     $$PWD/camera/basler_define.h \
     $$PWD/camera/camera_basler_gige.h \
+    $$PWD/camera/jai_define.h \
+    $$PWD/camera/jai_runtime.h \
+    $$PWD/camera/camera_jai_gige.h \
     $$PWD/device_capabilities.h \
+    $$PWD/robot_kinematic_check_config.h \
     $$PWD/camera/camera_device.h \
     $$PWD/communication_device.h \
     $$PWD/device_factory.h \
@@ -33,16 +46,31 @@ HEADERS += \
     $$PWD/idevice_config.h \
     $$PWD/irequest.h \
     $$PWD/plc/mc_context.h \
+    $$PWD/plc/mc_context_1c.h \
+    $$PWD/plc/mc_context_3c.h \
     $$PWD/plc/mc_context_3e.h \
     $$PWD/plc/mc_context_factory.h \
     $$PWD/plc/mc_define.h \
     $$PWD/plc/mc_device_map.h \
+    $$PWD/plc/mc_device_map_diff.h \
+    $$PWD/plc/mc_ascii_utils.h \
     $$PWD/plc/mc_fame_3e.h \
+    $$PWD/plc/mc_frame_1c.h \
+    $$PWD/plc/mc_frame_3c.h \
     $$PWD/plc/mc_frame_abstract.h \
     $$PWD/plc/mc_msg_interface.h \
+    $$PWD/plc/mc_msg_serial_port.h \
     $$PWD/plc/mc_msg_tcp_client.h \
     $$PWD/plc/mc_protocol_config.h \
     $$PWD/plc/mc_protocol_device.h \
+    $$PWD/plc/modbus/modbus_config.h \
+    $$PWD/plc/modbus/modbus_register_map.h \
+    $$PWD/plc/modbus/modbus_result_layout.h \
+    $$PWD/plc/modbus/modbus_trace.h \
+    $$PWD/plc/modbus/modbus_tcp_client_config.h \
+    $$PWD/plc/modbus/modbus_tcp_client_device.h \
+    $$PWD/plc/modbus/modbus_tcp_server_config.h \
+    $$PWD/plc/modbus/modbus_tcp_server_device.h \
     $$PWD/plc/plc_device.h \
     $$PWD/plc/mc_request.h \
     $$PWD/plc/memory_utils.h \

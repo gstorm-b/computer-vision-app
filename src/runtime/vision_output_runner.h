@@ -34,38 +34,38 @@ public:
     // ── Commission actions (safe from any thread) ─────────────────────────────
     /// Requests a connect via sig_connect(), queued onto the device thread.
     /// No-op while a previous request is still in flight (m_busy).
-    void requestConnect()    { if (!m_busy) { m_busy = true; emit sig_connect();    } }
+    void requestConnect()    override { if (!m_busy) { m_busy = true; emit sig_connect();    } }
     /// Requests a disconnect via sig_disconnect(), queued onto the device thread.
     /// No-op while a previous request is still in flight (m_busy).
-    void requestDisconnect() { if (!m_busy) { m_busy = true; emit sig_disconnect(); } }
+    void requestDisconnect() override { if (!m_busy) { m_busy = true; emit sig_disconnect(); } }
+
+    // ── Result output capability ──────────────────────────────────────────────
+    /// Every device in this family implements IResultOutputDevice, so the whole family
+    /// can carry the `vision_output` role.
+    bool supportsResultOutput() const override { return true; }
+
     /**
-     * @brief Builds a VisionOutputRequest from `positions` and pushes it to the device on the
-     *        device's own thread via QMetaObject::invokeMethod.
+     * @brief Hands `positions` to the device on the device's own thread via
+     *        QMetaObject::invokeMethod.
      * @param[in] positions vision result positions to send to the output device
      * @post resultRequestFinished() is emitted asynchronously, from the device's worker thread,
-     *       once the push completes.
+     *       once the send completes.
+     * @note The request-building that used to sit in this lambda moved into
+     *       VisionOutputDevice::sendVisionResult(); the runner now only marshals threads, which
+     *       is what lets a PLC-family runner implement the same capability without ever
+     *       constructing a VisionOutputRequest.
      */
-    void requestSendResult(const QVector<vc::device::VisionOutputPosition> &positions)
+    void requestSendResult(const QVector<vc::device::VisionOutputPosition> &positions) override
     {
         const QVector<vc::device::VisionOutputPosition> payload = positions;
         QMetaObject::invokeMethod(m_device, [this, payload]() {
-            vc::device::VisionOutputRequest request(payload);
-            const bool ok = m_device->pushRequest(&request);
-            emit resultRequestFinished(
-                ok,
-                ok ? QStringLiteral("Vision output result sent.")
-                   : QStringLiteral("Vision output result send failed."));
+            QString message;
+            const bool ok = m_device->sendVisionResult(payload, &message);
+            emit resultRequestFinished(ok, message);
         }, Qt::QueuedConnection);
     }
 
 signals:
-    /**
-     * @brief Emitted after requestSendResult() completes.
-     * @param[in] ok whether the send succeeded.
-     * @param[in] message human-readable success/failure detail.
-     */
-    void resultRequestFinished(bool ok, QString message);
-
     // ── Internal queued triggers ──────────────────────────────────────────────
     /// Internal trigger queued to the device thread to call deviceConnect().
     void sig_connect();
@@ -89,6 +89,17 @@ protected:
                 this,     &Run::onConnectStatusChanged, Qt::QueuedConnection);
         connect(m_device, &Plc::connectionFailed,
                 this,     &Run::onConnectionFailed,     Qt::QueuedConnection);
+
+        // PlcRunner and CameraRunner both forward this; only this family did not, and nothing
+        // said so because the runner families are wired independently.
+        //
+        // DORMANT, and its presence must not be read as coverage: **no device in src/device/
+        // emits IDevice::errorOccurred** (searched 2026-09-08 — backlog item 51). The forward is
+        // correct and costs one line, so it is made now rather than left as a hole for whoever
+        // lands item 51's other half to discover. Until then a vision-output device has no way
+        // to report an error that is not a connection failure.
+        connect(m_device, &Plc::errorOccurred,
+                this,     &Run::errorOccurred,          Qt::QueuedConnection);
     }
 
     /// Disconnects all signal wiring set up in wireSignals() between this

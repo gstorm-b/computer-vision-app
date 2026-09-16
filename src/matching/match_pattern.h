@@ -91,6 +91,8 @@ public:
     /// @return true on success; sets isPatternLearned() to true
     bool learnPattern();
 
+    bool updatePattern();
+
     // ── State queries ─────────────────────────────────────────────────────
     bool isImageEmpty()     const { return m_config.m_rawImage.empty(); } ///< True when no raw training image has been set.
     bool isPatternLearned() const { return m_hasPatternLearned; } ///< True once learnPattern() has completed successfully.

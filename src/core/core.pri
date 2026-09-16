@@ -15,7 +15,8 @@ SOURCES += \
     $$PWD/logger/app_logger.cpp \
     $$PWD/utils/shell_handoff.cpp \
     $$PWD/utils/single_instance_guard.cpp \
-    $$PWD/utils/theme_manager.cpp
+    $$PWD/utils/theme_manager.cpp \
+    $$PWD/utils/translation_loader.cpp
 
 HEADERS += \
     $$PWD/app_settings/app_settings.h \
@@ -30,4 +31,5 @@ HEADERS += \
     $$PWD/utils/shell_handoff.h \
     $$PWD/utils/single_instance_guard.h \
     $$PWD/utils/theme_manager.h \
+    $$PWD/utils/translation_loader.h \
     $$PWD/utils/windows_helper.h

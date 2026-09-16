@@ -84,6 +84,20 @@ public:
      */
     bool isPickable(const mtc::WorldPickPose& pose, bool withCollision) const override;
 
+    /**
+     * @brief Reports whether the configured preset actually resolved to a robot model.
+     *
+     * When it did not — a misspelled or unregistered `presetName` — this checker still
+     * answers, but it fails **closed**: isPickable() returns false for every pose. On the
+     * dashboard that reads as *"nothing is pickable today"*, which sends a commissioning
+     * engineer to the robot, the calibration or the fixture for what is a one-word typo in
+     * the settings. The runtime asks this at setup so it can refuse to start and name the
+     * preset instead (Phase 9 / F1).
+     *
+     * @return true when the preset resolved and the checker can give meaningful answers.
+     */
+    bool isReady() const { return m_robotValid; }
+
 private:
     /**
      * @struct Waypoint

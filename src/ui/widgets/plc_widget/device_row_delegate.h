@@ -62,6 +62,10 @@ public:
      */
     enum Role {
         AddressRole      = Qt::UserRole + 100,   ///< int (PLC address)
+        /// QString: the address as the operator would type it, e.g. "HR00100". Set by
+        /// DevicesMonitorWidget so a family whose tags are not the Mitsubishi M/D scheme paints
+        /// its real tag. When absent or empty the delegate falls back to M/D + 4 digits.
+        AddressTextRole  = Qt::UserRole + 104,
         BitStateRole     = Qt::UserRole + 101,   ///< bool
         WordValueRole    = Qt::UserRole + 102,   ///< int (treated as qint16)
         PendingWriteRole = Qt::UserRole + 103,   ///< int (treated as qint16)
@@ -163,9 +167,11 @@ private:
     void paintBackground(QPainter *p, const QStyleOptionViewItem &opt,
                          const QModelIndex &idx) const;
 
-    /// Paints the address column: bold mono-font text, centered, showing the 'M'/'D'
-    /// prefix (by m_mode) followed by address zero-padded to 4 digits.
-    void paintAddress (QPainter *p, const QRect &cell, int address)              const;
+    /// Paints the address column: bold mono-font text, centered, showing `addressText` when the
+    /// item supplied one (AddressTextRole), otherwise the 'M'/'D' prefix by m_mode followed by
+    /// the address zero-padded to 4 digits.
+    void paintAddress (QPainter *p, const QRect &cell, int address,
+                       const QString &addressText = QString())                   const;
     /// Paints the Bit-mode state chip: a rounded pill sized to fit "OFF" plus padding,
     /// centered in cell, colored success/green when on and neutral/muted otherwise.
     void paintChip    (QPainter *p, const QRect &cell, bool on)                  const;

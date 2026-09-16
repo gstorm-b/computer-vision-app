@@ -84,16 +84,24 @@ The RPY convention is fixed-axis roll(X)/pitch(Y)/yaw(Z), composed as
 ## Phase 2 — Vision Output integration (built)
 
 - **Config** — `vc::device::RobotKinematicCheckConfig`
-  ([vision_output_config.h](../../src/device/output_device/vision_output_config.h)):
+  ([robot_kinematic_check_config.h](../../src/device/robot_kinematic_check_config.h)):
   `enabled`, `collisionCheckEnabled`, `presetName`, `tcpName`, TCP offset
-  (mm/deg). Plain value type (no RobotKinematics dependency in the header) on
+  (mm/deg). Plain value type (no RobotKinematics dependency in the header) held on
   the shared `VisionOutputDeviceCfg` base, so both the TCP server and client
   transports carry it; serialized under the `RobotKinematicCheck` JSON key.
+  The struct lives outside the vision-output family (Phase 8/B1) because any device
+  serving the vision-output role must be able to supply it — see
+  `IResultOutputDevice::robotKinematicCheckConfig()`. The JSON did not move.
+  **Since Phase 9 / F1 the localization task keeps its own copy**,
+  `TaskLocalizeConfig::robotCheckConfig()` (task schema v4), and the runtime's pickability gate reads
+  only that. The copy on the device config now drives only the device-side advisory **Check** below.
 - **Widget** — `RobotKinematicCheckWidget`
   ([src/ui/forms/vision_output/](../../src/ui/forms/vision_output/robot_kinematic_check_widget.cpp)):
   enable checkbox, **self-collision (mesh) checkbox**, preset selector (only
   **"Nachi MZ04D"**), and TCP offset fields. Embedded in both
-  `VisionTcpipDeviceWidget` and `VisionTcpipClientDeviceWidget`. Also hosts a
+  `VisionTcpipDeviceWidget` and `VisionTcpipClientDeviceWidget`, and — since Phase 9 / F1 — opened
+  in a dialog from the localization task's Settings tab (**Robot pick check → Set…**), where it edits
+  the task's copy. The device-widget copies remain; retiring them is backlog item 66. Also hosts a
   collapsible **FK / IK tester** (a scratchpad, not saved): FK uses
   `ForwardKinematics::toolPose`, IK uses `SerialRobotKinematics::solve`, with
   the TCP appended to the config as the default tool. When the self-collision
@@ -144,9 +152,15 @@ robot actually pick this object?" **without** depending on RobotKinematics / cal
   labels resolved to branch signs via the preset's `posture.labels`) and, when the
   collision check is on, that branch's solution must be collision-free. An empty
   path degrades to the single pick pose.
-- **Wiring (done).** `TaskLocalization::buildRuntimeContext()` snapshots the
-  assigned vision device's `RobotKinematicCheckConfig` (incl. the pick-path) into
-  `LocalizationRuntimeController::RuntimeContext.robotCheckConfig`. The controller
+- **Wiring (done).** `TaskLocalization::buildRuntimeContext()` snapshots the **task's**
+  `RobotKinematicCheckConfig` — `TaskLocalizeConfig::robotCheckConfig()`, incl. the pick-path —
+  into `LocalizationRuntimeController::RuntimeContext.robotCheckConfig`. It has read it from the task
+  only since Phase 9 / F1. Before that it read the bound device, first by casting the device's config
+  to `VisionOutputDeviceCfg` (a cast that failed for every other family) and then through
+  `IResultOutputDevice::robotKinematicCheckConfig()` — and both silently disabled the check whenever
+  that device had none commissioned, which a dual-role Modbus cell always did (backlog item 57).
+  `setup()` now refuses an enabled check whose preset does not resolve
+  (`RobotKinematicPickingChecker::isReady()`) or whose camera has no usable calibration. The controller
   builds the `RobotKinematicPickingChecker` **once at runtime setup** and rebuilds
   it only on active-camera change (`rebuildPickingChecker` — the calibrator differs
   per camera), never per cycle; it is passed each cycle as a cached

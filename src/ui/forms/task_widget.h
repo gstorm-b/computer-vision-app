@@ -10,6 +10,7 @@
 #include <QCoreApplication>
 
 #include "DockWidget.h"
+#include "core/qgadget_macro.h"
 #include "core/utils/theme_manager.h"
 
 #include "qtpropertybrowser/qtpropertymanager.h"
@@ -226,14 +227,8 @@ protected:
         if (prop.isEnumType()) {
             variantProp = manager->addProperty(QtVariantPropertyManager::enumTypeId(), propName);
 
-            QStringList enumNames;
-            const QMetaEnum metaEnum = prop.enumerator();
-            enumNames.reserve(metaEnum.keyCount());
-            for (int j = 0; j < metaEnum.keyCount(); ++j) {
-                enumNames << QCoreApplication::translate(meta.className(),
-                                                         metaEnum.key(j));
-            }
-            variantProp->setAttribute(QLatin1String("enumNames"), enumNames);
+            variantProp->setAttribute(QLatin1String("enumNames"),
+                                      vc::gadget_meta::enumKeyNames(prop));
             variantProp->setValue(value.toInt());
         } else {
             variantProp = manager->addProperty(value.userType(), propName);
@@ -242,14 +237,11 @@ protected:
 
         if (!variantProp) return nullptr;
 
-        // Display name override
-        const int nameIdx = meta.indexOfClassInfo(
-            QStringLiteral("%1_name").arg(propName).toUtf8());
-        if (nameIdx != -1) {
-            const QString displayName = QString::fromUtf8(meta.classInfo(nameIdx).value());
-            if (!displayName.isEmpty())
-                variantProp->setDisplayName(displayName);
-        }
+        // Display name override, resolved and translated by the one helper that reads
+        // "<prop>_name". It falls back to the property name, which is what the property was
+        // already created with, so setting it unconditionally changes nothing when no
+        // Q_CLASSINFO entry exists.
+        variantProp->setDisplayName(vc::gadget_meta::displayName(meta, prop.name()));
 
         // Numeric range (stored as strings in Q_CLASSINFO)
         const int minIdx = meta.indexOfClassInfo(

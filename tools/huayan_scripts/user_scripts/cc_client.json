@@ -1,0 +1,973 @@
+{
+    "class": "CCClient",
+    "inherits": [
+        {
+            "class": "CCClient",
+            "file": "/usr/local/RobotOS/home/RobotOS/HRCPS/script/CCClient.py"
+        },
+        {
+            "class": "object",
+            "file": "<builtin>"
+        }
+    ],
+    "methods": [
+        {
+            "name": "Base2UcsTcp",
+            "args": [
+                "Base",
+                "TCP",
+                "UCS"
+            ]
+        },
+        {
+            "name": "CalDistance",
+            "args": [
+                "FirstX",
+                "FirstY",
+                "FirstZ",
+                "FirstRx",
+                "FirstRy",
+                "FirstRz",
+                "SecondX",
+                "SecondY",
+                "SecondZ",
+                "SecondRx",
+                "SecondRy",
+                "SecondRz"
+            ]
+        },
+        {
+            "name": "CloseTCP",
+            "args": []
+        },
+        {
+            "name": "ConfigTCP",
+            "args": [
+                "name",
+                "TCP"
+            ]
+        },
+        {
+            "name": "ConfigUCS",
+            "args": [
+                "name",
+                "UCS"
+            ]
+        },
+        {
+            "name": "HRApp",
+            "args": [
+                "name",
+                "param"
+            ]
+        },
+        {
+            "name": "InitMovePathL",
+            "args": [
+                "strCmd",
+                "vel",
+                "acc",
+                "jerk",
+                "ucs",
+                "tcp"
+            ]
+        },
+        {
+            "name": "MBSlave_ReadCoils",
+            "args": [
+                "addr",
+                "nb"
+            ]
+        },
+        {
+            "name": "MBSlave_ReadHoldingRegisters",
+            "args": [
+                "addr",
+                "nb"
+            ]
+        },
+        {
+            "name": "MBSlave_ReadHoldingRegisters_Float",
+            "args": [
+                "addr",
+                "nb"
+            ]
+        },
+        {
+            "name": "MBSlave_ReadHoldingRegisters_Int",
+            "args": [
+                "addr",
+                "nb"
+            ]
+        },
+        {
+            "name": "MBSlave_ReadInputCoils",
+            "args": [
+                "addr",
+                "nb"
+            ]
+        },
+        {
+            "name": "MBSlave_ReadInputRegisters",
+            "args": [
+                "addr",
+                "nb"
+            ]
+        },
+        {
+            "name": "MBSlave_ReadInputRegisters_Float",
+            "args": [
+                "addr",
+                "nb"
+            ]
+        },
+        {
+            "name": "MBSlave_ReadInputRegisters_Int",
+            "args": [
+                "addr",
+                "nb"
+            ]
+        },
+        {
+            "name": "MBSlave_WriteCoil",
+            "args": [
+                "addr",
+                "val"
+            ]
+        },
+        {
+            "name": "MBSlave_WriteCoils",
+            "args": [
+                "addr",
+                "val"
+            ]
+        },
+        {
+            "name": "MBSlave_WriteHoldingRegister",
+            "args": [
+                "addr",
+                "val"
+            ]
+        },
+        {
+            "name": "MBSlave_WriteHoldingRegisters",
+            "args": [
+                "addr",
+                "val"
+            ]
+        },
+        {
+            "name": "MBSlave_WriteHoldingRegisters_Float",
+            "args": [
+                "addr",
+                "val"
+            ]
+        },
+        {
+            "name": "MBSlave_WriteHoldingRegisters_Int",
+            "args": [
+                "addr",
+                "val"
+            ]
+        },
+        {
+            "name": "MoveC",
+            "args": [
+                "StartPoint",
+                "AuxPoint",
+                "EndPoint",
+                "fixedPosure",
+                "nMoveCType",
+                "nRadLen",
+                "speed",
+                "Acc",
+                "radius",
+                "tcp",
+                "ucs",
+                "cmdID"
+            ]
+        },
+        {
+            "name": "MovePath",
+            "args": [
+                "trajectName"
+            ]
+        },
+        {
+            "name": "MovePathL",
+            "args": [
+                "strCmd"
+            ]
+        },
+        {
+            "name": "MoveZ",
+            "args": [
+                "StartPoint",
+                "EndPoint",
+                "PlanePoint",
+                "Speed",
+                "Acc",
+                "WIdth",
+                "Density",
+                "EnableDensity",
+                "EnablePlane",
+                "EnableWaiTime",
+                "PosiTime",
+                "NegaTime",
+                "Radius",
+                "tcp",
+                "ucs",
+                "cmdID"
+            ]
+        },
+        {
+            "name": "PCS2ACS",
+            "args": [
+                "rawPCS",
+                "rawACS",
+                "tcp",
+                "ucs"
+            ]
+        },
+        {
+            "name": "Pose_Add",
+            "args": [
+                "pos1",
+                "pos2"
+            ]
+        },
+        {
+            "name": "Pose_DefdFrame",
+            "args": [
+                "pos1",
+                "pos2",
+                "pos3",
+                "pos4",
+                "pos5",
+                "pos6"
+            ]
+        },
+        {
+            "name": "Pose_Inverse",
+            "args": [
+                "pos1"
+            ]
+        },
+        {
+            "name": "Pose_ReadJoint",
+            "args": []
+        },
+        {
+            "name": "Pose_ReadPos",
+            "args": []
+        },
+        {
+            "name": "Pose_Sub",
+            "args": [
+                "pos1",
+                "pos2"
+            ]
+        },
+        {
+            "name": "Pose_Trans",
+            "args": [
+                "pos1",
+                "pos2"
+            ]
+        },
+        {
+            "name": "PushMovePaths",
+            "args": [
+                "strName",
+                "nMoveType",
+                "pointsCNT",
+                "points"
+            ]
+        },
+        {
+            "name": "ReadActPos",
+            "args": []
+        },
+        {
+            "name": "ReadConveyor",
+            "args": [
+                "nRbtID"
+            ]
+        },
+        {
+            "name": "ReadCurFSM",
+            "args": []
+        },
+        {
+            "name": "ReadEncoderDriverIOStatus",
+            "args": [
+                "nRbtID",
+                "IONum"
+            ]
+        },
+        {
+            "name": "ReadPointByName",
+            "args": [
+                "point_name"
+            ]
+        },
+        {
+            "name": "ReadTCP",
+            "args": [
+                "TCP"
+            ]
+        },
+        {
+            "name": "ReadUCS",
+            "args": [
+                "UCS"
+            ]
+        },
+        {
+            "name": "SetBoxAO",
+            "args": [
+                "index",
+                "value",
+                "pattern"
+            ]
+        },
+        {
+            "name": "SetCollideLevel",
+            "args": [
+                "level"
+            ]
+        },
+        {
+            "name": "SetCurTCP",
+            "args": [
+                "TCP"
+            ]
+        },
+        {
+            "name": "SetCurUCS",
+            "args": [
+                "UCS"
+            ]
+        },
+        {
+            "name": "SetECATAO",
+            "args": [
+                "nRbtID",
+                "nIndex",
+                "dVal"
+            ]
+        },
+        {
+            "name": "SetEncoderDriverIOParameters",
+            "args": [
+                "nRbtID",
+                "TriggerType",
+                "DetectionTime"
+            ]
+        },
+        {
+            "name": "SetForceControlState",
+            "args": [
+                "state"
+            ]
+        },
+        {
+            "name": "SetLinearSearchParams",
+            "args": [
+                "direction",
+                "distance",
+                "velocity",
+                "ucs",
+                "tcp",
+                "threshold"
+            ]
+        },
+        {
+            "name": "SetMaxAcsRange",
+            "args": [
+                "pMax",
+                "pMin"
+            ]
+        },
+        {
+            "name": "SetMaxPcsRange",
+            "args": [
+                "pMax",
+                "pMin",
+                "pUcs"
+            ]
+        },
+        {
+            "name": "SetMoveParamsAO",
+            "args": [
+                "nState",
+                "nIndex",
+                "dInitAO",
+                "dWeldingAO"
+            ]
+        },
+        {
+            "name": "SetMoveTraceInitParams",
+            "args": [
+                "dK",
+                "dB",
+                "dMaxLimit",
+                "dMinLimit"
+            ]
+        },
+        {
+            "name": "SetMoveTraceParams",
+            "args": [
+                "nState",
+                "dDistance",
+                "dAwayVelocity",
+                "dGobackVelocity"
+            ]
+        },
+        {
+            "name": "SetMoveTraceUcs",
+            "args": [
+                "dX",
+                "dY",
+                "dZ",
+                "dRx",
+                "dRy",
+                "dRz"
+            ]
+        },
+        {
+            "name": "SetOverride",
+            "args": [
+                "vel"
+            ]
+        },
+        {
+            "name": "SetPayload",
+            "args": [
+                "mass",
+                "Center_X",
+                "Center_Y",
+                "Center_Z"
+            ]
+        },
+        {
+            "name": "SetPoseTrackingMaxMotionLimit",
+            "args": [
+                "dMaxLineVel",
+                "dMaxOriVel"
+            ]
+        },
+        {
+            "name": "SetPoseTrackingPIDParams",
+            "args": [
+                "dPosPID1",
+                "dPosPID2",
+                "dPosPID3",
+                "dOriPID1",
+                "dOriPID2",
+                "dOriPID3"
+            ]
+        },
+        {
+            "name": "SetPoseTrackingState",
+            "args": [
+                "nState"
+            ]
+        },
+        {
+            "name": "SetPoseTrackingTargetPos",
+            "args": [
+                "dX",
+                "dY",
+                "dZ",
+                "dRx",
+                "dRy",
+                "dRz"
+            ]
+        },
+        {
+            "name": "SetRotationSearchParams",
+            "args": [
+                "direction",
+                "maxRotationAngel",
+                "velocity",
+                "ucs",
+                "tcp",
+                "forceThresholdToStartLinear",
+                "torqueThreshold"
+            ]
+        },
+        {
+            "name": "SetScriptForceControlState",
+            "args": [
+                "state",
+                "FTMode",
+                "UCS",
+                "TCP",
+                "vel",
+                "forces",
+                "freedom",
+                "PID",
+                "Mass",
+                "Damp",
+                "Stiff"
+            ]
+        },
+        {
+            "name": "SetSpiralSearchParams",
+            "args": [
+                "radiusInc",
+                "maxRadus",
+                "velocity",
+                "ucs",
+                "tcp",
+                "forceThresholdToStartLinear"
+            ]
+        },
+        {
+            "name": "SetTrackingCompensation",
+            "args": [
+                "nRbtID",
+                "Switch",
+                "Compensation"
+            ]
+        },
+        {
+            "name": "SetTrackingState",
+            "args": [
+                "state"
+            ]
+        },
+        {
+            "name": "SetUpdateTrackingPose",
+            "args": [
+                "dX",
+                "dY",
+                "dZ",
+                "dRx",
+                "dRy",
+                "dRz"
+            ]
+        },
+        {
+            "name": "SetUpperLimitCompensation",
+            "args": [
+                "nRbtID",
+                "dis_Compensation"
+            ]
+        },
+        {
+            "name": "StartSearchMotion",
+            "args": [
+                "searchType"
+            ]
+        },
+        {
+            "name": "UcsTcp2Base",
+            "args": [
+                "UcsTcp",
+                "TCP",
+                "UCS"
+            ]
+        },
+        {
+            "name": "WaitRotationSearchDone",
+            "args": []
+        },
+        {
+            "name": "WaitSearchMotionDone",
+            "args": []
+        },
+        {
+            "name": "WaitSpiralSearchDone",
+            "args": []
+        },
+        {
+            "name": "WayPoint",
+            "args": [
+                "type",
+                "points",
+                "RawACSpoints",
+                "tcp",
+                "ucs",
+                "speed",
+                "Acc",
+                "radius",
+                "isJoint",
+                "isSeek",
+                "bit",
+                "state",
+                "cmdID"
+            ]
+        },
+        {
+            "name": "WayPointEx",
+            "args": [
+                "type",
+                "points",
+                "RawACSpoints",
+                "tcpname",
+                "ucs",
+                "speed",
+                "Acc",
+                "radius",
+                "isJoint",
+                "isSeek",
+                "bit",
+                "state",
+                "cmdID"
+            ]
+        },
+        {
+            "name": "WayPointRel",
+            "args": [
+                "type",
+                "usePointList",
+                "Point_PCS",
+                "Point_ACS",
+                "relMoveType",
+                "nAxisMask",
+                "Axis0",
+                "Axis1",
+                "Axis2",
+                "Axis3",
+                "Axis4",
+                "Axis5",
+                "tcp",
+                "ucs",
+                "speed",
+                "Acc",
+                "radius",
+                "isJoint",
+                "isSeek",
+                "bit",
+                "state",
+                "cmdID"
+            ]
+        },
+        {
+            "name": "cdsSetIO",
+            "args": [
+                "nEndDOMask",
+                "nEndDOVal",
+                "nBoxDOMask",
+                "nBoxDOVal",
+                "nBoxCOMask",
+                "nBoxCOVal",
+                "nBoxAOCH0_Mask",
+                "nBoxAOCH0_Mode",
+                "nBoxAOCH1_Mask",
+                "nBoxAOCH1_Mode",
+                "dbBoxAOCH0_Val",
+                "dbBoxAOCH1_Val"
+            ]
+        },
+        {
+            "name": "getModbus",
+            "args": [
+                "deviceName",
+                "varName"
+            ]
+        },
+        {
+            "name": "getModbusDatas",
+            "args": [
+                "deviceName",
+                "varName",
+                "nCNT"
+            ]
+        },
+        {
+            "name": "readAO",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readBoxAI",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readCI",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readCO",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readDI",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readDO",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readEAI",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readEI",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readEO",
+            "args": [
+                "bit"
+            ]
+        },
+        {
+            "name": "readEndModbusRegisters",
+            "args": [
+                "nSlaveID",
+                "nFunction",
+                "nRegAddr",
+                "nRegCount"
+            ]
+        },
+        {
+            "name": "readRobotState",
+            "args": []
+        },
+        {
+            "name": "saveValue",
+            "args": [
+                "VarName",
+                "Value"
+            ]
+        },
+        {
+            "name": "sendAndRecv",
+            "args": [
+                "cmd"
+            ]
+        },
+        {
+            "name": "sendCallstackCmdID",
+            "args": [
+                "CmdID",
+                "showName",
+                "ThreadID"
+            ]
+        },
+        {
+            "name": "sendCmdID",
+            "args": [
+                "CmdID",
+                "showName",
+                "ThreadID"
+            ]
+        },
+        {
+            "name": "sendExitCallstackCmdID",
+            "args": [
+                "CmdID",
+                "showName",
+                "ThreadID"
+            ]
+        },
+        {
+            "name": "sendHRLog",
+            "args": [
+                "nLevel",
+                "msg"
+            ]
+        },
+        {
+            "name": "sendScriptAlarm",
+            "args": [
+                "errCode",
+                "stackInfo",
+                "localParaList"
+            ]
+        },
+        {
+            "name": "sendScriptError",
+            "args": [
+                "msg"
+            ]
+        },
+        {
+            "name": "sendScriptFinish",
+            "args": [
+                "errorcode"
+            ]
+        },
+        {
+            "name": "sendScriptLog",
+            "args": [
+                "nLevel",
+                "msg"
+            ]
+        },
+        {
+            "name": "sendVarValue",
+            "args": [
+                "VarName",
+                "ValueStr"
+            ]
+        },
+        {
+            "name": "setCO",
+            "args": [
+                "bit",
+                "state"
+            ]
+        },
+        {
+            "name": "setDO",
+            "args": [
+                "bit",
+                "state"
+            ]
+        },
+        {
+            "name": "setEO",
+            "args": [
+                "bit",
+                "state"
+            ]
+        },
+        {
+            "name": "setModbus",
+            "args": [
+                "deviceName",
+                "varName",
+                "value"
+            ]
+        },
+        {
+            "name": "setModbusDatas",
+            "args": [
+                "deviceName",
+                "varName",
+                "values"
+            ]
+        },
+        {
+            "name": "setTCP",
+            "args": [
+                "TCP"
+            ]
+        },
+        {
+            "name": "setUCS",
+            "args": [
+                "UCS"
+            ]
+        },
+        {
+            "name": "socket_close",
+            "args": [
+                "strName"
+            ]
+        },
+        {
+            "name": "socket_open",
+            "args": [
+                "strIp",
+                "nPort",
+                "strName",
+                "connect_cnt"
+            ]
+        },
+        {
+            "name": "socket_read_hex",
+            "args": [
+                "nNb",
+                "strName",
+                "timeout"
+            ]
+        },
+        {
+            "name": "socket_read_string",
+            "args": [
+                "strName",
+                "timeout"
+            ]
+        },
+        {
+            "name": "socket_send_hex",
+            "args": [
+                "strInfo",
+                "strName"
+            ]
+        },
+        {
+            "name": "socket_send_int",
+            "args": [
+                "nValue",
+                "strName"
+            ]
+        },
+        {
+            "name": "socket_send_string",
+            "args": [
+                "strInfo",
+                "strName"
+            ]
+        },
+        {
+            "name": "stop",
+            "args": []
+        },
+        {
+            "name": "str2base64",
+            "args": [
+                "strSrc"
+            ]
+        },
+        {
+            "name": "update_status",
+            "args": [
+                "status"
+            ]
+        },
+        {
+            "name": "wayPoint2",
+            "args": [
+                "EndPos",
+                "AuxPos",
+                "AcsPos",
+                "Tcp",
+                "Ucs",
+                "Vel",
+                "Acc",
+                "Radius",
+                "Type",
+                "nIsUseJoint",
+                "nIsSeek",
+                "nBit",
+                "nDIType",
+                "strPointGuid",
+                "StartPos",
+                "fixedPosure"
+            ]
+        },
+        {
+            "name": "writeEndModbusRegisters",
+            "args": [
+                "nSlaveID",
+                "nFunction",
+                "nRegAddr",
+                "nRegCount",
+                "data"
+            ]
+        }
+    ]
+}

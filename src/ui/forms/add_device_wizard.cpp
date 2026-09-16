@@ -20,6 +20,8 @@
 #include "device/output_device/vision_tcpip_config.h"
 #include "device/output_device/vision_tcpip_client_config.h"
 #include "device/plc/mc_protocol_device.h"
+#include "device/plc/modbus/modbus_tcp_client_config.h"
+#include "device/plc/modbus/modbus_tcp_server_config.h"
 #include "device/plc/plc_device.h"
 #include "device/virtual/virtual_plc_config.h"
 #include "device/virtual/virtual_vision_output_config.h"
@@ -47,8 +49,14 @@ AddDeviceWizard::AddDeviceWizard(std::shared_ptr<vc::device::DeviceManager> mng,
     if (m_manager) {
         ui->cbxCameraType->addItems(m_manager->getSubDeviceTypeList(vc::device::Camera));
         ui->cbxPlcType->addItems(m_manager->getSubDeviceTypeList(vc::device::PLC));
-        ui->cbxMcFrameType->addItem(
-            vc::device::mc::McFrameTypeToString(vc::device::mc::McFrameType::Frame_3E));
+        // Only the frames a codec exists for. Frame_1E is declared in the enum and has no
+        // context factory arm, so offering it would create a device that cannot connect.
+        // 3E stays first: it is what an operator gets by never touching the combo.
+        for (const auto frame : {vc::device::mc::McFrameType::Frame_3E,
+                                 vc::device::mc::McFrameType::Frame_1C,
+                                 vc::device::mc::McFrameType::Frame_3C}) {
+            ui->cbxMcFrameType->addItem(vc::device::mc::McFrameTypeToString(frame));
+        }
         ui->cbxMcCode->addItem(
             vc::device::mc::McDataCodeToString(vc::device::mc::McDataCode::Binary));
         ui->cbxVisionType->addItems(m_manager->getSubDeviceTypeList(vc::device::VisionOutput));
@@ -58,6 +66,10 @@ AddDeviceWizard::AddDeviceWizard(std::shared_ptr<vc::device::DeviceManager> mng,
     // virtual PLC would offer settings that do nothing, which is how an operator learns to
     // stop trusting the panel.
     connect(ui->cbxPlcType, &QComboBox::currentTextChanged, this,
+            &AddDeviceWizard::updatePlcSubTypeFields);
+    // The data code depends on the frame as well: the computer-link frames are ASCII on the
+    // wire whatever is selected here.
+    connect(ui->cbxMcFrameType, &QComboBox::currentTextChanged, this,
             &AddDeviceWizard::updatePlcSubTypeFields);
     updatePlcSubTypeFields();
 
@@ -284,8 +296,18 @@ void AddDeviceWizard::updatePlcSubTypeFields() {
                              == vc::device::PlcType::MitsubishiMc;
     ui->lblMcFrame->setVisible(isMc);
     ui->cbxMcFrameType->setVisible(isMc);
-    ui->lblMcCode->setVisible(isMc);
-    ui->cbxMcCode->setVisible(isMc);
+
+    // The 1C and 3C computer-link frames are ASCII by definition — their contexts force it and
+    // ignore whatever this combo says. Leaving a "Binary" choice on screen for them would be a
+    // control that silently does nothing, which is the same trap the comment above describes.
+    const auto frame = (ui->cbxMcFrameType->count() > 0)
+        ? vc::device::mc::McFrameTypeFromString(ui->cbxMcFrameType->currentText())
+        : vc::device::mc::McFrameType::Frame_3E;
+    const bool codeApplies = (frame != vc::device::mc::McFrameType::Frame_1C) &&
+                             (frame != vc::device::mc::McFrameType::Frame_3C);
+
+    ui->lblMcCode->setVisible(isMc && codeApplies);
+    ui->cbxMcCode->setVisible(isMc && codeApplies);
 }
 
 QJsonObject AddDeviceWizard::buildDeviceJson(vc::device::DeviceType type) {
@@ -309,6 +331,16 @@ QJsonObject AddDeviceWizard::buildDeviceJson(vc::device::DeviceType type) {
 
         if (subType == vc::device::PlcType::VirtualPlc) {
             vc::device::VirtualPlcCfg config;
+            obj[DEVICE_JSK_CONFIG] = config.toJson();
+            break;
+        }
+        if (subType == vc::device::PlcType::ModbusTcpClient) {
+            vc::device::ModbusTcpClientCfg config;
+            obj[DEVICE_JSK_CONFIG] = config.toJson();
+            break;
+        }
+        if (subType == vc::device::PlcType::ModbusTcpServer) {
+            vc::device::ModbusTcpServerCfg config;
             obj[DEVICE_JSK_CONFIG] = config.toJson();
             break;
         }

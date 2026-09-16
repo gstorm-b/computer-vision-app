@@ -114,6 +114,27 @@ protected:
     /// transport is active. Server: no-op (keeps listening). Client: reconnect.
     virtual void onLinkLost() {}
 
+    /**
+     * @brief Recomputes the connection status from the transport's CURRENT state and publishes
+     *        it, applying exactly the rule startTransport() applies for the same state.
+     *
+     * This exists because a second deviceConnect() on an already-active device used to return
+     * true in silence. VisionOutputRunner::m_busy is cleared only by connectStatusChanged or
+     * connectionFailed, so a silent return wedged the runner permanently: every later
+     * requestConnect(), including every retry scheduleRoleReconnect() queued, became a no-op and
+     * the task parked in Recovering with bTaskReady=false AND bTaskFault=false — no fault to
+     * read, and the connection never coming back without an application restart.
+     *
+     * It is a RECOMPUTE, not a re-announce of m_connect_status: that is what makes the server
+     * report Connected again after declareLostConnection() left the status at LostConnected with
+     * its listeners still open. Publishing an optimistic constant instead would report a link
+     * that is not there.
+     *
+     * @warning Must be called with the device mutex RELEASED. It publishes, and a directly
+     *          connected consumer would re-enter the device on this thread.
+     */
+    virtual void publishCurrentConnectStatus() = 0;
+
     /// Transport-neutral config accessors, sourced from the concrete config.
     /// Main-channel TCP port.
     virtual int cfgMainPort() const = 0;
@@ -144,6 +165,29 @@ protected:
     void attachHeartbeatSocket(QTcpSocket *sock);
 
     // ── Shared teardown / state helpers (usable by subclass) ────────────────
+    /// Maximum 1 ms read attempts spent emptying a socket's OS receive buffer before it is
+    /// closed. The loop exits on the first attempt that finds nothing, so the usual cost is one
+    /// attempt; 50 bounds the pathological case at ~50 ms per socket, and a whole graceful
+    /// teardown — the 150 ms notice flush plus both sockets — at ~250 ms, well inside
+    /// IDeviceRunner::disconnectAndWait()'s 3000 ms guard (idevice_runner.h:159).
+    static constexpr int kDrainBeforeCloseAttempts = 50;
+
+    /**
+     * @brief Empties `sock`'s **OS** receive buffer before it is closed.
+     *
+     * Closing a socket that still holds unread inbound bytes makes the stack send **RST** instead
+     * of FIN, and an RST tells the peer to discard *its* receive buffer — including anything we
+     * had just written and it had not yet read. On this device that "anything" is the disconnect
+     * notice, and the peer loses it: backlog item 32.
+     *
+     * @warning `bytesAvailable()` is **Qt's** buffer, not the OS's. Qt only moves bytes across on
+     *          a read notification, so a socket whose owning thread has not returned to its event
+     *          loop reports 0 available while the OS buffer is full. Draining with `readAll()`
+     *          alone therefore does nothing — measured, and it is why the first attempt at item 32
+     *          failed. `waitForReadyRead()` is what forces the transfer.
+     */
+    void drainBeforeClose(QTcpSocket *sock);
+
     /// Disconnects signals, aborts and schedules deletion of the main socket,
     /// clears its RX buffer, and emits mainClientStateChanged(false). No-op if
     /// no main socket is attached.

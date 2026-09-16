@@ -6,14 +6,12 @@
 #include "core/utils/shell_handoff.h"
 #include "core/utils/single_instance_guard.h"
 #include "core/utils/theme_manager.h"
+#include "core/utils/translation_loader.h"
 #include "ui/forms/shell_startup.h"
 
 #include <QApplication>
 #include <QIcon>
-#include <QLocale>
-#include <QStringList>
 #include <QTimer>
-#include <QTranslator>
 #include <pylon/PylonIncludes.h>
 
 /// Which of the two shells this executable is. Everything that differs between them is
@@ -61,22 +59,16 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    QTranslator translator;
-    const QString savedLang = AppSettings::instance()->language();
-    if (savedLang == QLatin1String("ja_JP")) {
-        if (translator.load(QStringLiteral(":/i18n/ncr_picking_ja_JP")))
-            a.installTranslator(&translator);
-    } else if (savedLang == QLatin1String("system")) {
-        // legacy value: follow OS locale
-        const QStringList uiLanguages = QLocale::system().uiLanguages();
-        for (const QString &locale : uiLanguages) {
-            if (translator.load(":/i18n/ncr_picking_" + QLocale(locale).name())) {
-                a.installTranslator(&translator);
-                break;
-            }
-        }
-    }
-    // "en" (or unrecognized) → no translator; Qt defaults to English
+    // Both this product's strings and Qt's own — the same shared helper the commissioning
+    // shell uses, so the two cannot drift into translating different amounts of the UI.
+    // "en" (or unrecognized) installs nothing; Qt defaults to English.
+    const vc::core::TranslationLoadResult translations =
+        vc::core::installTranslations(a, AppSettings::instance()->language());
+    if (translations.qtLoaded)
+        LOG_USER_INFO << "Qt translations loaded from" << translations.qtCatalog;
+    else if (translations.applicationLoaded)
+        LOG_USER_WARN << "Application translated, but no Qt catalog found — standard dialog "
+                         "buttons will stay in English.";
 
     // Load persisted settings first — other singletons depend on it
     AppSettings::instance();

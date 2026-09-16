@@ -26,6 +26,10 @@ struct McResult {
     int register_amount;      ///< Number of registers/bits covered by the result.
     QString msg;               ///< Human-readable status or error message.
     QByteArray data;           ///< Raw response payload bytes.
+    /// Correlation id of the request this result completes; matches the value
+    /// McProtocolDevice::pushTrackedRequest() returned. Never 0 on a delivered result —
+    /// uncorrelated traffic (polling reads, the comm-active heartbeat) produces no result at all.
+    quint64 correlationId{0};
 };
 
 /**
@@ -184,6 +188,24 @@ public:
         return std::make_shared<MCRequest>(*this);
     }
 
+    /// Assigns the correlation id this request reports when it completes. 0 means uncorrelated:
+    /// the request produces no completion at all.
+    void setCorrelationId(quint64 id) { m_correlation_id = id; }
+    /// @return the correlation id, or 0 for uncorrelated traffic (polling reads, the
+    /// comm-active heartbeat).
+    quint64 correlationId() const { return m_correlation_id; }
+    /// @return true if this request still owes a completion — correlated and not yet resolved.
+    bool needsResolution() const { return m_correlation_id != 0 && !m_resolved; }
+    /// Marks the request resolved so no later path can emit a second completion for it.
+    ///
+    /// The "exactly once" guarantee lives HERE, on the request object, rather than in a map of
+    /// outstanding writes keyed by id. That is deliberate: a pending map would be written by
+    /// pushRequest() (which holds m_mutex) and read by the response/abandon paths (which run on
+    /// the polling call chain), and onSetCommActiveDevice() already pushes to the same queue
+    /// **without** the mutex, documented as safe only because it shares that call path. A flag
+    /// that travels with the request never crosses that boundary.
+    void markResolved() { m_resolved = true; }
+
 public:
     MCRequest::RqType m_type;      ///< Requested operation kind (read/write, bit/word).
     char m_device_type;            ///< PLC device/register type letter (e.g. 'D', 'M', 'X', 'Y').
@@ -193,9 +215,15 @@ public:
 
 private:
     bool is_config = false;   ///< True once a constructor has produced a valid request; backs isValid().
+    quint64 m_correlation_id{0};  ///< Completion id; 0 = uncorrelated, reports nothing.
+    bool m_resolved{false};       ///< True once a completion has been emitted for this request.
 };
 
 } // namespace vc::device
 
+/// Required now that requestFinished(McResult) is actually emitted (Phase 9 / E1). The signal was
+/// declared and never fired, so the missing registration cost nothing and nobody noticed; without
+/// it a queued connection — which is the only kind PlcRunner makes — silently drops the argument.
+Q_DECLARE_METATYPE(vc::device::McResult)
 
 #endif // MC_REQUEST_H

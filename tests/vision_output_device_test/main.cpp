@@ -282,6 +282,71 @@ private slots:
 
         device.deviceDisconnect();
     }
+
+    // ── Phase 9 / D1: a wedged connect must be visible ───────────────────────────────
+    //
+    // deviceConnect() on an already-active device used to return true in silence.
+    // VisionOutputRunner::m_busy is cleared ONLY by connectStatusChanged or connectionFailed,
+    // so that silence wedged the runner for good: every later requestConnect(), including every
+    // retry the controller scheduled, became a no-op. The task then parked in Recovering with
+    // bTaskReady=false AND bTaskFault=false — no fault code to read, and no way back without
+    // restarting the application.
+
+    void test_connect_on_an_active_device_still_publishes_a_status() {
+        VisionTcpipDevice device(QStringLiteral("srv_re"), QStringLiteral("Server Re"));
+        VisionTcpipDeviceCfg cfg = makeCfg();
+        device.setVisionTcpipConfig(cfg);
+        QVERIFY(device.deviceConnect());
+
+        // Spy AFTER the first connect, so what it records is the redundant call alone.
+        QSignalSpy statusSpy(&device, &VisionTcpipDevice::connectStatusChanged);
+        QVERIFY(statusSpy.isValid());
+
+        QVERIFY(device.deviceConnect());
+
+        QCOMPARE(statusSpy.count(), 1);
+        // The status startTransport() would report for this state — the servers are listening —
+        // and not an optimistic constant: no client is attached and it still says Connected,
+        // because for a server "Connected" has always meant "listening" (startTransport():113).
+        QCOMPARE(statusSpy.last().at(0).value<ConnectStatus>(), ConnectStatus::Connected);
+        QVERIFY(!device.isMainClientConnected());
+
+        device.deviceDisconnect();
+    }
+
+    // declareLostConnection() detaches both sockets but leaves the listeners open, so the server
+    // sat at LostConnected while still perfectly able to accept a client. A client that came back
+    // restored the data path with the controller still believing the role was down.
+    void test_server_republishes_connected_when_a_client_reattaches() {
+        VisionTcpipDevice device(QStringLiteral("srv_rea"), QStringLiteral("Server Reattach"));
+        VisionTcpipDeviceCfg cfg = makeCfg();
+        device.setVisionTcpipConfig(cfg);
+        QVERIFY(device.deviceConnect());
+
+        // Drive a real heartbeat loss: a peer that never acks.
+        {
+            ClientPeer silent(/*autoAck=*/false);
+            silent.connectHeartbeat();
+            QVERIFY(waitFor([&]() { return device.isHeartbeatClientConnected(); }));
+            QVERIFY(waitFor([&]() {
+                return device.connectStatus() == ConnectStatus::LostConnected;
+            }, 3000));
+        }
+        QVERIFY(!device.isHeartbeatClientConnected());
+
+        // The listeners never closed, so a client can still come back.
+        ClientPeer peer(/*autoAck=*/true);
+        peer.connectHeartbeat();
+        peer.connectMain();
+
+        QVERIFY(waitFor([&]() {
+            return device.connectStatus() == ConnectStatus::Connected;
+        }, 3000));
+        QVERIFY(device.isMainClientConnected());
+        QVERIFY(device.isHeartbeatClientConnected());
+
+        device.deviceDisconnect();
+    }
 };
 
 QTEST_MAIN(VisionOutputDeviceTest)

@@ -247,6 +247,22 @@ void VisionTcpipClientDevice::scheduleReconnect() {
 /// Promotes the device to ConnectStatus::Connected once the device is active and both the
 /// main and heartbeat sockets exist and report QAbstractSocket::ConnectedState; otherwise
 /// leaves the current status untouched.
+/// Republishes evaluateConnected()'s own predicate for the current state — both links up ⇒
+/// Connected, otherwise Connecting, which is what startTransport() reports at :84 while the
+/// dialer is still working. Unlike evaluateConnected(), which only ever promotes, this one
+/// always publishes: its whole job is to emit, because that emission is what clears
+/// VisionOutputRunner::m_busy.
+///
+/// The client is the CONTROL for this change, not a second patient — it already redials and
+/// republishes on its own. This override exists so the base can be pure-virtual and so a second
+/// deviceConnect() on the client is not silent either, not because the client was wedged.
+void VisionTcpipClientDevice::publishCurrentConnectStatus() {
+    const bool bothLinksUp = m_mainSocket && m_hbSocket
+                             && m_mainSocket->state() == QAbstractSocket::ConnectedState
+                             && m_hbSocket->state() == QAbstractSocket::ConnectedState;
+    setConnectionStatus(bothLinksUp ? ConnectStatus::Connected : ConnectStatus::Connecting);
+}
+
 void VisionTcpipClientDevice::evaluateConnected() {
     // Connected is reported ONLY when both the main and heartbeat links are up.
     if (isActive() && m_mainSocket && m_hbSocket

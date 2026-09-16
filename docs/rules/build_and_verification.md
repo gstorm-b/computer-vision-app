@@ -1,6 +1,6 @@
 # Build And Verification Guide
 
-**Last updated:** 2026-06-24
+**Last updated:** 2026-09-08
 
 ## Rule Of Thumb
 
@@ -296,6 +296,10 @@ Use these names for local configuration:
   Pylon SDK differs from the qmake default (`PylonBase_v11`).
 - `VCTOOLS_DEBUG_CRT_DIR`: optional Debug CRT runtime directory when running
   Debug test binaries outside Visual Studio.
+- `NCR_JAI_TEST_IP`: camera address for `tests/jai_camera_hardware_test`
+  (`main.cpp:42`). **Defaults to `192.168.0.70`, which is not necessarily the
+  camera on this bench** — set it, or every case skips with a discovery timeout
+  and the suite reports success having tested nothing.
 - RobotKinematics and third-party dependencies should follow the component
   scripts' pattern: define the dependency root once, then derive include, lib,
   bin, and runtime folders from that root.
@@ -412,6 +416,145 @@ failed test functions**.
 > 2026-08-23). A lone failure in this one test with everything else green is almost always
 > that, not a regression — re-run it on its own before investigating. Recorded as backlog
 > item #39.
+
+## Confirm A Suite's Shape Before Trusting Its Total
+
+**"N passed / 0 failed" does not mean the suite ran the tests it contains.** A binary can
+register fewer test functions than its source defines, and QTest reports that as
+`0 skipped, 0 blacklisted` — the missing case is not failing, it does not exist. The total
+simply comes out lower, and a lower total looks like nothing at all.
+
+Check the shape, not just the verdict:
+
+```powershell
+# what the binary will actually run
+.\<suite>.exe -functions
+
+# what the source defines
+(Select-String -Path <suite>\main.cpp -Pattern '^\s*void test_').Count
+```
+
+The two must agree. QTest adds `initTestCase` and `cleanupTestCase` to the *pass total*
+even when neither is defined, so **total = registered functions + 2**.
+
+> The `Select-String` count is a heuristic: it counts `void test_…` lines, so a helper
+> named that way, or a declaration outside `private slots:`, inflates it. When the two
+> disagree, diff the names before concluding — `Compare-Object` against `-functions` output
+> names the missing case directly, which is usually enough to see which of the two causes
+> below applies.
+
+### Two ways a suite silently shrinks, both found on 2026-09-08
+
+**1. A stale `main.moc` at the build-dir root shadows the generated one.** The test `.pro`s
+use the `#include "main.moc"` idiom, and qmake resolves that include against the physical
+files on the include path *when it generates the Makefile*. A leftover `main.moc` in the
+build-dir root gets found first, written into the Makefile's dependencies, and read by the
+compiler — so the metaobject is built from an old copy. It is self-perpetuating and
+**survives a rebuild**. Fix: delete the root copy **first**, then re-run qmake, then force
+one recompile (`del release\main.obj`). The other order fails —
+`U1073: don't know how to make 'main.moc'`. Full account in
+[later_todo_list.md](../backlog/later_todo_list.md) #62.
+
+**2. The suite was simply never rebuilt after its source changed.** Ordinary staleness, but
+with the same invisible symptom.
+
+Cause 1 cost `vision_output_device_test` and `vision_tcpip_client_device_test` one test
+each — `test_disconnect_notice_on_graceful_close`, the known flake of backlog #32 — for
+roughly three months of green runs. Cause 2 is why `jai_camera_hardware_test` is missing
+two backlight-override cases as of this writing.
+
+### Shape as of 2026-09-08
+
+A dated snapshot, not an authority. **The source is the authority**; this table exists so
+an unexplained drift is visible, and it is expected to move as tests are added.
+
+| Suite | `void test_` in source | Registered | Total | State |
+|---|---|---|---|---|
+| `architecture_contract_test` | 103 | 103 | 105 | agrees |
+| `mc_frame_test` | 42 | 42 | 44 | agrees |
+| `modbus_device_test` | 20 | 20 | 22 | agrees |
+| `vision_output_device_test` | 7 | 7 | 9 | agrees (repaired 2026-09-08) |
+| `vision_tcpip_client_device_test` | 8 | 8 | 10 | agrees (repaired 2026-09-08) |
+| `jai_camera_hardware_test` | 19 | **17** | **19**, expected 21 | **stale build — rebuild before use** |
+
+The `jai` row is cause 2: `main.cpp` was edited 2026-09-04, two days after that binary and
+its moc were produced — the two missing cases are
+`test_backlight_override_drives_the_lamp_and_reports_it` and
+`test_backlight_override_survives_a_grab`. It is a hardware suite (`NCR_JAI_TEST_IP`, in
+Local Environment Variables above) and was left alone rather than rebuilt blind;
+**rebuild it before quoting any number from it.** Note how mild the discrepancy looks: 19
+where 21 was expected reads like a miscount, not like two missing tests.
+
+> Skips are normal in `jai_camera_hardware_test` when no camera is reachable, and a skip is
+> honest — the suite says so. This section is about the case where the suite says nothing.
+
+## Updating Translations
+
+One `.ts` for the whole product, `components\app\translations\ncr_picking_ja_JP.ts`, compiled to one
+`.qm` that both shells embed under `:/i18n/` and load through a single `QTranslator`.
+
+```powershell
+.\scripts\update_translations.ps1
+```
+
+Qt Creator's *Update Translations* on `ncr_picking_all.pro` does the same job — the umbrella
+lists `translations\ncr_translations.pro`, and lupdate recurses into it.
+
+**Never point lupdate at a shell `.pro`.** Since Phase 6 / E7a the shells compile only a
+handful of files each, because all of `src\` lives in the `ncr_shared` static library. An
+update driven from a shell therefore scans a few dozen strings out of ~974 and marks
+everything else `vanished`. That is not hypothetical: it happened, and it cost 861 of 902
+messages with no build error and no warning. The only symptom was the Japanese UI reverting
+to English.
+
+Which is why:
+
+| Declares | Who | Effect |
+|---|---|---|
+| `EXTRA_TRANSLATIONS` | `components\app\app.pri`, `runtime_app\runtime_app.pri` | released by lrelease and embedded — **not** touched by lupdate |
+| `TRANSLATIONS` | `translations\ncr_translations.pro` only | the one project lupdate updates from, and its scan set is every source |
+
+`ncr_translations.pro` assembles that scan set by including the same `.pri` files the build
+uses, so a new module joins the translation scan the moment it joins the build. It is listed
+in the umbrella with `no_default_target`: lupdate recurses into it, the default build target
+does not. `nmake all` ignores that and would try to build it — use the default target, which
+is what every recipe here and Qt Creator's build step do.
+
+**`-no-obsolete` is forbidden.** A `vanished` entry still carries its translation and comes
+back on its own if the string reappears. The flag deletes those entries outright; running it
+on 2026-08-24 would have destroyed 835 recoverable Japanese strings. Vanished is recoverable,
+deleted is not. The contract test fails if the flag appears in anything that drives lupdate.
+
+Read the three counts separately, never as one total: `finished` is done, `unfinished` is new
+text waiting for a translator, `vanished` is text no longer in any source.
+
+### Strings lupdate cannot see on its own
+
+`lupdate` finds `tr()`, `QT_TR_NOOP`, `QT_TRANSLATE_NOOP` and `.ui` text. It does **not** read
+`Q_CLASSINFO`, and it does **not** expand user-defined macros — both measured, not assumed
+(Phase 7 / E6). Two families of operator-facing text therefore need an explicit marker, or
+they are simply untranslatable no matter how the pipeline is run:
+
+| Text | Marker lives in | Context must be |
+|---|---|---|
+| Property display names, `Q_CLASSINFO("<prop>_name", …)` — 69 of them | `kDisplayNameSources[]` inside the same class, under its property block | that class's `staticMetaObject.className()` |
+| Enum key labels shown in property-browser combos — 33 | `enum_keys_*[]` beside the enum (`basler_define.h`, `mc_define.h`, `task_define.h`) | `QMetaEnum::scope()`, i.e. the namespace that declared the enum |
+
+**Adding a property with a display name means adding its marker in the same edit.** The
+architecture contract test compares the two sets in both directions and checks every marker's
+context, so a missed one fails the suite rather than reaching an operator's screen. That guard
+exists because the alternative is invisible: a label with no marker looks completely normal in
+English and simply never translates.
+
+The context is the part that fails quietly. A marker under the wrong context extracts fine,
+translates fine, and is never found at runtime — which is exactly what the enum labels did
+until Phase 7 / E6c: recorded as `vc::device::basler`, looked up as
+`vc::device::BaslerGigeCfg`. All 33 were unreachable, and nothing showed it because none had
+been translated yet.
+
+Both lookups go through `vc::gadget_meta` in [`src/core/qgadget_macro.h`](../../src/core/qgadget_macro.h).
+Do not re-implement either in a widget — five property browsers each had their own copy, and
+that is how the display names ended up untranslated in all five at once.
 
 ## Dependency Deployment (`CONFIG+=deploy_deps`)
 

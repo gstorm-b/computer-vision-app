@@ -42,7 +42,7 @@ obligations this document has to answer:
 |---|---|---|
 | Purpose | Commissioning: devices, calibration, patterns, signals | Operation: run tasks, watch dashboards |
 | Project file | Reads **and writes** | Reads only |
-| Entry | `app/` | `runtime_app/` |
+| Entry | `components/app/` | `runtime_app/` |
 | Task UI | `LocalizationTaskWidget` (starts Commission) | `LocalizationDashboardWidget` (read-only) |
 | Starting runtime | Operator presses Enter Runtime | Automatic on launch |
 

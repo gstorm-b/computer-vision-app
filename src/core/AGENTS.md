@@ -13,7 +13,7 @@ helpers, settings keys, Windows API helpers (`utils/`).
 
 **May include.** Qt, standard library, other `core/` headers only.
 **Must NOT include.** Any other module (`device/`, `matching/`, `model/`,
-`runtime/`, `ui/`, `app/`). Enforced by
+`runtime/`, `ui/`, `components/app/`). Enforced by
 `tests/architecture_contract_test` (include-layering contract).
 
 **Invariants.**
@@ -26,7 +26,17 @@ helpers, settings keys, Windows API helpers (`utils/`).
   `theme_manager.cpp`. Token names/values are specified in
   `docs/rules/ui_theme_tokens.md` — keep both in sync.
 - `vc::gadget_meta` (qgadget_macro.h) is the shared gadget meta-property
-  helper; do not fork per-widget copies.
+  helper; do not fork per-widget copies. `displayName()` and `enumKeyNames()`
+  are the **only** places that resolve `Q_CLASSINFO("<prop>_name")` and enum key
+  labels. Five property browsers used to carry their own copy of both, and every
+  copy translated the enum keys while none translated the label — one block
+  copied five times, not five oversights.
+- **A display name declared in `Q_CLASSINFO` needs a translation marker.**
+  `lupdate` does not read `Q_CLASSINFO` and does not expand macros, so a label
+  without an entry in its class's `kDisplayNameSources[]` can never be
+  translated — with no build error and nothing odd on screen in English. The
+  contract test compares both sets and every marker's context. See
+  `docs/rules/build_and_verification.md` → "Strings lupdate cannot see on its own".
 - **`AppSettings::filePath()` is product-scoped, never application-scoped.** Both
   shells share one `settings.dat`; deriving the path from
   `QCoreApplication::applicationName()` gave them one file each and is what made a

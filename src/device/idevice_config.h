@@ -36,6 +36,29 @@
 #define DEVICE_JSK_MC_FRAME         "McFrameType"
 #define DEVICE_JSK_MC_CONTEXT       "McContext"
 
+/// JSON keys for the Modbus PLC devices (TCP client and TCP server share the register-map and
+/// result-layout keys; only the connection keys differ).
+/// @warning These land in customer project files on the first save and can never change meaning.
+#define DEVICE_JSK_MB_UNIT_ID           "ModbusUnitId"
+#define DEVICE_JSK_MB_COIL_START        "CoilStart"
+#define DEVICE_JSK_MB_COIL_COUNT        "CoilCount"
+#define DEVICE_JSK_MB_DISCRETE_START    "DiscreteInputStart"
+#define DEVICE_JSK_MB_DISCRETE_COUNT    "DiscreteInputCount"
+#define DEVICE_JSK_MB_HOLDING_START     "HoldingRegisterStart"
+#define DEVICE_JSK_MB_HOLDING_COUNT     "HoldingRegisterCount"
+#define DEVICE_JSK_MB_INPUT_REG_START   "InputRegisterStart"
+#define DEVICE_JSK_MB_INPUT_REG_COUNT   "InputRegisterCount"
+#define DEVICE_JSK_MB_RESULT_START      "ResultStartAddress"
+#define DEVICE_JSK_MB_RESULT_MAX_POS    "ResultMaxPositions"
+#define DEVICE_JSK_MB_RESULT_IN_INPUT   "ResultInInputRegisters"
+#define DEVICE_JSK_MB_TRACE_PROTOCOL    "TraceProtocol"
+#define DEVICE_JSK_MB_HOST_ADDRESS      "HostAddress"
+#define DEVICE_JSK_MB_LISTEN_ADDRESS    "ListenAddress"
+#define DEVICE_JSK_MB_PORT              "Port"
+#define DEVICE_JSK_MB_REFRESH_INTERVAL  "RefreshIntervalMs"
+#define DEVICE_JSK_MB_RESPONSE_TIMEOUT  "ResponseTimeoutMs"
+#define DEVICE_JSK_MB_RETRY_COUNT       "RetryCount"
+
 /// JSON keys for the vision-output device family's connection/timing config.
 #define DEVICE_JSK_VOUT_TYPE               "VisionOutputType"
 #define DEVICE_JSK_VOUT_LISTEN_ADDR        "ListenAddress"

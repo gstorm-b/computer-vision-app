@@ -43,6 +43,18 @@ class ITask : public QObject {
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_CLASSINFO("name_name", "Task name")
 
+    /// Translation marker for the "_name" display label above. Not read by any code:
+    /// lupdate cannot see Q_CLASSINFO, so without this the label never enters the .ts. The
+    /// context must be this class's className(). See
+    /// TaskLocalizeConfig::kDisplayNameSources for the full reasoning; the contract test
+    /// asserts this list and the "_name" entries agree.
+    ///
+    /// Public because the contract test reads it; a Q_OBJECT class body starts private.
+public:
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::model::ITask", "Task name"),
+    };
+
 public:
     /**
      * @brief Constructs the task, assigning it a fixed id.

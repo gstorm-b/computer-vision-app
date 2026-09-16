@@ -41,7 +41,7 @@ extending the localization runtime, not an operator manual.
 | Pattern library persistence | `src/matching/pattern_group_manager.cpp` (schema v0/v1/v2) |
 | Gripper presets | `src/model/gripper_preset_store.h`, `src/model/gripper_preset_store.cpp` |
 | Vision output wire format | `src/device/output_device/vision_output_request.h` |
-| Pick-path waypoints | `src/device/output_device/vision_output_config.h` |
+| Robot pick check settings (incl. pick-path waypoints) | `src/device/robot_kinematic_check_config.h` (types); `TaskLocalizeConfig::robotCheckConfig()` (the task's setting) |
 | Advisory pickability check | `src/model/robot_kinematic_picking_checker.h`, `src/matching/robot_picking_checker.h` |
 | Pattern authoring wizards | `src/ui/forms/pattern/add_pattern_wizard.*`, `src/ui/forms/pattern/edit_pattern_wizard.*` |
 | Runtime runners | `src/runtime/camera_runner.h`, `src/runtime/plc_runner.h`, `src/runtime/vision_output_runner.h` |
@@ -65,7 +65,7 @@ At runtime:
 - The controller coordinates PLC input, camera single-shot requests, vision
   output requests, fault publishing, and recovery.
 - Matching runs asynchronously on the task matching worker thread. The
-  controller emits `runtimeMatchingRequested(cycleId, group, image)`, then
+  controller emits `runtimeMatchingRequested(cycleId, group, workspace, image, pickingChecker)`, then
   receives `onRuntimeMatchingFinished(cycleId, result)`.
 - Stale matching results are ignored by cycle id.
 
@@ -83,6 +83,17 @@ At runtime:
   older gripper-geometry shapes is a deliberate, agreed exception to the
   no-compat-shims rule. Do not remove it.
 - PLC fault reporting uses `bTaskFault` and `nFaultCode`.
+- The two active-index signals are **command registers the PLC owns**. The task reads them — from
+  the PLC's first snapshot at startup, and on every change — and reports what it adopted on
+  `nActiveCameraStatus` / `nActivePatternGroupStatus`, never on the command register. See
+  [plc_signal_contract.md](plc_signal_contract.md) → "Active Index Signals".
+- The signal map is validated before any device connects: an unmapped required signal, a shared tag,
+  or a tag the PLC does not provide refuses the start with a message naming the signal.
+- The five handshake outputs are write-acknowledged; three failed attempts abort the cycle with fault
+  `301 PlcWriteFailed`.
+- The robot pick check is a **task** setting (`TaskLocalizeConfig::robotCheckConfig()`), never read
+  from the output device; an enabled check that cannot run refuses the start.
+- `CycleResult::timings` breaks every cycle down by stage from one monotonic clock.
 - `bExecuteTrigger` is rising-edge triggered. A held trigger must not enqueue a
   second cycle.
 - `bMatchingFinished` means the accepted trigger was handled. It does not imply

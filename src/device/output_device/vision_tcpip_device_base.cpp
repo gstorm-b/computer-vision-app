@@ -31,25 +31,33 @@ namespace vc::device {
 /// status, and returns false.
 /// @return true if the device is (now) active and its transport is open
 bool VisionTcpipDeviceBase::deviceConnect() {
-    QMutexLocker locker(&m_mutex);
+    {
+        QMutexLocker locker(&m_mutex);
 
-    if (m_active) {
+        if (!m_active) {
+            m_active = true;
+            if (!startTransport()) {
+                stopTransport();
+                m_active = false;
+                m_diagnostics.lastError = m_last_msg;
+                setConnectionStatus(ConnectStatus::ConnectFailed, m_last_msg);
+                return false;
+            }
+
+            m_diagnostics.lastError.clear();
+            syncRuntimeState();
+            return true;
+        }
+
         LOG_DEV_INFO << "VisionTcpipDeviceBase already active" << name();
         syncRuntimeState();
-        return true;
     }
-
-    m_active = true;
-    if (!startTransport()) {
-        stopTransport();
-        m_active = false;
-        m_diagnostics.lastError = m_last_msg;
-        setConnectionStatus(ConnectStatus::ConnectFailed, m_last_msg);
-        return false;
-    }
-
-    m_diagnostics.lastError.clear();
-    syncRuntimeState();
+    // Outside the locker on purpose: this publishes, and a directly connected consumer would
+    // re-enter the device on this thread while it still held m_mutex.
+    //
+    // The status is what unwedges VisionOutputRunner. Returning true in silence here left
+    // m_busy stuck true for the life of the runner — see publishCurrentConnectStatus().
+    publishCurrentConnectStatus();
     return true;
 }
 
@@ -316,6 +324,11 @@ void VisionTcpipDeviceBase::attachMainSocket(QTcpSocket *sock) {
     LOG_DEV_INFO << "VisionTcpip main link up from"
                  << m_mainSocket->peerAddress().toString();
     syncRuntimeState();
+    // A link coming up is a status event, not only a socket event. Without this the server
+    // stayed at LostConnected after declareLostConnection() — which detaches both sockets but
+    // leaves the listeners open — so a client that re-attached restored the data path while the
+    // controller still believed the role was down and never re-armed the runtime.
+    publishCurrentConnectStatus();
     emit mainClientStateChanged(true);
 }
 
@@ -342,15 +355,44 @@ void VisionTcpipDeviceBase::attachHeartbeatSocket(QTcpSocket *sock) {
     sendHeartbeatProbe();
     startHeartbeatTimer();
     syncRuntimeState();
+    // Same reason as attachMainSocket(). Published after syncRuntimeState() so a consumer
+    // reacting to the status reads a runtime state that already counts this link.
+    publishCurrentConnectStatus();
 }
 
-/// Disconnects signals from the main socket, aborts it, schedules it for
+/// Empties `sock`'s OS receive buffer so the close that follows is a FIN rather than an RST.
+/// See the header for why bytesAvailable() cannot be trusted here.
+void VisionTcpipDeviceBase::drainBeforeClose(QTcpSocket *sock) {
+    if (!sock || sock->state() != QAbstractSocket::ConnectedState) {
+        return;   // nothing to read, or nothing left to read it from
+    }
+    for (int attempt = 0; attempt < kDrainBeforeCloseAttempts; ++attempt) {
+        if (sock->bytesAvailable() > 0) {
+            sock->readAll();
+            continue;
+        }
+        if (!sock->waitForReadyRead(1)) {
+            break;   // the OS buffer is empty too
+        }
+        sock->readAll();
+    }
+}
+
+/// Disconnects signals from the main socket, drains and aborts it, schedules it for
 /// deletion (deleteLater()), clears m_mainSocket and the RX buffer, syncs
 /// runtime state, and emits mainClientStateChanged(false). No-op if no main
 /// socket is attached.
+///
+/// @note Phase 9 / D2 proposed replacing abort() with disconnectFromHost() plus a bounded wait,
+///       on the theory that the close *kind* was the problem. Measured and **rejected**: the
+///       graceful close moved the failure rate from 10/20 to 7/20, i.e. not at all. The close
+///       kind was never the issue — the unread inbound data was, which is what drainBeforeClose()
+///       above removes (0/20). abort() is kept deliberately: once the buffer is empty it produces
+///       an ordinary FIN, and it cannot block. See backlog item 32 for the full measurement table.
 void VisionTcpipDeviceBase::detachMainSocket() {
     if (!m_mainSocket) return;
     m_mainSocket->disconnect(this);
+    drainBeforeClose(m_mainSocket);
     m_mainSocket->abort();
     m_mainSocket->deleteLater();
     m_mainSocket = nullptr;
@@ -360,12 +402,17 @@ void VisionTcpipDeviceBase::detachMainSocket() {
 }
 
 /// Stops the heartbeat timer, then (if attached) disconnects signals from the
-/// heartbeat socket, aborts it, schedules it for deletion, and clears
+/// heartbeat socket, drains and aborts it, schedules it for deletion, and clears
 /// m_hbSocket. Always clears the RX buffer and resets heartbeat state.
+///
+/// The drain matters most here: this is the channel the disconnect notice was just written to,
+/// and the one the peer keeps acking, so it is the socket most likely to be holding unread
+/// inbound bytes at close time.
 void VisionTcpipDeviceBase::detachHeartbeatSocket() {
     stopHeartbeatTimer();
     if (m_hbSocket) {
         m_hbSocket->disconnect(this);
+        drainBeforeClose(m_hbSocket);
         m_hbSocket->abort();
         m_hbSocket->deleteLater();
         m_hbSocket = nullptr;
@@ -514,6 +561,13 @@ void VisionTcpipDeviceBase::onHeartbeatTick() {
 void VisionTcpipDeviceBase::sendDisconnectNotice() {
     // Bounded wait so the notice clears the socket buffer before the imminent
     // detachHeartbeatSocket()->abort(), which would otherwise discard it.
+    //
+    // Measured 2026-09-09 (Phase 9 / D2): this wait routinely returns FALSE with
+    // bytesToWrite() already 0 — flush() has handed everything to the OS, so there is nothing
+    // left for it to wait on. It therefore guarantees the bytes left THIS process; it does not
+    // guarantee the peer read them, and about a third of the time the peer never sees them.
+    // That is backlog item 32, and it is not the abort() below. Do not "fix" it here without
+    // reading item 32's measurements first.
     constexpr int kDisconnectFlushMs = 150;
 
     if (!m_hbSocket || m_hbSocket->state() != QAbstractSocket::ConnectedState) {

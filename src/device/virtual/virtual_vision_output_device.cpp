@@ -30,6 +30,15 @@ bool VirtualVisionOutputDevice::deviceDisconnect()
     return true;
 }
 
+/// Queues a connection-status change through the event loop. See the header for why it is
+/// queued rather than applied in place.
+void VirtualVisionOutputDevice::forceConnectionStatus(ConnectStatus status)
+{
+    QMetaObject::invokeMethod(this, [this, status]() {
+        setConnectionStatus(status);
+    }, Qt::QueuedConnection);
+}
+
 /// True while the connection status is Connected.
 bool VirtualVisionOutputDevice::isDeviceConnected() const
 {

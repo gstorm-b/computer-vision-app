@@ -37,6 +37,18 @@ class VisionTcpipDeviceCfg : public VisionOutputDeviceCfg {
     /// LostConnected, in milliseconds.
     G_PROPERTY_NUMBER_READWRITE(int, heartbeatTimeoutMs, 100, 60000, "Heartbeat Timeout (ms)")
 
+    /// Translation markers for the display names above. Not read by any code: lupdate cannot
+    /// see Q_CLASSINFO, so without this table these labels never enter the .ts. The context
+    /// must be this class's className(). See TaskLocalizeConfig::kDisplayNameSources for the
+    /// full reasoning; the contract test asserts this list and the properties agree.
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipDeviceCfg", "Listen Address"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipDeviceCfg", "Main Port (Port 1)"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipDeviceCfg", "Heartbeat Port (Port 2)"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipDeviceCfg", "Heartbeat Interval (ms)"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipDeviceCfg", "Heartbeat Timeout (ms)"),
+    };
+
 public:
     /// Default-constructs the config with the base VisionOutputDeviceCfg defaults.
     explicit VisionTcpipDeviceCfg() : VisionOutputDeviceCfg() {}

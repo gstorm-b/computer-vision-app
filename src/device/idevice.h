@@ -52,6 +52,19 @@ class IDevice : public QObject {
     Q_PROPERTY(QString id READ id CONSTANT)
     Q_CLASSINFO("id_name", "Device ID")
 
+    /// Translation markers for the "_name" display labels above. Not read by any code:
+    /// lupdate cannot see Q_CLASSINFO, so without this table these labels never enter the
+    /// .ts. The context must be this class's className(). See
+    /// TaskLocalizeConfig::kDisplayNameSources for the full reasoning; the contract test
+    /// asserts this list and the "_name" entries agree.
+    ///
+    /// Public because the contract test reads it; a Q_OBJECT class body starts private.
+public:
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::IDevice", "Device name"),
+        QT_TRANSLATE_NOOP("vc::device::IDevice", "Device ID"),
+    };
+
 public:
     /// Constructs the device with its id/name; connection status starts at NoConnection
     /// and no config or manager is attached yet.

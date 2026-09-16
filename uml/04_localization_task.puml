@@ -58,6 +58,8 @@ package "vc::model" {
   class TaskLocalizeConfig <<Q_GADGET>> {
     +nActiveCamera : QString
     +nActivePatternGroup : QString
+    +nActiveCameraStatus : QString
+    +nActivePatternGroupStatus : QString
     +nDetectedNumber : QString
     +nFaultCode : QString
     +bCameraValid : QString
@@ -71,6 +73,7 @@ package "vc::model" {
     +bMatchingLowArea : QString
     +bErrorReset : QString
     +deviceBindings : TaskDeviceBindings
+    +robotCheckConfig() : RobotKinematicCheckConfig
   }
 
   enum TaskDeviceRole {
@@ -113,8 +116,7 @@ package "vc::model" {
     +loadTaskImageMap(mapping) : bool
     +setupTask()
     +executeLocalization()
-    +setCameraNumber(number)
-    +setPatternNumber(number)
+    -awaitPrimaryPlcSnapshot() : bool
     -buildRuntimeContext() : RuntimeContext
     -setupRuntimeController() : SetupResult
     -queueHandlePlcValues(values)
@@ -144,7 +146,7 @@ package "vc::model" {
     +primaryPlcDeviceId : QString
     +visionOutputDeviceId : QString
     +primaryPlcRunner : PlcRunner*
-    +visionOutputRunner : VisionOutputRunner*
+    +visionOutputRunner : IDeviceRunner*
     +cameraDeviceIds : QMap<int, QString>
     +cameraRunners : QMap<int, CameraRunner*>
     +patternGroups : QMap<int, MatchGroup>
@@ -182,7 +184,6 @@ package "vc::model" {
   enum LocalizationRecoveryAction {
     Ignore
     RetryScheduled
-    EscalateFault
   }
 
   enum LocalizationFaultCode {
@@ -190,19 +191,19 @@ package "vc::model" {
     CameraLost = 100
     CameraConnectFailed = 101
     CameraGrabTimeout = 102
+    CameraNotRegistered = 103
     VisionOutputLost = 200
     VisionOutputSendFailed = 201
     PlcLost = 300
-    PatternInvalid = 400
+    PlcWriteFailed = 301
+    PatternNotRegistered = 400
     CalibrationInvalid = 401
     InternalError = 500
   }
 
   class LocalizationRecoveryPolicy {
     +roleName : QString
-    +maxRetries : int
     +retryIntervalMs : int
-    +connectTimeoutMs : int
     +retryOnConnectFailed : bool
     +retryOnLostConnected : bool
   }

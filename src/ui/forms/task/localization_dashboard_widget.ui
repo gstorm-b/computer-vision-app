@@ -679,6 +679,50 @@
         </widget>
        </item>
        <item>
+        <widget class="FrameBox" name="frame_kpi_cycle_total">
+         <property name="frameBoxVariant" stdset="0">
+          <string>compact</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="vl_kpi_cycle_total">
+          <property name="spacing">
+           <number>4</number>
+          </property>
+          <property name="leftMargin">
+           <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>8</number>
+          </property>
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
+          <property name="bottomMargin">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="lbl_kpi_cycle_total">
+            <property name="text">
+             <string>Cycle time</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="lbl_kpi_cycle_total_val">
+            <property name="text">
+             <string>—</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="FrameBox" name="frame_kpi_low_area">
          <property name="frameBoxVariant" stdset="0">
           <string>compact</string>

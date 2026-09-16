@@ -172,16 +172,19 @@ void DeviceRowDelegate::paintBackground(QPainter *p,
     p->restore();
 }
 
-/// Draws the address cell's centered, bold mono text: 'M' prefix in Bit mode or
-/// 'D' prefix in Word mode, followed by address zero-padded to 4 digits.
+/// Draws the address cell's centered, bold mono text: the item's AddressTextRole when the model
+/// supplied one, otherwise the Mitsubishi default of 'M'/'D' plus a 4-digit zero-padded address.
 void DeviceRowDelegate::paintAddress(QPainter *p, const QRect &cell,
-                                     int address) const {
+                                     int address, const QString &addressText) const {
     p->save();
     p->setPen(tokenColor("device.plc"));
     p->setFont(monoFont(10, /*bold*/ true));
-    const QChar prefix = m_mode == Bit ? QLatin1Char('M') : QLatin1Char('D');
-    const QString text = QString("%1%2").arg(prefix)
-                              .arg(address, 4, 10, QChar('0'));
+    // The fallback is kept, not replaced: the Mitsubishi panel supplies no AddressTextRole and
+    // must keep painting exactly what it painted before.
+    const QString text = addressText.isEmpty()
+        ? QString("%1%2").arg(m_mode == Bit ? QLatin1Char('M') : QLatin1Char('D'))
+                         .arg(address, 4, 10, QChar('0'))
+        : addressText;
     p->drawText(cell, Qt::AlignCenter, text);
     p->restore();
 }
@@ -338,7 +341,7 @@ void DeviceRowDelegate::paint(QPainter *p,
 
     if (col == ColAddress) {
         const int address = idx.data(AddressRole).toInt();
-        paintAddress(p, opt.rect, address);
+        paintAddress(p, opt.rect, address, idx.data(AddressTextRole).toString());
         return;
     }
 

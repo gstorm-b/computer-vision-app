@@ -9,7 +9,7 @@
 - **Hand-written docs** under `docs/` (architecture notes, domain docs, rules, backlog). These
   remain the source of truth for *why* and for anything a generator cannot infer.
 - **Generated Doxygen API reference** under `docs/generated/doxygen/`, built from the `///`
-  Doxygen comments in `src/`, `app/`, `runtime_app/`, and `components/RobotKinematics/` (see
+  Doxygen comments in `src/`, `components/app/`, `runtime_app/`, and `components/RobotKinematics/` (see
   [design_rules.md](design_rules.md) §18 for the comment style), plus the hand-authored UML
   under `uml/` rendered to SVG and embedded with pan/zoom.
 
@@ -78,7 +78,7 @@ This:
 1. Renders every `uml/*.puml` to SVG (`docs/generated/doxygen/uml_svg/`) via PlantUML +
    Graphviz.
 2. Patches each rendered SVG for pan/zoom (see below).
-3. Runs Doxygen over `src/`, `app/`, `runtime_app/`, and
+3. Runs Doxygen over `src/`, `components/app/`, `runtime_app/`, and
    `components/RobotKinematics/{include,src}` (see `docs/doxygen/Doxyfile`), plus the custom pages
    in `docs/doxygen/pages/`.
 4. Copies the rendered UML SVGs into the HTML output so

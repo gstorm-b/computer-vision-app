@@ -117,9 +117,12 @@ Captures the positions it is sent; `capturedPositions` holds the last request an
 counted, including rejected ones — "how many times did the runtime try to send" and "how many
 succeeded" are different questions and the failure path is where they diverge.
 
-It keeps the **robot kinematic check** inherited from `VisionOutputDeviceCfg`. That is a property
-of the picking geometry, not of the wire, so a hardware-free run must not be allowed to pass
-poses a real robot could never reach.
+The **robot pick check still gates a hardware-free run**, and since Phase 9 / F1 that no longer
+depends on this device: the runtime reads the check from the task
+(`TaskLocalizeConfig::robotCheckConfig()`), so a virtual output cannot let through a pose a real
+robot could never reach. The device still inherits an `m_kinematicCheck` config from
+`VisionOutputDeviceCfg`, but the localization task no longer asks for it and this device runs no
+advisory check of its own.
 
 ## Making virtual obvious — risk R8
 
@@ -174,9 +177,37 @@ Kept because each one names a trap the next person can fall into.
 The first two share a shape worth remembering: **a config that round-trips is not the same as a
 device that behaves.** The round-trip test passed throughout both.
 
-## Known gap
+## Driving a virtual PLC's inputs
 
-**Signal values cannot be injected.** `VirtualPlcDevice` records what the runtime *writes*, but
-nothing can drive a value *in* — so a task can be taken to `Ready` and no further. Triggering a
-cycle, faulting, and fault-reset all begin with the PLC changing an input, and there is no way
-to make that happen. Tracked as backlog item **#43**.
+**Closed 2026-09-07** (backlog item #43). Until then `VirtualPlcDevice` recorded what the runtime
+*wrote* but nothing could drive a value *in*, so a task reached `Ready` and stopped: triggering a
+cycle, faulting and fault-reset all begin with the PLC changing an input, and every transition the
+task state machine has was unreachable.
+
+`VirtualPlcDevice` now implements `vc::device::IPlcInputSimulator`:
+
+| | |
+|---|---|
+| Capability | `IPlcInputSimulator` — `injectInputValue(tag, value, error)` and `simulatedInputs()` |
+| Reached from the UI via | `PlcRunner::requestInjectInputValue()`, queued onto the device thread |
+| Offered only when | `PlcRunner::supportsInputSimulation()` — resolved **per device**, so no real PLC ever advertises it |
+| UI | `VirtualPlcInputPanel`, added to the virtual device page by `VirtualDeviceWidget` |
+
+A cycle is driven the way the PLC drives one: set the trigger tag to 1, then back to 0. The trigger
+is rising-edge, so holding it at 1 does not enqueue a second cycle.
+
+> ⚠️ **Injected inputs and recorded writes are two separate stores, and must stay that way.** A
+> value the runtime *wrote* must never read back as an input. If it did, the handshake would
+> complete itself — the runtime publishes `bMatchingFinished`, reads it back, and the cycle appears
+> to work — and it would hide the mapping mistake where two logical signals are bound to the same
+> tag. Real hardware keeps them apart because the plant owns the inputs, not the vision system, and
+> a simulation that blurs the two stops proving anything. Pinned by
+> `test_virtual_plc_keeps_injected_inputs_and_recorded_writes_apart`.
+
+**Only the commissioning shell has these controls.** `ncr_runtime.exe` shows the operator dashboard
+and no device pages, so a hardware-free demo is driven from `ncr_picking.exe`. That is a deliberate
+choice, not an oversight: the operator shell is not a place to forge PLC inputs.
+
+**Real PLC devices must never implement this capability.** The point of the virtual device is that
+software written against it also works against hardware; a real device whose inputs this software
+could forge would be lying about the plant.

@@ -41,15 +41,19 @@ enum class LocalizationRecoveryAction {
 /**
  * @struct LocalizationRecoveryPolicy
  * @brief Per-role (camera/PLC/vision-output) reconnect policy: which connection statuses are
- *        recoverable at all, and at what interval/timeout to retry them.
+ *        recoverable at all, and at what interval to retry them.
  *
  * The policy answers "how often do we retry", never "how many times". Retrying is
  * unbounded by design — the runtime keeps trying until it is torn down.
+ *
+ * @note There is no per-attempt connect timeout here. A `connectTimeoutMs` field used to sit in
+ *       this struct and was read by nothing but its own test assertion (Phase 9 / D5), so it
+ *       promised a knob that did not exist. How long one connect attempt may take is decided by
+ *       the role's runner and device, not by this policy.
  */
 struct LocalizationRecoveryPolicy {
     QString roleName;                 ///< Human-readable role identifier (e.g. "camera").
     int retryIntervalMs{5000};         ///< Delay between reconnect attempts, in milliseconds.
-    int connectTimeoutMs{3000};        ///< Timeout for a single reconnect attempt, in milliseconds.
     bool retryOnConnectFailed{true};   ///< Whether ConnectStatus::ConnectFailed is recoverable.
     bool retryOnLostConnected{true};   ///< Whether ConnectStatus::LostConnected is recoverable.
 

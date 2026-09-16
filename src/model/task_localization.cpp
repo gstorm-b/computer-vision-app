@@ -6,6 +6,7 @@
 #include <QRegularExpression>
 #include <QThread>
 
+#include "device/device_capabilities.h"
 #include "device/output_device/vision_output_config.h"
 #include "device/virtual/virtual_device.h"
 #include "matching/match_group.h"
@@ -182,6 +183,14 @@ void TaskLocalization::beginRuntime(bool mergeToTaskThread)
     syncRunnersWithDevices();
     logVirtualDevicesInUse();
     taskRunner()->enterRuntime(false);
+
+    // The PLC first, and the camera only after (Task C6). The two active-index signals are
+    // inputs the PLC owns, so which camera to bind is a value only the PLC can supply — it
+    // cannot be resolved before the PLC has spoken. Resolving it from the project file instead
+    // is why a task reached Ready with the master's registers at 0 and ran cycles on whichever
+    // camera sorted first (backlog item 58).
+    awaitPrimaryPlcSnapshot();
+
     createRuntimeController();
     if (auto *thread = taskRunner()->runtimeThread()) {
         if (m_runtimeController->thread() != thread) {
@@ -197,6 +206,63 @@ void TaskLocalization::beginRuntime(bool mergeToTaskThread)
     }
 
     emit runtimeStarted();
+}
+
+/// Connects the primary PLC and vision-output roles and waits, bounded, for the PLC's first
+/// whole-register snapshot. See the header for the bound and why expiry is not a failure.
+bool TaskLocalization::awaitPrimaryPlcSnapshot()
+{
+    m_plcSnapshot.reset();
+    disconnect(m_plcSnapshotConnection);
+
+    const QString plcId = m_config.d->m_deviceBindings.primaryPlcDeviceId();
+    auto *plc = plcRunner(plcId);
+    if (!plc) {
+        return false;   // no PLC bound: setup() will report that on its own
+    }
+
+    // The output role too, so the pair that carries the handshake is up before the selection is
+    // resolved; nothing waits on it, because no index depends on it.
+    if (auto *output = taskRunner()
+                           ? taskRunner()->runnerFor(
+                                 m_config.d->m_deviceBindings.visionOutputDeviceId())
+                           : nullptr) {
+        output->requestConnect();
+    }
+
+    QEventLoop loop;
+    m_plcSnapshotConnection = connect(
+        plc, &vc::runtime::PlcRunner::pollingUpdate, this,
+        [this, &loop](std::shared_ptr<vc::device::PlcValueMap> map) {
+            if (!map) {
+                return;
+            }
+            m_plcSnapshot = std::move(map);
+            loop.quit();
+        });
+
+    plc->requestConnect();
+
+    // A bounded nested wait, on the GUI thread, in a lifecycle call. It is the narrowest thing
+    // that meets the contract "the task must not reach Ready on a stale selection": resolving
+    // after setup() would let the task go Ready on the project default first and only then
+    // fault, which is the symptom this task exists to remove.
+    QTimer::singleShot(kPlcSnapshotWaitMs, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    disconnect(m_plcSnapshotConnection);
+
+    if (!m_plcSnapshot) {
+        // Reported, never swallowed. Falling back to the project default is the honest reading
+        // of "the PLC has not told us anything" — the same answer an unmapped signal gets — but
+        // an operator has to know that is what happened.
+        LOG_USER_WARN << "Primary PLC published no register snapshot within"
+                      << kPlcSnapshotWaitMs
+                      << "ms; the active camera and pattern group fall back to the project "
+                         "defaults. A selection the master intended may not have been read.";
+        return false;
+    }
+    return true;
 }
 
 /// Ends the runtime phase: destroys the current runtime controller, delegates to
@@ -418,81 +484,10 @@ void TaskLocalization::executeLocalization()
     }
 }
 
-/// Switches the active camera used by the runtime controller to camera `number`, after
-/// validating (only while the task runner is in its Runtime phase) that the number maps
-/// to a device id which is both assigned to this task and actually of Camera type.
-/// @param number camera slot number to activate, as bound in m_config's device bindings
-void TaskLocalization::setCameraNumber(int number) {
-    if (!taskRunner()) {
-        return;
-    }
-
-    if (taskRunner()->currentPhase() != runtime::TaskRunner::Phase::Runtime) {
-        return;
-    }
-
-    QString cam_id = m_config.d->m_deviceBindings.cameraDeviceId(number);
-    if (cam_id.isEmpty()) {
-        LOG_USER_WARN << tr("Cannot change camera, not found camera number %1").arg(number);
-        return;
-    }
-
-    if (!assignedDeviceIds().contains(cam_id)) {
-        LOG_USER_WARN << tr("Cannot change camera, not found camera number %1").arg(number);
-        return;
-    }
-
-    std::shared_ptr<device::IDevice> device = getTaskDevice(cam_id);
-    if (!device || device->deviceType() != device::DeviceType::Camera) {
-        LOG_USER_WARN << tr("Cannot change camera, device %1 with id %2 isn't camera type")
-                             .arg(number).arg(cam_id);
-        return;
-    }
-
-    queueSetActiveCameraNumber(number);
-}
-
-/// Switches the active pattern group used by the runtime controller to `number`.
-/// @param number pattern group number to activate
-void TaskLocalization::setPatternNumber(int number) {
-    queueSetActivePatternGroupNumber(number);
-}
-
 /// Forwards a batch of changed PLC signal values to the runtime controller.
 /// @param values changed signal name/value pairs, as reported by the PLC comm device
 void TaskLocalization::onCommDeviceValueChanged(QMap<QString, QVariant> values) {
     queueHandlePlcValues(values);
-}
-
-/// Slot for a PLC-driven camera-number signal: converts `value` to int (logging if it
-/// isn't numeric) and calls setCameraNumber() with the result regardless.
-/// @param value raw signal value received from the PLC
-void TaskLocalization::onSignalChangeCameraNumber(QVariant value) {
-    bool is_ok = false;
-    int number = value.toInt(&is_ok);
-
-    if (!is_ok) {
-        LOG_USER_WARN << tr("Task %1 change camera number failed, value %2")
-                             .arg(name()).arg(value.toChar());
-    }
-
-    setCameraNumber(number);
-}
-
-
-/// Slot for a PLC-driven pattern-number signal: converts `value` to int (logging if it
-/// isn't numeric) and calls setPatternNumber() with the result regardless.
-/// @param value raw signal value received from the PLC
-void TaskLocalization::onSignalChangePatternNumber(QVariant value) {
-    bool is_ok = false;
-    int number = value.toInt(&is_ok);
-
-    if (!is_ok) {
-        LOG_USER_WARN << tr("Task %1 change pattern number failed, value %2")
-        .arg(name()).arg(value.toChar());
-    }
-
-    setPatternNumber(number);
 }
 
 /// Slot: transitions the task to RunningCycle in response to the runtime controller's
@@ -670,11 +665,11 @@ TaskLocalization::snapshotPatternGroup(const std::shared_ptr<mtc::MatchGroup> &s
 }
 
 /// Assembles a RuntimeContext snapshot for the runtime controller: resolves the primary
-/// PLC and vision-output runners/ids from m_config's device bindings, copies the robot
-/// kinematic-check settings from the assigned vision-output device's config, resolves
-/// each bound camera's runner and calibrator, and takes a deep-copy snapshot of every
-/// pattern group (see snapshotPatternGroup()) with the first camera/pattern-group picked
-/// as active.
+/// PLC and vision-output runners/ids from m_config's device bindings, copies the TASK's robot
+/// pick-check settings (m_config.robotCheckConfig(), Phase 9 / F1), resolves each bound camera's
+/// runner and calibrator, takes a deep-copy snapshot of every pattern group (see
+/// snapshotPatternGroup()), and attaches the PLC snapshot read at startup. The active camera and
+/// pattern group are deliberately left unresolved (-1) for setup() — see the note in the body.
 /// @return the populated runtime context, ready for setupRuntimeController()/setup()
 LocalizationRuntimeController::RuntimeContext
 TaskLocalization::buildRuntimeContext() const
@@ -684,17 +679,20 @@ TaskLocalization::buildRuntimeContext() const
     context.primaryPlcDeviceId = m_config.d->m_deviceBindings.primaryPlcDeviceId();
     context.visionOutputDeviceId = m_config.d->m_deviceBindings.visionOutputDeviceId();
     context.primaryPlcRunner = plcRunner(context.primaryPlcDeviceId);
-    context.visionOutputRunner = qobject_cast<vc::runtime::VisionOutputRunner *>(
-        taskRunner() ? taskRunner()->runnerFor(context.visionOutputDeviceId) : nullptr);
+    context.visionOutputRunner =
+        taskRunner() ? taskRunner()->runnerFor(context.visionOutputDeviceId) : nullptr;
 
-    // Snapshot the robot kinematic check settings from the assigned vision
-    // output device config (drives the per-object robotPossiblePickingCheck).
-    if (auto visionDevice = getTaskDevice(context.visionOutputDeviceId)) {
-        std::unique_ptr<device::IDeviceCfg> visionCfg(visionDevice->deviceConfig());
-        if (auto *voutCfg = dynamic_cast<device::VisionOutputDeviceCfg *>(visionCfg.get())) {
-            context.robotCheckConfig = voutCfg->m_kinematicCheck;
-        }
-    }
+    // The robot pick check is a property of the TASK, not of whatever transport carries the
+    // result out (Phase 9 / F1, backlog item 57). It used to be read off the bound device through
+    // IResultOutputDevice::robotKinematicCheckConfig(); reaching it through a capability rather
+    // than a cast fixed *which* families could answer, but not the deeper problem — a device that
+    // has no check commissioned answers "disabled", and that answer is indistinguishable from
+    // "this cell does not want the check". Binding a PLC to vision_output therefore un-commissioned
+    // the gate silently. Reading the task's own setting removes the device from the question.
+    //
+    // IResultOutputDevice::robotKinematicCheckConfig() still exists and both Modbus devices still
+    // implement it; the localization task simply no longer reads it. See the note there.
+    context.robotCheckConfig = m_config.robotCheckConfig();
 
     context.cameraDeviceIds = m_config.d->m_deviceBindings.cameraNumberMap();
 
@@ -713,9 +711,15 @@ TaskLocalization::buildRuntimeContext() const
         }
     }
 
-    if (!context.cameraDeviceIds.isEmpty()) {
-        context.activeCameraNumber = context.cameraDeviceIds.firstKey();
-    }
+    // Deliberately NOT pre-resolved to firstKey() here. Leaving the sentinel lets setup() own the
+    // resolution, which is the only place that can tell "the project's first binding" from "a
+    // number somebody commanded" — and the startup summary reports that distinction. Pre-resolving
+    // made the summary say "commanded" for every run, which is false in every run today
+    // (field-confirmed 2026-09-08). setup() applies the identical firstKey() fallback, so the
+    // resolved value is unchanged; only the provenance survives now.
+    //
+    // It is also the precondition C6 needs: a selection read from the live PLC has to be able to
+    // beat the project default, and it cannot if the default has already been written in.
 
     if (m_patternManager) {
         const auto groups = m_patternManager->groups();
@@ -724,10 +728,12 @@ TaskLocalization::buildRuntimeContext() const
                 context.patternGroups.insert(snapshot->number(), snapshot);
             }
         }
-        if (!context.patternGroups.isEmpty()) {
-            context.activePatternGroupNumber = context.patternGroups.firstKey();
-        }
+        // Sentinel kept, same reasoning as the camera above.
     }
+
+    // What the PLC held when the runtime started, if it had been read by then. Null means "not
+    // read", which setup() treats exactly like an unmapped signal — never as a register holding 0.
+    context.plcSnapshot = m_plcSnapshot;
 
     return context;
 }

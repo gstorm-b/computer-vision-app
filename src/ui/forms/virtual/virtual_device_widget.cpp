@@ -6,7 +6,10 @@
 
 #include "core/logger/app_logger.h"
 #include "core/qgadget_macro.h"
+#include "device/device_capabilities.h"
 #include "device/device_manager.h"
+#include "runtime/plc_runner.h"
+#include "ui/forms/virtual/virtual_plc_input_panel.h"
 
 namespace {
 
@@ -49,6 +52,7 @@ QtVariantProperty *addRow(const QMetaObject &meta, const QMetaProperty &prop,
 
 /// Builds the panel, the banner and the property browser for `device`.
 VirtualDeviceWidget::VirtualDeviceWidget(std::shared_ptr<vc::device::IDevice> device,
+                                         vc::runtime::IDeviceRunner *runner,
                                          QWidget *parent)
     : IDeviceWidget(parent)
     , ui(new Ui::VirtualDeviceWidget)
@@ -69,7 +73,27 @@ VirtualDeviceWidget::VirtualDeviceWidget(std::shared_ptr<vc::device::IDevice> de
             this, &VirtualDeviceWidget::onPropertyValueChanged);
 
     buildPropertyBrowser();
+    addInputPanelIfSupported(runner);
     loadConfigToWidget();
+}
+
+/// Adds the input-driving panel when `device` is a PLC whose inputs can be driven.
+void VirtualDeviceWidget::addInputPanelIfSupported(vc::runtime::IDeviceRunner *runner)
+{
+    auto *plcRunner = dynamic_cast<vc::runtime::PlcRunner *>(runner);
+    // Asked of the runner's capability, not of the device's sub-type. A device that would ignore
+    // the controls must not be offered them, and the capability is the only thing that answers
+    // that per device rather than per family.
+    if (!plcRunner || !plcRunner->supportsInputSimulation()) {
+        return;
+    }
+
+    auto *tagProvider = dynamic_cast<vc::device::IPlcTagProvider *>(m_device.get());
+    ui->layout_extra_host->addWidget(new VirtualPlcInputPanel(
+        plcRunner,
+        tagProvider ? tagProvider->availableDigitalIoNames() : QStringList(),
+        tagProvider ? tagProvider->availableWordIoNames() : QStringList(),
+        this));
 }
 
 VirtualDeviceWidget::~VirtualDeviceWidget()

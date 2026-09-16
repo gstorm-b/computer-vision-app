@@ -61,6 +61,9 @@ protected:
     /// Falls back to Connecting (if we were Connected) and schedules a
     /// reconnect attempt.
     void onLinkLost() override;
+    /// Republishes evaluateConnected()'s own predicate for the current state: both links up
+    /// ⇒ Connected, otherwise Connecting (the transport is dialing).
+    void publishCurrentConnectStatus() override;
 
     /// Returns the configured remote main-port number to dial.
     int cfgMainPort() const override            { return m_config.m_mainPort; }

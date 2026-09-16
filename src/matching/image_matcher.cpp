@@ -11,6 +11,7 @@
 #include <malloc.h>
 #include <algorithm>
 #include <vector>
+#include <format>
 
 #include "vision_utils.h"
 
@@ -18,7 +19,7 @@
 #define D2R                 (CV_PI / 180.0)
 #define R2D                 (180.0 / CV_PI)
 #define MATCH_CANDIDATE_NUM 5
-#define SMALL_CROP_OFFSET   20
+#define SMALL_CROP_OFFSET   70
 
 using namespace std;
 using namespace cv;
@@ -262,7 +263,7 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
     }
 
     // debug
-    //saveContourImage(srcContours, "contours.png", img_size);
+    // saveContourImage(srcContours, "contours.png", img_size);
 
     int sumArea       = 0;
     int temp_img_cols = static_cast<int>(temp_src_image.cols * 0.8);
@@ -281,9 +282,9 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
         cv::Rect        bndBox  = cv::boundingRect(srcContours[ci]);
         int rectArea = static_cast<int>(rect.size.height * rect.size.width);
 
-        possibleCollisionContourIndex.push_back(ci);
-
         if (rectArea >= maxNoiseArea) continue;
+
+        possibleCollisionContourIndex.push_back(ci);
 
         bool isNoise = (rect.size.height >= temp_img_rows)
                     || (rect.size.width  >= temp_img_cols)
@@ -296,7 +297,8 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
             MatchPattern* model = patterns.at(mi).get();
             int lowerArea = static_cast<int>(model->getModelContoursSelectedArea() * lowerThreshRatio);
             int upperArea = static_cast<int>(model->getModelContoursSelectedArea() * upperThreshRatio);
-            if (area <= lowerArea || area >= upperArea) continue;
+            // std::cout << lowerArea << ", " << upperArea << ", " << area << std::endl;
+            if (area < lowerArea || area > upperArea) continue;
             tempObj.modelCheckList.push_back(mi);
         }
 
@@ -310,6 +312,7 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
                 tmp.height + 2 * SMALL_CROP_OFFSET) & imageRect;
             tempObj.conMinRectArea = cv::minAreaRect(srcContours[ci]);
             objects.push_back(tempObj);
+            // std::cout << "Push" << tempObj.conIndex << std::endl;
         }
     }
 
@@ -325,6 +328,11 @@ void ImageMatcher::matching(bool boundingBoxChecking, int objectsNum, bool using
 
     for (int oi = 0; oi < static_cast<int>(objects.size()); ++oi) {
         cv::Mat temp_crop = temp_src_image(objects[oi].conBoundingRect);
+
+        // for debug
+        // std::string crop_name = "crop_" + std::to_string(oi) + ".bmp";
+        // cv::imwrite(crop_name, temp_crop);
+
         m_final_overlap_result.clear();
         std::vector<MatchedObject> area_obj;
 
@@ -548,7 +556,7 @@ bool ImageMatcher::MatchEdge(cv::Mat& img_edge, MatchPattern* edgePattern,
     // reduce min score per lower pyramid layer
     vector<double> vecLayerScores(top_layer + 1, cfg->m_minScore);
     for (int li = 1; li <= top_layer; ++li)
-        vecLayerScores[li] = vecLayerScores[li - 1] * 0.8;
+        vecLayerScores[li] = vecLayerScores[li - 1] * 0.7;
 
     cv::Size top_patSize = tmpl_pyr->at(top_layer).size();
     bool calMaxByBlock = ((vecSrcPyr[top_layer].size().area() / top_patSize.area()) > 500)

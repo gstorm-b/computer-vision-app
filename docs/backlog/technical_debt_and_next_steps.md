@@ -26,6 +26,79 @@ What this changes:
 Resuming Phase 4 is a product decision by the user, not something an agent
 should infer from the backlog being otherwise clear.
 
+## Carried Out Of Phase 9 (closed 2026-09-16)
+
+Phase 9 (the localization-runtime backlog plan,
+[../history/plan/phase_9_implementation_plan.md](../history/plan/phase_9_implementation_plan.md))
+closed on 2026-09-16 **with carried items, not clean**: the umbrella build was clean, every suite
+green at the counts recorded at Checkpoint Z, and Z1–Z3 landed — but thirteen items were held by
+owner-run checks, one blocked tool and one field defect. Each is listed here with a concrete
+destination, a Phase 10 work package (Phase 10 charter §3; the charter moves to
+`docs/plan/phase_10/` at Checkpoint 0) or a backlog item in
+[later_todo_list.md](later_todo_list.md), so a reader of *this* file does not mistake "Phase 9
+closed" for "all of it is proven". The same table is recorded at Checkpoint Z of the plan; the owner
+approved the carry on 2026-09-16 (charter §6).
+
+| Item | What is unfinished | Destination |
+|---|---|---|
+| **Phase G / item 54** — a held `bExecuteTrigger` at runtime start | Phase G not started (owner-gated), so G2's held-trigger behaviour was never run and item 54's decision is still open | **WP-50** — Stage 5 pilot on the new runtime core, reusing the G2 design under the DR that answers PQ-1. Item 54 stays open until WP-50 lands |
+| **E4 on hardware** — a real PLC's refusal aborting the cycle with `301 PlcWriteFailed` | Blocked: the owner has no way to make a healthy PLC refuse a write; two untried recipes are recorded on the item. Bench-proven only | **Backlog 69** — non-blocking; not a Phase 10 gate |
+| **D1 field check** — vision-output reconnect without a restart | Observed failing on the cell 2026-09-09: a `VisionTcpipClientDevice` stays Recovering when only its heartbeat link comes back; the reconnect-is-a-no-op hypothesis is on the item, investigation paused by the owner | **Backlog 70** for the device-side defect, fixed on its own; **WP-32** (role-health rows of the new core) must carry a row for scenario S-06 |
+| **Owner review of `plc_signal_contract.md`** (the Z2 rewrite) | Not done | Replaced, not rescheduled: the owner reviews the contract **table** at Checkpoint 2 — **WP-21** (to-be table) — instead of the prose |
+| **Documentation build** | Doxygen / Graphviz / PlantUML are absent on this machine, so the generated reference was not rebuilt after Z2 | **Backlog 44** — non-blocking |
+| **51, device half** — `IDevice::errorOccurred` | No device emits it; the emit-or-delete decision is open (the runner half closed with B1) | **WP-03** triage — close, merge, keep, or absorb into the Phase 10 redesign; stays item 51 |
+| **56** — MC 1C/3C on a real C24 | The 1C/3C command set on a real module, and the `tools/mc_protocol_bench` numbers (write completion closed by E1) | **WP-03** triage; stays item 56 |
+| **58, part B** — the true power-up selection | A mapped-but-never-written register as its own fault; MC / Modbus-client first-poll adoption for every non-index signal (part A closed by C2 + C3 + C6) | **WP-03** triage; stays item 58 |
+| **63** — fault code 400 for content-invalid pattern faults | Awaits the owner allocating `PatternInvalid = 402` | **WP-03** triage; stays item 63 |
+| **64** — dual-role Modbus publish/poll collision | The result publish dispatched during an in-flight poll aborts the cycle (2 of 85 cycles on 2026-09-14); filed by Z3, not fixed | **WP-03** triage; stays item 64 |
+| **66** — two editors for the robot pick check | The task's editor and each vision-output device's can disagree silently (open question O-2); removing one is a deprecation with a migration question | **WP-03** triage; stays item 66 |
+| **67** — recovery policies not settable | `setRecoveryPolicies()` has no production caller and the values are not persisted (deferred by D5) | **WP-03** triage; stays item 67 |
+| **68** — two-position cap and a debug print | `buildVisionOutputPositions()` caps at two positions with no reason in the row, and `handlePlcValues()` keeps a temp-debug print; owner to confirm whether the cap is deliberate | **WP-03** triage; stays item 68 |
+| **A1 on hardware** — `bExecuteTrigger` delivery on an M-only MC PLC | Ships on unit evidence only (open question O-3): no M-only station was identified, so the field half of A1 was never run. Not a defect, an unverified claim | **Backlog 71** (filed 2026-09-16); non-blocking, re-opened when an M-only station exists |
+
+## Carried Out Of Phase 8 (closed 2026-09-07)
+
+Phase 8 delivered the MC 1C/3C frames, both Modbus TCP devices, the JAI GigE camera,
+and the commissioning fixes that followed. It closed with **three items carried
+rather than ticked**. They live in
+[later_todo_list.md](later_todo_list.md); they are listed here so a reader of *this*
+file does not mistake "Phase 8 closed" for "all of it is proven".
+
+| # | Item | Needs |
+|---|---|---|
+| **56** | MC 1C/3C **read/write command coverage** on a real C24, plus `tools/mc_protocol_bench` numbers for 3E/1C/3C | **Partly closed by Phase 9 / E1 (2026-09-09):** write completion is proven on the real C24, and a device-level MC harness now exists. Still open: the 1C/3C command set on a real module, and the bench numbers |
+| ~~**57**~~ | ~~Robot pick check verified **active** on the dual-role Modbus binding~~ | **CLOSED 2026-09-14** by Phase 9 / F1 — the check became a task setting, and the owner observed it reject unreachable poses on the dual-role Modbus binding |
+| **54** | Decide what a **held** `bExecuteTrigger` should do when the runtime starts | Still open — owner-gated as Phase 9 / Phase G, not started. The PLC signal contract holds that section back with a pointer to the item |
+
+Two smaller audit findings from the same phase were open and are now **closed by Phase 9**: **55**
+(`setup()` reported an unregistered active camera as a calibration problem — C2 + C7) and the
+pre-existing **32** (flaky `test_disconnect_notice_on_graceful_close` — D2, 0 / 20 on both suites).
+
+**Found after Phase 8 closed, owner-scheduled into Phase 9: item 58.** At runtime
+startup the task reaches Ready with the PLC's selection registers at 0, and will
+run a trigger, because `setup()` takes the active indices from the project's
+bindings and bypasses every gate the setters carry — while a register that is 0
+from power-up and never written is never delivered at all. The runtime also never
+publishes its own selection, so "nobody wrote anything" and "0 was commanded" look
+identical on the signal monitor. Item **59** carries three unrelated things found
+on the way. Confirmed on hardware and by a 13-agent adversarial pass;
+`plc_signal_contract.md` had claimed the opposite and has been corrected.
+
+**Resolved by Phase 9 (part A, 2026-09-09):** C2 validates the startup selection, C3 announces it on
+two status outputs, and C6 reads it from the PLC before the camera is bound; the owner confirmed that a
+master holding 0 now faults. Part B's remainder stays open in item 58, and item 59 closed.
+
+**Resolved 2026-09-07: item 43** — a virtual PLC's inputs can now be driven, so a
+hardware-free project runs a full cycle instead of stopping at Ready. This was the
+one thing blocking hardware-free verification of the runtime path, which matters
+beyond the item itself: every Phase F defect was found by the owner running the
+cell, because no suite could reach that path. See
+[later_todo_list.md](later_todo_list.md) item 43.
+
+Also still open and **not** a Phase 8 deliverable: the Japanese UI has **465 untranslated strings**
+(sweep of 2026-09-14: 1324 source texts — 860 finished, 465 unfinished, 33 vanished). Every Phase 9
+task swept the catalogue with 0 newly vanished, but the rendering itself has never been verified.
+
 ## Highest Priority Debt
 
 ### Runtime/Task Safety
@@ -64,11 +137,13 @@ should infer from the backlog being otherwise clear.
   result table, task-local log, read-only dashboard behavior, and recovery
   messaging. Still useful as development validation whenever the runtime path is
   touched, but it is no longer a release gate.
-- **Active (engineering, not release-gated):** Measure runtime matching latency
-  and UI responsiveness. Matching already runs off the controller call stack (on
-  the `matchingRunner` thread); this measurement validates that the
-  coordinator-thread model holds under load and feeds the threading-model
-  revisit criteria in `phase2_phase3_runtime_hardening.md`.
+- **Done for cycle latency (2026-09-14, Phase 9 / F3); UI responsiveness not measured.** Every
+  `CycleResult` now carries a per-stage breakdown from one monotonic clock. 85 cycles on the
+  dual-role Modbus cell: median **304 ms** end to end, of which matching is **241 ms (79 %)**, grab
+  55 ms (on a virtual camera — the Basler measured ~200 ms on 2026-09-11), Modbus send 4 ms. The
+  threading-model revisit criterion in `phase2_phase3_runtime_hardening.md` was evaluated against that:
+  matching already runs on its own thread and dominates, so **no revisit**. Distribution and caveats:
+  Phase 9 plan, Checkpoint F. UI responsiveness was not part of F3 and is still unmeasured.
 - **On hold (2026-07-28, Phase 4 deferred):** Implement customer installer
   packaging and run clean-machine smoke verification.
 
@@ -82,10 +157,32 @@ should infer from the backlog being otherwise clear.
   numbers and device-id strings.~~ `TaskDeviceBinding::fromJson()` now
   range-checks camera numbers (1..16) and caps device-id length. See 22.9.
 - Decide whether `docs/generated/architecture_docs/` is regenerated, hand-maintained, or
-  removed as stale API reference.
+  removed as stale API reference. Phase 9 / Z2 hand-rewrote `LocalizationRuntimeController.md`, whose
+  signals, fault codes and recovery model had drifted into fiction; the decision itself is still
+  open.
 
 ## Medium Priority Debt
 
+- **Open (2026-08-27):** **Unify `BaslerCameraWidget` and `JaiCameraWidget`.** Phase 8 / C4
+  added the JAI panel as a near-sibling of the Basler one. They now differ in only three
+  things — the config type, the exposure enum, and the camera-select dialog — while the
+  device-info browser, the connect/trigger/save controls and the *entire* calibration
+  workflow (board setup, threshold tuning, corner detect, apply) are generic over
+  `CameraDevice` / `CameraCfg` and exist twice, ~450 duplicated lines.
+  It was written as a sibling on purpose: unifying would have rewritten the panel of a
+  camera already running in production, with no widget-level test to catch a regression, in
+  the same change that introduced a second camera family. Now that a second implementation
+  exists the shared shape is visible and the extraction is safe to plan.
+  **Do it before a third camera family is added**, and note that the JAI copy already fixed
+  four defects the Basler original still has, so the unified version must keep the JAI
+  behaviour, not the Basler one:
+  - `onCameraConnected()` sets `connectionState` to `"disconnected"`, so the Basler lamp can
+    never turn green whatever the QSS says;
+  - `grabSingleShot()` shadows its `GrabResult` in the success branch, so the value it
+    *returns* always reports failure while the signal it emits reports success;
+  - `btn_save_image_clicked()` is an empty body, so the Save button silently does nothing;
+  - `BaslerCamSelectDialog::tableViewSelectionChanged()` tests `(row < 0) && (row >= size)`,
+    which is never true, so the confirm button enables with nothing selected.
 - **Done (2026-06-24):** ~~Extract shared gadget meta-property helper logic if
   property-browser dispatch keeps growing.~~ Added `vc::gadget_meta` in
   `qgadget_macro.h`; setting + vision widgets route through it. See

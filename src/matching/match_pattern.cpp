@@ -248,19 +248,24 @@ cv::Mat MatchPattern::getImageWithCannyThreshold() {
     if (m_image.empty()) return cv::Mat();
 
     const EdgeMatchConfig* ecfg = groupEdgeConfig();
-    const int kernelSize = ecfg ? ecfg->kernelSize : 3;
+    // const int kernelSize = ecfg ? ecfg->kernelSize : 3;
 
-    double cannyRange     = 50;
-    double CANNY_RANGE_MAX = 100;
-    double cannyLow, cannyHigh;
+    // double cannyRange     = 50;
+    // double CANNY_RANGE_MAX = 100;
+    // double cannyLow, cannyHigh;
 
     cv::Mat cannyImg = m_image.clone();
-    GaussianBlur(cannyImg, cannyImg, cv::Size(5, 5), 0);
-    double med   = vsu::median(cannyImg);
-    double sigma = (0.1 / CANNY_RANGE_MAX) * cannyRange;
-    cannyLow  = std::max(0.0,  (1.0 - sigma) * med);
-    cannyHigh = std::min(255.0, (1.0 + sigma) * med);
-    Canny(cannyImg, cannyImg, cannyLow, cannyHigh, kernelSize, true);
+    // GaussianBlur(cannyImg, cannyImg, cv::Size(5, 5), 0);
+    // double med   = vsu::median(cannyImg);
+    // double sigma = (0.1 / CANNY_RANGE_MAX) * cannyRange;
+    // cannyLow  = std::max(0.0,  (1.0 - sigma) * med);
+    // cannyHigh = std::min(255.0, (1.0 + sigma) * med);
+    // Canny(cannyImg, cannyImg, cannyLow, cannyHigh, kernelSize, true);
+
+    GaussianBlur(cannyImg, cannyImg,
+                 cv::Size(ecfg->blurWidth, ecfg->blurHeight), 0);
+    Canny(cannyImg, cannyImg,
+          ecfg->threshLower, ecfg->threshUpper, ecfg->kernelSize);
     return cannyImg;
 }
 

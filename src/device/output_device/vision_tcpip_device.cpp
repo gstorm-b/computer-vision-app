@@ -116,6 +116,30 @@ bool VisionTcpipDevice::startTransport() {
     return true;
 }
 
+/// Republishes the status startTransport() would report for the current listener state:
+/// both listeners open ⇒ Connected, exactly as :113 does — the server reports "Connected"
+/// for *listening*, with no client attached, and this repeats that predicate rather than
+/// redefining it. A client attaching or dropping moves mainClientStateChanged, not this.
+///
+/// Not listening while active is not a state this class can reach (stopTransport() only runs
+/// with m_active already false), so it is reported as the failure it would be rather than
+/// papered over with an optimistic Connected.
+void VisionTcpipDevice::publishCurrentConnectStatus() {
+    const bool listening = m_mainServer && m_mainServer->isListening()
+                           && m_hbServer && m_hbServer->isListening();
+    if (listening) {
+        setConnectionStatus(ConnectStatus::Connected);
+        return;
+    }
+
+    m_last_msg = QStringLiteral("Vision output server is active but not listening on main port "
+                                "%1 / heartbeat port %2.")
+                     .arg(m_config.m_mainPort)
+                     .arg(m_config.m_heartbeatPort);
+    LOG_DEV_ERR << m_last_msg;
+    setConnectionStatus(ConnectStatus::ConnectFailed, m_last_msg);
+}
+
 /// Detaches any live sockets, then closes and schedules deletion of both
 /// QTcpServer listeners.
 void VisionTcpipDevice::stopTransport() {

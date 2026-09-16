@@ -48,3 +48,18 @@ isEmpty(PYLON_INCLUDE_DIR): PYLON_INCLUDE_DIR = "C:/Program Files/Basler/pylon/D
 isEmpty(PYLON_LIB_DIR):     PYLON_LIB_DIR     = "C:/Program Files/Basler/pylon/Development/lib/x64"
 isEmpty(PYLON_RUNTIME_DIR): PYLON_RUNTIME_DIR = "C:/Program Files/Basler/pylon/Runtime/x64"
 isEmpty(PYLON_BASE_LIB):    PYLON_BASE_LIB    = PylonBase_v11
+
+# --- JAI / Pleora eBUS SDK ---------------------------------------------------------------
+# Usually unnecessary: the eBUS installer sets PUREGEV_ROOT and qmake/ebus_dependency.pri
+# derives Includes/ and Libraries/ from it. Set these only for a non-default install.
+#
+# EBUS_RUNTIME_DIR is the SHARED runtime folder, not the SDK folder — the installer puts the
+# DLLs under Common Files and the SDK tree holds only headers, import libraries and samples.
+#
+# ⚠️ That runtime folder also contains an unrelated OpenCV 4.10 build (~208 MB across
+# opencv_world410.dll, opencv_world410d.dll and opencv_ffmpeg410_64.dll). deploy_dependencies.pri
+# copies eBUS DLLs by name prefix for exactly that reason — never glob *.dll out of it, and if
+# this project is ever moved onto OpenCV 4.10 those files become a live shadowing hazard.
+isEmpty(EBUS_INCLUDE_DIR): EBUS_INCLUDE_DIR = "C:/Program Files/JAI/eBUS SDK/Includes"
+isEmpty(EBUS_LIB_DIR):     EBUS_LIB_DIR     = "C:/Program Files/JAI/eBUS SDK/Libraries"
+isEmpty(EBUS_RUNTIME_DIR): EBUS_RUNTIME_DIR = "C:/Program Files/Common Files/Pleora/eBUS"

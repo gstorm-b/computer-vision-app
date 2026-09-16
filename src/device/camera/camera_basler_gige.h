@@ -48,6 +48,26 @@ class BaslerGigeCfg : public CameraCfg {
     G_PROPERTY_NUMBER_READWRITE(int, autoBacklightDelay, 0, 10000000, "Back light delay (us)")      ///< Delay (microseconds) after enabling backlight before grabbing.
     G_PROPERTY_BOOL_READWRITE(bool, autoBacklightInvert, "Line invert")                            ///< Inverts the backlight output line's logic level.
 
+    /// Translation markers for the display names above. Not read by any code: lupdate cannot
+    /// see Q_CLASSINFO, so without this table these labels never enter the .ts. The context
+    /// must be this class's className(). See TaskLocalizeConfig::kDisplayNameSources for the
+    /// full reasoning; the contract test asserts this list and the properties agree.
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Model name"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "User-defined name"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Serial number"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "IP Address"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Exposure Mode"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Exposure time"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Gain"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Enable acquisition rate"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Acquisition rate"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Enable auto backlight"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Backlight line"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Back light delay (us)"),
+        QT_TRANSLATE_NOOP("vc::device::BaslerGigeCfg", "Line invert"),
+    };
+
 public:
     /// Constructs a default-initialized config (see field initializers below for defaults).
     explicit BaslerGigeCfg()

@@ -28,6 +28,10 @@ enum class DeviceCommandKind {
     Disconnect,        ///< Disconnect the target device.
     CameraSingleShot,  ///< Trigger a single camera capture.
     CameraApplyParams, ///< Apply camera parameters carried in the command payload.
+    CameraContinuousStart, ///< Start continuous (live-view) acquisition.
+    CameraContinuousStop,  ///< Stop continuous (live-view) acquisition.
+    CameraBacklightOn,     ///< Drive the backlight on, overriding auto-backlight until released.
+    CameraBacklightOff,    ///< Release the manual backlight override and drive the backlight off.
 };
 
 /**
@@ -68,6 +72,14 @@ inline QString deviceCommandKindToString(DeviceCommandKind kind)
         return QStringLiteral("CameraSingleShot");
     case DeviceCommandKind::CameraApplyParams:
         return QStringLiteral("CameraApplyParams");
+    case DeviceCommandKind::CameraContinuousStart:
+        return QStringLiteral("CameraContinuousStart");
+    case DeviceCommandKind::CameraContinuousStop:
+        return QStringLiteral("CameraContinuousStop");
+    case DeviceCommandKind::CameraBacklightOn:
+        return QStringLiteral("CameraBacklightOn");
+    case DeviceCommandKind::CameraBacklightOff:
+        return QStringLiteral("CameraBacklightOff");
     case DeviceCommandKind::Unknown:
     default:
         return QStringLiteral("Unknown");

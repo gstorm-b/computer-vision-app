@@ -17,7 +17,8 @@ INCLUDEPATH order, and the contract test would read it as a reference to the
 `test_runtime_shell_is_structured_and_form_driven`.
 
 **May include.** Every `src/` module — this is a shell, top of the dependency
-stack. It may **not** include `app/` headers, and `app/` may not include these.
+stack. It may **not** include `components/app/` headers, and `components/app/` may not
+include these.
 The two shells are peers over the same modules, not a hierarchy (enforced by
 `tests/architecture_contract_test::test_module_include_layering_contract`).
 
@@ -56,9 +57,15 @@ The two shells are peers over the same modules, not a hierarchy (enforced by
   fixed it and made the rule mechanical: the contract test fails on
   `new QVBoxLayout`/`QStackedWidget`/`QToolBar`/… anywhere under `runtime_app/`.
   The ADS dock manager is the exception — it is not a Designer widget, so it is
-  constructed into the form's `wg_dock` host, exactly as `app/mainwindow.cpp` does.
+  constructed into the form's `wg_dock` host, exactly as `components/app/mainwindow.cpp` does.
 - Keep the shell thin: dashboard behaviour lives in `src/ui/`, domain logic in
   `src/model/` and `src/runtime/`.
+- **`runtime_app.pri` declares `EXTRA_TRANSLATIONS`, never `TRANSLATIONS`.** Both
+  are released and embedded; only `TRANSLATIONS` is updated by lupdate, from the
+  declaring project's own sources — and this shell compiles three files. Declaring
+  it here marks the rest of the product's strings as vanished, silently. The file
+  is owned by `translations/ncr_translations.pro`, which sees every source.
+  Guarded by the contract test.
 
 **Verify.** Build *intermediates* go to `build/runtime_build/<build-name>` — one
 subfolder per target under the repo-root `build/`, never sharing a directory with

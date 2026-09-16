@@ -10,6 +10,7 @@
 
 #include "device/idevice.h"
 #include "device/idevice_config.h"
+#include "runtime/idevice_runner.h"
 #include "ui/forms/device_widget.h"
 
 class QtProperty;
@@ -42,8 +43,12 @@ class VirtualDeviceWidget : public IDeviceWidget {
     Q_OBJECT
 
 public:
-    /// Builds the panel, the banner and the property browser for `device`.
+    /// Builds the panel, the banner and the property browser for `device`, plus — for a virtual
+    /// PLC — the input-driving controls.
+    /// @param[in] runner the device's runner, needed only by the virtual PLC's input panel to
+    ///            reach the device thread; may be null, in which case the panel is disabled.
     explicit VirtualDeviceWidget(std::shared_ptr<vc::device::IDevice> device,
+                                 vc::runtime::IDeviceRunner *runner = nullptr,
                                  QWidget *parent = nullptr);
     ~VirtualDeviceWidget() override;
 
@@ -61,6 +66,13 @@ private slots:
 private:
     /// Fills the browser with the device's own properties and its config gadget's.
     void buildPropertyBrowser();
+    /// Adds the input-driving panel when `device` is a PLC whose inputs can be driven.
+    ///
+    /// The one family-specific thing this otherwise generic widget does. Kept as a single hook
+    /// rather than a second widget class: splitting the virtual panel per family would duplicate
+    /// the R8 banner and the property browser, and lose the property this widget was built for —
+    /// that a fourth virtual family works on the day it is written, without touching this file.
+    void addInputPanelIfSupported(vc::runtime::IDeviceRunner *runner);
 
     Ui::VirtualDeviceWidget *ui;
     std::shared_ptr<vc::device::IDevice> m_device;

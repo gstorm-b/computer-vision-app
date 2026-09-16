@@ -17,7 +17,7 @@
 namespace ModbusDemo {
 
 //! Number of addresses exposed per Modbus area. Change it here only.
-constexpr int kAddressCount = 64;
+constexpr int kAddressCount = 128;
 
 //! First Modbus address of every area.
 constexpr int kStartAddress = 0;

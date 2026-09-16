@@ -161,10 +161,12 @@ Fault code contract:
 | 100 | `CameraLost` | The active camera lost connection. |
 | 101 | `CameraConnectFailed` | The active camera could not connect. |
 | 102 | `CameraGrabTimeout` | Every grab attempt failed. `CameraRunner` retries a failed single-shot up to 6 attempts first, so this code means the whole budget was exhausted — see "Camera Grab Retry". |
+| 103 | `CameraNotRegistered` | The active camera number names no usable camera (out of range, or nothing bound to it). A selection fault, not a connection one. |
 | 200 | `VisionOutputLost` | The vision-output device lost connection. |
 | 201 | `VisionOutputSendFailed` | The result payload could not be sent. |
 | 300 | `PlcLost` | The primary PLC lost connection. |
-| 400 | `PatternInvalid` | The active pattern group is missing or not usable. |
+| 301 | `PlcWriteFailed` | A handshake output could not be written to a still-connected PLC after the retry budget. Added 2026-09-09. |
+| 400 | `PatternNotRegistered` | The active pattern group is missing or not usable. Renamed from `PatternInvalid` 2026-09-09; the value is unchanged. |
 | 401 | `CalibrationInvalid` | The active camera has no valid calibration for world-coordinate output. |
 | 500 | `InternalError` | Unexpected internal task error. |
 

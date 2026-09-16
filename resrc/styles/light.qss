@@ -617,8 +617,8 @@ TaskEventItemWidget QLabel[eventPart="source"] {
 /* ── Message text ────────────────────────────────────────────── */
 TaskEventItemWidget QLabel[eventPart="message"] { color: @{text.primary}; font-size: 11px; }
 
-TaskEventItemWidget[severity="error"]   QLabel[eventPart="message"] { color: #7a1010; }
-TaskEventItemWidget[severity="warning"] QLabel[eventPart="message"] { color: @{accent.pressed.deep}; }
+TaskEventItemWidget[severity="error"]   QLabel[eventPart="message"] { color: @{text.primary}; }
+TaskEventItemWidget[severity="warning"] QLabel[eventPart="message"] { color: @{text.primary}; }
 
 /* ═══════════════════════════════════════════════════════════════════
    Qt Advanced Docking System — Light theme

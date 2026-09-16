@@ -2,6 +2,7 @@
 #define LOCALIZATION_RUNTIME_CONTROLLER_H
 
 #include <QObject>
+#include <QElapsedTimer>
 #include <QHash>
 #include <QDateTime>
 #include <QMetaObject>
@@ -13,6 +14,7 @@
 #include <QVector>
 
 #include <memory>
+#include <optional>
 
 #include <opencv2/core/mat.hpp>
 
@@ -43,6 +45,12 @@ class PlcRunner;
 class VisionOutputRunner;
 }
 
+/// Held only by shared_ptr in RuntimeContext, so a forward declaration is enough here and the
+/// PLC family header stays out of everything that includes the controller.
+namespace vc::device {
+class PlcValueMap;
+}
+
 namespace vc::model {
 
 /**
@@ -71,17 +79,35 @@ public:
         QString primaryPlcDeviceId;                           ///< Device id bound to the "primary_plc" role.
         QString visionOutputDeviceId;                         ///< Device id bound to the "vision_output" role.
         QPointer<vc::runtime::PlcRunner> primaryPlcRunner;    ///< Runner for the primary PLC role; null if not available.
-        QPointer<vc::runtime::VisionOutputRunner> visionOutputRunner; ///< Runner for the vision output role; null if not available.
+        /// Runner for the vision output role; null if not available. Held as the abstract
+        /// IDeviceRunner, not VisionOutputRunner: the role is a capability
+        /// (IDeviceRunner::supportsResultOutput()), so any family's runner can fill it.
+        QPointer<vc::runtime::IDeviceRunner> visionOutputRunner;
         QMap<int, QString> cameraDeviceIds;                   ///< Camera device id keyed by configured camera number.
         QMap<int, QPointer<vc::runtime::CameraRunner>> cameraRunners; ///< Camera runner keyed by camera number.
         QMap<int, std::shared_ptr<mtc::MatchGroup>> patternGroups;    ///< Pattern match group keyed by pattern-group number.
         QMap<int, calib::Calibrator> cameraCalibrators;       ///< Calibrator keyed by camera number, used to map image points to robot/world coordinates.
-        /// Robot kinematic check settings snapshotted from the assigned vision output device;
-        /// drives the per-object robotPossiblePickingCheck.
+        /// Robot pick-check settings, taken from the TASK — TaskLocalizeConfig::robotCheckConfig()
+        /// — never from the device bound to vision_output (Phase 9 / F1). Drives the per-object
+        /// robotPossiblePickingCheck. setup() refuses to start when the check is enabled but no
+        /// usable checker can be built (see rebuildPickingChecker()).
         vc::device::RobotKinematicCheckConfig robotCheckConfig;
         CameraWorkspace activeCameraWorkspace;                ///< Workspace crop/offset settings for the active camera.
         int activeCameraNumber{-1};                           ///< Camera number to activate at setup; -1 selects the first available.
         int activePatternGroupNumber{-1};                     ///< Pattern group number to activate at setup; -1 selects the first available.
+        /**
+         * @brief What the primary PLC held when the runtime started, if it had been read yet.
+         *
+         * The two active-index signals are **inputs the PLC owns**. Resolving them from the
+         * project file — which is what happened until Phase 9 / C6 — is wrong by construction,
+         * and it is why a task reached Ready with the master's registers at 0 and ran cycles on
+         * whichever camera sorted first (backlog item 58).
+         *
+         * Null is a meaningful value and means *"the PLC has not been read"*, which is treated
+         * exactly like an unmapped signal: fall back to the project default. It must never be
+         * read as "the PLC holds 0".
+         */
+        std::shared_ptr<vc::device::PlcValueMap> plcSnapshot;
     };
 
     /**
@@ -102,6 +128,30 @@ public:
     };
 
     /**
+     * @struct CycleTimings
+     * @brief Where the time in one cycle went: milliseconds from trigger-accept to each boundary.
+     *
+     * Until Phase 9 / F3 nothing measured a cycle end to end — `CycleResult::matchingTimeMs` is
+     * the matcher's own number and covers one stage of four. That left the standing criterion
+     * *"revisit threading only on measured latency evidence"*
+     * (`phase2_phase3_runtime_hardening.md`) impossible to evaluate, and a customer asking "what
+     * is my cycle time" unanswerable.
+     *
+     * @note Every field is elapsed time from the SAME origin (trigger accepted) on ONE monotonic
+     *       clock, never wall time: an NTP step can move the system clock backwards mid-cycle and
+     *       would produce negative stage durations.
+     * @note Unset means **the cycle never reached that boundary** — that is why these are
+     *       `std::optional` and not zero-initialised doubles. A zero reads as "instant", and the
+     *       slow stage before a timeout is the single most interesting number in the phase.
+     */
+    struct CycleTimings {
+        std::optional<double> grabFinishedMs;       ///< Camera answered the single-shot request.
+        std::optional<double> matchingFinishedMs;   ///< Matcher returned its result.
+        std::optional<double> sendFinishedMs;       ///< Vision-output device reported the send complete.
+        std::optional<double> outputsPublishedMs;   ///< Handshake outputs published; the cycle's total.
+    };
+
+    /**
      * @struct CycleResult
      * @brief Outcome of one localization cycle (grab + match + send), published via
      *        cycleResultUpdated() for UI display and task logging.
@@ -117,6 +167,10 @@ public:
         cv::Mat displayImage;                ///< Annotated/display image returned by the matcher.
         mtc::MatchResult matchResult;        ///< Full match result from the matcher.
         QVector<ResultRow> rows;             ///< Per-object result rows built from matchResult.
+        /// Stage boundaries for this cycle. Unset fields are boundaries the cycle never reached;
+        /// see CycleTimings. `matchingTimeMs` above keeps its existing meaning and is NOT derived
+        /// from these — it is the matcher's own measurement of its own work.
+        CycleTimings timings;
     };
 
     /**
@@ -158,6 +212,26 @@ public:
     /// recorded at DEV level, so a flapping link stays diagnosable after the fact.
     static constexpr int kQuietRetryLogStride = 12;
 
+    /// How many ATTEMPTS a HANDSHAKE output write gets in total — the original plus re-issues —
+    /// before the cycle is aborted with LocalizationFaultCode::PlcWriteFailed. Three attempts is
+    /// one write and two re-issues: publishBoolSignal()/publishNumberSignal() track the first
+    /// attempt as 1, and onPlcWriteFinished() re-issues only while attempts < this budget. (This
+    /// comment used to say "re-issued" three times, which counted one too many.)
+    ///
+    /// Three, not more: a write that fails three times in a row on a link that is still reported
+    /// connected is not a transient collision, and every further attempt delays the fault the PLC
+    /// needs in order to stop. Only the five signals the PLC's own logic WAITS on are retried —
+    /// see kHandshakeSignals. Retrying all fourteen would turn a degraded link into a write storm.
+    static constexpr int kPlcWriteRetryBudget = 3;
+
+    /// Delay between re-issues of a failed handshake write, in milliseconds.
+    ///
+    /// Short on purpose. The PLC is blocked waiting for this value; the delay exists only so a
+    /// momentary collision has time to clear, not to pace a recovery. kPlcWriteRetryBudget
+    /// attempts at this interval bound the whole escalation at roughly 120 ms, well inside the
+    /// kFaultAutoRecoverMs window that follows.
+    static constexpr int kPlcWriteRetryDelayMs = 40;
+
     /// Registers the Qt meta-types used by this class's queued signals (CycleResult,
     /// TaskLogEntry, LocalizationFaultCode, CameraWorkspace, shared_ptr<IRobotPickingChecker>).
     explicit LocalizationRuntimeController(QObject *parent = nullptr);
@@ -172,8 +246,24 @@ public:
     /// Switches the active pattern group used for matching and republishes the pattern-valid
     /// status. Ignored while a cycle is running.
     void setActivePatternGroupNumber(int patternGroupNumber);
-    /// Replaces the per-role (camera/PLC/vision-output) reconnect/retry policies used by the
-    /// connection-recovery state machine.
+    /**
+     * @brief Replaces the per-role (camera/PLC/vision-output) reconnect policies used by the
+     *        connection-recovery state machine.
+     *
+     * @warning **No production caller exists.** The only caller in the repository is the
+     *          architecture contract test, which shortens the retry interval so it can cover many
+     *          attempts. The product never sets policies, so every runtime runs on
+     *          defaultCameraRecoveryPolicy() / defaultPlcRecoveryPolicy() /
+     *          defaultVisionOutputRecoveryPolicy() — those defaults ARE the shipped behaviour.
+     *          Persisting per-task values is deferred (Phase 9 / D5).
+     *
+     * @note Policies are copied into a role's recovery context when that role is BOUND — by
+     *       setup(), and for the camera role also by an active-camera change. Recovery reads that
+     *       copy, so a call made after binding changes nothing until the next bind. When a
+     *       production caller is added, the injection point is
+     *       TaskLocalization::setupRuntimeController(), immediately before `controller->setup(context)`
+     *       and inside the same thread hop — the controller already lives on the runtime thread.
+     */
     void setRecoveryPolicies(const LocalizationRecoveryPolicy &cameraPolicy,
                              const LocalizationRecoveryPolicy &plcPolicy,
                              const LocalizationRecoveryPolicy &visionOutputPolicy);
@@ -192,6 +282,18 @@ public:
     void execute();
     /// Returns whether the last setup() call produced a usable (fully validated) configuration.
     bool isValid() const { return m_valid; }
+
+    /// The five signals a runtime cannot work without. Everything else is optional and only warns.
+    ///
+    /// Without `bExecuteTrigger` nothing can start a cycle, without `bTaskReady` the master never
+    /// learns it may trigger, and without `bMatchingFinished`/`bTaskFault`/`nFaultCode` the result
+    /// of a cycle reaches nobody. A project missing any of them starts and then sits silent, which
+    /// is indistinguishable from a PLC that stopped talking.
+    ///
+    /// Public because the commissioning UI classifies orphaned rows against exactly this list
+    /// before offering to purge them. One definition: a second copy in the widget would drift, and
+    /// the drift would let the editor purge a signal the runtime still demands.
+    static QStringList requiredSignalNames();
 
     /**
      * @brief Maps raw PLC tag values to named signal events via the signal mapper, and reacts to
@@ -216,10 +318,10 @@ signals:
     /// Emitted whenever a named PLC-mapped signal value is published (mirrors every
     /// publishBoolSignal / publishNumberSignal call for UI/logging).
     void signalChanged(QString name, QVariant value);
-    /// Emitted when the active camera number changes (from PLC input or setActiveCameraNumber()).
-    void cameraNumberChanged(QVariant value);
-    /// Emitted when the active pattern group number changes.
-    void patternNumberChanged(QVariant value);
+    // Phase 9 / C5 removed cameraNumberChanged() / patternNumberChanged(). They were emitted from
+    // handlePlcValues() and connected by nothing — checked across src/, app/, runtime_app/ and
+    // tests/, not assumed. Both indices already reach every consumer through signalChanged(), and
+    // since C3 the adopted value also arrives on nActiveCameraStatus / nActivePatternGroupStatus.
     /// Emitted with the final result of each cycle, whether it succeeded or faulted.
     void cycleResultUpdated(vc::model::LocalizationRuntimeController::CycleResult result);
     /// Emitted for every task log line appended via appendTaskLog().
@@ -233,9 +335,11 @@ signals:
     void runtimeRecovering(QString message);
     /// Emitted when the runtime (re)enters the ReadyForTrigger state.
     void runtimeReady(QString message);
-    /// Emitted when the runtime enters the Faulted state. A lost device connection does
-    /// NOT reach here: role recovery retries indefinitely instead of escalating, so this
-    /// is now raised only by an invalid setup.
+    /// Emitted when the runtime enters the Faulted state: an invalid setup, a refused
+    /// active-index selection (written at runtime, or commanded by the PLC at startup), a
+    /// non-numeric value on an index signal, or a handshake write that exhausted
+    /// kPlcWriteRetryBudget (escalatePlcWriteFailure()). A lost device connection does NOT reach
+    /// here: role recovery retries indefinitely instead of escalating.
     void runtimeFault(QString message);
     /**
      * @brief Emitted after a successful camera grab to hand the frame off for matching (on
@@ -273,6 +377,15 @@ private:
         /// everything else in the operator's event log.
         vc::device::ConnectStatus reportedStatus{vc::device::ConnectStatus::Connected};
         QDateTime outageStartedAt;                       ///< When the current outage began; reported as elapsed time on recovery.
+        /// Handle for this role's connectStatusChanged connection, so clearRoleContext() can drop
+        /// exactly it. A blanket disconnect would also take connections another role — or the PLC
+        /// value stream — made on the same runner; see clearRoleContext().
+        QMetaObject::Connection statusConnection;
+        /// Handle for the PrimaryPlc role's writeFinished connection (Phase 9 / E4). Unused by
+        /// the other two roles, which issue no tracked writes.
+        QMetaObject::Connection writeConnection;
+        /// Handle for this role's errorOccurred connection; same reasoning as statusConnection.
+        QMetaObject::Connection errorConnection;
     };
 
     /**
@@ -306,6 +419,72 @@ private:
     void bindFixedRoleRunners();
     /// Binds (or clears, if unavailable) the Camera role context to the runner for `cameraNumber`.
     void bindActiveCameraRole(int cameraNumber);
+    /// Resolves the active camera's workspace (crop ROI + condition ROI) from the task config into
+    /// both m_context.activeCameraWorkspace and m_activeCameraWorkspace, or clears both when no
+    /// camera runner is bound.
+    ///
+    /// Called from setup() **and** from setActiveCameraNumber(). It exists as a helper because
+    /// only the setter used to do it: a runtime that started and was never commanded to change
+    /// camera ran its entire session on a default workspace, which silently disables both the
+    /// commissioned crop and the condition-ROI filter.
+    void applyActiveCameraWorkspace();
+
+    /// Why a commanded active-index value was refused — or that it was accepted.
+    ///
+    /// The two reasons are kept apart because they send a commissioning engineer to different
+    /// screens: `OutOfRange` is a number that can never name a slot, `NotRegistered` is a number
+    /// that could but is not bound in this project.
+    enum class IndexVerdict {
+        Accepted,       ///< Names a registered camera / a pattern group in range.
+        OutOfRange,     ///< 0, negative, or past the last slot the product defines.
+        NotRegistered   ///< In range, but nothing is bound to it in this project.
+    };
+
+    /// A verdict plus the message that names the number and the reason it was refused.
+    struct IndexValidation {
+        IndexVerdict verdict{IndexVerdict::Accepted};
+        QString message;   ///< Empty when accepted.
+        bool accepted() const { return verdict == IndexVerdict::Accepted; }
+    };
+
+    /// Validates a commanded camera number against the product's slot range and this project's
+    /// bindings.
+    ///
+    /// One definition, three callers — both setters and setup(). They used to carry three
+    /// duplicated inline blocks, which is how setup() ended up not checking at all: an
+    /// unregistered active camera reached validateActiveCameraCalibration() and surfaced as
+    /// *"Active camera calibration is invalid."*, which is the wrong screen (backlog item 55).
+    IndexValidation validateCameraNumber(int cameraNumber) const;
+    /// Validates a commanded pattern-group number against MatchGroup's own range. See
+    /// validateCameraNumber() for why this is a function rather than an inline block.
+    IndexValidation validatePatternGroupNumber(int patternGroupNumber) const;
+
+    /**
+     * @brief Reads the index the PLC currently holds for `signalName`, from the setup snapshot.
+     * @param[out] number       the value, when one was found and it is numeric.
+     * @param[out] typeMismatch set when a value was found but is not a number — the tag is bound
+     *                          to a bit area, which no index range check can diagnose.
+     * @return true only when the PLC actually supplied a number for this signal.
+     *
+     * Family-independent by construction: it goes through PlcValueMap, so MC, both Modbus roles
+     * and the virtual PLC are served by one path and the controller never casts to a device.
+     *
+     * **Three outcomes, and only one of them is "the PLC said something":** the signal is
+     * unmapped, or the PLC has not been read / holds nothing for the tag — both fall back to the
+     * project default — or a value came back. Collapsing the first two into "0" is the defect.
+     */
+    bool commandedIndexFromPlc(const QString &signalName, int *number, bool *typeMismatch) const;
+    /// Writes the one-line startup summary naming the active camera and pattern group, their
+    /// source (commanded vs project default), the camera's device id and the workspace state.
+    void logStartupSelectionSummary();
+
+    /// Validates the configured signal map before the runtime is allowed to start: required
+    /// signals must be mapped, optional ones only warn, no two signals may share a tag, and every
+    /// mapped tag must exist on the bound PLC — checked per kind (bit signals against the digital
+    /// list, word signals against the word list), never against the union of the two.
+    /// @param[in,out] result setup result whose `errors` list receives every hard failure
+    void validateSignalMap(SetupResult *result);
+
     /// Replaces the recovery context for `role` and connects its runner's connectStatusChanged /
     /// errorOccurred signals to the matching per-role handler slots.
     void bindRoleContext(RunnerRole role,
@@ -344,6 +523,41 @@ private:
     /// Emits signalChanged() for `name` and, if it maps to a PLC tag, writes `value` to the
     /// primary PLC via requestWriteWordIo().
     void publishNumberSignal(const QString &name, int value);
+
+    // ── Handshake write policy (Phase 9 / E4, decision D3) ───────────────────────────────
+    /// One handshake output write awaiting its completion, so it can be re-issued.
+    struct TrackedWrite {
+        QString signalName;   ///< Logical signal name, for the log line and the abort message.
+        QString tag;          ///< PLC tag it was written to.
+        bool isBool{true};    ///< Which runner entry point re-issues it.
+        bool boolValue{false};
+        int wordValue{0};
+        int attempts{1};      ///< Issues so far, including the first.
+    };
+
+    /// @return true if `signalName` is one of the five outputs the PLC's own logic WAITS on, and
+    ///         therefore the only ones whose write failure is retried and escalated.
+    ///
+    /// A lost `bMatchingFinished` hangs the PLC forever; a lost `bTaskFault` is worse, because
+    /// the PLC believes the cycle succeeded and picks on results that were never valid. Every
+    /// other output is advisory and stays log-only, exactly as before — retrying all fourteen
+    /// would turn a degraded link into a write storm.
+    static bool isHandshakeSignal(const QString &signalName);
+    /// Records a handshake write so its completion can be matched and re-issued.
+    void trackHandshakeWrite(quint64 id, const QString &signalName, const QString &tag,
+                             bool isBool, bool boolValue, int wordValue, int attempts);
+    /// Matches a PlcRunner::writeFinished against m_pendingWrites: forgets it on success,
+    /// re-issues it while the budget lasts, escalates when the budget is gone.
+    void onPlcWriteFinished(quint64 id, bool ok, const QString &message);
+    /// Re-issues the write recorded under `id`, carrying its attempt count onto the new id.
+    void reissueTrackedWrite(quint64 id);
+    /// Aborts the cycle with PlcWriteFailed without letting the abort's own publishes re-enter
+    /// the retry machinery.
+    void escalatePlcWriteFailure(const TrackedWrite &write, const QString &reason);
+    /// Drops every pending write and cancels a retry in flight, so a stale one cannot fire into
+    /// the next cycle.
+    void clearPendingWrites();
+
     /// Publishes the full set of "ready" status outputs (bTaskReady, bCameraValid, etc.) once
     /// the runtime becomes ready.
     void publishInitialReadyOutputs();
@@ -355,6 +569,20 @@ private:
     void publishCycleFaultOutputs(LocalizationFaultCode code);
     /// Builds a timestamped TaskLogEntry from `severity`/`message` and emits taskLogAppended().
     void appendTaskLog(const QString &severity, const QString &message);
+
+    /**
+     * @brief Reports a number signal whose PLC value is not numeric, and faults the runtime.
+     *
+     * @param[in] signalName the logical signal name, e.g. "nActiveCamera"
+     * @param[in] event the mapped event, whose tag names the register actually read
+     *
+     * Kept separate from the range and registration checks because it is a different mistake with
+     * a different fix: the value is not a bad index, it is not an index at all. In practice this
+     * means the signal was mapped to a bit area — a coil or discrete input — so no index check
+     * could ever diagnose it, and naming the tag is what lets the integrator find the mapping.
+     */
+    void reportSignalTypeMismatch(const QString &signalName,
+                                  const LocalizationSignalEvent &event);
     /// Reports a runner error to the app log and the task log, suppressing an immediate
     /// repeat of the same message from the same role (a dead PLC fails every queued write,
     /// so the same line would otherwise arrive many times a second).
@@ -372,10 +600,20 @@ private:
      * @return true if the active camera has a valid calibration
      */
     bool validateActiveCameraCalibration(QStringList *errors = nullptr) const;
+    /// Elapsed milliseconds since the in-flight cycle's trigger-accept, off m_cycleClock.
+    /// @return the elapsed time, or 0.0 if no cycle has started this session
+    double cycleElapsedMs() const;
+    /// Renders a cycle's stage breakdown as one compact clause for the task log, reporting time
+    /// spent IN each stage rather than cumulative time. Unset boundaries are omitted, never
+    /// shown as zero.
+    static QString formatCycleTimings(const CycleTimings &timings);
+
     /// (Re)build the robot-pickability checker for the active camera. Called once at runtime
     /// setup and again on active-camera change (calibrator differs per camera). Leaves
     /// m_pickingChecker null when the kinematic check is disabled or no valid calibration.
-    void rebuildPickingChecker();
+    /// @return empty when the checker matches what the config asked for; otherwise the reason
+    ///         an enabled check has no usable checker (setup() turns that into a refusal).
+    QString rebuildPickingChecker();
     /// Returns the pattern group for the active (or first available) pattern-group number, or
     /// null if none is available.
     std::shared_ptr<mtc::MatchGroup> snapshotActivePatternGroup() const;
@@ -399,7 +637,9 @@ private:
     /// Returns the runner bound to the PrimaryPlc role, or nullptr if none is bound.
     vc::runtime::PlcRunner *primaryPlcRunner() const;
     /// Returns the runner bound to the VisionOutput role, or nullptr if none is bound.
-    vc::runtime::VisionOutputRunner *visionOutputRunner() const;
+    /// Abstract type on purpose: the result path goes through the runner's capability, so it
+    /// must not care which family the bound runner comes from.
+    vc::runtime::IDeviceRunner *visionOutputRunner() const;
     /// Validates readiness (pattern group, calibration, camera runner availability), then
     /// transitions to Running, publishes cycle-start outputs, and requests a single-shot grab
     /// from the active camera.
@@ -463,7 +703,7 @@ private:
     QMetaObject::Connection m_plcValueConnection;    ///< Connection from the primary PLC runner's valueChanged() to handlePlcValues().
     QMetaObject::Connection m_cameraGrabConnection;  ///< Connection from the active camera runner's grabFinished() for the in-flight cycle.
     QMetaObject::Connection m_cameraCommandConnection; ///< Connection from the active camera runner's commandFinished() for the in-flight cycle.
-    QMetaObject::Connection m_visionOutputResultConnection; ///< Connection from the vision output runner's resultRequestFinished() for the in-flight cycle.
+    QMetaObject::Connection m_visionOutputResultConnection; ///< Connection from the bound vision-output runner's IDeviceRunner::resultRequestFinished() for the in-flight cycle.
     bool m_valid{false};                              ///< True once setup() has validated the context successfully.
     int m_activeCameraNumber{-1};                     ///< Camera number currently bound to the Camera role; -1 if unset.
     /// Robot-pickability checker for the active camera (built at setup / camera change). Passed
@@ -471,11 +711,49 @@ private:
     std::shared_ptr<mtc::IRobotPickingChecker> m_pickingChecker;
     CameraWorkspace m_activeCameraWorkspace;          ///< Workspace settings for the active camera (mirrors m_context.activeCameraWorkspace).
     int m_activePatternGroupNumber{-1};               ///< Pattern group number currently used for matching; -1 if unset.
+    /// True while the last nActiveCamera value the master commanded was refused (out of range,
+    /// not registered, or not a number at all).
+    ///
+    /// A refused number is deliberately never adopted — m_activeCameraNumber keeps pointing at
+    /// the last good camera so the runtime stays usable — which means the refusal leaves no
+    /// trace any of markRuntimeReady()'s other checks can see. Without this latch, ANY unrelated
+    /// re-arm (a valid pattern-group write, a role reconnecting, a bErrorReset) republished
+    /// bTaskReady and bCameraValid as true while the master's own command register still held
+    /// the rejected number. The task would then run cycles on a camera nobody had selected.
+    ///
+    /// Cleared only when a value for THIS signal is accepted. An acknowledge does not clear it:
+    /// bErrorReset is an acknowledge, not a repair.
+    bool m_activeCameraSelectionRejected{false};
+    /// True while the last nActivePatternGroup value the master commanded was refused. Same
+    /// contract as m_activeCameraSelectionRejected, for the other index signal.
+    bool m_activePatternGroupSelectionRejected{false};
+    /// True when setup() resolved the active camera from the project's first binding rather than
+    /// from a commanded value. Reported in the startup summary, because "the runtime is on camera
+    /// 1" and "the runtime was told to use camera 1" are different facts and only one of them
+    /// means the master and the task agree.
+    bool m_activeCameraFromProjectDefault{false};
+    /// Same, for the pattern group. See m_activeCameraFromProjectDefault.
+    bool m_activePatternGroupFromProjectDefault{false};
+    /// The message for an index the PLC was already holding when the runtime started and that
+    /// setup() refused. Empty when the startup selection was accepted.
+    ///
+    /// Carried rather than turned into a SetupResult error on purpose: an index the master can
+    /// change at any moment is a **recoverable** fault, not an unusable configuration. Reporting
+    /// it as a setup error left `m_valid` false, and `markRuntimeReady()` gates on `m_valid` — so
+    /// the runtime could never re-arm, and no valid write the master made afterwards had any
+    /// effect. Field-confirmed 2026-09-08: camera and pattern both re-selected and valid, the
+    /// camera reconnected, and `bTaskReady` stayed off until the task was stopped.
+    QString m_startupSelectionFault;
     int m_activeCycleId{0};                           ///< Monotonically incremented id for the in-flight/most-recent cycle; used to discard stale async results.
     bool m_lastExecuteTrigger{false};                 ///< Last observed value of the PLC bExecuteTrigger signal, used for edge detection.
     bool m_lastErrorReset{false};                     ///< Last observed value of the PLC bErrorReset signal, used for edge detection.
     CycleState m_cycleState{CycleState::NotReady};    ///< Current lifecycle state of the runtime/cycle.
     CycleResult m_pendingCycleResult;                 ///< Result being assembled for the in-flight cycle.
+    /// Monotonic clock for the in-flight cycle, restarted at trigger-accept. QElapsedTimer, not
+    /// QDateTime: on Windows this is QueryPerformanceCounter, which no clock adjustment can move.
+    /// Every CycleTimings field is an elapsed() read off this one timer, so the stages cannot
+    /// disagree with each other about when the cycle began.
+    QElapsedTimer m_cycleClock;
     /// Single-shot timer that clears a latched cycle fault after kFaultAutoRecoverMs when
     /// no bErrorReset arrives. A cancellable member rather than QTimer::singleShot
     /// precisely because an acknowledge must be able to win the race.
@@ -486,6 +764,18 @@ private:
     LocalizationRecoveryPolicy m_visionOutputRecoveryPolicy{defaultVisionOutputRecoveryPolicy()}; ///< Reconnect/retry policy for the VisionOutput role.
     QHash<int, RoleRecoveryContext> m_recoveryContexts; ///< Per-role recovery bookkeeping, keyed by roleKey(role).
     QHash<int, QString> m_lastRoleError;                ///< Last error message reported per role, keyed by roleKey(role); used to suppress immediate repeats.
+
+    // ── Handshake write tracking (Phase 9 / E4, decision D3) ─────────────────────────────
+    /// Writes awaiting a completion, keyed by the id PlcRunner handed out.
+    QHash<quint64, TrackedWrite> m_pendingWrites;
+    /// True while the escalation path is publishing bTaskFault/nFaultCode. Two of the five
+    /// tracked signals are published BY the abort, over the link that just failed — tracking
+    /// those would re-enter the retry machinery and, on a dead link, never terminate.
+    bool m_plcWriteEscalating{false};
+    /// Cancellable so a retry in flight dies with the cycle rather than firing into the next one.
+    QTimer m_plcWriteRetryTimer;
+    /// Writes whose retry delay is pending, in issue order.
+    QList<quint64> m_plcWriteRetryQueue;
 };
 
 } // namespace vc::model

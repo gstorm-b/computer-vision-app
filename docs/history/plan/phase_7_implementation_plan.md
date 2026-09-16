@@ -22,6 +22,13 @@ never docked at all (`QSignalBlocker` defeating `QActionGroup` — now guarded b
 #58, proven to fail against an injected violation); `btn_browse` was unwired; and the runtime
 shell's multi-second startup ran before its window existed. A sweep for the `btn_browse` defect
 class found three more dead controls in the commissioning shell — **backlog #40**.
+**Phase E ✅ DONE (2026-08-24)** — the translation pipeline, opened after Phase D closed:
+E1–E4 repaired lupdate coverage (2 → 849 translated strings), E5 loaded Qt's own catalogs,
+E6 made the reflected display names and enum labels translatable. Contract test **70 passed /
+0 failed**. **Checkpoints E and E6 are both confirmed by the project owner**, in each case by
+running the software rather than by reading counts — which is the only check these defects
+respond to, since every one of them produced a clean build and a normal-looking English UI.
+
 **Phase D ✅ DONE (2026-08-23)** — D1–D3 implemented; contract test **64 passed / 0 failed**;
 both shells build. Checkpoint D is closed with one item partial: a hardware-free project reaches
 `Ready` but cannot be driven past it, because no PLC **input** value can be injected — carried as
@@ -38,10 +45,18 @@ both shells build. Checkpoint D is closed with one item partial: a hardware-free
 | **B** — one instance key, ordered hand-off | ✅ owner-confirmed, race proven with the real executables |
 | **C** — `runtime_app/` restructure and menubar | ✅ owner-confirmed **except** the editor → runtime foreground raise (**backlog #41**) |
 | **D** — virtual devices | ✅ Checkpoint D closed, one item partial (**backlog #43**) |
+| **E** — translation pipeline | ✅ owner-confirmed by running both shells; Checkpoints E and E6 closed |
 
-**Contract test: 54 → 64 cases** across the phase. Every new case was written against a specific
+**Contract test: 54 → 70 cases** across the phase. Every new case was written against a specific
 invariant this phase introduced, and the safety-critical ones were proven to fail against an
 injected violation before being trusted.
+
+**Phase E is the phase nothing else would have caught.** Its five defects — lupdate driven
+from a shell, two shells writing one `.ts`, Qt's own catalogs never loaded, `Q_CLASSINFO`
+invisible to `lupdate`, enum markers under the wrong context — every one of them compiled
+clean, linked clean, passed a 64-case suite, and produced a UI that looked completely normal
+in English. All five were found by the project owner using the software in Japanese, and
+three of the five had been true since before Phase 6.
 
 **Carried forward:** #37 (editor's dock host builds its layout in code), #38 (a zero-task project
 lands the runtime on a blank page), #39 (flaky instance-lock test), #40 (three dead controls in
@@ -50,7 +65,7 @@ value injection).
 
 **Five of those seven were found by the project owner running the software**, not by a test or a
 review — worth remembering when weighing how much of the next phase's confidence should rest on
-the contract test alone.
+the contract test alone. Phase E then repeated the lesson five more times.
 **Source request:** [../request/phase_7_request.md](../request/phase_7_request.md)
 
 > **Location note.** Same exception as Phases 5 and 6: this file lives under
@@ -1094,3 +1109,493 @@ Beyond each task's acceptance criteria:
 - `AGENT.md`, both shell scope cards, and `uml/11_runtime_shell.puml` reflect the new
   structure;
 - backlog #35 and #36 closed with pointers here.
+
+---
+
+## Phase E — repair the translation pipeline (opened 2026-08-24)
+
+**Status: E1–E5 ✅ CODE COMPLETE (2026-08-24)** — contract test **67 passed / 0 failed**
+(64 before), each new case proven to fail against an injected violation. The `.ts` went from
+**2 finished translations to 832** (E1–E4), and Qt's own dialog-button text is now loaded as
+well (E5). Checkpoint E is owner-owned: the counts, the `.qm` and the Qt catalog are verified
+mechanically, but only running both shells in Japanese proves the UI reads them.
+
+### Why this task exists
+
+The project owner reported that Qt Creator's *Update Translations* only picks up source text
+from the files the shells declare. Checked against the `.ts`, and it is worse than a tooling
+annoyance:
+
+| `app/translations/ncr_picking_ja_JP.ts` | before |
+|---|---|
+| messages | 902 |
+| **`type="vanished"`** | **861** |
+| still translated and live | **2** |
+| contexts with any live message | `MainWindow` (2 of 44), `RuntimeShellWindow` (39 of 39) |
+
+Those two contexts are exactly the two shells' own files. Everything authored in `src/` —
+71 contexts' worth — is marked vanished.
+
+**Two causes, one of them mine.**
+
+1. **Phase 6 / E7a.** Moving `src/` into `src/src.pro` was verified for resources, for
+   self-registering symbols and for build time. It was not verified for `lupdate`. The
+   library declares no `TRANSLATIONS`, and `lupdate` only updates subprojects that have
+   one — so ~90% of the product's translatable strings left the scan set silently. No build
+   error, no warning; the symptom is Japanese quietly reverting to English.
+2. **Older, predating E7a.** *Both* shells declare `TRANSLATIONS` pointing at the **same**
+   `.ts`. Whichever subproject `lupdate` visits last marks the other's strings vanished.
+   Two writers, one file.
+
+**Nothing is lost.** A vanished entry keeps its translation
+(`<translation type="vanished">デバイスを追加</translation>`). Verified by running `lupdate`
+over the correct source set into a **copy** of the file:
+
+| | now | after a correct scan (measured) |
+|---|---|---|
+| finished | 2 | **835** |
+| unfinished | 39 | 139 — genuinely new Phase 7 strings |
+| vanished | 861 | 26 — genuinely gone |
+
+### Decisions
+
+| # | Decision | Why |
+|---|---|---|
+| **E-D1** | **One `.ts` and one `.qm` stay.** Not split per subproject. | Both `main.cpp` files load a single `:/i18n/ncr_picking_ja_JP` through one `QTranslator`. Splitting would force changes to the load path and the language switch — paying in the wrong place for a problem that is not there. |
+| **E-D2** | **Shells declare `EXTRA_TRANSLATIONS`, not `TRANSLATIONS`.** | Read from Qt 6.8.3's own `lrelease.prf` on this machine: `lrelease.input = TRANSLATIONS EXTRA_TRANSLATIONS`, and `all_translations` merges both before `QM_FILES` feeds `embed_translations`. So `lrelease` and the `:/i18n/` embedding behave **identically**, while `lupdate` stops touching the file from the shells. That is what ends the two-writers problem. |
+| **E-D3** | **One lupdate-only project that re-includes the existing `.pri` files** rather than listing sources. | A hand-written source list is the same failure again, one module later. Including the `.pri` files means a new module joins the scan set the moment it joins the build. |
+| **E-D4** | **`3rdparty/qtpropertybrowser` is in the scan set.** | It carries ~17 translatable contexts (`QtBoolEdit`, `QtColorEditWidget`, `QtCursorDatabase`, …), is compiled into the library, and belongs to no module `.pri`. Omit it and that group alone stays vanished. |
+| **E-D5** | **`-no-obsolete` is forbidden, in writing.** | It deletes vanished entries outright — running it today would permanently destroy the 835 recoverable translations. The tidy-looking flag is the destructive one. |
+
+### Dependency graph
+
+```text
+E1 stop the shells fighting ──► E2 lupdate project ──► E3 run it for real ──► E4 guard + docs
+   (EXTRA_TRANSLATIONS)          (the scan set)         (the payoff)          (stop the regression)
+```
+
+E1 first because E2's project and the shells would otherwise both claim the same `.ts`, and
+E3 must not run until the scan set is right — a wrong scan writes vanished marks into the
+real file.
+
+---
+
+### Task E1: Take the `.ts` out of the shells' reach
+
+**Description.** Change `TRANSLATIONS` to `EXTRA_TRANSLATIONS` in `app/app.pri` and
+`runtime_app/runtime_app.pri`, with a comment stating why, so neither shell can drive
+`lupdate` against the shared file while both still produce and embed the `.qm`.
+
+**Acceptance criteria:**
+- [ ] Neither shell `.pri` declares `TRANSLATIONS`.
+- [ ] Both executables still embed `:/i18n/ncr_picking_ja_JP.qm` — verified from the build, not assumed.
+
+**Verification:**
+- [ ] Umbrella build succeeds.
+- [ ] `qrc_qmake_qmake_qm_files.cpp` still generated for both shells, and the `.qm` present in each `.qm` output dir.
+
+**Dependencies:** None. **Files:** `app/app.pri`, `runtime_app/runtime_app.pri`.
+**Scope:** XS.
+
+---
+
+### Task E2: One lupdate-only project covering every source
+
+**Description.** Add `translations/ncr_translations.pro` (`TEMPLATE = aux`, builds nothing)
+that includes the seven module `.pri` files, `qtpropertybrowser_vendor.pri`, `app/app.pri`
+and `runtime_app/runtime_app.pri`, clears anything an lupdate-only project must not do, and
+declares the single `TRANSLATIONS`. List it in `ncr_picking_all.pro` so Qt Creator's
+*Update Translations* on the umbrella reaches it.
+
+**Acceptance criteria:**
+- [ ] The project's scan set covers `src/`, both shells and the vendored property browser.
+- [ ] Adding it to `SUBDIRS` leaves the build byte-for-byte equivalent — it compiles and links nothing.
+
+**Verification:**
+- [ ] `lupdate` on this project alone reports the full source-text count (~974), not ~40.
+- [ ] Umbrella build still produces both executables.
+- [ ] **Manual, owner:** Qt Creator → *Update Translations* on `ncr_picking_all.pro` updates the file. If Creator does not recurse into an `aux` subproject, fall back to E3's script and say so — the button becoming harmless is still better than the button being wrong.
+
+**Dependencies:** E1. **Files:** `translations/ncr_translations.pro` (new),
+`ncr_picking_all.pro`. **Scope:** Small.
+
+#### What the build actually showed (2026-08-24)
+
+E-R2 fired. `TEMPLATE = aux` does **not** build nothing — the first umbrella build with the
+project in `SUBDIRS` failed at
+`app_settings.h(4): fatal error C1083: Cannot open include file: 'QObject'`, because qmake
+emitted OBJECTS and a link target for it and an `aux` project gets no Qt include paths.
+
+Probed the alternatives on one file with 27 translatable strings rather than guessing again:
+
+| Template | Builds | lupdate sees |
+|---|---|---|
+| `aux` | **compiles** (OBJECTS emitted) | 27 strings |
+| `subdirs`, empty `SUBDIRS` | nothing | **0 strings** |
+| `subdirs`, no `SUBDIRS` line | nothing | **0 strings** |
+
+There is no template that is both. Two attempts to separate the two modes inside one project
+— clearing `SOURCES` under `build_pass`, and under `!isEmpty(MAKEFILE)` — both failed,
+the second one exactly backwards: lupdate cleared the list and qmake kept it.
+
+**Resolution: `translations.CONFIG += no_default_target` in the umbrella.** A documented
+qmake subdirs modifier, not a trick. Verified on a probe umbrella: `first:` depends on
+`make_first:`, which qmake leaves with **no dependencies**, while `lupdate` on that same
+umbrella still recurses in and finds the 27 strings. Both halves, from opposite directions.
+
+**Known gap, written down rather than discovered later:** `nmake all` ignores
+`no_default_target` and will try to build the project, which fails. The default target is
+what Qt Creator's build step and every recipe in `docs/rules/build_and_verification.md` use,
+so normal work never reaches it.
+
+---
+
+### Task E3: Run it against the real file
+
+**Description.** Add `scripts/update_translations.ps1` — the CLI/CI equivalent, so the
+update is reproducible without the IDE — and use it to update the real `.ts`.
+
+**Acceptance criteria:**
+- [ ] The script refuses `-no-obsolete` style flags, or does not offer them, and says why.
+- [ ] The real `.ts` reaches ~835 finished / ~139 unfinished / ~26 vanished.
+- [ ] Japanese renders correctly in the file (UTF-8 intact, no mojibake).
+
+**Verification:**
+- [ ] Counts match the measured trial run.
+- [ ] Rebuild and **launch both shells in Japanese**: the restored strings must actually appear. A `.qm` proves the file compiled, not that the UI reads it.
+
+**Dependencies:** E2. **Files:** `scripts/update_translations.ps1` (new),
+`app/translations/ncr_picking_ja_JP.ts`. **Scope:** Small.
+
+#### Outcome (2026-08-24)
+
+| | before | after |
+|---|---|---|
+| finished | **2** | **832** |
+| unfinished | 39 | 142 |
+| vanished | 861 | 29 |
+
+lupdate reports 974 source texts, and a second run reports `0 new, 974 already existing` —
+idempotent. Backup kept at `app/translations/ncr_picking_ja_JP.ts.20260824_103238.bak`.
+
+Three strings differ from the trial run's 835/139/26 because the trial scanned *directories*
+while the real run scans the **`.pri` file lists**. The `.pri` set is the correct one: it is
+exactly what gets built.
+
+One defect in the script itself, found by running it rather than by reading it: lupdate
+writes progress to stderr even on success, and Windows PowerShell turns that into a
+terminating error under `$ErrorActionPreference = 'Stop'` — so the script aborted *after*
+it had already rewritten the file. It now relaxes the preference around the call and judges
+the run by its exit code.
+
+Noted, not touched: a stale `app/translations/ncr_picking_ja_JP.qm` (970 bytes) sits in the
+**source** tree. Build output belongs in `build/`; deleting it needs the owner's say-so.
+
+---
+
+### Task E4: Guard it, then write it down
+
+**Description.** A contract-test case so the next build restructure cannot silently drop the
+scan set again, plus the rule in the places a contributor reads.
+
+**Acceptance criteria:**
+- [ ] Contract test asserts no shell `.pri` declares `TRANSLATIONS`, and that the lupdate project includes every module `.pri` plus the vendor `.pri`.
+- [ ] `docs/rules/build_and_verification.md` documents how translations are updated and why the shells use `EXTRA_TRANSLATIONS`.
+- [ ] The `-no-obsolete` hazard is written where someone tidying the file will read it.
+
+**Verification:**
+- [ ] Contract test passes, and the new case is proven to **fail** against an injected violation — the same standard Phase 7 held its safety-critical cases to.
+
+**Dependencies:** E3. **Files:** `tests/architecture_contract_test/main.cpp`,
+`docs/rules/build_and_verification.md`, `app/AGENTS.md`, `runtime_app/AGENTS.md`.
+**Scope:** Small–Medium.
+
+---
+
+---
+
+### Task E5: Load Qt's own translations, not just ours
+
+**Why this task exists.** With E1–E4 done the owner confirmed the product's own strings are
+translated — and reported that Qt's built-in ones are not: **OK, Close, Cancel** in every
+`QMessageBox` and `QDialogButtonBox` are still English. Correct report, and the cause is not
+in the `.ts` at all. Those strings belong to Qt, live in Qt's own catalogs, and **nothing in
+either shell ever loads one**. Both `main.cpp` files install exactly one `QTranslator`, for
+`:/i18n/ncr_picking_<locale>`. This has been true since before Phase 6; the E1–E4 work simply
+made it visible, because a UI that is now 832 strings Japanese makes three English buttons
+obvious.
+
+**Verified against the installed Qt and the deployed image, because the two disagree:**
+
+| File | Where | Size | What it is |
+|---|---|---|---|
+| `qtbase_ja.qm` | Qt install `translations\` | 129,913 B | the catalog itself — Cancel / Close / Save / … |
+| `qt_ja.qm` | Qt install `translations\` | **84 B** | a *dependency manifest* naming `qtbase_ja` and `qtmultimedia_ja`, which QTranslator resolves from the same folder |
+| `qt_ja.qm` | `build\bin\release\translations\` | 129,913 B | what **windeployqt** puts in the image: the merged catalog, under the `qt_` name |
+
+`qtbase_` exists on a development machine and is absent from the install image, so the search
+has to try both names. Neither is a dead end — the 84-byte file works indirectly.
+
+**Description.** Move the translator block out of both `main.cpp` files into one shared
+helper in `src/core/utils/`, and have it install Qt's catalog as well as the application's.
+Search `applicationDirPath()/translations` then `QLibraryInfo::path(TranslationsPath)`, trying
+`qtbase` before `qt` (the direct hit first). Log which catalog won, read back from
+`QTranslator::filePath()` rather than rebuilt from the locale name — `load()` falls back
+"ja_JP" → "ja", so a reconstructed path names a file that does not exist.
+
+> **Note for whoever verifies this: "OK" will not change.** Qt's Japanese catalog translates
+> `OK → OK`, which is the Japanese convention; `Close → 閉じる` and `Cancel → キャンセル` do
+> change. So the button named in the report is the one button that cannot demonstrate the
+> fix. Check a Close or Cancel button instead.
+
+**Acceptance criteria:**
+- [ ] `QMessageBox`/`QDialogButtonBox` standard buttons are Japanese in **both** shells (Close, Cancel — not OK, see above).
+- [ ] The application catalog keeps working exactly as before, including the legacy `"system"` setting.
+- [ ] The logged catalog path is the file that actually loaded.
+
+**Verification:**
+- [ ] Contract test: after installing translations for `ja_JP`, `QCoreApplication::translate("QPlatformTheme", "Close")` is no longer `"Close"` — a behavioural check on the real thing, not a check that a file exists.
+- [ ] Both shells build; startup log names the Qt catalog actually loaded.
+- [ ] **Manual, owner:** open any dialog with an OK/Close button in each shell.
+
+**Dependencies:** E1–E4 (not technical — this is simply what the repaired pipeline exposed).
+
+**Files likely touched:** `src/core/utils/translation_loader.{h,cpp}` (new), `src/core/core.pri`,
+`app/main.cpp`, `runtime_app/src/main.cpp`, `tests/architecture_contract_test/main.cpp`.
+
+**Estimated scope:** Small–Medium.
+
+**Risk.** The install image carries Qt's catalogs only because windeployqt happens to copy
+them. Nothing asserts that today, so a deployment change could remove them and the symptom
+would be exactly the one being fixed. The startup log line is the cheap guard: it names what
+loaded, so a field machine's log answers the question without a debugger.
+
+#### Outcome (2026-08-24)
+
+Contract test **67 passed / 0 failed** (65 before). Two cases added: the behavioural one
+above, and one asserting both shells go through the shared helper and neither builds its own
+`QTranslator` again. The behavioural case was proven to fail against an injected violation
+that models the pre-E5 code (`loadQtCatalog` returning false).
+
+**Two of my own claims in this task were wrong, and the test is what caught them.**
+
+1. **The probe string.** The first version asserted on `"OK"`, the button named in the
+   report. It failed — because Qt's Japanese catalog translates `OK → OK`. Dumping
+   `qtbase_ja.qm` with `lconvert` showed the whole `QPlatformTheme` context: `Close → 閉じる`,
+   `Apply → 適用`, `Retry → 再試行`, and `OK → OK`. A test built on that string would have
+   passed only while the code was broken.
+2. **The "84-byte stub".** This task was planned around `qt_ja.qm` being a dead file that
+   "loads successfully and translates nothing", and the `isEmpty()` check was described as
+   what made the fix correct. Injecting the supposed trap did **not** fail the test, which is
+   what forced a look at the file: 84 bytes of *dependency manifest* naming `qtbase_ja` and
+   `qtmultimedia_ja`, which `QTranslator` resolves from the same directory. It works fine.
+   `isEmpty()` stays as a cheap sanity check, but the comments and this plan no longer claim
+   it is load-bearing.
+
+Both mistakes have the same shape as the `robotkinematics.pri` one in Phase 6 / E7a: a file
+was characterised from a plausible reading instead of from its contents.
+
+---
+
+---
+
+## Task E6: Translate the reflected display names — ✅ DONE (2026-08-24)
+
+**Status: E6a–E6c complete, Checkpoint E6 owner-confirmed.** Contract test **70 passed /
+0 failed** (68 before). 69 display names and the 33 enum labels are now reachable by
+`lupdate` *and* findable at runtime; the owner verified both by translating a sample and
+running the software.
+
+**Why this task exists.** With Checkpoint E confirmed, the owner reported the next layer:
+parameter and signal labels in the localization task widgets — `kSignalRows` and the
+property-browser rows — are still English. They are not in the `.ts`, and no amount of
+`lupdate` work will put them there: they live in `Q_CLASSINFO`, which lupdate does not read.
+
+### Inventory (counted, 2026-08-24)
+
+**57 display names**, all emitted by the `G_/P_PROPERTY_*` macros in
+[src/core/qgadget_macro.h](../../../src/core/qgadget_macro.h) as
+`Q_CLASSINFO("<prop>_name", "…")`:
+
+| Header | Count | Examples |
+|---|---|---|
+| `src/model/task_localization_config.h` | 14 | "Camera selection", "Pattern group selection", "Error reset" |
+| `src/device/camera/camera_basler_gige.h` | 13 | "Exposure Mode", "Back light delay (us)" |
+| `src/device/virtual/virtual_camera_config.h` | 13 | |
+| `src/device/output_device/vision_tcpip_client_config.h` | 6 | |
+| `src/device/output_device/vision_tcpip_config.h` | 5 | |
+| `src/device/virtual/virtual_plc_config.h`, `plc/mc_msg_tcp_client.h`, `plc/mc_msg_interface.h` | 2 each | |
+
+Spot-checked against the `.ts`: "Camera selection", "Pattern group selection",
+"Exposure Mode", "Backlight line", "Error reset", "Task ready" — **all absent**.
+
+`kSignalRows` itself needs no work. It holds internal names only and already resolves labels
+through `vc::gadget_meta::displayName()`; the strings it shows are the 14 above.
+
+### Two experiments, run before choosing (both changed the answer)
+
+**1. Can the marker go inside `Q_CLASSINFO`?** No. moc rejects it outright:
+
+```
+Q_CLASSINFO("x_name", QT_TRANSLATE_NOOP("ctx", "Text"))
+  → probe_cfg.h(15:1): error: Parse error at ""ctx""
+```
+
+**2. Can the marker go in the macro *definition*, leaving call sites untouched?** No —
+and this one looked like it worked. moc accepted it (exit 0), the code compiled, but
+`lupdate` extracted **nothing**: it does not expand user-defined macros. The same probe file
+carried a plain marker table outside the class, and lupdate found that one and only that one.
+A marker that only exists inside a macro definition is invisible exactly where it matters.
+
+So the marker has to be a real, expanded `QT_TRANSLATE_NOOP` in ordinary code that lupdate
+scans. There is no way to avoid writing each display name a second time.
+
+### The precedent already in the codebase
+
+This is not a new idiom here. [`basler_define.h:41`](../../../src/device/camera/basler_define.h#L41)
+already does it for enum labels:
+
+```cpp
+/// Enum key strings registered only so `lupdate`/`linguist` picks up translatable
+/// enum labels; not read by any code at runtime.
+static inline const char* enum_keys_basler_defines[] = { QT_TR_NOOP("Exposure_Off"), … };
+```
+
+33 enum keys across `basler_define.h`, `mc_define.h` and `task_define.h` are marked this way.
+So E6 extends an existing convention rather than inventing one.
+
+### …and a defect the inventory turned up
+
+**The enum markers are in the wrong context, so they can never resolve.** The widgets look up
+`QCoreApplication::translate(meta.className(), key)`
+([basler_camera_widget.cpp:80](../../../src/ui/forms/camera/basler_camera_widget.cpp#L80),
+and the same line in three more widgets plus `task_widget.h`), which for the Basler config is
+`vc::device::BaslerGigECamera`. But `QT_TR_NOOP` in `basler_define.h` puts them under the
+namespace, `vc::device::basler` — confirmed by reading the contexts back out of the `.ts`.
+The lookup and the entry can never meet. Nothing is visibly broken today only because all 33
+are still untranslated; fill them in and they would still not appear.
+
+`QMetaEnum::scope()` returns the enclosing namespace for a `Q_ENUM_NS`, which would match
+what lupdate recorded — the likely one-line fix, **to be verified during implementation, not
+assumed.**
+
+### Design
+
+| Decision | Why |
+|---|---|
+| **Marker arrays live in the same header, directly under the property block.** | Matches the existing `enum_keys_*` precedent. Adjacency is the only thing that makes a second list survivable, and E6c makes it machine-checked rather than trusted. |
+| **Context = `meta.className()`**, e.g. `QT_TRANSLATE_NOOP("vc::model::TaskLocalizeConfig", "Camera selection")`. | It is what all five reader sites already pass for enum keys. Introducing a second convention for display names is how the enum mismatch above happened. |
+| **Translate in `vc::gadget_meta::displayName()`, and route the other five readers through it.** | There are **six** places reading `<prop>_name` today — `qgadget_macro.h:89` plus `task_widget.h:249`, `basler_camera_widget.cpp:102`, `mitsubishi_mc_device_widget.cpp:66`, `vision_tcpip_device_widget.cpp:59`, `vision_tcpip_client_device_widget.cpp:60`. Every one of them translates the enum keys and none translates the display name. That is not five independent oversights; it is one copied block. Fixing it in six places leaves the seventh copy free to reappear. |
+| **Rejected: a single central table of all 57.** | One place to look, but far from every declaration — a new property would be added with no reason to notice the table exists. Proximity is doing real work here. |
+| **Rejected: dropping `Q_CLASSINFO` and driving labels from a plain table.** | Touches all 57 sites plus the macro contract plus every reader, to fix a translation problem. Disproportionate. |
+
+### Tasks
+
+**E6a — translate at the read site.** ✅ **DONE (2026-08-24).** Added
+`QCoreApplication::translate(meta.className(), raw)` to `vc::gadget_meta::displayName()` and
+replaced the five inline copies with calls to it. *Acceptance:* one function reads
+`<prop>_name`; behaviour unchanged while no markers exist (translate() returns the source
+when there is no entry). *Files:* `qgadget_macro.h`, `task_widget.h`, 4 device widgets.
+*Scope:* Small–Medium.
+
+> **Outcome.** Both shells build; contract test **68 passed / 0 failed** (67 before). A
+> grep for `_name` now finds exactly one reader, in `qgadget_macro.h`. The new case pins
+> what the helper returns — `"Camera selection"`, `"Error reset"`, and the property name
+> itself when no entry exists — so the six-into-one refactor cannot quietly change a label.
+>
+> It also **measures the context string E6b needs** rather than leaving it to be typed from
+> memory: `TaskLocalizeConfig::staticMetaObject.className()` is asserted to be
+> `"vc::model::TaskLocalizeConfig"`. A marker written against any other spelling is
+> unreachable at runtime, and that is not hypothetical — it is the live enum-key defect.
+
+**E6b — mark the strings.** ✅ **DONE (2026-08-24).** A `static inline constexpr
+kDisplayNameSources[]` table of `QT_TRANSLATE_NOOP` entries inside each class, directly under
+its property block, with the class-name context. *Files:* 11 headers + the `.ts`.
+*Scope:* Medium.
+
+> **The count was wrong in the plan: it is 69, not 57.** The inventory was built by grepping
+> the `G_/P_PROPERTY_*` macros, and **12 display names are hand-written `Q_CLASSINFO`** that
+> use no macro at all — `mc_context.h` (9: "Frame", "Interface", "Data Code", the M/D address
+> labels), `idevice.h` (2: "Device name", "Device ID") and `itask.h` (1: "Task name"). Three
+> more classes than planned. Counting the mechanism instead of the thing it produces missed
+> a fifth of the work.
+>
+> Placement was checked first rather than assumed: a marker table **inside** a Q_GADGET class
+> body is accepted by moc (exit 0) and extracted by lupdate. Three of the classes needed an
+> explicit `public:` — a Q_OBJECT/Q_GADGET body starts private, and the macros normally
+> supply it.
+>
+> `lupdate` then reported **`69 new and 974 already existing`** — exactly the inventory,
+> nothing disturbed. Verified in the `.ts`: 14 under `vc::model::TaskLocalizeConfig`, 13
+> under `vc::device::BaslerGigeCfg`, 9 under `vc::device::McContext`, 2 under
+> `vc::device::IDevice`, 1 under `vc::model::ITask`.
+
+**E6c — fix the enum context, and guard both.** ✅ **DONE (2026-08-24).** Added
+`vc::gadget_meta::enumKeyNames()` translating in `QMetaEnum::scope()`, and routed all five
+property browsers through it. Contract test asserts, per class, that the set of
+`<prop>_name` values equals the set of marked strings **in both directions**, that every
+marker context equals `staticMetaObject.className()`, and that the total is 69. *Files:*
+`qgadget_macro.h`, 5 reader sites, `tests/architecture_contract_test/main.cpp`.
+*Scope:* Medium.
+
+> **`QMetaEnum::scope()` was verified, not assumed** (E6-R4): it returns
+> `"vc::device::basler"` and `"vc::device::mc"`, which is exactly what lupdate recorded for
+> the `QT_TR_NOOP` markers sitting in those namespaces. So the fix was one shared helper, not
+> 33 edited markers. The test pins both ends and also asserts the widgets never drift back to
+> `translate(meta.className()`.
+>
+> Contract test **70 passed / 0 failed** (68 before). Each case proven against an injected
+> violation: a display name with its marker removed → *"display name(s) with no
+> QT_TRANSLATE_NOOP marker"*; a typo'd context → *"marker context … is not the class name"*;
+> a widget reverted to `meta.className()` → the enum case fails. All three reverted, suite
+> green.
+
+### Checkpoint E6 — ✅ CLOSED, owner-confirmed 2026-08-24
+
+- [x] Contract test passes — **70 passed / 0 failed**; each new case proven against an
+      injected violation (missing marker, typo'd context, widget reverted to `className()`).
+- [x] `.ts` gained **69** entries (`69 new and 974 already existing`), each under its class's
+      context, with the other counts untouched.
+- [x] **Owner-verified by running the software:** after translating a sample of the new
+      strings, the **signal names in the localization task's signal map** and the **enum
+      values in the property-browser combo boxes** both render in Japanese.
+
+That second item is the one that mattered. Both halves of E6 fail silently — a missing marker
+and a wrong context each produce a perfectly normal English UI — so neither the build nor the
+`.ts` counts could have distinguished "fixed" from "still broken". Only running it could, and
+it covered both mechanisms at once: the labels prove the `Q_CLASSINFO` marker path
+(E6a + E6b), the combo values prove the `QMetaEnum::scope()` fix (E6c).
+
+**Written down where it can be acted on**, so the guard is not the only thing carrying it:
+`docs/rules/build_and_verification.md` → "Strings lupdate cannot see on its own" (the two
+families, their marker tables and required contexts), plus the rule in `src/core/AGENTS.md`,
+`src/device/AGENTS.md` and `src/model/AGENTS.md` — the three scope cards a contributor adding
+a config property actually reads.
+
+### Risks
+
+| # | Risk | Impact | Handling |
+|---|---|---|---|
+| **E6-R1** | **The second list drifts.** A new property gets a display name and no marker; it silently stays English. | Medium — the exact failure being fixed | E6c's set-equality assertion. Without it E6 is a one-time cleanup, not a fix. |
+| **E6-R2** | **A typo'd context string** misses at runtime with no error — precisely the live enum defect. | Medium | E6c compares the marker context to `staticMetaObject.className()`, so a typo fails the build's test run rather than the operator's screen. |
+| **E6-R3** | **57 new untranslated entries** read as a regression in the counts. | Low | They are new `unfinished` entries, which is what "extractable" looks like before a translator sees them. Report the three counts separately, as E3 does. |
+| **E6-R4** | **`QMetaEnum::scope()` does not return what I expect.** | Low | Verified before use in E6c, not assumed. If it does not match, the alternative is changing the marker context instead — same fix, other end. |
+
+---
+
+### Checkpoint E — after E1–E5
+
+- [ ] Both shells build through the umbrella and run.
+- [ ] Japanese UI shows the restored translations in **both** shells — the only proof that counts.
+- [ ] Qt's own standard buttons (OK / Close / Cancel) are Japanese in both shells.
+- [ ] Contract test passes, new cases proven against an injected violation.
+- [ ] Owner tries Qt Creator's *Update Translations* and it either updates everything or does nothing — never strips.
+
+### Risks
+
+| # | Risk | Impact | Handling |
+|---|---|---|---|
+| **E-R1** | **A wrong scan writes vanished marks into the real file.** `lupdate` is destructive to the file it is pointed at. | **High** | E3 runs only after E2's scan set is verified; the trial already ran against a copy. The file is small and text — keep a copy before the first real run. |
+| **E-R2** | **`TEMPLATE = aux` in `SUBDIRS` disturbs the build, or Creator does not recurse into it.** Assumed from docs, not yet observed here. | Medium | E2 verifies both by building and by the owner pressing the button. Fallback is the E3 script; the plan says so up front rather than discovering it later. |
+| **E-R3** | **139 unfinished strings are read as "the fix did not work."** | Low | They are genuinely new Phase 7 text (menubar, access dialog, virtual devices) that has never been translated. Report the three counts separately, never one total. |
+| **E-R4** | **The same class of regression returns** with the next build restructure. | Medium | E4's contract case. Without it this is a fix, not a guarantee — E7a passed a 50-case suite while carrying this defect. |

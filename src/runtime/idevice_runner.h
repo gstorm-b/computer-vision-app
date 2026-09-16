@@ -12,6 +12,7 @@
 #include <QEventLoop>
 #include <QTimer>
 #include "device/idevice.h"
+#include "device/output_device/vision_output_request.h"
 #include "runtime/device_command.h"
 
 namespace vc::runtime {
@@ -57,6 +58,19 @@ public:
      */
     virtual void detach(QThread *dest = nullptr) = 0;
 
+    // ── Connection actions (safe from any thread) ─────────────────────────────
+    /**
+     * @brief Requests a connect, queued onto the device's worker thread.
+     * @note Declared here rather than on each concrete runner so callers that hold a role
+     *       (the runtime controller's recovery path) can reconnect any bound device without
+     *       knowing its family. Before this existed the recovery path cast to the concrete
+     *       runner type per role, so a role bound to an unexpected runner type silently never
+     *       reconnected.
+     */
+    virtual void requestConnect()    = 0;
+    /// Requests a disconnect, queued onto the device's worker thread.
+    virtual void requestDisconnect() = 0;
+
     // ── State ─────────────────────────────────────────────────────────────────
     /// Returns the internal worker QThread the device runs on.
     virtual QThread             *workerThread()   const = 0;
@@ -78,6 +92,31 @@ public:
             QStringLiteral("Runner does not support standard commands yet."));
         emit commandFinished(result);
         return result;
+    }
+
+    /**
+     * @brief Reports whether this runner can carry the localization task's `vision_output` role.
+     * @return false by default; a runner overrides this to true only when its device implements
+     *         vc::device::IResultOutputDevice.
+     *
+     * @warning Claiming support and not implementing requestSendResult() is the one failure this
+     *          capability cannot survive: the controller connects to resultRequestFinished() and
+     *          waits, so a cycle would hang instead of faulting. The architecture contract test
+     *          asserts that every runner reporting true actually completes a send request.
+     */
+    virtual bool supportsResultOutput() const { return false; }
+
+    /**
+     * @brief Default result-output handler: reports the request as unsupported. Runners whose
+     *        device implements IResultOutputDevice override this.
+     * @param[in] positions the cycle's result positions.
+     * @post resultRequestFinished(false, …) is emitted before this call returns.
+     */
+    virtual void requestSendResult(const QVector<vc::device::VisionOutputPosition> &positions)
+    {
+        Q_UNUSED(positions);
+        emit resultRequestFinished(
+            false, QStringLiteral("Runner does not support result output."));
     }
 
     /// Returns whether attach() has run and detach() has not yet undone it.
@@ -181,6 +220,13 @@ signals:
      * @see submitCommand()
      */
     void commandFinished(vc::runtime::DeviceCommandResult result);
+    /**
+     * @brief Emitted after requestSendResult() completes, whether it was carried out or refused.
+     * @param[in] ok whether the device accepted and sent the result.
+     * @param[in] message human-readable success/failure detail.
+     * @see requestSendResult(), supportsResultOutput()
+     */
+    void resultRequestFinished(bool ok, QString message);
 
 protected:
     bool m_attached{false};  ///< True once attach() has run and detach() has not yet undone it.

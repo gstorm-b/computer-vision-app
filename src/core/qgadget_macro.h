@@ -3,12 +3,14 @@
 
 #include <qtmetamacros.h>
 #include <QtTypes>
+#include <QCoreApplication>
 #include <QString>
 #include <QByteArray>
 #include <QVariant>
 #include <QMetaEnum>
 #include <QMetaObject>
 #include <QMetaProperty>
+#include <QStringList>
 
 /**
  * @file qgadget_macro.h
@@ -84,16 +86,50 @@ Q_PROPERTY(type name READ name WRITE set##name) \
 
 namespace vc::gadget_meta {
 
-/// Resolves the display name registered via Q_CLASSINFO("<prop>_name", "…").
-/// @return the registered display name, or `propName` itself if no class-info entry exists.
+/// Resolves the display name registered via Q_CLASSINFO("<prop>_name", "…"), translated.
+///
+/// This is the ONE place that reads "<prop>_name". It used to be one of six — the property
+/// browsers each carried their own copy of the same six lines, and every copy translated the
+/// enum keys beside it while none translated the label. That is not five oversights, it is
+/// one block that was copied five times, so the lookup lives here now and the widgets call
+/// it.
+///
+/// The translation context is meta.className(), matching what those same widgets already
+/// pass for enum keys. The source strings themselves are invisible to lupdate, because
+/// Q_CLASSINFO is not something it reads — each config header carries a QT_TRANSLATE_NOOP
+/// marker table beside its properties so they can be extracted, and the architecture
+/// contract test asserts the two agree.
+///
+/// @return the translated display name, or `propName` itself if no class-info entry exists.
 inline QString displayName(const QMetaObject &meta, const char *propName) {
     const QByteArray key = QByteArray(propName) + "_name";
     const int idx = meta.indexOfClassInfo(key.constData());
     if (idx >= 0) {
-        const QString v = QString::fromUtf8(meta.classInfo(idx).value());
-        if (!v.isEmpty()) return v;
+        const char *raw = meta.classInfo(idx).value();
+        if (raw && *raw)
+            return QCoreApplication::translate(meta.className(), raw);
     }
     return QString::fromUtf8(propName);
+}
+
+/// Resolves the translated labels for an enum property's keys, in declaration order.
+///
+/// The context is QMetaEnum::scope() — the class or namespace that REGISTERED the enum —
+/// because that is the context lupdate records for a QT_TR_NOOP marker sitting in that same
+/// scope (see enum_keys_basler_defines in device/camera/basler_define.h).
+///
+/// The five property browsers each used to pass `meta.className()` here, which is the
+/// *config* class, not the enum's scope. For every enum in this project those differ
+/// ("vc::device::BaslerGigeCfg" vs "vc::device::basler"), so a translated key could never
+/// have been found. Nothing looked broken only because all 33 keys were still untranslated —
+/// filling them in would have changed nothing on screen.
+inline QStringList enumKeyNames(const QMetaProperty &prop) {
+    const QMetaEnum metaEnum = prop.enumerator();
+    QStringList names;
+    names.reserve(metaEnum.keyCount());
+    for (int i = 0; i < metaEnum.keyCount(); ++i)
+        names << QCoreApplication::translate(metaEnum.scope(), metaEnum.key(i));
+    return names;
 }
 
 /// Writes `value` into the gadget's property `propName`.

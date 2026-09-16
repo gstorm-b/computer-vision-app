@@ -80,6 +80,14 @@ LocalizationTaskWidget::~LocalizationTaskWidget()
 /// No-op override: this task has no config-to-task push path outside of
 /// saveConfig()/setTaskLocalizeConfig().
 void LocalizationTaskWidget::loadConfigToTask()  {}
+
+/// Forwards the pre-save signal-map check to the Settings page. See the header for why an
+/// unopened Settings page is not a reason to block a save.
+bool LocalizationTaskWidget::confirmOrphanedSignalsBeforeSave()
+{
+    auto *settings = qobject_cast<LocalizationSettingWidget *>(m_settingPage);
+    return settings ? settings->confirmOrphanedSignalsBeforeSave() : true;
+}
 /// No-op override: this task has no config-to-widget pull path implemented.
 void LocalizationTaskWidget::loadConfigToWidget() {}
 

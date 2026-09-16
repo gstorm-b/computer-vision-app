@@ -57,23 +57,43 @@ state "LocalizationRuntimeController::CycleState" as localization_cycle_state {
   NotReady --> CycleFaulted : setup invalid
   ReadyForTrigger --> Running : trigger rising edge
   ReadyForTrigger --> CycleFaulted : invalid active pattern or calibration
+  ReadyForTrigger --> CycleFaulted : active camera or pattern index refused
+  ReadyForTrigger --> RecoveringCycle : role lost outside a cycle
   Running --> WaitingTriggerReset : cycle finished and trigger still true
   Running --> ReadyForTrigger : cycle finished and trigger false
-  Running --> RecoveringCycle : device lost or command timeout
+  Running --> WaitingTriggerReset : cycle aborted, trigger still true
+  Running --> RecoveringCycle : cycle aborted, trigger already false
   WaitingTriggerReset --> ReadyForTrigger : trigger falling edge and no fault
   WaitingTriggerReset --> RecoveringCycle : trigger falling edge with fault
-  RecoveringCycle --> ReadyForTrigger : required roles healthy
-  RecoveringCycle --> CycleFaulted : retry limit exceeded
+  RecoveringCycle --> ReadyForTrigger : roles healthy, or fault acknowledged
+  CycleFaulted --> ReadyForTrigger : refusal replaced by a valid value
   CycleFaulted --> NotReady : runtime teardown or setup reset
 }
 
 note right of localization_cycle_state
+  The two labels differ from the enum only to keep this diagram's names
+  distinct from TaskState above: CycleFaulted is CycleState::Faulted and
+  RecoveringCycle is CycleState::Recovering.
+
   Running cycles are identified by cycleId.
   Async matching results are accepted only when the cycleId matches
   the active runtime cycle.
 
   A held trigger does not start another cycle until the signal returns
   to false and the controller reaches ReadyForTrigger again.
+
+  There is no "retry limit exceeded" edge out of RecoveringCycle.
+  Role reconnect is UNBOUNDED and never escalates to a fault, so an
+  unreachable device leaves the runtime Recovering with bTaskReady false
+  and bTaskFault false indefinitely. A PLC waiting for bTaskFault to
+  detect a dead device waits forever; watch bTaskReady instead.
+
+  Every arrow INTO ReadyForTrigger runs through markRuntimeReady(), which
+  re-arms only when all roles are healthy, the active pattern group and
+  camera calibration validate, AND neither active-index signal is holding
+  a refusal. A refused index is latched per signal and cleared only by a
+  valid value on that same signal - not by the other one, not by a
+  reconnect, and not by bErrorReset.
 end note
 
 @enduml

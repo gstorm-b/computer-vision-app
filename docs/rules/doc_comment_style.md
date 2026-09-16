@@ -191,7 +191,48 @@ int openCount() const;
   `Doxyfile` has an auto-brief-from-first-sentence setting turned on — the rule
   does not depend on it either way.
 
-## §10 Anti-patterns (things that silently produce empty docs)
+## §10 No icons in comments
+
+Comments carry no emoji or pictographic icons — no `⚠️`, `✅`, `❌`, `🔥`, `📌`.
+Not in doc comments, not in implementation comments, not in comment banners.
+
+Emphasis is expressed with the tags that already exist for it: `@warning` for
+something that causes real damage if ignored, `@note` for a non-obvious fact
+worth separating from the prose (§3). Both render as distinct highlighted blocks
+in the generated reference, which is exactly what an icon is reaching for — and
+unlike an icon they survive being read as plain text, get indexed, and mean the
+same thing to every reader.
+
+```cpp
+// Wrong — decoration that Doxygen renders as a literal character:
+/// ⚠️ Must not be called after close().
+
+// Right:
+/// @warning Must not be called after close().
+```
+
+An icon in a plain `//` implementation comment (§6) has no tag to convert to;
+there, delete it. If the sentence needed a picture to be taken seriously, the
+sentence needs rewriting — say what breaks and when, and it will carry itself.
+
+Three practical reasons beyond taste, in a codebase that ships to a machine:
+
+1. **They do not survive the toolchain.** Comment text reaches build logs, `grep`
+   output, terminals and editors with varying encodings. This project already lost
+   a file's entire comment set to a UTF-8/Shift-JIS round trip; multi-byte
+   decoration is the first thing to turn into `笞・`.
+2. **They are unsearchable.** `grep -n "@warning"` finds every warning in the tree.
+   Nothing finds "the paragraphs I marked important" once the marker is a glyph
+   that renders differently everywhere.
+3. **They inflate.** One icon marks the genuinely dangerous thing; twenty mark
+   nothing at all, and a reader learns to skip them — which costs exactly the
+   attention the first one was buying.
+
+This applies to comments. It does not apply to user-facing strings, where a glyph
+may be the right UI element (a `✕` on a close button), nor to Doxygen's own
+member-group dividers or box-drawing used as a section rule.
+
+## §11 Anti-patterns (things that silently produce empty docs)
 
 - **Plain `//` where Doxygen expects `///`/`/** */`.** Compiles fine, reads
   fine in the source, generates nothing. If a class or method's generated page
@@ -206,8 +247,15 @@ int openCount() const;
 - **Undirected `@param`.** Always `@param[in]`, `@param[out]`, or
   `@param[in,out]` — omitting the direction loses information a reader (or a
   future maintainer skimming signatures) would otherwise get for free.
+- **An icon standing in for `@warning`/`@note`.** Renders as a literal glyph,
+  cannot be grepped, and does not survive an encoding round trip (§10).
+- **A long explanation under `///` instead of `/** */`.** Form 2 is for a brief
+  that needs no structure (§2). Once the prose runs to a paragraph, or wants to
+  say something about a parameter, a return value or a precondition, it has
+  outgrown form 2 — and the tags it should be using are exactly what makes it
+  navigable in the generated page instead of a wall of text.
 
-## §11 Worked example (complete, generic)
+## §12 Worked example (complete, generic)
 
 ```cpp
 /**

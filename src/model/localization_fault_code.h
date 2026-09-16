@@ -24,10 +24,19 @@ enum class LocalizationFaultCode : int {
     CameraLost = 100,             ///< Camera connection was lost after being connected.
     CameraConnectFailed = 101,    ///< Camera failed to (re)connect.
     CameraGrabTimeout = 102,      ///< Camera did not deliver a frame within the grab timeout.
+    CameraNotRegistered = 103,    ///< Active camera number names no usable camera: it is outside
+                                  ///< the legal range, or no camera is registered for it. A
+                                  ///< binding/selection problem, NOT a connection one — a camera
+                                  ///< that never existed cannot have been lost (CameraLost).
     VisionOutputLost = 200,       ///< Vision-output device connection was lost, or failed to connect.
     VisionOutputSendFailed = 201, ///< Vision-output device failed to send the matching result.
     PlcLost = 300,                ///< Primary PLC connection was lost, or failed to connect.
-    PatternInvalid = 400,         ///< Active pattern/match group is missing or invalid.
+    PlcWriteFailed = 301,         ///< A handshake output could not be written to the PLC and the
+                                  ///< retry budget was exhausted. The link is up — writes are
+                                  ///< being refused or lost — which is why this is not PlcLost:
+                                  ///< a cable check would find nothing.
+    PatternNotRegistered = 400,   ///< Active pattern/match group number names no usable group: out
+                                  ///< of range, missing, or holding no usable train image.
     CalibrationInvalid = 401,     ///< Active camera calibration is missing or invalid.
     InternalError = 500,          ///< Unexpected internal error not covered by another code.
 };
@@ -49,14 +58,18 @@ inline QString localizationFaultCodeName(LocalizationFaultCode code)
         return QStringLiteral("CameraConnectFailed");
     case LocalizationFaultCode::CameraGrabTimeout:
         return QStringLiteral("CameraGrabTimeout");
+    case LocalizationFaultCode::CameraNotRegistered:
+        return QStringLiteral("CameraNotRegistered");
     case LocalizationFaultCode::VisionOutputLost:
         return QStringLiteral("VisionOutputLost");
     case LocalizationFaultCode::VisionOutputSendFailed:
         return QStringLiteral("VisionOutputSendFailed");
     case LocalizationFaultCode::PlcLost:
         return QStringLiteral("PlcLost");
-    case LocalizationFaultCode::PatternInvalid:
-        return QStringLiteral("PatternInvalid");
+    case LocalizationFaultCode::PlcWriteFailed:
+        return QStringLiteral("PlcWriteFailed");
+    case LocalizationFaultCode::PatternNotRegistered:
+        return QStringLiteral("PatternNotRegistered");
     case LocalizationFaultCode::CalibrationInvalid:
         return QStringLiteral("CalibrationInvalid");
     case LocalizationFaultCode::InternalError:

@@ -8,7 +8,7 @@ task; do not load the whole tree by default.
 | Area | Read |
 |---|---|
 | Agent entrypoint and authority map | [../AGENT.md](../AGENT.md) |
-| Module boundaries and invariants | `AGENTS.md` scope card inside each module folder (`src/<module>/`, `app/`) |
+| Module boundaries and invariants | `AGENTS.md` scope card inside each module folder (`src/<module>/`, `components/app/`) |
 | Engineering and architecture rules | [rules/design_rules.md](rules/design_rules.md) |
 | UI/QSS implementation rules | [rules/ui_design_rules.md](rules/ui_design_rules.md) |
 | UI token palette and colour migration | [rules/ui_theme_tokens.md](rules/ui_theme_tokens.md) |
@@ -21,6 +21,7 @@ task; do not load the whole tree by default.
 | Domain | Read |
 |---|---|
 | Task Localization | [domains/task_localization/README.md](domains/task_localization/README.md) |
+| MC protocol (MELSEC 3E / 1C / 3C) | [domains/mc_protocol/mc_protocol.md](domains/mc_protocol/mc_protocol.md) |
 | Operator runtime shell (`ncr_runtime.exe`) | [domains/runtime_app/runtime_shell.md](domains/runtime_app/runtime_shell.md) |
 | Virtual (hardware-free) devices | [domains/virtual_devices/virtual_devices.md](domains/virtual_devices/virtual_devices.md) |
 | Pick geometry &amp; vision output contract | [domains/task_localization/pick_geometry_and_output_contract.md](domains/task_localization/pick_geometry_and_output_contract.md) |
@@ -34,6 +35,8 @@ task; do not load the whole tree by default.
 
 | Purpose | Read |
 |---|---|
+| Active phase plan | [plan/README.md](plan/README.md) |
+| Owner decision log (`DR-xxxx`) | [decisions/README.md](decisions/README.md) |
 | Active technical-debt backlog | [backlog/technical_debt_and_next_steps.md](backlog/technical_debt_and_next_steps.md) |
 | Deferred TODO list | [backlog/later_todo_list.md](backlog/later_todo_list.md) |
 | Long-form architecture backlog | [backlog/architecture_improvement_todo.md](backlog/architecture_improvement_todo.md) |
@@ -57,6 +60,7 @@ These files are valuable history, but they are not current source of truth.
 
 | Group | Contents |
 |---|---|
+| [history/plan/](history/plan/) | Closed phase plans (Phases 5–9); a phase's plan moves here from `plan/` when it closes |
 | [history/restructure/](history/restructure/) | Phase verification notes and closeout records |
 | [history/handoffs/](history/handoffs/) | Completed agent handoff/rework requests |
 | [history/old_session/](history/old_session/) | Legacy session notes |

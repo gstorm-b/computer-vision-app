@@ -74,6 +74,25 @@ public:
     void setSubtitle(const QString &subtitle);
 
     /**
+     * @brief Sets how an address is spelled in the table and the filter box.
+     *
+     * @param[in] prefix the tag prefix, e.g. "HR" or "COIL"; ignored if empty
+     * @param[in] digits zero-padded width of the numeric part; ignored if not positive
+     *
+     * Defaults to the Mitsubishi scheme this widget was written for — 'M' in Bit mode, 'D' in
+     * Word mode, four digits — so a panel that never calls this is unchanged.
+     *
+     * @warning **The address shown must be a tag the operator can actually type.** The Modbus
+     * panel reused this widget unchanged and so printed `M0000`/`D0000` for register spaces whose
+     * real tags are `COIL00000`/`HR00000` — a prefix the Modbus parser rejects outright, and a
+     * width that is one digit short. The filter box searches the same string, so typing the real
+     * tag hid every row.
+     *
+     * @post Rows are rebuilt, so the header and the address column cannot disagree.
+     */
+    void setAddressFormat(const QString &prefix, int digits);
+
+    /**
      * @brief Configures the contiguous device range shown and rebuilds all table rows.
      * @param[in] start_address first device address in the range
      * @param[in] amount number of consecutive devices in the range
@@ -153,6 +172,10 @@ private:
     QString formatName(int address)   const;
 
     Mode m_mode;                                        ///< Register kind fixed at construction (Bit or Word).
+    /// Tag prefix shown in the address column and searched by the filter. Set from m_mode in the
+    /// constructor to the Mitsubishi default, and overridden by setAddressFormat().
+    QString m_addressPrefix;
+    int  m_addressDigits{4};                             ///< Zero-padded width of the address part.
     int  m_start{0};                                     ///< First device address in the configured range.
     int  m_amount{0};                                     ///< Number of devices in the configured range.
     bool m_commentEditable{true};                         ///< Whether the Description column is user-editable.

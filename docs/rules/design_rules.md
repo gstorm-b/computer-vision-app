@@ -840,7 +840,7 @@ private members appear in the generated reference too — an undocumented privat
 visible gap in that reference, not just a missing inline note. `///` (not `/** */`) was chosen to
 match modern Qt/C++ style and keep single-line briefs low-friction to add.
 
-**Where applied.** All new and modified classes/methods/members in `src/`, `app/`, and
+**Where applied.** All new and modified classes/methods/members in `src/`, `components/app/`, and
 `components/RobotKinematics/`, going forward. The existing codebase was retroactively brought up
 to this style in the same pass this rule was introduced (see
 `docs/history/request/build_docs_reference.md`); flag, don't silently leave, any file you

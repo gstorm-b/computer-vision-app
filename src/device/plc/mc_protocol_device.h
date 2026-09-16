@@ -84,7 +84,33 @@ public:
     /// Clones `request` (must be an MCRequest, i.e. RequestType::Request_MC) and appends it to
     /// the ad-hoc request queue for the next polling tick to send.
     /// @return false if `request`'s type isn't RequestType::Request_MC
+    /// @note Uncorrelated: the queued request reports no completion. Use pushTrackedRequest()
+    ///       when the caller needs to know whether the write reached the PLC.
     bool pushRequest(IRequest *request) override;
+
+    /**
+     * @brief Queues `request` like pushRequest(), but correlated: exactly one requestFinished()
+     *        carrying the returned id is emitted when it completes, succeeds, fails or is
+     *        abandoned.
+     *
+     * "true" from pushRequest() has only ever meant *queued* — the caller could not tell a write
+     * that reached the PLC from one dropped by a disconnect. This is the entry point that can.
+     *
+     * @param request request to clone and queue; must be RequestType::Request_MC
+     * @param id      correlation id to report under; pass 0 to let the device allocate one
+     * @return the correlation id (never 0) on success, or 0 if the request was rejected
+     * @post exactly one requestFinished() will carry this id — a request that vanishes is worse
+     *       than one that fails, because the caller waits forever
+     */
+    quint64 pushTrackedRequest(IRequest *request, quint64 id = 0);
+
+    /// Queues a tracked single-bit write; the completion arrives when the PLC answers, or when
+    /// the request is abandoned. Overrides PlcDevice's synchronous default because an MC write is
+    /// queued for the next polling tick — resolving it at submission would report success for a
+    /// frame that has not been built yet.
+    void writeDigitalIoTracked(quint64 id, const QString &tag, bool value) override;
+    /// Word counterpart of writeDigitalIoTracked(); same asynchronous contract.
+    void writeWordIoTracked(quint64 id, const QString &tag, qint16 value) override;
 
     /// Restores the device from JSON via IDevice::fromJson(), then rebuilds the polling
     /// device map to match the restored configuration.
@@ -103,6 +129,14 @@ private slots:
     /// Queues a bit-write toggling the configured "comm active" M-device between 0 and 1, to
     /// signal liveness to the PLC each polling round.
     void onSetCommActiveDevice();
+
+protected:
+    /// Creates the transport for `type`, or null if the type is unsupported.
+    ///
+    /// Virtual purely as a test seam: the device owns its transport and there is no other
+    /// injection point, so a test that wants to drive the request/response state machine without
+    /// a real socket subclasses this. Production behaviour is the switch it always was.
+    virtual std::unique_ptr<McMsgInterface> createMsgInterface(mc::McMsgItfType type);
 
 private:
     /// Phase of the current polling round, driving whether the next tick resumes the same
@@ -159,16 +193,23 @@ private:
     /// deviceMChanged()/deviceDChanged()/valueChanged() for each changed address (suppressed
     /// on the very first polling pass), and updates the snapshots in place.
     void check_device_changed();
-    /// Fills in any M-device map entries missing from the "last" snapshot (used after a size
-    /// change) without disturbing existing entries.
-    void update_last_m_map();
-    /// Fills in any D-device map entries missing from the "last" snapshot (used after a size
-    /// change) without disturbing existing entries.
-    void update_last_d_map();
 
     /// Tears down the connection and publishes ConnectStatus::LostConnected after repeated
     /// response timeouts.
     void setDeviceLostConnect();
+
+    /// Emits requestFinished() for `request` if it is correlated and not yet resolved, then
+    /// marks it resolved. Safe to call on a null pointer and safe to call twice.
+    /// @param request the request reaching a terminal state
+    /// @param ok      whether it completed successfully
+    /// @param message human-readable outcome; on failure it must name WHY, because "the write
+    ///                did not happen" without a reason sends a commissioning engineer nowhere
+    void resolveRequest(const std::shared_ptr<MCRequest> &request, bool ok, const QString &message);
+    /// Fails every correlated request that will never be sent: the one in flight plus everything
+    /// still queued. Called from each path that abandons the queue.
+    /// @param reason why they were abandoned (link lost, disconnect, re-initialize)
+    /// @note Locks m_mutex while draining m_request_queue.
+    void failOutstandingRequests(const QString &reason);
 
 signals:
     /// Emitted when a queued MC request completes, carrying its result.

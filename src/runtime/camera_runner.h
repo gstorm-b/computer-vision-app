@@ -105,14 +105,14 @@ public:
 
     // ── Commission / runtime actions (safe from any thread) ──────────────────
     /// Submits a Connect command for this camera via submitCommand().
-    void requestConnect()
+    void requestConnect() override
     {
         submitCommand(DeviceCommand::create(DeviceCommandKind::Connect,
                                             m_device->id()));
     }
 
     /// Submits a Disconnect command for this camera via submitCommand().
-    void requestDisconnect()
+    void requestDisconnect() override
     {
         submitCommand(DeviceCommand::create(DeviceCommandKind::Disconnect,
                                             m_device->id()));
@@ -132,6 +132,51 @@ public:
     {
         submitCommand(DeviceCommand::create(DeviceCommandKind::CameraApplyParams,
                                             m_device->id()));
+    }
+
+    /// Submits a CameraContinuousStart (live-view) command for this camera.
+    /// @note Resolves on the device reporting its streaming state, not on a frame. Frames arrive
+    ///       separately on continuousFrameReady() and carry no command outcome.
+    void requestContinuousStart()
+    {
+        submitCommand(DeviceCommand::create(DeviceCommandKind::CameraContinuousStart,
+                                            m_device->id()));
+    }
+
+    /// Submits a CameraContinuousStop command for this camera. Succeeds even when nothing was
+    /// running — the device reports its state either way.
+    void requestContinuousStop()
+    {
+        submitCommand(DeviceCommand::create(DeviceCommandKind::CameraContinuousStop,
+                                            m_device->id()));
+    }
+
+    /**
+     * @brief Submits a manual backlight on/off command for this camera.
+     *
+     * @param[in] on true to force the lamp on and suppress auto-backlight, false to release it.
+     *
+     * @note Refused here, not at the device, when the camera has no digital I/O — the caller gets
+     *       an immediate rejection naming the reason instead of a command that sits until its
+     *       watchdog fires. This is the same shape as PlcRunner::requestSendResult() refusing a
+     *       device that cannot output results, and for the same reason: a capability question has
+     *       a known answer before any thread hop, so answering it late only loses the reason.
+     */
+    void requestBacklight(bool on)
+    {
+        const DeviceCommand command = DeviceCommand::create(
+            on ? DeviceCommandKind::CameraBacklightOn : DeviceCommandKind::CameraBacklightOff,
+            m_device->id());
+
+        if (!m_device->hasIOPort()) {
+            finishRejectedCommand(DeviceCommandResult::rejected(
+                command,
+                DeviceCommandResultCode::UnsupportedCommand,
+                QStringLiteral("This camera has no digital I/O, so it cannot drive a backlight.")));
+            return;
+        }
+
+        submitCommand(command);
     }
 
     /**
@@ -207,6 +252,34 @@ signals:
      */
     void parametersApplied(bool ok);
 
+    /**
+     * @brief Re-emitted (GUI-thread side) for every frame of a continuous stream.
+     *
+     * @warning Deliberately NOT routed through grabFinished(). That signal resolves the runner's
+     * in-flight command and feeds the single-shot retry budget; a stream arriving there would
+     * resolve commands that are not running and spend a budget that is not theirs. Nothing in
+     * this path touches m_activeCommand.
+     * @param[in] result the frame; always a success with a non-empty cv::Mat.
+     */
+    void continuousFrameReady(vc::device::GrabResult result);
+
+    /**
+     * @brief Re-emitted (GUI-thread side) whenever the camera reports its streaming state.
+     * @param[in] active true while continuous acquisition is running.
+     * @note The authority for a live-view toggle: streaming also stops for reasons the UI did not
+     *       cause — a single shot pre-empting it, a disconnect, a pulled cable.
+     */
+    void continuousStateChanged(bool active);
+
+    /**
+     * @brief Re-emitted (GUI-thread side) whenever the camera reports the backlight's level.
+     * @param[in] on whether the backlight is currently driven on.
+     * @note The authority for a backlight toggle, for the same reason continuousStateChanged() is
+     *       the authority for live view: the lamp is also switched by the auto-backlight sequence
+     *       around every grab, which no widget click can predict.
+     */
+    void backlightStateChanged(bool on);
+
     // ── Internal queued triggers (→ camera thread) ────────────────────────────
     /// Internal trigger, queued-connected (see wireSignals()) to CameraDevice::deviceConnect();
     /// emitted by runCommand() to start a connect attempt on the camera thread.
@@ -222,6 +295,14 @@ signals:
     /// CameraDevice::applyParametersChange(); emitted by runCommand() to apply pending
     /// parameters on the camera thread.
     void sig_applyParams();
+    /// Internal trigger, queued-connected to CameraDevice::startContinuousShot().
+    void sig_continuousStart();
+    /// Internal trigger, queued-connected to CameraDevice::stopContinuousShot().
+    void sig_continuousStop();
+    /// Internal trigger, queued-connected to CameraDevice::setBacklightOverride(true).
+    void sig_backlightOn();
+    /// Internal trigger, queued-connected to CameraDevice::setBacklightOverride(false).
+    void sig_backlightOff();
 
 protected:
     /// Connects the internal trigger signals (sig_connect/sig_disconnect/sig_singleShot/
@@ -240,6 +321,20 @@ protected:
                 m_device, &Cam::grabSingleShot,        Qt::QueuedConnection);
         connect(this,     &Run::sig_applyParams,
                 m_device, &Cam::applyParametersChange, Qt::QueuedConnection);
+        connect(this,     &Run::sig_continuousStart,
+                m_device, &Cam::startContinuousShot,   Qt::QueuedConnection);
+        connect(this,     &Run::sig_continuousStop,
+                m_device, &Cam::stopContinuousShot,    Qt::QueuedConnection);
+        // Lambdas rather than two device methods: the command kinds are a boolean pair, and the
+        // trigger signals must stay no-argument for triggerFor()'s TriggerSignal type. m_device is
+        // the context object, so both still run on the camera thread and are torn down by
+        // unwireSignals()'s disconnect(this, nullptr, m_device, nullptr).
+        connect(this, &Run::sig_backlightOn, m_device,
+                [device = m_device] { device->setBacklightOverride(true); },
+                Qt::QueuedConnection);
+        connect(this, &Run::sig_backlightOff, m_device,
+                [device = m_device] { device->setBacklightOverride(false); },
+                Qt::QueuedConnection);
 
         connect(m_device, &Cam::connectStatusChanged,
                 this,     &Run::onConnectStatusChanged, Qt::QueuedConnection);
@@ -249,6 +344,14 @@ protected:
                 this,     &Run::onGrabFinished,         Qt::QueuedConnection);
         connect(m_device, &Cam::parametersApplied,
                 this,     &Run::onParametersApplied,    Qt::QueuedConnection);
+        // Straight through to listeners: a continuous frame is not a command outcome, so it must
+        // not reach onGrabFinished() and the retry policy that lives there.
+        connect(m_device, &Cam::continuousFrameReady,
+                this,     &Run::continuousFrameReady,   Qt::QueuedConnection);
+        connect(m_device, &Cam::continuousStateChanged,
+                this,     &Run::onContinuousStateChanged, Qt::QueuedConnection);
+        connect(m_device, &Cam::backlightStateChanged,
+                this,     &Run::onBacklightStateChanged,  Qt::QueuedConnection);
         connect(m_device, &Cam::errorOccurred,
                 this,     &Run::errorOccurred,          Qt::QueuedConnection);
     }
@@ -369,6 +472,73 @@ private slots:
     }
 
     /**
+     * @brief Handles the camera device's continuousStateChanged signal: resolves an active
+     *        CameraContinuousStart/Stop command against the reported state, then always re-emits
+     *        continuousStateChanged().
+     *
+     * The device reports its state after every start/stop request, including ones that changed
+     * nothing, so both commands always resolve — an idempotent stop succeeds immediately instead
+     * of waiting out the watchdog.
+     *
+     * @param[in] active whether continuous acquisition is now running.
+     * @note A report arriving with a CameraSingleShot active is NOT a command outcome: a single
+     *       shot pre-empts streaming, so `active=false` here is a side effect of that grab, not
+     *       its result. Only the two continuous kinds are resolved.
+     */
+    void onContinuousStateChanged(bool active)
+    {
+        if (hasActiveCommand()) {
+            const bool startedOk =
+                (m_activeCommand.kind == DeviceCommandKind::CameraContinuousStart) && active;
+            const bool stoppedOk =
+                (m_activeCommand.kind == DeviceCommandKind::CameraContinuousStop) && !active;
+            const bool isContinuousCommand =
+                (m_activeCommand.kind == DeviceCommandKind::CameraContinuousStart)
+                || (m_activeCommand.kind == DeviceCommandKind::CameraContinuousStop);
+
+            if (startedOk || stoppedOk) {
+                finishActiveCommand(DeviceCommandResult::succeeded(m_activeCommand));
+            } else if (isContinuousCommand) {
+                finishActiveCommand(DeviceCommandResult::failed(
+                    m_activeCommand,
+                    DeviceCommandResultCode::DeviceError,
+                    QStringLiteral("Camera did not reach the requested continuous state.")));
+            }
+        }
+        emit continuousStateChanged(active);
+    }
+
+    /**
+     * @brief Handles the camera's backlightStateChanged signal: resolves an active
+     *        CameraBacklightOn/Off command against the reported level, then always re-emits.
+     *
+     * @param[in] on whether the backlight is now driven on.
+     * @note Only the two backlight kinds are resolved. The lamp is switched by the auto-backlight
+     *       sequence around every grab as well, so a report arriving with a CameraSingleShot
+     *       active is a side effect of that grab, not its outcome — resolving it here would end
+     *       the grab command the moment the lamp came on, before there was an image.
+     */
+    void onBacklightStateChanged(bool on)
+    {
+        if (hasActiveCommand()) {
+            const bool isBacklightCommand =
+                (m_activeCommand.kind == DeviceCommandKind::CameraBacklightOn)
+                || (m_activeCommand.kind == DeviceCommandKind::CameraBacklightOff);
+            const bool wanted = (m_activeCommand.kind == DeviceCommandKind::CameraBacklightOn);
+
+            if (isBacklightCommand && on == wanted) {
+                finishActiveCommand(DeviceCommandResult::succeeded(m_activeCommand));
+            } else if (isBacklightCommand) {
+                finishActiveCommand(DeviceCommandResult::failed(
+                    m_activeCommand,
+                    DeviceCommandResultCode::DeviceError,
+                    QStringLiteral("Camera did not reach the requested backlight state.")));
+            }
+        }
+        emit backlightStateChanged(on);
+    }
+
+    /**
      * @brief Handles the camera device's parametersApplied signal. If a CameraApplyParams
      *        command is active, resolves it succeeded or failed based on `ok`, then always
      *        re-emits parametersApplied() with `ok`.
@@ -413,8 +583,7 @@ private:
     /// (sig_connect, sig_disconnect, sig_singleShot, sig_applyParams).
     using TriggerSignal = void (CameraRunner::*)();
 
-    /// Returns whether `kind` is one of the camera command kinds this runner accepts:
-    /// Connect, Disconnect, CameraSingleShot, or CameraApplyParams.
+    /// Returns whether `kind` is one of the camera command kinds this runner accepts.
     static bool isSupportedCommand(DeviceCommandKind kind)
     {
         switch (kind) {
@@ -422,6 +591,10 @@ private:
         case DeviceCommandKind::Disconnect:
         case DeviceCommandKind::CameraSingleShot:
         case DeviceCommandKind::CameraApplyParams:
+        case DeviceCommandKind::CameraContinuousStart:
+        case DeviceCommandKind::CameraContinuousStop:
+        case DeviceCommandKind::CameraBacklightOn:
+        case DeviceCommandKind::CameraBacklightOff:
             return true;
         case DeviceCommandKind::Unknown:
         default:
@@ -442,6 +615,18 @@ private:
             return DeviceCommandQueuePolicy::QueueWhenBusy;
         case DeviceCommandKind::CameraApplyParams:
             return DeviceCommandQueuePolicy::ReplacePendingSameKind;
+        case DeviceCommandKind::CameraContinuousStart:
+        case DeviceCommandKind::CameraContinuousStop:
+            // Queued, not rejected. Both are short and the operator's intent is a toggle: a stop
+            // arriving while a grab is still finishing must still take effect, and rejecting it
+            // would leave the camera streaming with the button showing stopped.
+            return DeviceCommandQueuePolicy::QueueWhenBusy;
+        case DeviceCommandKind::CameraBacklightOn:
+        case DeviceCommandKind::CameraBacklightOff:
+            // Queued for the same reason as the continuous pair: it is a toggle the operator
+            // drives, and a press arriving while a grab finishes must still take effect rather
+            // than be dropped with the button left showing the wrong lamp state.
+            return DeviceCommandQueuePolicy::QueueWhenBusy;
         case DeviceCommandKind::Unknown:
         default:
             return DeviceCommandQueuePolicy::RejectWhenBusy;
@@ -502,6 +687,14 @@ private:
             return &CameraRunner::sig_singleShot;
         case DeviceCommandKind::CameraApplyParams:
             return &CameraRunner::sig_applyParams;
+        case DeviceCommandKind::CameraContinuousStart:
+            return &CameraRunner::sig_continuousStart;
+        case DeviceCommandKind::CameraContinuousStop:
+            return &CameraRunner::sig_continuousStop;
+        case DeviceCommandKind::CameraBacklightOn:
+            return &CameraRunner::sig_backlightOn;
+        case DeviceCommandKind::CameraBacklightOff:
+            return &CameraRunner::sig_backlightOff;
         case DeviceCommandKind::Unknown:
         default:
             return nullptr;

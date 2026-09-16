@@ -272,23 +272,30 @@ void SignalsMapWidget::setBoolTags(const QStringList &tags) {
     refreshEditorDelegates();
 }
 
-/// Clears the tag of every warning-flagged (orphaned) row to "" and emits
-/// signalMappingChanged() for each one cleared.
-/// @return internalNames of every row whose current tag is empty after this
-/// call (freshly cleared or already empty beforehand).
-QStringList SignalsMapWidget::checkEmpty() {
-    QStringList emptyNames;
-    for (int i = 0; i < m_rows.size(); ++i) {
-        if (m_rows[i].isWarning) {
-            m_rows[i].currentTag.clear();
-            populateEditor(i);
-            emit signalMappingChanged(m_rows[i].internalName, QString());
-        }
-        if (m_rows[i].currentTag.isEmpty()) {
-            emptyNames << m_rows[i].internalName;
+/// Reports every warning-flagged (orphaned) row without changing anything. See the header
+/// for why this is separate from clearRowTags().
+QStringList SignalsMapWidget::orphanRowNames() const {
+    QStringList names;
+    for (const RowState &row : m_rows) {
+        if (row.isWarning) {
+            names << row.internalName;
         }
     }
-    return emptyNames;
+    return names;
+}
+
+/// Clears the named rows to "" and emits signalMappingChanged() for each, leaving every
+/// other row — orphaned or not — exactly as it was.
+void SignalsMapWidget::clearRowTags(const QStringList &internalNames) {
+    for (const QString &internalName : internalNames) {
+        const int i = rowIndexOf(internalName);
+        if (i < 0 || m_rows[i].currentTag.isEmpty()) {
+            continue;
+        }
+        m_rows[i].currentTag.clear();
+        populateEditor(i);
+        emit signalMappingChanged(m_rows[i].internalName, QString());
+    }
 }
 
 /// Handles a tag editor's editingFinished: if the new tag is already owned by
@@ -338,8 +345,8 @@ void SignalsMapWidget::onLineEditingFinished() {
     }
 
     m_rows[row].currentTag = newTag;
-    // Free-typed values that aren't in the current list become orphan-warning;
-    // checkEmpty() will purge them at validation time.
+    // Free-typed values that aren't in the current list become orphan-warning; the save-time
+    // confirmation purges the ones the operator agrees to purge.
     const QStringList tags = tagsFor(m_rows[row].type);
     const bool orphan = !newTag.isEmpty() && !tags.contains(newTag);
     applyWarning(row, orphan);

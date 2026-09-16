@@ -27,7 +27,7 @@ There is no `10_*.puml`; the numbering has a gap and that is not a missing file.
 ## Current Architecture Notes
 
 - The project is a Qt 6 / C++17 / OpenCV application built with qmake.
-- It ships as **two peer executables**: `ncr_picking.exe` (`app/`, commissioning) and
+- It ships as **two peer executables**: `ncr_picking.exe` (`components/app/`, commissioning) and
   `ncr_runtime.exe` (`runtime_app/`, operator runtime). Neither shell may include
   the other; both link the same `ncr_shared` static library built from `src/`.
 - Each device family except `Robot` has a hardware-free `Virtual*` sub-type in
@@ -58,6 +58,53 @@ There is no `10_*.puml`; the numbering has a gap and that is not a missing file.
 - Architecture contract tests live in
   `tests/architecture_contract_test/` and should be updated when these diagrams
   expose a new structural contract.
+- **Result output is a per-device capability, not a family privilege.**
+  `IResultOutputDevice` is implemented by `VisionOutputDevice` *and* by
+  `ModbusTcpServerDevice`, so one Modbus device can hold the `primary_plc` role
+  and the `vision_output` role at the same time. `PlcRunner` resolves this with a
+  `dynamic_cast` per device, because the PLC family is mixed. Reading the
+  capability off the family was a shipped defect — see `src/runtime/AGENTS.md`.
+- The Modbus server **serves a wider address range than it mirrors**: a write into
+  the gap between the mapped span and the vision-result block is acknowledged on
+  the wire and then dropped. `02_device_families.puml` carries the note; the
+  detail is in `src/device/AGENTS.md`.
+
+## Diagram currency
+
+Updated 2026-09-07 for the JAI camera and both Modbus devices, which landed in
+Phase 8 and were absent from every diagram until then. What changed:
+`02_device_families.puml` (JAI + Modbus classes, the `IResultOutputDevice` edge to
+`ModbusTcpServerDevice`, the two family enums), `03_runtime_threading.puml` (the
+four new `DeviceCommandKind` values, `CameraRunner`'s continuous/backlight API,
+`PlcRunner`'s result-output capability), `06_ui_widgets.puml` (all seven device
+widgets the factory builds, not three).
+
+`04_localization_task.puml`, `05_matching_calibration.puml`,
+`07_persistence_sequence.puml`, `09_robot_kinematics.puml` and
+`11_runtime_shell.puml` were reviewed and needed no change for these two families.
+
+**`08_runtime_state_machines.puml` was updated separately, later the same day**, for
+the Phase 8 / F commissioning fixes — and it was not merely incomplete, it carried a
+transition that no longer exists. Its `CycleState` machine showed
+`RecoveringCycle --> CycleFaulted : retry limit exceeded`, from the era when role
+reconnect had a retry budget. Reconnect is now **unbounded and never escalates to a
+fault**, so an unreachable device leaves the runtime Recovering indefinitely with
+`bTaskFault` false. A PLC program written from that diagram would wait forever for a
+fault that cannot arrive. Also added: the refused-active-index path into and out of
+`Faulted`, the role-lost edge out of `ReadyForTrigger`, the two distinct abort exits,
+and a note that every arrow into `ReadyForTrigger` runs through `markRuntimeReady()`
+and its per-signal refusal latch.
+
+**Updated again 2026-09-07** for backlog 43 (driving a hardware-free PLC's inputs):
+`02_device_families.puml` gained `IPlcInputSimulator` and its edge to
+`VirtualPlcDevice`, `03_runtime_threading.puml` gained `PlcRunner`'s
+`supportsInputSimulation()` / `requestInjectInputValue()`, and
+`06_ui_widgets.puml` gained `VirtualPlcInputPanel`.
+
+> The two label aliases in that diagram (`CycleFaulted`, `RecoveringCycle`) exist
+> only to keep the `CycleState` names distinct from `TaskState`'s in the same file.
+> The enum values are `Faulted` and `Recovering`. This is now stated in the diagram
+> itself, because reading the alias as the real enum name is an easy mistake.
 
 ## Known Placeholders
 
@@ -69,8 +116,10 @@ There is no `10_*.puml`; the numbering has a gap and that is not a missing file.
 - `KawasakiRobotDevice` and `NachiRobotDevice` are minimum stubs.
 - `TaskRunner` does not create a `RobotRunner`.
 - There is deliberately no virtual `Robot` sub-type — nothing consumes one.
-- `VirtualPlcDevice` records what the runtime *writes* but nothing can drive a
-  value *in*, so a task reaches `Ready` and no further (backlog #43).
+- ~~`VirtualPlcDevice` records what the runtime *writes* but nothing can drive a
+  value *in*, so a task reaches `Ready` and no further (backlog #43).~~ **Closed
+  2026-09-07:** `IPlcInputSimulator` + `PlcRunner::requestInjectInputValue()` +
+  `VirtualPlcInputPanel`, in the commissioning shell only.
 - `RobotKinematics` is packaged for build-folder runs, but customer installer
   packaging is still open (see `docs/backlog/later_todo_list.md` #27).
 - `RobotKinematics` currently exposes the Nachi MZ04D production preset plus

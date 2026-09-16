@@ -5,8 +5,10 @@
 #include "ui/widgets/camera_mapping_widget.h"
 #include "ui/widgets/camera_workspace_widget.h"
 #include "ui/forms/task/workspace_setting_dialog.h"
+#include "ui/forms/vision_output/robot_kinematic_check_widget.h"
 
 #include "core/logger/app_logger.h"
+#include "model/localization_runtime_controller.h"
 #include "model/project.h"
 #include "device/device_capabilities.h"
 #include "device/device_manager.h"
@@ -14,11 +16,15 @@
 #include "runtime/camera_runner.h"
 
 #include <QComboBox>
+#include <QDialog>
+#include <QDialogButtonBox>
 #include <QImage>
 #include <QMessageBox>
 #include <QPixmap>
+#include <QPushButton>
 #include <QRectF>
 #include <QSignalBlocker>
+#include <QVBoxLayout>
 
 #include <opencv2/imgproc.hpp>
 
@@ -44,6 +50,8 @@ constexpr SignalRowSpec kSignalRows[] = {
     // Number signals
     { "nActiveCamera",      SignalsMapWidget::Type::Number },
     { "nActivePatternGroup", SignalsMapWidget::Type::Number },
+    { "nActiveCameraStatus", SignalsMapWidget::Type::Number },
+    { "nActivePatternGroupStatus", SignalsMapWidget::Type::Number },
     { "nDetectedNumber",    SignalsMapWidget::Type::Number },
     { "nFaultCode",         SignalsMapWidget::Type::Number },
     // Bool signals
@@ -228,6 +236,10 @@ void LocalizationSettingWidget::initWidget() {
     connect(ui->listView_cameras_workspace, &CameraWorkspaceWidget::setWorkspaceRequested,
             this, &LocalizationSettingWidget::onWorkspaceSetRequested);
 
+    // ── Robot pick check ────────────────────────────────────────────────
+    connect(ui->btn_robot_check_set, &QPushButton::clicked,
+            this, &LocalizationSettingWidget::onRobotCheckSetRequested);
+
     // ── Signals map ─────────────────────────────────────────────────────
     connect(ui->listView_signals_map, &SignalsMapWidget::signalMappingChanged,
             this, [this](const QString &internalName, const QString &tag) {
@@ -277,9 +289,19 @@ void LocalizationSettingWidget::rebuildDeviceCombos() {
         cb->setCurrentIndex(idx < 0 ? 0 : idx);
     };
 
-    fill(ui->cbb_vision_output_device,
-         m_localizeTask->assignedDevicesOfType(DeviceType::VisionOutput),
-         currentOutput);
+    // The vision_output role is filled by capability, not by device family: any assigned device
+    // implementing IResultOutputDevice can carry it. Listing only devices that qualify is the
+    // refusal — an incapable device cannot be bound in the first place, so the runtime never has
+    // to discover mid-cycle that the bound device cannot send a result or supply the robot pick
+    // check settings.
+    QList<std::shared_ptr<IDevice>> resultOutputDevs;
+    for (const QString &id : m_localizeTask->assignedDeviceIds()) {
+        auto dev = m_localizeTask->getTaskDevice(id);
+        if (dev && dynamic_cast<vc::device::IResultOutputDevice *>(dev.get())) {
+            resultOutputDevs.append(dev);
+        }
+    }
+    fill(ui->cbb_vision_output_device, resultOutputDevs, currentOutput);
 
     // Communication device = any assigned PLC. Vendor sub-type (Mitsubishi MC,
     // future Omron FINS, …) is left for callers that need it via plcType().
@@ -486,8 +508,16 @@ void LocalizationSettingWidget::loadConfigToWidget() {
     // Select stored device ids
     {
         QSignalBlocker b(ui->cbb_vision_output_device);
-        int idx = ui->cbb_vision_output_device->findData(
-            m_config.d->m_deviceBindings.visionOutputDeviceId());
+        const QString storedOutputId = m_config.d->m_deviceBindings.visionOutputDeviceId();
+        int idx = ui->cbb_vision_output_device->findData(storedOutputId);
+        // An empty id finds the combo's empty entry, so a miss here means the stored device is
+        // either gone or no longer able to output results. The combo falls back to empty while
+        // the config still names it; say so instead of leaving the two quietly disagreeing.
+        if (idx < 0 && !storedOutputId.isEmpty()) {
+            LOG_USER_WARN << "Vision output binding cleared in the form: the stored device is not"
+                          << "assigned to this task or cannot output results."
+                          << "deviceId=" << storedOutputId;
+        }
         ui->cbb_vision_output_device->setCurrentIndex(idx < 0 ? 0 : idx);
     }
     {
@@ -509,6 +539,9 @@ void LocalizationSettingWidget::loadConfigToWidget() {
     // Camera workspace (ROI) rows
     rebuildCameraWorkspaceList();
 
+    // Robot pick check summary
+    refreshRobotCheckSummary();
+
     // Signal map values
     for (const auto &spec : kSignalRows) {
         const QString name = QString::fromUtf8(spec.internalName);
@@ -516,9 +549,135 @@ void LocalizationSettingWidget::loadConfigToWidget() {
     }
 }
 
+/// Updates the one-line summary next to the "Set…" button from m_config.
+void LocalizationSettingWidget::refreshRobotCheckSummary() {
+    const vc::device::RobotKinematicCheckConfig check = m_config.robotCheckConfig();
+    if (!check.enabled) {
+        ui->label_robot_check_summary->setText(tr("Disabled"));
+        return;
+    }
+
+    // The preset is named even when it is empty or wrong. Since Phase 9 / F1 the runtime
+    // refuses to start on an unresolvable preset, so this line is where the operator sees
+    // what it will be checked against before they try.
+    const QString preset = check.presetName.isEmpty() ? tr("(no preset)") : check.presetName;
+    ui->label_robot_check_summary->setText(
+        check.collisionCheckEnabled
+            ? tr("Enabled — %1, %n path point(s), collision check on", nullptr,
+                 check.pickPath.size()).arg(preset)
+            : tr("Enabled — %1, %n path point(s)", nullptr, check.pickPath.size()).arg(preset));
+}
+
+/// Opens the RobotKinematicCheckWidget on the task's pick-check settings. See the header for
+/// why this is a dialog rather than an inline frame.
+void LocalizationSettingWidget::onRobotCheckSetRequested() {
+    if (!m_localizeTask) return;
+
+    QDialog dialog(this);
+    dialog.setWindowTitle(tr("Robot pick check"));
+
+    auto *editor = new RobotKinematicCheckWidget(&dialog);
+    editor->setConfig(m_config.robotCheckConfig());
+
+    auto *buttons = new QDialogButtonBox(
+        QDialogButtonBox::Save | QDialogButtonBox::Cancel, &dialog);
+    connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+    connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    auto *layout = new QVBoxLayout(&dialog);
+    layout->addWidget(editor, 1);
+    layout->addWidget(buttons);
+
+    if (dialog.exec() != QDialog::Accepted) {
+        return;
+    }
+
+    m_config.setRobotCheckConfig(editor->config());
+    pushConfigToTask();
+    refreshRobotCheckSummary();
+}
+
 /// Pushes the widget's current config (m_config) into the bound task.
 void LocalizationSettingWidget::loadConfigToTask() {
     pushConfigToTask();
+}
+
+/// Offers to purge the signal map's orphaned rows before the project is saved. See the header
+/// for why required rows get their own, louder question.
+bool LocalizationSettingWidget::confirmOrphanedSignalsBeforeSave() {
+    const QStringList orphans = ui->listView_signals_map->orphanRowNames();
+    if (orphans.isEmpty()) {
+        return true;
+    }
+
+    const QStringList required = vc::model::LocalizationRuntimeController::requiredSignalNames();
+    QStringList requiredOrphans;
+    QStringList optionalOrphans;
+    for (const QString &name : orphans) {
+        (required.contains(name) ? requiredOrphans : optionalOrphans) << name;
+    }
+
+    auto describe = [this](const QStringList &names) {
+        QStringList lines;
+        for (const QString &name : names) {
+            lines << QStringLiteral("    • %1  →  %2")
+                         .arg(name, ui->listView_signals_map->rowValue(name));
+        }
+        return lines.join(QLatin1Char('\n'));
+    };
+
+    QString body = tr("These signals are mapped to tags the selected PLC does not provide.\n"
+                      "The runtime refuses to start while any of them remain.\n");
+    if (!requiredOrphans.isEmpty()) {
+        body += tr("\nRequired — clearing these leaves the task unable to run at all:\n%1\n")
+                    .arg(describe(requiredOrphans));
+    }
+    if (!optionalOrphans.isEmpty()) {
+        body += tr("\nOptional:\n%1\n").arg(describe(optionalOrphans));
+    }
+    body += tr("\nClear them and save, or go back and re-map them?");
+
+    QMessageBox box(this);
+    box.setIcon(QMessageBox::Warning);
+    box.setWindowTitle(tr("Signal map has unusable tags"));
+    box.setText(body);
+    QPushButton *clearButton = box.addButton(tr("Clear and save"), QMessageBox::DestructiveRole);
+    QPushButton *keepButton = box.addButton(tr("Save as-is"), QMessageBox::AcceptRole);
+    QPushButton *backButton = box.addButton(tr("Go back"), QMessageBox::RejectRole);
+    box.setDefaultButton(backButton);
+    box.exec();
+
+    if (box.clickedButton() == backButton) {
+        return false;
+    }
+    if (box.clickedButton() == keepButton) {
+        // Saving an orphan is a legitimate choice: the tag may be right for the device that is
+        // about to be reconnected. Nothing is purged, and the runtime will still refuse to start
+        // until it is fixed — which is the honest outcome, not a silent one.
+        return true;
+    }
+
+    if (clearButton && box.clickedButton() == clearButton && !requiredOrphans.isEmpty()) {
+        // A second, explicit question for the required half only. The first dialog named the
+        // consequence; this one makes the operator say it out loud, because the result is a
+        // project that cannot run and whose map no longer records what it used to point at.
+        const auto answer = QMessageBox::warning(
+            this,
+            tr("Clear required signals?"),
+            tr("%1 required signal(s) will be left unmapped, and the tags they held will be "
+               "lost:\n%2\n\nThe task will not start until they are re-mapped. Continue?")
+                .arg(requiredOrphans.size())
+                .arg(describe(requiredOrphans)),
+            QMessageBox::Yes | QMessageBox::No,
+            QMessageBox::No);
+        if (answer != QMessageBox::Yes) {
+            return false;
+        }
+    }
+
+    ui->listView_signals_map->clearRowTags(orphans);
+    LOG_USER_WARN << "Signal map: cleared orphaned tags on save —" << orphans.join(QStringLiteral(", "));
+    return true;
 }
 
 /// Writes m_config back into m_localizeTask via setTaskLocalizeConfig().

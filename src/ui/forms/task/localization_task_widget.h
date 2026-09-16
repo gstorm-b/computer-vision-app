@@ -63,6 +63,16 @@ public:
     /// No-op override: this task has no config-to-widget pull path implemented.
     void loadConfigToWidget() override;
 
+    /**
+     * @brief Forwards the pre-save signal-map check to the Settings page, if it exists.
+     * @return false only when the operator chose to abandon the save.
+     * @note Returns true when the Settings page was never opened: there is then no widget
+     *       holding a tag list to compare against, and inventing one at save time would ask
+     *       the operator about a state they never saw. The runtime gate still refuses such a
+     *       project at startup, naming the tag.
+     */
+    bool confirmOrphanedSignalsBeforeSave();
+
 signals:
     /// Emitted when the user clicks the nav panel's add-device button, carrying
     /// this task's id so the caller knows which task to add the device to.

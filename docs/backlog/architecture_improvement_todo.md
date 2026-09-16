@@ -425,11 +425,21 @@ results.
 
 **Priority.** P2
 
-**Status.** Implemented on 2026-05-30. Added explicit
-`LocalizationRecoveryPolicy` model and policy-driven reconnect handling in
-`LocalizationRuntimeController` for camera / primary PLC / vision output roles
-with retry scheduling and fault escalation messages containing role + retry
-history.
+**Status.** Implemented on 2026-05-30, **and since changed — the escalation half no longer
+exists.** The 2026-05-30 pass added an explicit `LocalizationRecoveryPolicy` model and
+policy-driven reconnect handling in `LocalizationRuntimeController` for camera / primary PLC /
+vision output roles, with retry scheduling and fault escalation after a retry budget.
+
+Phase 6 / B1 then made reconnect **unbounded** and deleted the escalation path outright:
+`maxRetries`, `canRetry()`, `LocalizationRecoveryAction::EscalateFault` and the role-fault raise
+are gone. What stands today (`src/model/localization_recovery_policy.h`): the policy answers
+*how often* to retry (`retryIntervalMs`) and *which statuses* are recoverable
+(`retryOnConnectFailed` / `retryOnLostConnected`), never *how many times*; a lost device leaves
+the task Recovering until it reconnects, and never raises a task fault on its own. The
+`connectTimeoutMs` field was also removed (Phase 9 / Z1) — nothing read it. Only one production
+policy exists per role — the defaults — because `setRecoveryPolicies()` has no production caller;
+persisting per-task values is deferred (later_todo_list.md item 67). The goal and notes below are
+the original 2026-05-30 intent and are kept as written.
 
 **Depends on.** A22, A30
 

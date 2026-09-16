@@ -59,8 +59,29 @@ public:
 
     bool startAutoContinuousShot() override { return true; }
     void stopAutoContinousShot() override {}
-    bool startContinuousShot() override { return true; }
-    void stopContinuousShot() override {}
+
+    /// Starts "streaming": tracks the state and reports it, without producing frames.
+    ///
+    /// @warning Tracks state rather than returning a bare `true`, which is what it used to do. That lie
+    /// was harmless only while nothing called it; now CameraRunner resolves its continuous
+    /// commands from continuousStateChanged(), and a device that never reports leaves every such
+    /// command hanging until its watchdog fires — including in the contract test.
+    ///
+    /// Frames are deliberately not generated: the runner contract under test is about command
+    /// lifecycle, and a fake frame pump would test the fake.
+    bool startContinuousShot() override
+    {
+        m_continuousActive = true;
+        emit continuousStateChanged(true);
+        return true;
+    }
+    /// Stops "streaming" and reports the state, whether or not it was running.
+    void stopContinuousShot() override
+    {
+        m_continuousActive = false;
+        emit continuousStateChanged(false);
+    }
+    bool isContinuousActive() const override { return m_continuousActive; }
     /// Same as grabSingleShot(): there is no hardware trigger to distinguish.
     GrabResult softwareTriggerShot() override { return grabSingleShot(); }
 
@@ -125,6 +146,7 @@ private:
 
     VirtualCameraCfg m_config;
     cv::Mat m_frame;
+    bool m_continuousActive{false};   ///< Whether startContinuousShot() is in effect.
 };
 
 } // namespace vc::device

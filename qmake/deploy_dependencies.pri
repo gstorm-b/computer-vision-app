@@ -13,6 +13,10 @@
 #                        3rdparty/advance_docking/bin.
 #   - OpenCV world     : $${OPENCV_WORLD_*}.dll from OPENCV_BIN.
 #   - Basler Pylon     : every top-level *.dll in PYLON_RUNTIME_DIR.
+#   - JAI/Pleora eBUS  : Pv*64 / Eb*64 / Pt*64 / SimpleImagingLib64 from
+#                        EBUS_RUNTIME_DIR. By name prefix and NOT by *.dll glob —
+#                        that folder is shared and also holds an unrelated OpenCV
+#                        4.10 build. See the block itself for why that matters.
 #   - Qt runtime       : Qt DLLs + plugins via windeployqt (--release/--debug).
 #
 # Intentionally NOT handled here:
@@ -27,6 +31,9 @@
 #     matters.
 #   - Full Basler deployment (GenTL producers + GENICAM_GENTL64_PATH) — that is
 #     installer territory, tracked in docs/backlog/later_todo_list.md #27.
+#   - The eBUS NDIS6 filter driver and its GenICam/log4cxx subtrees. The driver
+#     cannot be deployed by copying files at all; a customer machine needs the
+#     eBUS installer. Same boundary as the Basler GenTL producers above.
 #
 # Each DLL is copied only when it is missing from the target ("if not exist"),
 # so pre-existing DLLs are left untouched; windeployqt is itself idempotent and
@@ -71,6 +78,39 @@ win32:contains(CONFIG, deploy_deps) {
         warning("deploy_deps: PYLON_RUNTIME_DIR not set - Pylon runtime DLLs will not be deployed")
     } else {
         DEPLOY_RUNTIME_DLLS += $$files($$DEPLOY_PYLON_DIR/*.dll)
+    }
+
+    # --- JAI / Pleora eBUS runtime ---
+    #
+    # ⚠️ By NAME PREFIX, never $$files(*.dll). The eBUS runtime folder is shared, and it also
+    # holds an unrelated OpenCV 4.10 build — opencv_world410.dll, opencv_world410d.dll and
+    # opencv_ffmpeg410_64.dll, ~208 MB together. A glob would copy all three next to our
+    # executable. Today the names differ from ours (opencv_world4110) so nothing would break
+    # visibly, which is precisely what makes it dangerous: it would sit there unnoticed until
+    # this project moved to OpenCV 4.10, and then our exe would load a stranger's build from
+    # its own directory. The prefixes below cover the C++ SDK the camera device links.
+    #
+    # Not copied, deliberately: the *DotNet* assemblies, PvGUI64_VC*.dll (the eBUS dialogs,
+    # which we do not use), and the tools. The GenICam XML/log4cxx subtrees are resolved by
+    # eBUS through its own environment, and the NDIS6 filter driver cannot be deployed by
+    # copying files at all — a customer machine needs the eBUS installer. That is the same
+    # boundary Pylon's GenTL producers sit behind (later_todo_list.md #27).
+    DEPLOY_EBUS_DIR = $$(EBUS_RUNTIME_DIR)
+    isEmpty(DEPLOY_EBUS_DIR): DEPLOY_EBUS_DIR = $$EBUS_RUNTIME_DIR
+    isEmpty(DEPLOY_EBUS_DIR) {
+        # Derived from the installer's own variable, the same fallback ebus_dependency.pri uses.
+        DEPLOY_EBUS_ROOT = $$(PUREGEV_ROOT)
+        !isEmpty(DEPLOY_EBUS_ROOT) {
+            DEPLOY_EBUS_DIR = $$clean_path($$(CommonProgramFiles))/Pleora/eBUS SDK
+        }
+    }
+    isEmpty(DEPLOY_EBUS_DIR) {
+        warning("deploy_deps: EBUS_RUNTIME_DIR not set - eBUS runtime DLLs will not be deployed")
+    } else {
+        DEPLOY_RUNTIME_DLLS += $$files($$DEPLOY_EBUS_DIR/Pv*64.dll)
+        DEPLOY_RUNTIME_DLLS += $$files($$DEPLOY_EBUS_DIR/Eb*64.dll)
+        DEPLOY_RUNTIME_DLLS += $$files($$DEPLOY_EBUS_DIR/Pt*64.dll)
+        DEPLOY_RUNTIME_DLLS += $$files($$DEPLOY_EBUS_DIR/SimpleImagingLib64.dll)
     }
 
     # --- Emit a "copy if missing" post-link command per existing source DLL ---

@@ -42,6 +42,8 @@ bool LocalizationPipeline::loadModel(mtc::ImageMatcher &matcher,
             LOG_USER_ERR << "Localization matching failed: learnPattern failed for"
                          << QString::fromStdWString(cfg.m_patternName);
         }
+        // LOG_DEV_INFO << "Pattern" << last->name()
+        //              << "Re-learned, top pyramid layer:" << last->getTopLayer();
     }
 
     if (model->isEmpty()) {

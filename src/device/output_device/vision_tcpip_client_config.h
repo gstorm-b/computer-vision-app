@@ -31,6 +31,19 @@ class VisionTcpipClientDeviceCfg : public VisionOutputDeviceCfg {
     G_PROPERTY_NUMBER_READWRITE(int, heartbeatTimeoutMs, 100, 60000, "Heartbeat Timeout (ms)")   ///< Q_GADGET property backed by m_heartbeatTimeoutMs; heartbeat reply timeout.
     G_PROPERTY_NUMBER_READWRITE(int, reconnectIntervalMs, 100, 60000, "Reconnect Interval (ms)")   ///< Q_GADGET property backed by m_reconnectIntervalMs; retry delay after a dropped link.
 
+    /// Translation markers for the display names above. Not read by any code: lupdate cannot
+    /// see Q_CLASSINFO, so without this table these labels never enter the .ts. The context
+    /// must be this class's className(). See TaskLocalizeConfig::kDisplayNameSources for the
+    /// full reasoning; the contract test asserts this list and the properties agree.
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipClientDeviceCfg", "Server Address"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipClientDeviceCfg", "Main Port (Port 1)"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipClientDeviceCfg", "Heartbeat Port (Port 2)"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipClientDeviceCfg", "Heartbeat Interval (ms)"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipClientDeviceCfg", "Heartbeat Timeout (ms)"),
+        QT_TRANSLATE_NOOP("vc::device::VisionTcpipClientDeviceCfg", "Reconnect Interval (ms)"),
+    };
+
 public:
     /// Default-constructs the config with the client-transport defaults given by the
     /// member initializers below (127.0.0.1, ports 5000/5001, 1s/3s heartbeat, 2s reconnect).

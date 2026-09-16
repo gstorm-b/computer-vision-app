@@ -73,7 +73,7 @@ Run this before a customer release:
 
 ## Field Machine Configuration
 
-Beyond copying files, a field station needs three things set up. Full rationale and the
+Beyond copying files, a field station needs four things set up. Full rationale and the
 exact Task Scheduler settings are in
 [../domains/runtime_app/runtime_shell.md](../domains/runtime_app/runtime_shell.md) →
 "Starting With Windows"; the traps worth repeating here, because an installer author will
@@ -86,9 +86,45 @@ meet them:
 - **Same account as the interactive login.** The single-instance guard is per-user; a task
   running under a different account cannot see the interactive instance, and both start.
 - **Windows auto-login**, if the station must reach the runtime with nobody present.
+- **Windows Defender Firewall inbound allowance** — see below.
 
-An installer that writes the scheduled task should verify these three rather than assume
+An installer that writes the scheduled task should verify these four rather than assume
 them — each one fails silently in a way that looks like a different problem.
+
+### Windows Defender Firewall: the app needs an inbound allowance
+
+> ⚠️ Verified on a real station, 2026-08-26. Without this, a Modbus TCP **server** device
+> binds and listens successfully, the panel shows *Connected*, and no master on the network
+> can ever reach it. Nothing in the log says why, because from the application's side
+> nothing happened: Windows drops the SYN before it reaches the socket.
+
+Add both `ncr_picking.exe` and `ncr_runtime.exe` to **Control Panel → Windows Defender
+Firewall → Allow an app or feature through Windows Defender Firewall**, ticking the
+profile the plant network actually uses — **Private** and **Domain** are usually right, and
+a plant LAN that Windows has classified as *Public* needs Public ticked or the rule does
+nothing. Check the classification rather than assuming it; an unidentified network defaults
+to Public.
+
+This is **inbound only**, and it matters for exactly the cases where something on the
+network has to reach *us*:
+
+| Feature | Why it needs inbound |
+|---|---|
+| Modbus TCP **server** device | A master opens the connection to us (default port 502) |
+| GigE Vision camera discovery | Cameras answer a broadcast; the reply is unsolicited inbound UDP |
+| VisionOutput TCP/IP **server** mode | The robot/PLC controller connects to us |
+
+Outbound-only roles — the Modbus TCP **client**, the Mitsubishi MC device, VisionOutput in
+client mode — work without any rule, which is what makes this so confusing to diagnose: on
+the same station, in the same project, the client half of a Modbus pair connects and the
+server half is unreachable.
+
+Two things that look like a fix and are not: allowing the *port* rather than the app breaks
+the moment the port is changed in a project, and Windows' own "do you want to allow…" popup
+on first launch is missed entirely when the app is started by the scheduled task, since that
+session has no desktop to show it on. An installer should write the rule explicitly (for
+example `netsh advfirewall firewall add rule ... dir=in action=allow program=...`) rather
+than rely on the operator answering a prompt.
 
 ## Current Boundary
 

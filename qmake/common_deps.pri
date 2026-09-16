@@ -23,7 +23,10 @@
 
 include($$PWD/version.pri)
 
-QT += core gui network sql
+# serialport: the MC computer-link transport (1C/3C) in src/device/plc/mc_msg_serial_port.h.
+# serialbus:  QModbusTcpClient/QModbusTcpServer behind the Modbus PLC devices in
+#             src/device/plc/modbus/.
+QT += core gui network sql serialport serialbus
 
 greaterThan(QT_MAJOR_VERSION, 5): QT += widgets
 

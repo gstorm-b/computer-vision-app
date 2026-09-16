@@ -1,0 +1,89 @@
+/* ═════════════════════════════════════════════════════════════════
+   Modbus Device Widget - Light theme — Hybrid (Graphite Vision + Orange)
+   bg.window: #f2f3f5  bg.surface: #ffffff  border.default: #c8ccd4
+   accent.primary: #c06400  state.success: #1a7a40  state.error: #c0282a
+   Dynamic property "connectionState" ("connected"/"disconnected") drives
+   dot, label, and button colour variants via attribute selectors.
+
+   One sheet for both Modbus sub-types: the widget shows the client card or
+   the server card, never both, so their field IDs can share the same rules.
+   ═════════════════════════════════════════════════════════════════ */
+
+QWidget#ModbusDeviceWidget {
+    background-color: @{bg.window};
+}
+
+/* ── Labels ──────────────────────────────────────────────────── */
+
+QLabel#lbl_conn_title {
+    color: @{text.muted};
+    font: 700 9pt "Segoe UI";
+    letter-spacing: 1px;
+}
+
+QLabel#lbl_meta_summary {
+    color: @{text.muted};
+    font: 9pt "JetBrains Mono";
+    letter-spacing: 1px;
+}
+
+QLabel#lbl_meta_hint {
+    color: @{text.disabled};
+    font: italic 9pt "Segoe UI";
+}
+
+/* The result-register block is the one thing on this panel a PLC programmer
+   needs off-screen knowledge to find otherwise, so it is not muted. */
+QLabel#lbl_result_block {
+    color: @{text.primary};
+    background-color: @{bg.surface};
+    border: 1px solid @{border.default};
+    border-radius: 5px;
+    padding: 8px 10px;
+    font: 9pt "JetBrains Mono";
+}
+
+QLabel#lbl_host,
+QLabel#lbl_client_port,
+QLabel#lbl_unit_id,
+QLabel#lbl_refresh,
+QLabel#lbl_listen,
+QLabel#lbl_server_port,
+QLabel#lbl_server_unit_id,
+QLabel#lbl_bit_area,
+QLabel#lbl_word_area {
+    color: @{text.muted};
+    font: 700 8pt "Segoe UI";
+    letter-spacing: 1px;
+}
+
+/* ── Input fields ────────────────────────────────────────────── */
+
+QLineEdit#ledit_host,
+QLineEdit#ledit_listen,
+QSpinBox#spb_client_port,
+QSpinBox#spb_server_port,
+QSpinBox#spb_unit_id,
+QSpinBox#spb_server_unit_id,
+QSpinBox#spb_refresh,
+QComboBox#cbx_bit_area,
+QComboBox#cbx_word_area {
+    background-color: @{bg.surface};
+    color: @{text.primary};
+    border: 1px solid @{border.strong};
+    border-radius: 5px;
+    padding: 6px 10px;
+    font: 11pt "JetBrains Mono";
+    min-height: 22px;
+}
+QLineEdit#ledit_host:focus,
+QLineEdit#ledit_listen:focus,
+QSpinBox#spb_client_port:focus,
+QSpinBox#spb_server_port:focus,
+QSpinBox#spb_unit_id:focus,
+QSpinBox#spb_server_unit_id:focus,
+QSpinBox#spb_refresh:focus,
+QComboBox#cbx_bit_area:focus,
+QComboBox#cbx_word_area:focus {
+    border-color: @{accent.primary};
+}

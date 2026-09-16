@@ -2,12 +2,56 @@
 #include "ui_mitsubishi_mc_device_widget.h"
 
 #include "device/plc/mc_request.h"
+#include "device/plc/mc_msg_serial_port.h"
 #include "device/plc/mc_msg_tcp_client.h"
 #include "core/logger/app_logger.h"
+#include "core/qgadget_macro.h"
 #include "core/utils/theme_manager.h"
 
+#include <QComboBox>
 #include <QFile>
 #include <QSignalBlocker>
+
+namespace {
+
+/// Baud rates offered in the combo. The field stays editable, so a port running at a rate not
+/// listed here can still be typed in — this is a shortlist, not a constraint.
+constexpr int kBaudRateChoices[] = { 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200 };
+
+/// Fills `combo` with the keys of the enum behind `propertyName` on McMsgSerialCfg: the
+/// translated label as the item text, the enum value as the item data.
+///
+/// Read out of the gadget's own meta-object rather than written out again by hand. A second
+/// hand-maintained list of the same keys is what Phase 7 spent a whole task removing — and the
+/// labels here have to be translated in the enum's scope, which vc::gadget_meta::enumKeyNames()
+/// is the one place that knows.
+void fillEnumCombo(QComboBox *combo, const char *propertyName) {
+    const QMetaObject &meta = vc::device::McMsgSerialCfg::staticMetaObject;
+    const int index = meta.indexOfProperty(propertyName);
+    if (index < 0) {
+        LOG_DEV_ERR << "MitsubishiMcDeviceWidget: no serial property named" << propertyName;
+        return;
+    }
+
+    const QMetaProperty prop = meta.property(index);
+    const QMetaEnum metaEnum = prop.enumerator();
+    const QStringList labels = vc::gadget_meta::enumKeyNames(prop);
+
+    combo->clear();
+    for (int i = 0; i < metaEnum.keyCount() && i < labels.size(); ++i) {
+        combo->addItem(labels.at(i), metaEnum.value(i));
+    }
+}
+
+/// Selects the item whose data equals `value`; leaves the current index alone if none matches.
+void selectEnumValue(QComboBox *combo, int value) {
+    const int index = combo->findData(value);
+    if (index >= 0) {
+        combo->setCurrentIndex(index);
+    }
+}
+
+} // namespace
 
 /// Creates and configures a single QtVariantProperty mirroring meta-property `prop` (read from
 /// `value`): enum-typed properties are mapped to QtVariantPropertyManager::enumTypeId() with
@@ -36,15 +80,9 @@ static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaPro
     if (prop.isEnumType()) {
         variantProp = manager->addProperty(QtVariantPropertyManager::enumTypeId(), propName);
 
-        // get enum names
-        QStringList enumNames;
-        QMetaEnum metaEnum = prop.enumerator();
-        for (int j = 0; j < metaEnum.keyCount(); ++j) {
-            const char* key = metaEnum.key(j);
-            QString translatedName = QCoreApplication::translate(meta.className(), key);
-            enumNames << translatedName;
-        }
-        variantProp->setAttribute(QLatin1String("enumNames"), enumNames);
+        // Enum labels, translated in the enum's own scope — see vc::gadget_meta::enumKeyNames.
+        variantProp->setAttribute(QLatin1String("enumNames"),
+                                  vc::gadget_meta::enumKeyNames(prop));
         // set enum value
         variantProp->setValue(value.toInt());
 
@@ -61,13 +99,10 @@ static QtVariantProperty* addPropertyToBrowser(const QMetaObject &meta, QMetaPro
         return nullptr;
     }
 
-    int displayNameIdx = meta.indexOfClassInfo(QString("%1_name").arg(propName).toUtf8());
-    if (displayNameIdx != -1) {
-        const QString displayName = meta.classInfo(displayNameIdx).value();
-        if (!displayName.isEmpty()) {
-            variantProp->setDisplayName(displayName);
-        }
-    }
+    // Resolved and translated by the one helper that reads "<prop>_name"; it falls back to
+    // the property name the property was created with, so this is a no-op when the config
+    // declares no display name.
+    variantProp->setDisplayName(vc::gadget_meta::displayName(meta, prop.name()));
 
     // --- set attributes---
     int minIdx = meta.indexOfClassInfo(QString("%1_min").arg(propName).toUtf8());
@@ -369,6 +404,9 @@ void MitsubishiMcDeviceWidget::initWidget() {
                 this,        &MitsubishiMcDeviceWidget::onWordWriteRequested);
 
         rebuildMonitorRanges();
+        // Before populateConnectionFields(): it selects values in these combos, and a combo
+        // with no items would drop the configured line setting on the floor.
+        initSerialCombos();
         populateConnectionFields();
         refreshMetaSummary();
         populateBrowser();
@@ -383,6 +421,15 @@ void MitsubishiMcDeviceWidget::initWidget() {
             this, &MitsubishiMcDeviceWidget::onIpEditFinished);
     connect(ui->spb_port, &QSpinBox::editingFinished,
             this, &MitsubishiMcDeviceWidget::onPortEditFinished);
+    connect(ui->cbx_serial_port, &QComboBox::currentTextChanged,
+            this, &MitsubishiMcDeviceWidget::onSerialPortChanged);
+    connect(ui->cbx_baud, &QComboBox::currentTextChanged,
+            this, &MitsubishiMcDeviceWidget::onBaudRateChanged);
+    for (QComboBox *combo : {ui->cbx_data_bits, ui->cbx_parity,
+                             ui->cbx_stop_bits, ui->cbx_flow_control}) {
+        connect(combo, &QComboBox::currentIndexChanged,
+                this, &MitsubishiMcDeviceWidget::onSerialLineSettingChanged);
+    }
     connect(ui->spb_conn_timeout, &QSpinBox::editingFinished,
             this, &MitsubishiMcDeviceWidget::onConnectTimeoutEditFinished);
     connect(ui->spb_resp_timeout, &QSpinBox::editingFinished,
@@ -435,20 +482,71 @@ void MitsubishiMcDeviceWidget::populateConnectionFields() {
     QSignalBlocker bPort(ui->spb_port);
     QSignalBlocker bConn(ui->spb_conn_timeout);
     QSignalBlocker bResp(ui->spb_resp_timeout);
+    QSignalBlocker bSerialPort(ui->cbx_serial_port);
+    QSignalBlocker bBaud(ui->cbx_baud);
+    QSignalBlocker bData(ui->cbx_data_bits);
+    QSignalBlocker bParity(ui->cbx_parity);
+    QSignalBlocker bStop(ui->cbx_stop_bits);
+    QSignalBlocker bFlow(ui->cbx_flow_control);
 
-    if (msg->type() == vc::device::mc::McMsgItfType::EthernetTCPIP) {
+    const bool isTcp = (msg->type() == vc::device::mc::McMsgItfType::EthernetTCPIP);
+    const bool isSerial = (msg->type() == vc::device::mc::McMsgItfType::SerialPort);
+
+    // One card is shown, the other is hidden — not disabled. A greyed-out IP field on a serial
+    // device still reads as "this device has an IP address that someone forgot to fill in".
+    ui->wid_tcp_fields->setVisible(isTcp);
+    ui->wid_serial_fields->setVisible(isSerial);
+
+    if (isTcp) {
         auto *eth = static_cast<vc::device::McMsgEthernetTcpCfg *>(msg);
         ui->ledit_ip->setText(eth->m_ipAddress);
         ui->spb_port->setValue(eth->m_portNumber);
-    } else {
-        ui->ledit_ip->setText(QString());
-        ui->ledit_ip->setEnabled(false);
-        ui->spb_port->setEnabled(false);
+    } else if (isSerial) {
+        auto *serial = static_cast<vc::device::McMsgSerialCfg *>(msg);
+        refreshSerialPortList();
+        ui->cbx_serial_port->setCurrentText(serial->m_portName);
+        ui->cbx_baud->setCurrentText(QString::number(serial->m_baudRate));
+        selectEnumValue(ui->cbx_data_bits, static_cast<int>(serial->m_dataBits));
+        selectEnumValue(ui->cbx_parity, static_cast<int>(serial->m_parity));
+        selectEnumValue(ui->cbx_stop_bits, static_cast<int>(serial->m_stopBits));
+        selectEnumValue(ui->cbx_flow_control, static_cast<int>(serial->m_flowControl));
     }
+
     ui->spb_conn_timeout->setValue(msg->m_connectTimeout);
     ui->spb_resp_timeout->setValue(msg->m_responseTimeout);
 
     m_loading_connection_fields = false;
+}
+
+/// One-time fill of the serial line-setting combos from their Q_GADGET enums, plus the baud
+/// shortlist.
+void MitsubishiMcDeviceWidget::initSerialCombos() {
+    fillEnumCombo(ui->cbx_data_bits, "dataBits");
+    fillEnumCombo(ui->cbx_parity, "parity");
+    fillEnumCombo(ui->cbx_stop_bits, "stopBits");
+    fillEnumCombo(ui->cbx_flow_control, "flowControl");
+
+    ui->cbx_baud->clear();
+    for (const int rate : kBaudRateChoices) {
+        ui->cbx_baud->addItem(QString::number(rate));
+    }
+}
+
+/// Refreshes the serial port combo from QSerialPortInfo, keeping the configured port selected
+/// even when it is not currently attached.
+void MitsubishiMcDeviceWidget::refreshSerialPortList() {
+    const QString current = ui->cbx_serial_port->currentText();
+
+    ui->cbx_serial_port->clear();
+    ui->cbx_serial_port->addItems(vc::device::McMsgSerialCfg::availablePortNames());
+
+    // A commissioned project names a port that may not be plugged in right now — on a machine
+    // where the adapter is missing, or before it is attached. Dropping it from the combo would
+    // silently rewrite the saved configuration to whatever happened to be first in the list.
+    if (!current.isEmpty() && ui->cbx_serial_port->findText(current) < 0) {
+        ui->cbx_serial_port->insertItem(0, current);
+    }
+    ui->cbx_serial_port->setCurrentText(current);
 }
 
 /// Slot for the IP field's editingFinished: commits the trimmed IP text into the Ethernet-TCP
@@ -477,6 +575,64 @@ void MitsubishiMcDeviceWidget::onPortEditFinished() {
     const int newPort = ui->spb_port->value();
     if (newPort == eth->m_portNumber) return;
     eth->m_portNumber = newPort;
+    saveConfig();
+}
+
+/// Slot for the serial port combo: commits the selected or typed port name into the serial
+/// message config and calls saveConfig(). Skipped while fields are being programmatically
+/// loaded, if the interface is not a serial port, or if the value did not change.
+void MitsubishiMcDeviceWidget::onSerialPortChanged() {
+    if (m_loading_connection_fields) return;
+    auto *msg = m_config.context() ? m_config.context()->msgConfig() : nullptr;
+    if (!msg || msg->type() != vc::device::mc::McMsgItfType::SerialPort) return;
+    auto *serial = static_cast<vc::device::McMsgSerialCfg *>(msg);
+    const QString name = ui->cbx_serial_port->currentText().trimmed();
+    if (name == serial->m_portName) return;
+    serial->m_portName = name;
+    saveConfig();
+}
+
+/// Slot for the baud combo: commits the selected or typed rate into the serial message config
+/// and calls saveConfig(). A value that does not parse is refused and the field is put back to
+/// the configured rate rather than silently writing 0, which would make the port unopenable.
+void MitsubishiMcDeviceWidget::onBaudRateChanged() {
+    if (m_loading_connection_fields) return;
+    auto *msg = m_config.context() ? m_config.context()->msgConfig() : nullptr;
+    if (!msg || msg->type() != vc::device::mc::McMsgItfType::SerialPort) return;
+    auto *serial = static_cast<vc::device::McMsgSerialCfg *>(msg);
+
+    bool ok = false;
+    const int rate = ui->cbx_baud->currentText().trimmed().toInt(&ok);
+    if (!ok || rate <= 0) {
+        LOG_USER_WARN << "Baud rate must be a positive number; keeping"
+                      << serial->m_baudRate;
+        QSignalBlocker block(ui->cbx_baud);
+        ui->cbx_baud->setCurrentText(QString::number(serial->m_baudRate));
+        return;
+    }
+
+    if (rate == serial->m_baudRate) return;
+    serial->m_baudRate = rate;
+    saveConfig();
+}
+
+/// Slot shared by the four line-setting combos: commits every one of them into the serial
+/// message config and calls saveConfig(). Written as one handler because the four are read
+/// together anyway and a per-combo handler would be the same six lines four times.
+void MitsubishiMcDeviceWidget::onSerialLineSettingChanged() {
+    if (m_loading_connection_fields) return;
+    auto *msg = m_config.context() ? m_config.context()->msgConfig() : nullptr;
+    if (!msg || msg->type() != vc::device::mc::McMsgItfType::SerialPort) return;
+    auto *serial = static_cast<vc::device::McMsgSerialCfg *>(msg);
+
+    serial->m_dataBits = static_cast<vc::device::mc::McSerialDataBits>(
+        ui->cbx_data_bits->currentData().toInt());
+    serial->m_parity = static_cast<vc::device::mc::McSerialParity>(
+        ui->cbx_parity->currentData().toInt());
+    serial->m_stopBits = static_cast<vc::device::mc::McSerialStopBits>(
+        ui->cbx_stop_bits->currentData().toInt());
+    serial->m_flowControl = static_cast<vc::device::mc::McSerialFlowControl>(
+        ui->cbx_flow_control->currentData().toInt());
     saveConfig();
 }
 

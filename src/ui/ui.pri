@@ -13,8 +13,11 @@ SOURCES += \
     $$PWD/forms/admin_login_dialog.cpp \
     $$PWD/forms/camera/basler_cam_select_dialog.cpp \
     $$PWD/forms/camera/basler_camera_widget.cpp \
+    $$PWD/forms/camera/jai_cam_select_dialog.cpp \
+    $$PWD/forms/camera/jai_camera_widget.cpp \
     $$PWD/forms/device_widget_factory.cpp \
     $$PWD/forms/virtual/virtual_device_widget.cpp \
+    $$PWD/forms/virtual/virtual_plc_input_panel.cpp \
     $$PWD/forms/new_project_dialog.cpp \
     $$PWD/forms/new_task_dialog.cpp \
     $$PWD/forms/pattern/add_pattern_image_dialog.cpp \
@@ -23,6 +26,7 @@ SOURCES += \
     $$PWD/forms/pattern/gripper_register_dialog.cpp \
     $$PWD/forms/pattern/pattern_canvas.cpp \
     $$PWD/forms/plc/mitsubishi_mc_device_widget.cpp \
+    $$PWD/forms/plc/modbus_device_widget.cpp \
     $$PWD/forms/plc/plc_mitsu_device_wizard.cpp \
     $$PWD/forms/project_infor_setting.cpp \
     $$PWD/forms/shell_startup.cpp \
@@ -90,8 +94,11 @@ HEADERS += \
     $$PWD/forms/admin_login_dialog.h \
     $$PWD/forms/camera/basler_cam_select_dialog.h \
     $$PWD/forms/camera/basler_camera_widget.h \
+    $$PWD/forms/camera/jai_cam_select_dialog.h \
+    $$PWD/forms/camera/jai_camera_widget.h \
     $$PWD/forms/device_widget_factory.h \
     $$PWD/forms/virtual/virtual_device_widget.h \
+    $$PWD/forms/virtual/virtual_plc_input_panel.h \
     $$PWD/forms/device_widget.h \
     $$PWD/forms/new_project_dialog.h \
     $$PWD/forms/new_task_dialog.h \
@@ -103,6 +110,7 @@ HEADERS += \
     $$PWD/forms/pattern/pattern_manager_dialog.h \
     $$PWD/forms/pattern/pattern_theme.h \
     $$PWD/forms/plc/mitsubishi_mc_device_widget.h \
+    $$PWD/forms/plc/modbus_device_widget.h \
     $$PWD/forms/plc/plc_mitsu_device_wizard.h \
     $$PWD/forms/project_infor_setting.h \
     $$PWD/forms/shell_startup.h \
@@ -175,15 +183,19 @@ HEADERS += \
 
 FORMS += \
     $$PWD/forms/virtual/virtual_device_widget.ui \
+    $$PWD/forms/virtual/virtual_plc_input_panel.ui \
     $$PWD/forms/add_device_wizard.ui \
     $$PWD/forms/admin_login_dialog.ui \
     $$PWD/forms/camera/basler_cam_select_dialog.ui \
     $$PWD/forms/camera/basler_camera_widget.ui \
+    $$PWD/forms/camera/jai_cam_select_dialog.ui \
+    $$PWD/forms/camera/jai_camera_widget.ui \
     $$PWD/forms/new_project_dialog.ui \
     $$PWD/forms/new_task_dialog.ui \
     $$PWD/forms/pattern/add_pattern_image_dialog.ui \
     $$PWD/forms/pattern/gripper_register_dialog.ui \
     $$PWD/forms/plc/mitsubishi_mc_device_widget.ui \
+    $$PWD/forms/plc/modbus_device_widget.ui \
     $$PWD/forms/plc/plc_mitsu_device_wizard.ui \
     $$PWD/forms/project_infor_setting.ui \
     $$PWD/forms/system_log_form.ui \

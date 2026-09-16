@@ -4,9 +4,127 @@ Outstanding items that were flagged but intentionally deferred to keep PRs
 focused. Each entry records WHAT, WHERE, WHY-deferred, and a rough hint on
 how to pick it up.
 
+## Triage 2026-09-16 (Phase 10 start)
+
+Phase 9 closed on 2026-09-16 with carried items, and Phase 10 redesigns the runtime core behind the
+current controller; its charter and open policy questions (PQ-n) live in `temp_docs/` until
+Checkpoint 0 and then under `docs/plan/phase_10/`. Every disposition below is relative to Phase 10:
+CLOSED-ALREADY repeats the item's own status, KEEP is open and unaffected by the redesign, ABSORB
+names the work package (WP-xx) or policy question that will resolve or re-decide it, MERGE names the
+open item that already carries it, NEEDS-OWNER wants a ruling first. **Item bodies below are
+untouched**: this table is the only artefact, and nothing was closed, reworded, renumbered or moved.
+Rows follow file order, which is not numeric (53 precedes 52, and 50 follows 52).
+
+| # | Title | Existing status | Disposition | Target | Note |
+|---|---|---|---|---|---|
+| 1 | `SignalsMapWidget::checkEmpty()` caller not wired | CLOSED 2026-09-09 (Phase 9 / C4) | CLOSED-ALREADY | — | Owner-run read of the save dialog in both themes and Japanese is still listed inside |
+| 2 | Shared QSS design tokens for themed widgets | DONE 2026-06-24, follow-ups Done 2026-06-24 | CLOSED-ALREADY | — | Resolver and sweep shipped; only the approved `#7a1010` exception remains |
+| 3 | `CalibrationBoardDialog` preset-only selection | Deferred (open) | KEEP | — | Custom board authoring is a deferred integration (`AGENT.md`) |
+| 4 | `EditableComboWidget::eventFilter` popup-only design | Deferred (open) | KEEP | — | UI note, no defect |
+| 5 | `getCurrentMapping()` duplicate camera ids | RESOLVED 2026-06-27 | CLOSED-ALREADY | — | |
+| 6 | `RobotDevice` vendor API surface undefined | Deferred (open) | KEEP | — | Waits on a real vendor protocol |
+| 7 | `AddDeviceWizard` has no Robot card | Deferred (open) | KEEP | — | Follows item 6 |
+| 8 | `RobotRunner` has no runtime wiring | Deferred (open) | KEEP | — | Deferred integration (`AGENT.md`) |
+| 9 | `VisionSerial` declared, not implemented | Deferred (open) | KEEP | — | Deferred integration (`AGENT.md`) |
+| 10 | `VisionOutputDeviceWidget` is TCP-only | Completed Phase 1; residual waits on item 9 | MERGE | item 9 | The residual (serial widget plus factory branch) is part of delivering item 9 |
+| 11 | `VisionOutputRunner` transport-specific signals | No issue today (watch) | KEEP | — | Contingent on a sub-type needing it; runners are kept as they are by the redesign |
+| 13 | Widget `static_cast` to concrete device | RESOLVED 2026-06-24 | CLOSED-ALREADY | — | |
+| 14 | `cbxVisionType` shown with single sub-type | Deferred (open) | KEEP | — | Cosmetic |
+| 15 | `subDeviceTypeLists[PLC]` carries McFrame strings | Deferred (open) | KEEP | — | Waits on a second PLC vendor family |
+| 20 | Wizard stack page still named `pgMc` | Deferred (open) | KEEP | — | Cosmetic |
+| 21 | `matchingRunner` has no explicit teardown | RESOLVED 2026-06-23 | CLOSED-ALREADY | — | |
+| 22 | Code review findings, qt-cpp-review 2026-05-30 | CLOSED 2026-06-24 (batch) | CLOSED-ALREADY | — | 22.20 is intentionally deferred inside the closed batch |
+| 23 | UI conformance migration to ui_design_rules | PARTIALLY RESOLVED 2026-06-24 | KEEP | — | Its two listed blockers are reported closed in item 2 and `technical_debt_and_next_steps.md`; the status line looks stale; UI slice outside Phase 10 |
+| 24 | `svgIcon()` not theme-aware | RESOLVED 2026-06-27 | CLOSED-ALREADY | — | |
+| 25 | `LocalizationDashboardWidget` wiring to refactored `.ui` | RESOLVED 2026-05-31; lamp half CLOSED 2026-09-14 | CLOSED-ALREADY | — | The remaining dark/light review pass is the Phase 4 on-hold UI pass tracked in `technical_debt_and_next_steps.md` |
+| 26 | Localization runtime production follow-ups | CLOSED 2026-09-14 (Phase 9 / Z3) | CLOSED-ALREADY | — | |
+| 27 | RobotKinematics deploy done; customer install pending | RESOLVED for build-folder runs; install open | KEEP | — | The customer-install half is on hold with Phase 4 |
+| 28 | VisionOutput result payload format `%08.2f` | RESOLVED 2026-07-01 | CLOSED-ALREADY | — | |
+| 29 | Dead `MatchedObject::checkCollisionObject` | Open cleanup | KEEP | — | Matching module, no behaviour risk |
+| 30 | `MatchBoxGripper` dead code | Open cleanup | KEEP | — | Matching module, no behaviour risk |
+| 31 | `pattern_group_manager.h` pulls QtWidgets into matching | Open, architectural | KEEP | — | Layering debt outside the core redesign |
+| 32 | Flaky `test_disconnect_notice_on_graceful_close` | CLOSED 2026-09-09 (Phase 9 / D2) | CLOSED-ALREADY | — | The original wrong diagnosis is kept below the close for traceability |
+| 33 | Device kinematic check ignores RX/RY | RESOLVED 2026-07-29 | CLOSED-ALREADY | — | |
+| 34 | `MatchPattern::getImageWithPickPosition()` has no callers | Open, deliberately not deleted | KEEP | — | |
+| 35 | `RuntimeShellWindow` UI built in code | CLOSED 2026-08-23 (Phase 7 / C2) | CLOSED-ALREADY | — | |
+| 36 | Two shells keep separate settings files | CLOSED 2026-08-23 (Phase 7 / A3) | CLOSED-ALREADY | — | |
+| 37 | `app/mainwindow.cpp` builds dock layout in code | Open | KEEP | — | UI cleanup slice |
+| 38 | No-task project lands runtime on blank page | Open | KEEP | — | Runtime shell UX, not the core |
+| 39 | Flaky `test_both_shells_take_the_same_instance_key` | Open (flaky) | KEEP | — | Test hygiene |
+| 40 | Three dead controls in commissioning shell | Open | KEEP | — | UI cleanup slice |
+| 41 | Editor-to-runtime hand-off does not raise window | OPEN, still reproducing | KEEP | — | Shell defect, not the core |
+| 42 | Add Device wizard shows raw JSON token | Open | KEEP | — | UI defect |
+| 43 | Virtual PLC inputs cannot be driven | RESOLVED 2026-09-07 | CLOSED-ALREADY | — | |
+| 44 | `build_docs.bat` tool defaults point nowhere | Open; owner decision listed | KEEP | — | Not blocking (charter §1.1); the tool-root decision is the owner's and unrelated to the core |
+| 45 | `AGENTS.md` cards give Doxygen `\ref` warnings | Open, cosmetic | KEEP | — | |
+| 46 | `McProtocolConfig` copies share context config | Open | KEEP | — | Device-layer defect, wants its own verification pass |
+| 47 | `MCRequest::isValid()` never checked | Open | KEEP | — | Device-layer limit decision, wants its own verification pass |
+| 48 | `addPropertyToBrowser` copied in three widgets | Open | KEEP | — | UI de-duplication |
+| 49 | Basler continuous shot, `startAutoContinuousShot()` pair | Deferred (open) | KEEP | — | Camera feature with no request behind it |
+| 53 | `clearRoleContext()` blanket-disconnects dual-role runner | CLOSED 2026-09-09 (Phase 9 / A3), no test | CLOSED-ALREADY | — | Closed by reasoning; the role-health rows of WP-32 are where a test for this shape would land |
+| 52 | Modbus 32-bit word order not settable | Open | KEEP | — | Device config option, not the core |
+| 50 | `PlcMitsuDeviceWizard` is dead code | Open | KEEP | — | Cleanup |
+| 51 | `IDevice::errorOccurred` never emitted | Open; runner half RESOLVED 2026-09-08 | ABSORB | WP-21 | The to-be table must say whether device errors are a core event (then devices emit) or the channel is deleted; no PQ yet |
+| 54 | Held `bExecuteTrigger` fires at runtime start | Open, owner-gated (Phase G) | ABSORB | PQ-1 | Phase G design reused; implemented on the new core as WP-50 |
+| 55 | `setup()` misreports unregistered camera as calibration | CLOSED 2026-09-09 (C2 + C7) | CLOSED-ALREADY | — | |
+| 56 | MC 1C/3C hardware coverage and bench numbers | Partly closed by E1; 1C/3C and bench open | KEEP | — | Owner-run hardware verification, outside the core |
+| 57 | Robot pick check active on dual-role Modbus | CLOSED 2026-09-14 | CLOSED-ALREADY | — | |
+| 58 | Startup neither validates nor announces selection | Part A CLOSED 2026-09-09; Part B open | ABSORB | PQ-2, PQ-3 | Never-written-register fault to PQ-3, late PLC re-read to PQ-2; the first-poll half rides with item 54 |
+| 59 | Housekeeping from the item-58 investigation | CLOSED 2026-09-09 | CLOSED-ALREADY | — | The device-level MC test gap is carried by item 56 |
+| 60 | Active-index echo rejected on Modbus master | Open; fixed by C3, which landed 2026-09-09 | KEEP | — | Status line is stale: the controller now publishes `nActiveCameraStatus` / `nActivePatternGroupStatus` and no longer echoes; needs a closing note, not a triage row |
+| 61 | Dashboard never re-reads task config | CLOSED 2026-09-11 (Phase 9 / F2) | CLOSED-ALREADY | — | The residual camera-lamp refusal-path gap is unfiled; the Selection / outputSnapshot design (WP-33, WP-34) covers it |
+| 62 | Stale root `main.moc` deletes tests | Open, root cause found | KEEP | — | Build hygiene; normal debug loop |
+| 63 | Fault code 400 covers four content faults | Open, deliberate (C7) | ABSORB | PQ-15 | Fault codes are contract; decide before the Phase 10 manual |
+| 64 | Dual-role Modbus publish collides with poll | Open, field-observed 2026-09-14 | ABSORB | PQ-10 | The retry policy is the core decision; the transport half stays a normal debug loop |
+| 65 | `app/` no longer resolves in build | RESOLVED 2026-09-14 | CLOSED-ALREADY | — | |
+| 66 | Two editors for the robot pick check | Open, filed 2026-09-14 | KEEP | — | Config/UI ownership question, not a core state; no PQ exists |
+| 67 | Recovery policies settable only in tests | Open, filed 2026-09-14 | ABSORB | PQ-14 | The policy struct lands in WP-32 |
+| 68 | Two-position cap hard-coded; PLC debug print | Open, owner to confirm | ABSORB | PQ-8 | The debug-print half is a trivial cleanup independent of the ruling |
+| 69 | PLC write ack: refused write unverified on hardware | Open for the E4 hardware observation only | KEEP | — | Owner-run, not blocking (charter §1.1) |
+| 70 | Vision-output client stuck Recovering after heartbeat return | Open; investigation paused 2026-09-10 | ABSORB | PQ-7 | Core half: what reconnect means on `RoleStatus(LostConnected)` (S-06 row, WP-32); the client redial bug stays a device debug loop |
+
+Counts: CLOSED-ALREADY 21 · KEEP 35 · ABSORB 8 · MERGE 1 · NEEDS-OWNER 0 (65 rows).
+
+Post-triage housekeeping (PM, 2026-09-16, after the table above was frozen): items **60** and **23**
+received closing notes (their KEEP rows stand as the triage-time reading); items **71** (A1's M-only
+hardware check, carried out of Phase 9) and **72** (refused index updates no camera visual, residual
+of item 61) were filed below.
+
 ---
 
 ## 1. `SignalsMapWidget::checkEmpty()` — caller not wired
+
+**CLOSED (2026-09-09) — Phase 9 Task C4.** Not by wiring `checkEmpty()`: that method was
+**deleted**. It did two jobs in one call — purge every orphan, *then* report what it had
+purged — so the caller learned what was destroyed only after it was destroyed, and there was
+no way to ask the question without answering it destructively. That shape is why no caller
+was ever chosen, and choosing a trigger for it would have shipped the problem.
+
+Replaced by two methods that each do one thing (`src/ui/widgets/signals_map_widget.h`):
+
+| Method | Does |
+|---|---|
+| `QStringList orphanRowNames() const` | reports, changes nothing |
+| `void clearRowTags(const QStringList &)` | purges exactly what it is told, nothing else |
+
+**Trigger chosen: project Save**, via `LocalizationSettingWidget::confirmOrphanedSignalsBeforeSave()`
+→ `LocalizationTaskWidget` → `MainWindow::saveToFile()`, which aborts the save if any task
+cancels. The dialog offers *Clear and save* / *Save as-is* / *Go back* (default **Go back**), and
+asks a second time before clearing a **required** signal, naming the count and the tags about to
+be lost. Commission start is covered separately by the runtime gate, below.
+
+**Tests:** `test_orphan_row_names_reports_orphans_without_clearing_them` (the report/purge split —
+the whole point of the new shape), plus the runtime half that made the trigger worth having:
+`test_an_orphan_tag_fails_setup_on_required_and_optional_signals_alike`,
+`test_a_bit_signal_mapped_to_a_word_tag_is_an_orphan_for_that_signal`,
+`test_each_required_signal_unmapped_fails_setup_naming_it`.
+
+**Field evidence:** the gate refused a real orphan on the owner's cell — *"Signal \"Camera
+selection\" (nActiveCamera) is mapped to tag IR01000, which the device 05 does not provide as a
+register."* → Faulted (`app_log_2026-09-08.txt:1552-1553`). The owner confirmed the save dialog
+appears and all three buttons work (2026-09-08). **Still owner-run:** reading the dialog in both
+themes and in Japanese — its strings entered the `.ts` in the 2026-09-09 sweep and are
+`unfinished`, so it renders in English until a translator fills them in.
 
 **What.** `SignalsMapWidget::checkEmpty()` is destructive: it purges orphan
 (warning-flagged) tags to `""` and returns the list of `internalName`s now
@@ -800,6 +918,12 @@ task **id** (`const QString taskId = task_ptr->id()`) instead of the
 
 ## 23. UI conformance migration to ui_design_rules.md
 
+**CLOSED (2026-09-16, closing note added at the Phase 10 triage).** The two blockers named at the
+end of this item — `DevicesMonitorWidget` / `DeviceRowDelegate` staying dark in light mode, and
+`SystemLogForm` lacking dark/light styling — are recorded as done on 2026-06-24 in item 2 and in
+`technical_debt_and_next_steps.md` ("Finish the remaining UI token closeout"). Nothing else in the
+item is open; the PARTIALLY RESOLVED line below predates those closures and is kept for traceability.
+
 **Status (2026-06-24): PARTIALLY RESOLVED.** (2026-05-30: theme-reload contract
 done; hex-token migration was pending. 2026-06-24: runtime resolver shipped,
 and the follow-up device/status/overlay handoff sweep was applied; see #2.)
@@ -916,9 +1040,39 @@ review checklist in both dark and light; confirm lamps, fault panel, KPIs,
 result table, and operator log update on a runtime cycle, and that the dashboard
 exposes no manual write / trigger / start-stop controls (read-only v1).
 
+**Connection-lamp half CLOSED 2026-09-14 (Phase 9 / F2), both checks owner-confirmed.**
+2026-09-11: a role-binding change reaches the dashboard without reopening the window (item 61's
+half). 2026-09-14: pulling the cable turned the lamp **red and then back to green** on reconnect —
+the liveness half this entry was actually about. `app_log_2026-09-14.txt` shows the underlying
+transition at `:1105` (`Ready -> Recovering`, `role=primary_plc deviceId=05 status=LostConnected`)
+and the reconnect at `:1113` five seconds later, so the lamp was following real status changes and
+not a stale seed. The three
+connection lamps were dead for the life of every runtime, and the "RESOLVED" above did not
+cover it. The widget is constructed at `runtime_shell_window.cpp:472`, **nine lines before**
+`beginRuntime()` at `:481`, so `wireConnectionLamp()` resolved `runnerFor()` to null on all
+three roles, set "—", and never retried. `initWidget()` now re-wires on
+`ITask::runtimeStarted` and on `TaskRunner::phaseChanged` (which also covers the return to
+Idle). **Re-wiring alone is not enough** — see item 61, fixed in the same edit. This item
+cannot close until the owner confirms the lamps live on a cell; see Checkpoint F.
+
 ---
 
 ## 26. Localization runtime production follow-ups after first implementation pass
+
+**CLOSED 2026-09-14 — Phase 9 / Z3, per plan decision D6.** The umbrella's open bullets were folded
+into the Phase 9 tasks that did the work, and each closed there with evidence:
+
+| Bullet | Closed by | Evidence |
+|---|---|---|
+| Latency measurement (named below as a remaining gate) | **F3** | `CycleTimings` on every `CycleResult`; 85 cycles on the dual-role Modbus cell 2026-09-14, median cycle 304 ms with matching 79 % of it. The threading-revisit criterion was evaluated: no revisit. `test_successful_cycle_stamps_every_stage_monotonically`, `test_faulted_cycle_carries_only_the_stages_it_reached` |
+| "Add focused runtime/controller tests for any remaining unverified edge cases" | **B1 / B2**, then every later Phase 9 task | B1 pinned the runner → controller liveness forwards; B2 added the `TaskLocalization`-level fixture that reaches `beginRuntime()`. The contract suite grew from 105 to 159 cases over the phase |
+| "Run an operator UI verification pass…" | **F2** (lamps), **F3(b)** (cycle-time KPI), owner runs at Checkpoints A, C-1 and F | Owner-confirmed: lamps follow a binding change without reopening the window (2026-09-11) and a cable pull red → green (2026-09-14); the fault panel, result table and task log were exercised on every owner run. The formal release-gate UI pass stays on hold with Phase 4 — see `technical_debt_and_next_steps.md` |
+
+The PLC-write bullet was conditional — *"only when new tag families or PLC vendors are added"* — and
+was met when they were: Phase 8 added Modbus, and Phase 9 / E1–E4 added write-completion coverage for
+MC, Modbus and the virtual PLC (item 69).
+
+The original status is kept below as written.
 
 **Status (2026-06-24): PARTIALLY VERIFIED.** The first implementation pass
 builds and covers the main contract shape, and the 2026-06-24 hardening pass
@@ -1111,6 +1265,51 @@ which is the pattern the rest of the class already follows.
 
 ## 32. Flaky `test_disconnect_notice_on_graceful_close`
 
+**CLOSED (2026-09-09) — Phase 9 Task D2, on the second diagnosis.** The flake is gone in both
+duplicated copies: the 20-run bar reads **0 / 20** for `vision_output_device_test` and **0 / 20**
+for `vision_tcpip_client_device_test`, and removing the fix returns them to **13 / 20** and
+**16 / 20**.
+
+**The cause was never the close *kind*.** Closing a socket whose **OS** receive buffer still holds
+unread inbound bytes makes the stack send **RST** rather than FIN, and an RST tells the peer to
+discard *its* receive buffer — including the disconnect notice it had not read yet. The heartbeat
+socket is precisely the one holding unread bytes, because the peer acks every probe.
+
+The fix is `VisionTcpipDeviceBase::drainBeforeClose()`, called from `detachMainSocket()` and
+`detachHeartbeatSocket()` before `abort()`. Bounded at 50 one-millisecond read attempts, exiting on
+the first that finds nothing, so the usual cost is a single attempt.
+
+**Everything below this line is the ORIGINAL diagnosis and it is WRONG.** It is kept because the
+sequence of refutations is the useful part, and because the same reasoning would otherwise be
+re-derived by the next reader. The measurements, in order:
+
+| Build | Failures / 20 |
+|---|---|
+| Original `abort()` | 10 |
+| Graceful close (`disconnectFromHost()` + bounded wait) — the fix this entry originally prescribed | 7 |
+| Graceful close + drain **Qt's** buffer | 13 |
+| Peer draining on `disconnected` as well as `readyRead` | 5 |
+| **No teardown at all** | **0** |
+| `QThread::msleep(50)`, then teardown | 14 |
+| **Drain the OS receive buffer, then teardown** | **0** |
+
+Three things each kill part of the old story:
+
+1. **With `abort()` the peer reports `RemoteHostClosedError`, not `ConnectionResetError`** — and
+   the same with the graceful close. The abortive close was not producing the RST this entry blamed.
+2. **Suppressing the teardown entirely fixes it, `msleep(50)` does not.** So the bytes always left
+   the process, and the loss is caused by the close itself — not by timing, and not by the write.
+3. **`bytesAvailable()` reports Qt's buffer, not the OS's.** Qt only moves bytes across on a read
+   notification, so a socket whose thread has not returned to its event loop reports `0 available`
+   while the OS buffer is full. That is why "available = 0" read as proof there was nothing unread,
+   and why an earlier `readAll()` drain changed nothing. `waitForReadyRead()` is what forces the
+   transfer — and that one call is the difference between 13 / 20 and 0 / 20.
+
+*The lesson worth keeping: the original entry reasoned from RST semantics to a fix without ever
+measuring whether an RST was occurring. It read as authoritative for six weeks.*
+
+---
+
 **Status: open, intermittent — diagnosed to the product side, not the test.**
 Observed during Phase 5 Task C3 verification (2026-07-29).
 
@@ -1151,11 +1350,83 @@ that mitigation cannot close the hole — no local-side wait can.
 graceful-disconnect notice and has to fall back on heartbeat timeout, which is
 slower and looks like a link failure rather than a planned shutdown.
 
-**Work when picked up.** Replace the abortive close on the graceful path with a
+**Work when picked up.** ~~Replace the abortive close on the graceful path with a
 graceful one: `disconnectFromHost()` and wait for `disconnected` (bounded), so the
 FIN is ordered *after* the notice in the stream instead of racing it. Keep
 `abort()` for the lost-connection path, where there is nothing to deliver. The
-test needs no change once the ordering is correct.
+test needs no change once the ordering is correct.~~
+
+---
+
+### ⚠️ 2026-09-09 — the RST diagnosis above is WRONG. Built, measured, reverted.
+
+Phase 9 Task **D2** implemented exactly the work described above: a `SocketClose::{Graceful,
+Abortive}` mode on both detach helpers, `disconnectFromHost()` + `waitForDisconnected(300)` on
+the graceful path, `abort()` kept for `declareLostConnection()`, with the timing budget stated
+(150 ms notice flush + 2×300 ms ≤ 750 ms, inside `disconnectAndWait()`'s 3000 ms guard).
+
+**It did not work, and the measurements say the premise is false.** All on the server suite,
+`test_disconnect_notice_on_graceful_close` run in isolation, 20 consecutive runs per row:
+
+| Build | Failures |
+|---|---|
+| Graceful close (the proposed fix) | **7 / 20** |
+| Graceful close + drain the receive buffer before closing | **13 / 20** |
+| Forced back to the original `abort()`, same binary | **10 / 20** |
+| Peer additionally draining on `disconnected` as well as `readyRead` | **5 / 20** |
+
+All four are the same rate within the noise this flake is already known for. The change was
+**reverted in full**; only Task D1 landed from Phase D.
+
+**What the instrumentation actually showed.** Server side, logged inside `sendDisconnectNotice()`
+and the close, comparing a passing and a failing run of the same binary:
+
+```text
+DIAG notice flush=1 waited=0 toWrite=0 state=3        <- identical in both
+DIAG closeSocket heartbeat pre-state=3 toWrite=0 available=0
+DIAG closeSocket heartbeat post-state=0 toWrite=0     <- clean FIN, no timeout logged, ever
+```
+
+Peer side, on a failing run:
+
+```text
+DIAG hbRx=[] state=0 err=1 errStr=The remote host closed the connection probes=1
+```
+
+Three things follow, and each kills part of the old diagnosis:
+
+1. **`err=1` is `RemoteHostClosedError` — a clean FIN — and it is the SAME with `abort()`.**
+   If the abortive close were producing the RST the diagnosis blames, the peer would report
+   `ConnectionResetError`. It never does. *The abort was not resetting the connection.*
+2. **`available=0` on the server before the close.** There is no unread inbound data, so the
+   "closing a socket with unread data forces RST" variant is out too.
+3. **`hbRx` is empty and `probes=1`.** The peer parsed exactly `connection_check.` and nothing
+   else — with framing intact and nothing left over. The notice's 11 bytes never arrived at the
+   peer at all. Draining on `disconnected` does not recover them, so they were not buffered and
+   lost to read/close ordering either.
+
+So: the server writes the notice, `flush()` reports success, `bytesToWrite()` is 0, the socket
+closes cleanly — and about a third of the time the bytes are still never delivered. The loss is
+below Qt, in the write-then-close window on Windows loopback, and **no change on the send side
+that still closes immediately afterwards will fix it.**
+
+**Where to look next** (untested — hypotheses, labelled as such):
+
+- Do not close the heartbeat socket immediately after the notice. Wait, bounded, for the peer to
+  close its end (a peer that understood the notice will), and only then tear down. This changes
+  the protocol's shutdown handshake, not just the socket call, and needs the owner's agreement
+  because a peer that never closes costs the full bound on every disconnect.
+- Or accept that the notice is best-effort — which is what the code comment already claims — and
+  **change the test to match the contract** rather than asserting a delivery the protocol does not
+  promise. If this is the answer, item 32 closes as "test asserts more than the protocol
+  guarantees" and the two duplicated tests are rewritten.
+
+**Do not re-attempt the graceful-close fix without first reproducing the table above.** It is
+built, it is measured, and it does not move the number.
+
+**The test exists in duplicate** — `tests/vision_output_device_test/main.cpp:217` and
+`tests/vision_tcpip_client_device_test/main.cpp:231`. This entry originally named only the
+second. Both fail, at similar rates, from the same shared base-class path.
 
 ## 33. Device-level kinematic check ignores the RX/RY axes (RESOLVED 2026-07-29)
 
@@ -1563,6 +1834,29 @@ place — the tokens themselves stay exactly as they are.
 
 ## 43. Virtual PLC values cannot be driven, so the runtime stops at Ready
 
+**Status (2026-09-07): RESOLVED.** `VirtualPlcDevice` implements the new
+`vc::device::IPlcInputSimulator` capability; `PlcRunner::requestInjectInputValue()` carries a value
+onto the device thread and `supportsInputSimulation()` answers **per device**, so no real PLC ever
+advertises drivable inputs; `VirtualPlcInputPanel` is added to the virtual device page by
+`VirtualDeviceWidget` when — and only when — the runner says the device supports it.
+
+Both decisions this item flagged were taken as recommended: **separate stores** for injected inputs
+and recorded writes, and a **hook on the generic widget** rather than a second widget class. The
+UI is in the commissioning shell only, by the owner's decision — `ncr_runtime.exe` has no device
+pages, and the operator shell is not a place to forge PLC inputs.
+
+Verified by six contract cases (95 → 101), each negative-checked. The one that matters is
+`test_a_hardware_free_runtime_runs_a_cycle_driven_only_by_injected_plc_inputs`: it drives the
+controller through the **real delivery path** — device → runner thread boundary → `valueChanged` →
+controller — rather than calling `handlePlcValues()` directly the way every other case in that
+suite does. Full contract and traps:
+[`docs/domains/virtual_devices/virtual_devices.md`](../domains/virtual_devices/virtual_devices.md)
+→ "Driving a virtual PLC's inputs".
+
+The original entry follows, unchanged.
+
+---
+
 **Status:** open — found 2026-08-23 by the project owner completing Checkpoint D. **This is the
 single thing standing between "a hardware-free project reaches Ready" and "a hardware-free
 project runs a cycle."**
@@ -1637,6 +1931,14 @@ also used on.
 The guard behaviour itself is right and should stay: it fails loudly instead of emitting a
 partial reference.
 
+**Update 2026-09-14 (Phase 9 / Z2).** The tools are now at **neither** root on this machine:
+`C:\build_packages\doxygen-1.17.0-win64\doxygen.exe`, `…\Graphviz-15.1.0-win64\bin\dot.exe` and
+`…\plantuml\plantuml-java8-SNAPSHOT.jar` all fail `Test-Path` (Java is present). The Z2 documentation
+pass therefore could not rebuild the reference, and `docs/generated/doxygen/` still shows the pre-Z2
+comments and diagrams. The "Found on this machine under" column of `documentation_build.md` is stale
+for the same reason. The decision above is unchanged; it now also has to say where the tools come
+from.
+
 ---
 
 ## 45. `AGENTS.md` scope cards produce unresolvable `\ref` warnings in the Doxygen build
@@ -1661,3 +1963,1565 @@ Pre-existing — not introduced by Phase 7; adding `runtime_app/` to `INPUT` mer
 `AGENTS.md` is for); or make the offending links absolute URLs so Doxygen stops treating them as
 `\ref`; or add `docs/domains` to `INPUT` so the targets resolve — the largest change, and it pulls
 the whole domain-doc tree into the API reference.
+
+---
+
+## 46. `McProtocolConfig` copies share their context and message-interface config
+
+**Found:** 2026-08-25, during Phase 8 / A1 while establishing what a new context's `clone()`
+has to deep-copy.
+
+`McProtocolConfig` holds `std::shared_ptr<McContext> m_context`, and `McContext` holds
+`std::shared_ptr<McMsgItfConfig> m_msg_cfg`. Neither class declares a copy constructor, so the
+compiler-generated ones copy the *pointers*:
+
+- `McProtocolDevice::mcProtocolConfig()` returns `m_config` **by value**
+  ([mc_protocol_device.cpp:203-205](../../src/device/plc/mc_protocol_device.cpp#L203-L205)),
+  and the returned "copy" shares the live device's context object.
+- `McProtocolConfig::clone()` does deep-copy the context (`setContext()` -> `ctx->clone()`),
+  but every concrete `clone()` is `new Context_McXX(*this)` -- the implicit copy again -- so the
+  cloned context still shares the original's `McMsgItfConfig`.
+
+`MitsubishiMcDeviceWidget` keeps a `McProtocolConfig m_config` it calls a working copy and edits
+through the property browser. It is not a copy: edits to context fields land straight on the
+device's live configuration, before `saveConfig()` is called and regardless of whether it ever is.
+
+**Why it has not been noticed:** the widget calls `saveConfig()` on nearly every edit path, so the
+value the user typed does end up where they expect. What is missing is the *isolation* -- there is
+no state in which the widget holds an unsaved edit, and `setDeviceConfig()`'s "no-op while
+connected" guard can be bypassed by editing a field, since the write already happened through the
+shared pointer.
+
+**Scope of a fix:** give `McContext` and `McProtocolConfig` copy constructors that deep-copy
+(`m_msg_cfg` cloned, not shared), which needs a `clone()` on `McMsgItfConfig`. Small and
+contained, but it changes when edits reach a connected device, so it wants its own verification
+pass rather than riding along with a feature task.
+
+**Phase 8 note:** the new 1C/3C contexts (task A2) deep-copy their own message-interface config,
+so they do not add to this. That makes 3E the odd one out until this is fixed -- deliberate, and
+recorded here so the inconsistency is not read as an oversight in the new code.
+
+---
+
+## 47. `MCRequest::isValid()` is never checked, so its 128-device cap is dead
+
+**Found:** 2026-08-25, during Phase 8 / A5 while checking what device counts the new
+computer-link codecs must survive.
+
+`MCRequest`'s constructors set `is_config = false` when the amount is outside 1..128
+([mc_request.h:94-106](../../src/device/plc/mc_request.h#L94-L106)), and `isValid()` reports it.
+Nothing in the polling path ever calls it: `McProtocolDevice::update_m_map()` /
+`update_d_map()` build a request straight from an optimized range and push it onto the polling
+queue, and `Frame3E` uses `m_amount` without asking.
+
+Meanwhile the UI lets the range go much higher -- `McContext`'s `amountMAddress` /
+`amountDAddress` carry `Q_CLASSINFO(..._max, "1024")`.
+
+**Why nothing has broken.** A 3E batch read of 200 points is legal on the wire, so the invalid
+flag is inert for the only frame that has shipped. The cap and the UI limit have simply never
+had to agree.
+
+**Why it matters now.** The computer-link frames have a real field width: the 1C device-count
+field is two hexadecimal characters, so 255 points is the hard maximum, and `Frame1C` refuses
+anything larger with `RequestFrameError`. A project configured with more than 255 M devices
+would therefore poll fine on 3E and fail every request on 1C -- with the failure appearing at
+send time, not at configuration time, which is the wrong end to discover it.
+
+**Scope of a fix:** decide which limit is real (per frame, most likely), enforce it where the
+range is configured rather than where the frame is built, and either honour `isValid()` in the
+polling path or delete it. Small, but it changes what an existing project is allowed to hold, so
+it wants its own verification pass rather than riding along with a feature task.
+
+---
+
+## 48. `addPropertyToBrowser` now exists in three device widgets
+
+Added while implementing Phase 8 / B6 (`ModbusDeviceWidget`).
+
+The ~50-line function that mirrors one `QMetaProperty` into a `QtVariantProperty` — enum keys
+translated in the enum's scope, display name from `<prop>_name`, `minimum`/`maximum` from
+`<prop>_min`/`<prop>_max`, disabled when not writable — is now written out three times:
+
+- `src/ui/forms/camera/basler_camera_widget.cpp`
+- `src/ui/forms/plc/mitsubishi_mc_device_widget.cpp`
+- `src/ui/forms/plc/modbus_device_widget.cpp`
+
+**Why it was copied rather than extracted.** Extracting it means editing two commissioned
+widgets during a task that is about adding a third. That is the wrong trade to make inside a
+feature task, and the two existing copies have shipped.
+
+**Why it matters.** This is exactly the shape Phase 7 found in the property browsers: one block
+copied five times, where every copy translated the enum keys beside the label and none translated
+the label itself. Not five oversights — one bug, five times. A third copy raises the odds that a
+future fix lands in two places out of three, and the widget that misses it will look correct
+because the labels still appear, just untranslated.
+
+**Scope of a fix:** move it to `src/ui/widgets/property_browser/` beside `PropertyBrowserWidget`
+(which already owns the manager and factory these callers reach for), have all three widgets call
+it, and delete the copies. Mechanical, but it touches three device panels, so it wants its own
+verification pass — each widget's property browser opened and an enum, an int with a range, and a
+read-only property confirmed on screen.
+
+---
+
+## 49. Continuous shot for the Basler camera, and the unimplemented `startAutoContinuousShot()` pair
+
+**What.** Two leftovers from the JAI continuous-shot work (Phase C-2,
+`docs/history/plan/phase_8_implementation_plan.md`):
+
+1. `BaslerGigECamera::startContinuousShot()` / `stopContinuousShot()` still
+   `return false;` / `{}`. Its widget has the same "Continuous shot" button,
+   wired to nothing.
+2. `startAutoContinuousShot()` / `stopAutoContinousShot()` are unimplemented on
+   **every** camera and called by nobody. `VirtualCameraDevice` still answers
+   `true` without doing anything.
+
+**Where.** `src/device/camera/camera_basler_gige.{h,cpp}`,
+`src/ui/forms/camera/basler_camera_widget.cpp` (the `connect()` for
+`btn_auto_shot` is commented out), `src/device/camera/camera_device.h`,
+`src/device/virtual/virtual_camera_device.h`.
+
+**Why deferred.** (1) is real work with no request behind it: the owner asked for
+continuous shot on the JAI camera, and doing the Basler one at the same time would
+have meant rewriting the panel of a camera already running in production, in the
+same change that introduced the feature. (2) has no defined meaning distinct from
+the `startContinuousShot()` pair — inventing one would be a second abstraction
+before the first has a user.
+
+**How to pick up.** For (1) the device layer is now a worked example: queued
+self-posting pump (never a loop), frames on `continuousFrameReady()` and not
+`grabFinished()`, state reported after every start/stop request. Pylon's
+`StartGrabbing(GrabStrategy_LatestImageOnly)` replaces the eBUS pipeline, and the
+bandwidth cap matters there too. The runner and the widget pattern need no changes.
+For (2), the honest options are to give it a meaning (hardware-triggered
+free-running, most likely) **or** delete the four methods; do not leave
+`VirtualCameraDevice` claiming success for something that does nothing.
+
+**Added 2026-09-03 — (3) `btn_baklight_toggle` is dead in the Basler widget too.**
+Declared at `src/ui/forms/camera/basler_camera_widget.ui:174`, enabled, and its
+`connect()` commented out at `basler_camera_widget.cpp:243-244` — right beside the
+commented-out `btn_auto_shot` from (1). The owner found the JAI copy of this button
+on 2026-09-03 while accepting Checkpoint C.
+
+**Updated 2026-09-04 — C9 has landed, so this is now cheap.** The whole middle layer
+exists: `DeviceCommandKind::CameraBacklightOn`/`Off`, `CameraRunner::requestBacklight()`,
+`CameraDevice::backlightStateChanged()` and the `setBacklightOverride()` virtual.
+`BaslerGigECamera` answers `hasIOPort()` **true**, so it passes the runner's refusal
+check and falls through to `CameraDevice::setBacklightOverride()`'s base
+implementation, which logs *"Backlight override is not implemented by this camera"*
+and fails the command. That is deliberate and loud — the two answers contradict each
+other and only the subclass can settle it — but it means **the Basler path is now
+wired-and-failing rather than dead**, which is a different and more visible state
+than before. Picking it up is: override `setBacklightOverride()` on
+`BaslerGigECamera` the way the JAI one does (route the auto sequence through a
+single `setAutoBacklightState()` first — that indirection, not the flag, is what
+makes the override impossible for a future grab path to forget), uncomment the
+widget's `connect()`, and rename `btn_baklight_toggle` to `btn_backlight_toggle` as
+the JAI form now has it.
+
+**Also from C9: the sibling action buttons guard instead of disabling.**
+`btn_trigger` and `btn_auto_shot` in both camera widgets stay enabled while the
+camera is disconnected and return early in their slots, so a click does nothing
+visible. That is the same "looks live, is not" shape C9 existed to fix; the
+backlight button is now genuinely disabled via `applyConnectionVisual()`, and the
+siblings were left alone as out of scope. Make them consistent — preferably by
+disabling, not by adding more silent guards.
+
+
+---
+
+## 53. `clearRoleContext()` blanket-disconnects a runner that may hold two roles
+
+**CLOSED (2026-09-09) — Phase 9 Task A3, with NO test, deliberately.** The fix is in:
+`RoleRecoveryContext` carries `statusConnection` / `errorConnection` and `clearRoleContext()`
+drops exactly those two instead of every connection from that runner.
+
+**There is no test and there will not be one, and that is the honest closure.** The trace below
+(added 2026-09-08) establishes that no path in the current codebase reaches
+`clearRoleContext()` with a populated fixed-role context: both fixed roles are bound in exactly
+one place, `bindFixedRoleRunners()`, and `resetRuntimeBindings()` has already emptied them and
+already dropped `m_plcValueConnection` before the blanket form could fire. A test written against
+this would pass identically on the fixed and the unfixed build.
+
+A planned fixture (**O-1**) was **withdrawn** rather than written, because making it "fail" would
+have required breaking two passing tests to construct a state the product cannot enter. A test
+that cannot distinguish the fix from its absence is not evidence, and recording one as evidence is
+worse than recording none.
+
+**Closed as hardening, not as a defect repair.** It removes a hazard and stops `setup()`'s line
+ordering from being load-bearing. **Re-open** the moment a second bind site for `primary_plc` or
+`vision_output` exists — Phase E's write acknowledgement and Phase F1's re-binding are the
+candidates — because the hazard becomes real and testable then. That, not a bench run, is the
+trigger.
+
+**Status:** open, latent — found 2026-09-04 while tracing the combined-write defect.
+Not reachable today; filed because the configuration that makes it reachable is
+the one now running in the field.
+
+`clearRoleContext()` (`src/model/localization_runtime_controller.cpp:709`, was cited as
+`:568-580` when filed) tears down connections with
+
+```cpp
+disconnect(context.runner, nullptr, this, nullptr);
+```
+
+That removes **every** signal from that runner to the controller, not just the ones
+`bindRoleContext()` made. One `ModbusTcpServerDevice` can legitimately fill both the
+`primary_plc` and `vision_output` roles — that is the capability `PlcRunner` gained on
+2026-09-01 (`src/runtime/plc_runner.h:70-76`), and the owner runs exactly that
+configuration. Rebinding **either** role would therefore also drop
+`m_plcValueConnection`, and the runtime would stop receiving all PLC signals with
+nothing failing and nothing logged.
+
+The camera path has the same shape: `bindActiveCameraRole()` → `bindRoleContext()` →
+`clearRoleContext()` would drop `m_cameraGrabConnection`/`m_cameraCommandConnection`
+if it ran mid-cycle. The `CycleState::Running` guard at the top of
+`setActiveCameraNumber()` (`localization_runtime_controller.cpp:156`) is what prevents
+it today.
+
+**Why it is latent, not live.** Role binding happens in `setup()`, and a camera change
+is refused while a cycle runs. So no current path rebinds a role whose runner also
+carries a live connection this controller still needs.
+
+**Status 2026-09-08: FIXED (Phase 9 Task A3), and unreachable — no test, automated or
+manual, can distinguish the fixed build from the unfixed one.** The fix landed:
+`RoleRecoveryContext` stores `statusConnection` / `errorConnection` and
+`clearRoleContext()` (`localization_runtime_controller.cpp:756-767`) drops exactly those.
+The reachability claim above was then traced properly, and it is stronger than "latent":
+
+- `clearRoleContext()` has three call sites — `resetRuntimeBindings()` (`:635-637`),
+  `bindRoleContext()` (`:693`), and `bindActiveCameraRole()` (`:670`).
+- The `PrimaryPlc` and `VisionOutput` contexts are **bound in exactly one place**,
+  `bindFixedRoleRunners()`, reached only from `setup()` at `:441` — which runs
+  `resetRuntimeBindings()` first at `:399`, so both contexts are already empty and
+  `clearRoleContext()` returns at `:759` without disconnecting anything.
+- The only site that reaches `clearRoleContext()` with a **populated** context outside
+  that reset is the Camera role, via `bindActiveCameraRole()`. A camera runner is a
+  different `QObject` from the PLC runner that carries `m_plcValueConnection`, so the
+  blanket form had nothing of the value stream to take.
+- Inside `resetRuntimeBindings()` itself, `disconnect(m_plcValueConnection)` at `:626`
+  runs **before** the three `clearRoleContext()` calls at `:635-637`. The value connection
+  is already gone when the blanket form would have fired, and `setup()` remakes it.
+
+So the dual-role Modbus binding does **not** make this reachable, contrary to what this
+item claimed when filed. The fix is correct hardening — it removes a hazard and makes
+`setup()`'s line ordering stop being load-bearing — but it is **fixed-by-reasoning, not
+fixed-by-evidence**, and an owner-run check on the dual-role cell would pass either way.
+A check that cannot fail is not evidence; do not record one as if it were.
+
+**What the owner run on the dual-role cell is actually worth.** It is a *regression*
+check on Task A3, not proof of item 53: after a camera change on the dual-role Modbus
+binding, `bExecuteTrigger` still starts a cycle. It confirms the change broke nothing.
+Recorded that way in Phase 9 Checkpoint A.
+
+**What would turn this into evidence.** Only a second bind site for a fixed role — a path
+that rebinds `primary_plc` or `vision_output` while the runtime is live (Phase E's write
+acknowledgement and Phase F1's re-binding are the candidates). Re-open this item if such a
+path is added, because the hazard becomes real the moment one exists. That, not a bench
+test, is the trigger.
+
+
+---
+
+## 52. Modbus result layout has no settable 32-bit word order
+
+**Status:** open — the unbuilt half of Open Question 2 in
+`docs/history/plan/phase_8_implementation_plan.md`. Raised 2026-09-03 as a suspected
+defect, resolved 2026-09-04 as a missing feature.
+
+`ModbusResultLayout` packs each 32-bit axis value **high word first**
+(`modbus_result_layout.cpp:40-55` and the caller at `:80-81`), hard-coded. A grep for
+`wordOrder|byteOrder|endian|swap` across `src/device/plc/modbus` returns nothing.
+
+**This is correct today and must not be changed.** The Modbus master on this path is
+the **robot**, commissioned against exactly this order and verified working end to end
+on 2026-09-04. Flipping it would break a running machine to satisfy a document.
+
+**What is missing is the option.** The owner's recorded answer asked for an arg to set
+the order, and it was never built. It matters for the next master, not this one — and
+notably a **Mitsubishi** master would need the opposite: `MCRequest` packs 32-bit
+values low word first (`mc_request.h:150-151`, and the comment says so), so the two
+protocol families in this codebase already disagree about word order while only one of
+them can express it.
+
+**Why it is backlog rather than done.** Adding a parameter with exactly one caller and
+no second implementation to shape it is the abstraction this project's rules warn
+against — the shape would be guessed, not observed. Build it when a second master
+appears; that master defines what the parameter needs to be.
+
+**How to pick up.** Add the order to `ModbusConfig` (it is a Q_GADGET, so the widget
+and JSON come for free), thread it into `encodeAxis()`/`decodeAxis()` and the payload
+loop, and default it to the current high-word-first so existing projects reload
+unchanged. `modbus_device_test` should then cover both orders round-tripping.
+
+
+---
+
+## 50. `PlcMitsuDeviceWizard` is dead code, compiled into both binaries
+
+**Status:** open — found 2026-09-03 by the sweep prompted by the backlight-button
+defect (Phase 8 Checkpoint C).
+
+The whole class is unreachable, not just parts of it. `src/ui/forms/plc/plc_mitsu_device_wizard.{h,cpp,ui}`
+is compiled and linked via `src/ui/ui.pri:29` (SOURCES), `:112` (HEADERS) and
+`:196` (FORMS), but a grep for `PlcMitsuDeviceWizard` across `src/`, `app/` and
+`runtime_app/` finds no construction anywhere — only its own files and translation
+catalogue entries. Its harvest method `getWizardJson()` is commented out at
+`plc_mitsu_device_wizard.cpp:18-20` and `.h:36`, and the `.ui` has an empty
+`<connections/>` block, so there is no auto-connect escape hatch either.
+
+**What replaced it.** `AddDeviceWizard`'s `pgMc` page —
+`src/ui/forms/add_device_wizard.ui:473-493`, wired at
+`add_device_wizard.cpp:293-311` and `:322-357`. That is the live Mitsubishi path.
+
+**Why it matters, mildly.** Two data-entry fields on the dead form
+(`ledit_ip_address` at `.ui:94`, `spb_port` at `:87`) are read by nothing. That
+sounds alarming and is not: no operator can reach the form, so nothing is silently
+lost. The real costs are ordinary — build time, translation strings in the `.ts`
+for UI nobody sees, and a file that reads like the current Mitsubishi wizard to
+anyone who opens it looking for one.
+
+**How to pick up.** Delete the three files and their three `ui.pri` entries, then
+re-run `update_translations.ps1` and expect its strings to vanish (they are the
+"newly vanished" the sweep script normally warns about — here that is the desired
+outcome, so record the count deliberately rather than letting it look like a
+regression). Same category as item 30 (`MatchBoxGripper`).
+
+
+---
+
+## 51. `IDevice::errorOccurred` is never emitted by any device
+
+**Status:** open — found 2026-09-03 by the same sweep. **Half resolved:** the runner forward
+(Phase 9 / B1, below). The device half — no device emits the signal — still waits on the decision
+under "How to pick up".
+
+The signal is declared at `src/device/idevice.h:265`, documented as *"Emitted by
+subclasses to report a device-level error"*, and the whole delivery path exists:
+`CameraRunner` (`camera_runner.h:302-303`) and `PlcRunner` (`plc_runner.h:178-179`)
+queue-connect the device's signal to their own, and
+`LocalizationRuntimeController` (`localization_runtime_controller.cpp:543,551,559`)
+routes it into `reportRoleError()` (`:1543-1557`). **No device subclass ever emits
+it.** The only traffic on the channel is what the runners synthesise themselves —
+`connectionFailed` re-emission and PLC write failures.
+
+**The real consequence is narrower than it first looks**, which is why this is
+backlog and not a defect. Device-internal failures do reach the operator: every one
+of them logs `LOG_USER_ERR` (75 call sites under `src/device`), and grab failures
+additionally fail the command (`camera_runner.h:394-403`) and abort the cycle with
+`LocalizationFaultCode::CameraGrabTimeout`. What they do *not* get is the
+**task-log** ERROR entry that `reportRoleError()` writes — so connection failures
+and PLC write failures appear in a task's own log while a refused GenICam write does
+not, and the two look equally serious in the app log. It is an inconsistency in
+where errors surface, not a silence.
+
+**Second, smaller item in the same area — RESOLVED 2026-09-08 (Phase 9 Task B1).**
+`VisionOutputRunner::wireSignals()` omitted the `errorOccurred` forward that the other
+two runners have. That is now added, with a comment at the line naming this item and
+stating that nothing emits the signal yet, so its presence is never mistaken for
+coverage. `test_every_runner_family_forwards_device_errors_to_the_controller` pins all
+three families in one place and was red before the fix, so the next runner family
+cannot omit it quietly.
+
+**This does not close item 51**, and the forward is still dormant: the trap it removed
+was that two of three runners would have delivered a device error and the third would
+have dropped it silently. The decision below is untouched.
+
+**How to pick up.** Decide the rule before emitting anything: either device-level
+errors are worth a task-log entry (then emit from the devices — the forwards are now
+all in place), or they are not (then delete the signal and its four connects rather
+than leaving a wired channel nothing drives). Do not do half — a partially-emitted
+signal is worse than either end state, because it makes the task log look complete
+when it is not.
+
+## 54. A held `bExecuteTrigger` fires one cycle when the runtime starts
+
+**Status:** open — owner-gated as Phase 9 / **Phase G**, not started as of 2026-09-14. Phase 9 / Z2
+held the Trigger section of `plc_signal_contract.md` back with a pointer here rather than assert either
+behaviour. The title is itself an unverified claim: Phase G's first task exists to measure whether a
+held trigger really fires on each PLC family before anything is changed.
+
+Found during the Phase 8 / F5 audit of `LocalizationRuntimeController` against
+`docs/domains/task_localization/plc_signal_contract.md`. Not a defect against the
+letter of the contract, which is why it is here and not fixed: it is a judgment
+call that belongs to the owner.
+
+`setup()` forces `m_lastExecuteTrigger = false`
+(`src/model/localization_runtime_controller.cpp`, in the state reset near the top).
+If the robot is *holding* `bExecuteTrigger` high at the moment the runtime starts,
+the first polled value delivered to `handlePlcValues()` reads as a rising edge
+(`trigger && !m_lastExecuteTrigger`) and, once the roles connect and the task
+re-arms, starts a cycle. The master never produced an edge.
+
+The contract's Trigger section says a cycle starts only when "previous trigger
+state was false, new trigger state is true". Initialising the previous state to
+false satisfies that literally, so both readings are defensible:
+
+- **Treat it as intended.** A held-high trigger is a pending request the cell
+  wants serviced, and dropping it on a restart would silently lose work.
+- **Treat it as a hazard.** Restarting the runtime while the robot holds the bit
+  fires an unrequested cycle, and the robot cannot tell that cycle apart from one
+  it asked for.
+
+**How to pick up. This is a DOCUMENTATION item. Do not implement the fix this
+entry originally proposed.**
+
+> ⛔ **The originally proposed fix was wrong and would break every production
+> session.** It said: *"seed `m_lastExecuteTrigger` from the first value observed
+> rather than from a constant, so the first sample only establishes a baseline."*
+> Corrected 2026-09-07 after a 25-agent survey flagged it.
+>
+> There is no harmless "first sample" to baseline against. The device layer
+> already suppresses the connect-time snapshot — `valueChanged` is
+> change-detected against a shadow seeded at connect, so **the first
+> `bExecuteTrigger` the controller ever receives is already a genuine 0→1 written
+> by the master.** Swallowing it to establish a baseline would consume the
+> robot's first real trigger of every session: the cycle never starts, and the
+> robot waits forever on a `bMatchingFinished` that cannot come.
+>
+> The entry was written convincingly enough to be implemented as-is. That is
+> exactly why it is flagged here rather than quietly reworded.
+
+Decide which reading the cell wants, then write it into the contract's Trigger
+section either way, because today the document does not say. If a code change is
+ever wanted, it needs a different mechanism than baseline-seeding and its own
+analysis.
+
+Note the related asymmetry while you are there: `m_lastErrorReset` is *not* reset
+by `setup()` at all, so the two edge-detected inputs are initialised by different
+rules for no stated reason. That part still stands.
+
+## 55. `setup()` reports an unregistered active camera as a calibration problem
+
+**CLOSED (2026-09-09) — Phase 9 Task C2, with the fault code finished by C7.**
+
+`validateCameraNumber()` / `validatePatternGroupNumber()` now live on the controller and are
+called by `setup()` **and** by both setters — one validator, three call sites, instead of gates
+that existed only inside the setters. They return a three-way verdict
+(`Accepted` / `OutOfRange` / `NotRegistered`), so the message names which of the two it was.
+
+**Correction 3 of the audit is settled.** `MatchGroup`'s range is `[1, 32]`
+(`match_group.cpp:12-13`), so group **0 is out of range**, matching what
+`plc_signal_contract.md` already stated. No range change was needed; the contract was right and
+the code simply never consulted it at startup.
+
+**The fault code was the other half of this item, and C2 left it wrong.** An unregistered camera
+published `CameraLost` (100) — the same wrong signpost as the calibration message, in the field
+the PLC actually branches on. **Task C7** moved it to `CameraNotRegistered` (103).
+
+**Tests:** `test_setup_refuses_an_unregistered_active_camera_distinctly_from_calibration` (the
+exact confusion this item is named for), `test_setup_refuses_an_out_of_range_active_camera_with_a_range_message`,
+`test_setup_refuses_an_out_of_range_active_pattern_group_with_a_range_message`,
+`test_an_index_that_names_nothing_reports_not_registered_not_lost` (C7, the code).
+
+**Field evidence** (`app_log_2026-09-08.txt`): a real `IR00000=2` write produced
+*"Ready -> Faulted (No camera is registered for number 2.)"* (`:1450-1451`) — registration, not
+calibration — and a group write produced *"Pattern group number 0 is outside the valid range
+1..32."* (`:1495`), quoting `MatchGroup`'s own bounds. Both re-armed with no operator action
+(`:1456`, `:1498`).
+
+*(Retitled 2026-09-07. The old title said "does not range-check the active camera
+/ pattern group number", which was too narrow - see point 2 below.)*
+
+Same audit as item 54, and lower severity, because the bad case does fail - it
+just fails with the wrong explanation.
+
+> ⚠️ **This item is NOT the "task is Ready with index 0 at startup" defect.** That
+> is **item 58**. Item 55's case ends **Faulted**; the owner observed **Ready**.
+> They share a root - `setup()` applies no index gate - but closing this item
+> would not change that behaviour at all. Verified by an adversarial pass on
+> 2026-09-07, which also confirmed the mechanism below is correct and corrected
+> the three points that follow.
+
+**Corrections from that pass:**
+
+1. **The central trace is confirmed**, including at runtime: a probe test with
+   `context.activeCameraNumber = 0` returned `valid=false` with exactly one error,
+   *"Active camera calibration is invalid."*, and no camera connect. `-1` returned
+   `valid=true`. `bindActiveCameraRole(0)` calls `clearRoleContext()` **silently -
+   no log, no error**, which is what lets the misleading message be the only
+   signal.
+2. **Scope is wider than "range".** `activeCameraNumber = 99` behaves identically
+   to `0`: adopted verbatim, same lone calibration message. The gap is **any
+   non-negative number naming no registered camera**, not specifically an
+   out-of-range one.
+3. **The pattern-group half behaves differently and was asserted without
+   evidence.** Group 0 fails `validateActivePatternGroup()` with *"Active pattern
+   group is missing."* - not misleading in the same way. Also **unresolved**:
+   whether 0 is even out of range for a group. `MatchGroup::setIndexRange()`
+   rejects only `min < 0`, while `plc_signal_contract.md` states 1..32. Settle
+   that before writing a range check against it.
+4. **The "reachable mainly by a hand-built context" note attributes the guarantee
+   to the wrong place.** `TaskDeviceBindings::setCameraNumberMap()` performs **no**
+   range check; the invariant is held by `fromJson` on load and by the `num > 0`
+   filter in `camera_mapping_widget.cpp:465`.
+
+`setup()` adopts `context.activeCameraNumber` and
+`context.activePatternGroupNumber` with no range check; only a negative value is
+special (it means "first available"). Both PLC-driven setters now check the range
+first and say so plainly, but the setup path does not. A context arriving with
+camera number 0 binds no camera role, then fails
+`validateActiveCameraCalibration()` and reports **"Active camera calibration is
+invalid"** - which sends whoever reads it to the calibration data rather than to
+the number.
+
+In practice the saved project's bindings are already validated on load
+(`TaskDeviceBinding::fromJson` rejects a binding outside 1..16), so this is
+reachable mainly by a caller building a `RuntimeContext` by hand. Worth closing
+for the message alone.
+
+**How to pick up.** Range-check both numbers in `setup()` using the same bounds
+the setters use (`TaskDeviceBinding::kMinCameraNumber`/`kMaxCameraNumber` and
+`mtc::MatchGroup::validateIndexRange()`), and append an error naming the number.
+Keep the negative sentinel working: `-1` means "first available" and must stay
+that way.
+
+## 56. MC 1C/3C: read/write command coverage on the real PLC, and the benchmark numbers
+
+Carried out of **Checkpoint A** when Phase 8 closed (2026-09-07), at the owner's
+direction. Not a known defect - an untested surface, and the checkpoint text
+explains why that distinction matters here.
+
+**Phase 9 update (2026-09-09, recorded 2026-09-14).** Two parts of this are no longer absent:
+
+- **Write completion on the real C24 is proven.** The owner pulled the cable mid-write and got a
+  failure completion rather than silence (Phase 9 / E1 owner-run).
+- **A device-level MC harness exists.** E1's `McProtocolDevice::createMsgInterface()` seam and
+  `mc_frame_test`'s `FakeMcPort` compile and drive the whole device, so the helper-only proofs for
+  59.3 / 59.4 can become device-level tests. None has been written.
+
+What remains is the rest of this entry as written: the 1C/3C read/write command set on a real module,
+and `tools/mc_protocol_bench` numbers for all three frames.
+
+**What is proven.** 3E still works with no regression, and 1C and 3C both connect
+to a real C24 module and read. Owner-confirmed 2026-09-03. The regression risk the
+checkpoint was built around is retired: the C-frames did not break the shipping 3E
+path.
+
+**What is not.** The remaining read/write commands on 1C and 3C. Owner: *"chua test
+het cac lenh doc ghi ma protocol co"*. **Write commands matter most** and are the
+ones a bench run defaults to off.
+
+This is exactly the class `mc_frame_test` cannot reach. That suite proves a codec is
+byte-correct against reference frames; it cannot prove a real C24 accepts the frame.
+Sum-check, station number, PC number and access-route handling can all differ **per
+command**, so a codec that passes every reference case can still be refused on the
+wire for one command and not another. Phase 7 closed with five defects that compiled
+clean and passed the suite. The C-frames are that same class of work.
+
+**Also carried:** benchmark numbers for all three frames. `tools/mc_protocol_bench`
+(Phase 8 Task A8) is built and smoke-tested but **has never been pointed at the
+PLC**, so there is no measured latency figure for 3E, 1C or 3C.
+
+**How to pick up.** With the C24 module available, run each read and each write
+command the protocol defines, on 1C and on 3C, with 3E as the control. Then run
+`tools/mc_protocol_bench` against the same PLC for all three frames and record the
+numbers. Add a `mc_frame_test` case for any frame a real module refuses, using the
+bytes the module rejected rather than a self-generated expectation.
+
+## 57. Robot pick check verified active on the dual-role Modbus binding
+
+**CLOSED 2026-09-14 — as a missing feature, not as a verification.** Filed as "verify the check is
+active", it could never pass as filed: the runtime took the settings from the output device, a Modbus
+device carries none, so there was nothing active to observe. Phase 9 / F1 built the missing piece — the
+pick check became a task setting, `TaskLocalizeConfig::robotCheckConfig()` — and the owner then
+observed it reject unreachable poses on the dual-role Modbus binding. Evidence at the end of this entry.
+
+Carried out of **Checkpoint B** when Phase 8 closed (2026-09-07). The owner
+confirmed Modbus works on both the server and the client role and approved the
+result layout; this one item was not part of that confirmation, and it needs a
+different kind of evidence than "the cell ran".
+
+**The hazard** is Phase 8 Task B1's: `buildRuntimeContext()` reads
+`robotCheckConfig` by casting the bound device's config to `VisionOutputDeviceCfg`.
+That cast fails for a Modbus device and the kinematic-check settings **silently
+default**.
+
+**"The robot picked correctly" is not evidence**, which is the whole reason this
+stayed open through a successful real-robot run on 2026-09-03. A defaulted-off check
+produces a *working* robot: the cell runs, parts get picked, and nothing looks wrong
+until the one cycle the check was supposed to stop.
+
+**How to pick up.** Observe the check *doing something* on the dual-role Modbus
+binding specifically - one run with a deliberately unreachable pick that the check
+must reject, or the check's own settings read back out of the live task. Either
+proves the cast produced real settings rather than defaults.
+
+> **The HAZARD is removed as of 2026-09-10 (Phase 9 / F1). The item stays OPEN, because what it
+> asks for is an observation nobody has made yet.**
+>
+> The cast this entry describes was already replaced by `IResultOutputDevice` in Phase 8 / B1,
+> which fixed *which families could answer* but not the deeper problem: a device with nothing
+> commissioned answers "disabled", and that is indistinguishable from "this cell does not want the
+> check". F1 moved the setting onto the task — `TaskLocalizeConfig::robotCheckConfig()`,
+> schema v3 → v4 — so `buildRuntimeContext()` no longer asks a device at all. The setting is
+> edited from **Settings tab → Robot pick check → Set…**, which is also new: before F1 it lived
+> only on the vision-output device panels, where a dual-role Modbus cell had no way to reach it.
+>
+> F1 also added the guard this entry's failure mode needed: an **enabled** check whose preset does
+> not resolve now **refuses the runtime and names the preset**, instead of building a checker that
+> fails closed and reads on the dashboard as *"nothing is pickable today"*.
+>
+> **Still not evidence, and that is the point of leaving this open.** *"The robot picked
+> correctly"* was never evidence, and neither is *"the tests are green"*. What closes this is the
+> owner observing the check **reject a deliberately unreachable pick** on the dual-role Modbus
+> binding, commissioned from the task settings. Recorded at Checkpoint F.
+>
+> **Owner run 2026-09-11 — confirmed, but not on the binding this item names.** Unreachable poses
+> were skipped with the check commissioned from the task settings. Every runtime after the F1 build
+> ran on `PLC_Mitsu_01` (MC) + `VisionOut_01` (app logs 09-10 from 11:21, 09-11 from 16:48); no
+> Modbus device carried `vision_output` in any of them. So the task → checker path is proven on
+> hardware, and since `buildRuntimeContext()` no longer asks any device, the binding family can no
+> longer change what the checker receives. The PLC-carries-output case is pinned by
+> `test_runtime_reads_the_pick_check_from_the_task_when_a_plc_carries_the_output_role`. What stays
+> unobserved is literally this item's case; it is kept open for that, and closing it on the
+> residual risk is the owner's call.
+
+**CLOSED 2026-09-14 — the observation this item was filed for has now been made.** The owner
+re-ran with a **Modbus TCP client carrying both roles at once** and confirmed unreachable poses
+are skipped. `app_log_2026-09-14.txt` corroborates the binding independently: at `:208-209` the
+runtime requests `role= primary_plc deviceId= 05` and `role= vision_output deviceId= 05` — the
+same device (`Modbus_Client_1`, `192.168.1.59:801`) — and 85 cycles then ran against it
+(08:48:35–08:51:57). That is exactly the configuration this entry describes, with the check
+commissioned from the **task** settings rather than a device panel.
+
+Evidence chain, for the record: the hazard was removed by Phase 9 / F1 (the pick check moved to
+`TaskLocalizeConfig::robotCheckConfig()`, schema v3 → v4), the PLC-carries-output path is pinned
+by `test_runtime_reads_the_pick_check_from_the_task_when_a_plc_carries_the_output_role`, and the
+behaviour is now observed on real hardware on the exact binding. *"The robot picked correctly"*
+was never evidence — a rejected unreachable pose is.
+
+> ⚠️ **That same run exposed a separate defect on this binding** — the result publish colliding
+> with the poll and aborting the cycle. It does not reopen this item; see the dual-role Modbus
+> collision entry at the end of this file.
+
+## 58. Startup neither validates nor announces the active camera / pattern group
+
+**PART A CLOSED (2026-09-09) — Phase 9 Tasks C2 + C3 + C6. Part B partly delivered; see below.**
+
+The reported behaviour is gone, confirmed by the owner on the cell **2026-09-09**: a runtime
+started with the master holding camera 0 and pattern 0 **faults instead of going Ready**, and
+correcting both registers returns it to Ready with **no restart and no operator action**.
+
+| Piece | Task | What it does |
+|---|---|---|
+| Startup validates | **C2** | `setup()` runs the same validator the setters run |
+| Startup announces | **C3** | new `nActiveCameraStatus` / `nActivePatternGroupStatus`; the echo onto the master's **command** registers is deleted, not moved |
+| Startup **reads** the live selection | **C6** | `PlcValueMap::valueForTag()` + a bounded wait on `PlcRunner::pollingUpdate`, so `setup()` sees what the master is actually holding |
+
+**The design caution in "How to pick up" was followed, not overridden.** Part A's second bullet
+suggested publishing onto `nActiveCamera` / `nActivePatternGroup`. That would have been wrong, and
+the field proved it before C3 shipped: on a Modbus **client** binding the controller's echo was
+rejected outright — a client cannot write an input register (item 60). C3 added separate status
+signals instead. `main.cpp:3069`, which asserted the omission, was updated deliberately.
+
+**Tests:** `test_a_runtime_started_with_the_master_holding_zero_does_not_reach_ready`,
+`test_a_runtime_started_with_the_master_holding_a_valid_number_adopts_it`,
+`test_a_startup_index_the_plc_refuses_is_recoverable_not_terminal`,
+`test_setup_announces_the_active_selection_on_status_signals`,
+`test_status_signals_with_no_tag_emit_but_do_not_write`,
+`test_build_runtime_context_leaves_the_selection_for_setup_to_resolve`,
+`test_setup_falls_back_to_the_project_default_when_the_index_signal_is_unmapped`.
+
+> ⚠️ **The first cut of C6 refused the bad index correctly and then could never re-arm** — it
+> routed the refusal through `SetupResult::errors`, which leaves `m_valid` false, and
+> `markRuntimeReady()` gates on `m_valid`. The owner found it on the cell; the task's own two
+> tests had asserted the wrong contract (permanent fault) and went red at the fix. The lesson is
+> recorded in the plan at Task C6: a 0 **written at runtime** is a recoverable fault, a 0 **read at
+> setup** was made a terminal one, and "does not reach Ready" was tested while "recovers" was not.
+
+**Part B — what is delivered and what is still open.** B asked whether the runtime should learn
+the true power-up state at all. **C6 answered yes and built the mechanism**: the `pollingUpdate`
+full-snapshot hook now has a real consumer, and `PlcValueMap` gained the name→value accessor B
+identified as the missing piece. What B raised and **remains open** is narrower:
+
+- Whether a **mapped-but-never-written** register should be a distinct commissioning fault. Today
+  an absent tag and an unreadable snapshot both fall back to the project default with a USER-level
+  warning; they are not separated from a register the master genuinely set.
+- The **MC** and **Modbus client** first-poll adoption (`mc_protocol_device.cpp:424`, `:476`;
+  `modbus_tcp_client_device.cpp:275`), which swallows even a *non-zero* power-up value into the
+  shadow. C6 reads the snapshot rather than the change stream, so the index path is no longer
+  exposed to this — but every **other** signal still is. This is the half that carries into
+  Phase G / item 54.
+
+  > ⚠️ **That sentence was written before it was true, and the gap cost a field defect.** "C6 reads
+  > the snapshot, so the index path is safe" quietly assumed the snapshot was trustworthy. On MC it
+  > was not: it was published one response early, and the very first one carried nothing but the
+  > zero-fill — **item 59.5**, owner-reported 2026-09-09, fixed by Phase 9 Task **E5**. The claim
+  > holds now; it did not when it was filed. And "source-established, not observed on hardware" was
+  > carrying more weight than it looked: what had not been observed was not a minor variant of this
+  > paragraph, it was the thing that broke the cell.
+
+**Owner-reported 2026-09-07, on real hardware:** *"khi runtime khoi dong mac du
+camera number va pattern number deu la 0 nhung task van ready."* Scheduled by the
+owner into the **Phase 9** plan; this entry exists to record the mechanism
+accurately, not to prescribe the fix.
+
+**Do not read item 55 as covering this.** That item is about a `RuntimeContext`
+arriving with camera 0, and its case ends **Faulted**. This one ends **Ready**.
+They share a root - `setup()` applies no index gate - but they are different
+defects, and closing 55 would not change the reported behaviour at all.
+
+### Mechanism (verified by a 13-agent adversarial pass, 2026-09-07)
+
+Two independent facts, both required:
+
+**1. The startup path bypasses both setters entirely.** `beginRuntime()`
+(`task_localization.cpp:172`) -> `setupTask()` -> `setupRuntimeController()` ->
+`controller->setup(context)`. Nothing on that path calls
+`setActiveCameraNumber()` or `setActivePatternGroupNumber()`. The context is
+filled **app-side from the project bindings, never from the device**:
+`context.activeCameraNumber = cameraDeviceIds.firstKey()` and
+`activePatternGroupNumber = patternGroups.firstKey()`
+(`task_localization.cpp:724-738`). `setup()` then assigns both as raw members
+(`localization_runtime_controller.cpp:423-431`), binds the camera role directly
+via `bindActiveCameraRole()`, clears both rejection latches (`:376-377`), and
+calls `markRuntimeReady()`.
+
+Every range and registration gate - `kMinCameraNumber`/`kMaxCameraNumber`
+(`:170`), the runner lookup (`:192`), `MatchGroup::validateIndexRange()` (`:277`)
+- lives **only inside the setters**. The setters have exactly two production
+entry points: `handlePlcValues()` (change-driven) and the queued UI wrappers,
+whose only callers are **dead** (see item 59). So an index that merely *sits* in
+a register is never inspected; only one that *arrives as a change* is.
+
+**2. A register that is 0 from power-up and never written is never delivered.**
+`ModbusRegisterMap::takeChangedValues()` skips on `!differs`
+(`modbus_register_map.cpp:229-245`); `configure()` seeds every address to 0 and
+`deviceConnect()` adopts that all-zero space as the shadow
+(`modbus_tcp_server_device.cpp:335`). 0-vs-0 is not a diff, and the server has no
+poll timer.
+
+> **Do not over-generalise this to "zeros are never published".** A master
+> writing 0 **over** a non-zero value *is* a change and *is* delivered - the log
+> shows `HR00000=0` published and the task faulting 6 ms later with *"Camera
+> number 0 is outside the valid range 1..16."* (`app_log_2026-09-07.txt`,
+> 14:23:15.770 -> .776). `VirtualPlcDevice::injectInputValue()` publishes
+> unconditionally with no shadow at all. The load-bearing case is narrow: **0
+> from power-up, never written.** An adversarial verifier refuted a broader
+> phrasing of this claim, correctly.
+
+**Runtime proof.** In `app_log_2026-09-07.txt`: at 13:34:20 the master left
+`HR00000=0` and wrote nothing more; `beginRuntime` ran at 13:37:57 and the task
+logged `RuntimeStarting -> Ready (Runtime ready.)` at 13:37:59 with no fault; the
+master wrote `HR00000=1` only 18 s later. At the 13:29:40 process start, **a full
+successful matching cycle ran at 13:30:19-13:30:21 while the selection register
+still read 0.** Every Ready transition in that log carries setup's own reason
+`"Runtime ready."`, never a setter's `"Active camera changed. Runtime ready."`.
+
+**Aggravating factor - the runtime never announces its own choice.**
+`nActiveCamera` has exactly one publish site
+(`localization_runtime_controller.cpp:228`, inside the camera setter) and
+`nActivePatternGroup` one (`:309`, further gated on `valid`).
+`publishInitialReadyOutputs()` (`:837-850`) publishes ten signals and neither
+index. So the register keeps its power-up value and the signal-monitor row keeps
+the literal `"0"` it was constructed with. **"Nobody wrote anything" and "0 was
+commanded" are indistinguishable on that row** - which is exactly what the owner
+saw. (The two dashboard labels do start at an em-dash, so they distinguish it.)
+
+### Why it matters
+
+A commissioning engineer sees `bTaskReady`, `bCameraValid` and `bPatternValid`
+all true while the selection registers read 0, and **the runtime will accept and
+execute a trigger in that state**. The recipe actually used is `firstKey()` of the
+binding map - whichever camera and group happen to sort first. If the master's
+intended selection is anything else, the part is inspected with the wrong camera
+or pattern and **nothing anywhere reports a mismatch**.
+
+Self-correction depends entirely on the master eventually writing a value that
+*differs* from what the device last saw. A master that writes its selection once
+at power-up - before the vision app starts, or with a value equal to the shadow -
+never triggers a setter, and the mismatch is permanent for the session.
+
+### How to pick up
+
+Two separable pieces; **A alone removes the operational risk.**
+
+**A. Make startup validate and announce its own selection.**
+- `localization_runtime_controller.cpp:423-431` - route the startup selection
+  through the same gates the setters use. Extracting the range/registration check
+  into a shared validator that `setup()` also calls is the obvious shape. Keep
+  `-1` = "first available" working; note `buildRuntimeContext()` already resolves
+  that itself, so setup's own fallback is dead for the only production caller.
+- `localization_runtime_controller.cpp:837-850` - publish `nActiveCamera` and
+  `nActivePatternGroup` on the ready path. **Design caution:** these are
+  master-written *command* registers, and the comment at `:299-303` records a
+  deliberate decision not to echo a value onto them. A task that echoes at
+  startup can fight a master about to write its own; a separate status register
+  may be the right shape. **That decision belongs in the Phase 9 plan, not in the
+  fix.**
+- `tests/architecture_contract_test/main.cpp:3069` currently **asserts the
+  omission** (`nActiveCamera` never emitted after `setup()`). It will fail and
+  must be updated deliberately, not patched around.
+
+**B. Decide whether the runtime should learn the true power-up state at all.**
+The full snapshot already exists - `pollingUpdate(m_map.clone())`
+(`modbus_tcp_server_device.cpp:469`, `mc_protocol_device.cpp:479`) - but the
+controller connects only `valueChanged`, and `pollingUpdate` has no consumer
+outside two device widgets. That is the hook if a mapped-but-unwritten register is
+to become a commissioning fault. Weigh it against the Modbus **client** and **MC**
+first-poll behaviour (`modbus_tcp_client_device.cpp:275`;
+`mc_protocol_device.cpp:424`, `:476`), which silently adopt the first poll into
+the shadow - MC swallows even a *non-zero* power-up value. That is a second,
+independent way a startup value goes unseen. **Source-established, not observed on
+hardware.**
+
+**Docs already corrected.** `plc_signal_contract.md` claimed a power-up 0 "will
+hold the task in fault - which is intended". That was false; the paragraph now
+says what the code does and points here. Restore the original wording only when
+the code actually does it.
+
+## 59. Housekeeping surfaced by the item-58 investigation
+
+**CLOSED (2026-09-09) — all four resolved.** 59.4 was found while planning Phase 9 and is filed
+here for the first time (the plan referred to it as "59.3b"); it turned out to be the most severe
+item in this group, not housekeeping at all.
+
+| # | Closed by | Tests |
+|---|---|---|
+| 59.1 dead slots | **C5** — all four deleted | *see note* |
+| 59.2 `activeCameraWorkspace` never populated at startup | **A2** | `test_setup_applies_the_active_camera_workspace_before_the_first_cycle`, `test_a_camera_with_no_workspace_keeps_the_default` |
+| 59.3 lockstep `std::map` walk | **A1** | `test_a_shadow_larger_than_the_live_map_still_compares_by_address`, `test_an_address_new_to_the_shadow_is_reported_without_a_previous_value` |
+| 59.4 MC drops every M change when no D range is configured | **A1**, same edit | `test_m_changes_survive_a_station_with_no_d_ranges`, `test_d_changes_survive_a_station_with_no_m_ranges` |
+
+**59.1 — the evidence is a deletion, so say what it is.** No test asserts the absence of a dead
+slot. What is checkable: the four identifiers are gone from `src/`, and the 2026-09-09 translation
+sweep moved **exactly four** strings to `vanished` — *"Cannot change camera, not found camera
+number %1"*, *"Cannot change camera, device %1 with id %2 isn't camera type"*, *"Task %1 change
+camera number failed, value %2"*, *"Task %1 change pattern number failed, value %2"* — one per
+deleted function, and nothing else. Their Japanese is retained; `-no-obsolete` was not used.
+`task_localization.h` carries a comment at the deletion site so the removal reads as deliberate.
+
+**59.2 was not housekeeping either.** With `activeCameraWorkspace` unset for the whole session,
+`useConditionWorkspace` stayed false, `outSideConditionRoiCheck()` was never called, and every
+object kept `m_isOutsideConditionRoi == false` — so objects the commissioning engineer had fenced
+out were converted to robot coordinates and **sent as pick targets**, on the first cycle of every
+session, with nothing logged and every lamp green. `setup()` now calls
+`applyActiveCameraWorkspace()` directly. Field-confirmed: `app_log_2026-09-08.txt:1432` shows
+`workspace: crop=on condition=on conditionRoi=(571.034,302.069 546.207x459.31)` at startup, and the
+owner confirmed on the cell that an object outside the condition ROI is skipped.
+
+**59.4 (new).** `McProtocolDevice::check_device_changed()` returned at `mc_protocol_device.cpp:721-723`
+— **before** the `emit valueChanged` — whenever the station had no D ranges configured. On an
+M-only PLC that drops every `bExecuteTrigger` while the device widget looks perfectly alive.
+`deviceMChanged` still fired, which is what made it invisible. A1 extracted the diff into the
+header-only `src/device/plc/mc_device_map_diff.h` (iterating **by key**, which is what fixes 59.3
+in the same edit) and made `check_device_changed()` emit once, unconditionally, after both maps.
+
+> **Still unverified on hardware.** `mc_frame_test` does not compile `mc_protocol_device.cpp` —
+> a device-level test would need an `McMsgInterface` seam that does not exist — so 59.3 and 59.4
+> are proven at the **helper** level, not at the device level. Item 56 (MC 1C/3C coverage) carries
+> the remaining gap.
+>
+> **Update 2026-09-09:** the seam now exists (Phase 9 / E1's `createMsgInterface()`), and
+> `mc_frame_test` compiles the device. A device-level test for 59.3/59.4 is therefore possible
+> today; it has not been written. **Part of item 56 is closed** by the same phase: the owner
+> confirmed on the real C24 that pulling the cable mid-write produces a failure completion rather
+> than silence (Phase 9 / E1 owner-run). Write-command coverage on real hardware is no longer
+> absent — what remains of 56 is the 1C/3C frames, which are still bench-only.
+
+Found 2026-09-07 while tracing the startup index path. None is the item-58 defect;
+all were noticed on the way and are recorded rather than fixed, per the rule
+against mixing unrelated work into a change.
+
+1. **Dead slots.** `TaskLocalization::onSignalChangeCameraNumber()` and
+   `onSignalChangePatternNumber()` (`task_localization.cpp:471-497`, declared
+   `task_localization.h:201`, `:205`) have **no `connect()` site anywhere** in
+   `src\` or `runtime_app\`. They are the queued UI path into the active-index
+   setters. Wire them or delete them - a dead slot that looks like a live entry
+   point is how item 58's "the setters have two entry points" reads as safer than
+   it is. *(Searched by identifier; a string-based or `QMetaObject`-resolved
+   connection would not have been caught.)*
+2. **`m_context.activeCameraWorkspace` is never populated at startup.** It is
+   assigned only inside `setActiveCameraNumber()`
+   (`localization_runtime_controller.cpp:252-254`) and `buildRuntimeContext()`
+   does not fill it, so it stays at its default through a normal runtime start.
+   Consequences not traced - do that before deciding whether it matters.
+3. **`McProtocolDevice::check_device_changed()` walks two `std::map`s in
+   lockstep** assuming identical key sets, while `update_last_*_map()` only adds
+   and never erases. If the shadow outgrows the live map the iterators misalign.
+   Latent - no reaching case was constructed.
+4. **The same function discards every M change when the station has no D ranges
+   configured.** *(Filed 2026-09-09; found 2026-09-08 while planning Phase 9, where
+   it was referred to as "59.3b". Not latent — live on any M-only PLC.)* The early
+   return at `mc_protocol_device.cpp:721-723` sits **before** the single
+   `emit valueChanged` at `:743-745`, so an M-only station publishes nothing at all
+   while `deviceMChanged` at `:714` keeps firing and the device widget keeps looking
+   alive. On such a station every `bExecuteTrigger` is dropped and the task simply
+   never runs a cycle, with no fault and no log line.
+5. **The polling snapshot was published one response too early.** *(Filed 2026-09-09,
+   owner-reported on an MC cell; **FIXED the same day by Phase 9 Task E5**.)*
+   `polling_query()` emitted `pollingUpdate()` at the moment the round's **last**
+   request was *selected* — before `request_handle()` sent it, let alone parsed its
+   reply. Every snapshot was therefore one response short, and the **first** one
+   carried the zero-fill `update_d_map()` had just written. Task C6 reads that snapshot
+   to resolve the startup selection, so `nActiveCamera` came back as **0** and the
+   runtime faulted with `CameraNotRegistered` on a project whose camera 1 was bound and
+   registered — then re-armed itself a moment later, when the real value finally
+   arrived as a change. `is_first_time_polling` was mis-placed identically and moved
+   with it: on an **M-only** station (see 59.4) that flag's early clear left the *whole*
+   first poll un-suppressed, so a `bExecuteTrigger` held high at power-up would have
+   started a cycle nobody triggered. Both now clear at the tail of `response_handle()`,
+   giving MC the contract both Modbus families already keep — **a snapshot means what
+   was just read.**
+
+---
+
+## 60. The active-index echo is rejected outright on a Modbus master
+
+**CLOSED (2026-09-16, closing note added at the Phase 10 triage).** The fix this item was
+waiting for landed with Phase 9 Task C3 on 2026-09-09: both command-register echoes were deleted
+and the adopted selection is published on `nActiveCameraStatus` / `nActivePatternGroupStatus`
+instead (decision record `DR-0001`, tests named in item 58). The status line below was written
+before C3 landed and is kept for traceability. The one loose end it mentions — a device error on a
+dual-role binding being reported once per role — is cosmetic and is not tracked separately.
+
+**Status:** open, **field-confirmed 2026-09-08**. Fixed by Phase 9 Task C3, which
+already exists and already says to delete both echoes; this item records that the
+defect is no longer theoretical and raises its severity.
+
+`setActiveCameraNumber()` publishes the accepted number straight back onto the tag it
+was read from (`localization_runtime_controller.cpp:228`), and
+`setActivePatternGroupNumber()` does the same at `:308`. `LocalizationSignalMapper`
+holds one **undirected** map (`m_signalNameToTag`), so a signal the master owns as a
+command register is writable by the runtime with no direction check anywhere in the
+path.
+
+On a Modbus **client** (master) binding whose command registers sit in the input-register
+area, the write cannot succeed — a master may not write input registers — so every
+accepted selection change produces a device-level rejection and a `runtimeError`:
+
+```text
+build\bin\release\logs\app_log_2026-09-08.txt:739-752
+[11:12:19.411] Modbus values changed. deviceId= 04 count= 1 values= IR00000=1
+[11:12:19.483] Modbus values changed. deviceId= 05 count= 1 values= IR00000=1
+[11:12:19.485][ERR]  Modbus word write rejected: a master cannot write input registers.
+                     deviceId= 05 tag= IR00000
+[11:12:19.488][WARN] primary_plc   runtime error: PLC word write failed: IR00000
+[11:12:19.488][WARN] vision_output runtime error: PLC word write failed: IR00000
+```
+
+and identically for `IR00001` (the pattern group) at `:748-752`.
+
+**The client is where it is loud, not where it is worst.** The same echo on a **server**
+binding writes the same value back into a register the master owns, silently and
+successfully. That is a write race, not a no-op: a master that changes the command
+register while the runtime is echoing the previous value has its command overwritten by
+the vision system. The rejection on the master binding is the benign version of this bug.
+
+**Noticed alongside, not separately filed:** the error is reported **twice**, once per
+role, because one device fills both `primary_plc` and `vision_output` and each role
+context forwards the same device error. Cosmetic, but it doubles the noise in exactly the
+configuration that is hardest to read.
+
+**How to pick up.** Phase 9 Task C3 — publish `nActiveCameraStatus` /
+`nActivePatternGroupStatus` instead, delete both echoes. See the migration note there: a
+commissioned master reading the command registers back must be moved onto the status tags
+first.
+
+---
+
+## 61. The dashboard never re-reads the task config, so its bindings go stale
+
+**Status:** **CLOSED 2026-09-11 — Phase 9 / F2, owner-confirmed on the cell.** With the dashboard
+already open, changing the vision-output and primary-PLC bindings in the Setting tab updated the
+dashboard without reopening the window — the check that distinguishes this cause from item 25's.
+Field-confirmed 2026-09-08.
+Phase 9 Task F2 covers a *different* cause of the same symptom and would **not** have fixed
+this one on its own — see below; both were fixed in the same edit.
+
+> **What landed.** `initWidget()` now connects `ITask::configChanged` to a handler that
+> re-reads `taskLocalizeConfig()` into `m_config` and runs the existing
+> `pushSignalTagsFromConfig()` + `updateTaskContext()` + `rebuildConnectionWiring()` trio —
+> exactly the "how to pick up" below. It is idempotent: `rebuildConnectionWiring()` already
+> drops `m_connectionConns` first.
+>
+> **This cannot close on a test.** There is no widget-level test framework in this project, so
+> the only check that distinguishes the two causes is the owner one: with the dashboard already
+> open, change the primary-PLC or vision-output binding in the Setting tab and return **without
+> closing the window** — the device label and the lamp must both follow. The re-wiring half
+> passes that while still showing the wrong device, which is why it is the discriminating check.
+> Recorded at Checkpoint F.
+>
+> **Not fixed here, and still open:** the camera lamp's refusal-path gap noted below —
+> `setActiveCameraNumber()` returns at `:189` and `:215` before publishing the index, so a
+> refused selection updates no camera visual. That is a separate defect in a different file and
+> was left alone rather than folded in.
+
+`LocalizationDashboardWidget` takes a **copy** of the config at construction
+(`localization_dashboard_widget.cpp:180`) and refreshes it in exactly one place: the
+`ITask::devicesChanged` handler at `:209-215`. But `devicesChanged` is emitted only when a
+device is assigned to or unassigned from the task (`itask.h:158`, `:168`) — **not** when
+the role bindings change. Editing "primary PLC" or "vision output" in the Setting tab goes
+`localization_setting_widget.cpp:202/210` → `:545 setTaskLocalizeConfig()` →
+`task_localization.cpp:101` → `ITask::setTaskConfig()` → **`emit configChanged()`**
+(`itask.h:210`) — and **nothing in the dashboard is connected to `configChanged`**.
+
+In the editor shell the dashboard is built once and cached
+(`localization_task_widget.cpp:619-625`), so the stale copy survives for the life of the
+window. Everything read through `m_config.d->m_deviceBindings` is then wrong:
+
+- `updateTaskContext()` (`:421-422`) — the PLC and vision-output **device name labels**.
+- `rebuildConnectionWiring()` (`:290-292`) — which device each **connection lamp** watches.
+- `resolveActiveCameraDeviceId()` (`:365-373`) — the camera lamp's device, via a stale
+  `cameraNumberMap()`.
+
+Observed on 2026-09-08: with a Modbus client bound as PLC and output, the link came up
+(`app_log_2026-09-08.txt:705` *"Modbus client connected. deviceId= 05"*) and the dashboard
+showed neither device. The camera lamp escapes only by accident — `nActiveCamera`'s
+handler calls `rebuildConnectionWiring()` (`:489-495`) — and loses even that on the
+refusal paths, which return before publishing the index (`:189`, `:215`), so a refused
+camera selection updates no camera visual at all.
+
+**Why Task F2 is not enough.** F2 attributes the dead lamps to construction order — the
+runtime-shell dashboard is built before `beginRuntime()`, so `runnerFor(id)` returns null
+once and is never retried. That is real and separate. But re-wiring on `runtimeStarted` /
+`phaseChanged` still reads the same stale `m_config`, so a role bound after the dashboard
+was first shown stays invisible. **Both causes must be fixed for either symptom to go
+away.** F2 has been amended to carry this.
+
+**How to pick up.** Connect `ITask::configChanged` to a handler that re-reads
+`taskLocalizeConfig()` and then runs the existing `pushSignalTagsFromConfig()` +
+`updateTaskContext()` + `rebuildConnectionWiring()` trio — the same three the
+`devicesChanged` handler already runs. Keep it idempotent; `rebuildConnectionWiring()`
+already drops `m_connectionConns` first.
+
+---
+
+## 62. A stale root `main.moc` silently deletes tests from the two vision suites
+
+**Status:** open, **root cause found and proven 2026-09-08**. Worked around in the local
+build dir; the durable fix is not yet made.
+
+**Symptom.** `tests/vision_output_device_test/main.cpp` defines 7 test functions and
+`tests/vision_tcpip_client_device_test/main.cpp` defines 8. The built binaries registered
+**6** and **7**. `test_disconnect_notice_on_graceful_close`
+(`vision_output_device_test/main.cpp:217`, `vision_tcpip_client_device_test/main.cpp:231`)
+was missing from both. It did not fail and it was not skipped — QTest reported
+`0 skipped, 0 blacklisted`, so **the suite looked cleanly green while carrying a hole**.
+Confirm the shape of any suite with `<exe> -functions` before trusting a total.
+
+**Mechanism — proven, and it is self-perpetuating.** Each `main.cpp` ends with
+`#include "main.moc"`, and qmake **resolves that include against the include path when it
+generates the Makefile**. Both build roots still held a `main.moc` dated **2026-06-03**,
+left behind when these two suites were built with output at the build root; qmake now
+emits `release\main.moc`. Because the build-dir root is on the search path, qmake's
+dependency scanner found the *physical June file* and wrote **that** path into the
+Makefile. Comparing the generated Makefiles shows it exactly:
+
+```text
+mc_frame_test\Makefile.Release:3157      release\main.moc \      ← correct
+vision_output_device_test\...:2209       main.moc \              ← the stale root file
+vision_output_device_test\...:11893      main.moc \
+```
+
+The first of those is inside the prerequisites of the `release\main.moc` rule itself — the
+rule that *produces* the moc was told to depend on the stale copy of its own output.
+
+So the file's mere existence makes qmake depend on it, which keeps it required, which
+keeps it present. At compile time the same include order (`-I<srcdir> -I. … -Irelease`)
+makes the compiler read it too, and the metaobject ends up listing the June set.
+
+**Why the obvious repairs fail.** Regenerating the moc does not help — `nmake -f
+Makefile.Release compiler_moc_source_make_all` writes `release\main.moc` and the root copy
+still wins. Deleting the root copy *without* re-running qmake fails differently: the
+existing Makefile still names the bare path and nmake stops with `U1073: don't know how to
+make 'main.moc'`. Both were tried; both are dead ends.
+
+**The fix — delete first, then re-run qmake. Order is the whole trick.**
+
+```powershell
+# per affected build dir, e.g. build\tests\vision_output_device_test
+Remove-Item .\main.moc                       # the stale root copy
+qmake <path-to>\<suite>.pro                  # regenerates deps against release\main.moc
+Remove-Item .\release\main.obj               # no moc dependency existed, so force it once
+nmake -f Makefile.Release
+```
+
+**Applied and verified 2026-09-08 in both build dirs.** After the delete + qmake, every
+`main.moc` reference in `Makefile.Release` reads `release\main.moc` and the bare-path
+prerequisites are gone. Forced full recompiles then produced binaries registering **7** and
+**8** test functions, matching the sources, and the root `main.moc` does not come back.
+
+This is a **build-directory** repair, not a source change: the two `.pro` files are
+structurally identical to `mc_frame_test.pro`, which was never affected because its build
+root never held a `main.moc`. Nothing in `tests/` needs editing. A clean build dir would
+have had the same effect; the sequence above avoids a full rebuild of RobotKinematics.
+
+---
+
+## 63. Fault code 400 now claims "not registered" for four content-invalid pattern faults
+
+**Status:** open, **introduced deliberately by Phase 9 Task C7 (2026-09-09)** and recorded
+in the same change rather than left to be discovered.
+
+**What happened.** C7 renamed `PatternInvalid` → `PatternNotRegistered` (value 400
+unchanged) so the pattern half matched the new `CameraNotRegistered = 103`. For the
+*selection* faults that is exactly right. But 400 is also published by four paths where the
+group **is** registered and its content is the problem:
+
+| Site | Condition |
+| --- | --- |
+| `localization_runtime_controller.cpp` `setActivePatternGroupNumber()` | group in range and present, but `validateActivePatternGroup()` finds no usable train image |
+| `setup()`, after `groupCheck.accepted()` | same content check, at startup |
+| `startCycle()` pre-flight | same check, one cycle later |
+| `runMatching()` | the active pattern-group snapshot is unavailable |
+
+**Why it matters.** This is the *same* defect C7 exists to remove, left standing on the
+other index. An operator reading `PatternNotRegistered` goes looking for a group that was
+never registered, finds it present, and has been sent to the wrong screen — precisely the
+complaint item 55 fixed for the camera message and C7 fixed for the camera code.
+
+**The fix, when the owner allocates the value.** Split the two meanings:
+
+- `PatternNotRegistered = 400` — out of range, or no group for that number. Unchanged value,
+  so no deployed PLC program is disturbed.
+- `PatternInvalid = 402` — the group exists but is unusable (no train image, snapshot
+  missing). New value; the four sites above move to it.
+
+402 is free and inside the documented 400s band (pattern/calibration). `401` is
+`CalibrationInvalid`.
+
+**Not done in C7 on purpose.** Adding a numeric code to the PLC contract is an integration
+change, not a rename: `plc_signal_contract.md` says *"Do not renumber existing codes. Add
+new codes in a documented range and update tests"*, and any master already branching on 400
+for a content fault would need to learn 402. That is the owner's call, not a side effect of
+a rename they asked for.
+
+**Verification when done.** Extend
+`test_an_index_that_names_nothing_reports_not_registered_not_lost` with a fifth block: a
+registered group whose patterns carry no train image must publish 402, and the negative
+check is that reverting it to 400 makes exactly that block fail.
+
+**What it was hiding.** With the test restored, item 32's flake is real. Measured
+2026-09-08 across ten runs of each suite:
+
+| suite | total | `test_disconnect_notice_on_graceful_close` |
+|---|---|---|
+| `vision_output_device_test` | 9 | **4 / 10 fail** (2/6, then 2/4) |
+| `vision_tcpip_client_device_test` | 10 | **6 / 10 fail** (5/6, then 1/4) |
+
+⚠️ **The rate is not stable between batches** — the client suite went 5-in-6 and then
+1-in-4 with no change in between. Treat these as "fails often, timing-dependent", not as a
+percentage. A run of 20 is the minimum that means anything, and **a green batch of 4 proves
+nothing**; Task D2's verification already asks for 20 and should not be shortened.
+
+Item 32 names only the client suite, and no batch has yet shown the server copy failing
+more than the client, so Phase 9 Task D2 should still drive from the client.
+
+**Scope — every suite was audited, only these two are affected.** Source `void test_` count
+vs what the binary registers, 2026-09-08:
+
+| suite | source | binary | total | verdict |
+|---|---|---|---|---|
+| `architecture_contract_test` | 103 | 103 | 105 | clean |
+| `mc_frame_test` | 42 | 42 | 44 | clean |
+| `modbus_device_test` | 20 | 20 | 22 | clean |
+| `vision_output_device_test` | 7 | **6** → 7 after fix | 9 | **was holed** — shadowing moc |
+| `vision_tcpip_client_device_test` | 8 | **7** → 8 after fix | 10 | **was holed** — shadowing moc |
+| `jai_camera_hardware_test` | 19 | **17** | 21 | **holed — different cause, see below** |
+
+The three clean suites keep their `main.moc` only under `release\`; only the two vision
+build dirs carried a root-level copy, which is what made them the ones to rot.
+
+**`jai_camera_hardware_test` is a second, unrelated cause: an ordinary stale build.** Its
+`main.cpp` was edited **2026-09-04**; its `release\main.moc` and its executable are both
+from **2026-09-02**. No shadowing is involved — there is no root `main.moc` — the suite
+simply was not rebuilt after `test_backlight_override_drives_the_lamp_and_reports_it` and
+`test_backlight_override_survives_a_grab` were added. `Compare-Object` against `-functions`
+named both directly.
+
+Left as found rather than rebuilt blind: it is a hardware suite that needs the bench camera
+and `NCR_JAI_TEST_IP`, and rebuilding it proves nothing without one. **Rebuild it before
+quoting any number from it.** The point for this item is that two *different* faults
+produce the identical invisible symptom, which is the argument for the guard below.
+
+**Status of the fix.** The two affected build dirs are repaired and verified. **No source
+or `.pro` change is needed or wanted** — nothing was wrong with them.
+
+**The guard is in place (2026-09-08).**
+[`docs/rules/build_and_verification.md`](../rules/build_and_verification.md) gained
+*"Confirm A Suite's Shape Before Trusting Its Total"*: the `-functions` vs `void test_`
+comparison, both causes, and a dated shape table for all six suites. That doc also now
+documents `NCR_JAI_TEST_IP`, which had never been written down anywhere.
+
+**Why this item stays open.** The guard is a written step, not an enforced one — nothing
+fails if it is skipped. The natural home for enforcement is the architecture contract test,
+which already checks things a build cannot (the `.qrc` split, the display-name markers), but
+it cannot read another suite's binary. Options, none obviously right:
+
+- have each test `.pro` emit its expected function count and assert it at `initTestCase` —
+  self-checking, but every suite pays for a fault two suites had;
+- a small script over all suites, run as part of the release routine — cheap, but one more
+  thing to remember;
+- accept the written step and rely on the shape table drifting visibly.
+
+Closing this needs a decision, not more investigation. Until then the written step stands,
+and `jai_camera_hardware_test` is a live example of the failure it catches.
+
+---
+
+## 64. A dual-role Modbus client aborts the cycle when the result publish collides with the poll
+
+**Status:** open, **field-observed 2026-09-14**, on the exact binding item 57 was just closed on.
+Twice in 85 cycles (~2.4%), each time needing a `bErrorReset` to clear.
+
+**What happens.** With a Modbus TCP client carrying **both** `primary_plc` and `vision_output`
+(device 05 in `app_log_2026-09-14.txt`), the runtime's result publish is dispatched while a *poll*
+transaction is still inside its nested wait. `sendVisionResult()`
+(`modbus_tcp_client_device.cpp:836`) runs its first write — step 1, the count clear at `:893` —
+which hits the in-flight guard at `:390` and is refused:
+
+```
+:857  Modbus request failed. deviceId= 05 request= WRITE HR[0..0] count=1 values=[0]
+      reason= A Modbus transaction is already in flight.
+:858  Modbus write collided with a transaction already in flight; not counted against the
+      link retry budget.
+:859  Modbus result publish failed. deviceId= 05
+:861  Task state transition: RunningCycle -> Recovering (A Modbus transaction is already in flight.)
+```
+
+(the second occurrence is `:962-965`.)
+
+**Phase 8 / F2a is working correctly here** — `noteTransactionFailure()` (`:494-503`) exempts the
+collision from the link retry budget, so the client does **not** tear its own link down. The link
+stays up. What is missing is any recovery for the *publish itself*: `sendVisionResult()` returns
+false, and the controller aborts the whole cycle.
+
+**Why the existing mitigations do not cover this path.** `writeDigitalIoByName()` /
+`writeWordIoByName()` **park** on `m_inTransaction` (`:734-737`) and replay via
+`drainPendingIoWrites()`. `sendVisionResult()` deliberately cannot: Phase 8 rejected parking for it
+because its four sequential `transact()` calls must not be interleaved — a parked tag write draining
+between the count write and the payload write is exactly the half-written block the function is
+arranged to prevent. It does stop the poll timer (`:864-867`) and set `m_suppressPendingDrain`
+(`:880`), but **both guard the outbound direction only**: they stop anything interleaving *once the
+publish has started*. Neither helps when a poll is **already** in flight as the publish arrives.
+Stopping the timer is too late by then.
+
+**Options, none obviously right — this needs a decision, not a quick patch:**
+- Retry the publish once the current transaction unwinds. Must stay bounded, and the cycle's send
+  completion must still resolve **exactly once** (the E1/E3 contract).
+- Give the publish priority: refuse to *start* a poll while a publish is pending.
+- Treat the collision as retryable at the controller. Note E4's write-retry budget covers tracked
+  handshake **tag** writes; the result send is not one of them.
+
+> ⚠️ **Do not "fix" this by making the failure non-fatal.** A result that never reached the
+> registers must never be reported as sent — that is the silent-wrong-result class this whole phase
+> exists to remove.
+
+**Verification when done.** `modbus_device_test` cannot currently reach this: every write test calls
+the device directly on its own thread, so a queued burst never forms (Phase 8 recorded the same
+gap). A new case has to post the publish from another thread while a poll `transact()` is in its
+nested wait.
+
+---
+
+## 65. `app/` no longer resolves, so a from-scratch build silently produces a shell with no sources
+
+**Status:** **RESOLVED 2026-09-14 — owner decision: `components/app/` is the shell's home, so the
+wiring was repointed rather than the junction recreated.** Found the same day; it is why
+`architecture_contract_test` briefly read **152 passed / 7 failed**. Not caused by Phase 9 / F.
+
+> **What changed.** The five functional references — `ncr_picking.pro:19`,
+> `runtime_app/runtime_app.pri:42`, `translations/ncr_translations.pro:69` and `:96`,
+> `scripts/update_translations.ps1:42` — plus the Doxygen `INPUT` in `docs/doxygen/Doxyfile`. The
+> contract test's seven path expectations, deliberately and together with the layout change. The
+> authoritative docs that describe the current layout: `AGENT.md` (module map and layering rule),
+> both shell scope cards, the four `src/*/AGENTS.md` "must not include" lines, `docs/README.md`,
+> `docs/rules/{build_and_verification,documentation_build,design_rules}.md`,
+> `docs/domains/runtime_app/runtime_shell.md`, `uml/README.md`, `docs/doxygen/pages/mainpage.dox`
+> and `docs/doxygen/build_docs.bat`. `components/app/AGENTS.md`'s relative link to
+> `runtime_shell.md` had been broken by the extra directory level and is fixed. `docs/history/` and
+> `docs/backlog/` are records and were left as written.
+>
+> **The part a plain rename would have got silently wrong.** `test_module_include_layering_contract`
+> classifies an include by its **first path segment**. `runtime_app.pri` puts the repository root on
+> `INCLUDEPATH`, so after the move the runtime shell reaches the editor as
+> `"components/app/mainwindow.h"` — first segment `components`, which is no module, so the check
+> skipped it. Renaming the directory in the test alone would have left **the peer rule blind while
+> still green**. The test now maps a shell's directory back to its module name
+> (`components/app/...` → `app`). **Negative-checked both ways:** a probe
+> `#include "components/app/mainwindow.h"` placed in `runtime_app/src/runtime_layout_controller.cpp`
+> fails the contract with the mapping (*"runtime_app must not include app"*) and **passes without
+> it**. Probe removed, mapping restored.
+>
+> **Verification.** Fresh `qmake` of `ncr_picking_all.pro` in `build\all\Release`: no `Cannot read`,
+> and `Makefile.ncr_picking.Release` lists `..\..\..\components\app\main.cpp` with no root-`app/`
+> reference left. nmake then judged the editor's objects up to date — the sources had moved but not
+> changed — so `components/app/main.cpp` and `mainwindow.cpp` had their **mtimes bumped, content
+> untouched**, to force a real compile from the new path: both compiled and **both shells relinked**
+> (11:59). Contract test **159 / 0**, shape 157 == 157. Translation sweep through the repointed
+> script: `Updating 'components/app/translations/ncr_picking_ja_JP.ts'`, **1324 source texts — the
+> same total as 2026-09-10 — vanished 33 → 33**. That is the discriminating number: had
+> `ncr_translations.pro` failed to include `app.pri`, `MainWindow`'s strings would have gone vanished.
+> A second umbrella build carried the regenerated `.qm` into both shells (12:01); a re-run found
+> nothing left to build and no zero-byte objects.
+>
+> The warning further down — *"Do not repoint the test at components/app to get green"* — was about
+> doing it **to get green**. Done as part of an owner-decided layout change, with the peer-rule hole
+> closed and negative-checked, it is the contract being updated, not bypassed.
+
+**Measured, not inferred:**
+
+| Check | Result |
+|---|---|
+| `<root>\app` exists | **False** |
+| `<root>\components\app\app.pri` exists | True |
+| `ncr_picking.pro:19` | `include(app/app.pri)` |
+| fresh `qmake ncr_picking.pro` (inside vcvars64) | `Cannot read C:/DGB/Project/ncr_picking/app/app.pri: No such file or directory` — **and exits 0** |
+| generated `Makefile.Release` | no `main.cpp`, no `mainwindow`, no `components/app` |
+| anything outside `build/` referencing `components/app` | **nothing** |
+
+**Two more dangling paths on the same cause:** `runtime_app/runtime_app.pri:42`
+(`$$PWD/../app/translations/ncr_picking_ja_JP.ts`) and `scripts/update_translations.ps1:42`
+(`app\translations\ncr_picking_ja_JP.ts`) — the shared `.ts` the whole translation pipeline runs on.
+
+**Why nobody noticed.** qmake's `include()` of a missing file warns and continues, so the failure is
+silent and the exit code is success. The 2026-09-14 binaries (08:42) were produced by `nmake` from
+Makefiles dated **2026-09-10 10:22** — generated while `app/` still resolved — relinking
+pre-existing objects, so the build appeared healthy.
+
+**When it broke, and the likely mechanism.** `app/` resolved as recently as **2026-09-10 09:12**:
+the Phase F translation sweep wrote through `app\translations\...` and the file it produced is
+`components\app\translations\ncr_picking_ja_JP.ts`, whose siblings retain mtimes back to 08-24. That
+is consistent with `app/` having been a **directory junction** onto `components\app` that has since
+been removed, rather than a genuine move — but the filesystem can no longer distinguish the two, so
+**the owner should confirm which it was** before anything is repointed.
+
+**The seven failing tests are not stale — they are the guard that caught this**
+(`test_both_shells_take_the_same_instance_key`, `..._report_one_shared_version`,
+`test_action_signals_are_never_blocked_in_the_shells`, `test_runtime_shell_is_a_peer_of_the_app_shell`,
+`test_translations_are_updated_from_one_project_that_sees_every_source`,
+`test_both_shells_load_translations_through_the_shared_helper`,
+`test_module_include_layering_contract`). **Do not repoint the test at `components/app` to get green**
+— it encodes the layout contract and is doing its job.
+
+**The fix is a layout decision, and it is the owner's:** either recreate the `app` junction, or
+repoint `ncr_picking.pro:19`, `runtime_app.pri:42`, `scripts/update_translations.ps1:42` **and** the
+contract test's expectations at `components/app`, together, in one change.
+
+**Worth considering while here:** a missing `include()` that still exits 0 can hide any future move
+the same way. A one-line `!exists(...): error(...)` guard in the shell `.pro`s would convert this
+class of fault from silent to loud.
+
+---
+
+## 66. Two editors for the robot pick check: the task's, and each vision-output device's
+
+**Status:** open, **filed 2026-09-14 (Phase 9 / Z2)** — deferred by design in F1 (plan open
+question O-2), not a regression.
+
+Since Phase 9 / F1 the localization runtime's pickability gate reads
+`TaskLocalizeConfig::robotCheckConfig()`, edited from the task's Settings tab (**Robot pick check →
+Set…**). `RobotKinematicCheckWidget` is still embedded in `VisionTcpipDeviceWidget` and
+`VisionTcpipClientDeviceWidget` too, editing `VisionOutputDeviceCfg::m_kinematicCheck` — which now
+drives **only** the device-side advisory check, `VisionTcpipDeviceBase::runKinematicCheck()` (log +
+`kinematicCheckResult`, never blocks the payload).
+
+**Why it matters.** An engineer who opens the device panel sees an "enabled" pick check with a
+preset and a pick path, and has every reason to believe that is what gates the robot. It is not, and
+the two copies can disagree silently.
+
+**Options, none chosen:** remove the device-widget editors and the advisory check with them; keep
+the advisory check but feed it the task's settings; or keep both and label the device copy as
+advisory. `IResultOutputDevice::robotKinematicCheckConfig()` — still implemented by every
+result-output device, no longer called by the task — goes or stays with that decision. Removing a
+method with live implementors and a persisted JSON key is a deprecation with a migration question,
+which is why F1 did not fold it in.
+
+---
+
+## 67. Recovery policies cannot be set outside a test
+
+**Status:** open, **filed 2026-09-14 (Phase 9 / Z1–Z2)**; persistence deferred by plan decision D5.
+
+`LocalizationRuntimeController::setRecoveryPolicies()` has **no production caller** — its only
+caller is `tests/architecture_contract_test/main.cpp`, which shortens the retry interval. Every
+shipped runtime therefore runs on `defaultCameraRecoveryPolicy()` / `defaultPlcRecoveryPolicy()` /
+`defaultVisionOutputRecoveryPolicy()`: retry every 5000 ms, `LostConnected` and `ConnectFailed` both
+recoverable. There is nowhere to change that per cell.
+
+**When it is picked up.** The injection point is `TaskLocalization::setupRuntimeController()`,
+immediately before `controller->setup(context)` and inside the same thread hop. Policies are copied
+into each role's recovery context when the role is bound (`bindRoleContext()`), so a call made after
+`setup()` changes nothing until the next bind. Persisting the values means a `TaskLocalizeConfig`
+field and a schema bump.
+
+Z1 removed `LocalizationRecoveryPolicy::connectTimeoutMs`, which nothing read. Do not bring it back
+as part of this: how long one connect attempt may take belongs to the runner and the device.
+
+---
+
+## 68. At most two positions per cycle, hard-coded — and a debug print on the PLC path
+
+**Status:** open, **found 2026-09-14 during the Phase 9 / Z2 documentation pass.** Not changed,
+because it may be deliberate — **owner to confirm.**
+
+**1. The cap.** `LocalizationRuntimeController::buildVisionOutputPositions()`
+(`localization_runtime_controller.cpp:1725-1730`) appends a position only while
+`positions.size() < 2`. Every further object that passed the collision, condition-workspace and pick
+checks is marked `Skipped` — **with no reason in the row**, unlike every other skip, which names its
+cause. No contract document mentions a limit, the number is not a named constant, and nothing
+explains it. On a cell with three pickable parts the operator sees the third one "Skipped" and cannot
+tell why. `runtime_controller_api.md` → "Output Coordinate Contract" now states it, with a pointer
+here.
+
+If it is intentional — a robot program that accepts two targets, say — it wants a named constant or a
+setting, a reason string in the row, and a line in
+[pick_geometry_and_output_contract.md](../domains/task_localization/pick_geometry_and_output_contract.md).
+If it is a bench leftover, it should go. The commented-out status logic just above it (`:1714-1722`)
+can go with whichever decision is made.
+
+**2. A debug print in `handlePlcValues()`.** `localization_runtime_controller.cpp:938-939`: a
+`/// temp debug` marker followed by `qDebug() << "Handle plc value: camera number:" …`, on every
+`nActiveCamera` event. Harmless, but it is marked temporary and it prints outside the logger.
+
+---
+
+## 69. PLC write acknowledgement (D3): built and bench-proven — a refused write is unverified on hardware
+
+**Status:** open **only for the E4 hardware observation.** Filed 2026-09-14 by Phase 9 / Z3: the work
+was planned inside Phase 9 without a backlog entry, and this records what shipped and what is not yet
+proven.
+
+**What shipped (Phase 9 / E1–E5).**
+
+| Task | Result |
+|---|---|
+| **E1** | `McProtocolDevice` resolves every write **exactly once**, including every abandon path — teardown, retry exhaustion, re-initialisation. A `createMsgInterface()` seam lets `mc_frame_test` drive the whole device through a fake port |
+| **E2** | The Modbus client and server and `VirtualPlcDevice` resolve their writes too, including writes parked behind a transaction already in flight |
+| **E3** | `IPlcIoWriter` tracked writes carry an id; `PlcRunner::writeFinished(id, ok, message)` reports every outcome |
+| **E4** | `LocalizationRuntimeController` retries the five handshake outputs (3 attempts in total, 40 ms apart) and aborts the cycle with **`301 PlcWriteFailed`**. Advisory outputs, writes to a disconnected role and the abort's own publishes are not tracked. Contract: `plc_signal_contract.md` → "Handshake Writes Are Acknowledged" |
+| **E5** | The MC `pollingUpdate` snapshot is published only after a complete read pass |
+
+**Owner-confirmed on hardware (2026-09-09):** E5 — no startup fault on the MC binding; E1 — a cable
+pulled mid-write on the C24 produces a failure completion.
+
+**Not confirmed: E4 — a real PLC refusing a write on a healthy link.** The owner has no way to make a
+healthy PLC refuse on demand. Two recipes need no PLC cooperation; neither has been tried:
+
+| Family | Recipe | Why the write fails while the link stays up |
+|---|---|---|
+| Modbus client | Map a handshake signal (e.g. `bMatchingFinished`) to a **discrete-input** tag | `writeDigitalIoByName()` refuses locally — a master cannot write discrete inputs |
+| MC | Map a handshake signal to a device address the PLC does not have | The C24 answers with a non-zero end code; the write resolves failed and the budget runs out |
+
+> ⚠️ Check first whether the Phase 9 / C4 signal-map gate refuses the Modbus recipe at setup. The gate
+> asks whether the device *provides* the tag, and a discrete input is provided, so it should pass and
+> fail at write time — which is what makes the recipe work. If the gate refuses it, only the MC recipe
+> remains.
+
+The 2026-09-14 Modbus run logged `PLC write failed: Modbus client is not connected` during a cable
+pull. That is **not** this observation: the role was disconnected, which is `300 PlcLost`'s path by
+design and deliberately untracked.
+
+**Related but separate:** item 64 — on a dual-role Modbus client the *result publish* can collide
+with the poll and abort the cycle. That path is `sendVisionResult()`, not a handshake write.
+
+---
+
+## 70. A vision-output client stays Recovering when only its heartbeat link comes back
+
+**Status:** open — **field-reported 2026-09-09; investigation paused by the owner 2026-09-10.** Filed by
+Phase 9 / Z3 so the evidence is not lost.
+
+**Symptom (owner).** A heartbeat timeout on the vision output puts the task in Recovering. After the
+cable is reconnected the receiving side shows a connection and its heartbeat counter climbs — but the
+task never leaves Recovering until the runtime is stopped.
+
+**The device was the CLIENT.** `app_log_2026-09-09.txt:6136` — `VisionTcpipClientDevice dialing
+192.168.0.10 main port: 5000 heartbeat port: 5001`, device `03 VisionOut_01`, the binding for the
+whole failing session (loaded at `:6116`, next reload not until `:6238`). **This corrects the first
+round of the investigation**, which reasoned from the *server* device, `VisionTcpipDevice` — present
+elsewhere in that day's log, on 127.0.0.1. Its "listening ⇒ Connected" predicate and the idea that
+"the peer never dialled the main port" do not apply to a client.
+
+**The failing sequence** (`app_log_2026-09-09.txt`):
+
+```
+:6209-6211  15:58:10  main link up + heartbeat link up; Recovering -> Ready   (a recovery that works)
+:6212       16:02:39  VisionTcpip lost connection: Heartbeat reply timeout (3000 ms)
+:6214       16:02:39  Ready -> Recovering (role=vision_output status=LostConnected)
+:6216       16:02:44  VisionTcpipDeviceBase already active VisionOut_01      (recovery attempt 1)
+:6217       16:03:46  VisionTcpip heartbeat link up from 192.168.0.10        (heartbeat ONLY)
+:6218       16:23:52  heartbeat reply timeout again
+:6221       16:23:57  VisionTcpipDeviceBase already active VisionOut_01      (recovery attempt 2)
+:6222       16:24:15  VisionTcpip heartbeat link up from 192.168.0.10        (heartbeat ONLY again)
+:6223       16:25:49  Recovering -> Stopping (endCommission)
+```
+
+**What that points at — a hypothesis from the log, not yet confirmed in the code.**
+
+1. The client reports `Connected` only when **both** links are up and `Connecting` otherwise
+   (`VisionTcpipClientDevice::publishCurrentConnectStatus()`, Phase 9 / D1). With only the heartbeat
+   link back, the role never reports healthy, so the controller correctly never re-arms. **The
+   controller is probably not the defect.**
+2. Every recovery reconnect is a **no-op**: `deviceConnect()` returns at
+   `vision_tcpip_device_base.cpp:52` ("already active") because the device still counts itself active
+   after the heartbeat timeout. The recovery policy's retries issue no new dial.
+3. Something re-dials the **heartbeat** socket — it came back 62 s and 18 s after each attempt — but
+   not the **main** socket. Why is the question.
+
+Contrast `:6279-6285`, the same device half an hour later: a heartbeat timeout, then **both** links up
+at 16:37:37. The main link does sometimes return; what differs is not yet known.
+
+**Why the first round went slowly.** `setConnectionStatus()` logs nothing, so the device's own status
+transitions are invisible in the app log; and `appendTaskLog()` writes only to the task-log panel, so
+the absence of a "recovered" line in the app log proved nothing — an inference that was made, and
+withdrawn, in that round.
+
+**When it is picked up.** Read the client's redial path for the main socket after a heartbeat-timeout
+teardown, and why `deviceConnect()` stays "already active" through it. One DEV log line per
+connect-status change would make the next reproduction conclusive.
+
+---
+
+## 71. Phase 9 / A1's M-only MC trigger delivery is unverified on hardware
+
+**Status:** open — filed 2026-09-16 at the Phase 9 closeout as a carried item. Not a defect: an
+**unverified claim**. Non-blocking for Phase 10.
+
+**What.** Phase 9 Task A1 fixed `McProtocolDevice::check_device_changed()` discarding every M
+change when no D range is configured (item 59.3b), by extracting the shadow-map diff into the
+header-only helper in `src/device/plc/mc_device_map_diff.h`. The fix is proven by unit cases in
+`mc_frame_test` against that helper only. The field half — a `bExecuteTrigger` change on a real
+M-only MC PLC (`amountDAddress = 0`) reaching the task — was never run, because no M-only station
+was identified (Phase 9 open question O-3). The plan ships A1 on unit evidence and forbids recording
+it as hardware-verified.
+
+**Where.** `src/device/plc/mc_device_map_diff.h`, `src/device/plc/mc_protocol_device.cpp`; Phase 9
+plan Task A1 and the Checkpoint Z OWNER-RUN table.
+
+**Why deferred.** Needs hardware that is not on the bench.
+
+**How to pick up.** When an M-only MC station exists: commission a project with only M tags mapped,
+start the runtime, pulse the trigger, and confirm the cycle runs (app log `Ready -> RunningCycle`,
+and the `RT state=` trace once Phase 10 / WP-10 has landed). Record the result here and close.
+
+---
+
+## 72. A refused index selection updates no camera visual on the dashboard (residual of item 61)
+
+**Status:** open — filed 2026-09-16 by the Phase 10 triage (WP-03) from item 61's "not fixed here,
+and still open" note. Operator-visibility defect, not a control defect: the fault panel and the PLC
+outputs are correct; only the camera lamp is stale.
+
+**What.** On the refusal paths of `setActiveCameraNumber()` (out-of-range or unregistered number,
+and the non-numeric case via `reportSignalTypeMismatch()`) the controller returns before publishing
+any index, so `LocalizationDashboardWidget` never re-resolves the device behind the camera lamp; the
+lamp keeps showing the previously bound camera while the task is `Faulted` with `103`. The mechanism
+is as item 61 recorded it on 2026-09-08 and has not been re-confirmed against the post-C3 code
+(`applySignalToDashboard()` now matches both the command and the status name); confirm before fixing.
+
+**Where.** `src/model/localization_runtime_controller.cpp` (`setActiveCameraNumber()` refusal
+branches, `reportSignalTypeMismatch()`); `src/ui/forms/task/localization_dashboard_widget.cpp`
+(`applySignalToDashboard()`, `resolveActiveCameraDeviceId()`).
+
+**Why deferred.** Item 61 fixed the binding-staleness cause only. The Phase 10 to-be design
+(`Selection` state plus `outputSnapshot()`, WP-33 / WP-34) publishes a snapshot on every selection
+event including a refusal, which covers this by construction — but that lands at Stage 4, and the
+shipped code still has the gap.
+
+**How to pick up.** Either verify it closed at Stage 4 with scenario S-03 (the camera lamp must
+reflect a refused selection), or fix earlier with a dedicated dashboard event on the refusal branch.
+Owner-run either way: write camera 0 while Ready, confirm the lamp shows the refused state, then
+write a valid number and confirm it recovers.

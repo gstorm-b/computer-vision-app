@@ -150,82 +150,235 @@
           </layout>
          </item>
          <item>
-          <layout class="QGridLayout" name="connFieldGrid">
-           <property name="horizontalSpacing">
+          <layout class="QHBoxLayout" name="connFieldRow">
+           <property name="spacing">
             <number>14</number>
            </property>
-           <property name="verticalSpacing">
-            <number>4</number>
-           </property>
-           <item row="0" column="0">
-            <widget class="QLabel" name="lbl_ip">
-             <property name="text">
-              <string>IP ADDRESS</string>
-             </property>
+           <item>
+            <widget class="QWidget" name="wid_tcp_fields" native="true">
+             <layout class="QGridLayout" name="tcpFieldGrid">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="horizontalSpacing">
+               <number>14</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>4</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLabel" name="lbl_ip">
+                <property name="text">
+                 <string>IP ADDRESS</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="lbl_port">
+                <property name="text">
+                 <string>PORT</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="ledit_ip"/>
+              </item>
+              <item row="1" column="1">
+               <widget class="QSpinBox" name="spb_port">
+                <property name="buttonSymbols">
+                 <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+                </property>
+                <property name="minimum">
+                 <number>0</number>
+                </property>
+                <property name="maximum">
+                 <number>65535</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="lbl_port">
-             <property name="text">
-              <string>PORT</string>
-             </property>
+           <item>
+            <widget class="QWidget" name="wid_serial_fields" native="true">
+             <layout class="QGridLayout" name="serialFieldGrid">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="horizontalSpacing">
+               <number>14</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>4</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLabel" name="lbl_serial_port">
+                <property name="text">
+                 <string>SERIAL PORT</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="lbl_baud">
+                <property name="text">
+                 <string>BAUD RATE</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLabel" name="lbl_data_bits">
+                <property name="text">
+                 <string>DATA BITS</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QLabel" name="lbl_parity">
+                <property name="text">
+                 <string>PARITY</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QLabel" name="lbl_stop_bits">
+                <property name="text">
+                 <string>STOP BITS</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5">
+               <widget class="QLabel" name="lbl_flow_control">
+                <property name="text">
+                 <string>FLOW CONTROL</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QComboBox" name="cbx_serial_port">
+                <property name="editable">
+                 <bool>true</bool>
+                </property>
+                <property name="toolTip">
+                 <string>Ports currently present on this machine. A port that is not attached yet can be typed in.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QComboBox" name="cbx_baud">
+                <property name="editable">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QComboBox" name="cbx_data_bits"/>
+              </item>
+              <item row="1" column="3">
+               <widget class="QComboBox" name="cbx_parity"/>
+              </item>
+              <item row="1" column="4">
+               <widget class="QComboBox" name="cbx_stop_bits"/>
+              </item>
+              <item row="1" column="5">
+               <widget class="QComboBox" name="cbx_flow_control"/>
+              </item>
+             </layout>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="lbl_conn_timeout">
-             <property name="text">
-              <string>CONNECT TIMEOUT (MS)</string>
-             </property>
+           <item>
+            <widget class="QWidget" name="wid_timeout_fields" native="true">
+             <layout class="QGridLayout" name="timeoutFieldGrid">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="horizontalSpacing">
+               <number>14</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>4</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLabel" name="lbl_conn_timeout">
+                <property name="text">
+                 <string>CONNECT TIMEOUT (MS)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="lbl_resp_timeout">
+                <property name="text">
+                 <string>RESPONSE TIMEOUT (MS)</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QSpinBox" name="spb_conn_timeout">
+                <property name="buttonSymbols">
+                 <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>10000</number>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QSpinBox" name="spb_resp_timeout">
+                <property name="buttonSymbols">
+                 <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>10000</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="lbl_resp_timeout">
-             <property name="text">
-              <string>RESPONSE TIMEOUT (MS)</string>
+           <item>
+            <spacer name="connFieldSpacer">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
              </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLineEdit" name="ledit_ip"/>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="spb_port">
-             <property name="buttonSymbols">
-              <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
              </property>
-             <property name="minimum">
-              <number>0</number>
-             </property>
-             <property name="maximum">
-              <number>65535</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QSpinBox" name="spb_conn_timeout">
-             <property name="buttonSymbols">
-              <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>10000</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QSpinBox" name="spb_resp_timeout">
-             <property name="buttonSymbols">
-              <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>10000</number>
-             </property>
-            </widget>
+            </spacer>
            </item>
           </layout>
          </item>

@@ -16,7 +16,7 @@
 
 include(qmake/app_common.pri)
 
-include(app/app.pri)                        # app shell (top level, owns translations)
+include(components/app/app.pri)             # app shell — commissioning (owns translations)
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

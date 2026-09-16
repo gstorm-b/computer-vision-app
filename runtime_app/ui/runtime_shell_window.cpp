@@ -185,13 +185,14 @@ void RuntimeShellWindow::buildDockHost()
 
     m_dockManager = new ads::CDockManager(ui->wg_dock);
     // Disable ADS's internal stylesheet; the global QSS owns all ads-- rules. Same call and
-    // same reason as app/mainwindow.cpp.
+    // same reason as components/app/mainwindow.cpp.
     m_dockManager->setStyleSheet(QString());
 
     // Same widget tree as the commissioning shell's dock host — wg_dock, a QVBoxLayout,
     // the dock manager — but the layout is declared in runtime_shell_window.ui rather than
-    // built here, which is what ui_design_rules.md Rule 1.1 requires. (app/mainwindow.cpp
-    // still builds its own; that is backlog item #37, not a pattern to copy.)
+    // built here, which is what ui_design_rules.md Rule 1.1 requires.
+    // (components/app/mainwindow.cpp still builds its own; that is backlog item #37, not a
+    // pattern to copy.)
     //
     // Being a CHILD of wg_dock is not enough: the dock manager also has to be IN a layout,
     // or Qt leaves it at its size hint and never resizes it.

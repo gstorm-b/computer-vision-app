@@ -2,10 +2,13 @@
 
 #include "device/camera/camera_basler_gige.h"
 #include "device/camera/camera_device.h"
+#include "device/camera/camera_jai_gige.h"
 #include "device/output_device/vision_output_config.h"
 #include "device/output_device/vision_tcpip_device.h"
 #include "device/output_device/vision_tcpip_client_device.h"
 #include "device/plc/mc_protocol_device.h"
+#include "device/plc/modbus/modbus_tcp_client_device.h"
+#include "device/plc/modbus/modbus_tcp_server_device.h"
 #include "device/plc/plc_device.h"
 #include "device/robot/kawasaki_robot_device.h"
 #include "device/robot/nachi_robot_device.h"
@@ -33,6 +36,25 @@ IDevice *createBaslerGige(const QJsonObject &obj, QObject *parent)
     auto *device = new BaslerGigECamera(deviceId,
                                         obj[DEVICE_JSK_NAME].toString(),
                                         parent);
+    if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
+        device->fromJson(obj);
+    }
+    return device;
+}
+
+/// Factory for a JAI GigE camera device: requires a non-empty DeviceId in `obj`.
+/// @return the new JaiGigECamera (parented to `parent`, config applied via fromJson() when a
+/// DeviceConfig object is present), or nullptr if DeviceId is missing
+IDevice *createJaiGige(const QJsonObject &obj, QObject *parent)
+{
+    const QString deviceId = obj[DEVICE_JSK_ID].toString();
+    if (deviceId.isEmpty()) {
+        return nullptr;
+    }
+
+    auto *device = new JaiGigECamera(deviceId,
+                                     obj[DEVICE_JSK_NAME].toString(),
+                                     parent);
     if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
         device->fromJson(obj);
     }
@@ -71,6 +93,44 @@ IDevice *createMitsubishiMc(const QJsonObject &obj, QObject *parent)
     auto *device = new McProtocolDevice(deviceId,
                                         obj[DEVICE_JSK_NAME].toString(),
                                         parent);
+    if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
+        device->fromJson(obj);
+    }
+    return device;
+}
+
+/// Factory for a Modbus TCP client PLC device: requires a non-empty DeviceId in `obj`.
+/// @return the new ModbusTcpClientDevice (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
+IDevice *createModbusTcpClient(const QJsonObject &obj, QObject *parent)
+{
+    const QString deviceId = obj[DEVICE_JSK_ID].toString();
+    if (deviceId.isEmpty()) {
+        return nullptr;
+    }
+
+    auto *device = new ModbusTcpClientDevice(deviceId,
+                                             obj[DEVICE_JSK_NAME].toString(),
+                                             parent);
+    if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
+        device->fromJson(obj);
+    }
+    return device;
+}
+
+/// Factory for a Modbus TCP server PLC device: requires a non-empty DeviceId in `obj`.
+/// @return the new ModbusTcpServerDevice (parented to `parent`, config applied via fromJson()
+/// when a DeviceConfig object is present), or nullptr if DeviceId is missing
+IDevice *createModbusTcpServer(const QJsonObject &obj, QObject *parent)
+{
+    const QString deviceId = obj[DEVICE_JSK_ID].toString();
+    if (deviceId.isEmpty()) {
+        return nullptr;
+    }
+
+    auto *device = new ModbusTcpServerDevice(deviceId,
+                                             obj[DEVICE_JSK_NAME].toString(),
+                                             parent);
     if (obj.contains(DEVICE_JSK_CONFIG) && obj[DEVICE_JSK_CONFIG].isObject()) {
         device->fromJson(obj);
     }
@@ -200,6 +260,12 @@ const QList<DeviceRegistryEntry> kEntries = {
       QStringLiteral(DEVICE_JSK_CAM_TYPE),
       createBaslerGige,
       true },
+    { DeviceType::Camera,
+      CameraTypeToString(CameraType::JaiGigE),
+      QStringLiteral("JAI GigE"),
+      QStringLiteral(DEVICE_JSK_CAM_TYPE),
+      createJaiGige,
+      true },
     // Virtual entries go LAST within their family, and that ordering is load-bearing.
     // displayNamesFor() preserves this order, the Add Device wizard's combo leaves index 0
     // current, and buildDeviceJson() writes back currentText() — so the first entry of a
@@ -217,6 +283,19 @@ const QList<DeviceRegistryEntry> kEntries = {
       QStringLiteral(DEVICE_JSK_PLC_TYPE),
       createMitsubishiMc,
       true },
+    { DeviceType::PLC,
+      PlcTypeToString(PlcType::ModbusTcpClient),
+      QStringLiteral("Modbus TCP Client"),
+      QStringLiteral(DEVICE_JSK_PLC_TYPE),
+      createModbusTcpClient,
+      true },
+    { DeviceType::PLC,
+      PlcTypeToString(PlcType::ModbusTcpServer),
+      QStringLiteral("Modbus TCP Server"),
+      QStringLiteral(DEVICE_JSK_PLC_TYPE),
+      createModbusTcpServer,
+      true },
+    // Virtual stays last within the family: the ordering is load-bearing, not cosmetic.
     { DeviceType::PLC,
       PlcTypeToString(PlcType::VirtualPlc),
       QStringLiteral("Virtual PLC"),

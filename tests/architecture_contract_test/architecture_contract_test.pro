@@ -1,4 +1,7 @@
-QT       += core gui widgets network sql testlib
+# serialport: the MC computer-link transport (src/device/plc/mc_msg_serial_port.h), which
+# this test exercises directly and which mc_protocol_device.cpp builds for 1C/3C.
+# serialbus:  the Modbus devices, which device_registry.cpp constructs.
+QT       += core gui widgets network sql serialport serialbus testlib
 
 CONFIG   += console c++17 testcase
 CONFIG   -= app_bundle
@@ -26,12 +29,21 @@ SOURCES += \
     $$ROOT_DIR/src/calibration/calibrator.cpp \
     $$ROOT_DIR/src/calibration/fanuc_irvision_board.cpp \
     $$ROOT_DIR/src/device/camera/camera_basler_gige.cpp \
+    $$ROOT_DIR/src/device/camera/camera_jai_gige.cpp \
+    $$ROOT_DIR/src/device/camera/jai_runtime.cpp \
     $$ROOT_DIR/src/device/device_factory.cpp \
     $$ROOT_DIR/src/device/device_manager.cpp \
     $$ROOT_DIR/src/device/device_registry.cpp \
     $$ROOT_DIR/src/device/plc/mc_device_map.cpp \
     $$ROOT_DIR/src/device/plc/mc_fame_3e.cpp \
+    $$ROOT_DIR/src/device/plc/mc_frame_1c.cpp \
+    $$ROOT_DIR/src/device/plc/mc_frame_3c.cpp \
     $$ROOT_DIR/src/device/plc/mc_protocol_device.cpp \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_register_map.cpp \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_result_layout.cpp \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_trace.cpp \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_tcp_client_device.cpp \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_tcp_server_device.cpp \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_device_base.cpp \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_device.cpp \
     $$ROOT_DIR/src/device/output_device/vision_tcpip_client_device.cpp \
@@ -63,8 +75,10 @@ SOURCES += \
     $$ROOT_DIR/src/core/utils/shell_handoff.cpp \
     $$ROOT_DIR/src/core/utils/single_instance_guard.cpp \
     $$ROOT_DIR/src/core/utils/theme_manager.cpp \
+    $$ROOT_DIR/src/core/utils/translation_loader.cpp \
     $$ROOT_DIR/src/ui/widgets/vision/vision_geometry.cpp \
-    $$ROOT_DIR/src/ui/widgets/vision/vision_result_adapter.cpp
+    $$ROOT_DIR/src/ui/widgets/vision/vision_result_adapter.cpp \
+    $$ROOT_DIR/src/ui/widgets/signals_map_widget.cpp
 
 HEADERS += \
     $$ROOT_DIR/src/core/app_settings/app_settings.h \
@@ -79,6 +93,9 @@ HEADERS += \
     $$ROOT_DIR/src/device/camera/basler_define.h \
     $$ROOT_DIR/src/device/camera/camera_basler_gige.h \
     $$ROOT_DIR/src/device/camera/camera_device.h \
+    $$ROOT_DIR/src/device/camera/camera_jai_gige.h \
+    $$ROOT_DIR/src/device/camera/jai_define.h \
+    $$ROOT_DIR/src/device/camera/jai_runtime.h \
     $$ROOT_DIR/src/device/device_capabilities.h \
     $$ROOT_DIR/src/device/device_factory.h \
     $$ROOT_DIR/src/device/device_manager.h \
@@ -109,12 +126,23 @@ HEADERS += \
     $$ROOT_DIR/src/device/plc/mc_device_map.h \
     $$ROOT_DIR/src/device/plc/mc_fame_3e.h \
     $$ROOT_DIR/src/device/plc/mc_frame_abstract.h \
+    $$ROOT_DIR/src/device/plc/mc_context_1c.h \
+    $$ROOT_DIR/src/device/plc/mc_context_3c.h \
     $$ROOT_DIR/src/device/plc/mc_msg_interface.h \
+    $$ROOT_DIR/src/device/plc/mc_msg_serial_port.h \
     $$ROOT_DIR/src/device/plc/mc_msg_tcp_client.h \
     $$ROOT_DIR/src/device/plc/mc_protocol_config.h \
     $$ROOT_DIR/src/device/plc/mc_protocol_device.h \
     $$ROOT_DIR/src/device/plc/mc_request.h \
     $$ROOT_DIR/src/device/plc/memory_utils.h \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_config.h \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_register_map.h \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_result_layout.h \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_trace.h \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_tcp_client_config.h \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_tcp_client_device.h \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_tcp_server_config.h \
+    $$ROOT_DIR/src/device/plc/modbus/modbus_tcp_server_device.h \
     $$ROOT_DIR/src/device/plc/plc_device.h \
     $$ROOT_DIR/src/device/plc/plc_value.h \
     $$ROOT_DIR/src/device/robot/kawasaki_robot_config.h \
@@ -170,9 +198,11 @@ HEADERS += \
     $$ROOT_DIR/src/core/utils/shell_handoff.h \
     $$ROOT_DIR/src/core/utils/single_instance_guard.h \
     $$ROOT_DIR/src/core/utils/theme_manager.h \
+    $$ROOT_DIR/src/core/utils/translation_loader.h \
     $$ROOT_DIR/src/ui/widgets/vision/vision_geometry.h \
     $$ROOT_DIR/src/ui/widgets/vision/vision_overlay_types.h \
-    $$ROOT_DIR/src/ui/widgets/vision/vision_result_adapter.h
+    $$ROOT_DIR/src/ui/widgets/vision/vision_result_adapter.h \
+    $$ROOT_DIR/src/ui/widgets/signals_map_widget.h
 
 include($$ROOT_DIR/qmake/local_dependencies.pri)
 

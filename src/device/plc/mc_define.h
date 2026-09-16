@@ -113,6 +113,91 @@ enum McDataCode {
 };
 Q_ENUM_NS(McDataCode)
 
+/**
+ * @enum McFrameFormat
+ * @brief Message format of a computer-link (1C/3C) frame.
+ *
+ * Only the two formats the reference implementations use are declared. Format 4 is format 1
+ * plus a CR+LF terminator, which is the only difference between them; formats 2, 3 and 5 change
+ * the control-code and handshake structure and no reference exists for them here. Declaring one
+ * would put an option in front of an operator that the codec has to reject at connect time.
+ */
+enum McFrameFormat {
+    Format_1 = 1,
+    Format_4 = 4
+};
+Q_ENUM_NS(McFrameFormat)
+
+/**
+ * @enum McPlcSeries
+ * @brief PLC series a 3C frame addresses. Decides the device-code width (Q/L use a 2-byte
+ *        device header, iQ-R a 4-byte one) and the sub-command value.
+ *
+ * The A series is deliberately absent: the 3C reference implementation rejects it
+ * (`mc_frame_3c.py` accepts only Q, L and iQ-R), so offering it would be an option that cannot
+ * work.
+ */
+enum McPlcSeries {
+    PlcSeries_Q,
+    PlcSeries_L,
+    PlcSeries_iQR
+};
+Q_ENUM_NS(McPlcSeries)
+
+/// Serial line settings for the computer-link (1C/3C) transport.
+///
+/// Declared here rather than reusing QSerialPort's own enums so that no header outside the
+/// serial transport has to pull in QtSerialPort, and so the translated key labels land in the
+/// `vc::device::mc` context alongside every other MC enum. McMsgSerialPort converts them to
+/// the QSerialPort values at the one point that talks to the port.
+
+/**
+ * @enum McSerialDataBits
+ * @brief Character length on the serial line. MC computer-link normally runs 7 data bits.
+ */
+enum McSerialDataBits {
+    DataBits_5 = 5,
+    DataBits_6 = 6,
+    DataBits_7 = 7,
+    DataBits_8 = 8
+};
+Q_ENUM_NS(McSerialDataBits)
+
+/**
+ * @enum McSerialParity
+ * @brief Parity scheme on the serial line.
+ */
+enum McSerialParity {
+    Parity_None,
+    Parity_Even,
+    Parity_Odd,
+    Parity_Space,
+    Parity_Mark
+};
+Q_ENUM_NS(McSerialParity)
+
+/**
+ * @enum McSerialStopBits
+ * @brief Number of stop bits on the serial line.
+ */
+enum McSerialStopBits {
+    StopBits_One,
+    StopBits_OneAndHalf,
+    StopBits_Two
+};
+Q_ENUM_NS(McSerialStopBits)
+
+/**
+ * @enum McSerialFlowControl
+ * @brief Flow-control scheme on the serial line.
+ */
+enum McSerialFlowControl {
+    FlowControl_None,
+    FlowControl_Hardware,
+    FlowControl_Software
+};
+Q_ENUM_NS(McSerialFlowControl)
+
 // only use for lingust
 /// String table of the McFrameType/McMsgItfType/McDataCode enum key names,
 /// wrapped in QT_TR_NOOP so `lupdate` picks them up for translation.
@@ -133,7 +218,39 @@ static inline const char* enum_keys_mc_defines[] = {
     // McDataCode
     QT_TR_NOOP("DataCode_User"),
     QT_TR_NOOP("Binary"),
-    QT_TR_NOOP("Ascii")
+    QT_TR_NOOP("Ascii"),
+
+    // McFrameFormat
+    QT_TR_NOOP("Format_1"),
+    QT_TR_NOOP("Format_4"),
+
+    // McPlcSeries
+    QT_TR_NOOP("PlcSeries_Q"),
+    QT_TR_NOOP("PlcSeries_L"),
+    QT_TR_NOOP("PlcSeries_iQR"),
+
+    // McSerialDataBits
+    QT_TR_NOOP("DataBits_5"),
+    QT_TR_NOOP("DataBits_6"),
+    QT_TR_NOOP("DataBits_7"),
+    QT_TR_NOOP("DataBits_8"),
+
+    // McSerialParity
+    QT_TR_NOOP("Parity_None"),
+    QT_TR_NOOP("Parity_Even"),
+    QT_TR_NOOP("Parity_Odd"),
+    QT_TR_NOOP("Parity_Space"),
+    QT_TR_NOOP("Parity_Mark"),
+
+    // McSerialStopBits
+    QT_TR_NOOP("StopBits_One"),
+    QT_TR_NOOP("StopBits_OneAndHalf"),
+    QT_TR_NOOP("StopBits_Two"),
+
+    // McSerialFlowControl
+    QT_TR_NOOP("FlowControl_None"),
+    QT_TR_NOOP("FlowControl_Hardware"),
+    QT_TR_NOOP("FlowControl_Software")
 };
 
 /**
@@ -201,5 +318,11 @@ static inline const char* enum_keys_mc_defines[] = {
 Q_DECLARE_METATYPE(vc::device::mc::McFrameType)
 Q_DECLARE_METATYPE(vc::device::mc::McMsgItfType)
 Q_DECLARE_METATYPE(vc::device::mc::McDataCode)
+Q_DECLARE_METATYPE(vc::device::mc::McFrameFormat)
+Q_DECLARE_METATYPE(vc::device::mc::McPlcSeries)
+Q_DECLARE_METATYPE(vc::device::mc::McSerialDataBits)
+Q_DECLARE_METATYPE(vc::device::mc::McSerialParity)
+Q_DECLARE_METATYPE(vc::device::mc::McSerialStopBits)
+Q_DECLARE_METATYPE(vc::device::mc::McSerialFlowControl)
 
 #endif // MC_DEFINE_H

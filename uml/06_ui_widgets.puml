@@ -66,9 +66,54 @@ package "Task UI" {
 
 package "Device config UI" {
   class BaslerCameraWidget <<IDeviceWidget>>
+  class JaiCameraWidget <<IDeviceWidget>> {
+    -btn_trigger_clicked()
+    -btn_auto_shot_clicked()
+    -btn_backlight_toggle_clicked()
+    -onContinuousFrameReady(result)
+    -onContinuousStateChanged(active)
+    -onBacklightStateChanged(on)
+  }
+  class JaiCamSelectDialog <<QDialog>>
   class MitsubishiMcDeviceWidget <<IDeviceWidget>>
+  class ModbusDeviceWidget <<IDeviceWidget>>
   class VisionTcpipDeviceWidget <<IDeviceWidget>>
+  class VisionTcpipClientDeviceWidget <<IDeviceWidget>>
+  class VirtualDeviceWidget <<IDeviceWidget>>
+  class VirtualPlcInputPanel
 }
+VirtualDeviceWidget ..> VirtualPlcInputPanel : only when the runner\nsupports input simulation
+note bottom of VirtualPlcInputPanel
+  Drives a hardware-free PLC's inputs so a project with
+  no PLC on the network can run a cycle rather than stop
+  at Ready. Every write goes through PlcRunner, never to
+  the device.
+
+  The one family-specific thing VirtualDeviceWidget does.
+  It asks the RUNNER's capability, not the device's
+  sub-type, so a device that would ignore the controls is
+  never given them - and the generic widget still works
+  for a fourth virtual family the day it is written.
+
+  Commissioning shell only: ncr_runtime.exe has no device
+  pages, and the operator shell is not a place to forge
+  PLC inputs.
+end note
+note bottom of JaiCameraWidget
+  A near-sibling of BaslerCameraWidget, deliberately: the
+  device-info browser, connect/trigger controls and the
+  whole calibration workflow exist twice. Unification is
+  recorded debt, not an oversight.
+
+  Its toggle buttons repaint from DEVICE-reported state,
+  never from the last click - streaming and the backlight
+  both change for reasons the widget did not cause.
+end note
+note bottom of ModbusDeviceWidget
+  ONE widget serves both Modbus sub-types. The client and
+  the server differ only in transport settings; the
+  register-span editing and the live monitor are identical.
+end note
 
 package "Device creation UI" {
   class AddDeviceWizard <<QDialog>> {
@@ -214,8 +259,13 @@ ITaskWidget <|-- LocalizationPatternsWidget
 ITaskWidget <|-- LocalizationSettingWidget
 
 IDeviceWidget <|-- BaslerCameraWidget
+IDeviceWidget <|-- JaiCameraWidget
 IDeviceWidget <|-- MitsubishiMcDeviceWidget
+IDeviceWidget <|-- ModbusDeviceWidget
 IDeviceWidget <|-- VisionTcpipDeviceWidget
+IDeviceWidget <|-- VisionTcpipClientDeviceWidget
+IDeviceWidget <|-- VirtualDeviceWidget
+JaiCameraWidget *-- JaiCamSelectDialog : eBUS discovery; owned
 
 LocalizationTaskWidget *-- LocalizationDashboardWidget : dashboard page
 RuntimeShellWindow *-- LocalizationDashboardWidget : one per task (operator runtime)
@@ -223,8 +273,18 @@ LocalizationTaskWidget *-- LocalizationPatternsWidget : patterns page
 LocalizationTaskWidget *-- LocalizationSettingWidget : settings page
 LocalizationTaskWidget --> DeviceWidgetFactory : create device pages
 DeviceWidgetFactory ..> BaslerCameraWidget : BaslerGigE
+DeviceWidgetFactory ..> JaiCameraWidget : JaiGigE
 DeviceWidgetFactory ..> MitsubishiMcDeviceWidget : MitsubishiMc
+DeviceWidgetFactory ..> ModbusDeviceWidget : ModbusTcpClient + ModbusTcpServer
 DeviceWidgetFactory ..> VisionTcpipDeviceWidget : VisionTCPIP
+DeviceWidgetFactory ..> VisionTcpipClientDeviceWidget : VisionTcpipClient
+DeviceWidgetFactory ..> VirtualDeviceWidget : the three Virtual* sub-types
+note right of DeviceWidgetFactory
+  Each family arm is an EXHAUSTIVE switch, not an equality
+  test against one sub-type. The camera arm was the latter
+  once, so every camera added after Basler would silently
+  have got "No configuration panel available".
+end note
 
 LocalizationTaskWidget --> TaskLocalization
 LocalizationTaskWidget --> TaskState : state header + READY lamp

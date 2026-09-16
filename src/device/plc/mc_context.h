@@ -73,6 +73,30 @@ class McContext {
     Q_CLASSINFO("amountDAddress_min", "1")
     Q_CLASSINFO("amountDAddress_max", "1024")
 
+    /// Translation markers for the "_name" display labels above. Not read by any code:
+    /// lupdate cannot see Q_CLASSINFO, so without this table these labels never enter the
+    /// .ts. The context must be this class's className(). See
+    /// TaskLocalizeConfig::kDisplayNameSources for the full reasoning; the contract test
+    /// asserts this list and the "_name" entries agree.
+    ///
+    /// Note this class writes its Q_CLASSINFO entries by hand rather than through the
+    /// G_PROPERTY_* macros — the marker requirement is the same either way, because it comes
+    /// from Q_CLASSINFO, not from the macros.
+    ///
+    /// Public because the contract test reads it; a Q_GADGET class body starts private.
+public:
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Frame"),
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Interface"),
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Data Code"),
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Refresh Interval"),
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Active M Device"),
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Start M-Address"),
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Amount M-Devices"),
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Start D-Address"),
+        QT_TRANSLATE_NOOP("vc::device::McContext", "Amount D-Devices"),
+    };
+
 public:
     // McContext() {};
     /// Default destructor.

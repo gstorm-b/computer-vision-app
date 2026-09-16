@@ -99,6 +99,15 @@ private slots:
     /// Applies a changed port number to the Ethernet TCP/IP interface config and saves;
     /// no-op if the current interface is not Ethernet TCP/IP.
     void onPortEditFinished();
+    /// Applies the selected or typed serial port name to the serial interface config and
+    /// saves; no-op if the current interface is not a serial port.
+    void onSerialPortChanged();
+    /// Applies the selected or typed baud rate to the serial interface config and saves;
+    /// a value that does not parse as a number is rejected and the field reverts.
+    void onBaudRateChanged();
+    /// Applies a changed line-setting combo (data bits, parity, stop bits, flow control) to
+    /// the serial interface config and saves.
+    void onSerialLineSettingChanged();
     /// Applies a changed connect timeout to the interface config and saves.
     void onConnectTimeoutEditFinished();
     /// Applies a changed response timeout to the interface config and saves.
@@ -129,10 +138,18 @@ private:
     /// Updates the meta-summary label with the current frame type, data code, and
     /// refresh interval.
     void refreshMetaSummary();
-    /// Populates the IP/port/timeout fields from the interface config while blocking
-    /// their signals; disables the IP/port fields when the interface is not Ethernet
-    /// TCP/IP.
+    /// Populates the connection card from the interface config while blocking the fields'
+    /// signals, and shows whichever transport's card matches: the IP/port pair for Ethernet
+    /// TCP/IP, the port/baud/line-setting group for a serial port. The timeouts belong to
+    /// every transport and stay visible.
     void populateConnectionFields();
+    /// One-time fill of the serial line-setting combos from their Q_GADGET enums, so the
+    /// keys, their order and their translated labels come from the same place the property
+    /// browser reads them from rather than from a second hand-written list.
+    void initSerialCombos();
+    /// Refreshes the serial port combo from QSerialPortInfo, keeping the configured port
+    /// selected even when it is not currently attached.
+    void refreshSerialPortList();
     /// Rebuilds the property browser from the device, MC context, and message-interface
     /// config, guarded by m_populating_browser so the resulting valueChanged signals are
     /// not treated as user edits.

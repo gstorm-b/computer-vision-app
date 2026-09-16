@@ -663,6 +663,12 @@ void LocalizationPatternsWidget::wireManagerSignals() {
             QSignalBlocker b(ui->comboBox_pattern_group);
             ui->comboBox_pattern_group->setCurrentIndex(idx);
         }
+
+        if ((m_boundMatchGroup == group.get()) && (m_boundPattern != nullptr)) {
+            m_boundPattern->learnPattern();
+            m_selectedPatternIndex = m_boundPattern->number();
+            updatePatternThumb(m_boundPattern);
+        }
     });
 
     // ── Pattern added ──────────────────────────────────────────────────────
@@ -704,6 +710,7 @@ void LocalizationPatternsWidget::wireManagerSignals() {
         if (!group || !pattern) return;
 
         if (m_boundPattern == pattern) {
+            m_boundPattern->learnPattern();
             m_selectedPatternIndex = pattern->number();
             updatePatternThumb(pattern);
         }
@@ -943,7 +950,8 @@ void LocalizationPatternsWidget::updatePatternThumb(mtc::MatchPattern *pattern) 
         return;
     }
 
-    const QPixmap pm = matToPixmap(pattern->getRawImage());
+    // const QPixmap pm = matToPixmap(pattern->getRawImage());
+    const QPixmap pm = matToPixmap(pattern->getImageWithCannyThreshold());
     const mtc::MatchPatternConfig &cfg = pattern->config();
 
     if (ui->imageView_PatternThumb) {

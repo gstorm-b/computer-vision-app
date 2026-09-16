@@ -36,6 +36,15 @@ class McMsgItfConfig {
     G_PROPERTY_NUMBER_READWRITE(int, responseTimeout, 1000, 10000, "Response timeout")   ///< Q_GADGET property backed by m_responseTimeout; max wait for a PLC response.
     // GADGET_PROPERTY_NUMBER_READWRITE(int, writeTimeout, "1000", "10000", "Write timeout")
 
+    /// Translation markers for the display names above. Not read by any code: lupdate cannot
+    /// see Q_CLASSINFO, so without this table these labels never enter the .ts. The context
+    /// must be this class's className(). See TaskLocalizeConfig::kDisplayNameSources for the
+    /// full reasoning; the contract test asserts this list and the properties agree.
+    static inline constexpr const char *const kDisplayNameSources[] = {
+        QT_TRANSLATE_NOOP("vc::device::McMsgItfConfig", "Connect timeout"),
+        QT_TRANSLATE_NOOP("vc::device::McMsgItfConfig", "Response timeout"),
+    };
+
 public:
     /// Virtual destructor so concrete transport configs can be destroyed through a McMsgItfConfig pointer.
     virtual ~McMsgItfConfig() = default;

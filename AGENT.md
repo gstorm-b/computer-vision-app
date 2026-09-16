@@ -34,6 +34,9 @@ tree by default.
     generated API reference, and `docs/rules/doc_comment_style.md` for the
     Doxygen comment mechanics (`/** */`, `///`, `///<`, explicit tags) all
     class/method/member doc comments must follow (supersedes design_rules.md §18).
+3b. `docs/decisions/` for the owner's standing design rulings (`DR-xxxx`); read
+    the index before proposing a behaviour change. `docs/plan/` holds the active
+    phase plan.
 4. `docs/backlog/technical_debt_and_next_steps.md` for the active
    implementation backlog after restructure closeout.
 5. `docs/backlog/later_todo_list.md` before flagging or fixing known deferred
@@ -70,6 +73,7 @@ Use this order when project documents disagree:
    - build, test, and local environment workflow:
      `docs/rules/build_and_verification.md`;
    - architecture diagrams: `uml/`.
+   - owner design rulings: `docs/decisions/`.
 4. `docs/rules/design_rules.md` owns general engineering and architecture rules
    when no topic-specific source-of-truth doc exists.
 5. Historical docs and generated API references are supporting context only.
@@ -129,14 +133,14 @@ resource system is process-global.
 | model | `src/model/` | 2 |
 | runtime | `src/runtime/` | 2 |
 | ui (forms + widgets) | `src/ui/` | UI |
-| app shell — commissioning (+translations) | `app/` | top |
+| app shell — commissioning (+translations) | `components/app/` | top |
 | runtime shell — operator | `runtime_app/` | top |
 
 Include-layering rules (enforced by
 `tests/architecture_contract_test::test_module_include_layering_contract`):
 lower levels must not include higher ones; `model` and `runtime` may include
 each other; `device` may include `calibration` (cameras own a Calibrator);
-`ui` may include every non-UI module; the two shells (`app/`, `runtime_app/`)
+`ui` may include every non-UI module; the two shells (`components/app/`, `runtime_app/`)
 may each include everything **except each other** — they are peers over the same
 modules, not a hierarchy; no `../` escapes and no `src/`-prefixed quoted includes
 (module includes are rooted at `src/`, e.g. `core/...`, `ui/widgets/...`).
@@ -198,6 +202,9 @@ Expected local variables:
 - `PYLON_ROOT`, `PYLON_RUNTIME_DIR`, `PYLON_INCLUDE_DIR`, `PYLON_LIB_DIR`
 - `PYLON_BASE_LIB` when the Basler Pylon import-library name differs from the
   qmake default
+- `PUREGEV_ROOT` for the JAI/Pleora eBUS SDK — set by its own installer, and
+  normally the only thing needed; `EBUS_INCLUDE_DIR`, `EBUS_LIB_DIR` and
+  `EBUS_RUNTIME_DIR` override it for a non-default install
 - `VCTOOLS_DEBUG_CRT_DIR` when running Debug test binaries outside Visual Studio
 - third-party/component roots such as RobotKinematics dependencies
 
@@ -284,6 +291,10 @@ section of `docs/backlog/technical_debt_and_next_steps.md`.
 Start with `docs/backlog/technical_debt_and_next_steps.md`, skipping anything
 marked on hold. Active slices are:
 
+- Phase 10 (runtime core redesign): start from `docs/plan/phase_10/` — the
+  charter is published there at Checkpoint 0; until then the working draft is
+  `temp_docs/02_phase10_charter_and_work_breakdown.md`. Phase 9 is closed with
+  carried items; see `docs/backlog/technical_debt_and_next_steps.md`.
 - feature development toward the capabilities the product still lacks — this is
   the reason Phase 4 was deferred, and the user sets its scope;
 - runtime matching latency and UI responsiveness measurement, which feeds the
